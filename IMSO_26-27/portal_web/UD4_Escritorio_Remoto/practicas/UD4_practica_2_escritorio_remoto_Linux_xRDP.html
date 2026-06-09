@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Práctica 2 – Escritorio remoto en Linux con xRDP</title>
+  <style>
+:root{--bg:#eef8f4;--ink:#10231f;--muted:#5c706a;--brand:#0f766e;--brand-dark:#0b4f49;--brand-soft:#ccfbf1;--accent:#7c3aed;--warning:#b45309;--warning-soft:#fff4d6;--border:#d5e7df;--shadow:0 18px 45px rgba(14,77,67,.14);--radius:22px;--mono:Consolas,Monaco,"Courier New",monospace;--sans:"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--sans);color:var(--ink);background:radial-gradient(circle at top left,rgba(15,118,110,.16),transparent 30rem),radial-gradient(circle at top right,rgba(124,58,237,.14),transparent 28rem),linear-gradient(180deg,#f8fffc 0%,var(--bg) 100%);line-height:1.65}.layout{display:grid;grid-template-columns:minmax(245px,315px) minmax(0,1fr);gap:1.25rem;width:min(1480px,calc(100% - 32px));margin:0 auto;padding:1rem 0 4rem}
+header.hero{grid-column:1/-1;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(11,79,73,.98),rgba(15,118,110,.95)),linear-gradient(45deg,rgba(124,58,237,.28),transparent);color:white;border-radius:28px;box-shadow:var(--shadow);padding:clamp(1.4rem,4vw,3rem);min-height:250px}header.hero:after{content:"";position:absolute;right:-6rem;top:-6rem;width:25rem;height:25rem;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18)}.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(250px,.8fr);gap:1.5rem;align-items:end}.eyebrow{display:inline-flex;gap:.5rem;align-items:center;padding:.35rem .7rem;border-radius:999px;background:rgba(255,255,255,.14);color:#e8fff9;font-weight:800;letter-spacing:.02em;font-size:.9rem}.hero h1{margin:.9rem 0 .65rem;font-size:clamp(2rem,4.4vw,4.2rem);line-height:1.04;letter-spacing:-.045em}.hero p{max-width:74ch;margin:0;color:rgba(255,255,255,.88);font-size:1.06rem}.hero-metrics{display:grid;gap:.75rem}.metric{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.20);border-radius:18px;padding:.9rem 1rem;backdrop-filter:blur(8px)}.metric strong{display:block;font-size:1.05rem;color:white}.metric span{display:block;color:rgba(255,255,255,.78);font-size:.92rem}
+aside.toc{position:sticky;top:1rem;align-self:start;max-height:calc(100vh - 2rem);overflow:auto;background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 12px 30px rgba(14,77,67,.08);padding:1rem}aside.toc h2{margin:0 0 .85rem;font-size:.95rem;text-transform:uppercase;letter-spacing:.08em;color:var(--brand-dark)}aside.toc nav{display:grid;gap:.25rem}aside.toc a{display:block;text-decoration:none;color:var(--muted);border-radius:12px;padding:.48rem .6rem;font-size:.92rem;line-height:1.25;border:1px solid transparent}aside.toc a:hover{color:var(--brand-dark);background:var(--brand-soft);border-color:#9ee7da}.toc-level-3{padding-left:1.25rem!important;font-size:.86rem!important}main{min-width:0}.intro-card,.content-card{background:rgba(255,255,255,.95);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 14px 35px rgba(14,77,67,.08);padding:clamp(1rem,2.4vw,2rem);margin-bottom:1rem}.intro-card:empty{display:none}.content-card h2{margin-top:0;padding-bottom:.6rem;border-bottom:2px solid var(--brand-soft);color:var(--brand-dark);font-size:clamp(1.35rem,2.3vw,2rem)}h1,h2,h3,h4{line-height:1.22;letter-spacing:-.02em}h3{margin-top:1.8rem;color:var(--brand);font-size:1.28rem}h4{color:var(--brand-dark);margin-top:1.25rem}p{margin:.75rem 0}strong{color:#0b302c}ul,ol{padding-left:1.35rem}li{margin:.32rem 0}hr{border:0;border-top:1px solid var(--border);margin:1.4rem 0}.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:18px;margin:1rem 0 1.25rem;background:white}table{width:100%;border-collapse:collapse;min-width:650px;font-size:.95rem}th{background:linear-gradient(180deg,#dcfce7,#ccfbf1);color:var(--brand-dark);text-align:left;font-weight:800;padding:.75rem .9rem;border-bottom:1px solid #b7dfd2;vertical-align:top}td{padding:.72rem .9rem;border-bottom:1px solid var(--border);vertical-align:top}tr:nth-child(even) td{background:#fbfffd}tr:last-child td{border-bottom:0}code{font-family:var(--mono);background:#ecfdf5;border:1px solid #c8ecdd;color:#075e54;padding:.12rem .32rem;border-radius:7px;font-size:.92em}pre{position:relative;overflow:auto;background:#10201d;color:#e9fff9;border-radius:18px;border:1px solid rgba(255,255,255,.08);padding:3rem 1rem 1rem;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);margin:1rem 0}pre:before{content:attr(data-lang);position:absolute;left:1rem;top:.75rem;color:#9ff2de;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800}pre code{display:block;background:transparent;border:0;color:inherit;padding:0;font-size:.93rem;line-height:1.55;white-space:pre}.copy-btn{position:absolute;right:.75rem;top:.6rem;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.10);color:white;border-radius:999px;padding:.28rem .62rem;font-size:.78rem;cursor:pointer}.copy-btn:hover{background:rgba(255,255,255,.20)}blockquote.callout{position:relative;margin:1.2rem 0;padding:1rem 1.1rem 1rem 1.25rem;border-left:6px solid var(--warning);background:linear-gradient(90deg,var(--warning-soft),#fff);border-radius:0 16px 16px 0;color:#3c2a10}blockquote.callout p{margin:.25rem 0}.badges{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 0}.badge{display:inline-flex;align-items:center;gap:.35rem;border-radius:999px;padding:.42rem .72rem;background:var(--brand-soft);color:var(--brand-dark);font-weight:800;font-size:.87rem;border:1px solid #9ee7da}.progress-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;margin:1rem 0 1.5rem}.progress-strip a{text-decoration:none;color:var(--brand-dark);background:white;border:1px solid var(--border);border-radius:14px;padding:.7rem;font-weight:800;text-align:center;box-shadow:0 8px 18px rgba(14,77,67,.05)}.progress-strip a:hover{background:var(--brand-soft);border-color:#9ee7da}.footer-note{margin-top:1.2rem;padding:1rem;background:#10231f;color:#dcfff6;border-radius:18px;font-size:.95rem}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}aside.toc{position:static;max-height:none}.hero-grid{grid-template-columns:1fr}}@media(max-width:760px){.layout{width:min(100% - 18px,1480px);padding-top:.5rem}header.hero{border-radius:20px}.progress-strip{grid-template-columns:repeat(2,1fr)}table{min-width:560px}}@media print{body{background:white}.layout{display:block;width:100%;padding:0}aside.toc,.copy-btn,.progress-strip{display:none!important}header.hero,.content-card,.intro-card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}header.hero{color:black;background:white}.metric{border:1px solid #ddd;color:black}.metric span,.hero p{color:#333}pre{white-space:pre-wrap;color:black;background:#f4f4f4;border:1px solid #ddd}}
+</style>
+</head>
+<body>
+  <div class="layout">
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">UD4 · IMSO · Práctica guiada</span>
+          <h1>Escritorio remoto en Linux con xRDP</h1>
+          <p>Guía paso a paso para instalar xRDP en Ubuntu, configurar XFCE, conectarse desde Windows, diagnosticar erros habituais e documentar evidencias.</p>
+          <div class="badges">
+            <span class="badge">60–90 min</span>
+            <span class="badge">Parellas</span>
+            <span class="badge">Ubuntu + xRDP</span>
+            <span class="badge">Cliente Windows</span>
+          </div>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric"><strong>Servidor</strong><span>Ubuntu Desktop 22.04 / 24.04</span></div>
+          <div class="metric"><strong>Cliente</strong><span>Windows con mstsc</span></div>
+          <div class="metric"><strong>Comprobación clave</strong><span>xrdp, xrdp-sesman e porto 3389</span></div>
+        </div>
+      </div>
+    </header>
+
+    <aside class="toc">
+      <h2>Índice</h2>
+      <nav><a class="toc-level-2" href="#1-obxectivo-da-práctica">1. Obxectivo da práctica</a>
+<a class="toc-level-2" href="#2-materiais-e-requisitos">2. Materiais e requisitos</a>
+<a class="toc-level-3" href="#21-equipos-necesarios">2.1. Equipos necesarios</a>
+<a class="toc-level-3" href="#22-esquema-da-práctica">2.2. Esquema da práctica</a>
+<a class="toc-level-2" href="#3-antes-de-empezar-conceptos-mínimos">3. Antes de empezar: conceptos mínimos</a>
+<a class="toc-level-3" href="#31-que-é-xrdp">3.1. Que é xRDP?</a>
+<a class="toc-level-3" href="#32-que-compoñentes-imos-usar">3.2. Que compoñentes imos usar?</a>
+<a class="toc-level-3" href="#33-por-que-instalamos-xfce">3.3. Por que instalamos XFCE?</a>
+<a class="toc-level-2" href="#4-parte-1-preparación-do-servidor">4. Parte 1 – Preparación do servidor</a>
+<a class="toc-level-3" href="#41-identificar-os-equipos">4.1. Identificar os equipos</a>
+<a class="toc-level-3" href="#42-comprobar-versión-de-ubuntu-e-escritorio">4.2. Comprobar versión de Ubuntu e escritorio</a>
+<a class="toc-level-3" href="#43-comprobar-ip-do-servidor">4.3. Comprobar IP do servidor</a>
+<a class="toc-level-3" href="#44-comprobar-conectividade-desde-windows">4.4. Comprobar conectividade desde Windows</a>
+<a class="toc-level-3" href="#45-actualizar-a-lista-de-paquetes">4.5. Actualizar a lista de paquetes</a>
+<a class="toc-level-2" href="#5-parte-2-crear-ou-preparar-o-usuario-para-xrdp">5. Parte 2 – Crear ou preparar o usuario para xRDP</a>
+<a class="toc-level-3" href="#51-usuario-recomendado-para-a-práctica">5.1. Usuario recomendado para a práctica</a>
+<a class="toc-level-3" href="#52-crear-usuario-rdpuser">5.2. Crear usuario `rdpuser`</a>
+<a class="toc-level-2" href="#6-parte-3-instalación-e-activación-de-xrdp">6. Parte 3 – Instalación e activación de xRDP</a>
+<a class="toc-level-3" href="#61-instalar-xrdp">6.1. Instalar xRDP</a>
+<a class="toc-level-3" href="#62-activar-e-iniciar-o-servizo">6.2. Activar e iniciar o servizo</a>
+<a class="toc-level-3" href="#63-comprobar-xrdp-sesman">6.3. Comprobar `xrdp-sesman`</a>
+<a class="toc-level-3" href="#64-comprobar-que-xrdp-escoita-no-porto-3389">6.4. Comprobar que xRDP escoita no porto 3389</a>
+<a class="toc-level-2" href="#7-parte-4-configuración-de-xfce-para-a-sesión-remota">7. Parte 4 – Configuración de XFCE para a sesión remota</a>
+<a class="toc-level-3" href="#71-instalar-xfce">7.1. Instalar XFCE</a>
+<a class="toc-level-3" href="#72-configurar-xsession-para-o-usuario-actual">7.2. Configurar `.xsession` para o usuario actual</a>
+<a class="toc-level-3" href="#73-configurar-xsession-para-rdpuser">7.3. Configurar `.xsession` para `rdpuser`</a>
+<a class="toc-level-3" href="#74-reiniciar-xrdp">7.4. Reiniciar xRDP</a>
+<a class="toc-level-2" href="#8-parte-5-configuración-básica-do-firewall">8. Parte 5 – Configuración básica do firewall</a>
+<a class="toc-level-3" href="#81-comprobar-estado-de-ufw">8.1. Comprobar estado de UFW</a>
+<a class="toc-level-3" href="#82-abrir-o-porto-3389-só-para-a-rede-do-laboratorio">8.2. Abrir o porto 3389 só para a rede do laboratorio</a>
+<a class="toc-level-3" href="#83-comprobar-a-regra">8.3. Comprobar a regra</a>
+<a class="toc-level-2" href="#9-parte-6-comprobación-desde-windows-antes-de-conectar">9. Parte 6 – Comprobación desde Windows antes de conectar</a>
+<a class="toc-level-2" href="#10-parte-7-primeira-conexión-desde-windows">10. Parte 7 – Primeira conexión desde Windows</a>
+<a class="toc-level-3" href="#101-abrir-o-cliente-rdp">10.1. Abrir o cliente RDP</a>
+<a class="toc-level-3" href="#102-introducir-ip-do-servidor">10.2. Introducir IP do servidor</a>
+<a class="toc-level-3" href="#103-pantalla-de-login-de-xrdp">10.3. Pantalla de login de xRDP</a>
+<a class="toc-level-3" href="#104-proba-funcional-dentro-da-sesión">10.4. Proba funcional dentro da sesión</a>
+<a class="toc-level-2" href="#11-parte-8-probas-de-rendemento">11. Parte 8 – Probas de rendemento</a>
+<a class="toc-level-3" href="#111-obxectivo">11.1. Obxectivo</a>
+<a class="toc-level-3" href="#112-conexión-a-calidade-alta">11.2. Conexión A: calidade alta</a>
+<a class="toc-level-3" href="#113-conexión-b-calidade-baixa">11.3. Conexión B: calidade baixa</a>
+<a class="toc-level-3" href="#114-proba-comparativa">11.4. Proba comparativa</a>
+<a class="toc-level-2" href="#12-parte-9-reflexión-sobre-seguridade">12. Parte 9 – Reflexión sobre seguridade</a>
+<a class="toc-level-3" href="#preguntas-obrigatorias">Preguntas obrigatorias</a>
+<a class="toc-level-3" href="#121-medidas-recomendables-nun-servidor-real">12.1. Medidas recomendables nun servidor real</a>
+<a class="toc-level-3" href="#122-que-é-fail2ban">12.2. Que é fail2ban?</a>
+<a class="toc-level-2" href="#13-parte-10-diagnóstico-guiado-de-problemas-frecuentes">13. Parte 10 – Diagnóstico guiado de problemas frecuentes</a>
+<a class="toc-level-3" href="#131-comandos-útiles-de-diagnóstico">13.1. Comandos útiles de diagnóstico</a>
+<a class="toc-level-2" href="#14-parte-11-documentación-da-práctica">14. Parte 11 – Documentación da práctica</a>
+<a class="toc-level-2" href="#15-modelo-de-parte-de-incidencia">15. Modelo de parte de incidencia</a>
+<a class="toc-level-2" href="#16-resumo-de-evidencias-a-entregar">16. Resumo de evidencias a entregar</a>
+<a class="toc-level-2" href="#17-rúbrica-orientativa-de-avaliación">17. Rúbrica orientativa de avaliación</a>
+<a class="toc-level-2" href="#18-preguntas-finais-de-comprobación">18. Preguntas finais de comprobación</a>
+<a class="toc-level-2" href="#19-control-de-conservación-e-melloras-aplicadas">19. Control de conservación e melloras aplicadas</a></nav>
+    </aside>
+
+    <main>
+      <div class="progress-strip">
+        <a href="#4-parte-1-preparación-do-servidor">Parte 1</a>
+        <a href="#6-parte-3-instalación-e-activación-de-xrdp">Instalar</a>
+        <a href="#7-parte-4-configuración-de-xfce-para-a-sesión-remota">XFCE</a>
+        <a href="#10-parte-7-primeira-conexión-desde-windows">Conectar</a>
+        <a href="#13-parte-10-diagnóstico-guiado-de-problemas-frecuentes">Diagnóstico</a>
+        <a href="#17-rúbrica-orientativa-de-avaliación">Rúbrica</a>
+      </div>
+      <section class="intro-card"><h1 id="práctica-2-escritorio-remoto-en-linux-con-xrdp">Práctica 2 – Escritorio remoto en Linux con xRDP</h1>
+<p><strong>Módulo:</strong> Implantación de Sistemas Operativos (IMSO) · 1.º ASIR</p>
+<p><strong>Unidade didáctica 4:</strong> Implantación de software específico en arquitectura cliente-servidor</p>
+<hr>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th></th>
+<th></th>
+</tr></thead><tbody>
+<tr>
+<td>**Duración estimada**</td>
+<td>60–90 minutos</td>
+</tr>
+<tr>
+<td>**Agrupamento**</td>
+<td>Parellas: un equipo fai de servidor Linux e outro de cliente Windows</td>
+</tr>
+<tr>
+<td>**Entorno**</td>
+<td>Dúas VMs na mesma LAN ou rede virtual equivalente</td>
+</tr>
+<tr>
+<td>**Nivel**</td>
+<td>Práctica guiada</td>
+</tr>
+<tr>
+<td>**Tecnoloxía**</td>
+<td>xRDP — servidor RDP para GNU/Linux</td>
+</tr>
+</tbody></table></div></div>
+<hr>
+</section>
+<section class="content-card"><h2 id="1-obxectivo-da-práctica">1. Obxectivo da práctica</h2>
+<p>Configurar un servidor <strong>Ubuntu Desktop 22.04 ou 24.04</strong> para aceptar conexións de escritorio remoto mediante o protocolo <strong>RDP</strong> usando <strong>xRDP</strong>, e conectarse a el desde un cliente Windows empregando o cliente estándar <strong>Conexión a Escritorio remoto</strong> (<code>mstsc</code>).</p>
+<p>Ao rematar a práctica deberías ser capaz de:</p>
+<ul><li>identificar o equipo **servidor Linux** e o equipo **cliente Windows**;</li><li>comprobar a conectividade entre ambos equipos;</li><li>instalar e activar o servizo `xrdp`;</li><li>comprobar tamén o servizo `xrdp-sesman`;</li><li>configurar un escritorio lixeiro compatible, como **XFCE**;</li><li>abrir o porto 3389 só para a rede do laboratorio;</li><li>conectarte desde Windows usando `mstsc`;</li><li>diagnosticar erros habituais: firewall, servizo parado, usuario incorrecto, pantalla negra;</li><li>comparar configuracións de rendemento;</li><li>razoar medidas de seguridade para un contorno real.</li></ul>
+<hr>
+</section>
+<section class="content-card"><h2 id="2-materiais-e-requisitos">2. Materiais e requisitos</h2>
+<h3 id="21-equipos-necesarios">2.1. Equipos necesarios</h3>
+<ul><li>**Servidor Linux:**</li></ul>
+<p>VM con <strong>Ubuntu Desktop 22.04 ou 24.04</strong> e contorno gráfico instalado.</p>
+<ul><li>**Cliente Windows:**</li></ul>
+<p>VM ou equipo físico con Windows 10/11.</p>
+<ul><li>Ambos equipos deben estar na **mesma LAN** ou nunha rede virtual equivalente.</li></ul>
+<ul><li>O usuario do servidor Ubuntu debe ter permisos `sudo`.</li></ul>
+<blockquote class='callout'><p>⚠️ Esta práctica require un escritorio gráfico. Se empregas Ubuntu Server sen contorno gráfico, primeiro habería que instalar un escritorio, polo que non é o escenario recomendado para esta práctica inicial.</p></blockquote>
+<hr>
+<h3 id="22-esquema-da-práctica">2.2. Esquema da práctica</h3>
+<pre data-lang="text"><code>Cliente Windows
+Conexión a Escritorio remoto
+mstsc.exe
+        │
+        │ Rede LAN / rede virtual
+        │ Porto 3389/TCP
+        ▼
+Servidor Ubuntu Desktop
+xRDP + xrdp-sesman
+XFCE como escritorio remoto
+Usuario Linux autorizado</code></pre>
+<hr>
+</section>
+<section class="content-card"><h2 id="3-antes-de-empezar-conceptos-mínimos">3. Antes de empezar: conceptos mínimos</h2>
+<h3 id="31-que-é-xrdp">3.1. Que é xRDP?</h3>
+<p><strong>xRDP</strong> é un servidor de código aberto que permite aceptar conexións RDP nun sistema GNU/Linux.</p>
+<p>Isto permite que un cliente Windows use o seu programa habitual:</p>
+<pre data-lang="text"><code>Conexión a Escritorio remoto
+mstsc</code></pre>
+<p>para conectarse a un escritorio Linux.</p>
+<blockquote class='callout'><p>💡 **Idea clave:** xRDP non converte Ubuntu en Windows. O que fai é permitir que un cliente RDP acceda a unha sesión gráfica remota de Linux.</p></blockquote>
+<hr>
+<h3 id="32-que-compoñentes-imos-usar">3.2. Que compoñentes imos usar?</h3>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Compoñente</th>
+<th>Función</th>
+</tr></thead><tbody>
+<tr>
+<td>**xrdp**</td>
+<td>Servizo principal que escoita conexións RDP no porto 3389</td>
+</tr>
+<tr>
+<td>**xrdp-sesman**</td>
+<td>Xestor de sesións; encárgase de iniciar e controlar as sesións gráficas</td>
+</tr>
+<tr>
+<td>**XFCE**</td>
+<td>Escritorio lixeiro que adoita funcionar mellor con xRDP ca GNOME en laboratorio</td>
+</tr>
+<tr>
+<td>**UFW**</td>
+<td>Firewall sinxelo de Ubuntu</td>
+</tr>
+<tr>
+<td>**mstsc**</td>
+<td>Cliente RDP integrado en Windows</td>
+</tr>
+<tr>
+<td>**Xorg**</td>
+<td>Tipo de sesión que seleccionaremos na pantalla de login de xRDP</td>
+</tr>
+</tbody></table></div></div>
+<hr>
+<h3 id="33-por-que-instalamos-xfce">3.3. Por que instalamos XFCE?</h3>
+<p>En Ubuntu 22.04/24.04 con GNOME pode aparecer unha <strong>pantalla negra</strong> ou unha sesión que non carga correctamente ao conectarse por xRDP.</p>
+<p>Isto pode depender de varios factores:</p>
+<ul><li>GNOME;</li><li>Wayland/Xorg;</li><li>sesión gráfica xa aberta localmente;</li><li>usuario usado para a conexión;</li><li>configuración de `.xsession`;</li><li>versión concreta dos paquetes.</li></ul>
+<p>Nun laboratorio educativo, unha solución práctica e estable adoita ser instalar <strong>XFCE</strong> e configurar a sesión remota para usalo.</p>
+<blockquote class='callout'><p>⚠️ Evita conectar por xRDP co mesmo usuario que xa ten unha sesión gráfica local aberta na VM. Pode producir pantalla negra, peche inmediato da sesión ou comportamento irregular.</p></blockquote>
+<hr>
+</section>
+<section class="content-card"><h2 id="4-parte-1-preparación-do-servidor">4. Parte 1 – Preparación do servidor</h2>
+<h3 id="41-identificar-os-equipos">4.1. Identificar os equipos</h3>
+<p>Antes de instalar nada, completa esta ficha:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr></thead><tbody>
+<tr>
+<td>Nome da VM servidor Ubuntu</td>
+<td></td>
+</tr>
+<tr>
+<td>Versión de Ubuntu</td>
+<td></td>
+</tr>
+<tr>
+<td>Contorno gráfico inicial</td>
+<td>GNOME / XFCE / outro</td>
+</tr>
+<tr>
+<td>Tipo de sesión local</td>
+<td>Wayland / X11 / non sei</td>
+</tr>
+<tr>
+<td>IP do servidor Ubuntu</td>
+<td></td>
+</tr>
+<tr>
+<td>Nome do cliente Windows</td>
+<td></td>
+</tr>
+<tr>
+<td>IP do cliente Windows</td>
+<td></td>
+</tr>
+<tr>
+<td>Rede usada</td>
+<td>NAT / rede interna / host-only / bridge / outra</td>
+</tr>
+<tr>
+<td>Usuario Ubuntu que fará a práctica</td>
+<td></td>
+</tr>
+<tr>
+<td>Usuario que se usará para xRDP</td>
+<td></td>
+</tr>
+</tbody></table></div></div>
+<hr>
+<h3 id="42-comprobar-versión-de-ubuntu-e-escritorio">4.2. Comprobar versión de Ubuntu e escritorio</h3>
+<p>No servidor Ubuntu abre unha terminal e executa:</p>
+<pre data-lang="bash"><code>hostname
+lsb_release -a
+echo $XDG_CURRENT_DESKTOP
+echo $XDG_SESSION_TYPE</code></pre>
+<p>Anota o resultado:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Comando</th>
+<th>Que indica</th>
+<th>Resultado</th>
+</tr></thead><tbody>
+<tr>
+<td><code>hostname</code></td>
+<td>Nome do equipo</td>
+<td></td>
+</tr>
+<tr>
+<td><code>lsb_release -a</code></td>
+<td>Versión de Ubuntu</td>
+<td></td>
+</tr>
+<tr>
+<td><code>echo $XDG_CURRENT_DESKTOP</code></td>
+<td>Escritorio actual</td>
+<td></td>
+</tr>
+<tr>
+<td><code>echo $XDG_SESSION_TYPE</code></td>
+<td>Tipo de sesión: Wayland ou X11</td>
+<td></td>
+</tr>
+</tbody></table></div></div>
+<blockquote class='callout'><p>💡 Se aparece `GNOME` e `wayland`, non significa que a práctica vaia fallar obrigatoriamente, pero si é un escenario onde xRDP pode dar pantalla negra. Por iso configuraremos XFCE.</p></blockquote>
+<hr>
+<h3 id="43-comprobar-ip-do-servidor">4.3. Comprobar IP do servidor</h3>
+<p>No servidor Ubuntu executa:</p>
+<pre data-lang="bash"><code>ip a</code></pre>
+<p>Localiza a IP da tarxeta de rede que comunica co cliente Windows.</p>
+<p>Exemplo de IP válida nun laboratorio:</p>
+<pre data-lang="text"><code>192.168.56.20</code></pre>
+<p>Non adoita interesar a IP de <code>lo</code>, que normalmente é:</p>
+<pre data-lang="text"><code>127.0.0.1</code></pre>
+<p>Completa:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Dato</th>
+<th>Valor</th>
+</tr></thead><tbody>
+<tr>
+<td>IP do servidor Ubuntu</td>
+<td></td>
+</tr>
+<tr>
+<td>Interface de rede usada</td>
+<td></td>
+</tr>
+<tr>
+<td>Máscara ou prefixo</td>
+<td></td>
+</tr>
+</tbody></table></div></div>
+<hr>
+<h3 id="44-comprobar-conectividade-desde-windows">4.4. Comprobar conectividade desde Windows</h3>
+<p>Desde o cliente Windows abre PowerShell e executa:</p>
+<pre data-lang="powershell"><code>ping &lt;IP_SERVIDOR&gt;</code></pre>
+<p>Exemplo:</p>
+<pre data-lang="powershell"><code>ping 192.168.56.20</code></pre>
+<p>Resultado:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Proba</th>
+<th>Resultado</th>
+</tr></thead><tbody>
+<tr>
+<td>Ping Windows → Ubuntu</td>
+<td>Responde / Non responde</td>
+</tr>
+</tbody></table></div></div>
+<blockquote class='callout'><p>⚠️ Se o ping falla, non conclúas automaticamente que a rede está mal. Pode haber bloqueo de ICMP. Máis adiante comprobaremos tamén o porto RDP con `Test-NetConnection`.</p></blockquote>
+<hr>
+<h3 id="45-actualizar-a-lista-de-paquetes">4.5. Actualizar a lista de paquetes</h3>
+<p>De volta no servidor Ubuntu, actualiza a lista de paquetes:</p>
+<pre data-lang="bash"><code>sudo apt update</code></pre>
+<p>Isto non actualiza todo o sistema; só descarga información actualizada dos repositorios.</p>
+<p><strong>Evidencia preliminar:</strong> IP do servidor, resultado do ping e versión de Ubuntu.</p>
+<hr>
+</section>
+<section class="content-card"><h2 id="5-parte-2-crear-ou-preparar-o-usuario-para-xrdp">5. Parte 2 – Crear ou preparar o usuario para xRDP</h2>
+<h3 id="51-usuario-recomendado-para-a-práctica">5.1. Usuario recomendado para a práctica</h3>
+<p>Podes usar un usuario existente, por exemplo <code>alumno</code>, pero é recomendable usar un usuario específico para a sesión remota.</p>
+<p>Neste documento usaremos como exemplo:</p>
+<pre data-lang="text"><code>rdpuser</code></pre>
+<p>Se decides usar outro usuario, substitúe <code>rdpuser</code> polo nome real.</p>
+<hr>
+<h3 id="52-crear-usuario-rdpuser">5.2. Crear usuario `rdpuser`</h3>
+<p>No servidor Ubuntu:</p>
+<pre data-lang="bash"><code>sudo adduser rdpuser</code></pre>
+<p>O sistema pedirá un contrasinal e algúns datos opcionais.</p>
+<p>Recomendacións:</p>
+<ul><li>usa un contrasinal longo;</li><li>non uses contrasinais triviais como `1234`, `abc123`, `alumno` ou `password`;</li><li>anota o contrasinal só se o indica o docente e nunca nun documento público.</li></ul>
+<p>Completa:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr></thead><tbody>
+<tr>
+<td>Usuario creado para xRDP</td>
+<td>rdpuser</td>
+</tr>
+<tr>
+<td>O usuario ten contrasinal?</td>
+<td>Si / Non</td>
+</tr>
+<tr>
+<td>Usarase este usuario para a conexión remota?</td>
+<td>Si / Non</td>
+</tr>
+</tbody></table></div></div>
+<blockquote class='callout'><p>⚠️ Non inicies sesión localmente na VM Ubuntu con `rdpuser` antes de probar xRDP. É mellor que ese usuario non teña unha sesión gráfica local aberta.</p></blockquote>
+<hr>
+</section>
+<section class="content-card"><h2 id="6-parte-3-instalación-e-activación-de-xrdp">6. Parte 3 – Instalación e activación de xRDP</h2>
+<h3 id="61-instalar-xrdp">6.1. Instalar xRDP</h3>
+<p>No servidor Ubuntu:</p>
+<pre data-lang="bash"><code>sudo apt install xrdp</code></pre>
+<p>Se o sistema pregunta se queres continuar, responde:</p>
+<pre data-lang="text"><code>S</code></pre>
+<p>ou:</p>
+<pre data-lang="text"><code>Y</code></pre>
+<p>segundo o idioma da instalación.</p>
+<hr>
+<h3 id="62-activar-e-iniciar-o-servizo">6.2. Activar e iniciar o servizo</h3>
+<p>Executa estes comandos un a un:</p>
+<pre data-lang="bash"><code>sudo systemctl enable xrdp
+sudo systemctl start xrdp
+sudo systemctl status xrdp</code></pre>
+<p>O resultado esperado é ver:</p>
+<pre data-lang="text"><code>active (running)</code></pre>
+<p>Se aparece outro estado, non continúes sen anotar o erro.</p>
+<hr>
+<h3 id="63-comprobar-xrdp-sesman">6.3. Comprobar `xrdp-sesman`</h3>
+<p>Agora comproba tamén o xestor de sesións:</p>
+<pre data-lang="bash"><code>sudo systemctl status xrdp-sesman</code></pre>
+<p>Tamén debería aparecer:</p>
+<pre data-lang="text"><code>active (running)</code></pre>
+<blockquote class='callout'><p>💡 `xrdp-sesman` é importante porque xestiona as sesións gráficas. Se o login falla, se pecha a sesión ou aparece pantalla negra, este servizo e os seus logs son fundamentais para diagnosticar.</p></blockquote>
+<hr>
+<h3 id="64-comprobar-que-xrdp-escoita-no-porto-3389">6.4. Comprobar que xRDP escoita no porto 3389</h3>
+<p>Executa:</p>
+<pre data-lang="bash"><code>sudo ss -tulnp | grep 3389</code></pre>
+<p>Deberías ver unha liña onde apareza <code>xrdp</code> escoitando no porto 3389.</p>
+<p>Completa:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Comprobación</th>
+<th>Resultado</th>
+</tr></thead><tbody>
+<tr>
+<td><code>systemctl status xrdp</code></td>
+<td>active / non active</td>
+</tr>
+<tr>
+<td><code>systemctl status xrdp-sesman</code></td>
+<td>active / non active</td>
+</tr>
+<tr>
+<td>`ss -tulnp \</td>
+<td>grep 3389` mostra xRDP?</td>
+<td>Si / Non</td>
+</tr>
+</tbody></table></div></div>
+<p><strong>Evidencia 1:</strong> captura de <code>systemctl status xrdp</code>, <code>systemctl status xrdp-sesman</code> e <code>ss -tulnp | grep 3389</code>.</p>
+<hr>
+</section>
+<section class="content-card"><h2 id="7-parte-4-configuración-de-xfce-para-a-sesión-remota">7. Parte 4 – Configuración de XFCE para a sesión remota</h2>
+<h3 id="71-instalar-xfce">7.1. Instalar XFCE</h3>
+<p>Instala XFCE e complementos básicos:</p>
+<pre data-lang="bash"><code>sudo apt install xfce4 xfce4-goodies</code></pre>
+<p>Esta instalación pode tardar uns minutos.</p>
+<hr>
+<h3 id="72-configurar-xsession-para-o-usuario-actual">7.2. Configurar `.xsession` para o usuario actual</h3>
+<p>O ficheiro <code>.xsession</code> indica que escritorio debe iniciar a sesión remota.</p>
+<p>Se vas conectarte co mesmo usuario co que estás executando a terminal, usa:</p>
+<pre data-lang="bash"><code>echo xfce4-session &gt; ~/.xsession
+cat ~/.xsession</code></pre>
+<p>O resultado de <code>cat ~/.xsession</code> debería ser:</p>
+<pre data-lang="text"><code>xfce4-session</code></pre>
+<hr>
+<h3 id="73-configurar-xsession-para-rdpuser">7.3. Configurar `.xsession` para `rdpuser`</h3>
+<p>Se creaches o usuario <code>rdpuser</code>, configura tamén a súa sesión.</p>
+<p>O xeito máis sinxelo é iniciar sesión con ese usuario nunha terminal:</p>
+<pre data-lang="bash"><code>su - rdpuser
+echo xfce4-session &gt; ~/.xsession
+cat ~/.xsession
+exit</code></pre>
+<p>Tamén se pode facer desde o usuario con <code>sudo</code>, pero para esta práctica é máis claro usar <code>su - rdpuser</code>.</p>
+<blockquote class='callout'><p>⚠️ O ficheiro `.xsession` é por usuario. Se configuras `.xsession` no teu usuario actual, pero logo te conectas por xRDP con outro usuario, a configuración pode non aplicarse a ese outro usuario.</p></blockquote>
+<hr>
+<h3 id="74-reiniciar-xrdp">7.4. Reiniciar xRDP</h3>
+<p>Despois de instalar XFCE e configurar <code>.xsession</code>, reinicia xRDP:</p>
+<pre data-lang="bash"><code>sudo systemctl restart xrdp
+sudo systemctl status xrdp
+sudo systemctl status xrdp-sesman</code></pre>
+<p>Completa:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Comprobación</th>
+<th>Resultado</th>
+</tr></thead><tbody>
+<tr>
+<td>XFCE instalado</td>
+<td>Si / Non</td>
+</tr>
+<tr>
+<td><code>.xsession</code> configurado no usuario usado para xRDP</td>
+<td>Si / Non</td>
+</tr>
+<tr>
+<td>xRDP reiniciado</td>
+<td>Si / Non</td>
+</tr>
+</tbody></table></div></div>
+<hr>
+</section>
+<section class="content-card"><h2 id="8-parte-5-configuración-básica-do-firewall">8. Parte 5 – Configuración básica do firewall</h2>
+<h3 id="81-comprobar-estado-de-ufw">8.1. Comprobar estado de UFW</h3>
+<p>Antes de abrir portos, comproba se UFW está activo:</p>
+<pre data-lang="bash"><code>sudo ufw status verbose</code></pre>
+<p>Resultado posible:</p>
+<pre data-lang="text"><code>Status: inactive</code></pre>
+<p>ou:</p>
+<pre data-lang="text"><code>Status: active</code></pre>
+<p>Anota:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr></thead><tbody>
+<tr>
+<td>UFW está activo?</td>
+<td>Si / Non</td>
+</tr>
+<tr>
+<td>Política por defecto</td>
+<td></td>
+</tr>
+<tr>
+<td>Hai regras previas?</td>
+<td></td>
+</tr>
+</tbody></table></div></div>
+<blockquote class='callout'><p>⚠️ Se UFW aparece como `inactive`, a regra que engadas non filtrará tráfico ata que UFW se active. Nun laboratorio pode manterse inactivo se así o indica o docente, pero hai que documentalo.</p></blockquote>
+<hr>
+<h3 id="82-abrir-o-porto-3389-só-para-a-rede-do-laboratorio">8.2. Abrir o porto 3389 só para a rede do laboratorio</h3>
+<p>Non abras xRDP a calquera IP se podes evitalo. Debes permitir só a rede do laboratorio.</p>
+<p>Formato xeral:</p>
+<pre data-lang="bash"><code>sudo ufw allow from &lt;REDE_LABORATORIO&gt;/24 to any port 3389 proto tcp</code></pre>
+<p>Exemplo para unha rede <code>192.168.56.0/24</code>:</p>
+<pre data-lang="bash"><code>sudo ufw allow from 192.168.56.0/24 to any port 3389 proto tcp</code></pre>
+<p>Se a túa rede é outra, adapta o comando. Por exemplo, se a IP do servidor é <code>192.168.1.50</code>, probablemente a rede sexa:</p>
+<pre data-lang="text"><code>192.168.1.0/24</code></pre>
+<p>E o comando sería:</p>
+<pre data-lang="bash"><code>sudo ufw allow from 192.168.1.0/24 to any port 3389 proto tcp</code></pre>
+<hr>
+<h3 id="83-comprobar-a-regra">8.3. Comprobar a regra</h3>
+<p>Despois de engadir a regra:</p>
+<pre data-lang="bash"><code>sudo ufw status verbose</code></pre>
+<p>Debe verse unha regra para o porto 3389/TCP restrinxida á rede indicada.</p>
+<p><strong>Evidencia 2:</strong> captura de <code>sudo ufw status verbose</code> ou explicación de que UFW está inactivo por decisión do docente.</p>
+<hr>
+</section>
+<section class="content-card"><h2 id="9-parte-6-comprobación-desde-windows-antes-de-conectar">9. Parte 6 – Comprobación desde Windows antes de conectar</h2>
+<p>Antes de abrir <code>mstsc</code>, comproba desde Windows que o porto TCP 3389 responde.</p>
+<p>No cliente Windows abre PowerShell:</p>
+<pre data-lang="powershell"><code>Test-NetConnection -ComputerName &lt;IP_SERVIDOR&gt; -Port 3389</code></pre>
+<p>Exemplo:</p>
+<pre data-lang="powershell"><code>Test-NetConnection -ComputerName 192.168.56.20 -Port 3389</code></pre>
+<p>Resultado esperado:</p>
+<pre data-lang="text"><code>TcpTestSucceeded : True</code></pre>
+<p>Completa:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr></thead><tbody>
+<tr>
+<td>IP do servidor usada</td>
+<td></td>
+</tr>
+<tr>
+<td><code>TcpTestSucceeded</code></td>
+<td>True / False</td>
+</tr>
+<tr>
+<td>Se fallou, que revisarías?</td>
+<td></td>
+</tr>
+</tbody></table></div></div>
+<p>Se aparece <code>False</code>, revisa:</p>
+<ol><li>IP do servidor.</li><li>Servizo `xrdp`.</li><li>Servizo `xrdp-sesman`.</li><li>Firewall UFW.</li><li>Rede entre cliente e servidor.</li><li>Perfil ou modo de rede da VM.</li></ol>
+<p><strong>Evidencia 3:</strong> captura de <code>Test-NetConnection</code>.</p>
+<hr>
+</section>
+<section class="content-card"><h2 id="10-parte-7-primeira-conexión-desde-windows">10. Parte 7 – Primeira conexión desde Windows</h2>
+<h3 id="101-abrir-o-cliente-rdp">10.1. Abrir o cliente RDP</h3>
+<p>No cliente Windows abre <strong>Conexión a Escritorio remoto</strong>.</p>
+<p>Podes facelo desde o menú Inicio ou con <code>Win + R</code>:</p>
+<pre data-lang="text"><code>mstsc</code></pre>
+<hr>
+<h3 id="102-introducir-ip-do-servidor">10.2. Introducir IP do servidor</h3>
+<p>No campo <strong>Equipo</strong>, escribe a IP do servidor Ubuntu:</p>
+<pre data-lang="text"><code>&lt;IP_SERVIDOR&gt;</code></pre>
+<p>Preme <strong>Conectar</strong>.</p>
+<hr>
+<h3 id="103-pantalla-de-login-de-xrdp">10.3. Pantalla de login de xRDP</h3>
+<p>Aparecerá a pantalla de inicio de sesión de xRDP.</p>
+<p>Usa estes datos:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Valor recomendado</th>
+</tr></thead><tbody>
+<tr>
+<td>**Session**</td>
+<td>Xorg</td>
+</tr>
+<tr>
+<td>**Username**</td>
+<td>rdpuser ou usuario Linux elixido</td>
+</tr>
+<tr>
+<td>**Password**</td>
+<td>contrasinal dese usuario</td>
+</tr>
+</tbody></table></div></div>
+<blockquote class='callout'><p>⚠️ Non introduzas un usuario de Windows. Debes usar un usuario existente no servidor Ubuntu.</p></blockquote>
+<hr>
+<h3 id="104-proba-funcional-dentro-da-sesión">10.4. Proba funcional dentro da sesión</h3>
+<p>Cando se abra o escritorio remoto de Ubuntu:</p>
+<ol><li>Abre o xestor de ficheiros.</li><li>Vai á carpeta persoal do usuario:</li></ol>
+<pre data-lang="text"><code>/home/rdpuser/</code></pre>
+<p>ou á carpeta do usuario real usado.</p>
+<ol><li>Crea un ficheiro chamado:</li></ol>
+<pre data-lang="text"><code>proba_xrdp.txt</code></pre>
+<ol><li>Escribe dentro:</li></ol>
+<pre data-lang="text"><code>Esta proba foi creada dentro dunha sesión remota xRDP desde Windows.</code></pre>
+<ol><li>Pecha a sesión.</li><li>Volve conectar e comproba que o ficheiro segue existindo.</li></ol>
+<p><strong>Evidencia 4:</strong> captura do escritorio de Ubuntu visto desde Windows. Debe verse a xanela de RDP ou a barra superior da conexión.</p>
+<p><strong>Evidencia 5:</strong> captura do ficheiro <code>proba_xrdp.txt</code> creado dentro da sesión remota.</p>
+<hr>
+</section>
+<section class="content-card"><h2 id="11-parte-8-probas-de-rendemento">11. Parte 8 – Probas de rendemento</h2>
+<h3 id="111-obxectivo">11.1. Obxectivo</h3>
+<p>Comparar a sensación de uso con diferentes opcións gráficas do cliente RDP.</p>
+<hr>
+<h3 id="112-conexión-a-calidade-alta">11.2. Conexión A: calidade alta</h3>
+<p>No cliente RDP, antes de conectar:</p>
+<ol><li>Abre `mstsc`.</li><li>Preme **Mostrar opcións**.</li><li>Revisa a pestana **Experiencia**.</li><li>Activa opcións de calidade alta se están dispoñibles.</li></ol>
+<p>Exemplos:</p>
+<ul><li>fondo de escritorio;</li><li>suavizado de fontes;</li><li>animacións;</li><li>temas;</li><li>redirección de audio.</li></ul>
+<hr>
+<h3 id="113-conexión-b-calidade-baixa">11.3. Conexión B: calidade baixa</h3>
+<p>Repite a conexión, pero con opcións máis lixeiras:</p>
+<ul><li>sen fondo de escritorio;</li><li>sen animacións;</li><li>sen redirección de audio;</li><li>menos efectos visuais;</li><li>configuración orientada a conexión máis lenta.</li></ul>
+<hr>
+<h3 id="114-proba-comparativa">11.4. Proba comparativa</h3>
+<p>En cada conexión realiza a mesma acción:</p>
+<ul><li>abrir dúas ou tres aplicacións;</li><li>mover xanelas;</li><li>escribir texto;</li><li>abrir o xestor de ficheiros;</li><li>cambiar entre xanelas.</li></ul>
+<p>Completa a táboa:</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Proba</th>
+<th>Conexión A: calidade alta</th>
+<th>Conexión B: calidade baixa</th>
+</tr></thead><tbody>
+<tr>
+<td>Tempo aproximado de inicio</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Fluidez ao mover xanelas</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Retardo ao escribir</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Uso de audio</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Sensación xeral</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Cal usarías nunha rede lenta?</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div></div>
+<hr>
+</section>
+<section class="content-card"><h2 id="12-parte-9-reflexión-sobre-seguridade">12. Parte 9 – Reflexión sobre seguridade</h2>
+<p>Responde por escrito en 8–10 liñas.</p>
+<h3 id="preguntas-obrigatorias">Preguntas obrigatorias</h3>
+<ol><li>Que risco tería activar xRDP nun servidor Ubuntu exposto directamente a Internet sen firewall nin VPN?</li><li>Por que é máis seguro permitir xRDP só desde a LAN ou desde unha VPN?</li><li>Que medidas aplicarías nun servidor Linux en produción?</li><li>Para que serviría `fail2ban`?</li><li>Por que `fail2ban` non substitúe unha VPN nin unha boa política de firewall?</li><li>Que risco poden ter o portapapeis, a redirección de unidades, o audio ou as impresoras nunha sesión remota?</li><li>Por que convén usar usuarios individuais e non contas compartidas?</li></ol>
+<hr>
+<h3 id="121-medidas-recomendables-nun-servidor-real">12.1. Medidas recomendables nun servidor real</h3>
+<p>Nun servidor Linux en produción consideraríanse, como mínimo:</p>
+<ul><li>VPN antes de permitir acceso remoto;</li><li>firewall restrinxido a IPs ou redes autorizadas;</li><li>usuarios individuais;</li><li>contrasinais longos e non reutilizados;</li><li>actualizacións de seguridade;</li><li>revisión de logs;</li><li>`fail2ban` como medida complementaria;</li><li>desactivación de recursos redirixidos se non son necesarios;</li><li>auditoría de accesos;</li><li>MFA se a infraestrutura o permite.</li></ul>
+<hr>
+<h3 id="122-que-é-fail2ban">12.2. Que é fail2ban?</h3>
+<p><code>fail2ban</code> é unha ferramenta de Linux que monitoriza logs do sistema en busca de intentos repetidos de autenticación fallida.</p>
+<p>Cando detecta demasiados intentos desde unha mesma IP, pode bloqueala temporalmente mediante regras de firewall.</p>
+<p>É especialmente útil para protexer servizos como:</p>
+<ul><li>SSH;</li><li>xRDP;</li><li>outros servizos con autenticación.</li></ul>
+<blockquote class='callout'><p>⚠️ `fail2ban` é unha capa complementaria. Non substitúe VPN, restrición de IPs, actualizacións, contrasinais robustos nin unha configuración segura do servizo.</p></blockquote>
+<hr>
+</section>
+<section class="content-card"><h2 id="13-parte-10-diagnóstico-guiado-de-problemas-frecuentes">13. Parte 10 – Diagnóstico guiado de problemas frecuentes</h2>
+<p>Se algo falla, non cambies comandos ao azar. Usa esta táboa.</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Síntoma</th>
+<th>Causa probable</th>
+<th>Que revisar</th>
+</tr></thead><tbody>
+<tr>
+<td>Windows non conecta</td>
+<td>IP incorrecta, servizo parado ou firewall</td>
+<td><code>ping</code>, <code>Test-NetConnection</code>, <code>systemctl status xrdp</code></td>
+</tr>
+<tr>
+<td><code>TcpTestSucceeded</code> é <code>False</code></td>
+<td>Porto pechado ou xRDP non escoita</td>
+<td>`ss -tulnp \</td>
+<td>grep 3389<code>, </code>ufw status`</td>
+</tr>
+<tr>
+<td>Non aparece o porto 3389</td>
+<td>xRDP parado ou erro de instalación</td>
+<td><code>systemctl status xrdp</code></td>
+</tr>
+<tr>
+<td>Login falla</td>
+<td>usuario/contrasinal incorrecto</td>
+<td>probar login local co usuario</td>
+</tr>
+<tr>
+<td>A sesión abre e pecha</td>
+<td>problema co xestor de sesión</td>
+<td><code>systemctl status xrdp-sesman</code>, logs</td>
+</tr>
+<tr>
+<td>Pantalla negra</td>
+<td>GNOME, Wayland, <code>.xsession</code> ou usuario xa iniciado</td>
+<td>XFCE, <code>cat ~/.xsession</code>, usar outro usuario</td>
+</tr>
+<tr>
+<td>XFCE non carga</td>
+<td><code>.xsession</code> non configurado no usuario correcto</td>
+<td>configurar <code>.xsession</code> para o usuario usado</td>
+</tr>
+<tr>
+<td>Conexión lenta</td>
+<td>rede saturada ou calidade alta</td>
+<td>baixar opcións gráficas</td>
+</tr>
+<tr>
+<td>Non funciona UFW</td>
+<td>UFW está inactivo</td>
+<td><code>sudo ufw status verbose</code></td>
+</tr>
+<tr>
+<td>O ficheiro non aparece tras reconectar</td>
+<td>creouse noutro usuario ou ruta</td>
+<td>comprobar <code>/home/usuario/</code></td>
+</tr>
+</tbody></table></div></div>
+<hr>
+<h3 id="131-comandos-útiles-de-diagnóstico">13.1. Comandos útiles de diagnóstico</h3>
+<p>No servidor Ubuntu:</p>
+<pre data-lang="bash"><code>ip a
+hostname
+lsb_release -a
+sudo systemctl status xrdp
+sudo systemctl status xrdp-sesman
+sudo ss -tulnp | grep 3389
+sudo ufw status verbose
+cat ~/.xsession
+sudo journalctl -u xrdp
+sudo journalctl -u xrdp-sesman
+sudo tail -f /var/log/xrdp.log
+sudo tail -f /var/log/xrdp-sesman.log</code></pre>
+<p>No cliente Windows:</p>
+<pre data-lang="powershell"><code>ipconfig
+ping &lt;IP_SERVIDOR&gt;
+Test-NetConnection -ComputerName &lt;IP_SERVIDOR&gt; -Port 3389
+mstsc</code></pre>
+<hr>
+</section>
+<section class="content-card"><h2 id="14-parte-11-documentación-da-práctica">14. Parte 11 – Documentación da práctica</h2>
+<p>Redacta un resumo técnico de 10–15 liñas que inclúa:</p>
+<ul><li>versión de Ubuntu empregada;</li><li>contorno gráfico inicial;</li><li>escritorio configurado para xRDP;</li><li>usuario usado para a conexión;</li><li>IP do servidor e do cliente;</li><li>comandos usados para instalar e activar xRDP;</li><li>estado de `xrdp` e `xrdp-sesman`;</li><li>configuración de firewall aplicada;</li><li>resultado de `Test-NetConnection`;</li><li>resultado da primeira conexión;</li><li>proba do ficheiro creado na sesión remota;</li><li>comparación breve de rendemento;</li><li>polo menos unha incidencia real ou simulada e como se resolveu;</li><li>medidas de seguridade que aplicarías nun contorno real.</li></ul>
+<hr>
+</section>
+<section class="content-card"><h2 id="15-modelo-de-parte-de-incidencia">15. Modelo de parte de incidencia</h2>
+<p>Se tiveches algún problema, documentao así.</p>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Resposta</th>
+</tr></thead><tbody>
+<tr>
+<td>Síntoma observado</td>
+<td></td>
+</tr>
+<tr>
+<td>Momento no que apareceu</td>
+<td></td>
+</tr>
+<tr>
+<td>Comando ou proba realizada</td>
+<td></td>
+</tr>
+<tr>
+<td>Resultado obtido</td>
+<td></td>
+</tr>
+<tr>
+<td>Causa probable</td>
+<td></td>
+</tr>
+<tr>
+<td>Solución aplicada</td>
+<td></td>
+</tr>
+<tr>
+<td>Resultado final</td>
+<td></td>
+</tr>
+<tr>
+<td>Que aprendín desta incidencia</td>
+<td></td>
+</tr>
+</tbody></table></div></div>
+<p>Se non tiveches ningunha incidencia real, simula unha destas:</p>
+<ul><li>UFW bloquea o porto 3389;</li><li>o servizo `xrdp` está parado;</li><li>`xrdp-sesman` non está activo;</li><li>IP do servidor mal escrita;</li><li>usuario/contrasinal incorrecto;</li><li>pantalla negra por non configurar XFCE;</li><li>`.xsession` configurado no usuario equivocado.</li></ul>
+<hr>
+</section>
+<section class="content-card"><h2 id="16-resumo-de-evidencias-a-entregar">16. Resumo de evidencias a entregar</h2>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Evidencia</th>
+<th>Contido</th>
+</tr></thead><tbody>
+<tr>
+<td>**Evidencia preliminar**</td>
+<td>IP do servidor, versión de Ubuntu, escritorio inicial e resultado do ping</td>
+</tr>
+<tr>
+<td>**Evidencia 1**</td>
+<td>Saída de <code>systemctl status xrdp</code>, <code>systemctl status xrdp-sesman</code> e `ss -tulnp \</td>
+<td>grep 3389`</td>
+</tr>
+<tr>
+<td>**Evidencia 2**</td>
+<td>Captura de <code>sudo ufw status verbose</code> ou explicación se UFW está inactivo</td>
+</tr>
+<tr>
+<td>**Evidencia 3**</td>
+<td>Captura de <code>Test-NetConnection</code> desde Windows</td>
+</tr>
+<tr>
+<td>**Evidencia 4**</td>
+<td>Captura do escritorio Ubuntu visto desde o cliente Windows</td>
+</tr>
+<tr>
+<td>**Evidencia 5**</td>
+<td>Captura do ficheiro <code>proba_xrdp.txt</code> creado dentro da sesión remota</td>
+</tr>
+<tr>
+<td>**Evidencia 6**</td>
+<td>Táboa comparativa de rendemento: conexión A vs. conexión B</td>
+</tr>
+<tr>
+<td>**Evidencia 7**</td>
+<td>Reflexión de seguridade</td>
+</tr>
+<tr>
+<td>**Evidencia 8**</td>
+<td>Parte de incidencia real ou simulada</td>
+</tr>
+<tr>
+<td>**Resumo técnico**</td>
+<td>Documento de 10–15 liñas con instalación, configuración, probas e incidencias</td>
+</tr>
+</tbody></table></div></div>
+<hr>
+</section>
+<section class="content-card"><h2 id="17-rúbrica-orientativa-de-avaliación">17. Rúbrica orientativa de avaliación</h2>
+<div class='table-wrap'><div class="table-wrap"><table><thead><tr>
+<th>Criterio</th>
+<th>Peso</th>
+</tr></thead><tbody>
+<tr>
+<td>Preparación de rede e identificación de equipos</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Instalación e activación de xRDP</td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>Comprobación de <code>xrdp-sesman</code> e porto 3389</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Configuración de XFCE e <code>.xsession</code></td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Firewall restrinxido á LAN ou documentación correcta de UFW</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Conexión desde Windows e proba funcional</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Reflexión de seguridade e rendemento</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Documentación, evidencias e parte de incidencia</td>
+<td>5 %</td>
+</tr>
+</tbody></table></div></div>
+<hr>
+</section>
+<section class="content-card"><h2 id="18-preguntas-finais-de-comprobación">18. Preguntas finais de comprobación</h2>
+<p>Responde brevemente:</p>
+<ol><li>Que equipo actúa como cliente RDP?</li><li>Que equipo actúa como servidor RDP?</li><li>Para que serve `xrdp`?</li><li>Para que serve `xrdp-sesman`?</li><li>Que porto usa xRDP por defecto?</li><li>Por que abrimos o porto 3389 só para a rede do laboratorio?</li><li>Que significa `TcpTestSucceeded : True`?</li><li>Por que usamos XFCE nesta práctica?</li><li>Que problema pode aparecer se usas por xRDP un usuario xa iniciado localmente?</li><li>Por que `.xsession` debe configurarse no usuario correcto?</li><li>Que risco ten expor xRDP directamente a Internet?</li><li>Que é `fail2ban`?</li><li>Por que `fail2ban` non substitúe unha VPN?</li><li>Que evidencias demostran que a conexión funcionou correctamente?</li><li>Que farías se aparece pantalla negra ao conectar?</li></ol>
+<hr>
+</section>
+      <div class="footer-note">Material HTML autónomo  Inclúe CSS e JavaScript integrados para uso local</div>
+    </main>
+  </div>
+  <script>
+    document.querySelectorAll('pre').forEach((pre) => {
+      const btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.type = 'button';
+      btn.textContent = 'Copiar';
+      btn.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.innerText || '';
+        try {
+          await navigator.clipboard.writeText(code);
+          btn.textContent = 'Copiado';
+          setTimeout(() => btn.textContent = 'Copiar', 1400);
+        } catch (err) {
+          btn.textContent = 'Erro';
+          setTimeout(() => btn.textContent = 'Copiar', 1400);
+        }
+      });
+      pre.appendChild(btn);
+    });
+  </script>
+</body>
+</html>

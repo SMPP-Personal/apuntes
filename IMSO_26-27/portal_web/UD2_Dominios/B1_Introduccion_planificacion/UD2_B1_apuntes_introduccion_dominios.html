@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B1 Introdución e planificación de dominios</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/imso.css">
+
+  <style>
+    /* ── Estilos específicos desta páxina ───────────────────── */
+    .hero-domain {
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.28), transparent 34%),
+                  linear-gradient(135deg, #0f172a 0%, #1e3a8a 52%, #0f172a 100%);
+      color: #f8fafc;
+      border-radius: 1rem;
+      padding: 1.65rem 1.75rem;
+      border: 1px solid rgba(56,189,248,0.35);
+      box-shadow: 0 1rem 2.5rem rgba(15,23,42,0.22);
+    }
+    .hero-domain .lead {
+      color: #cbd5e1;
+    }
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+      color: #e0f2fe;
+      border-radius: 999px;
+      padding: .28rem .7rem;
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .concept-card {
+      border: 1px solid var(--bs-border-color);
+      border-left: 4px solid var(--bs-primary);
+      border-radius: .85rem;
+      background: var(--bs-body-bg);
+      box-shadow: 0 .35rem 1rem rgba(15,23,42,0.05);
+    }
+    .concept-card.success { border-left-color: var(--bs-success); }
+    .concept-card.warning { border-left-color: var(--bs-warning); }
+    .concept-card.info { border-left-color: var(--bs-info); }
+    .concept-icon {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: .8rem;
+      background: var(--bs-primary-bg-subtle);
+      color: var(--bs-primary);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .concept-card.success .concept-icon {
+      background: var(--bs-success-bg-subtle);
+      color: var(--bs-success);
+    }
+    .concept-card.warning .concept-icon {
+      background: var(--bs-warning-bg-subtle);
+      color: var(--bs-warning-text-emphasis);
+    }
+    .concept-card.info .concept-icon {
+      background: var(--bs-info-bg-subtle);
+      color: var(--bs-info-text-emphasis);
+    }
+    .compare-panel {
+      border-radius: .9rem;
+      border: 1px solid var(--bs-border-color);
+      overflow: hidden;
+      height: 100%;
+      background: var(--bs-body-bg);
+    }
+    .compare-panel .compare-header {
+      padding: .8rem 1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .compare-workgroup .compare-header { background: linear-gradient(135deg, #64748b, #334155); }
+    .compare-domain .compare-header { background: linear-gradient(135deg, #0d6efd, #0a58ca); }
+    .network-map {
+      background: linear-gradient(135deg, rgba(14,165,233,0.10) 0%, rgba(139,92,246,0.08) 100%);
+      border: 1px solid rgba(14,165,233,0.25);
+      border-radius: 1rem;
+      padding: 1.25rem;
+    }
+    [data-bs-theme="dark"] .network-map {
+      background: linear-gradient(135deg, rgba(14,165,233,0.12) 0%, rgba(139,92,246,0.10) 100%);
+      border-color: rgba(125,211,252,0.24);
+    }
+    .map-node {
+      border: 1px solid var(--bs-border-color);
+      border-radius: .85rem;
+      padding: .85rem;
+      text-align: center;
+      background: var(--bs-body-bg);
+      min-height: 112px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: .25rem;
+    }
+    .map-node i { font-size: 1.55rem; }
+    .ou-tree {
+      border-radius: .85rem;
+      border: 1px solid var(--bs-border-color);
+      background: var(--bs-tertiary-bg);
+      padding: 1rem 1.15rem;
+    }
+    .ou-tree ul { margin-bottom: 0; }
+    .ou-tree li { margin: .25rem 0; }
+    .agdlp-step {
+      border: 1px solid var(--bs-border-color);
+      border-radius: .85rem;
+      padding: .9rem;
+      background: var(--bs-body-bg);
+      text-align: center;
+      height: 100%;
+    }
+    .agdlp-letter {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--bs-primary);
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: .5rem;
+    }
+    .site-card {
+      border-left: 4px solid #8b5cf6;
+    }
+    .planning-badge {
+      min-width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #0d6efd;
+      color: #fff;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .vocab-table th {
+      white-space: nowrap;
+    }
+    .key-list .list-group-item {
+      border-left: 3px solid var(--bs-primary);
+    }
+    .table code, .list-group-item code, .card code, .alert code {
+      color: var(--bs-code-color);
+      background: var(--bs-tertiary-bg);
+      border-radius: .25rem;
+      padding: .05rem .25rem;
+    }
+    .section-anchor {
+      scroll-margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img class="smpp-buho" src="../../assets/imax/buho_clean.svg" alt="SMPP">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Layout ── -->
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1">
+              <i class="bi bi-list-ul me-1"></i>Índice
+            </h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-introducion">4.1 Introdución</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-grupo-dominio">4.1.1 Grupo vs dominio</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-elementos">4.1.2 Elementos básicos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-ou-contas-grupos">4.1.3 OU, contas e grupos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-sitios-replicacion">4.1.4 Sitios e replicación</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-nomenclatura">4.1.5 Nomenclatura</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-vocabulario">4.1.6 Vocabulario</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-exemplo">4.1.7 Exemplo práctico</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-ideas-clave">4.1.8 Ideas clave</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Contido principal ── -->
+    <main class="col-lg-9">
+      <article>
+
+        <!-- Cabeceira -->
+        <header class="mb-4 hero-domain">
+          <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+            <span class="hero-chip"><i class="bi bi-diagram-3"></i> UD2 · Bloque 1</span>
+            <span class="hero-chip"><i class="bi bi-windows"></i> Windows Server 2022</span>
+            <span class="hero-chip"><i class="bi bi-shield-lock"></i> AD DS</span>
+          </div>
+          <h1 class="h2 fw-bold mb-2">Introdución e planificación de dominios</h1>
+          <p class="lead mb-0">Conceptos básicos para entender que é un dominio Active Directory, como se organiza e que decisións hai que tomar antes de instalalo.</p>
+        </header>
+
+        <!-- 4.1 Introdución -->
+        <section id="sec-introducion" class="mb-5 section-anchor">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-compass me-2 text-primary"></i>4.1. Introdución aos dominios en Windows Server 2022
+          </h2>
+
+          <p>Nesta unidade imos traballar con <strong>dominios</strong> en contornos baseados en <strong>Windows Server 2022</strong>, que empregan o servizo de directorio <strong>Active Directory Domain Services (AD DS)</strong> para centralizar a administración de usuarios, equipos, grupos, políticas e recursos da rede.</p>
+
+          <p>Antes de instalar nada, é importante comprender os <strong>conceptos básicos</strong>: que é un dominio, como se organiza, que vantaxes ten fronte a un grupo de traballo e que elementos o forman (bosques, dominios, controladores de dominio, unidades organizativas, sitios, grupos, políticas, etc.).</p>
+
+          <div class="row g-3 mt-2">
+            <div class="col-md-4">
+              <div class="concept-card p-3 h-100">
+                <div class="d-flex align-items-start gap-3">
+                  <span class="concept-icon"><i class="bi bi-people"></i></span>
+                  <div>
+                    <h3 class="h6 fw-bold mb-1">Usuarios e equipos</h3>
+                    <p class="small mb-0 text-secondary">As contas deixan de xestionarse equipo por equipo e pasan a organizarse no dominio.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="concept-card success p-3 h-100">
+                <div class="d-flex align-items-start gap-3">
+                  <span class="concept-icon"><i class="bi bi-shield-check"></i></span>
+                  <div>
+                    <h3 class="h6 fw-bold mb-1">Políticas</h3>
+                    <p class="small mb-0 text-secondary">As GPO permiten aplicar configuración e seguridade de maneira centralizada.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="concept-card info p-3 h-100">
+                <div class="d-flex align-items-start gap-3">
+                  <span class="concept-icon"><i class="bi bi-folder-symlink"></i></span>
+                  <div>
+                    <h3 class="h6 fw-bold mb-1">Recursos</h3>
+                    <p class="small mb-0 text-secondary">Carpetas, impresoras e permisos poden administrarse con grupos e criterios comúns.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.1.1 Grupo de traballo vs dominio -->
+        <section id="sec-grupo-dominio" class="mb-5 section-anchor">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-diagram-2 me-2 text-primary"></i>4.1.1. Grupo de traballo vs dominio
+          </h2>
+
+          <p>Nunha pequena rede doméstica é habitual ter equipos en <strong>grupo de traballo</strong> (<em>workgroup</em>). Nunha rede profesional, especialmente se hai moitos usuarios e equipos, o habitual é empregar <strong>dominios</strong>.</p>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="compare-panel compare-workgroup">
+                <div class="compare-header"><i class="bi bi-pc-display-horizontal me-2"></i>Grupo de traballo</div>
+                <div class="p-3">
+                  <ul class="list-group list-group-flush small">
+                    <li class="list-group-item">Cada equipo xestiona localmente os seus <strong>usuarios e contrasinais</strong>.</li>
+                    <li class="list-group-item">Non hai un servizo central de directorio que garde a información de usuarios, equipos e políticas.</li>
+                    <li class="list-group-item">As autorizacións a recursos compartidos (cartafoles, impresoras, etc.) configúranse en cada máquina.</li>
+                    <li class="list-group-item">A administración depende moito de cada equipo individual.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="compare-panel compare-domain">
+                <div class="compare-header"><i class="bi bi-hdd-network me-2"></i>Dominio Active Directory</div>
+                <div class="p-3">
+                  <ul class="list-group list-group-flush small">
+                    <li class="list-group-item">Existe polo menos un <strong>controlador de dominio</strong> (<em>Domain Controller</em>, DC) que almacena a base de datos de Active Directory do dominio.</li>
+                    <li class="list-group-item">Se hai varios controladores de dominio, a información replícase entre eles para manter copias coherentes.</li>
+                    <li class="list-group-item">Os usuarios autentícanse contra o dominio, non só contra o equipo local.</li>
+                    <li class="list-group-item">As políticas de seguridade e configuración (<strong>GPO</strong>) poden aplicarse de forma centralizada.</li>
+                    <li class="list-group-item">A administración de usuarios, equipos, grupos e permisos faise dunha maneira máis organizada.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p>Conceptualmente, un dominio é unha <strong>fronteira de administración e de aplicación de políticas</strong>: dentro do dominio aplícanse unha serie de regras comúns para usuarios e equipos.</p>
+
+          <div class="alert alert-info imso-nota d-flex gap-2 align-items-start" role="note">
+            <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+            <span><strong>Matiz técnico:</strong> En Active Directory, o dominio é unha unidade lóxica fundamental para administrar obxectos e políticas. En contornos con varios dominios, o <strong>bosque</strong> é a fronteira de seguridade máis ampla. Neste bloque traballaremos cun escenario sinxelo: un bosque cun único dominio.</span>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">Táboa comparativa básica</h3>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+              <thead class="table-primary">
+                <tr>
+                  <th>Característica</th>
+                  <th>Grupo de traballo</th>
+                  <th>Dominio (AD DS)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Xestión de usuarios</td><td>Local en cada equipo</td><td>Centralizada no dominio</td></tr>
+                <tr><td>Número recomendado de equipos</td><td>Moi baixo (poucos equipos)</td><td>De poucas ducias a miles de equipos</td></tr>
+                <tr><td>Políticas de seguridade</td><td>Configuradas equipo a equipo</td><td>Definidas e aplicadas centralmente mediante GPO</td></tr>
+                <tr><td>Autenticación</td><td>Conta local</td><td>Conta de dominio</td></tr>
+                <tr><td>Administración</td><td>Distribuída en cada equipo</td><td>Centralizada e organizada</td></tr>
+                <tr><td>Contorno típico</td><td>Fogar, pequena oficina moi simple</td><td>Empresas, centros educativos, administracións públicas</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 4.1.2 Elementos básicos -->
+        <section id="sec-elementos" class="mb-5 section-anchor">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-boxes me-2 text-primary"></i>4.1.2. Elementos básicos dun dominio
+          </h2>
+
+          <p>En Active Directory existe unha <strong>estrutura xerárquica</strong> que organiza a información de forma lóxica e administrable.</p>
+
+          <div class="network-map mb-4">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <div class="map-node">
+                  <i class="bi bi-tree-fill text-success"></i>
+                  <strong>Bosque</strong>
+                  <small class="text-secondary">Contedor lóxico máis amplo</small>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="map-node">
+                  <i class="bi bi-diagram-3-fill text-primary"></i>
+                  <strong>Dominio</strong>
+                  <small class="text-secondary"><code>cifpsauce.local</code></small>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="map-node">
+                  <i class="bi bi-server text-warning"></i>
+                  <strong>Controlador de dominio</strong>
+                  <small class="text-secondary"><code>dcbuho.cifpsauce.local</code></small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="card border h-100 shadow-sm section-card">
+                <div class="card-header d-flex align-items-center gap-2"><i class="bi bi-tree text-success"></i>Bosque (<em>forest</em>)</div>
+                <div class="card-body small">
+                  <p>Un <strong>bosque</strong> é o contedor lóxico máis amplo de Active Directory.</p>
+                  <ul class="mb-0">
+                    <li>Pode conter <strong>un ou varios dominios</strong> que comparten unha configuración común de AD.</li>
+                    <li>Comparte un <strong>esquema</strong> común, é dicir, a definición dos tipos de obxectos que poden existir no directorio.</li>
+                    <li>Comparte unha <strong>configuración global</strong> de Active Directory.</li>
+                    <li>Nun contorno pequeno, como un laboratorio ou un CIFP cunha estrutura sinxela, é habitual traballar con <strong>un só bosque e un só dominio</strong>.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card border h-100 shadow-sm section-card">
+                <div class="card-header d-flex align-items-center gap-2"><i class="bi bi-diagram-3 text-primary"></i>Dominio</div>
+                <div class="card-body small">
+                  <p>Un <strong>dominio</strong> é unha partición lóxica dentro do bosque que agrupa usuarios, equipos, grupos e outros obxectos, e que permite aplicar unha administración común.</p>
+                  <ul class="mb-0">
+                    <li>Ten un <strong>nome DNS</strong>; por exemplo, <code>cifpsauce.local</code> nun laboratorio.</li>
+                    <li>Ten un ou varios <strong>controladores de dominio</strong> que almacenan a base de datos de AD correspondente ao dominio.</li>
+                    <li>Permite organizar usuarios, equipos, grupos, permisos e políticas.</li>
+                    <li>Funciona como unha fronteira de administración e de aplicación de políticas dentro da estrutura de AD.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card border h-100 shadow-sm section-card">
+                <div class="card-header d-flex align-items-center gap-2"><i class="bi bi-server text-warning"></i>Controlador de dominio</div>
+                <div class="card-body small">
+                  <p>Un <strong>controlador de dominio</strong> é un servidor Windows con AD DS instalado que:</p>
+                  <ul class="mb-0">
+                    <li>Almacena a base de datos de Active Directory do dominio: usuarios, grupos, equipos, unidades organizativas, políticas, etc.</li>
+                    <li>Responde ás peticións de <strong>autenticación</strong> dos clientes do dominio.</li>
+                    <li>Participa na <strong>replicación</strong> con outros controladores de dominio, se existen.</li>
+                    <li>Habitualmente tamén ofrece o servizo <strong>DNS</strong> necesario para localizar os servizos de Active Directory.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-warning imso-nota mt-4 d-flex gap-2 align-items-start" role="note">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+            <span><strong>Importante:</strong> Neste material evitaremos falar de “controlador de dominio principal” para non confundir este escenario co modelo antigo de PDC/BDC. En Active Directory moderno pode haber varios controladores de dominio que replican información entre si. Neste bloque teremos un <strong>primeiro DC</strong> porque será o primeiro servidor que instalaremos, non porque sexa “principal” no sentido clásico.</span>
+          </div>
+        </section>
+
+        <!-- 4.1.3 OU, contas e grupos -->
+        <section id="sec-ou-contas-grupos" class="mb-5 section-anchor">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-person-vcard me-2 text-primary"></i>4.1.3. Unidades organizativas, contas e grupos
+          </h2>
+
+          <p>Dentro dun dominio, os obxectos organízanse para facilitar a administración, a delegación de tarefas e a aplicación de políticas.</p>
+
+          <section class="mb-4">
+            <h3 class="h5 fw-semibold mb-3"><i class="bi bi-folder2-open me-2 text-secondary"></i>4.1.3.1. Unidades organizativas (<em>Organizational Units</em>, OU)</h3>
+            <p>Unha <strong>unidade organizativa (OU)</strong> é un contedor lóxico que permite agrupar obxectos dentro dun dominio: usuarios, grupos, equipos, etc.</p>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-7">
+                <div class="card border shadow-sm section-card h-100">
+                  <div class="card-header"><i class="bi bi-check2-square me-2 text-primary"></i>As OU serven principalmente para:</div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush small">
+                      <li class="list-group-item"><strong>Organizar</strong> os obxectos do dominio de forma clara.</li>
+                      <li class="list-group-item"><strong>Delegar administración</strong>; por exemplo, permitir que unha persoa xestione só as contas da OU <code>Alumnado</code>.</li>
+                      <li class="list-group-item"><strong>Vincular GPO</strong> a unha parte concreta da estrutura do dominio, por exemplo a unha OU de alumnado ou a unha OU de equipos dunha aula.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="ou-tree h-100">
+                  <div class="fw-bold mb-2"><i class="bi bi-diagram-3 me-2 text-primary"></i>Exemplo de estrutura OU</div>
+                  <ul class="small">
+                    <li><code>OU=Alumnado</code>
+                      <ul>
+                        <li><code>OU=Curso1</code></li>
+                        <li><code>OU=Curso2</code></li>
+                      </ul>
+                    </li>
+                    <li><code>OU=Profesorado</code></li>
+                    <li><code>OU=Administracion</code></li>
+                    <li><code>OU=Equipos-Aulas</code></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-info imso-nota d-flex gap-2 align-items-start" role="note">
+              <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+              <span><strong>Matiz importante:</strong> As GPO non se vinculan directamente a grupos. As GPO vincúlanse normalmente a <strong>sitios</strong>, <strong>dominios</strong> ou <strong>OU</strong>. Os grupos poden empregarse para filtrar a aplicación dunha GPO, pero iso non é o mesmo que vincular a GPO ao grupo.</span>
+            </div>
+
+            <div class="alert alert-secondary blockquote-custom px-3 py-2" role="note">
+              <em><strong>Diferencia clave:</strong> Unha OU organiza obxectos e permite aplicar administración ou políticas. Un grupo serve sobre todo para xestionar permisos ou agrupar contas con algunha finalidade. Pertencer a unha OU non equivale a pertencer a un grupo.</em>
+            </div>
+          </section>
+
+          <section class="mb-4">
+            <h3 class="h5 fw-semibold mb-3"><i class="bi bi-person-gear me-2 text-secondary"></i>4.1.3.2. Contas de usuario e equipo</h3>
+            <p>Dentro dun dominio existen varios tipos de contas. Dous dos máis importantes son:</p>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <div class="card border h-100 shadow-sm section-card">
+                  <div class="card-header"><i class="bi bi-person text-primary me-2"></i>Contas de usuario</div>
+                  <div class="card-body small">
+                    <p>Representan persoas, como alumnado, profesorado ou persoal administrativo.</p>
+                    <p class="mb-0">Poden almacenar nome de inicio de sesión, contrasinal, pertenza a grupos, perfil, cartafoles persoais, etc.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card border h-100 shadow-sm section-card">
+                  <div class="card-header"><i class="bi bi-pc-display text-primary me-2"></i>Contas de equipo</div>
+                  <div class="card-body small">
+                    <p>Representan equipos que forman parte do dominio, como PC de aula, portátiles ou servidores.</p>
+                    <p class="mb-0">Poden almacenar nome do equipo, pertenza ao dominio, configuración de seguridade asociada, políticas aplicadas, etc.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-4">
+            <h3 class="h5 fw-semibold mb-3"><i class="bi bi-people-fill me-2 text-secondary"></i>4.1.3.3. Grupos</h3>
+            <p>Os <strong>grupos</strong> permiten asignar permisos a varios usuarios á vez, evitando ter que configurar permisos usuario por usuario. Poden organizarse por función, departamento, curso ou tipo de acceso.</p>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <div class="concept-card p-3 h-100">
+                  <div class="d-flex gap-3 align-items-start">
+                    <span class="concept-icon"><i class="bi bi-shield-lock"></i></span>
+                    <div>
+                      <h4 class="h6 fw-bold mb-1">Grupos de seguridade</h4>
+                      <p class="small mb-0">Úsanse para asignar permisos a recursos, como cartafoles, impresoras ou outros obxectos.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="concept-card warning p-3 h-100">
+                  <div class="d-flex gap-3 align-items-start">
+                    <span class="concept-icon"><i class="bi bi-envelope-at"></i></span>
+                    <div>
+                      <h4 class="h6 fw-bold mb-1">Grupos de distribución</h4>
+                      <p class="small mb-0">Úsanse para listas de correo electrónico; non se empregan para asignar permisos de seguridade.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p>Ademais, segundo o seu <strong>ámbito</strong>, os grupos de seguridade clasifícanse en tres categorías:</p>
+
+            <div class="table-responsive mb-4">
+              <table class="table table-striped table-hover align-middle">
+                <thead class="table-primary">
+                  <tr>
+                    <th>Tipo de grupo</th>
+                    <th>Que pode conter de forma habitual</th>
+                    <th>Uso habitual</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Global</strong></td>
+                    <td>Contas e outros grupos globais do mesmo dominio</td>
+                    <td>Agrupar usuarios con características comúns: alumnado, profesorado, persoal dun departamento, etc.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dominio local</strong></td>
+                    <td>Contas e grupos do mesmo dominio, doutros dominios do bosque ou de dominios de confianza</td>
+                    <td>Asignar permisos sobre recursos dun dominio concreto, como carpetas compartidas ou impresoras.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Universal</strong></td>
+                    <td>Contas e grupos de calquera dominio do bosque</td>
+                    <td>Útil en bosques con varios dominios. Normalmente é innecesario en redes simples cun único dominio.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>Nun contorno sinxelo cun único dominio, como o que empregaremos nas prácticas iniciais, traballaremos principalmente con <strong>grupos globais</strong> para agrupar usuarios:</p>
+            <ul>
+              <li><code>GG_Alumnado_Curso1</code></li>
+              <li><code>GG_Alumnado_Curso2</code></li>
+              <li><code>GG_Profesorado</code></li>
+            </ul>
+
+            <div class="card border shadow-sm section-card mb-3">
+              <div class="card-header"><i class="bi bi-arrow-right-square me-2 text-primary"></i>Modelo AGDLP</div>
+              <div class="card-body">
+                <p>Máis adiante, cando se traballen permisos sobre recursos compartidos, será útil seguir unha lóxica como esta:</p>
+                <p class="fw-bold text-center my-3">Contas de usuario → Grupos globais → Grupos de dominio local → Permisos sobre recursos</p>
+                <div class="row g-3">
+                  <div class="col-6 col-md-3">
+                    <div class="agdlp-step"><span class="agdlp-letter">A</span><strong class="d-block">Accounts</strong><small>Contas de usuario</small></div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="agdlp-step"><span class="agdlp-letter">G</span><strong class="d-block">Global groups</strong><small>Grupos globais</small></div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="agdlp-step"><span class="agdlp-letter">DL</span><strong class="d-block">Domain Local</strong><small>Grupos de dominio local</small></div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="agdlp-step"><span class="agdlp-letter">P</span><strong class="d-block">Permissions</strong><small>Permisos</small></div>
+                  </div>
+                </div>
+                <p class="small text-secondary mt-3 mb-0">Non é necesario dominar este modelo neste primeiro bloque, pero convén coñecer a idea: <strong>non se recomenda dar permisos directamente usuario por usuario</strong>, senón mediante grupos ben organizados.</p>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- 4.1.4 Sitios e replicación -->
+        <section id="sec-sitios-replicacion" class="mb-5 section-anchor">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-share me-2 text-primary"></i>4.1.4. Sitios e replicación
+          </h2>
+
+          <div class="alert alert-info imso-nota d-flex gap-2 align-items-start" role="note">
+            <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+            <span><strong>Nota didáctica:</strong> Esta sección presenta os conceptos de sitios e replicación de Active Directory como contexto xeral. O seu desenvolvemento detallado e a configuración práctica tratarase en bloques posteriores da UD2, cando se traballe con escenarios de múltiples controladores de dominio.</span>
+          </div>
+
+          <p>Nunha rede máis ampla pode haber <strong>sitios</strong> diferentes; por exemplo, varias sedes, edificios ou segmentos de rede conectados mediante enlaces con distinta velocidade ou custo.</p>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="card border shadow-sm section-card site-card h-100">
+                <div class="card-header"><i class="bi bi-geo-alt me-2 text-primary"></i>4.1.4.1. Sitios de Active Directory</div>
+                <div class="card-body small">
+                  <p>Un <strong>sitio</strong> de Active Directory representa unha parte da rede física formada por unha ou varias <strong>subredes IP ben conectadas</strong>.</p>
+                  <p>Un sitio adoita corresponderse cunha localización física ou cunha parte da rede onde:</p>
+                  <ul>
+                    <li>Os equipos teñen boa conectividade entre si.</li>
+                    <li>Pode haber un ou varios controladores de dominio.</li>
+                    <li>Interesa que os clientes usen preferentemente os DC máis próximos.</li>
+                  </ul>
+                  <p>Isto permítelle a Active Directory optimizar:</p>
+                  <ul class="mb-0">
+                    <li>A <strong>autenticación</strong>, para que os usuarios se conecten ao DC máis axeitado.</li>
+                    <li>A <strong>replicación</strong>, axustando a frecuencia e o custo dos enlaces entre sitios.</li>
+                    <li>O tráfico de rede xerado polos servizos de directorio.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card border shadow-sm section-card site-card h-100">
+                <div class="card-header"><i class="bi bi-arrow-repeat me-2 text-primary"></i>4.1.4.2. Replicación entre DC</div>
+                <div class="card-body small">
+                  <p>Se hai varios DC, a información de Active Directory <strong>replícase entre eles</strong> para manterse coherente: usuarios, grupos, cambios de contrasinal, modificacións de OU, etc.</p>
+                  <ul>
+                    <li>A replicación pode estar organizada por sitios: <strong>intra-sitio</strong> e <strong>inter-sitios</strong>.</li>
+                    <li>A replicación intra-sitio adoita producirse dentro dunha rede rápida e ben conectada.</li>
+                    <li>A replicación inter-sitios permite controlar mellor o tráfico entre sedes ou redes conectadas por enlaces máis lentos.</li>
+                    <li>Se un DC falla, outro DC pode seguir autenticando usuarios, sempre que a infraestrutura estea correctamente configurada.</li>
+                  </ul>
+                  <p class="mb-0">Na UD2, inicialmente traballaremos cun <strong>só DC</strong> (<code>dcbuho</code>) e un só sitio para simplificar.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-success imso-nota mt-3 d-flex gap-2 align-items-start" role="note">
+            <i class="bi bi-lightbulb-fill flex-shrink-0 mt-1"></i>
+            <span>Nun escenario típico de centro único, adoita comezarse cun <strong>só sitio</strong>. Os sitios fanse especialmente útiles cando hai varias sedes, subredes ou enlaces con distinta calidade.</span>
+          </div>
+        </section>
+
+        <!-- 4.1.5 Nomenclatura -->
+        <section id="sec-nomenclatura" class="mb-5 section-anchor">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-tags me-2 text-primary"></i>4.1.5. Nomenclatura e planificación básica dun dominio
+          </h2>
+
+          <p>Antes de instalar un dominio en Windows Server 2022, convén <strong>planificar ben</strong> os nomes e a estrutura básica.</p>
+          <p>Unha mala planificación inicial pode provocar problemas posteriores con DNS, autenticación, organización de obxectos, permisos ou mantemento.</p>
+
+          <section class="mb-4">
+            <h3 class="h5 fw-semibold mb-3"><i class="bi bi-globe2 me-2 text-secondary"></i>4.1.5.1. Nome do dominio e integración con DNS</h3>
+            <p>O nome dun dominio de Active Directory permite:</p>
+            <ul>
+              <li>Identificar a organización ou contorno dentro da rede.</li>
+              <li>Integrarse co <strong>sistema de nomes de dominio (DNS)</strong>.</li>
+              <li>Localizar servizos fundamentais de Active Directory, como controladores de dominio, Kerberos ou LDAP.</li>
+            </ul>
+
+            <div class="card border shadow-sm section-card mb-3">
+              <div class="card-header"><i class="bi bi-card-checklist me-2 text-primary"></i>Na UD2 usaremos</div>
+              <div class="card-body">
+                <dl class="row mb-0">
+                  <dt class="col-sm-4">Dominio</dt>
+                  <dd class="col-sm-8"><code>cifpsauce.local</code><br><span class="small text-secondary">Neste laboratorio empregarase <code>.local</code> como sufixo interno para simplificar as prácticas. Non é un dominio público de Internet.</span></dd>
+                  <dt class="col-sm-4">Primeiro controlador de dominio</dt>
+                  <dd class="col-sm-8"><code>dcbuho.cifpsauce.local</code></dd>
+                </dl>
+              </div>
+            </div>
+
+            <div class="alert alert-warning imso-nota d-flex gap-2 align-items-start" role="note">
+              <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+              <span><strong>Advertencia didáctica:</strong> En prácticas de aula usaremos <code>cifpsauce.local</code> por simplicidade. Nun contorno real non debería escollerse automaticamente <code>.local</code>. É recomendable planificar o nome DNS a partir dun dominio rexistrado pola organización, por exemplo <code>ad.exemplo.gal</code> ou <code>corp.exemplo.gal</code>, para evitar conflitos e problemas de resolución de nomes.</span>
+            </div>
+          </section>
+
+          <section class="mb-4">
+            <h3 class="h5 fw-semibold mb-3"><i class="bi bi-diagram-3 me-2 text-secondary"></i>4.1.5.2. Estrutura inicial de OU nun centro de formación</h3>
+            <div class="row g-3">
+              <div class="col-md-5">
+                <div class="ou-tree h-100">
+                  <ul class="small">
+                    <li><code>OU=Alumnado</code>
+                      <ul>
+                        <li><code>OU=Curso1</code></li>
+                        <li><code>OU=Curso2</code></li>
+                      </ul>
+                    </li>
+                    <li><code>OU=Profesorado</code></li>
+                    <li><code>OU=Administracion</code></li>
+                    <li><code>OU=Equipos-Aulas</code></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="card border shadow-sm section-card h-100">
+                  <div class="card-header">Esta estrutura permite:</div>
+                  <div class="card-body small">
+                    <ul class="mb-0">
+                      <li>Aplicar GPO diferentes a alumnado, profesorado, administración ou equipos de aula.</li>
+                      <li>Delegar administración; por exemplo, permitir que unha persoa xestione só unha OU concreta.</li>
+                      <li>Separar contas de usuario e contas de equipo para aplicar políticas máis claras.</li>
+                      <li>Manter a estrutura do dominio ordenada desde o comezo.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-success imso-nota mt-3 d-flex gap-2 align-items-start" role="note">
+              <i class="bi bi-lightbulb-fill flex-shrink-0 mt-1"></i>
+              <span><strong>Boa práctica:</strong> Non convén crear unha estrutura de OU demasiado complexa ao principio. É mellor comezar cunha organización sinxela, clara e coherente coa realidade do centro.</span>
+            </div>
+          </section>
+
+          <section class="mb-4">
+            <h3 class="h5 fw-semibold mb-3"><i class="bi bi-type me-2 text-secondary"></i>4.1.5.3. Exemplos de nomes de usuario e grupos</h3>
+            <p>Seguindo a mesma lóxica, podemos definir unha nomenclatura sinxela:</p>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <div class="card border shadow-sm section-card h-100">
+                  <div class="card-header"><i class="bi bi-person me-2 text-primary"></i>Usuarios</div>
+                  <div class="card-body small">
+                    <ul class="mb-0">
+                      <li>Usuario de exemplo de alumnado: <code>alu.curso1.001</code></li>
+                      <li>Usuario de exemplo de profesorado: <code>prof.curso1.001</code></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card border shadow-sm section-card h-100">
+                  <div class="card-header"><i class="bi bi-people me-2 text-primary"></i>Grupos globais de seguridade</div>
+                  <div class="card-body small">
+                    <ul class="mb-0">
+                      <li><code>GG_Alumnado_Curso1</code></li>
+                      <li><code>GG_Alumnado_Curso2</code></li>
+                      <li><code>GG_Profesorado</code></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p>A nomenclatura debería ser:</p>
+            <div class="row g-2 small">
+              <div class="col-6 col-md-3"><span class="badge text-bg-primary w-100 py-2">Clara</span></div>
+              <div class="col-6 col-md-3"><span class="badge text-bg-secondary w-100 py-2">Coherente</span></div>
+              <div class="col-6 col-md-3"><span class="badge text-bg-success w-100 py-2">Fácil de automatizar</span></div>
+              <div class="col-6 col-md-3"><span class="badge text-bg-info w-100 py-2">Fácil de entender</span></div>
+            </div>
+          </section>
+        </section>
+
+        <!-- 4.1.6 Vocabulario -->
+        <section id="sec-vocabulario" class="mb-5 section-anchor">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-translate me-2 text-primary"></i>4.1.6. Vocabulario básico galego – inglés
+          </h2>
+
+          <p>Ao traballar con Windows Server 2022 e coa documentación de Microsoft, é moi habitual ver a terminoloxía en inglés. Esta táboa recolle algúns termos clave:</p>
+
+          <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle vocab-table">
+              <thead class="table-primary">
+                <tr><th>Galego</th><th>Inglés</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Dominio</td><td>Domain</td></tr>
+                <tr><td>Bosque</td><td>Forest</td></tr>
+                <tr><td>Unidade organizativa</td><td>Organizational Unit (OU)</td></tr>
+                <tr><td>Controlador de dominio</td><td>Domain Controller (DC)</td></tr>
+                <tr><td>Servizo de directorio</td><td>Directory Service</td></tr>
+                <tr><td>Active Directory</td><td>Active Directory</td></tr>
+                <tr><td>Active Directory Domain Services</td><td>Active Directory Domain Services (AD DS)</td></tr>
+                <tr><td>Sitio</td><td>Site</td></tr>
+                <tr><td>Grupo de traballo</td><td>Workgroup</td></tr>
+                <tr><td>Grupo de seguridade</td><td>Security Group</td></tr>
+                <tr><td>Grupo de distribución</td><td>Distribution Group</td></tr>
+                <tr><td>Grupo global</td><td>Global Group</td></tr>
+                <tr><td>Grupo de dominio local</td><td>Domain Local Group</td></tr>
+                <tr><td>Grupo universal</td><td>Universal Group</td></tr>
+                <tr><td>Conta de usuario</td><td>User Account</td></tr>
+                <tr><td>Conta de equipo</td><td>Computer Account</td></tr>
+                <tr><td>Directiva de grupo</td><td>Group Policy</td></tr>
+                <tr><td>Obxecto de directiva de grupo</td><td>Group Policy Object (GPO)</td></tr>
+                <tr><td>Sistema de nomes de dominio</td><td>Domain Name System (DNS)</td></tr>
+                <tr><td>Servidor DNS</td><td>DNS Server</td></tr>
+                <tr><td>Autenticación</td><td>Authentication</td></tr>
+                <tr><td>Autorización</td><td>Authorization</td></tr>
+                <tr><td>Replicación</td><td>Replication</td></tr>
+                <tr><td>Subrede</td><td>Subnet</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 4.1.7 Exemplo práctico -->
+        <section id="sec-exemplo" class="mb-5 section-anchor">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-building-check me-2 text-primary"></i>4.1.7. Exemplo práctico: planificación dun dominio para o CIFP
+          </h2>
+
+          <p>Para pechar este bloque, imos ver un <strong>exemplo práctico de planificación</strong> dun dominio para un centro de formación tipo CIFP. Non imos instalar aínda nada; só se define a estrutura e os nomes que logo utilizaremos na parte práctica.</p>
+
+          <section class="mb-4">
+            <h3 class="h5 fw-semibold mb-3"><i class="bi bi-map me-2 text-secondary"></i>4.1.7.1. Escenario</h3>
+            <div class="row g-3">
+              <div class="col-md-3"><div class="map-node"><i class="bi bi-building text-primary"></i><strong>Centro</strong><small>CIFP de exemplo</small></div></div>
+              <div class="col-md-3"><div class="map-node"><i class="bi bi-globe2 text-primary"></i><strong>Dominio</strong><small><code>cifpsauce.local</code></small></div></div>
+              <div class="col-md-3"><div class="map-node"><i class="bi bi-server text-warning"></i><strong>Primeiro DC</strong><small><code>dcbuho.cifpsauce.local</code></small></div></div>
+              <div class="col-md-3"><div class="map-node"><i class="bi bi-router text-success"></i><strong>Rede</strong><small><code>192.168.50.0/24</code></small></div></div>
+            </div>
+          </section>
+
+          <section class="mb-4">
+            <h3 class="h5 fw-semibold mb-3"><i class="bi bi-ui-checks-grid me-2 text-secondary"></i>4.1.7.2. Decisións de planificación</h3>
+
+            <div class="d-flex flex-column gap-3">
+              <div class="card border shadow-sm section-card">
+                <div class="card-body d-flex gap-3">
+                  <span class="planning-badge">1</span>
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Nome do dominio</h4>
+                    <p class="mb-1">Escóllese <code>cifpsauce.local</code> porque identifica claramente o centro ficticio de laboratorio, úsase só a nivel interno e permite traballar nun escenario controlado e sinxelo para a aula.</p>
+                    <p class="small text-secondary mb-0">Nun contorno real habería que estudar mellor o espazo de nomes DNS.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card border shadow-sm section-card">
+                <div class="card-body d-flex gap-3">
+                  <span class="planning-badge">2</span>
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Primeiro controlador de dominio</h4>
+                    <ul class="small mb-0">
+                      <li>Nome de equipo: <code>dcbuho</code>.</li>
+                      <li>Nome completo (FQDN): <code>dcbuho.cifpsauce.local</code>.</li>
+                      <li>IP fixa de exemplo: <code>192.168.50.10</code>.</li>
+                      <li>Rol inicial: controlador de dominio e servidor DNS.</li>
+                      <li>Rol opcional: servidor DHCP interno, se a práctica o require.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card border shadow-sm section-card">
+                <div class="card-body d-flex gap-3">
+                  <span class="planning-badge">3</span>
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Estrutura inicial de OU</h4>
+                    <ul class="small mb-0">
+                      <li><code>OU=Alumnado</code>
+                        <ul>
+                          <li><code>OU=Curso1</code></li>
+                          <li><code>OU=Curso2</code></li>
+                        </ul>
+                      </li>
+                      <li><code>OU=Profesorado</code></li>
+                      <li><code>OU=Administracion</code></li>
+                      <li><code>OU=Equipos-Aulas</code></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card border shadow-sm section-card">
+                <div class="card-body d-flex gap-3">
+                  <span class="planning-badge">4</span>
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Exemplos de nomes de usuario e grupos</h4>
+                    <ul class="small mb-0">
+                      <li>Usuario de alumnado: <code>alu.curso1.001</code></li>
+                      <li>Usuario de profesorado: <code>prof.curso1.001</code></li>
+                      <li>Grupos globais de seguridade: <code>GG_Alumnado_Curso1</code>, <code>GG_Alumnado_Curso2</code>, <code>GG_Profesorado</code></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card border shadow-sm section-card">
+                <div class="card-body d-flex gap-3">
+                  <span class="planning-badge">5</span>
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Obxectivo da planificación</h4>
+                    <ul class="small mb-0">
+                      <li>Crear contas de alumnado e profesorado de forma estruturada.</li>
+                      <li>Crear contas de equipo para os PC das aulas.</li>
+                      <li>Aplicar GPO específicas a alumnado, profesorado ou equipos concretos.</li>
+                      <li>Delegar a administración dalgunhas OU.</li>
+                      <li>Configurar permisos de acceso a recursos compartidos usando grupos.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-4">
+            <h3 class="h5 fw-semibold mb-3"><i class="bi bi-table me-2 text-secondary"></i>4.1.7.3. Resumo do exemplo</h3>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover align-middle">
+                <thead class="table-primary"><tr><th>Elemento</th><th>Valor de exemplo</th></tr></thead>
+                <tbody>
+                  <tr><td>Nome do dominio</td><td><code>cifpsauce.local</code></td></tr>
+                  <tr><td>Primeiro DC</td><td><code>dcbuho.cifpsauce.local</code></td></tr>
+                  <tr><td>IP do DC</td><td><code>192.168.50.10</code></td></tr>
+                  <tr><td>Rede de laboratorio</td><td><code>192.168.50.0/24</code></td></tr>
+                  <tr><td>OU principais</td><td>Alumnado, Profesorado, Administracion, Equipos-Aulas</td></tr>
+                  <tr><td>OU de alumnado</td><td>Curso1, Curso2 dentro de <code>OU=Alumnado</code></td></tr>
+                  <tr><td>Usuario de alumnado</td><td><code>alu.curso1.001</code></td></tr>
+                  <tr><td>Usuario de profesorado</td><td><code>prof.curso1.001</code></td></tr>
+                  <tr><td>Grupos globais de exemplo</td><td><code>GG_Alumnado_Curso1</code>, <code>GG_Alumnado_Curso2</code>, <code>GG_Profesorado</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-secondary blockquote-custom px-3 py-2" role="note">
+              <em>Esta planificación será a base das <strong>prácticas posteriores</strong>: cando instalemos o dominio en Windows Server 2022 e comecemos a crear OU, usuarios, equipos, grupos e políticas, utilizaremos estes mesmos nomes e estrutura para manter a coherencia en toda a UD2.</em>
+            </div>
+          </section>
+        </section>
+
+        <!-- 4.1.8 Ideas clave -->
+        <section id="sec-ideas-clave" class="mb-5 section-anchor">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-journal-check me-2 text-primary"></i>4.1.8. Ideas clave do bloque
+          </h2>
+
+          <div class="card border shadow-sm section-card">
+            <div class="card-body">
+              <ul class="list-group list-group-flush key-list">
+                <li class="list-group-item small">Un <strong>grupo de traballo</strong> é sinxelo, pero difícil de administrar cando medra o número de equipos e usuarios.</li>
+                <li class="list-group-item small">Un <strong>dominio Active Directory</strong> permite centralizar usuarios, equipos, grupos, políticas e recursos.</li>
+                <li class="list-group-item small">Un <strong>bosque</strong> é o contedor lóxico máis amplo de AD.</li>
+                <li class="list-group-item small">Un <strong>dominio</strong> organiza obxectos e políticas dentro do bosque.</li>
+                <li class="list-group-item small">Un <strong>controlador de dominio</strong> almacena a base de datos de AD e autentica usuarios e equipos.</li>
+                <li class="list-group-item small">Unha <strong>OU</strong> serve para organizar obxectos, delegar administración e vincular GPO.</li>
+                <li class="list-group-item small">Un <strong>grupo</strong> serve principalmente para agrupar contas e asignar permisos.</li>
+                <li class="list-group-item small">As <strong>GPO</strong> vincúlanse normalmente a sitios, dominios ou OU, non directamente a grupos.</li>
+                <li class="list-group-item small">Os <strong>sitios</strong> representan subredes IP ben conectadas e axudan a optimizar autenticación e replicación.</li>
+                <li class="list-group-item small">A planificación inicial do nome DNS, das OU e dos grupos é fundamental para evitar problemas posteriores.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+     Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <img class="smpp-sauce" src="../../assets/imax/sauce_clean.svg" alt="">
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const icon = document.getElementById('theme-icon');
+    const isDark = html.getAttribute('data-bs-theme') === 'dark';
+    html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
+    icon.className = isDark ? 'bi bi-moon-stars' : 'bi bi-sun-fill';
+  }
+</script>
+</body>
+</html>

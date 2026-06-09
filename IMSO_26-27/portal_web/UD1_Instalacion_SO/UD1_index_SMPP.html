@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD1 Índice de materiais</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/smpp.css">
+</head>
+<body>
+
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <i class="bi bi-mortarboard-fill smpp-buho"></i>
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO · UD1</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice UD1</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#inicio">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ruta">Ruta recomendada</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#buscador">Localizar documentos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#fase-base">1. Punto de partida</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#fase-preparacion">2. Preparar instalación</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#fase-configuracion">3. Configuración básica</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#fase-proteccion">4. Protección información</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#fase-incidencias">5. Incidencias</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#fase-soporte">6. Comandos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#mapa">Mapa de carpetas</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="col-lg-9">
+      <article>
+
+        <header id="inicio" class="mb-4 section-anchor">
+          <div class="practice-hero hero-green">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-hdd-network"></i> UD1</span>
+              <span class="hero-chip"><i class="bi bi-map"></i> Índice de estudo</span>
+              <span class="hero-chip"><i class="bi bi-folder2-open"></i> 25 documentos</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">UD1 · Índice organizado de materiais</h1>
+            <p class="lead mb-0">Ruta de traballo para localizar os documentos da unidade e preparar os contidos nunha orde lóxica: comprender, instalar, configurar, protexer, diagnosticar e practicar comandos.</p>
+          </div>
+        </header>
+
+        <section id="ruta" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-signpost-2"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">Ruta recomendada para o alumnado</h2>
+                <p class="mb-0 small text-muted">A orde non segue só as carpetas: segue o fluxo de aprendizaxe da unidade.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="row g-3">
+                <div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-base"><div class="process-step"><div class="process-num mx-auto mb-2">1</div><h3 class="h6 fw-bold">Comprender</h3><p class="small mb-0">Sistema informático, sistema operativo, comparación e licenzas.</p></div></a></div>
+                <div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-preparacion"><div class="process-step"><div class="process-num mx-auto mb-2">2</div><h3 class="h6 fw-bold">Preparar</h3><p class="small mb-0">Firmware, particionado, instalación en VM e documentación.</p></div></a></div>
+                <div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-configuracion"><div class="process-step"><div class="process-num mx-auto mb-2">3</div><h3 class="h6 fw-bold">Configurar</h3><p class="small mb-0">Rede, permisos, recursos compartidos, cotas e práctica.</p></div></a></div>
+                <div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-proteccion"><div class="process-step"><div class="process-num mx-auto mb-2">4</div><h3 class="h6 fw-bold">Protexer</h3><p class="small mb-0">RAID, copias de seguridade, restauración e simulación.</p></div></a></div>
+                <div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-incidencias"><div class="process-step"><div class="process-num mx-auto mb-2">5</div><h3 class="h6 fw-bold">Diagnosticar</h3><p class="small mb-0">Incidencias, documentación técnica e explicación de evidencias.</p></div></a></div>
+                <div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-soporte"><div class="process-step"><div class="process-num mx-auto mb-2">6</div><h3 class="h6 fw-bold">Practicar comandos</h3><p class="small mb-0">Soporte transversal en Windows e Linux.</p></div></a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="buscador" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-search"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">Localizar documentos</h2>
+                <p class="mb-0 small text-muted">Busca por tema, tipo de documento, carpeta ou palabra do nome do ficheiro.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="row g-2 align-items-center">
+                <div class="col-md">
+                  <input id="doc-search" type="search" class="form-control form-control-lg" placeholder="Ex.: RAID, permisos, rede, VM, comandos, copias, incidencias...">
+                </div>
+                <div class="col-md-auto">
+                  <button id="clear-search" class="btn btn-outline-secondary btn-lg" type="button">
+                    <i class="bi bi-x-circle me-1"></i>Limpar
+                  </button>
+                </div>
+              </div>
+              <p id="search-counter" class="small text-muted mt-2 mb-0">25 documentos dispoñibles</p>
+            </div>
+          </div>
+        </section>
+
+
+        <section id="fase-base" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-compass"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">1. Comprender o punto de partida</h2>
+                <p class="mb-0 small text-muted">Antes de instalar hai que saber que é un sistema operativo e como se compara.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> situar a unidade: que é un sistema informático, que papel ten o sistema operativo e que criterios usamos para escoller unha plataforma.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Sistema informático e sistema operativo apuntes/UD1_apuntes_B1_sistema_informatico_SO.html 1º Marco conceptual básico: hardware, software, sistema operativo e funcións xerais. Apuntes">
+                <a class="text-decoration-none text-reset" href="apuntes/UD1_apuntes_B1_sistema_informatico_SO.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-cpu"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">1º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Sistema informático e sistema operativo</h3>
+                        <p class="small text-muted mb-2">Marco conceptual básico: hardware, software, sistema operativo e funcións xerais.</p>
+                        <code class="small">apuntes/UD1_apuntes_B1_sistema_informatico_SO.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Comparación de sistemas operativos e licenzas apuntes/UD1_apuntes_B2_comparacion_SO_licenzas.html 2º Diferenzas entre sistemas operativos, criterios de elección e tipos de licenzas. Apuntes">
+                <a class="text-decoration-none text-reset" href="apuntes/UD1_apuntes_B2_comparacion_SO_licenzas.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-diagram-3"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">2º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Comparación de sistemas operativos e licenzas</h3>
+                        <p class="small text-muted mb-2">Diferenzas entre sistemas operativos, criterios de elección e tipos de licenzas.</p>
+                        <code class="small">apuntes/UD1_apuntes_B2_comparacion_SO_licenzas.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+
+        <section id="fase-preparacion" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-tools"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">2. Preparar a instalación</h2>
+                <p class="mb-0 small text-muted">Firmware, particionado, máquina virtual e documentación inicial.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> entender que ocorre antes e durante a instalación: arranque, disco, particións, VM e evidencias que debe recoller o alumnado.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Firmware, arranque e particionado apuntes/UD1_apuntes_B3_firmware_particionado.html 3º Conceptos necesarios antes de instalar: BIOS/UEFI, arranque, discos e particións. Apuntes">
+                <a class="text-decoration-none text-reset" href="apuntes/UD1_apuntes_B3_firmware_particionado.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-hdd-stack"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">3º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Firmware, arranque e particionado</h3>
+                        <p class="small text-muted mb-2">Conceptos necesarios antes de instalar: BIOS/UEFI, arranque, discos e particións.</p>
+                        <code class="small">apuntes/UD1_apuntes_B3_firmware_particionado.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Instalación en máquina virtual e documentación apuntes/UD1_apuntes_B4_instalacion_VM_documentacion.html 4º Criterios para preparar unha instalación e documentar o proceso correctamente. Apuntes">
+                <a class="text-decoration-none text-reset" href="apuntes/UD1_apuntes_B4_instalacion_VM_documentacion.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-journal-check"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">4º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Instalación en máquina virtual e documentación</h3>
+                        <p class="small text-muted mb-2">Criterios para preparar unha instalación e documentar o proceso correctamente.</p>
+                        <code class="small">apuntes/UD1_apuntes_B4_instalacion_VM_documentacion.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Guión de prácticas de instalación en VM A1_Instalacion_VM/UD1_A1_guion_practicas_instalacion_VM.html 5º Primeira práctica longa: creación de VM, instalación do sistema e evidencias. Guión práctico">
+                <a class="text-decoration-none text-reset" href="A1_Instalacion_VM/UD1_A1_guion_practicas_instalacion_VM.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-pc-display-horizontal"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">5º</span>
+                          <span class="mini-badge">Guión práctico</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Guión de prácticas de instalación en VM</h3>
+                        <p class="small text-muted mb-2">Primeira práctica longa: creación de VM, instalación do sistema e evidencias.</p>
+                        <code class="small">A1_Instalacion_VM/UD1_A1_guion_practicas_instalacion_VM.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+
+        <section id="fase-configuracion" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-sliders"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">3. Configurar o sistema instalado</h2>
+                <p class="mb-0 small text-muted">Rede, permisos, comparticións, cotas e práctica integrada.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> pasar dunha instalación básica a un equipo funcional: rede, ficheiros, permisos, recursos compartidos e comprobacións.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Configuración de rede no cliente A2_Configuracion_basica/UD1_A2_apuntes_configuracion_rede_cliente.html 6º IP, DNS, conectividade e comprobacións básicas de rede nun equipo cliente. Apuntes">
+                <a class="text-decoration-none text-reset" href="A2_Configuracion_basica/UD1_A2_apuntes_configuracion_rede_cliente.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-router"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">6º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Configuración de rede no cliente</h3>
+                        <p class="small text-muted mb-2">IP, DNS, conectividade e comprobacións básicas de rede nun equipo cliente.</p>
+                        <code class="small">A2_Configuracion_basica/UD1_A2_apuntes_configuracion_rede_cliente.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Sistemas de ficheiros e permisos A2_Configuracion_basica/UD1_A2_apuntes_sistemas_ficheiros_permisos.html 7º Organización de ficheiros, permisos e control de acceso básico. Apuntes">
+                <a class="text-decoration-none text-reset" href="A2_Configuracion_basica/UD1_A2_apuntes_sistemas_ficheiros_permisos.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-folder-lock"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">7º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Sistemas de ficheiros e permisos</h3>
+                        <p class="small text-muted mb-2">Organización de ficheiros, permisos e control de acceso básico.</p>
+                        <code class="small">A2_Configuracion_basica/UD1_A2_apuntes_sistemas_ficheiros_permisos.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Compartición de recursos e cotas A2_Configuracion_basica/UD1_A2_apuntes_comparticion_recursos_cotas.html 8º Recursos compartidos, acceso desde a rede e limitacións mediante cotas. Apuntes">
+                <a class="text-decoration-none text-reset" href="A2_Configuracion_basica/UD1_A2_apuntes_comparticion_recursos_cotas.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-share"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">8º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Compartición de recursos e cotas</h3>
+                        <p class="small text-muted mb-2">Recursos compartidos, acceso desde a rede e limitacións mediante cotas.</p>
+                        <code class="small">A2_Configuracion_basica/UD1_A2_apuntes_comparticion_recursos_cotas.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Guión de prácticas de configuración básica A2_Configuracion_basica/UD1_A2_guion_practicas_configuracion_basica.html 9º Práctica guiada para aplicar rede, permisos, compartición e configuración do sistema. Guión práctico">
+                <a class="text-decoration-none text-reset" href="A2_Configuracion_basica/UD1_A2_guion_practicas_configuracion_basica.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-terminal"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">9º</span>
+                          <span class="mini-badge">Guión práctico</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Guión de prácticas de configuración básica</h3>
+                        <p class="small text-muted mb-2">Práctica guiada para aplicar rede, permisos, compartición e configuración do sistema.</p>
+                        <code class="small">A2_Configuracion_basica/UD1_A2_guion_practicas_configuracion_basica.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Actividade de configuración básica A2_Configuracion_basica/UD1_A2_actividade_configuracion_basica.html 10º Actividade de aplicación para comprobar que se domina a configuración inicial. Actividade">
+                <a class="text-decoration-none text-reset" href="A2_Configuracion_basica/UD1_A2_actividade_configuracion_basica.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-clipboard-check"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">10º</span>
+                          <span class="mini-badge">Actividade</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Actividade de configuración básica</h3>
+                        <p class="small text-muted mb-2">Actividade de aplicación para comprobar que se domina a configuración inicial.</p>
+                        <code class="small">A2_Configuracion_basica/UD1_A2_actividade_configuracion_basica.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Exercicios de razoamento A2_Configuracion_basica/UD1_A2_exercicios_razoamento.html 11º Preguntas para consolidar conceptos e preparar a explicación técnica. Exercicios">
+                <a class="text-decoration-none text-reset" href="A2_Configuracion_basica/UD1_A2_exercicios_razoamento.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-question-circle"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">11º</span>
+                          <span class="mini-badge">Exercicios</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Exercicios de razoamento</h3>
+                        <p class="small text-muted mb-2">Preguntas para consolidar conceptos e preparar a explicación técnica.</p>
+                        <code class="small">A2_Configuracion_basica/UD1_A2_exercicios_razoamento.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+
+        <section id="fase-proteccion" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-shield-lock"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">4. Protexer a información</h2>
+                <p class="mb-0 small text-muted">RAID, copias, restauración e prácticas de simulación.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> diferenciar redundancia, copia de seguridade e recuperación; aplicar estas ideas nun laboratorio controlado.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="RAID e redundancia A3_Proteccion_informacion/UD1_A3_apuntes_RAID_redundancia.html 12º Tipos de RAID, tolerancia a fallos, rendemento e limitacións. Apuntes">
+                <a class="text-decoration-none text-reset" href="A3_Proteccion_informacion/UD1_A3_apuntes_RAID_redundancia.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-hdd-rack"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">12º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">RAID e redundancia</h3>
+                        <p class="small text-muted mb-2">Tipos de RAID, tolerancia a fallos, rendemento e limitacións.</p>
+                        <code class="small">A3_Proteccion_informacion/UD1_A3_apuntes_RAID_redundancia.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Copias de seguridade A3_Proteccion_informacion/UD1_A3_apuntes_copias_seguridade.html 13º Estratexias de backup, restauración e protección fronte a perda de datos. Apuntes">
+                <a class="text-decoration-none text-reset" href="A3_Proteccion_informacion/UD1_A3_apuntes_copias_seguridade.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-shield-check"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">13º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Copias de seguridade</h3>
+                        <p class="small text-muted mb-2">Estratexias de backup, restauración e protección fronte a perda de datos.</p>
+                        <code class="small">A3_Proteccion_informacion/UD1_A3_apuntes_copias_seguridade.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Guión de prácticas de protección A3_Proteccion_informacion/UD1_A3_guion_practicas_proteccion.html 14º Práctica xeral sobre protección da información e comprobación de evidencias. Guión práctico">
+                <a class="text-decoration-none text-reset" href="A3_Proteccion_informacion/UD1_A3_guion_practicas_proteccion.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-safe2"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">14º</span>
+                          <span class="mini-badge">Guión práctico</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Guión de prácticas de protección</h3>
+                        <p class="small text-muted mb-2">Práctica xeral sobre protección da información e comprobación de evidencias.</p>
+                        <code class="small">A3_Proteccion_informacion/UD1_A3_guion_practicas_proteccion.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Guión de simulación RAID A3_Proteccion_informacion/UD1_A3_guion_practicas_RAID_simulacion.html 15º Práctica específica para simular RAID e analizar comportamento ante fallos. Guión práctico">
+                <a class="text-decoration-none text-reset" href="A3_Proteccion_informacion/UD1_A3_guion_practicas_RAID_simulacion.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-hdd-network"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">15º</span>
+                          <span class="mini-badge">Guión práctico</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Guión de simulación RAID</h3>
+                        <p class="small text-muted mb-2">Práctica específica para simular RAID e analizar comportamento ante fallos.</p>
+                        <code class="small">A3_Proteccion_informacion/UD1_A3_guion_practicas_RAID_simulacion.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Actividade RAID e copias A3_Proteccion_informacion/UD1_A3_actividade_proteccion_RAID_copias.html 16º Actividade de aplicación sobre protección, RAID e copias de seguridade. Actividade">
+                <a class="text-decoration-none text-reset" href="A3_Proteccion_informacion/UD1_A3_actividade_proteccion_RAID_copias.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-clipboard2-data"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">16º</span>
+                          <span class="mini-badge">Actividade</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Actividade RAID e copias</h3>
+                        <p class="small text-muted mb-2">Actividade de aplicación sobre protección, RAID e copias de seguridade.</p>
+                        <code class="small">A3_Proteccion_informacion/UD1_A3_actividade_proteccion_RAID_copias.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Exercicios de razoamento A3_Proteccion_informacion/UD1_A3_exercicios_razoamento.html 17º Cuestións para distinguir RAID, backup, redundancia, restauración e riscos. Exercicios">
+                <a class="text-decoration-none text-reset" href="A3_Proteccion_informacion/UD1_A3_exercicios_razoamento.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-question-circle"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">17º</span>
+                          <span class="mini-badge">Exercicios</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Exercicios de razoamento</h3>
+                        <p class="small text-muted mb-2">Cuestións para distinguir RAID, backup, redundancia, restauración e riscos.</p>
+                        <code class="small">A3_Proteccion_informacion/UD1_A3_exercicios_razoamento.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+
+        <section id="fase-incidencias" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-activity"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">5. Pechar a unidade con diagnóstico e documentación</h2>
+                <p class="mb-0 small text-muted">Incidencias, explicación técnica e evidencias.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> aprender a non limitarse a facer capturas: hai que explicar síntomas, causas, probas realizadas e solución aplicada.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Incidencias e documentación apuntes/UD1_apuntes_B5_incidencias_documentacion.html 18º Peche da unidade: como documentar, xustificar e diagnosticar incidencias. Apuntes">
+                <a class="text-decoration-none text-reset" href="apuntes/UD1_apuntes_B5_incidencias_documentacion.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-bug"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">18º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Incidencias e documentación</h3>
+                        <p class="small text-muted mb-2">Peche da unidade: como documentar, xustificar e diagnosticar incidencias.</p>
+                        <code class="small">apuntes/UD1_apuntes_B5_incidencias_documentacion.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+              
+            <div class="notice info mt-3 mb-0 d-flex gap-2 align-items-start">
+              <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+              <div>Este bloque debería ir ao final da unidade, porque require coñecer instalación, configuración e protección da información.</div>
+            </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="fase-soporte" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-terminal"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">6. Usar comandos como apoio transversal</h2>
+                <p class="mb-0 small text-muted">Material de consulta para Windows e Linux.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> ter unha referencia rápida para executar comprobacións, practicar comandos e resolver tarefas sen depender só da interface gráfica.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Comandos Windows e Linux SB_comandos/UD1_SB_apuntes_comandos_Windows_Linux.html Soporte Chuleta/base de consulta para comandos básicos dos dous sistemas. Apuntes">
+                <a class="text-decoration-none text-reset" href="SB_comandos/UD1_SB_apuntes_comandos_Windows_Linux.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-terminal-fill"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">Soporte</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Comandos Windows e Linux</h3>
+                        <p class="small text-muted mb-2">Chuleta/base de consulta para comandos básicos dos dous sistemas.</p>
+                        <code class="small">SB_comandos/UD1_SB_apuntes_comandos_Windows_Linux.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Exercicios de comandos Linux SB_comandos/UD1_SB_exercicios_comandos_Linux.html Soporte Práctica específica de comandos GNU/Linux. Exercicios">
+                <a class="text-decoration-none text-reset" href="SB_comandos/UD1_SB_exercicios_comandos_Linux.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-ubuntu"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">Soporte</span>
+                          <span class="mini-badge">Exercicios</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Exercicios de comandos Linux</h3>
+                        <p class="small text-muted mb-2">Práctica específica de comandos GNU/Linux.</p>
+                        <code class="small">SB_comandos/UD1_SB_exercicios_comandos_Linux.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="Exercicios de comandos Windows SB_comandos/UD1_SB_exercicios_comandos_Windows.html Soporte Práctica específica de comandos Windows/CMD/PowerShell segundo corresponda. Exercicios">
+                <a class="text-decoration-none text-reset" href="SB_comandos/UD1_SB_exercicios_comandos_Windows.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-windows"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">Soporte</span>
+                          <span class="mini-badge">Exercicios</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Exercicios de comandos Windows</h3>
+                        <p class="small text-muted mb-2">Práctica específica de comandos Windows/CMD/PowerShell segundo corresponda.</p>
+                        <code class="small">SB_comandos/UD1_SB_exercicios_comandos_Windows.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+
+        <section id="mapa" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-folder-symlink"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">Mapa de carpetas usado polo índice</h2>
+                <p class="mb-0 small text-muted">Estrutura</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <pre class="tree-block"><code>.
+├── A1_Instalacion_VM/
+├── A2_Configuracion_basica/
+├── A3_Proteccion_informacion/
+├── apuntes/
+├── SB_comandos/
+└── UD1_index_SMPP.html</code></pre>
+              <div class="notice warning mt-3 mb-0 d-flex gap-2 align-items-start">
+                <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+                <div>Ánimo e a seguir aprendendo! O coñecemento constrúese día a día, 
+			e cada actividade que fas achegate un pouco máis aos teus obxectivos.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Implantación de sistemas operativos · UD1<br>
+    Índice de materiais de estudo
+  </div>
+  <i class="bi bi-tree-fill smpp-sauce"></i>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/smpp.js"></script>
+<script src="../assets/js/ud1-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Práctica 1 – Escritorio remoto en Windows (RDP)</title>
+  <style>
+    :root {
+      --bg: #eef4ff;
+      --paper: #ffffff;
+      --paper-soft: #f8fbff;
+      --ink: #102033;
+      --muted: #5a6b7f;
+      --brand: #1557b0;
+      --brand-dark: #0d3770;
+      --brand-soft: #dbeafe;
+      --accent: #00a3a3;
+      --accent-soft: #d9fbfb;
+      --warning: #b45309;
+      --warning-soft: #fff4d6;
+      --danger: #b42318;
+      --danger-soft: #ffe4e1;
+      --ok: #207a3b;
+      --ok-soft: #e2f7e8;
+      --border: #d9e3f2;
+      --shadow: 0 18px 45px rgba(15, 35, 70, .12);
+      --radius: 22px;
+      --mono: Consolas, Monaco, "Courier New", monospace;
+      --sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(21, 87, 176, .16), transparent 30rem),
+        radial-gradient(circle at top right, rgba(0, 163, 163, .15), transparent 28rem),
+        linear-gradient(180deg, #f7fbff 0%, var(--bg) 100%);
+      line-height: 1.65;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 310px) minmax(0, 1fr);
+      gap: 1.25rem;
+      width: min(1480px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 1rem 0 4rem;
+    }
+
+    header.hero {
+      grid-column: 1 / -1;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(13, 55, 112, .98), rgba(21, 87, 176, .94)),
+        linear-gradient(45deg, rgba(0, 163, 163, .3), transparent);
+      color: white;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: clamp(1.4rem, 4vw, 3rem);
+      min-height: 250px;
+    }
+
+    header.hero::after {
+      content: "";
+      position: absolute;
+      right: -7rem;
+      top: -7rem;
+      width: 26rem;
+      height: 26rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(250px, .8fr);
+      gap: 1.5rem;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: .5rem;
+      align-items: center;
+      padding: .35rem .7rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      color: #e6f4ff;
+      font-weight: 700;
+      letter-spacing: .02em;
+      font-size: .9rem;
+    }
+
+    .hero h1 {
+      margin: .9rem 0 .65rem;
+      font-size: clamp(2rem, 4.4vw, 4.2rem);
+      line-height: 1.04;
+      letter-spacing: -.045em;
+    }
+
+    .hero p {
+      max-width: 70ch;
+      margin: 0;
+      color: rgba(255,255,255,.88);
+      font-size: 1.06rem;
+    }
+
+    .hero-metrics {
+      display: grid;
+      gap: .75rem;
+    }
+
+    .metric {
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 18px;
+      padding: .9rem 1rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.05rem;
+      color: white;
+    }
+
+    .metric span {
+      display: block;
+      color: rgba(255,255,255,.78);
+      font-size: .92rem;
+    }
+
+    aside.toc {
+      position: sticky;
+      top: 1rem;
+      align-self: start;
+      max-height: calc(100vh - 2rem);
+      overflow: auto;
+      background: rgba(255,255,255,.88);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 30px rgba(15,35,70,.08);
+      padding: 1rem;
+    }
+
+    aside.toc h2 {
+      margin: 0 0 .85rem;
+      font-size: .95rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--brand-dark);
+    }
+
+    aside.toc nav {
+      display: grid;
+      gap: .25rem;
+    }
+
+    aside.toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      border-radius: 12px;
+      padding: .48rem .6rem;
+      font-size: .92rem;
+      line-height: 1.25;
+      border: 1px solid transparent;
+    }
+
+    aside.toc a:hover {
+      color: var(--brand-dark);
+      background: var(--brand-soft);
+      border-color: #b9d4ff;
+    }
+
+    .toc-level-3 {
+      padding-left: 1.25rem !important;
+      font-size: .86rem !important;
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .hero-content,
+    .content-card {
+      background: rgba(255,255,255,.94);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 35px rgba(15,35,70,.08);
+      padding: clamp(1rem, 2.4vw, 2rem);
+      margin-bottom: 1rem;
+    }
+
+    .hero-content:empty {
+      display: none;
+    }
+
+    .content-card h2 {
+      margin-top: 0;
+      padding-bottom: .6rem;
+      border-bottom: 2px solid var(--brand-soft);
+      color: var(--brand-dark);
+      font-size: clamp(1.35rem, 2.3vw, 2rem);
+    }
+
+    h1, h2, h3, h4 {
+      line-height: 1.22;
+      letter-spacing: -.02em;
+    }
+
+    h3 {
+      margin-top: 1.8rem;
+      color: var(--brand);
+      font-size: 1.28rem;
+    }
+
+    h4 {
+      color: var(--brand-dark);
+      margin-top: 1.25rem;
+    }
+
+    p {
+      margin: .75rem 0;
+    }
+
+    a {
+      color: var(--brand);
+    }
+
+    strong {
+      color: #0f2746;
+    }
+
+    ul, ol {
+      padding-left: 1.35rem;
+    }
+
+    li {
+      margin: .32rem 0;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--border);
+      margin: 1.4rem 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      margin: 1rem 0 1.25rem;
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+      font-size: .95rem;
+    }
+
+    th {
+      background: linear-gradient(180deg, #eaf2ff, #dceaff);
+      color: var(--brand-dark);
+      text-align: left;
+      font-weight: 800;
+      padding: .75rem .9rem;
+      border-bottom: 1px solid #c7d8ef;
+      vertical-align: top;
+    }
+
+    td {
+      padding: .72rem .9rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td {
+      background: #fbfdff;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      font-family: var(--mono);
+      background: #eef4ff;
+      border: 1px solid #d5e4fb;
+      color: #0d3770;
+      padding: .12rem .32rem;
+      border-radius: 7px;
+      font-size: .92em;
+    }
+
+    pre {
+      position: relative;
+      overflow: auto;
+      background: #0d1b2a;
+      color: #eaf3ff;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 3rem 1rem 1rem;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+      margin: 1rem 0;
+    }
+
+    pre::before {
+      content: attr(data-lang);
+      position: absolute;
+      left: 1rem;
+      top: .75rem;
+      color: #b7d6ff;
+      font-size: .75rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    pre code {
+      display: block;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      padding: 0;
+      font-size: .93rem;
+      line-height: 1.55;
+      white-space: pre;
+    }
+
+    .copy-btn {
+      position: absolute;
+      right: .75rem;
+      top: .6rem;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.10);
+      color: white;
+      border-radius: 999px;
+      padding: .28rem .62rem;
+      font-size: .78rem;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255,255,255,.20);
+    }
+
+    blockquote.callout {
+      position: relative;
+      margin: 1.2rem 0;
+      padding: 1rem 1.1rem 1rem 1.25rem;
+      border-left: 6px solid var(--accent);
+      background: linear-gradient(90deg, var(--accent-soft), #ffffff);
+      border-radius: 0 16px 16px 0;
+      color: #143447;
+    }
+
+    blockquote.callout p {
+      margin: .25rem 0;
+    }
+
+    .content-card:has(blockquote.callout strong) blockquote.callout {
+      border-left-color: var(--warning);
+      background: linear-gradient(90deg, var(--warning-soft), #ffffff);
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin: 1rem 0 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      border-radius: 999px;
+      padding: .42rem .72rem;
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+      font-weight: 700;
+      font-size: .87rem;
+      border: 1px solid #bdd7ff;
+    }
+
+    .progress-strip {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: .5rem;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .progress-strip a {
+      text-decoration: none;
+      color: var(--brand-dark);
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: .7rem;
+      font-weight: 800;
+      text-align: center;
+      box-shadow: 0 8px 18px rgba(15,35,70,.05);
+    }
+
+    .progress-strip a:hover {
+      background: var(--brand-soft);
+      border-color: #bdd7ff;
+    }
+
+    .footer-note {
+      margin-top: 1.2rem;
+      padding: 1rem;
+      background: #102033;
+      color: #dceaff;
+      border-radius: 18px;
+      font-size: .95rem;
+    }
+
+    @media (max-width: 1050px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      aside.toc {
+        position: static;
+        max-height: none;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .layout {
+        width: min(100% - 18px, 1480px);
+        padding-top: .5rem;
+      }
+      header.hero {
+        border-radius: 20px;
+      }
+      .progress-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      table {
+        min-width: 560px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .layout {
+        display: block;
+        width: 100%;
+        padding: 0;
+      }
+      aside.toc,
+      .copy-btn,
+      .progress-strip {
+        display: none !important;
+      }
+      header.hero,
+      .content-card,
+      .hero-content {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        break-inside: avoid;
+      }
+      header.hero {
+        color: black;
+        background: white;
+      }
+      .metric {
+        border: 1px solid #ddd;
+        color: black;
+      }
+      .metric span,
+      .hero p {
+        color: #333;
+      }
+      pre {
+        white-space: pre-wrap;
+        color: black;
+        background: #f4f4f4;
+        border: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">UD4 · IMSO · Práctica guiada</span>
+          <h1>Escritorio remoto en Windows (RDP)</h1>
+          <p>Guía paso a paso para configurar un servidor RDP en Windows, conectarse desde un cliente, comprobar seguridade básica, diagnosticar incidencias e documentar evidencias.</p>
+          <div class="badges">
+            <span class="badge">60–90 min</span>
+            <span class="badge">Parellas</span>
+            <span class="badge">Windows RDP</span>
+            <span class="badge">Laboratorio LAN</span>
+          </div>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric"><strong>Servidor</strong><span>Windows Pro, Enterprise, Education ou Server</span></div>
+          <div class="metric"><strong>Cliente</strong><span>Windows con mstsc</span></div>
+          <div class="metric"><strong>Comprobación clave</strong><span>Test-NetConnection ao porto 3389</span></div>
+        </div>
+      </div>
+    </header>
+
+    <aside class="toc">
+      <h2>Índice</h2>
+      <nav>
+        <a class="toc-level-2" href="#1-obxectivo-da-práctica">1. Obxectivo da práctica</a>
+<a class="toc-level-2" href="#2-materiais-e-requisitos">2. Materiais e requisitos</a>
+<a class="toc-level-3" href="#21-equipos-necesarios">2.1. Equipos necesarios</a>
+<a class="toc-level-3" href="#22-esquema-da-práctica">2.2. Esquema da práctica</a>
+<a class="toc-level-2" href="#3-antes-de-empezar-conceptos-mínimos">3. Antes de empezar: conceptos mínimos</a>
+<a class="toc-level-3" href="#31-que-é-rdp">3.1. Que é RDP?</a>
+<a class="toc-level-3" href="#32-porto-usado-por-rdp">3.2. Porto usado por RDP</a>
+<a class="toc-level-3" href="#33-que-é-nla">3.3. Que é NLA?</a>
+<a class="toc-level-2" href="#4-parte-1-preparación-do-entorno">4. Parte 1 – Preparación do entorno</a>
+<a class="toc-level-3" href="#41-identificar-servidor-e-cliente">4.1. Identificar servidor e cliente</a>
+<a class="toc-level-3" href="#42-comprobar-a-edición-de-windows-do-servidor">4.2. Comprobar a edición de Windows do servidor</a>
+<a class="toc-level-3" href="#43-comprobar-ips">4.3. Comprobar IPs</a>
+<a class="toc-level-3" href="#44-comprobar-conectividade-con-ping">4.4. Comprobar conectividade con ping</a>
+<a class="toc-level-3" href="#45-crear-o-usuario-remoto1">4.5. Crear o usuario remoto1</a>
+<a class="toc-level-2" href="#5-parte-2-activar-escritorio-remoto-no-servidor">5. Parte 2 – Activar Escritorio remoto no servidor</a>
+<a class="toc-level-3" href="#51-abrir-a-configuración-de-escritorio-remoto">5.1. Abrir a configuración de Escritorio remoto</a>
+<a class="toc-level-3" href="#52-autorizar-o-usuario-remoto1">5.2. Autorizar o usuario remoto1</a>
+<a class="toc-level-3" href="#53-revisar-o-firewall">5.3. Revisar o firewall</a>
+<a class="toc-level-3" href="#54-comprobar-o-porto-3389-desde-o-cliente">5.4. Comprobar o porto 3389 desde o cliente</a>
+<a class="toc-level-2" href="#6-parte-3-primeira-conexión-desde-o-cliente">6. Parte 3 – Primeira conexión desde o cliente</a>
+<a class="toc-level-3" href="#61-abrir-o-cliente-rdp">6.1. Abrir o cliente RDP</a>
+<a class="toc-level-3" href="#62-introducir-o-servidor">6.2. Introducir o servidor</a>
+<a class="toc-level-3" href="#63-introducir-credenciais">6.3. Introducir credenciais</a>
+<a class="toc-level-3" href="#64-aviso-de-certificado-ou-identidade">6.4. Aviso de certificado ou identidade</a>
+<a class="toc-level-3" href="#65-proba-funcional-dentro-da-sesión-remota">6.5. Proba funcional dentro da sesión remota</a>
+<a class="toc-level-2" href="#7-parte-4-reflexión-sobre-seguridade">7. Parte 4 – Reflexión sobre seguridade</a>
+<a class="toc-level-3" href="#71-pechar-correctamente-a-sesión">7.1. Pechar correctamente a sesión</a>
+<a class="toc-level-3" href="#72-cambiar-o-contrasinal">7.2. Cambiar o contrasinal</a>
+<a class="toc-level-3" href="#73-preguntas-de-reflexión">7.3. Preguntas de reflexión</a>
+<a class="toc-level-2" href="#8-parte-5-diagnóstico-guiado-de-problemas-frecuentes">8. Parte 5 – Diagnóstico guiado de problemas frecuentes</a>
+<a class="toc-level-2" href="#9-parte-6-documentación-da-práctica">9. Parte 6 – Documentación da práctica</a>
+<a class="toc-level-2" href="#10-modelo-de-parte-de-incidencia">10. Modelo de parte de incidencia</a>
+<a class="toc-level-2" href="#11-resumo-de-evidencias-a-entregar">11. Resumo de evidencias a entregar</a>
+<a class="toc-level-2" href="#12-rúbrica-orientativa-de-avaliación">12. Rúbrica orientativa de avaliación</a>
+<a class="toc-level-2" href="#13-preguntas-finais-de-comprobación">13. Preguntas finais de comprobación</a>
+<a class="toc-level-2" href="#14-control-de-conservación-e-melloras-aplicadas">14. Control de conservación e melloras aplicadas</a>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="progress-strip">
+        <a href="#4-parte-1-preparación-do-entorno">Parte 1</a>
+        <a href="#5-parte-2-activar-escritorio-remoto-no-servidor">Parte 2</a>
+        <a href="#6-parte-3-primeira-conexión-desde-o-cliente">Parte 3</a>
+        <a href="#7-parte-4-reflexión-sobre-seguridade">Parte 4</a>
+        <a href="#8-parte-5-diagnóstico-guiado-de-problemas-frecuentes">Diagnóstico</a>
+        <a href="#12-rúbrica-orientativa-de-avaliación">Rúbrica</a>
+      </div>
+
+      <section class="hero-content"><h1 id="práctica-1-escritorio-remoto-en-windows-rdp">Práctica 1 – Escritorio remoto en Windows (RDP)</h1>
+<p><strong>Módulo:</strong> Implantación de Sistemas Operativos (IMSO) · 1.º ASIR</p>
+<p><strong>Unidade didáctica 4:</strong> Implantación de software específico en arquitectura cliente-servidor</p>
+<hr>
+<div class="table-wrap"><table><thead><tr>
+<th></th>
+<th></th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Duración estimada</strong></td>
+<td>60–90 minutos</td>
+</tr>
+<tr>
+<td><strong>Agrupamento</strong></td>
+<td>Parellas: un equipo fai de servidor e outro de cliente</td>
+</tr>
+<tr>
+<td><strong>Entorno</strong></td>
+<td>Dúas VMs ou dous equipos físicos na mesma LAN</td>
+</tr>
+<tr>
+<td><strong>Nivel</strong></td>
+<td>Práctica guiada</td>
+</tr>
+<tr>
+<td><strong>Tecnoloxía</strong></td>
+<td>RDP — Remote Desktop Protocol</td>
+</tr>
+</tbody></table></div>
+<hr>
+</section>
+<section class="content-card"><h2 id="1-obxectivo-da-práctica">1. Obxectivo da práctica</h2>
+<p>Configurar un equipo Windows nunha rede de laboratorio para aceptar conexións de escritorio remoto mediante <strong>RDP</strong> desde outro equipo cliente, aplicando medidas básicas de seguridade e documentando o proceso.</p>
+<p>Ao rematar a práctica deberías ser capaz de:</p>
+<ul>
+<li>diferenciar o equipo <strong>cliente RDP</strong> e o equipo <strong>servidor RDP</strong>;</li>
+<li>comprobar a conectividade básica entre dous equipos;</li>
+<li>activar Escritorio remoto nun Windows compatible;</li>
+<li>autorizar un usuario concreto para conectarse por RDP;</li>
+<li>comprobar o firewall e o porto 3389;</li>
+<li>conectarte desde outro equipo usando <code>mstsc</code>;</li>
+<li>documentar evidencias e incidencias;</li>
+<li>explicar por que RDP non debe expoñerse directamente a Internet.</li>
+</ul>
+<hr>
+</section>
+<section class="content-card"><h2 id="2-materiais-e-requisitos">2. Materiais e requisitos</h2>
+<h3 id="21-equipos-necesarios">2.1. Equipos necesarios</h3>
+<ul>
+<li><strong>Servidor RDP:</strong></li>
+</ul>
+<p>VM ou equipo físico con Windows 10/11 <strong>Pro, Enterprise ou Education</strong>, ou Windows Server.</p>
+<ul>
+<li><strong>Cliente RDP:</strong></li>
+</ul>
+<p>VM ou equipo físico con Windows 10/11. Para actuar como cliente serve tamén Windows Home.</p>
+<ul>
+<li>Ambos equipos deben estar na <strong>mesma LAN</strong> ou nunha rede virtual equivalente.</li>
+</ul>
+<ul>
+<li>Necesitas unha conta con privilexios de administración no equipo servidor.</li>
+</ul>
+<blockquote class="callout">
+<p>⚠️ <strong>Recorda:</strong> as edicións <strong>Home</strong> de Windows 10/11 non permiten recibir conexións RDP de forma nativa. Poden actuar como cliente, pero non como servidor RDP.</p>
+</blockquote>
+<hr>
+<h3 id="22-esquema-da-práctica">2.2. Esquema da práctica</h3>
+<pre><code class=" language-text">Equipo cliente
+Windows con cliente RDP
+mstsc.exe
+        │
+        │ Rede LAN / rede virtual
+        │ Porto 3389
+        ▼
+Equipo servidor
+Windows Pro / Enterprise / Education / Server
+Escritorio remoto activado
+Usuario remoto1 autorizado</code></pre>
+<hr>
+</section>
+<section class="content-card"><h2 id="3-antes-de-empezar-conceptos-mínimos">3. Antes de empezar: conceptos mínimos</h2>
+<h3 id="31-que-é-rdp">3.1. Que é RDP?</h3>
+<p><strong>RDP</strong> (<em>Remote Desktop Protocol</em>) é o protocolo de escritorio remoto usado en Windows. Permite conectarse desde un equipo cliente a outro equipo servidor e manexar a súa sesión gráfica.</p>
+<p>Nunha conexión RDP:</p>
+<ul>
+<li>as aplicacións execútanse no <strong>servidor</strong>;</li>
+<li>os ficheiros quedan no <strong>servidor</strong>;</li>
+<li>o cliente recibe a imaxe da sesión remota;</li>
+<li>o cliente envía teclado e rato;</li>
+<li>poden redirixirse recursos como portapapeis, impresoras ou unidades locais, se a configuración o permite.</li>
+</ul>
+<hr>
+<h3 id="32-porto-usado-por-rdp">3.2. Porto usado por RDP</h3>
+<p>RDP usa por defecto o porto <strong>3389</strong>.</p>
+<p>Nesta práctica imos comprobar <strong>TCP 3389</strong>, que é a proba básica de conectividade RDP:</p>
+<pre><code class=" language-powershell">Test-NetConnection -ComputerName &lt;IP_SERVIDOR&gt; -Port 3389</code></pre>
+<p>Nas versións actuais de Windows, RDP tamén pode empregar <strong>UDP 3389</strong> para mellorar rendemento e latencia, pero para diagnosticar se o servizo responde adoita comezarse comprobando TCP 3389.</p>
+<hr>
+<h3 id="33-que-é-nla">3.3. Que é NLA?</h3>
+<p><strong>NLA</strong> (<em>Network Level Authentication</em>) é a autenticación a nivel de rede. Obriga a que o usuario se autentique antes de crear a sesión RDP completa.</p>
+<p>Debe deixarse activada sempre que sexa posible porque:</p>
+<ul>
+<li>reduce a superficie de ataque;</li>
+<li>evita crear sesións completas para usuarios non autenticados;</li>
+<li>mellora a seguridade fronte a intentos masivos de conexión.</li>
+</ul>
+<hr>
+</section>
+<section class="content-card"><h2 id="4-parte-1-preparación-do-entorno">4. Parte 1 – Preparación do entorno</h2>
+<h3 id="41-identificar-servidor-e-cliente">4.1. Identificar servidor e cliente</h3>
+<p>Antes de tocar ningunha configuración, decide que equipo fará cada papel:</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Rol</th>
+<th>Equipo ou VM</th>
+<th>Sistema operativo</th>
+<th>Observacións</th>
+</tr></thead><tbody>
+<tr>
+<td>Servidor RDP</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Cliente RDP</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<hr>
+<h3 id="42-comprobar-a-edición-de-windows-do-servidor">4.2. Comprobar a edición de Windows do servidor</h3>
+<p>No servidor, comproba a edición de Windows:</p>
+<ol>
+<li>Preme <code>Win + R</code>.</li>
+<li>Escribe:</li>
+</ol>
+<pre><code class=" language-text">winver</code></pre>
+<ol>
+<li>Comproba se a edición é compatible.</li>
+</ol>
+<p>Tamén podes ir a:</p>
+<pre><code class=" language-text">Configuración → Sistema → Acerca de</code></pre>
+<p>Cobre esta ficha:</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr></thead><tbody>
+<tr>
+<td>Nome do servidor</td>
+<td></td>
+</tr>
+<tr>
+<td>Edición de Windows do servidor</td>
+<td></td>
+</tr>
+<tr>
+<td>O servidor pode aceptar RDP?</td>
+<td>Si / Non</td>
+</tr>
+<tr>
+<td>Motivo</td>
+<td></td>
+</tr>
+</tbody></table></div>
+<blockquote class="callout">
+<p>⚠️ Se o servidor é Windows Home, non continúes con ese equipo como servidor RDP. Terás que cambiar a unha VM ou equipo con Windows Pro, Enterprise, Education ou Server.</p>
+</blockquote>
+<hr>
+<h3 id="43-comprobar-ips">4.3. Comprobar IPs</h3>
+<p>No servidor e no cliente abre PowerShell ou CMD e executa:</p>
+<pre><code class=" language-powershell">ipconfig</code></pre>
+<p>Anota os datos:</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Equipo</th>
+<th>Dirección IP</th>
+<th>Máscara</th>
+<th>Porta de enlace</th>
+</tr></thead><tbody>
+<tr>
+<td>Servidor</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Cliente</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<hr>
+<h3 id="44-comprobar-conectividade-con-ping">4.4. Comprobar conectividade con ping</h3>
+<p>Desde o cliente, comproba se responde o servidor:</p>
+<pre><code class=" language-powershell">ping &lt;IP_SERVIDOR&gt;</code></pre>
+<p>Desde o servidor, comproba se responde o cliente:</p>
+<pre><code class=" language-powershell">ping &lt;IP_CLIENTE&gt;</code></pre>
+<p>Anota o resultado:</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Proba</th>
+<th>Resultado</th>
+</tr></thead><tbody>
+<tr>
+<td>Cliente → Servidor</td>
+<td>Responde / Non responde</td>
+</tr>
+<tr>
+<td>Servidor → Cliente</td>
+<td>Responde / Non responde</td>
+</tr>
+</tbody></table></div>
+<blockquote class="callout">
+<p>⚠️ Se o ping falla, non conclúas automaticamente que non hai rede. Windows pode bloquear ICMP polo firewall. Máis adiante comprobarás tamén o porto RDP con <code>Test-NetConnection</code>.</p>
+</blockquote>
+<hr>
+<h3 id="45-crear-o-usuario-remoto1">4.5. Crear o usuario <code>remoto1</code></h3>
+<p>No servidor crea un usuario local chamado:</p>
+<pre><code class=" language-text">remoto1</code></pre>
+<p>Debe ter un contrasinal longo e non trivial:</p>
+<ul>
+<li>preferiblemente 12 ou máis caracteres;</li>
+<li>non reutilizado noutros servizos;</li>
+<li>sen patróns evidentes como <code>1234</code>, <code>password</code>, <code>abc</code>, nome do alumno ou nome do centro;</li>
+<li>pode combinar palabras, números e símbolos.</li>
+</ul>
+<p>Podes crealo desde a interface gráfica:</p>
+<pre><code class=" language-text">Configuración → Contas → Outros usuarios → Engadir conta</code></pre>
+<p>Ou desde administración de usuarios locais, se está dispoñible.</p>
+<p>Cobre a ficha:</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr></thead><tbody>
+<tr>
+<td>Usuario creado</td>
+<td>remoto1</td>
+</tr>
+<tr>
+<td>Tipo de conta</td>
+<td>Local</td>
+</tr>
+<tr>
+<td>É administrador?</td>
+<td>Si / Non</td>
+</tr>
+<tr>
+<td>Observacións</td>
+<td></td>
+</tr>
+</tbody></table></div>
+<blockquote class="callout">
+<p>💡 Para esta práctica, o usuario <code>remoto1</code> non precisa ser administrador. O máis seguro é que sexa usuario estándar e que só teña permiso para conectarse por RDP.</p>
+</blockquote>
+<hr>
+</section>
+<section class="content-card"><h2 id="5-parte-2-activar-escritorio-remoto-no-servidor">5. Parte 2 – Activar Escritorio remoto no servidor</h2>
+<h3 id="51-abrir-a-configuración-de-escritorio-remoto">5.1. Abrir a configuración de Escritorio remoto</h3>
+<p>No servidor:</p>
+<pre><code class=" language-text">Configuración → Sistema → Escritorio remoto</code></pre>
+<p>En versións antigas ou en Windows Server tamén podes atopalo en:</p>
+<pre><code class=" language-text">Panel de control → Sistema → Configuración de acceso remoto → Remoto</code></pre>
+<p>Activa:</p>
+<pre><code class=" language-text">Habilitar Escritorio remoto</code></pre>
+<p>Deixa marcada a opción de <strong>Autenticación a nivel de rede (NLA)</strong> se aparece.</p>
+<hr>
+<h3 id="52-autorizar-o-usuario-remoto1">5.2. Autorizar o usuario <code>remoto1</code></h3>
+<p>Na configuración de Escritorio remoto:</p>
+<ol>
+<li>Fai clic en <strong>Seleccionar usuarios que poden acceder de forma remota a este equipo</strong>.</li>
+<li>Preme <strong>Engadir</strong>.</li>
+<li>Escribe:</li>
+</ol>
+<pre><code class=" language-text">remoto1</code></pre>
+<ol>
+<li>Preme <strong>Comprobar nomes</strong>.</li>
+<li>Acepta.</li>
+</ol>
+<p>Se aparece co nome do equipo diante, por exemplo:</p>
+<pre><code class=" language-text">NOME_SERVIDOR
+emoto1</code></pre>
+<p>é correcto.</p>
+<blockquote class="callout">
+<p>💡 Os membros do grupo Administradores adoitan ter acceso remoto por defecto, pero nesta práctica queremos comprobar explicitamente o acceso dun usuario concreto.</p>
+</blockquote>
+<hr>
+<h3 id="53-revisar-o-firewall">5.3. Revisar o firewall</h3>
+<p>Abre:</p>
+<pre><code class=" language-text">Firewall de Windows Defender con seguridade avanzada</code></pre>
+<p>Busca a regra de entrada:</p>
+<pre><code class=" language-text">Escritorio remoto (TCP de entrada)</code></pre>
+<p>Comproba:</p>
+<ul>
+<li>que está habilitada;</li>
+<li>que corresponde ao perfil de rede correcto;</li>
+<li>que o equipo está nun perfil adecuado para o laboratorio.</li>
+</ul>
+<p>Perfís posibles:</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Perfil</th>
+<th>Uso típico</th>
+</tr></thead><tbody>
+<tr>
+<td>Dominio</td>
+<td>Equipo unido a dominio</td>
+</tr>
+<tr>
+<td>Privado</td>
+<td>Rede de confianza, laboratorio ou casa</td>
+</tr>
+<tr>
+<td>Público</td>
+<td>Rede non confiable</td>
+</tr>
+</tbody></table></div>
+<blockquote class="callout">
+<p>⚠️ Nun laboratorio controlado adoita ser preferible traballar con perfil <strong>Privado</strong> ou <strong>Dominio</strong>, non Público.</p>
+</blockquote>
+<hr>
+<h3 id="54-comprobar-o-porto-3389-desde-o-cliente">5.4. Comprobar o porto 3389 desde o cliente</h3>
+<p>No cliente abre PowerShell e executa:</p>
+<pre><code class=" language-powershell">Test-NetConnection -ComputerName &lt;IP_SERVIDOR&gt; -Port 3389</code></pre>
+<p>Debes substituír <code>&lt;IP_SERVIDOR&gt;</code> pola IP real do servidor.</p>
+<p>Exemplo:</p>
+<pre><code class=" language-powershell">Test-NetConnection -ComputerName 192.168.1.50 -Port 3389</code></pre>
+<p>Fíxate especialmente neste campo:</p>
+<pre><code class=" language-text">TcpTestSucceeded : True</code></pre>
+<p>Resultado esperado:</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Significado</th>
+</tr></thead><tbody>
+<tr>
+<td><code>TcpTestSucceeded : True</code></td>
+<td>O porto TCP 3389 responde</td>
+</tr>
+<tr>
+<td><code>TcpTestSucceeded : False</code></td>
+<td>O porto non responde ou está bloqueado</td>
+</tr>
+</tbody></table></div>
+<p>Se falla, revisa:</p>
+<ol>
+<li>O servidor está aceso?</li>
+<li>A IP é correcta?</li>
+<li>Escritorio remoto está activado?</li>
+<li>O firewall permite RDP?</li>
+<li>A rede está configurada correctamente?</li>
+<li>Estás no perfil de rede correcto?</li>
+</ol>
+<blockquote class="callout">
+<p>💡 Se tes Telnet instalado, tamén poderías probar <code>telnet &lt;IP_SERVIDOR&gt; 3389</code>, pero <code>Test-NetConnection</code> está dispoñible en Windows 10/11 sen instalar compoñentes adicionais.</p>
+</blockquote>
+<hr>
+</section>
+<section class="content-card"><h2 id="6-parte-3-primeira-conexión-desde-o-cliente">6. Parte 3 – Primeira conexión desde o cliente</h2>
+<h3 id="61-abrir-o-cliente-rdp">6.1. Abrir o cliente RDP</h3>
+<p>No equipo cliente, abre <strong>Conexión a Escritorio remoto</strong>.</p>
+<p>Podes facelo de dúas formas:</p>
+<ol>
+<li>Desde o menú Inicio, buscando:</li>
+</ol>
+<pre><code class=" language-text">Conexión a Escritorio remoto</code></pre>
+<ol>
+<li>Desde <code>Win + R</code>, escribindo:</li>
+</ol>
+<pre><code class=" language-text">mstsc</code></pre>
+<hr>
+<h3 id="62-introducir-o-servidor">6.2. Introducir o servidor</h3>
+<p>No campo <strong>Equipo</strong>, escribe a IP do servidor:</p>
+<pre><code class=" language-text">&lt;IP_SERVIDOR&gt;</code></pre>
+<p>Preme <strong>Conectar</strong>.</p>
+<hr>
+<h3 id="63-introducir-credenciais">6.3. Introducir credenciais</h3>
+<p>Cando pida usuario e contrasinal, introduce o usuario creado.</p>
+<p>Se o servidor está nun grupo de traballo e non nun dominio, usa un destes formatos:</p>
+<pre><code class=" language-text">.
+emoto1</code></pre>
+<p>ou:</p>
+<pre><code class=" language-text">NOME_SERVIDOR
+emoto1</code></pre>
+<p>O primeiro formato indica que se trata dun usuario local do equipo remoto.</p>
+<p>Cobre esta ficha:</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr></thead><tbody>
+<tr>
+<td>IP usada para conectar</td>
+<td></td>
+</tr>
+<tr>
+<td>Usuario usado</td>
+<td></td>
+</tr>
+<tr>
+<td>Formato do usuario</td>
+<td>`.</td>
+</tr>
+</tbody></table></div>
+<p>emoto1<code> / </code>NOME_SERVIDOR</p>
+<p>emoto1` |</p>
+<p>| Entrou correctamente? | Si / Non |</p>
+<hr>
+<h3 id="64-aviso-de-certificado-ou-identidade">6.4. Aviso de certificado ou identidade</h3>
+<p>É posible que apareza unha mensaxe avisando de que non se pode verificar a identidade do equipo remoto.</p>
+<p>Nun laboratorio podes aceptala se estás seguro de que a IP corresponde ao teu servidor.</p>
+<p>Nun contorno real non se debe aceptar sen revisar:</p>
+<ul>
+<li>nome do equipo;</li>
+<li>certificado;</li>
+<li>procedencia da conexión;</li>
+<li>política da organización.</li>
+</ul>
+<p>Anota se apareceu o aviso:</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Pregunta</th>
+<th>Resposta</th>
+</tr></thead><tbody>
+<tr>
+<td>Apareceu aviso de certificado/identidade?</td>
+<td>Si / Non</td>
+</tr>
+<tr>
+<td>Que fixeches?</td>
+<td></td>
+</tr>
+<tr>
+<td>Por que pode aparecer este aviso?</td>
+<td></td>
+</tr>
+</tbody></table></div>
+<hr>
+<h3 id="65-proba-funcional-dentro-da-sesión-remota">6.5. Proba funcional dentro da sesión remota</h3>
+<p>Unha vez dentro da sesión remota, comproba que estás traballando no servidor e non no cliente.</p>
+<p>Dentro da sesión RDP:</p>
+<ol>
+<li>Abre o Explorador de ficheiros.</li>
+<li>Vai á carpeta <strong>Documentos</strong> do usuario <code>remoto1</code>.</li>
+<li>Crea un cartafol chamado:</li>
+</ol>
+<pre><code class=" language-text">Remoto</code></pre>
+<ol>
+<li>Dentro crea un ficheiro de texto chamado:</li>
+</ol>
+<pre><code class=" language-text">proba_rdp.txt</code></pre>
+<ol>
+<li>Escribe dentro unha frase breve, por exemplo:</li>
+</ol>
+<pre><code class=" language-text">Esta proba foi creada dentro da sesión remota RDP.</code></pre>
+<ol>
+<li>Pecha sesión.</li>
+<li>No servidor, comproba que o cartafol e o ficheiro seguen existindo no perfil do usuario <code>remoto1</code>.</li>
+</ol>
+<blockquote class="callout">
+<p>⚠️ Non crees o cartafol directamente en <code>C:\</code>, porque un usuario estándar pode non ter permisos para escribir aí. Usa Documentos ou Escritorio do propio usuario.</p>
+</blockquote>
+<hr>
+</section>
+<section class="content-card"><h2 id="7-parte-4-reflexión-sobre-seguridade">7. Parte 4 – Reflexión sobre seguridade</h2>
+<h3 id="71-pechar-correctamente-a-sesión">7.1. Pechar correctamente a sesión</h3>
+<p>Ao rematar a proba, pecha a sesión remota correctamente:</p>
+<pre><code class=" language-text">Inicio → Usuario → Pechar sesión</code></pre>
+<p>Non deixes a sesión aberta sen necesidade.</p>
+<hr>
+<h3 id="72-cambiar-o-contrasinal">7.2. Cambiar o contrasinal</h3>
+<p>Cambia o contrasinal de <code>remoto1</code> por outro tamén forte.</p>
+<p>Non uses contrasinais débiles nin sequera para probar.</p>
+<blockquote class="callout">
+<p>⚠️ Non crees nin engadas ao grupo RDP usuarios con contrasinais débiles no equipo do laboratorio. Basta con razoar por escrito que risco suporía.</p>
+</blockquote>
+<hr>
+<h3 id="73-preguntas-de-reflexión">7.3. Preguntas de reflexión</h3>
+<p>Responde por escrito en 8–10 liñas:</p>
+<ol>
+<li>Que riscos tería este servidor se estivese exposto directamente a Internet co porto 3389 aberto?</li>
+<li>Por que é máis seguro usar VPN + RDP que RDP directo desde Internet?</li>
+<li>Que función ten NLA?</li>
+<li>Que tres medidas adicionais aplicarías nunha empresa real?</li>
+<li>Por que non é boa idea usar contas compartidas para acceso remoto?</li>
+</ol>
+<p>Podes mencionar:</p>
+<ul>
+<li>VPN;</li>
+<li>bloqueo temporal por intentos fallidos;</li>
+<li>NLA;</li>
+<li>MFA ou segundo factor;</li>
+<li>restrición por IP;</li>
+<li>actualizacións de seguridade;</li>
+<li>logs e auditoría;</li>
+<li>contrasinais longos e non reutilizados;</li>
+<li>usuarios individuais;</li>
+<li>permisos mínimos.</li>
+</ul>
+<hr>
+</section>
+<section class="content-card"><h2 id="8-parte-5-diagnóstico-guiado-de-problemas-frecuentes">8. Parte 5 – Diagnóstico guiado de problemas frecuentes</h2>
+<p>Se non funciona á primeira, non cambies cousas ao azar. Sigue esta táboa.</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Síntoma</th>
+<th>Posible causa</th>
+<th>Que revisar</th>
+</tr></thead><tbody>
+<tr>
+<td>Non sei a IP do servidor</td>
+<td>Non se comprobou a configuración de rede</td>
+<td><code>ipconfig</code> no servidor</td>
+</tr>
+<tr>
+<td>O ping falla</td>
+<td>Servidor apagado, IP incorrecta ou ICMP bloqueado</td>
+<td>IP, rede, firewall</td>
+</tr>
+<tr>
+<td><code>TcpTestSucceeded</code> aparece como <code>False</code></td>
+<td>RDP desactivado, firewall bloqueando ou IP incorrecta</td>
+<td>Escritorio remoto, regra firewall, IP</td>
+</tr>
+<tr>
+<td>Usuario ou contrasinal incorrecto</td>
+<td>Formato de usuario incorrecto ou contrasinal mal escrito</td>
+<td>Probar `.</td>
+</tr>
+</tbody></table></div>
+<p>emoto1` |</p>
+<div class="table-wrap"><table><thead><tr>
+<th>O usuario non pode iniciar sesión</th>
+<th>Non está autorizado para RDP</th>
+<th>Grupo Usuarios de escritorio remoto</th>
+</tr></thead><tbody>
+<tr>
+<td>Conecta pero non podo escribir en <code>C:\</code></td>
+<td>Permisos insuficientes</td>
+<td>Usar Documentos ou Escritorio do usuario</td>
+</tr>
+<tr>
+<td>A conexión vai lenta</td>
+<td>Rede saturada ou axustes gráficos altos</td>
+<td>Baixar calidade no cliente RDP</td>
+</tr>
+</tbody></table></div>
+<hr>
+</section>
+<section class="content-card"><h2 id="9-parte-6-documentación-da-práctica">9. Parte 6 – Documentación da práctica</h2>
+<p>Redacta un resumo técnico de 10–15 liñas que inclúa:</p>
+<ul>
+<li>entorno usado: equipos ou VMs;</li>
+<li>sistema operativo e edición;</li>
+<li>IPs asignadas;</li>
+<li>usuario creado;</li>
+<li>pasos seguidos para activar RDP;</li>
+<li>configuración de usuarios e firewall;</li>
+<li>resultado de <code>Test-NetConnection</code>;</li>
+<li>resultado da primeira conexión;</li>
+<li>proba realizada dentro da sesión;</li>
+<li>polo menos unha incidencia real ou simulada e como a resolviches;</li>
+<li>medidas de seguridade que aplicarías nun entorno real.</li>
+</ul>
+<hr>
+</section>
+<section class="content-card"><h2 id="10-modelo-de-parte-de-incidencia">10. Modelo de parte de incidencia</h2>
+<p>Se tiveches algún problema, documentao con este formato.</p>
+<div class="table-wrap"><table><thead><tr>
+<th>Campo</th>
+<th>Resposta</th>
+</tr></thead><tbody>
+<tr>
+<td>Síntoma observado</td>
+<td></td>
+</tr>
+<tr>
+<td>Momento no que apareceu</td>
+<td></td>
+</tr>
+<tr>
+<td>Comprobación realizada</td>
+<td></td>
+</tr>
+<tr>
+<td>Resultado da comprobación</td>
+<td></td>
+</tr>
+<tr>
+<td>Causa probable</td>
+<td></td>
+</tr>
+<tr>
+<td>Solución aplicada</td>
+<td></td>
+</tr>
+<tr>
+<td>Resultado final</td>
+<td></td>
+</tr>
+<tr>
+<td>Que aprendín desta incidencia</td>
+<td></td>
+</tr>
+</tbody></table></div>
+<p>Se non tiveches ningunha incidencia real, simula unha das seguintes:</p>
+<ul>
+<li>firewall bloqueando RDP;</li>
+<li>usuario sen permisos de escritorio remoto;</li>
+<li>IP mal escrita;</li>
+<li>usuario escrito sen <code>.\</code>;</li>
+<li>intento de crear ficheiro en <code>C:\</code> sen permisos.</li>
+</ul>
+<hr>
+</section>
+<section class="content-card"><h2 id="11-resumo-de-evidencias-a-entregar">11. Resumo de evidencias a entregar</h2>
+<div class="table-wrap"><table><thead><tr>
+<th>Evidencia</th>
+<th>Contido</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Evidencia 1</strong></td>
+<td>Captura de <code>ipconfig</code> no servidor e no cliente</td>
+</tr>
+<tr>
+<td><strong>Evidencia 2</strong></td>
+<td>Captura do ping ou explicación se ICMP está bloqueado</td>
+</tr>
+<tr>
+<td><strong>Evidencia 3</strong></td>
+<td>Captura da edición de Windows do servidor</td>
+</tr>
+<tr>
+<td><strong>Evidencia 4</strong></td>
+<td>Captura da configuración de Escritorio remoto activado</td>
+</tr>
+<tr>
+<td><strong>Evidencia 5</strong></td>
+<td>Captura do usuario <code>remoto1</code> autorizado para acceso remoto</td>
+</tr>
+<tr>
+<td><strong>Evidencia 6</strong></td>
+<td>Captura de <code>Test-NetConnection</code> con <code>TcpTestSucceeded : True</code></td>
+</tr>
+<tr>
+<td><strong>Evidencia 7</strong></td>
+<td>Captura da sesión remota activa coa barra superior visible</td>
+</tr>
+<tr>
+<td><strong>Evidencia 8</strong></td>
+<td>Captura do cartafol ou ficheiro creado dentro da sesión remota</td>
+</tr>
+<tr>
+<td><strong>Evidencia 9</strong></td>
+<td>Texto de reflexión de seguridade</td>
+</tr>
+<tr>
+<td><strong>Evidencia 10</strong></td>
+<td>Parte de incidencia real ou simulada</td>
+</tr>
+<tr>
+<td><strong>Resumo técnico</strong></td>
+<td>Documento de 10–15 liñas cos pasos, probas e conclusións</td>
+</tr>
+</tbody></table></div>
+<hr>
+</section>
+<section class="content-card"><h2 id="12-rúbrica-orientativa-de-avaliación">12. Rúbrica orientativa de avaliación</h2>
+<div class="table-wrap"><table><thead><tr>
+<th>Criterio</th>
+<th>Peso</th>
+</tr></thead><tbody>
+<tr>
+<td>Preparación correcta da rede e identificación de equipos</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Comprobación da edición de Windows e creación do usuario</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Activación correcta de RDP e NLA</td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>Configuración de usuarios autorizados e firewall</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Comprobación de conectividade con <code>Test-NetConnection</code></td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Primeira conexión e proba funcional dentro da sesión</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Reflexión de seguridade</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Documentación, capturas e parte de incidencia</td>
+<td>5 %</td>
+</tr>
+</tbody></table></div>
+<hr>
+</section>
+<section class="content-card"><h2 id="13-preguntas-finais-de-comprobación">13. Preguntas finais de comprobación</h2>
+<p>Responde brevemente:</p>
+<ol>
+<li>Que equipo actúa como cliente RDP?</li>
+<li>Que equipo actúa como servidor RDP?</li>
+<li>Por que Windows Home non serve como servidor RDP?</li>
+<li>Que significa <code>TcpTestSucceeded : True</code>?</li>
+<li>Para que serve NLA?</li>
+<li>Por que usamos `.</li>
+</ol>
+<p>emoto1` ao iniciar sesión?</p>
+<ol>
+<li>Por que non se recomenda abrir o porto 3389 directamente a Internet?</li>
+<li>Que diferenza hai entre pechar a xanela RDP e pechar a sesión?</li>
+<li>Por que creamos o ficheiro en Documentos e non directamente en <code>C:\</code>?</li>
+<li>Que medida de seguridade che parece máis importante nun entorno real?</li>
+</ol>
+<hr>
+</section>
+<section class="content-card"><h2 id="14-control-de-conservación-e-melloras-aplicadas">14. Control de conservación e melloras aplicadas</h2>
+<p>Nesta versión conservouse o contido válido da práctica orixinal:</p>
+<ul>
+<li>obxectivo;</li>
+<li>materiais e requisitos;</li>
+<li>traballo por parellas;</li>
+<li>preparación de servidor e cliente;</li>
+<li>usuario <code>remoto1</code>;</li>
+<li>activación de Escritorio remoto;</li>
+<li>NLA;</li>
+<li>firewall;</li>
+<li><code>Test-NetConnection</code>;</li>
+<li>conexión con <code>mstsc</code>;</li>
+<li>aviso de certificado;</li>
+<li>reflexión de seguridade;</li>
+<li>documentación final;</li>
+<li>resumo de evidencias.</li>
+</ul>
+<p>Tamén se mellorou e ampliou:</p>
+<ul>
+<li>engadidas edicións Windows <strong>Enterprise</strong> e <strong>Education</strong>;</li>
+<li>explicado que Windows Home pode ser cliente pero non servidor RDP;</li>
+<li>matizado o uso de <strong>3389 TCP/UDP</strong>;</li>
+<li>corrixido o bloque Markdown de PowerShell;</li>
+<li>cambiada a proba de creación de ficheiro desde <code>C:\Remoto</code> a Documentos do usuario;</li>
+<li>engadido formato de usuario local `.</li>
+</ul>
+<p>emoto1<code> ou </code>NOME_SERVIDOR\remoto1`;</p>
+<ul>
+<li>engadida comprobación do perfil de firewall;</li>
+<li>engadida explicación de NLA;</li>
+<li>engadida táboa de diagnóstico guiado;</li>
+<li>engadido modelo de parte de incidencia;</li>
+<li>engadida rúbrica orientativa;</li>
+<li>engadidas preguntas finais de comprobación.</li>
+</ul>
+<p>Práctica guíada</p>
+<hr></section>
+
+      <div class="footer-note">
+       HTML autónomo.
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.querySelectorAll('pre').forEach((pre) => {
+      const btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.type = 'button';
+      btn.textContent = 'Copiar';
+      btn.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.innerText || '';
+        try {
+          await navigator.clipboard.writeText(code);
+          btn.textContent = 'Copiado';
+          setTimeout(() => btn.textContent = 'Copiar', 1400);
+        } catch (err) {
+          btn.textContent = 'Erro';
+          setTimeout(() => btn.textContent = 'Copiar', 1400);
+        }
+      });
+      pre.appendChild(btn);
+    });
+  </script>
+</body>
+</html>

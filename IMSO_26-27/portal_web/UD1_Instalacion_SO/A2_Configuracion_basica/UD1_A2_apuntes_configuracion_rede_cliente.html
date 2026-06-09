@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD1·A2 Configuración básica de rede en clientes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/imax/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../../assets/imax/favicon-192x192.png">
+  <link rel="stylesheet" href="../../assets/css/imso.css">
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <svg class="smpp-buho" viewBox="0 0 229 312" xmlns="http://www.w3.org/2000/svg">
+        <path style="fill:currentColor; stroke:none;" d="M105 108C106.092 114.321 109.507 120.706 113.105 125.995C114.41 127.914 116.335 130.793 118.971 130.793C124.125 130.793 128.715 118.035 130.03 114C132.244 107.21 125.014 104.125 123.533 98C120.754 86.5074 129.693 74.19 138 67.3287C157.973 50.8312 192.629 59.108 202.945 31C204.354 27.1625 205.448 23.0815 205.829 19C206.087 16.2374 206.217 10.8515 201.941 11.8896C198.923 12.6226 196.377 15.4949 194 17.3349C189.874 20.5287 185.494 23.3441 181 25.9892C165.371 35.1885 147.345 41.6379 133.001 52.8148C127.207 57.3293 120.76 62.5979 119 70C115.415 66.464 113.433 61.7111 109.907 58.0394C103.191 51.0461 94.5309 45.7304 86 41.2554C77.5157 36.8048 69.2107 31.9363 61 27C54.0486 22.8208 47.253 18.4236 41 13.2462C38.7202 11.3585 35.3527 7.37711 32.1481 7.34491C28.1078 7.30429 28.9077 14.4963 29.0903 17C29.7718 26.3471 34.528 37.0498 41.3002 43.5355C49.0509 50.9583 59.042 52.381 69 54.679C81.9826 57.6751 96.7591 63.1685 105.101 74.0039C113.115 84.4131 117.391 99.0055 105 108M77 34C93.1178 40.7015 105.681 49.6805 118 62C125.47 56.7377 131.175 49.6462 139 44.696C146.908 39.6936 156.266 37.2023 164 32C144.997 23.8218 125.188 24.0442 105 24.9606C95.8176 25.3775 83.5405 26.8395 77 34M45 236C44.0329 231.357 45.9018 227.424 47.3295 223C49.5337 216.17 51.8331 209.021 53.331 202C58.4858 177.839 57.2483 151.977 43.3326 131C40.5022 126.733 37.9642 122.276 34 119C13.5911 153.967 20.8598 200.055 39.7315 234C46.4638 246.11 57.1047 261.995 70 268C68.7266 271.915 67.0985 275.822 67.0795 280C67.0589 284.506 69.1213 288.275 66 292L64 283L0 283L0 298L229 298L229 283L185 283C177.471 283 171.098 281.377 169 290C167.72 285.671 168.28 281.452 167.897 277C167.703 274.756 166.687 272.24 167.403 270.015C168.823 265.596 174.783 262.324 177.83 258.996C185.706 250.395 192.759 241.341 198.219 231C216.651 196.09 220.708 154.705 202 119L200 119C195.225 127.971 188.66 136.16 185.623 146C176.155 176.674 183.596 206.106 192 236C184.733 228.487 182.147 212.073 180.715 202C178.107 183.662 176.157 166.083 181.9 148C186.243 134.328 196.345 123.431 201.034 110C202.851 104.796 202.968 98.4671 203.561 93C204.592 83.4871 201.411 71.4355 197.1 63C195.77 60.3991 194.162 56.648 191.61 55.0278C187.749 52.5758 181.717 54.2114 178 56C183.08 69.2073 192.944 77.4351 190.7 93C188.539 107.992 177.449 116.891 165 123.846C139.596 138.037 103.483 139.257 77 127.208C62.0637 120.412 43.3332 105.644 45.304 87C46.6451 74.3132 54.0586 66.8928 61 57C56.5757 55.0418 50.1327 52.4993 45.304 54.6034C42.0733 56.0112 40.3836 60.0725 38.841 63C34.0537 72.0854 31.6528 83.7362 32.1042 94C32.4567 102.016 33.7145 109.789 37.3735 117C43.5612 129.195 52.6836 138.506 56.4059 152C62.0757 172.554 58.4646 195.967 52.4298 216C50.3798 222.805 47.0873 229.227 45 236M77 67.5185C61.7765 70.6989 54.1473 89.383 64.419 101.907C69.8284 108.502 79.9791 110.197 88 108.482C101.144 105.673 108.48 90.0544 101.721 78.0008C97.3132 70.1394 85.7216 65.6965 77 67.5185M152 67.4406C132.074 70.5515 123.567 99.1812 145 107.656C149.194 109.314 154.589 109.446 159 108.671C185.386 104.034 178.266 63.34 152 67.4406z"/>
+      </svg>
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Layout ── -->
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1">
+              <i class="bi bi-list-ul me-1"></i>Índice
+            </h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-tcpip">5.1 Conceptos TCP/IP</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-dhcp">5.2 DHCP vs IP fixa</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-windows">5.3 Rede en Windows 11</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-ubuntu">5.4 Rede en Ubuntu 24.04</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-vbox">5.5 Modos de rede en VirtualBox</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-incidencias">5.6 Diagnóstico de incidencias</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Contido principal ── -->
+    <main class="col-lg-9">
+      <article>
+
+        <!-- Cabeceira -->
+        <header class="mb-4">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle fw-semibold">UD1 · A2</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis border border-secondary-subtle">Apuntes</span>
+          </div>
+          <h1 class="h2 fw-bold mb-1">5. Configuración básica de rede en sistemas operativos cliente</h1>
+          <p class="lead mb-0">Conceptos fundamentais de TCP/IP, DHCP, permisos de rede e diagnóstico básico de conectividade en Windows 11 e Ubuntu 24.04.</p>
+        </header>
+
+        <!-- ══════════════════════════════════════════ -->
+        <!-- 5.1 Conceptos TCP/IP                      -->
+        <!-- ══════════════════════════════════════════ -->
+        <section id="sec-tcpip" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-diagram-3 me-2 text-primary"></i>5.1 Conceptos fundamentais de TCP/IP
+          </h2>
+
+          <p>A maioría das redes actuais usan o protocolo <strong>TCP/IP</strong>. Cada equipo conéctase á rede mediante unha ou varias interfaces (tarxeta de rede física ou virtual) ás que se lles asigna unha <strong>dirección IP</strong>.</p>
+
+          <!-- Elementos básicos -->
+          <h3 class="h6 fw-semibold text-uppercase text-secondary mb-2 mt-3">Elementos básicos</h3>
+
+          <!-- Enderezo IP con rangos -->
+          <div class="card border shadow-sm mb-3">
+            <div class="card-header section-card fw-semibold">
+              <i class="bi bi-pc-display me-2 text-primary"></i>Enderezo IP — rangos privados habituais
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-bordered table-sm mb-0 align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Rango</th>
+                      <th>Notación CIDR</th>
+                      <th>Uso típico</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>10.0.0.0 – 10.255.255.255</code></td><td><code>/8</code></td><td>Redes grandes, corporativas</td></tr>
+                    <tr><td><code>172.16.0.0 – 172.31.255.255</code></td><td><code>/12</code></td><td>Redes medianas</td></tr>
+                    <tr><td><code>192.168.0.0 – 192.168.255.255</code></td><td><code>/16</code></td><td>Redes domésticas e de aula</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lista de elementos -->
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item">
+              <i class="bi bi-grid-1x2 me-2 text-primary"></i>
+              <strong>Máscara de rede</strong> — indica que parte do enderezo corresponde á rede e cal ao host. Exemplo: <code>255.255.255.0</code> é equivalente a <code>/24</code>.
+            </li>
+            <li class="list-group-item">
+              <i class="bi bi-arrow-left-right me-2 text-primary"></i>
+              <strong>Porta de enlace (gateway)</strong> — equipo que permite saír cara a outras redes, normalmente o router.
+            </li>
+            <li class="list-group-item">
+              <i class="bi bi-search me-2 text-primary"></i>
+              <strong>DNS</strong> — servidores que traducen nomes (<code>www.exemplo.com</code>) a enderezos IP.
+            </li>
+          </ul>
+
+          <div class="alert alert-info imso-nota d-flex gap-2 align-items-start" role="note">
+            <i class="bi bi-lightbulb-fill flex-shrink-0 mt-1"></i>
+            <span>Nunha aula con VirtualBox, o máis habitual é usar <strong>DHCP</strong> (IP automática) cando a VM está en modo NAT ou adaptador ponte.</span>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════ -->
+        <!-- 5.2 DHCP vs IP fixa                       -->
+        <!-- ══════════════════════════════════════════ -->
+        <section id="sec-dhcp" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-arrow-repeat me-2 text-primary"></i>5.2 Configuración automática vs manual (DHCP vs IP fixa)
+          </h2>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <div class="card h-100 border shadow-sm">
+                <div class="card-header fw-semibold section-card">
+                  <i class="bi bi-magic me-2 text-success"></i>Automática (DHCP)
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item small">O equipo solicita unha IP a un servidor DHCP.</li>
+                  <li class="list-group-item small">Máis cómodo en redes grandes e aulas.</li>
+                  <li class="list-group-item small">Cambiar de rede require pouca ou ningunha intervención.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card h-100 border shadow-sm">
+                <div class="card-header fw-semibold section-card">
+                  <i class="bi bi-pencil-square me-2 text-warning"></i>Manual (IP fixa)
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item small">IP, máscara, gateway e DNS especifícanse a man.</li>
+                  <li class="list-group-item small">Útil para servidores, impresoras de rede ou prácticas concretas.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h6 fw-semibold text-uppercase text-secondary mb-2">O que debes saber nesta UD</h3>
+          <ul class="list-group list-group-flush mb-2">
+            <li class="list-group-item"><i class="bi bi-check2 me-2 text-success"></i>Ver se unha interface ten IP.</li>
+            <li class="list-group-item"><i class="bi bi-check2 me-2 text-success"></i>Diferenciar cando está en DHCP e cando en IP fixa.</li>
+            <li class="list-group-item"><i class="bi bi-check2 me-2 text-success"></i>Corrixir unha configuración moi básica (IP ou DNS mal posta) durante unha incidencia.</li>
+          </ul>
+        </section>
+
+        <!-- ══════════════════════════════════════════ -->
+        <!-- 5.3 Rede en Windows 11                    -->
+        <!-- ══════════════════════════════════════════ -->
+        <section id="sec-windows" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-windows me-2 text-primary"></i>5.3 Configuración básica de rede en Windows 11
+            <small class="text-muted fs-6 fw-normal">(visión básica)</small>
+          </h2>
+
+          <div class="card section-platform platform-windows border mb-3 section-card">
+            <div class="card-header d-flex align-items-center gap-2">
+              <i class="bi bi-windows"></i> Ruta de acceso en Windows 11
+            </div>
+            <div class="card-body">
+              <ol class="list-group list-group-numbered list-group-flush">
+                <li class="list-group-item"><strong>Configuración → Rede e Internet</strong></li>
+                <li class="list-group-item">Seleccionar a conexión activa (Ethernet ou Wi‑Fi) e premer en <strong>Ver propiedades</strong>.</li>
+                <li class="list-group-item">Para ver ou modificar IPv4: ir ao apartado <strong>Asignación de IP</strong> e activar <em>manual</em> se se precisa.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="alert alert-warning imso-nota d-flex gap-2 align-items-start mb-3" role="note">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+            <span>En Windows 11 o acceso ás propiedades do adaptador cambiou respecto a versións anteriores. Xa non está na icona de rede do panel de control clásico de forma directa; o camiño principal é <strong>Configuración → Rede e Internet</strong>.</span>
+          </div>
+
+          <h3 class="h6 fw-semibold text-uppercase text-secondary mb-2">Puntos clave</h3>
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item"><i class="bi bi-pin-angle me-2 text-primary"></i>Saber localizar: IP actual, porta de enlace e servidores DNS.</li>
+            <li class="list-group-item"><i class="bi bi-x-circle me-2 text-danger"></i>Sen IP válida, o equipo non se comunica coa rede.</li>
+            <li class="list-group-item"><i class="bi bi-question-circle me-2 text-warning"></i>Sen DNS correcto, pode haber IP pero non se resolve nomes — parece «non hai Internet».</li>
+          </ul>
+
+          <div class="alert alert-info imso-nota d-flex gap-2 align-items-start" role="note">
+            <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+            <span>Os comandos de consola (<code>ipconfig</code>, <code>ping</code>, etc.) traballaranse de forma máis intensa en <strong>UD2</strong> e redes máis avanzadas.</span>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════ -->
+        <!-- 5.4 Rede en Ubuntu 24.04                  -->
+        <!-- ══════════════════════════════════════════ -->
+        <section id="sec-ubuntu" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-terminal me-2 text-success"></i>5.4 Configuración básica de rede en Ubuntu 24.04
+          </h2>
+
+          <p>En Ubuntu 24.04 pódese configurar a rede a través da <strong>interface gráfica</strong> (icono de rede → Configuración de rede) ou mediante <strong>terminal</strong>.</p>
+
+          <div class="card section-platform platform-linux border mb-3 section-card">
+            <div class="card-header d-flex align-items-center gap-2">
+              <i class="bi bi-ubuntu"></i> Comandos de consulta en Ubuntu
+            </div>
+            <div class="card-body d-flex flex-column gap-3">
+
+              <!-- ip a -->
+              <div>
+                <div class="d-flex align-items-center gap-2 mb-1">
+                  <code class="fw-bold text-success">ip a</code>
+                  <span class="badge bg-success-subtle text-success-emphasis border border-success-subtle small">consulta</span>
+                </div>
+                <pre class="cmd-pre mb-2"><code>$ ip a</code></pre>
+                <ul class="small mb-1 ps-3">
+                  <li>Mostra todas as interfaces e as IPs asignadas.</li>
+                  <li>Permite ver se a interface da VM ten unha IP de tipo <code>10.x</code>, <code>172.16–31.x</code> ou <code>192.168.x.x</code>.</li>
+                </ul>
+                <div class="alert alert-warning imso-nota d-flex gap-2 align-items-start py-2 mb-0" role="note">
+                  <i class="bi bi-exclamation-triangle-fill flex-shrink-0"></i>
+                  <span class="small">O nome da interface varía segundo a VM e o controlador de rede (exemplos: <code>enp0s3</code>, <code>enp0s8</code>, <code>eth0</code>…). <strong>Comproba co comando <code>ip a</code> cal é o nome real na túa VM</strong> antes de traballar con ela.</span>
+                </div>
+              </div>
+
+              <!-- ping IP -->
+              <div>
+                <div class="d-flex align-items-center gap-2 mb-1">
+                  <code class="fw-bold text-success">ping 8.8.8.8 -c 4</code>
+                  <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle small">conectividade IP</span>
+                </div>
+                <pre class="cmd-pre mb-1"><code>$ ping 8.8.8.8 -c 4</code></pre>
+                <p class="small mb-0">Proba conectividade IP básica con Internet. Se isto falla, o problema é de rede (IP, gateway ou modo VirtualBox).</p>
+              </div>
+
+              <!-- ping nome -->
+              <div>
+                <div class="d-flex align-items-center gap-2 mb-1">
+                  <code class="fw-bold text-success">ping www.google.com -c 4</code>
+                  <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle small">resolución DNS</span>
+                </div>
+                <pre class="cmd-pre mb-1"><code>$ ping www.google.com -c 4</code></pre>
+                <p class="small mb-0">Proba resolución DNS. Se a IP funciona pero isto falla, o problema adoita ser de DNS.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <h3 class="h6 fw-semibold text-uppercase text-secondary mb-2">O que chega con saber nesta UD</h3>
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item"><i class="bi bi-check2 me-2 text-success"></i>Saber ler a información de <code>ip a</code>.</li>
+            <li class="list-group-item"><i class="bi bi-check2 me-2 text-success"></i>Entender a diferenza entre non ter IP, ter IP pero non gateway, e ter problema de DNS.</li>
+          </ul>
+
+          <div class="alert alert-info imso-nota d-flex gap-2 align-items-start" role="note">
+            <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+            <span>A configuración completa de IP fixa mediante ficheiros (<code>/etc/netplan</code>, etc.) verase con máis detalle nas UDs seguintes.</span>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════ -->
+        <!-- 5.5 Modos de rede VirtualBox              -->
+        <!-- ══════════════════════════════════════════ -->
+        <section id="sec-vbox" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-box me-2 text-primary"></i>5.5 Modos de rede en VirtualBox
+          </h2>
+
+          <p>Coñecer os modos de rede de VirtualBox é imprescindible para entender por que unha VM ten ou non ten conectividade.</p>
+
+          <div class="table-responsive mb-3">
+            <table class="table table-bordered table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Modo de rede</th>
+                  <th>Descrición breve</th>
+                  <th>Uso recomendado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge bg-primary">NAT</span></td>
+                  <td>A VM sae a Internet usando a conexión do host</td>
+                  <td>Uso básico e seguro (instalación, actualizacións)</td>
+                </tr>
+                <tr>
+                  <td><span class="badge bg-success">Adaptador ponte</span></td>
+                  <td>A VM aparece como outro equipo da rede real</td>
+                  <td>Prácticas de servidores e dominios</td>
+                </tr>
+                <tr>
+                  <td><span class="badge bg-secondary">Rede interna</span></td>
+                  <td>Só se comunican entre si as VMs nesta rede</td>
+                  <td>Laboratorios illados</td>
+                </tr>
+                <tr>
+                  <td><span class="badge bg-warning text-dark">Só anfitrión</span></td>
+                  <td>Comunicación entre host e VM, sen saír á rede real</td>
+                  <td>Probas locais sen saír á rede</td>
+                </tr>
+                <tr>
+                  <td><span class="badge bg-danger">Non conectado</span></td>
+                  <td>A tarxeta existe pero non ten conexión</td>
+                  <td>Probas sen rede / incidencias simuladas</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-success d-flex gap-2 align-items-start" role="note">
+            <i class="bi bi-check-circle-fill flex-shrink-0 mt-1"></i>
+            <div>
+              <strong>Lembra:</strong>
+              <ul class="mb-0 mt-1 small">
+                <li>Para instalar Ubuntu e actualizar paquetes, <strong>NAT chega de sobra</strong>.</li>
+                <li>Se unha VM non ten Internet, hai que revisar o <strong>modo de rede en VirtualBox</strong> e despois a <strong>IP dentro do sistema</strong>.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════ -->
+        <!-- 5.6 Diagnóstico de incidencias            -->
+        <!-- ══════════════════════════════════════════ -->
+        <section id="sec-incidencias" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3">
+            <i class="bi bi-tools me-2 text-primary"></i>5.6 Relación co diagnóstico de incidencias de rede
+          </h2>
+
+          <p>Esta sección conecta directamente coa parte de <strong>incidencias</strong> xa traballada. As causas máis habituais de que unha VM non teña Internet son:</p>
+
+          <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item"><i class="bi bi-x-circle-fill me-2 text-danger"></i>Modo de rede «Non conectado» en VirtualBox.</li>
+            <li class="list-group-item"><i class="bi bi-x-circle-fill me-2 text-danger"></i>IP mal configurada ou sen IP asignada.</li>
+            <li class="list-group-item"><i class="bi bi-x-circle-fill me-2 text-danger"></i>DNS erróneo ou non configurado.</li>
+          </ul>
+
+          <!-- Procedemento de diagnóstico paso a paso -->
+          <h3 class="h6 fw-semibold text-uppercase text-secondary mb-3">Procedemento de diagnóstico — orde recomendada</h3>
+
+          <div class="d-flex flex-column gap-2 mb-3">
+
+            <div class="imso-paso d-flex align-items-start gap-3">
+              <span class="imso-ex-num flex-shrink-0">1</span>
+              <div class="imso-paso-texto">
+                <strong>Revisar o modo de rede en VirtualBox</strong>
+                <div class="imso-indicacion small mt-1">Se está en «Non conectado», cámbialo antes de continuar. Non ten sentido revisar a IP se o cable virtual está desconectado.</div>
+              </div>
+            </div>
+
+            <div class="imso-paso d-flex align-items-start gap-3">
+              <span class="imso-ex-num flex-shrink-0">2</span>
+              <div class="imso-paso-texto">
+                <strong>Ver IP e estado da interface</strong>
+                <div class="imso-indicacion small mt-1"><code>ip a</code> en Ubuntu · propiedades do adaptador en Windows.</div>
+              </div>
+            </div>
+
+            <div class="imso-paso d-flex align-items-start gap-3">
+              <span class="imso-ex-num flex-shrink-0">3</span>
+              <div class="imso-paso-texto">
+                <strong>Probar ping a unha IP externa</strong>
+                <div class="imso-indicacion small mt-1">
+                  <pre class="cmd-pre mt-1 mb-0"><code>ping 8.8.8.8 -c 4</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="imso-paso d-flex align-items-start gap-3">
+              <span class="imso-ex-num flex-shrink-0">4</span>
+              <div class="imso-paso-texto">
+                <strong>Probar ping a un nome</strong>
+                <div class="imso-indicacion small mt-1">
+                  <pre class="cmd-pre mt-1 mb-0"><code>ping www.google.com -c 4</code></pre>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="alert alert-warning imso-nota d-flex gap-2 align-items-start" role="note">
+            <i class="bi bi-lightbulb-fill flex-shrink-0 mt-1"></i>
+            <span>Se o paso 3 funciona pero o paso 4 falla, o problema é de <strong>DNS</strong>, non de conectividade IP.</span>
+          </div>
+
+          <div class="alert alert-secondary blockquote-custom px-3 py-2 mt-3" role="note">
+            <em>Na <strong>UD2</strong> iremos moito máis lonxe en protocolos, DNS, ficheiros de configuración e resolución de problemas de conectividade.</em>
+          </div>
+        </section>
+
+      </article>
+    </main><!-- /col-lg-9 -->
+  </div><!-- /row -->
+</div><!-- /container-xl -->
+
+<!-- ── Footer ── -->
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos e redes· Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <svg class="smpp-sauce" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="2" y="8" width="32" height="24" rx="4" fill="#0f172a" stroke="#C9A84C" stroke-width="2"/>
+    <rect x="7" y="13" width="10" height="2" rx="1" fill="#C9A84C"/>
+    <rect x="7" y="18" width="22" height="2" rx="1" fill="#C9A84C" opacity="0.6"/>
+    <rect x="7" y="23" width="16" height="2" rx="1" fill="#C9A84C" opacity="0.4"/>
+    <circle cx="28" cy="13" r="3" fill="#C9A84C"/>
+  </svg>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const icon = document.getElementById('theme-icon');
+    const isDark = html.getAttribute('data-bs-theme') === 'dark';
+    html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
+    icon.className = isDark ? 'bi bi-moon-stars' : 'bi bi-sun-fill';
+  }
+
+  // Botón copiar en bloques cmd-pre
+  document.querySelectorAll('pre.cmd-pre').forEach(pre => {
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-sm btn-secondary btn-copy';
+    btn.innerHTML = '<i class="bi bi-clipboard"></i>';
+    btn.title = 'Copiar';
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(pre.innerText).then(() => {
+        btn.innerHTML = '<i class="bi bi-clipboard-check"></i>';
+        setTimeout(() => { btn.innerHTML = '<i class="bi bi-clipboard"></i>'; }, 1500);
+      });
+    });
+    wrapper.appendChild(btn);
+  });
+</script>
+
+</body>
+</html>

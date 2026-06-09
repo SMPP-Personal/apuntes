@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>UD3 · B2 – Exercicios de auditoría de uso e acceso</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+  <!-- Fonts (Inter + Fira Code) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+  <!-- Estilos propios SMPP / IMSO -->
+  <link href="../../assets/css/smpp.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar SMPP -->
+  <nav class="smpp-navbar no-print">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="smpp-brand" href="#">
+        <img src="../../assets/img/buho-clean.svg"
+             alt="SMPP"
+             class="smpp-buho"
+             onerror="this.style.display='none'">
+        <div class="smpp-brand-text">
+          <span class="smpp-title">SMPP</span>
+          <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+        </div>
+      </a>
+
+      <div class="d-flex align-items-center gap-3">
+        <span class="smpp-module">
+          MP0369 · IMSO 26/27
+        </span>
+
+        <button class="btn btn-outline-light btn-sm"
+                type="button"
+                onclick="toggleTheme()"
+                aria-label="Cambiar tema"
+                title="Cambiar tema">
+          <i class="bi bi-moon-stars" id="theme-icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contido principal -->
+  <div class="container-xl py-4">
+    <div class="row g-4">
+
+      <!-- Índice lateral -->
+      <aside class="col-lg-3 d-none d-lg-block no-print">
+        <div class="sidebar">
+          <div class="card shadow-sm sidebar-panel border">
+            <div class="card-body px-3 py-3">
+              <h6 class="text-uppercase fw-bold mb-1">
+                <i class="bi bi-list-ul me-1"></i> Índice
+              </h6>
+              <hr class="my-2">
+
+              <nav id="toc" class="toc">
+                <ul class="nav flex-column gap-1 small">
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#instrucions-xerais">
+                      Instrucións xerais
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#bloque1">
+                      Bloque 1 – Comprensión de conceptos
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#bloque2">
+                      Bloque 2 – Planificación
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#bloque3">
+                      Bloque 3 – Interpretación de rexistros
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#bloque4">
+                      Bloque 4 – Repercusións e xestión
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#bloque5">
+                      Bloque 5 – Documentación
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#autoavaliacion">
+                      Autoavaliación rápida
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Columna principal -->
+      <main class="col-lg-9">
+        <article>
+
+          <!-- Hero principal -->
+          <header class="mb-4">
+            <div class="exercise-hero hero-purple">
+              <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <span class="hero-chip">
+                  <i class="bi bi-collection"></i>
+                  UD3 · B2 – Auditoría de uso e acceso
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-pc-display"></i>
+                  Windows &amp; Ubuntu
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-clipboard-check"></i>
+                  Exercicios de consolidación
+                </span>
+              </div>
+
+              <h1 class="h2 fw-bold mb-2">
+                UD3 · B2 – Exercicios de auditoría de uso e acceso
+              </h1>
+
+              <p class="lead mb-0">
+                Colección de exercicios para consolidar conceptos de auditoría,
+                planificación, interpretación de rexistros e documentación básica.
+              </p>
+            </div>
+          </header>
+
+          <!-- Meta do recurso -->
+          <section class="mb-4 section-anchor" id="instrucions-xerais">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-info-circle"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Instrucións xerais</h2>
+              </div>
+              <div class="content-card-body">
+
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6 col-xl-3">
+                    <div class="key-card h-100">
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-mortarboard text-primary"></i>
+                        <strong>Módulo</strong>
+                      </div>
+                      <p class="small mb-0">
+                        MP0369 – Implantación de sistemas operativos.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-3">
+                    <div class="key-card h-100">
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-diagram-3 text-primary"></i>
+                        <strong>Ciclo</strong>
+                      </div>
+                      <p class="small mb-0">
+                        Administración de sistemas informáticos en rede.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-3">
+                    <div class="key-card h-100">
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-arrow-up-right-circle text-primary"></i>
+                        <strong>Nivel</strong>
+                      </div>
+                      <p class="small mb-0">
+                        1.º curso.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-3">
+                    <div class="key-card h-100">
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-person text-primary"></i>
+                        <strong>Autora</strong>
+                      </div>
+                      <p class="small mb-0">
+                        Silvia M. Peña Pérez.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="notice info mb-3 d-flex gap-2 align-items-start">
+                  <i class="bi bi-journal-check flex-shrink-0 mt-1"></i>
+                  <div>
+                    <p class="mb-1">
+                      Responde de forma clara e concisa. Cando se che pida comparar Windows e Ubuntu,
+                      indica sempre a cal dos dous te refires.
+                    </p>
+                    <p class="mb-1">
+                      Nos exercicios de interpretación pode haber máis dunha resposta razoable:
+                      xustifica sempre o teu razoamento.
+                    </p>
+                    <p class="mb-0">
+                      Non abonda con dicir que algo é perigoso ou sospeitoso: explica que evidencia
+                      che permite chegar a esa conclusión.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- BLOQUE 1 -->
+          <section class="mb-5 section-anchor" id="bloque1">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-journal-text"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Bloque 1 – Comprensión de conceptos</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exercicio 1 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">1</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Definición de auditoría de sistema
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      Define con palabras propias que é unha auditoría de sistema.
+                      Indica dúas situacións reais nun contorno de empresa nas que
+                      sería útil ter a auditoría activada.
+                    </p>
+                    <div class="answer-lines mt-2"></div>
+                  </div>
+                </div>
+
+                <!-- Exercicio 2 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">2</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Verdadeiro / falso con xustificación
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      Indica se as seguintes afirmacións son <strong>verdadeiras ou falsas</strong>.
+                      Se son falsas, corríxeas.
+                    </p>
+                    <ul class="mb-2">
+                      <li>
+                        a) A auditoría rexistra todos os eventos do sistema de forma automática
+                        e sen configuración previa.
+                      </li>
+                      <li>
+                        b) Un obxecto auditado pode ser un ficheiro, un cartafol ou outro recurso concreto
+                        do sistema sobre o que se quere controlar o acceso.
+                      </li>
+                      <li>
+                        c) As contas de usuario, os servizos e as políticas poden xerar eventos de auditoría,
+                        aínda que non sempre se traten como “obxectos auditados” no mesmo sentido
+                        ca un ficheiro ou cartafol.
+                      </li>
+                      <li>
+                        d) Auditar máis sucesos sempre mellora a seguridade do sistema
+                        sen ningún inconveniente.
+                      </li>
+                      <li>
+                        e) O rexistro de seguridade en Windows consúltase no
+                        <strong>Visor de eventos</strong>, dentro de
+                        <strong>Rexistros de Windows &gt; Seguridade</strong>.
+                      </li>
+                      <li>
+                        f) En Ubuntu, os eventos de autenticación rexístranse habitualmente
+                        en <code>/var/log/syslog</code>.
+                      </li>
+                    </ul>
+                    <div class="answer-lines mt-2"></div>
+                  </div>
+                </div>
+
+                <!-- Exercicio 3 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">3</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Clasificación de sucesos
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      Clasifica os seguintes sucesos segundo o tipo que lles corresponde.
+                      Usa as categorías:
+                      <em>inicio de sesión correcto</em>,
+                      <em>inicio de sesión fallido</em>,
+                      <em>acceso denegado</em>,
+                      <em>uso de privilexios</em>,
+                      <em>cambio de política</em>,
+                      <em>arranque do sistema</em>.
+                    </p>
+                    <ul class="mb-2">
+                      <li>a) O usuario <code>carlos</code> introduce mal o contrasinal tres veces seguidas.</li>
+                      <li>b) A administradora executa <code>sudo apt upgrade</code> no servidor.</li>
+                      <li>c) O equipo servidor reiníciase despois dun corte de luz.</li>
+                      <li>d) O usuario <code>invitado</code> intenta abrir o cartafol <code>Contabilidade</code>, pero non ten permiso.</li>
+                      <li>e) A técnica modifica a política de contrasinais do equipo local.</li>
+                      <li>f) O usuario <code>ana</code> inicia sesión correctamente ás 8:47.</li>
+                    </ul>
+                    <div class="answer-lines mt-2"></div>
+                  </div>
+                </div>
+
+                <!-- Exercicio 4 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">4</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Suceso correcto vs suceso de erro
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      Explica a diferenza entre <strong>auditar un suceso correcto</strong> e
+                      <strong>auditar un suceso de erro</strong>. Pon un exemplo de cada un
+                      no contexto de inicios de sesión.
+                    </p>
+                    <div class="answer-lines mt-2"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- BLOQUE 2 -->
+          <section class="mb-5 section-anchor" id="bloque2">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-diagram-3"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Bloque 2 – Planificación</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exercicio 5 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">5</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Plan de auditoría sinxelo
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      Unha empresa ten un servidor de ficheiros Windows con tres cartafoles compartidos:
+                      <code>Facturación</code>, <code>RRHH</code> e <code>Proxectos</code>.
+                      O responsable de seguridade quere saber se alguén accede a
+                      <code>RRHH</code> fóra do horario laboral.
+                    </p>
+                    <p>
+                      Elabora un <strong>plan de auditoría sinxelo</strong> para este caso
+                      cubrindo os seguintes apartados:
+                    </p>
+                    <ul>
+                      <li>Obxectivo.</li>
+                      <li>Ámbito.</li>
+                      <li>Obxecto auditado.</li>
+                      <li>Sucesos que se van auditar.</li>
+                      <li>Configuración necesaria sobre o cartafol ou recurso auditado.</li>
+                      <li>Ferramenta que se vai usar para consultar os eventos.</li>
+                      <li>Impacto previsto no sistema.</li>
+                      <li>Frecuencia de revisión dos rexistros.</li>
+                    </ul>
+                    <div class="notice info my-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Pista.</strong>
+                        Non abonda con dicir “activar a auditoría”. Debes indicar
+                        que recurso concreto se vai auditar e que accións interesa controlar.
+                      </div>
+                    </div>
+                    <div class="answer-lines mt-2"></div>
+                  </div>
+                </div>
+
+                <!-- Exercicio 6 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">6</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Auditoría excesiva no servidor
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      Un compañeiro propón auditar <strong>todos os sucesos</strong> sobre
+                      <strong>todos os ficheiros</strong> do servidor para “estar máis seguros”.
+                      Explica por que esta decisión pode ser problemática e que consecuencias
+                      pode ter para o sistema e para o traballo do administrador.
+                    </p>
+                    <div class="answer-lines mt-2"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- BLOQUE 3 -->
+          <section class="mb-5 section-anchor" id="bloque3">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-clipboard-data"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Bloque 3 – Interpretación de rexistros</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exercicio 7 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">7</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Rexistro de seguridade en Windows
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      Observa as seguintes entradas do rexistro de seguridade de Windows e responde as preguntas:
+                    </p>
+                    <pre class="cmd-block"><code>Entrada 1:
+  ID de evento:  4624
+  Tipo:          Auditoría correcta
+  Data/hora:     08/06/2026 – 08:47:12
+  Usuario:       ana
+  Equipo:        PC-RECEPCION
+  Descrición:    Iniciouse sesión correctamente nunha conta.
+
+Entrada 2:
+  ID de evento:  4625
+  Tipo:          Auditoría de erros
+  Data/hora:     08/06/2026 – 10:14:23
+  Usuario:       Administrador
+  Equipo:        SRV-FICHEIROS
+  Descrición:    Non se puido iniciar a sesión dunha conta.
+
+Entrada 3:
+  ID de evento:  4625
+  Tipo:          Auditoría de erros
+  Data/hora:     08/06/2026 – 10:14:31
+  Usuario:       Administrador
+  Equipo:        SRV-FICHEIROS
+  Descrición:    Non se puido iniciar a sesión dunha conta.
+
+Entrada 4:
+  ID de evento:  4625
+  Tipo:          Auditoría de erros
+  Data/hora:     08/06/2026 – 10:14:38
+  Usuario:       Administrador
+  Equipo:        SRV-FICHEIROS
+  Descrición:    Non se puido iniciar a sesión dunha conta.</code></pre>
+
+                    <ol class="mb-2">
+                      <li>a) Que ocorreu na Entrada 1? Indica equipo, usuario e tipo de suceso.</li>
+                      <li>b) Que patrón observas nas Entradas 2, 3 e 4? Que podería estar a pasar?</li>
+                      <li>c) Considerarías este patrón unha anomalía de seguridade? Xustifica a resposta.</li>
+                      <li>d) Que acción tomarías como administrador/a ante esta situación?</li>
+                    </ol>
+                    <div class="answer-lines mt-2"></div>
+                  </div>
+                </div>
+
+                <!-- Exercicio 8 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">8</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Rexistro de autenticación en Ubuntu
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      Observa as seguintes liñas do ficheiro <code>/var/log/auth.log</code>
+                      dun servidor Ubuntu e responde:
+                    </p>
+                    <pre class="cmd-block"><code>Jun  8 09:01:15 ubuntu sshd[1102]: Accepted password for ana from 192.168.1.15 port 51200 ssh2
+Jun  8 09:03:44 ubuntu sshd[1108]: Failed password for root from 192.168.1.99 port 44312 ssh2
+Jun  8 09:03:51 ubuntu sshd[1109]: Failed password for root from 192.168.1.99 port 44318 ssh2
+Jun  8 09:03:58 ubuntu sshd[1110]: Failed password for root from 192.168.1.99 port 44325 ssh2
+Jun  8 09:04:05 ubuntu sshd[1111]: Failed password for root from 192.168.1.99 port 44330 ssh2
+Jun  8 09:15:30 ubuntu sudo: ana : TTY=pts/0 ; PWD=/home/ana ; USER=root ; COMMAND=/bin/apt update</code></pre>
+
+                    <ol class="mb-2">
+                      <li>a) Que usuario iniciou sesión correctamente? Desde que enderezo IP?</li>
+                      <li>b) Que sucede coas catro liñas de <code>Failed password</code>? Que IP está a orixinar estas tentativas?</li>
+                      <li>c) Que tipo de ataque podería estar a producirse? Xustifica brevemente.</li>
+                      <li>d) Que significa a última liña? Que fixo a usuaria <code>ana</code>?</li>
+                      <li>e) A partir desta información, que dúas medidas de seguridade propoñerías para este servidor?</li>
+                    </ol>
+                    <div class="answer-lines mt-2"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- BLOQUE 4 -->
+          <section class="mb-5 section-anchor" id="bloque4">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Bloque 4 – Repercusións e xestión</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exercicio 9 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">9</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Nivel de auditoría e impacto
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      Completa a seguinte táboa indicando, para cada situación, se o nivel de auditoría
+                      é <strong>insuficiente, adecuado ou excesivo</strong>, e xustifica brevemente:
+                    </p>
+
+                    <div class="table-responsive my-2">
+                      <table class="table table-sm table-striped align-middle">
+                        <thead>
+                          <tr>
+                            <th>Situación</th>
+                            <th>Nivel</th>
+                            <th>Xustificación</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              Audítanse só os inicios de sesión fallidos nun servidor de correo
+                              con 200 usuarios.
+                            </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Audítanse todos os accesos —lectura, escritura e borrado—
+                              a todos os ficheiros do sistema, incluídos os temporais.
+                            </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Audítanse os accesos ao cartafol <code>Nóminas</code> e os inicios
+                              de sesión fallidos no servidor de RRHH.
+                            </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Non se audita nada porque “o sistema vai ben”.
+                            </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="answer-zone mt-2"></div>
+                  </div>
+                </div>
+
+                <!-- Exercicio 10 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">10</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Rotación de logs
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      Explica que é a <strong>rotación de logs</strong> e por que é importante
+                      nunha empresa.
+                    </p>
+                    <p>
+                      Na resposta debes indicar tamén:
+                    </p>
+                    <ul>
+                      <li>
+                        Como se pode xestionar o tamaño, a sobrescritura ou o arquivado dos rexistros en Windows.
+                      </li>
+                      <li>
+                        Que ferramenta se emprega habitualmente en Ubuntu para automatizar a rotación de logs.
+                      </li>
+                    </ul>
+                    <p class="mb-1">
+                      Non fai falta entrar en configuracións avanzadas: abonda con explicar o concepto
+                      e citar a ferramenta ou mecanismo correspondente.
+                    </p>
+                    <div class="answer-lines mt-2"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- BLOQUE 5 -->
+          <section class="mb-5 section-anchor" id="bloque5">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-file-earmark-text"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Bloque 5 – Documentación</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exercicio 11 -->
+                <div class="question-card mb-3">
+                  <div class="question-header">
+                    <span class="question-number">11</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Informe breve de auditoría
+                    </h3>
+                  </div>
+                  <div class="question-body">
+                    <p>
+                      A partir das entradas do Exercicio 7, redacta un
+                      <strong>informe de auditoría moi breve</strong> que inclúa:
+                    </p>
+                    <ul>
+                      <li>Identificación: data, sistema revisado e técnico/a responsable.</li>
+                      <li>Obxectivo da revisión.</li>
+                      <li>Evidencias atopadas: resumo dos eventos relevantes.</li>
+                      <li>Conclusión.</li>
+                      <li>Recomendación.</li>
+                    </ul>
+                    <p class="mb-1">
+                      Non hai que cubrir un modelo completo de parte ou informe:
+                      abonda con <strong>8–12 liñas ben estruturadas</strong>.
+                    </p>
+                    <div class="answer-lines mt-2"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Autoavaliación -->
+          <section class="mb-5 section-anchor" id="autoavaliacion">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-clipboard-check"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Autoavaliación rápida</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Antes de entregar, comproba:
+                </p>
+                <ul class="check-list list-group list-group-flush">
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Identifiquei correctamente os tipos de sucesos en todos os exercicios.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    No plan de auditoría do Exercicio 5 cubrín todos os apartados pedidos.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Na interpretación de rexistros xustifiquei as miñas respostas.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    No informe final do Exercicio 11 incluín os cinco apartados indicados.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Diferenciei entre activar a auditoría, seleccionar que sucesos se rexistran
+                    e revisar posteriormente os eventos xerados.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <!-- Pé de páxina SMPP -->
+  <footer class="smpp-footer no-print">
+    <div class="smpp-footer-spacer"></div>
+    <div class="smpp-footer-center">
+      <span>CIFP A Carballeira · Ourense</span>
+      <span>Administración de Sistemas Informáticos · Curso 26/27</span>
+      <span>Material didáctico de uso interno</span>
+    </div>
+    <img src="../../assets/img/sauce-clean.svg"
+         alt=""
+         class="smpp-sauce"
+         onerror="this.style.display='none'">
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS común SMPP / IMSO -->
+  <script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

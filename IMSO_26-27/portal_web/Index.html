@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IMSO · Portal web</title>
+  <meta name="description" content="Portal web do módulo de Implantación de Sistemas Operativos. Acceso a unidades, apuntes, prácticas e materiais de apoio.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/css/imso.css">
+  <link rel="stylesheet" href="./assets/css/portal.css">
+</head>
+<body>
+
+  <header class="smpp-navbar">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <a href="index.html" class="smpp-brand text-decoration-none" aria-label="Portal principal IMSO">
+           <svg class="smpp-buho" viewBox="0 0 229 312" xmlns="http://www.w3.org/2000/svg"><path style="fill:currentColor; stroke:none;" d="M105 108C106.092 114.321 109.507 120.706 113.105 125.995C114.41 127.914 116.335 130.793 118.971 130.793C124.125 130.793 128.715 118.035 130.03 114C132.244 107.21 125.014 104.125 123.533 98C120.754 86.5074 129.693 74.19 138 67.3287C157.973 50.8312 192.629 59.108 202.945 31C204.354 27.1625 205.448 23.0815 205.829 19C206.087 16.2374 206.217 10.8515 201.941 11.8896C198.923 12.6226 196.377 15.4949 194 17.3349C189.874 20.5287 185.494 23.3441 181 25.9892C165.371 35.1885 147.345 41.6379 133.001 52.8148C127.207 57.3293 120.76 62.5979 119 70C115.415 66.464 113.433 61.7111 109.907 58.0394C103.191 51.0461 94.5309 45.7304 86 41.2554C77.5157 36.8048 69.2107 31.9363 61 27C54.0486 22.8208 47.253 18.4236 41 13.2462C38.7202 11.3585 35.3527 7.37711 32.1481 7.34491C28.1078 7.30429 28.9077 14.4963 29.0903 17C29.7718 26.3471 34.528 37.0498 41.3002 43.5355C49.0509 50.9583 59.042 52.381 69 54.679C81.9826 57.6751 96.7591 63.1685 105.101 74.0039C113.115 84.4131 117.391 99.0055 105 108M77 34C93.1178 40.7015 105.681 49.6805 118 62C125.47 56.7377 131.175 49.6462 139 44.696C146.908 39.6936 156.266 37.2023 164 32C144.997 23.8218 125.188 24.0442 105 24.9606C95.8176 25.3775 83.5405 26.8395 77 34M45 236C44.0329 231.357 45.9018 227.424 47.3295 223C49.5337 216.17 51.8331 209.021 53.331 202C58.4858 177.839 57.2483 151.977 43.3326 131C40.5022 126.733 37.9642 122.276 34 119C13.5911 153.967 20.8598 200.055 39.7315 234C46.4638 246.11 57.1047 261.995 70 268C68.7266 271.915 67.0985 275.822 67.0795 280C67.0589 284.506 69.1213 288.275 66 292L64 283L0 283L0 298L229 298L229 283L185 283C177.471 283 171.098 281.377 169 290C167.72 285.671 168.28 281.452 167.897 277C167.703 274.756 166.687 272.24 167.403 270.015C168.823 265.596 174.783 262.324 177.83 258.996C185.706 250.395 192.759 241.341 198.219 231C216.651 196.09 220.708 154.705 202 119L200 119C195.225 127.971 188.66 136.16 185.623 146C176.155 176.674 183.596 206.106 192 236C184.733 228.487 182.147 212.073 180.715 202C178.107 183.662 176.157 166.083 181.9 148C186.243 134.328 196.345 123.431 201.034 110C202.851 104.796 202.968 98.4671 203.561 93C204.592 83.4871 201.411 71.4355 197.1 63C195.77 60.3991 194.162 56.648 191.61 55.0278C187.749 52.5758 181.717 54.2114 178 56C183.08 69.2073 192.944 77.4351 190.7 93C188.539 107.992 177.449 116.891 165 123.846C139.596 138.037 103.483 139.257 77 127.208C62.0637 120.412 43.3332 105.644 45.304 87C46.6451 74.3132 54.0586 66.8928 61 57C56.5757 55.0418 50.1327 52.4993 45.304 54.6034C42.0733 56.0112 40.3836 60.0725 38.841 63C34.0537 72.0854 31.6528 83.7362 32.1042 94C32.4567 102.016 33.7145 109.789 37.3735 117C43.5612 129.195 52.6836 138.506 56.4059 152C62.0757 172.554 58.4646 195.967 52.4298 216C50.3798 222.805 47.0873 229.227 45 236M77 67.5185C61.7765 70.6989 54.1473 89.383 64.419 101.907C69.8284 108.502 79.9791 110.197 88 108.482C101.144 105.673 108.48 90.0544 101.721 78.0008C97.3132 70.1394 85.7216 65.6965 77 67.5185M152 67.4406C132.074 70.5515 123.567 99.1812 145 107.656C149.194 109.314 154.589 109.446 159 108.671C185.386 104.034 178.266 63.34 152 67.4406z"/></svg>
+          <span class="smpp-brand-text">
+            <span class="smpp-title">IMSO</span>
+            <span class="smpp-subtitle">Portal web do módulo</span>
+          </span>
+        </a>
+
+        <div class="smpp-module text-end">
+          CIFP A Carballeira · Implantación de Sistemas Operativos
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="portal-hero position-relative overflow-hidden">
+      <div class="portal-hero-glow portal-hero-glow-1"></div>
+      <div class="portal-hero-glow portal-hero-glow-2"></div>
+
+      <div class="container py-5">
+        <div class="row align-items-center g-4 py-lg-5">
+          <div class="col-lg-7">
+            <span class="portal-kicker">Módulo técnico · Portal académico</span>
+            <h1 class="display-4 fw-bold mt-3 mb-3">Implantación de Sistemas Operativos</h1>
+     <p class="lead mb-4">
+
+              Espazo web do módulo con acceso centralizado a unidades didácticas, apuntes, prácticas guiadas,
+              actividades e materiais complementarios.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3">
+              <a href="#unidades" class="btn btn-primary btn-lg px-4">Ver unidades</a>
+              <a href="#mapa" class="btn btn-outline-light btn-info btn-lg px-4">Estrutura publicada</a>
+	      <a href="./imso-programación-docente.html"  class="btn btn-success btn-outline-light btn-lg px-4"target="_blank" rel="noopener noreferrer">Programación</a>
+
+            </div>
+
+            <div class="row g-3 mt-4">
+              <div class="col-sm-4">
+                <div class="portal-stat-card">
+                  <div class="portal-stat-number">4</div>
+                  <div class="portal-stat-label">Unidades previstas</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="portal-stat-card">
+                  <div class="portal-stat-number">IMSO</div>
+                  <div class="portal-stat-label">Portal modular</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="portal-stat-card">
+                  <div class="portal-stat-number">0</div>
+                  <div class="portal-stat-label">Contido docente visible</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="card portal-hero-panel border-0 shadow-lg">
+              <div class="card-body p-4">
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                  <span class="portal-chip">Windows</span>
+                  <span class="portal-chip">Linux</span>
+                  <span class="portal-chip portal-chip-soft">Virtualización</span>
+                  <span class="portal-chip portal-chip-soft">Administración</span>
+                </div>
+
+                <h2 class="h4 mb-3">Contido previsto no portal</h2>
+                <ul class="list-unstyled portal-mini-list mb-0">
+                  <li><span>UD1</span><strong>Instalación de SO</strong></li>
+                  <li><span>UD2</span><strong>Dominios</strong></li>
+                  <li><span>UD3</span><strong>Monitorización e rendemento</strong></li>
+                  <li><span>UD4</span><strong>Escritorio remoto</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 portal-section" id="unidades">
+      <div class="container">
+        <div class="mb-5">
+          <span class="portal-section-label">Acceso principal</span>
+          <h2 class="display-6 fw-bold mb-3">Unidades do portal</h2>
+          <p class="text-secondary mb-0">
+            O índice mostra unicamente os bloques pensados para o alumnado, deixando fóra as carpetas internas de profesorado e o contido xeral de módulo.
+          </p>
+        </div>
+
+        <div class="row g-4">
+
+          <div class="col-12 col-xl-6">
+            <article class="card portal-unit-card portal-unit-ud1 border-0 shadow-sm h-100">
+              <div class="card-body p-4 p-lg-5">
+                <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
+                  <div>
+                    <span class="portal-card-tag">UD1</span>
+                    <h3 class="h2 mt-2 mb-2">Instalación de sistemas operativos</h3>
+                  </div>
+                  <span class="badge rounded-pill text-bg-primary">Virtualización · base do módulo</span>
+                </div>
+
+                <p class="text-secondary">
+                  Unidade centrada na instalación, documentación de procesos, resolución de incidencias iniciais e primeiros comandos en Windows e Linux.
+                </p>
+
+                <div class="portal-subcard-list mt-4">
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD1_Instalacion_SO/apuntes/">
+                    <span class="portal-subcard-label">Apuntes</span>
+                    <div class="portal-subcard-content">
+                      <strong>Bloques B1-B5</strong>
+                      <small>Conceptos de SO, licenzas, firmware, particionado, documentación e incidencias.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD1_Instalacion_SO/A1_Instalacion_VM/">
+                    <span class="portal-subcard-label">Prácticas</span>
+                    <div class="portal-subcard-content">
+                      <strong>A1 · Instalación VM</strong>
+                      <small>Guións, checklist e tarefas asociadas á práctica inicial.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD1_Instalacion_SO/A2_Configuracion_basica/">
+                    <span class="portal-subcard-label">Prácticas</span>
+                    <div class="portal-subcard-content">
+                      <strong>A2 · Configuración básica</strong>
+                      <small>Sistemas de ficheiros, rede cliente, compartición de recursos e exercicios de razoamento.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD1_Instalacion_SO/A3_Proteccion_informacion/">
+                    <span class="portal-subcard-label">Prácticas</span>
+                    <div class="portal-subcard-content">
+                      <strong>A3 · Protección da información</strong>
+                      <small>RAID, copias de seguridade, simulacións e actividades de protección de datos.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD1_Instalacion_SO/SB_comandos/">
+                    <span class="portal-subcard-label">Soporte</span>
+                    <div class="portal-subcard-content">
+                      <strong>SB_comandos</strong>
+                      <small>Apuntes de comandos, chuletas e exercicios en contorno Windows e Linux.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-xl-6">
+            <article class="card portal-unit-card portal-unit-ud2 border-0 shadow-sm h-100">
+              <div class="card-body p-4 p-lg-5">
+                <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
+                  <div>
+                    <span class="portal-card-tag">UD2</span>
+                    <h3 class="h2 mt-2 mb-2">Dominios</h3>
+                  </div>
+                  <span class="badge rounded-pill text-bg-success">Administración centralizada</span>
+                </div>
+
+                <p class="text-secondary">
+                  Unidade dedicada á planificación, instalación, posta en marcha e organización do control de acceso en contornos de dominio.
+                </p>
+
+                <div class="portal-subcard-list mt-4">
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD2_Dominios/B1_Introduccion_planificacion/">
+                    <span class="portal-subcard-label">B1</span>
+                    <div class="portal-subcard-content">
+                      <strong>Introdución e planificación</strong>
+                      <small>Deseño do dominio, contexto de implantación e primeiros materiais de análise.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD2_Dominios/B2_Instalacion_posta_marcha/">
+                    <span class="portal-subcard-label">B2</span>
+                    <div class="portal-subcard-content">
+                      <strong>Instalación e posta en marcha</strong>
+                      <small>Procedementos de instalación, prácticas guiadas e tarefas de configuración inicial.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD2_Dominios/B3_Organizacion_control_acceso/">
+                    <span class="portal-subcard-label">B3</span>
+                    <div class="portal-subcard-content">
+                      <strong>Organización e control de acceso</strong>
+                      <small>OU, grupos, permisos, GPO, incidencias de usuario e exercicios asociados.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-xl-6">
+            <article class="card portal-unit-card portal-unit-ud3 border-0 shadow-sm h-100">
+              <div class="card-body p-4 p-lg-5">
+                <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
+                  <div>
+                    <span class="portal-card-tag">UD3</span>
+                    <h3 class="h2 mt-2 mb-2">Monitorización e rendemento</h3>
+                  </div>
+                  <span class="badge rounded-pill text-bg-info">Análise do sistema</span>
+                </div>
+
+                <p class="text-secondary">
+                  Unidade orientada ao seguimento do rendemento, auditoría, mantemento e resposta ante incidencias técnicas.
+                </p>
+
+                <div class="portal-subcard-list mt-4">
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD3_Monitorizacion_Rendemento/_plantillas/">
+                    <span class="portal-subcard-label">Recursos</span>
+                    <div class="portal-subcard-content">
+                      <strong>Plantillas</strong>
+                      <small>Modelos de informe técnico e materiais base reutilizables dentro da unidade.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD3_Monitorizacion_Rendemento/B1_Rendemento_monitorizacion/">
+                    <span class="portal-subcard-label">B1</span>
+                    <div class="portal-subcard-content">
+                      <strong>Rendemento e monitorización</strong>
+                      <small>Obxectos de rendemento, rexistros, alertas e observación do comportamento do sistema.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD3_Monitorizacion_Rendemento/B2_Auditoria_uso_acceso/">
+                    <span class="portal-subcard-label">B2</span>
+                    <div class="portal-subcard-content">
+                      <strong>Auditoría de uso e acceso</strong>
+                      <small>Seguimento de eventos, revisión de actividade e planificación básica de auditoría.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD3_Monitorizacion_Rendemento/B3_Mantemento_incidencias/">
+                    <span class="portal-subcard-label">B3</span>
+                    <div class="portal-subcard-content">
+                      <strong>Mantemento e incidencias</strong>
+                      <small>Simulacións, análise técnica e intervención ante problemas de rendemento.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-xl-6">
+            <article class="card portal-unit-card portal-unit-ud4 border-0 shadow-sm h-100">
+              <div class="card-body p-4 p-lg-5">
+                <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
+                  <div>
+                    <span class="portal-card-tag">UD4</span>
+                    <h3 class="h2 mt-2 mb-2">Escritorio remoto</h3>
+                  </div>
+                  <span class="badge rounded-pill text-bg-dark">Acceso remoto e soporte</span>
+                </div>
+
+                <p class="text-secondary">
+                  Unidade centrada nas solucións de acceso remoto, prácticas en Windows e Linux e análise de escenarios de teletraballo.
+                </p>
+
+                <div class="portal-subcard-list mt-4">
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD4_Escritorio_Remoto/apuntes/">
+                    <span class="portal-subcard-label">Apuntes</span>
+                    <div class="portal-subcard-content">
+                      <strong>Contexto e solucións</strong>
+                      <small>Fundamentos, comparativas, casos reais e visión xeral do escritorio remoto.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <a class="portal-subcard portal-subcard-row text-decoration-none" href="UD4_Escritorio_Remoto/practicas/">
+                    <span class="portal-subcard-label">Prácticas</span>
+                    <div class="portal-subcard-content">
+                      <strong>RDP e xRDP</strong>
+                      <small>Configuración guiada, exercicios, chuletas e tarefas prácticas de acceso remoto.</small>
+                    </div>
+                    <span class="portal-subcard-arrow" aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 portal-section portal-section-alt" id="mapa">
+      <div class="container">
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-7">
+            <div class="card portal-info-card border-0 shadow-sm h-100">
+              <div class="card-body p-4 p-lg-5">
+                <span class="portal-section-label">Mapa do portal</span>
+                <h2 class="h2 mb-3">Estrutura visible para o alumnado</h2>
+                <p class="text-secondary">
+                  O índice parte da estrutura prevista de publicación, excluíndo `00_MODULO/` e todas as carpetas `_docente`.
+                </p>
+
+<pre class="portal-tree mb-0"><code>\PORTAL_WEB
+├───UD1_Instalacion_SO
+│   ├───apuntes
+│   ├───A1_Instalacion_VM
+│   ├───A2_Configuracion_basica
+│   ├───A3_Proteccion_informacion
+│   └───SB_comandos
+├───UD2_Dominios
+│   ├───B1_Introduccion_planificacion
+│   ├───B2_Instalacion_posta_marcha
+│   └───B3_Organizacion_control_acceso
+├───UD3_Monitorizacion_Rendemento
+│   ├───_plantillas
+│   ├───B1_Rendemento_monitorizacion
+│   ├───B2_Auditoria_uso_acceso
+│   └───B3_Mantemento_incidencias
+└───UD4_Escritorio_Remoto
+    ├───apuntes
+    └───practicas</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="card portal-info-card border-0 shadow-sm h-100">
+              <div class="card-body p-4 p-lg-5">
+                <span class="portal-section-label">Criterio de publicación</span>
+                <h2 class="h2 mb-3">Contido excluído do índice</h2>
+
+                <div class="portal-timeline">
+                  <div class="portal-timeline-item">
+                    <strong>00_MODULO/</strong>
+                    <span>Non se mostra no portal do alumnado.</span>
+                  </div>
+
+                  <div class="portal-timeline-item">
+                    <strong>_docente/</strong>
+                    <span>Excluída en todas as unidades por tratarse de material interno.</span>
+                  </div>
+
+                  <div class="portal-timeline-item">
+                    <strong>Estrutura estable</strong>
+                    <span>O portal pode crecer mantendo esta mesma organización sen redeseñar a portada.</span>
+                  </div>
+                </div>
+
+                <hr class="my-4">
+
+                <p class="mb-0 text-secondary">
+                  Se máis adiante decides que `_plantillas` tampouco debe ser visible, chega con eliminar esa entrada na UD3 e no mapa do portal.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="smpp-footer">
+    <div class="smpp-footer-spacer"></div>
+
+    <div class="smpp-footer-center">
+      <span>IMSO · Implantación de Sistemas Operativos</span>
+      CIFP A Carballeira · Portal web de materiais
+    </div>
+
+    <svg class="smpp-sauce" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+      <path d="M20 10h24l-2 10h4a4 4 0 0 1 4 4v6c0 7.8-4.5 14.5-11 17.7V54a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3v-6.3C18.5 44.5 14 37.8 14 30v-6a4 4 0 0 1 4-4h4l-2-10z"/>
+    </svg>
+
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

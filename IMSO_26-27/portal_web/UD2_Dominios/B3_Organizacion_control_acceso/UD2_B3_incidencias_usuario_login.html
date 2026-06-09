@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B3 Incidencias en Active Directory</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+</head>
+<body>
+
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+<li class="nav-item"><a class="nav-link py-1" href="#1-finalidade-do-documento">1. Finalidade do documento</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#2-escenario-comun">2. Escenario común</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#3-ficha-comun-de-resposta">3. Ficha común de resposta</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#4-incidencias-practicas">4. Incidencias prácticas</a></li>
+<li class="nav-item"><a class="nav-link py-1 ps-3" href="#incidencia-1-usuario-non-pode-iniciar-sesion-no-dominio">Incidencia 1 – Usuario non pode iniciar sesión no dominio</a></li>
+<li class="nav-item"><a class="nav-link py-1 ps-3" href="#incidencia-2-usuario-non-ten-acceso-ao-cartafol-de-entrega-do-seu-curso">Incidencia 2 – Usuario non ten acceso ao cartafol de entrega do seu curso</a></li>
+<li class="nav-item"><a class="nav-link py-1 ps-3" href="#incidencia-3-cartafol-persoal-non-se-monta-como-unidade-h">Incidencia 3 – Cartafol persoal non se monta como unidade H:</a></li>
+<li class="nav-item"><a class="nav-link py-1 ps-3" href="#incidencia-4-a-gpo-de-restricion-do-panel-de-control-non-se-aplica">Incidencia 4 – A GPO de restrición do Panel de control non se aplica</a></li>
+<li class="nav-item"><a class="nav-link py-1 ps-3" href="#incidencia-5-equipo-cliente-non-atopa-o-dominio-para-unirse">Incidencia 5 – Equipo cliente non atopa o dominio para unirse</a></li>
+<li class="nav-item"><a class="nav-link py-1 ps-3" href="#incidencia-6-usuario-pode-eliminar-contidos-que-non-deberia">Incidencia 6 – Usuario pode eliminar contidos que non debería</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#5-comandos-utiles-para-diagnostico">5. Comandos útiles para diagnóstico</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#6-evidencias-minimas-recomendadas">6. Evidencias mínimas recomendadas</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#7-ideas-clave-do-bloque-de-incidencias">7. Ideas clave do bloque de incidencias</a></li>
+</ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="col-lg-9">
+      <article>
+        <header class="mb-4">
+          <div class="practice-hero hero-purple">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-diagram-3"></i> UD2 · Bloque 3</span>
+              <span class="hero-chip"><i class="bi bi-bug"></i> Incidencias</span>
+              <span class="hero-chip"><i class="bi bi-hdd-network"></i> cifpsauce.local</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">UD2 – Bloque 3. Prácticas de diagnóstico de incidencias en Active Directory</h1>
+            <p class="lead mb-0">Prácticas de diagnóstico sobre inicio de sesión, pertenza a grupos, permisos, cartafoles persoais, GPO e resolución DNS nun dominio Windows.</p>
+          </div>
+        </header>
+
+        <div class="notice info mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div><strong>Enfoque da práctica:</strong> non se trata de seguir unha receita, senón de formular hipóteses, comprobar evidencias, localizar a causa e documentar a corrección aplicada.</div>
+        </div>
+
+        
+<section id="1-finalidade-do-documento" class="mb-5 section-anchor">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-bullseye"></i></span>
+      <div>
+        <h2 class="h4 fw-bold mb-0">1. Finalidade do documento</h2>
+      </div>
+    </div>
+    <div class="content-card-body">
+      <p>Este documento recolle un conxunto de incidencias prácticas sobre o
+dominio <code>cifpsauce.local</code>.</p>
+<p>O obxectivo non é seguir unha receita mecánica, senón aprender a
+diagnosticar problemas habituais nun dominio Windows: inicio de sesión,
+pertenza a grupos, permisos sobre cartafoles, cartafoles persoais, GPO e
+resolución DNS.</p>
+<p>En cada incidencia deberás seguir unha lóxica profesional de
+diagnóstico:</p>
+<ol class="mb-3" type="1">
+<li>Identificar o síntoma.</li>
+<li>Formular unha hipótese inicial.</li>
+<li>Realizar comprobacións concretas.</li>
+<li>Localizar a causa real.</li>
+<li>Aplicar unha corrección.</li>
+<li>Achegar unha evidencia da solución.</li>
+<li>Verificar que o problema quedou resolto.</li>
+</ol>
+<blockquote class="p-3 my-3 blockquote-custom rounded">
+<p><strong>Importante:</strong> non abonda con dicir “xa funciona”.
+Debes indicar que comprobaches, que atopaches, que cambiaches e que
+evidencia demostra a corrección.</p>
+</blockquote>
+<hr/>
+
+    </div>
+  </div>
+</section>
+
+<section id="2-escenario-comun" class="mb-5 section-anchor">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-hdd-network"></i></span>
+      <div>
+        <h2 class="h4 fw-bold mb-0">2. Escenario común</h2>
+      </div>
+    </div>
+    <div class="content-card-body">
+      <p>Todas as incidencias parten deste escenario de laboratorio:</p>
+<ul class="mb-3">
+<li>Dominio: <code>cifpsauce.local</code>.</li>
+<li>Controlador de dominio e DNS:
+<code>dcbuho.cifpsauce.local</code>.</li>
+<li>IP do servidor: <code>192.168.50.10</code>.</li>
+<li>Estrutura de OU principal:
+<ul class="mb-3">
+<li><code>OU=Alumnado</code>
+<ul class="mb-3">
+<li><code>OU=Curso1</code></li>
+<li><code>OU=Curso2</code></li>
+</ul></li>
+<li><code>OU=Profesorado</code></li>
+<li><code>OU=Administracion</code></li>
+<li><code>OU=Equipos-Aulas</code></li>
+<li><code>OU=Grupos</code></li>
+</ul></li>
+<li>Usuarios de exemplo:
+<ul class="mb-3">
+<li><code>alu.curso1.001</code></li>
+<li><code>alu.curso1.002</code></li>
+<li><code>alu.curso2.001</code></li>
+<li><code>prof.001</code></li>
+<li><code>adm.001</code></li>
+</ul></li>
+<li>Grupos globais de colectivos:
+<ul class="mb-3">
+<li><code>GG_Alumnado_Curso1</code></li>
+<li><code>GG_Alumnado_Curso2</code></li>
+<li><code>GG_Profesorado</code></li>
+<li><code>GG_Administracion</code></li>
+</ul></li>
+<li>Grupos de dominio local para permisos:
+<ul class="mb-3">
+<li><code>DL_Curso1_Lectura</code></li>
+<li><code>DL_Curso1_Entrega_Modificar</code></li>
+<li><code>DL_Curso2_Lectura</code></li>
+<li><code>DL_Curso2_Entrega_Modificar</code></li>
+<li><code>DL_Cursos_ControlTotal</code></li>
+</ul></li>
+<li>Recursos compartidos principais:
+<ul class="mb-3">
+<li><code>\\dcbuho\curso1</code></li>
+<li><code>\\dcbuho\curso2</code></li>
+<li><code>\\dcbuho\usuarios$</code></li>
+<li><code>\\dcbuho\perfis$</code></li>
+</ul></li>
+</ul>
+<blockquote class="p-3 my-3 blockquote-custom rounded">
+<p><strong>Nota:</strong> os recursos compartidos rematados en
+<code>$</code>, como <code>usuarios$</code> ou <code>perfis$</code>, son
+recursos ocultos. Poden non aparecer en <code>net view \\dcbuho</code>,
+pero poden existir igualmente. Para comprobalo, revisa
+<code>net share</code> no servidor ou accede directamente á ruta
+completa.</p>
+</blockquote>
+<p>A lóxica de permisos segue a estratexia <strong>AGDLP</strong>:</p>
+<pre class="cmd-block text"><code class="">Conta de usuario → Grupo global → Grupo de dominio local → Permiso sobre recurso</code></pre>
+<p>Exemplo:</p>
+<pre class="cmd-block text"><code class="">alu.curso1.002
+  ↓
+GG_Alumnado_Curso1
+  ↓
+DL_Curso1_Entrega_Modificar
+  ↓
+Permiso Modify sobre C:\DatosDominio\Cursos\Curso1\Entrega_Curso1</code></pre>
+<h3 class="fw-bold mt-3" id="21-estrutura-recomendada-de-cartafoles">2.1. Estrutura
+recomendada de cartafoles</h3>
+<p>Para evitar que o alumnado poida modificar ou eliminar materiais
+xerais do curso, recoméndase separar claramente a zona de lectura e a
+zona de entrega:</p>
+<pre class="cmd-block text"><code class="">C:\DatosDominio\Cursos\Curso1
+├── Materiais
+└── Entrega_Curso1
+    ├── alu.curso1.001
+    └── alu.curso1.002</code></pre>
+<p>Modelo recomendado:</p>
+<div class="table-responsive my-3"><table class="align-middle table-striped table-sm table">
+<thead>
+<tr class="header">
+<th>Ruta</th>
+<th>Uso</th>
+<th>Permiso recomendado para alumnado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>C:\DatosDominio\Cursos\Curso1</code></td>
+<td>Raíz do curso</td>
+<td>Read &amp; Execute</td>
+</tr>
+<tr class="even">
+<td><code>C:\DatosDominio\Cursos\Curso1\Materiais</code></td>
+<td>Materiais xerais</td>
+<td>Read &amp; Execute</td>
+</tr>
+<tr class="odd">
+<td><code>C:\DatosDominio\Cursos\Curso1\Entrega_Curso1</code></td>
+<td>Contedor de entregas</td>
+<td>Acceso limitado</td>
+</tr>
+<tr class="even">
+<td><code>C:\DatosDominio\Cursos\Curso1\Entrega_Curso1\alu.curso1.001</code></td>
+<td>Entrega individual</td>
+<td>Modify só para ese usuario</td>
+</tr>
+<tr class="odd">
+<td><code>C:\DatosDominio\Cursos\Curso1\Entrega_Curso1\alu.curso1.002</code></td>
+<td>Entrega individual</td>
+<td>Modify só para ese usuario</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="p-3 my-3 blockquote-custom rounded">
+<p><strong>Nota didáctica:</strong> nalgunhas incidencias aparecerán
+configuracións incorrectas ou demasiado permisivas. O obxectivo é
+detectalas, explicar por que son problemáticas e propoñer unha
+corrección coherente.</p>
+</blockquote>
+<hr/>
+
+    </div>
+  </div>
+</section>
+
+<section id="3-ficha-comun-de-resposta" class="mb-5 section-anchor">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-clipboard-check"></i></span>
+      <div>
+        <h2 class="h4 fw-bold mb-0">3. Ficha común de resposta</h2>
+      </div>
+    </div>
+    <div class="content-card-body">
+      <p>Para cada incidencia, entrega unha pequena ficha coma esta:</p>
+<div class="table-responsive my-3"><table class="align-middle table-striped table-sm table">
+<thead>
+<tr class="header">
+<th>Campo</th>
+<th>Resposta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Incidencia</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Síntoma observado</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Hipótese inicial</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Comprobacións realizadas</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Causa atopada</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Corrección aplicada</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Evidencia ou captura achegada</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Verificación final</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+
+    </div>
+  </div>
+</section>
+
+<section id="4-incidencias-practicas" class="mb-5 section-anchor">
+  <div class="content-card mb-4">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-tools"></i></span>
+      <div>
+        <h2 class="h4 fw-bold mb-0">4. Incidencias prácticas</h2>
+        <p class="mb-0 small text-muted">Seis casos prácticos para diagnosticar problemas reais nun dominio Windows.</p>
+      </div>
+    </div>
+    <div class="content-card-body">
+      <hr/>
+
+      <div class="row g-3 mt-2">
+        
+<div class="col-md-6 col-xl-4">
+  <a class="text-decoration-none" href="#incidencia-1-usuario-non-pode-iniciar-sesion-no-dominio">
+    <div class="concept-card h-100 p-3">
+      <div class="d-flex gap-3 align-items-start">
+        <span class="concept-icon"><i class="bi bi-person-lock"></i></span>
+        <div>
+          <span class="mini-badge mb-2">Incidencia 1</span>
+          <h3 class="h6 fw-bold mb-0 text-body">Usuario non pode iniciar sesión no dominio</h3>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+<div class="col-md-6 col-xl-4">
+  <a class="text-decoration-none" href="#incidencia-2-usuario-non-ten-acceso-ao-cartafol-de-entrega-do-seu-curso">
+    <div class="concept-card h-100 p-3">
+      <div class="d-flex gap-3 align-items-start">
+        <span class="concept-icon"><i class="bi bi-folder-check"></i></span>
+        <div>
+          <span class="mini-badge mb-2">Incidencia 2</span>
+          <h3 class="h6 fw-bold mb-0 text-body">Usuario non ten acceso ao cartafol de entrega do seu curso</h3>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+<div class="col-md-6 col-xl-4">
+  <a class="text-decoration-none" href="#incidencia-3-cartafol-persoal-non-se-monta-como-unidade-h">
+    <div class="concept-card h-100 p-3">
+      <div class="d-flex gap-3 align-items-start">
+        <span class="concept-icon"><i class="bi bi-house-gear"></i></span>
+        <div>
+          <span class="mini-badge mb-2">Incidencia 3</span>
+          <h3 class="h6 fw-bold mb-0 text-body">Cartafol persoal non se monta como unidade H:</h3>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+<div class="col-md-6 col-xl-4">
+  <a class="text-decoration-none" href="#incidencia-4-a-gpo-de-restricion-do-panel-de-control-non-se-aplica">
+    <div class="concept-card h-100 p-3">
+      <div class="d-flex gap-3 align-items-start">
+        <span class="concept-icon"><i class="bi bi-sliders"></i></span>
+        <div>
+          <span class="mini-badge mb-2">Incidencia 4</span>
+          <h3 class="h6 fw-bold mb-0 text-body">A GPO de restrición do Panel de control non se aplica</h3>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+<div class="col-md-6 col-xl-4">
+  <a class="text-decoration-none" href="#incidencia-5-equipo-cliente-non-atopa-o-dominio-para-unirse">
+    <div class="concept-card h-100 p-3">
+      <div class="d-flex gap-3 align-items-start">
+        <span class="concept-icon"><i class="bi bi-hdd-network"></i></span>
+        <div>
+          <span class="mini-badge mb-2">Incidencia 5</span>
+          <h3 class="h6 fw-bold mb-0 text-body">Equipo cliente non atopa o dominio para unirse</h3>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+<div class="col-md-6 col-xl-4">
+  <a class="text-decoration-none" href="#incidencia-6-usuario-pode-eliminar-contidos-que-non-deberia">
+    <div class="concept-card h-100 p-3">
+      <div class="d-flex gap-3 align-items-start">
+        <span class="concept-icon"><i class="bi bi-shield-exclamation"></i></span>
+        <div>
+          <span class="mini-badge mb-2">Incidencia 6</span>
+          <h3 class="h6 fw-bold mb-0 text-body">Usuario pode eliminar contidos que non debería</h3>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion" id="accordionIncidencias">
+    
+<div class="accordion-item" id="incidencia-1-usuario-non-pode-iniciar-sesion-no-dominio">
+  <h3 class="accordion-header" id="heading-inc-1">
+    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse-inc-1" aria-expanded="true" aria-controls="collapse-inc-1">
+      <span class="question-number">1</span>Incidencia 1 – Usuario non pode iniciar sesión no dominio
+    </button>
+  </h3>
+  <div id="collapse-inc-1" class="accordion-collapse collapse show" aria-labelledby="heading-inc-1" data-bs-parent="#accordionIncidencias">
+    <div class="accordion-body">
+      <h4 class="fw-bold mt-3" id="enunciado-para-o-alumnado">Enunciado para o alumnado</h4>
+<p>O usuario <code>alu.curso1.001</code> tenta iniciar sesión nun equipo
+da aula, pero recibe unha mensaxe de erro indicando que non se puido
+iniciar sesión porque o nome de usuario ou o contrasinal non son
+correctos, ou porque a conta non está dispoñible.</p>
+<p>Debes diagnosticar e arranxar o problema desde o dominio
+<code>cifpsauce.local</code>.</p>
+<h4 class="fw-bold mt-3" id="traballo-que-debes-entregar">Traballo que debes entregar</h4>
+<ul class="mb-3">
+<li>Explicación da causa real do fallo.</li>
+<li>Captura da conta de usuario en <strong>Active Directory Users and
+Computers</strong> ou saída equivalente de PowerShell.</li>
+<li>Evidencia de que o usuario consegue iniciar sesión correctamente
+despois da corrección.</li>
+</ul>
+<h4 class="fw-bold mt-3" id="guía-de-diagnóstico">Guía de diagnóstico</h4>
+<h5 class="fw-bold mt-3" id="1-comprobacións-no-cliente">1. Comprobacións no cliente</h5>
+<p>No equipo onde falla o inicio de sesión:</p>
+<div class="sourceCode" id="cb1"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>hostname</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>ping dcbuho.cifpsauce.local</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>nslookup dcbuho.cifpsauce.local</span></code></pre></div>
+<p>Comproba tamén que o usuario está escribindo o inicio de sesión
+correctamente:</p>
+<pre class="cmd-block text"><code class="">CIFPSAUCE\alu.curso1.001</code></pre>
+<p>ou:</p>
+<pre class="cmd-block text"><code class="">alu.curso1.001@cifpsauce.local</code></pre>
+<h5 class="fw-bold mt-3" id="2-comprobacións-no-servidor">2. Comprobacións no servidor</h5>
+<p>No servidor <code>dcbuho</code>, abre <strong>Active Directory Users
+and Computers</strong> e localiza a conta en:</p>
+<pre class="cmd-block text"><code class="">OU=Alumnado → OU=Curso1</code></pre>
+<p>Revisa:</p>
+<ul class="mb-3">
+<li>se a conta está deshabilitada;</li>
+<li>se a conta está bloqueada;</li>
+<li>se o contrasinal caducou;</li>
+<li>se está marcada a opción de cambiar o contrasinal no seguinte inicio
+de sesión;</li>
+<li>se a conta ten unha data de expiración;</li>
+<li>se o nome de usuario é exactamente <code>alu.curso1.001</code>.</li>
+</ul>
+<p>Tamén podes comprobar parte da información con PowerShell:</p>
+<div class="sourceCode" id="cb5"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a><span class="fu">Get-ADUser</span> alu<span class="op">.</span><span class="fu">curso1</span><span class="op">.</span><span class="dv">001</span> <span class="op">-</span>Properties Enabled<span class="op">,</span>LockedOut<span class="op">,</span>PasswordExpired<span class="op">,</span>AccountExpirationDate<span class="op">,</span>PasswordLastSet<span class="op">,</span>UserPrincipalName <span class="op">|</span></span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>  <span class="fu">Select-Object</span> SamAccountName<span class="op">,</span>UserPrincipalName<span class="op">,</span>Enabled<span class="op">,</span>LockedOut<span class="op">,</span>PasswordExpired<span class="op">,</span>AccountExpirationDate<span class="op">,</span>PasswordLastSet</span></code></pre></div>
+<p>Se a conta está bloqueada:</p>
+<div class="sourceCode" id="cb6"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a><span class="fu">Unlock-ADAccount</span> <span class="op">-</span>Identity alu<span class="op">.</span><span class="fu">curso1</span><span class="op">.</span><span class="dv">001</span></span></code></pre></div>
+<p>Se está deshabilitada:</p>
+<div class="sourceCode" id="cb7"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a><span class="fu">Enable-ADAccount</span> <span class="op">-</span>Identity alu<span class="op">.</span><span class="fu">curso1</span><span class="op">.</span><span class="dv">001</span></span></code></pre></div>
+<p>Se cómpre restablecer o contrasinal:</p>
+<div class="sourceCode" id="cb8"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="va">$NovoContrasinal</span> <span class="op">=</span> <span class="fu">Read-Host</span> <span class="st">"Introduce o novo contrasinal"</span> <span class="op">-</span>AsSecureString</span>
+<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a><span class="fu">Set-ADAccountPassword</span> <span class="op">-</span>Identity alu<span class="op">.</span><span class="fu">curso1</span><span class="op">.</span><span class="dv">001</span> <span class="op">-</span>Reset <span class="op">-</span>NewPassword <span class="va">$NovoContrasinal</span></span></code></pre></div>
+<p>Se queres obrigar ao usuario a cambiar o contrasinal no seguinte
+inicio de sesión:</p>
+<div class="sourceCode" id="cb9"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a><span class="fu">Set-ADUser</span> <span class="op">-</span>Identity alu<span class="op">.</span><span class="fu">curso1</span><span class="op">.</span><span class="dv">001</span> <span class="op">-</span>ChangePasswordAtLogon <span class="va">$true</span></span></code></pre></div>
+<h4 class="fw-bold mt-3" id="resultado-esperado">Resultado esperado</h4>
+<p>O usuario <code>alu.curso1.001</code> pode iniciar sesión
+correctamente nun equipo unido ao dominio.</p>
+<h4 class="fw-bold mt-3" id="evidencias-recomendadas">Evidencias recomendadas</h4>
+<ul class="mb-3">
+<li>Captura da pestana <strong>Account</strong> do usuario.</li>
+<li>Saída de PowerShell mostrando que a conta está habilitada e non
+bloqueada.</li>
+<li>Captura do inicio de sesión correcto ou do escritorio xa iniciado co
+usuario de dominio.</li>
+</ul>
+<hr/>
+
+    </div>
+  </div>
+</div>
+<div class="accordion-item" id="incidencia-2-usuario-non-ten-acceso-ao-cartafol-de-entrega-do-seu-curso">
+  <h3 class="accordion-header" id="heading-inc-2">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-inc-2" aria-expanded="false" aria-controls="collapse-inc-2">
+      <span class="question-number">2</span>Incidencia 2 – Usuario non ten acceso ao cartafol de entrega do seu curso
+    </button>
+  </h3>
+  <div id="collapse-inc-2" class="accordion-collapse collapse " aria-labelledby="heading-inc-2" data-bs-parent="#accordionIncidencias">
+    <div class="accordion-body">
+      <h4 class="fw-bold mt-3" id="enunciado-para-o-alumnado">Enunciado para o alumnado</h4>
+<p>O usuario <code>alu.curso1.002</code> non pode crear nin modificar
+ficheiros no seu cartafol de entrega:</p>
+<pre class="cmd-block text"><code class="">\\dcbuho\curso1\Entrega_Curso1\alu.curso1.002</code></pre>
+<p>Porén, <code>alu.curso1.001</code> si pode traballar no seu propio
+cartafol de entrega. Ambos usuarios pertencen ao Curso1.</p>
+<p>Debes descubrir por que <code>alu.curso1.002</code> non ten os
+permisos esperados e corrixir a situación.</p>
+<h4 class="fw-bold mt-3" id="traballo-que-debes-entregar">Traballo que debes entregar</h4>
+<ul class="mb-3">
+<li>Explicación da causa do fallo.</li>
+<li>Evidencia da pertenza a grupos.</li>
+<li>Evidencia dos permisos sobre o recurso.</li>
+<li>Proba final de acceso correcta.</li>
+</ul>
+<h4 class="fw-bold mt-3" id="guía-de-diagnóstico">Guía de diagnóstico</h4>
+<h5 class="fw-bold mt-3" id="1-comprobar-pertenza-a-grupos-do-usuario">1. Comprobar pertenza
+a grupos do usuario</h5>
+<p>En ADUC, abre as propiedades de <code>alu.curso1.002</code> e revisa
+a pestana <strong>Member Of</strong>.</p>
+<p>Debe pertencer a:</p>
+<pre class="cmd-block text"><code class="">GG_Alumnado_Curso1</code></pre>
+<p>Tamén podes comprobalo con:</p>
+<div class="sourceCode" id="cb3"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="fu">Get-ADPrincipalGroupMembership</span> alu<span class="op">.</span><span class="fu">curso1</span><span class="op">.</span><span class="dv">002</span> <span class="op">|</span></span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a>  <span class="fu">Select-Object</span> Name<span class="op">,</span>GroupScope<span class="op">,</span>GroupCategory</span></code></pre></div>
+<h5 class="fw-bold mt-3" id="2-comprobar-a-cadea-agdlp">2. Comprobar a cadea AGDLP</h5>
+<p>Non chega con mirar só o usuario. Debes comprobar a cadea
+completa:</p>
+<pre class="cmd-block text"><code class="">alu.curso1.002
+  ↓
+GG_Alumnado_Curso1
+  ↓
+DL_Curso1_Entrega_Modificar
+  ↓
+Permiso Modify sobre C:\DatosDominio\Cursos\Curso1\Entrega_Curso1\alu.curso1.002</code></pre>
+<p>Comproba que <code>GG_Alumnado_Curso1</code> é membro de
+<code>DL_Curso1_Entrega_Modificar</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a><span class="fu">Get-ADGroupMember</span> DL_Curso1_Entrega_Modificar <span class="op">|</span></span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>  <span class="fu">Select-Object</span> Name<span class="op">,</span>SamAccountName<span class="op">,</span>objectClass</span></code></pre></div>
+<p>Se falta o grupo global dentro do grupo de dominio local:</p>
+<div class="sourceCode" id="cb6"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a><span class="fu">Add-ADGroupMember</span> <span class="op">-</span>Identity DL_Curso1_Entrega_Modificar <span class="op">-</span>Members GG_Alumnado_Curso1</span></code></pre></div>
+<h5 class="fw-bold mt-3" id="3-comprobar-permisos-ntfs-e-de-compartición">3. Comprobar
+permisos NTFS e de compartición</h5>
+<p>No servidor, revisa:</p>
+<pre class="cmd-block text"><code class="">C:\DatosDominio\Cursos\Curso1\Entrega_Curso1\alu.curso1.002</code></pre>
+<p>Debe ter, como mínimo:</p>
+<div class="table-responsive my-3"><table class="align-middle table-striped table-sm table">
+<thead>
+<tr class="header">
+<th>Identidade</th>
+<th>Permiso NTFS esperado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>alu.curso1.002</code> ou grupo específico equivalente</td>
+<td>Modify</td>
+</tr>
+<tr class="even">
+<td><code>DL_Cursos_ControlTotal</code></td>
+<td>Full Control</td>
+</tr>
+<tr class="odd">
+<td><code>Administrators</code> / <code>Domain Admins</code></td>
+<td>Full Control</td>
+</tr>
+</tbody>
+</table></div>
+<p>A compartición <code>curso1</code> non debe ser máis restritiva ca o
+permiso NTFS que queres probar.</p>
+<p>Podes revisar a ACL con:</p>
+<div class="sourceCode" id="cb8"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="op">(</span><span class="fu">Get-Acl</span> <span class="st">"C:\DatosDominio\Cursos\Curso1\Entrega_Curso1\alu.curso1.002"</span><span class="op">).</span><span class="fu">Access</span> <span class="op">|</span></span>
+<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a>  <span class="fu">Select-Object</span> IdentityReference<span class="op">,</span>FileSystemRights<span class="op">,</span>InheritanceFlags<span class="op">,</span>AccessControlType</span></code></pre></div>
+<h5 class="fw-bold mt-3" id="4-comprobación-no-cliente">4. Comprobación no cliente</h5>
+<p>No cliente, inicia sesión como <code>alu.curso1.002</code> e
+executa:</p>
+<div class="sourceCode" id="cb9"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>whoami</span>
+<span id="cb9-2"><a aria-hidden="true" href="#cb9-2" tabindex="-1"></a>whoami <span class="at">/groups</span></span>
+<span id="cb9-3"><a aria-hidden="true" href="#cb9-3" tabindex="-1"></a>net view \\dcbuho</span>
+<span id="cb9-4"><a aria-hidden="true" href="#cb9-4" tabindex="-1"></a>net use</span>
+<span id="cb9-5"><a aria-hidden="true" href="#cb9-5" tabindex="-1"></a><span class="bu">dir</span> \\dcbuho\curso1\Entrega_Curso1\alu.curso1.002</span></code></pre></div>
+<p>Se acabas de cambiar pertenza a grupos, pecha sesión e volve iniciar
+sesión. O token de seguridade do usuario créase no inicio de sesión,
+polo que <code>gpupdate /force</code> non sempre resolve cambios de
+pertenza a grupos.</p>
+<h4 class="fw-bold mt-3" id="resultado-esperado">Resultado esperado</h4>
+<p><code>alu.curso1.002</code> pode crear e modificar ficheiros no seu
+propio cartafol de entrega, pero non debe poder modificar os cartafoles
+de entrega doutros usuarios nin os materiais xerais do curso.</p>
+<h4 class="fw-bold mt-3" id="evidencias-recomendadas">Evidencias recomendadas</h4>
+<ul class="mb-3">
+<li>Captura ou saída de <code>whoami /groups</code>.</li>
+<li>Captura de membros de <code>DL_Curso1_Entrega_Modificar</code>.</li>
+<li>Captura de permisos NTFS sobre o cartafol individual de
+entrega.</li>
+<li>Captura da creación dun ficheiro de proba no cartafol
+<code>\\dcbuho\curso1\Entrega_Curso1\alu.curso1.002</code>.</li>
+</ul>
+<hr/>
+
+    </div>
+  </div>
+</div>
+<div class="accordion-item" id="incidencia-3-cartafol-persoal-non-se-monta-como-unidade-h">
+  <h3 class="accordion-header" id="heading-inc-3">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-inc-3" aria-expanded="false" aria-controls="collapse-inc-3">
+      <span class="question-number">3</span>Incidencia 3 – Cartafol persoal non se monta como unidade H:
+    </button>
+  </h3>
+  <div id="collapse-inc-3" class="accordion-collapse collapse " aria-labelledby="heading-inc-3" data-bs-parent="#accordionIncidencias">
+    <div class="accordion-body">
+      <h4 class="fw-bold mt-3" id="enunciado-para-o-alumnado">Enunciado para o alumnado</h4>
+<p>Para o usuario <code>alu.curso1.001</code> configurouse un cartafol
+persoal en rede, pero cando inicia sesión no cliente non aparece a
+unidade <code>H:</code>.</p>
+<p>A ruta esperada é:</p>
+<pre class="cmd-block text"><code class="">\\dcbuho\usuarios$\alu.curso1.001</code></pre>
+<p>Debes diagnosticar por que non se monta a unidade e corrixir o
+problema.</p>
+<h4 class="fw-bold mt-3" id="traballo-que-debes-entregar">Traballo que debes entregar</h4>
+<ul class="mb-3">
+<li>Explicación da causa.</li>
+<li>Evidencia da configuración do usuario.</li>
+<li>Evidencia de que o recurso compartido existe.</li>
+<li>Evidencia de que a unidade <code>H:</code> aparece despois da
+corrección.</li>
+</ul>
+<h4 class="fw-bold mt-3" id="guía-de-diagnóstico">Guía de diagnóstico</h4>
+<h5 class="fw-bold mt-3" id="1-revisar-a-configuración-do-usuario-en-aduc">1. Revisar a
+configuración do usuario en ADUC</h5>
+<p>En <code>dcbuho</code>, abre <strong>Active Directory Users and
+Computers</strong>:</p>
+<pre class="cmd-block text"><code class="">OU=Alumnado → OU=Curso1 → alu.curso1.001</code></pre>
+<p>Na pestana <strong>Profile</strong>, comproba a sección <strong>Home
+folder</strong>:</p>
+<ul class="mb-3">
+<li>opción: <strong>Connect</strong>;</li>
+<li>letra: <code>H:</code>;</li>
+<li>ruta:</li>
+</ul>
+<pre class="cmd-block text"><code class="">\\dcbuho\usuarios$\alu.curso1.001</code></pre>
+<h5 class="fw-bold mt-3" id="2-comprobar-recurso-compartido-e-ruta">2. Comprobar recurso
+compartido e ruta</h5>
+<p>No servidor:</p>
+<div class="sourceCode" id="cb4"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>net share</span></code></pre></div>
+<p>Debe aparecer o recurso:</p>
+<pre class="cmd-block text"><code class="">usuarios$</code></pre>
+<p>No cliente:</p>
+<div class="sourceCode" id="cb6"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>ping dcbuho.cifpsauce.local</span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>nslookup dcbuho.cifpsauce.local</span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a>net view \\dcbuho</span></code></pre></div>
+<p>Tamén podes probar:</p>
+<div class="sourceCode" id="cb7"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a><span class="bu">dir</span> \\dcbuho\usuarios$\alu.curso1.001</span></code></pre></div>
+<blockquote class="p-3 my-3 blockquote-custom rounded">
+<p><strong>Importante:</strong> se non tes permisos para listar a raíz
+de <code>\\dcbuho\usuarios$</code>, iso non implica necesariamente que o
+cartafol persoal estea mal. O importante é que o usuario poida acceder
+ao seu propio cartafol.</p>
+</blockquote>
+<h5 class="fw-bold mt-3" id="3-comprobar-cartafol-físico-e-permisos">3. Comprobar cartafol
+físico e permisos</h5>
+<p>No servidor, comproba:</p>
+<pre class="cmd-block text"><code class="">C:\DatosDominio\Usuarios\alu.curso1.001</code></pre>
+<p>Se non existe, pode crearse manualmente e revisar permisos NTFS.</p>
+<p>Debe permitirse que <code>alu.curso1.001</code> poida acceder ao seu
+cartafol persoal. Un modelo habitual é:</p>
+<div class="table-responsive my-3"><table class="align-middle table-striped table-sm table">
+<thead>
+<tr class="header">
+<th>Identidade</th>
+<th>Permiso recomendado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>alu.curso1.001</code></td>
+<td>Modify</td>
+</tr>
+<tr class="even">
+<td><code>Administrators</code> / <code>Domain Admins</code></td>
+<td>Full Control</td>
+</tr>
+<tr class="odd">
+<td><code>SYSTEM</code></td>
+<td>Full Control</td>
+</tr>
+</tbody>
+</table></div>
+<h5 class="fw-bold mt-3" id="4-pechar-sesión-e-volver-iniciar-sesión">4. Pechar sesión e
+volver iniciar sesión</h5>
+<p>O cartafol persoal configurado na pestana <strong>Profile</strong>
+aplícase no inicio de sesión. Antes de pensar que hai un erro de GPO,
+pecha sesión e volve iniciar sesión co usuario.</p>
+<p>No cliente comproba:</p>
+<div class="sourceCode" id="cb9"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>net use</span></code></pre></div>
+<h4 class="fw-bold mt-3" id="resultado-esperado">Resultado esperado</h4>
+<p>Ao iniciar sesión como <code>alu.curso1.001</code>, aparece a unidade
+<code>H:</code> apuntando a:</p>
+<pre class="cmd-block text"><code class="">\\dcbuho\usuarios$\alu.curso1.001</code></pre>
+<h4 class="fw-bold mt-3" id="evidencias-recomendadas">Evidencias recomendadas</h4>
+<ul class="mb-3">
+<li>Captura da pestana <strong>Profile</strong> do usuario.</li>
+<li>Captura de <code>net share</code> no servidor.</li>
+<li>Captura de <code>net use</code> no cliente.</li>
+<li>Captura da unidade <code>H:</code> visible no Explorador de
+ficheiros.</li>
+</ul>
+<hr/>
+
+    </div>
+  </div>
+</div>
+<div class="accordion-item" id="incidencia-4-a-gpo-de-restricion-do-panel-de-control-non-se-aplica">
+  <h3 class="accordion-header" id="heading-inc-4">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-inc-4" aria-expanded="false" aria-controls="collapse-inc-4">
+      <span class="question-number">4</span>Incidencia 4 – A GPO de restrición do Panel de control non se aplica
+    </button>
+  </h3>
+  <div id="collapse-inc-4" class="accordion-collapse collapse " aria-labelledby="heading-inc-4" data-bs-parent="#accordionIncidencias">
+    <div class="accordion-body">
+      <h4 class="fw-bold mt-3" id="enunciado-para-o-alumnado">Enunciado para o alumnado</h4>
+<p>Creamos a GPO:</p>
+<pre class="cmd-block text"><code class="">GPO_Alumnado_Curso1_Restricions</code></pre>
+<p>Ligámola a <code>OU=Curso1</code> para bloquear o Panel de control,
+pero o usuario <code>alu.curso1.001</code> segue podendo abrilo.</p>
+<p>Debes diagnosticar por que a GPO non se aplica.</p>
+<h4 class="fw-bold mt-3" id="traballo-que-debes-entregar">Traballo que debes entregar</h4>
+<ul class="mb-3">
+<li>Explicación da causa.</li>
+<li>Evidencia da ligazón da GPO.</li>
+<li>Evidencia de <code>gpresult</code> ou <code>rsop.msc</code>.</li>
+<li>Proba final de que o Panel de control queda bloqueado.</li>
+</ul>
+<h4 class="fw-bold mt-3" id="guía-de-diagnóstico">Guía de diagnóstico</h4>
+<h5 class="fw-bold mt-3" id="1-comprobar-a-ou-do-usuario">1. Comprobar a OU do usuario</h5>
+<p>En ADUC, comproba que <code>alu.curso1.001</code> está realmente
+en:</p>
+<pre class="cmd-block text"><code class="">OU=Curso1,OU=Alumnado,DC=cifpsauce,DC=local</code></pre>
+<h5 class="fw-bold mt-3" id="2-comprobar-a-ligazón-da-gpo">2. Comprobar a ligazón da GPO</h5>
+<p>En <strong>Group Policy Management</strong>, revisa:</p>
+<ul class="mb-3">
+<li>a GPO existe;</li>
+<li>está ligada a <code>OU=Curso1</code>;</li>
+<li>a ligazón está habilitada;</li>
+<li>a GPO está habilitada;</li>
+<li>a configuración está en <strong>User Configuration</strong>, non en
+<strong>Computer Configuration</strong>.</li>
+</ul>
+<h5 class="fw-bold mt-3" id="3-comprobar-security-filtering">3. Comprobar Security
+Filtering</h5>
+<p>A GPO debe ter un filtro que inclúa o usuario afectado. Nunha
+práctica básica pode manterse:</p>
+<pre class="cmd-block text"><code class="">Authenticated Users</code></pre>
+<p>Se se usa un grupo concreto, comproba que o usuario pertence a ese
+grupo e que a GPO conserva permisos suficientes, especialmente lectura e
+aplicación da directiva.</p>
+<h5 class="fw-bold mt-3" id="4-diagnóstico-no-cliente">4. Diagnóstico no cliente</h5>
+<p>Inicia sesión como <code>alu.curso1.001</code> e executa:</p>
+<div class="sourceCode" id="cb4"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>whoami</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a>whoami <span class="at">/groups</span></span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>gpupdate <span class="at">/force</span></span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a>gpresult <span class="at">/r</span></span>
+<span id="cb4-5"><a aria-hidden="true" href="#cb4-5" tabindex="-1"></a>gpresult <span class="at">/scope</span> user <span class="at">/r</span></span>
+<span id="cb4-6"><a aria-hidden="true" href="#cb4-6" tabindex="-1"></a>gpresult <span class="at">/h</span> <span class="st">"</span><span class="pp">%</span><span class="va">USERPROFILE</span><span class="pp">%</span><span class="st">\Desktop\GPO_Report.html"</span></span>
+<span id="cb4-7"><a aria-hidden="true" href="#cb4-7" tabindex="-1"></a>rsop.msc</span></code></pre></div>
+<p>No resultado de <code>gpresult</code>, revisa:</p>
+<ul class="mb-3">
+<li>GPO aplicadas ao usuario;</li>
+<li>GPO denegadas;</li>
+<li>motivo polo que unha GPO non se aplicou, se aparece;</li>
+<li>se a GPO aparece no ámbito de usuario.</li>
+</ul>
+<h5 class="fw-bold mt-3" id="5-corrixir-e-probar">5. Corrixir e probar</h5>
+<p>Segundo a causa atopada:</p>
+<ul class="mb-3">
+<li>ligar a GPO á OU correcta;</li>
+<li>mover o usuario á OU correcta;</li>
+<li>corrixir Security Filtering;</li>
+<li>habilitar a ligazón ou a GPO;</li>
+<li>configurar a política na rama correcta.</li>
+</ul>
+<p>Despois, executa de novo:</p>
+<div class="sourceCode" id="cb5"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>gpupdate <span class="at">/force</span></span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>gpresult <span class="at">/scope</span> user <span class="at">/r</span></span></code></pre></div>
+<p>Nalgúns casos será necesario pechar sesión e volver iniciar
+sesión.</p>
+<h4 class="fw-bold mt-3" id="resultado-esperado">Resultado esperado</h4>
+<p>A GPO aparece en <code>gpresult /scope user /r</code> como aplicada
+ao usuario <code>alu.curso1.001</code> e o Panel de control queda
+bloqueado.</p>
+<h4 class="fw-bold mt-3" id="evidencias-recomendadas">Evidencias recomendadas</h4>
+<ul class="mb-3">
+<li>Captura da GPO ligada a <code>OU=Curso1</code>.</li>
+<li>Captura da configuración da política en <code>Enabled</code>.</li>
+<li>Captura de <code>gpresult /r</code> ou informe HTML.</li>
+<li>Captura da restrición ao abrir o Panel de control.</li>
+</ul>
+<hr/>
+
+    </div>
+  </div>
+</div>
+<div class="accordion-item" id="incidencia-5-equipo-cliente-non-atopa-o-dominio-para-unirse">
+  <h3 class="accordion-header" id="heading-inc-5">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-inc-5" aria-expanded="false" aria-controls="collapse-inc-5">
+      <span class="question-number">5</span>Incidencia 5 – Equipo cliente non atopa o dominio para unirse
+    </button>
+  </h3>
+  <div id="collapse-inc-5" class="accordion-collapse collapse " aria-labelledby="heading-inc-5" data-bs-parent="#accordionIncidencias">
+    <div class="accordion-body">
+      <h4 class="fw-bold mt-3" id="enunciado-para-o-alumnado">Enunciado para o alumnado</h4>
+<p>Tes unha nova VM cliente que queres unir ao dominio:</p>
+<pre class="cmd-block text"><code class="">cifpsauce.local</code></pre>
+<p>Ao introducir o dominio, aparece unha mensaxe indicando que non se
+atopa o dominio.</p>
+<p>Debes diagnosticar e corrixir o problema.</p>
+<h4 class="fw-bold mt-3" id="traballo-que-debes-entregar">Traballo que debes entregar</h4>
+<ul class="mb-3">
+<li>Configuración IP/DNS do cliente.</li>
+<li>Comprobación de resolución DNS.</li>
+<li>Evidencia de que o cliente localiza o dominio.</li>
+<li>Evidencia da unión correcta ao dominio.</li>
+</ul>
+<h4 class="fw-bold mt-3" id="guía-de-diagnóstico">Guía de diagnóstico</h4>
+<h5 class="fw-bold mt-3" id="1-comprobar-configuración-ip-no-cliente">1. Comprobar
+configuración IP no cliente</h5>
+<p>No cliente:</p>
+<div class="sourceCode" id="cb2"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>ipconfig <span class="at">/all</span></span></code></pre></div>
+<p>Revisa:</p>
+<ul class="mb-3">
+<li>IP do cliente;</li>
+<li>máscara;</li>
+<li>gateway, se procede;</li>
+<li>DNS preferido.</li>
+</ul>
+<p>O DNS preferido debe ser o servidor DNS do dominio:</p>
+<pre class="cmd-block text"><code class="">192.168.50.10</code></pre>
+<p>Non debe ser un DNS externo nin só o router da aula.</p>
+<h5 class="fw-bold mt-3" id="2-comprobar-conectividade-e-resolución">2. Comprobar
+conectividade e resolución</h5>
+<p>No cliente:</p>
+<div class="sourceCode" id="cb4"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>ping 192.168.50.10</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a>ping dcbuho.cifpsauce.local</span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>nslookup cifpsauce.local</span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a>nslookup dcbuho.cifpsauce.local</span>
+<span id="cb4-5"><a aria-hidden="true" href="#cb4-5" tabindex="-1"></a>nslookup <span class="at">-type</span>=SRV _ldap._tcp.dc._msdcs.cifpsauce.local</span>
+<span id="cb4-6"><a aria-hidden="true" href="#cb4-6" tabindex="-1"></a>nltest <span class="at">/dsgetdc:</span>cifpsauce.local</span></code></pre></div>
+<p>Se falla a consulta SRV ou
+<code>nltest /dsgetdc:cifpsauce.local</code>, o cliente pode non
+localizar correctamente os controladores de dominio.</p>
+<blockquote class="p-3 my-3 blockquote-custom rounded">
+<p><strong>Nota:</strong> se <code>ping 192.168.50.10</code> falla, pode
+haber un problema de conectividade, firewall ou rede. Pero para
+localizar o dominio son especialmente importantes as probas DNS e os
+rexistros SRV.</p>
+</blockquote>
+<h5 class="fw-bold mt-3" id="3-comprobacións-no-servidor">3. Comprobacións no servidor</h5>
+<p>En <code>dcbuho</code>:</p>
+<ul class="mb-3">
+<li>comprobar que o servizo DNS está iniciado;</li>
+<li>abrir a consola DNS;</li>
+<li>comprobar que existe a zona <code>cifpsauce.local</code>;</li>
+<li>comprobar que existen rexistros para <code>dcbuho</code>;</li>
+<li>comprobar os rexistros SRV baixo <code>_msdcs</code>.</li>
+</ul>
+<h5 class="fw-bold mt-3" id="4-reintentar-unión-ao-dominio">4. Reintentar unión ao
+dominio</h5>
+<p>Unha vez corrixido DNS, reintenta unir o cliente a:</p>
+<pre class="cmd-block text"><code class="">cifpsauce.local</code></pre>
+<p>Usa unha conta con permisos para unir equipos ao dominio.</p>
+<h4 class="fw-bold mt-3" id="resultado-esperado">Resultado esperado</h4>
+<p>O cliente resolve correctamente <code>cifpsauce.local</code>,
+localiza o controlador de dominio e pode unirse ao dominio.</p>
+<h4 class="fw-bold mt-3" id="evidencias-recomendadas">Evidencias recomendadas</h4>
+<ul class="mb-3">
+<li>Captura de <code>ipconfig /all</code>.</li>
+<li>Captura de
+<code>nslookup -type=SRV _ldap._tcp.dc._msdcs.cifpsauce.local</code>.</li>
+<li>Captura de <code>nltest /dsgetdc:cifpsauce.local</code>.</li>
+<li>Captura da consola DNS.</li>
+<li>Captura da unión correcta ao dominio ou do nome de dominio xa
+aplicado no cliente.</li>
+</ul>
+<hr/>
+
+    </div>
+  </div>
+</div>
+<div class="accordion-item" id="incidencia-6-usuario-pode-eliminar-contidos-que-non-deberia">
+  <h3 class="accordion-header" id="heading-inc-6">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-inc-6" aria-expanded="false" aria-controls="collapse-inc-6">
+      <span class="question-number">6</span>Incidencia 6 – Usuario pode eliminar contidos que non debería
+    </button>
+  </h3>
+  <div id="collapse-inc-6" class="accordion-collapse collapse " aria-labelledby="heading-inc-6" data-bs-parent="#accordionIncidencias">
+    <div class="accordion-body">
+      <h4 class="fw-bold mt-3" id="enunciado-para-o-alumnado">Enunciado para o alumnado</h4>
+<p>Nunha revisión de permisos detectas que un usuario de alumnado pode
+eliminar cartafoles ou ficheiros doutros usuarios dentro de:</p>
+<pre class="cmd-block text"><code class="">\\dcbuho\curso1</code></pre>
+<p>A intención era que o alumnado puidese entregar traballos no seu
+propio cartafol de entrega, pero non modificar nin eliminar contidos
+xerais do curso nin ficheiros doutros compañeiros.</p>
+<p>Debes revisar o deseño de permisos e propoñer unha corrección.</p>
+<h4 class="fw-bold mt-3" id="traballo-que-debes-entregar">Traballo que debes entregar</h4>
+<ul class="mb-3">
+<li>Explicación da causa.</li>
+<li>Evidencia dos permisos iniciais.</li>
+<li>Proposta de deseño corrixido.</li>
+<li>Evidencia dos novos permisos.</li>
+<li>Proba final co usuario afectado.</li>
+</ul>
+<h4 class="fw-bold mt-3" id="guía-de-diagnóstico">Guía de diagnóstico</h4>
+<h5 class="fw-bold mt-3" id="1-revisar-permisos-actuais">1. Revisar permisos actuais</h5>
+<p>No servidor, revisa os permisos de:</p>
+<pre class="cmd-block text"><code class="">C:\DatosDominio\Cursos\Curso1</code></pre>
+<p>Comproba se o grupo de permisos ten demasiado acceso sobre toda a
+árbore. Un erro habitual sería algo como:</p>
+<pre class="cmd-block text"><code class="">DL_Curso1_Modificar → Modify sobre todo o cartafol Curso1</code></pre>
+<p>Isto pode permitir crear, modificar e eliminar elementos en toda a
+estrutura, incluídos materiais xerais ou ficheiros doutros usuarios.</p>
+<h5 class="fw-bold mt-3" id="2-revisar-compartición-e-ntfs">2. Revisar compartición e
+NTFS</h5>
+<p>Comproba:</p>
+<ul class="mb-3">
+<li>permisos de compartición de <code>curso1</code>;</li>
+<li>permisos NTFS na raíz <code>Curso1</code>;</li>
+<li>permisos herdados nos subcartafoles;</li>
+<li>entradas explícitas innecesarias;</li>
+<li>posibles entradas <code>Deny</code> que compliquen o
+diagnóstico.</li>
+</ul>
+<p>Evita resolver o problema abusando de <code>Denegar</code>. É mellor
+redeseñar permisos e grupos.</p>
+<h5 class="fw-bold mt-3" id="3-proposta-de-corrección">3. Proposta de corrección</h5>
+<p>Un deseño máis controlado podería ser:</p>
+<div class="table-responsive my-3"><table class="align-middle table-striped table-sm table">
+<thead>
+<tr class="header">
+<th>Ruta</th>
+<th>Identidade</th>
+<th>Permiso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>C:\DatosDominio\Cursos\Curso1</code></td>
+<td><code>DL_Curso1_Lectura</code></td>
+<td>Read &amp; Execute</td>
+</tr>
+<tr class="even">
+<td><code>C:\DatosDominio\Cursos\Curso1\Materiais</code></td>
+<td><code>DL_Curso1_Lectura</code></td>
+<td>Read &amp; Execute</td>
+</tr>
+<tr class="odd">
+<td><code>C:\DatosDominio\Cursos\Curso1\Entrega_Curso1</code></td>
+<td><code>DL_Curso1_Lectura</code></td>
+<td>Read &amp; Execute ou List Folder Contents</td>
+</tr>
+<tr class="even">
+<td><code>C:\DatosDominio\Cursos\Curso1\Entrega_Curso1\alu.curso1.001</code></td>
+<td><code>alu.curso1.001</code></td>
+<td>Modify</td>
+</tr>
+<tr class="odd">
+<td><code>C:\DatosDominio\Cursos\Curso1\Entrega_Curso1\alu.curso1.002</code></td>
+<td><code>alu.curso1.002</code></td>
+<td>Modify</td>
+</tr>
+<tr class="even">
+<td><code>C:\DatosDominio\Cursos\Curso1</code></td>
+<td><code>DL_Cursos_ControlTotal</code></td>
+<td>Full Control</td>
+</tr>
+</tbody>
+</table></div>
+<p>A idea é:</p>
+<ul class="mb-3">
+<li>alumnado: lectura na zona xeral do curso;</li>
+<li>alumnado: modificación só no seu propio cartafol de entrega;</li>
+<li>profesorado ou administración do dominio: control total sobre a
+estrutura.</li>
+</ul>
+<h5 class="fw-bold mt-3" id="4-aplicar-cambios">4. Aplicar cambios</h5>
+<p>Podes crear ou empregar grupos de dominio local como:</p>
+<pre class="cmd-block text"><code class="">DL_Curso1_Lectura
+DL_Curso1_Entrega_Modificar
+DL_Cursos_ControlTotal</code></pre>
+<p>E aniñar:</p>
+<pre class="cmd-block text"><code class="">GG_Alumnado_Curso1 → DL_Curso1_Lectura
+GG_Profesorado → DL_Cursos_ControlTotal</code></pre>
+<p>Para os cartafoles individuais, podes asignar permisos directamente
+ao usuario correspondente ou empregar grupos específicos se o deseño da
+práctica o require.</p>
+<p>Exemplo de comprobación con PowerShell:</p>
+<div class="sourceCode" id="cb6"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a><span class="op">(</span><span class="fu">Get-Acl</span> <span class="st">"C:\DatosDominio\Cursos\Curso1"</span><span class="op">).</span><span class="fu">Access</span> <span class="op">|</span></span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>  <span class="fu">Select-Object</span> IdentityReference<span class="op">,</span>FileSystemRights<span class="op">,</span>InheritanceFlags<span class="op">,</span>AccessControlType</span></code></pre></div>
+<p>E para o cartafol individual:</p>
+<div class="sourceCode" id="cb7"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a><span class="op">(</span><span class="fu">Get-Acl</span> <span class="st">"C:\DatosDominio\Cursos\Curso1\Entrega_Curso1\alu.curso1.002"</span><span class="op">).</span><span class="fu">Access</span> <span class="op">|</span></span>
+<span id="cb7-2"><a aria-hidden="true" href="#cb7-2" tabindex="-1"></a>  <span class="fu">Select-Object</span> IdentityReference<span class="op">,</span>FileSystemRights<span class="op">,</span>InheritanceFlags<span class="op">,</span>AccessControlType</span></code></pre></div>
+<h5 class="fw-bold mt-3" id="5-probar-co-usuario">5. Probar co usuario</h5>
+<p>No cliente, inicia sesión como <code>alu.curso1.001</code> ou
+<code>alu.curso1.002</code> e comproba:</p>
+<ul class="mb-3">
+<li>pode ler materiais xerais de <code>curso1</code>;</li>
+<li>non pode eliminar materiais xerais;</li>
+<li>non pode modificar nin eliminar o cartafol de entrega doutro
+usuario;</li>
+<li>pode crear ou modificar ficheiros no seu propio cartafol de
+entrega;</li>
+<li>o profesorado ou a administración segue podendo xestionar toda a
+estrutura.</li>
+</ul>
+<h4 class="fw-bold mt-3" id="resultado-esperado">Resultado esperado</h4>
+<p>O alumnado xa non pode eliminar contidos xerais de
+<code>Curso1</code> nin ficheiros doutros usuarios, pero pode traballar
+no seu propio cartafol de entrega. O profesorado ou a administración
+conserva control total.</p>
+<h4 class="fw-bold mt-3" id="evidencias-recomendadas">Evidencias recomendadas</h4>
+<ul class="mb-3">
+<li>Captura de permisos antes da corrección.</li>
+<li>Captura da nova estrutura de cartafoles.</li>
+<li>Captura dos permisos NTFS finais.</li>
+<li>Captura da proba co usuario de alumnado.</li>
+<li>Captura da proba co usuario de profesorado ou administración.</li>
+</ul>
+<hr/>
+
+    </div>
+  </div>
+</div>
+  </div>
+</section>
+
+<section id="5-comandos-utiles-para-diagnostico" class="mb-5 section-anchor">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-terminal"></i></span>
+      <div>
+        <h2 class="h4 fw-bold mb-0">5. Comandos útiles para diagnóstico</h2>
+      </div>
+    </div>
+    <div class="content-card-body">
+      <p>Estes comandos poden empregarse ao longo das incidencias.</p>
+<h3 class="fw-bold mt-3" id="51-identidade-e-sesión">5.1. Identidade e sesión</h3>
+<div class="sourceCode" id="cb1"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>whoami</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>whoami <span class="at">/groups</span></span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>hostname</span></code></pre></div>
+<h3 class="fw-bold mt-3" id="52-rede-e-dns">5.2. Rede e DNS</h3>
+<div class="sourceCode" id="cb2"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>ipconfig <span class="at">/all</span></span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>ping dcbuho.cifpsauce.local</span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>nslookup cifpsauce.local</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a>nslookup dcbuho.cifpsauce.local</span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a>nslookup <span class="at">-type</span>=SRV _ldap._tcp.dc._msdcs.cifpsauce.local</span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a>nltest <span class="at">/dsgetdc:</span>cifpsauce.local</span></code></pre></div>
+<h3 class="fw-bold mt-3" id="53-recursos-compartidos-e-unidades">5.3. Recursos compartidos e
+unidades</h3>
+<div class="sourceCode" id="cb3"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a>net view \\dcbuho</span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a>net use</span>
+<span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a><span class="bu">dir</span> \\dcbuho\curso1</span>
+<span id="cb3-4"><a aria-hidden="true" href="#cb3-4" tabindex="-1"></a><span class="bu">dir</span> \\dcbuho\curso1\Entrega_Curso1</span>
+<span id="cb3-5"><a aria-hidden="true" href="#cb3-5" tabindex="-1"></a><span class="bu">dir</span> \\dcbuho\usuarios$\alu.curso1.001</span></code></pre></div>
+<h3 class="fw-bold mt-3" id="54-gpo">5.4. GPO</h3>
+<div class="sourceCode" id="cb4"><pre class="cmd-block cmd sourceCode"><code class="sourceCode dosbat"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>gpupdate <span class="at">/force</span></span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a>gpresult <span class="at">/r</span></span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>gpresult <span class="at">/scope</span> user <span class="at">/r</span></span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a>gpresult <span class="at">/h</span> <span class="st">"</span><span class="pp">%</span><span class="va">USERPROFILE</span><span class="pp">%</span><span class="st">\Desktop\GPO_Report.html"</span></span>
+<span id="cb4-5"><a aria-hidden="true" href="#cb4-5" tabindex="-1"></a>rsop.msc</span></code></pre></div>
+<h3 class="fw-bold mt-3" id="55-active-directory-con-powershell">5.5. Active Directory con
+PowerShell</h3>
+<div class="sourceCode" id="cb5"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a><span class="fu">Get-ADUser</span> alu<span class="op">.</span><span class="fu">curso1</span><span class="op">.</span><span class="dv">001</span> <span class="op">-</span>Properties Enabled<span class="op">,</span>LockedOut<span class="op">,</span>PasswordExpired<span class="op">,</span>AccountExpirationDate</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a><span class="fu">Get-ADPrincipalGroupMembership</span> alu<span class="op">.</span><span class="fu">curso1</span><span class="op">.</span><span class="dv">001</span></span>
+<span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a><span class="dt">Get</span><span class="op">-</span>ADGroupMember GG_Alumnado_Curso1</span>
+<span id="cb5-4"><a aria-hidden="true" href="#cb5-4" tabindex="-1"></a><span class="fu">Get-ADGroupMember</span> DL_Curso1_Entrega_Modificar</span></code></pre></div>
+<h3 class="fw-bold mt-3" id="56-permisos-ntfs-con-powershell">5.6. Permisos NTFS con
+PowerShell</h3>
+<div class="sourceCode" id="cb6"><pre class="powershell cmd-block sourceCode"><code class="sourceCode powershell"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a><span class="op">(</span><span class="fu">Get-Acl</span> <span class="st">"C:\DatosDominio\Cursos\Curso1"</span><span class="op">).</span><span class="fu">Access</span> <span class="op">|</span></span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>  <span class="fu">Select-Object</span> IdentityReference<span class="op">,</span>FileSystemRights<span class="op">,</span>InheritanceFlags<span class="op">,</span>AccessControlType</span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a aria-hidden="true" href="#cb6-4" tabindex="-1"></a><span class="op">(</span><span class="fu">Get-Acl</span> <span class="st">"C:\DatosDominio\Cursos\Curso1\Entrega_Curso1\alu.curso1.002"</span><span class="op">).</span><span class="fu">Access</span> <span class="op">|</span></span>
+<span id="cb6-5"><a aria-hidden="true" href="#cb6-5" tabindex="-1"></a>  <span class="fu">Select-Object</span> IdentityReference<span class="op">,</span>FileSystemRights<span class="op">,</span>InheritanceFlags<span class="op">,</span>AccessControlType</span></code></pre></div>
+<hr/>
+
+    </div>
+  </div>
+</section>
+
+<section id="6-evidencias-minimas-recomendadas" class="mb-5 section-anchor">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-camera"></i></span>
+      <div>
+        <h2 class="h4 fw-bold mb-0">6. Evidencias mínimas recomendadas</h2>
+      </div>
+    </div>
+    <div class="content-card-body">
+      <p>Para unha entrega completa, o alumnado debería achegar, segundo a
+incidencia asignada:</p>
+<ul class="mb-3">
+<li>captura de ADUC co usuario ou grupo afectado;</li>
+<li>captura da pestana <strong>Member Of</strong>;</li>
+<li>saída de <code>whoami /groups</code>;</li>
+<li>captura de permisos NTFS ou de compartición;</li>
+<li>saída de <code>gpresult /r</code> ou informe
+<code>gpresult /h</code>;</li>
+<li>captura de configuración IP/DNS do cliente;</li>
+<li>captura de resolución DNS ou rexistros SRV;</li>
+<li>captura de <code>nltest /dsgetdc:cifpsauce.local</code>, se a
+incidencia é de unión ao dominio;</li>
+<li>captura da proba final resolta.</li>
+</ul>
+<hr/>
+
+    </div>
+  </div>
+</section>
+
+<section id="7-ideas-clave-do-bloque-de-incidencias" class="mb-5 section-anchor">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-tools"></i></span>
+      <div>
+        <h2 class="h4 fw-bold mb-0">7. Ideas clave do bloque de incidencias</h2>
+      </div>
+    </div>
+    <div class="content-card-body">
+      <ul class="mb-3">
+<li>Un erro de inicio de sesión pode deberse a credenciais incorrectas,
+conta bloqueada, conta deshabilitada, contrasinal caducado, expiración
+da conta ou problemas de dominio/DNS.</li>
+<li>Para permisos sobre cartafoles hai que comprobar a cadea completa:
+usuario, grupo global, grupo de dominio local, permisos NTFS e permisos
+de compartición.</li>
+<li>Os cambios de pertenza a grupos requiren normalmente pechar sesión e
+volver iniciar sesión.</li>
+<li>Os cartafoles persoais configurados en ADUC aplícanse no inicio de
+sesión; non son exactamente unha GPO de mapeo de unidade.</li>
+<li>As GPO deben estar ligadas á OU correcta, estar habilitadas, afectar
+ao usuario ou equipo correcto e configurarse na rama axeitada.</li>
+<li>Para unir un cliente ao dominio, o DNS debe apuntar ao servidor DNS
+do dominio.</li>
+<li>Os recursos compartidos ocultos rematan en <code>$</code> e poden
+non aparecer en listaxes normais.</li>
+<li><code>gpresult</code>, <code>rsop.msc</code>,
+<code>whoami /groups</code>, <code>ipconfig /all</code>,
+<code>nslookup</code> e <code>nltest</code> son ferramentas básicas de
+diagnóstico.</li>
+<li>Un permiso <code>Modify</code> aplicado sobre unha raíz común pode
+permitir eliminar contidos alleos. É mellor separar lectura xeral e
+modificación en cartafoles controlados.</li>
+</ul>
+
+    </div>
+  </div>
+</section>
+      </article>
+    </main>
+  </div>
+</div>
+
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <img src="../../assets/imax/sauce_clean.svg" alt="" class="smpp-sauce" onerror="this.style.display='none'">
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

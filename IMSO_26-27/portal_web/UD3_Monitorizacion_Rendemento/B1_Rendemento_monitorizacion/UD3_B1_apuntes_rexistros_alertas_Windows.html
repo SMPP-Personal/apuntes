@@ -1,0 +1,2480 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   UD3 &ndash; Bloque 1. Rexistros de rendemento e alertas
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Fira+Code&amp;display=swap" rel="stylesheet"/>
+  <link href="../../assets/css/smpp.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <nav class="smpp-navbar no-print">
+   <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+     <img alt="SMPP" class="smpp-buho" onerror="this.style.display='none'" src="../../assets/imax/buho_clean.svg"/>
+     <div class="smpp-brand-text">
+      <span class="smpp-title">
+       SMPP
+      </span>
+      <span class="smpp-subtitle">
+       Sistemas &amp; Programaci&oacute;n
+      </span>
+     </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+     <span class="smpp-module">
+      MP0369 &middot; IMSO 26/27
+     </span>
+     <button aria-label="Cambiar tema" class="btn btn-outline-light btn-sm" onclick="toggleTheme()">
+      <i class="bi bi-moon-stars" id="theme-icon">
+      </i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <div class="container-xl py-4">
+   <div class="row g-4">
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+     <div class="sidebar">
+      <div class="card shadow-sm sidebar-panel border">
+       <div class="card-body px-3 py-3">
+        <h6 class="text-uppercase fw-bold mb-1">
+         <i class="bi bi-list-ul me-1">
+         </i>
+         &Iacute;ndice
+        </h6>
+        <hr class="my-2"/>
+        <nav id="toc">
+         <ul class="nav flex-column gap-1 small">
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#1-da-monitorizacion-en-tempo-real-ao-rexistro-de-datos">
+            1. Da monitorizaci&oacute;n en tempo real ao rexistro de datos
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#2-contadores-de-rendemento-en-windows">
+            2. Contadores de rendemento en Windows
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#3-como-interpretar-un-contador">
+            3. Como interpretar un contador
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#4-monitor-de-rendemento-perfmon">
+            4. Monitor de rendemento ( perfmon )
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#5-conxuntos-de-recopiladores-de-datos">
+            5. Conxuntos de recopiladores de datos
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#6-alertas-de-rendemento">
+            6. Alertas de rendemento
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#7-logs-e-rexistros-en-ubuntu">
+            7. Logs e rexistros en Ubuntu
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#8-ferramentas-linux-para-seguimento-basico">
+            8. Ferramentas Linux para seguimento b&aacute;sico
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#9-introducion-conceptual-a-snmp">
+            9. Introduci&oacute;n conceptual a SNMP
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#10-como-escoller-que-revisar-segundo-o-sintoma">
+            10. Como escoller que revisar segundo o s&iacute;ntoma
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#11-evidencias-que-debe-recoller-o-alumnado">
+            11. Evidencias que debe recoller o alumnado
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#12-erros-habituais-de-interpretacion">
+            12. Erros habituais de interpretaci&oacute;n
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#13-ideas-clave">
+            13. Ideas clave
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#14-preparacion-para-o-seguinte-bloque">
+            14. Preparaci&oacute;n para o seguinte bloque
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+    </aside>
+    <main class="col-lg-9">
+     <article>
+      <header class="mb-4">
+       <div class="theory-hero">
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+         <span class="hero-chip">
+          <i class="bi bi-speedometer2">
+          </i>
+          UD3 &middot; Bloque 1
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-bar-chart-line">
+          </i>
+          Rexistros
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-bell">
+          </i>
+          Alertas
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-windows">
+          </i>
+          Windows
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-ubuntu">
+          </i>
+          Ubuntu
+         </span>
+        </div>
+        <h1 class="h2 fw-bold mb-2">
+         UD3 &ndash; Bloque 1. Rexistros de rendemento e alertas
+        </h1>
+        <p class="lead mb-0">
+         Apunte t&eacute;cnico para pasar da observaci&oacute;n puntual &aacute; recollida de datos, interpretaci&oacute;n de contadores, alertas e revisi&oacute;n de logs.
+        </p>
+       </div>
+      </header>
+      <div class="notice info mb-4 d-flex gap-2 align-items-start">
+       <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+       </i>
+       <div>
+        <strong>
+         Idea central:
+        </strong>
+        unha medici&oacute;n illada non abonda; un diagn&oacute;stico s&oacute;lido combina s&iacute;ntoma, contador, rexistro, limiar e evidencia verificable.
+       </div>
+      </div>
+      <div class="row g-3 mb-4">
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-bar-chart-line text-primary">
+          </i>
+          <strong>
+           Contadores
+          </strong>
+         </div>
+         <p class="small mb-0">
+          M&eacute;tricas de CPU, memoria, disco e rede para medir comportamento real.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-speedometer2 text-primary">
+          </i>
+          <strong>
+           perfmon
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Gr&aacute;ficas, rexistros e conxuntos de recopiladores de datos.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-bell text-primary">
+          </i>
+          <strong>
+           Alertas
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Condici&oacute;ns e limiares para detectar situaci&oacute;ns relevantes.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-terminal text-primary">
+          </i>
+          <strong>
+           Ubuntu
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Logs, journalctl, vmstat, iostat e estado de servizos.
+         </p>
+        </div>
+       </div>
+      </div>
+      <section class="mb-5 section-anchor" id="1-da-monitorizacion-en-tempo-real-ao-rexistro-de-datos">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-arrow-repeat">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          1. Da monitorizaci&oacute;n en tempo real ao rexistro de datos
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Nas ferramentas b&aacute;sicas de monitorizaci&oacute;n observamos o estado do sistema nun momento concreto: uso de CPU, memoria, disco, rede, procesos activos ou servizos en execuci&oacute;n.
+         </p>
+         <p>
+          Ese tipo de observaci&oacute;n &eacute; &uacute;til para unha primeira an&aacute;lise, pero ten unha limitaci&oacute;n importante:
+          <strong>
+           s&oacute; mostra o que est&aacute; ocorrendo nese instante
+          </strong>
+          .
+         </p>
+         <p>
+          Nunha situaci&oacute;n real, moitos problemas de rendemento non aparecen de forma constante. Poden producirse:
+         </p>
+         <ul class="mb-3">
+          <li>
+           durante unha franxa horaria concreta;
+          </li>
+          <li>
+           cando se inicia unha aplicaci&oacute;n pesada;
+          </li>
+          <li>
+           cando varios usuarios acceden ao mesmo recurso;
+          </li>
+          <li>
+           durante unha copia de seguridade;
+          </li>
+          <li>
+           ao arrancar ou deter un servizo;
+          </li>
+          <li>
+           cando un disco ou unha interface de rede comezan a fallar.
+          </li>
+         </ul>
+         <p>
+          Por iso &eacute; necesario aprender a
+          <strong>
+           rexistrar datos de rendemento ao longo do tempo
+          </strong>
+          . Rexistrar datos permite comparar, detectar tendencias e xustificar un diagn&oacute;stico con evidencias.
+         </p>
+         <p>
+          A diferenza b&aacute;sica &eacute; esta:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Forma de an&aacute;lise
+             </th>
+             <th>
+              Que permite facer
+             </th>
+             <th>
+              Limitaci&oacute;n principal
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Monitorizaci&oacute;n en tempo real
+             </td>
+             <td>
+              Ver que ocorre agora mesmo
+             </td>
+             <td>
+              Pode non mostrar problemas intermitentes
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Rexistro de datos
+             </td>
+             <td>
+              Gardar medici&oacute;ns durante un per&iacute;odo de tempo
+             </td>
+             <td>
+              Require decidir que medir e durante canto tempo
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Alertas
+             </td>
+             <td>
+              Avisar cando unha m&eacute;trica supera un limiar
+             </td>
+             <td>
+              Un limiar mal definido pode xerar falsos positivos
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Logs ou eventos
+             </td>
+             <td>
+              Saber que feitos rexistrou o sistema
+             </td>
+             <td>
+              Non sempre indican por si s&oacute;s a causa exacta
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          A idea fundamental &eacute; que un diagn&oacute;stico serio debe combinar varias fontes:
+         </p>
+         <pre class="cmd-block"><code class="language-text">s&iacute;ntoma observado &rarr; m&eacute;trica medida &rarr; evento ou log relacionado &rarr; conclusi&oacute;n t&eacute;cnica
+</code></pre>
+         <p>
+          Non abonda con dicir &ldquo;o equipo vai lento&rdquo;. Hai que indicar
+          <strong>
+           que recurso est&aacute; afectado, que dato o demostra e que evidencia se recolleu
+          </strong>
+          .
+         </p>
+         <hr>
+         </hr>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="2-contadores-de-rendemento-en-windows">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-bar-chart-line">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          2. Contadores de rendemento en Windows
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Windows utiliza
+          <strong>
+           contadores de rendemento
+          </strong>
+          para medir aspectos concretos do sistema operativo, do hardware, dos servizos e dalgunhas aplicaci&oacute;ns.
+         </p>
+         <p>
+          Un contador de rendemento &eacute; unha m&eacute;trica concreta. Por exemplo:
+         </p>
+         <ul class="mb-3">
+          <li>
+           porcentaxe de uso da CPU;
+          </li>
+          <li>
+           memoria comprometida;
+          </li>
+          <li>
+           p&aacute;xinas por segundo;
+          </li>
+          <li>
+           transferencias de disco por segundo;
+          </li>
+          <li>
+           bytes enviados ou recibidos pola rede.
+          </li>
+         </ul>
+         <p>
+          Cada contador pertence a un obxecto ou categor&iacute;a. Por exemplo, hai contadores relacionados co procesador, coa memoria, co disco f&iacute;sico, coa rede ou cos procesos.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          2.1. Contadores b&aacute;sicos de CPU
+         </h3>
+         <p>
+          A CPU &eacute; un dos primeiros recursos que se adoitan revisar cando un equipo parece lento ou unha aplicaci&oacute;n tarda en responder.
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Contador did&aacute;ctico
+             </th>
+             <th>
+              Nome habitual en Windows
+             </th>
+             <th>
+              Que indica
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Porcentaxe de tempo do procesador
+             </td>
+             <td>
+              <code>
+               % Processor Time
+              </code>
+             </td>
+             <td>
+              Porcentaxe de tempo no que a CPU est&aacute; ocupada
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Lonxitude da cola do procesador
+             </td>
+             <td>
+              <code>
+               Processor Queue Length
+              </code>
+             </td>
+             <td>
+              Tarefas &aacute; espera de tempo de CPU
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Uso de CPU por proceso
+             </td>
+             <td>
+              Segundo ferramenta usada
+             </td>
+             <td>
+              Que proceso consume m&aacute;is procesador
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Un uso elevado da CPU non sempre &eacute; un problema. Pode ser normal se se est&aacute; executando unha tarefa pesada, como unha compresi&oacute;n, unha instalaci&oacute;n, unha actualizaci&oacute;n ou unha an&aacute;lise antivirus.
+         </p>
+         <p>
+          O problema aparece cando se cumpren varias condici&oacute;ns:
+         </p>
+         <ul class="mb-3">
+          <li>
+           o uso alto &eacute; sostido;
+          </li>
+          <li>
+           o equipo presenta s&iacute;ntomas reais de lentitude;
+          </li>
+          <li>
+           hai procesos esperando tempo de CPU;
+          </li>
+          <li>
+           un proceso concreto acapara recursos sen unha causa clara;
+          </li>
+          <li>
+           os servizos importantes deixan de responder correctamente.
+          </li>
+         </ul>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          2.2. Contadores b&aacute;sicos de memoria
+         </h3>
+         <p>
+          A memoria RAM condiciona a capacidade do sistema para manter procesos e datos activos sen recorrer ao disco como apoio.
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Contador did&aacute;ctico
+             </th>
+             <th>
+              Nome habitual en Windows
+             </th>
+             <th>
+              Que indica
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Bytes comprometidos
+             </td>
+             <td>
+              <code>
+               Committed Bytes
+              </code>
+             </td>
+             <td>
+              Memoria comprometida polos procesos
+             </td>
+            </tr>
+            <tr>
+             <td>
+              P&aacute;xinas por segundo
+             </td>
+             <td>
+              <code>
+               Pages/sec
+              </code>
+             </td>
+             <td>
+              Actividade de paxinaci&oacute;n entre RAM e disco
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Memoria dispo&ntilde;ible
+             </td>
+             <td>
+              <code>
+               Available MBytes
+              </code>
+             </td>
+             <td>
+              Memoria que o sistema pode usar sen presi&oacute;n inmediata
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Un sistema con pouca memoria dispo&ntilde;ible pode seguir funcionando, pero se comeza a usar intensamente memoria virtual ou paxinaci&oacute;n, o rendemento pode caer de forma notable.
+         </p>
+         <p>
+          Un s&iacute;ntoma t&iacute;pico de falta de memoria &eacute; que o disco aparece moi activo mentres a CPU non est&aacute; necesariamente saturada.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          2.3. Contadores b&aacute;sicos de disco
+         </h3>
+         <p>
+          O disco ou subsistema de almacenamento pode ser un colo de botella moi importante. Un equipo pode parecer bloqueado a&iacute;nda que a CPU estea baixa se o disco est&aacute; saturado.
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Contador did&aacute;ctico
+             </th>
+             <th>
+              Nome habitual en Windows
+             </th>
+             <th>
+              Que indica
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Tempo de disco
+             </td>
+             <td>
+              <code>
+               % Disk Time
+              </code>
+             </td>
+             <td>
+              Tempo no que o disco est&aacute; ocupado atendendo petici&oacute;ns
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Transferencias de disco por segundo
+             </td>
+             <td>
+              <code>
+               Disk Transfers/sec
+              </code>
+             </td>
+             <td>
+              Operaci&oacute;ns de lectura/escritura por segundo
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Lonxitude da cola de disco
+             </td>
+             <td>
+              <code>
+               Current Disk Queue Length
+              </code>
+             </td>
+             <td>
+              Petici&oacute;ns pendentes de acceso ao disco
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Hai que ter coidado coa interpretaci&oacute;n. Un pico puntual de disco pode ser normal durante unha copia, unha actualizaci&oacute;n ou o arranque do sistema. O preocupante &eacute; unha actividade sostida que coincide con bloqueos, tempos de resposta altos ou aplicaci&oacute;ns que non responden.
+         </p>
+         <p>
+          En discos duros mec&aacute;nicos antigos, a fragmentaci&oacute;n pod&iacute;a afectar ao rendemento. En equipos actuais con SSD, os problemas adoitan estar m&aacute;is relacionados con saturaci&oacute;n de I/O, falta de espazo, desgaste, erros ou tarefas intensivas de lectura/escritura.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          2.4. Contadores b&aacute;sicos de rede
+         </h3>
+         <p>
+          A rede pode limitar o rendemento cando o sistema depende de recursos remotos, servidores, unidades compartidas, servizos web ou conexi&oacute;ns externas.
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Contador did&aacute;ctico
+             </th>
+             <th>
+              Nome habitual en Windows
+             </th>
+             <th>
+              Que indica
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Bytes recibidos por segundo
+             </td>
+             <td>
+              <code>
+               Bytes Received/sec
+              </code>
+             </td>
+             <td>
+              Volume de datos entrantes
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Bytes enviados por segundo
+             </td>
+             <td>
+              <code>
+               Bytes Sent/sec
+              </code>
+             </td>
+             <td>
+              Volume de datos sa&iacute;ntes
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Uso da interface
+             </td>
+             <td>
+              Segundo adaptador
+             </td>
+             <td>
+              Nivel de actividade da tarxeta de rede
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Un problema de rede non sempre aparece como &ldquo;sen conexi&oacute;n&rdquo;. Tam&eacute;n pode manifestarse como lentitude ao abrir ficheiros compartidos, cortes intermitentes, tempos de resposta altos ou perda de paquetes.
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="3-como-interpretar-un-contador">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-search">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          3. Como interpretar un contador
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Un contador illado non confirma por si s&oacute; a causa dun problema.
+         </p>
+         <p>
+          Para interpretar correctamente unha m&eacute;trica hai que ter en conta:
+         </p>
+         <ul class="mb-3">
+          <li>
+           o valor observado;
+          </li>
+          <li>
+           canto tempo se mant&eacute;n ese valor;
+          </li>
+          <li>
+           se coincide cun s&iacute;ntoma real;
+          </li>
+          <li>
+           que outros contadores se comportan de forma an&oacute;mala;
+          </li>
+          <li>
+           se hai eventos ou logs relacionados;
+          </li>
+          <li>
+           cal &eacute; o comportamento normal dese equipo.
+          </li>
+         </ul>
+         <p>
+          Por exemplo, unha CPU ao 95 % durante uns segundos pode ser normal. Unha CPU ao 95 % durante varios minutos, con aplicaci&oacute;ns bloqueadas e procesos esperando, xa &eacute; unha pista m&aacute;is seria.
+         </p>
+         <p>
+          Tam&eacute;n &eacute; importante diferenciar:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Situaci&oacute;n
+             </th>
+             <th>
+              Interpretaci&oacute;n
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Pico breve
+             </td>
+             <td>
+              Pode ser normal durante unha tarefa puntual
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Valor alto sostido
+             </td>
+             <td>
+              Pode indicar saturaci&oacute;n
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Valor alto sen s&iacute;ntomas
+             </td>
+             <td>
+              Pode ser carga prevista ou comportamento aceptable
+             </td>
+            </tr>
+            <tr>
+             <td>
+              S&iacute;ntoma sen contador an&oacute;malo claro
+             </td>
+             <td>
+              C&oacute;mpre revisar outros recursos ou logs
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Contador an&oacute;malo + evento relacionado
+             </td>
+             <td>
+              Pista forte para o diagn&oacute;stico
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          A monitorizaci&oacute;n &uacute;til non consiste en mirar n&uacute;meros, sen&oacute;n en
+          <strong>
+           relacionar datos
+          </strong>
+          .
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="4-monitor-de-rendemento-perfmon">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-speedometer2">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          4. Monitor de rendemento ( perfmon )
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          O
+          <strong>
+           Monitor de rendemento
+          </strong>
+          de Windows permite traballar cos contadores dunha forma m&aacute;is avanzada ca o Administrador de tarefas ou o Monitor de recursos.
+         </p>
+         <p>
+          P&oacute;dese abrir de varias formas:
+         </p>
+         <pre class="cmd-block"><code class="language-text">Inicio &rarr; escribir perfmon &rarr; Monitor de rendemento
+</code></pre>
+         <p>
+          Ou executando:
+         </p>
+         <pre class="cmd-block"><code class="language-cmd">perfmon
+</code></pre>
+         <p>
+          Desde esta ferramenta p&oacute;dense:
+         </p>
+         <ul class="mb-3">
+          <li>
+           engadir contadores de diferentes categor&iacute;as;
+          </li>
+          <li>
+           visualizar gr&aacute;ficas en tempo real;
+          </li>
+          <li>
+           comparar varias m&eacute;tricas &aacute; vez;
+          </li>
+          <li>
+           crear rexistros de datos;
+          </li>
+          <li>
+           configurar conxuntos de recopiladores de datos;
+          </li>
+          <li>
+           consultar informes xerados polo sistema.
+          </li>
+         </ul>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          4.1. Gr&aacute;ficas en tempo real
+         </h3>
+         <p>
+          A parte m&aacute;is b&aacute;sica de
+          <code>
+           perfmon
+          </code>
+          permite engadir contadores e observar a s&uacute;a evoluci&oacute;n nunha gr&aacute;fica.
+         </p>
+         <p>
+          Exemplo de uso inicial:
+         </p>
+         <ol class="mb-3">
+          <li>
+           Abrir
+           <code>
+            perfmon
+           </code>
+           .
+          </li>
+          <li>
+           Entrar en
+           <strong>
+            Performance Monitor
+           </strong>
+           .
+          </li>
+          <li>
+           Engadir un contador de CPU.
+          </li>
+          <li>
+           Engadir un contador de disco.
+          </li>
+          <li>
+           Executar unha tarefa que xere carga.
+          </li>
+          <li>
+           Observar como cambian os valores.
+          </li>
+         </ol>
+         <p>
+          Esta vista &eacute; &uacute;til para entender visualmente que os recursos non se usan de forma fixa: soben e baixan segundo a carga do sistema.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          4.2. Contadores recomendados para pr&aacute;cticas iniciais
+         </h3>
+         <p>
+          Para unha pr&aacute;ctica inicial non c&oacute;mpre engadir moitos contadores. &Eacute; mellor traballar con poucos e interpretalos ben.
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Recurso
+             </th>
+             <th>
+              Contador recomendado
+             </th>
+             <th>
+              Para que serve
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              CPU
+             </td>
+             <td>
+              <code>
+               % Processor Time
+              </code>
+             </td>
+             <td>
+              Ver se a CPU est&aacute; ocupada de forma sostida
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Memoria
+             </td>
+             <td>
+              <code>
+               Available MBytes
+              </code>
+             </td>
+             <td>
+              Ver memoria dispo&ntilde;ible
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Memoria
+             </td>
+             <td>
+              <code>
+               Pages/sec
+              </code>
+             </td>
+             <td>
+              Detectar actividade intensa de paxinaci&oacute;n
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Disco
+             </td>
+             <td>
+              <code>
+               Disk Transfers/sec
+              </code>
+             </td>
+             <td>
+              Ver actividade de lectura/escritura
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Disco
+             </td>
+             <td>
+              <code>
+               Current Disk Queue Length
+              </code>
+             </td>
+             <td>
+              Detectar petici&oacute;ns pendentes ao disco
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Rede
+             </td>
+             <td>
+              <code>
+               Bytes Sent/sec
+              </code>
+              /
+              <code>
+               Bytes Received/sec
+              </code>
+             </td>
+             <td>
+              Observar tr&aacute;fico de rede
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          &Eacute; preferible seleccionar contadores relacionados co s&iacute;ntoma. Se o problema &eacute; que un ficheiro compartido abre moi lento, ten m&aacute;is sentido revisar disco e rede ca engadir moitas m&eacute;tricas sen criterio.
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="5-conxuntos-de-recopiladores-de-datos">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-collection">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          5. Conxuntos de recopiladores de datos
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Un
+          <strong>
+           conxunto de recopiladores de datos
+          </strong>
+          &eacute; unha configuraci&oacute;n que agrupa que datos se van recoller, cada canto tempo, durante canto tempo e onde se van gardar.
+         </p>
+         <p>
+          En Windows aparecen dentro de:
+         </p>
+         <pre class="cmd-block"><code class="language-text">Performance Monitor &rarr; Data Collector Sets &rarr; User Defined
+</code></pre>
+         <p>
+          Un conxunto de recopiladores permite pasar dunha observaci&oacute;n puntual a unha recollida organizada de datos.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          5.1. Que define un conxunto de recopiladores
+         </h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Elemento
+             </th>
+             <th>
+              Pregunta que responde
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Contadores
+             </td>
+             <td>
+              Que vou medir?
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Intervalo de mostraxe
+             </td>
+             <td>
+              Cada canto tempo gardo unha mostra?
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Duraci&oacute;n
+             </td>
+             <td>
+              Durante canto tempo recollo datos?
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Localizaci&oacute;n
+             </td>
+             <td>
+              Onde se gardan os ficheiros?
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Formato
+             </td>
+             <td>
+              Como se almacenan os datos?
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Informe
+             </td>
+             <td>
+              Como podo revisar os resultados despois?
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Por exemplo, poder&iacute;ase crear un conxunto que rexistre CPU, memoria e disco cada 15 segundos durante 10 minutos.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          5.2. Intervalo de mostraxe
+         </h3>
+         <p>
+          O
+          <strong>
+           intervalo de mostraxe
+          </strong>
+          indica cada canto tempo se garda unha medici&oacute;n.
+         </p>
+         <p>
+          Exemplos:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Intervalo
+             </th>
+             <th>
+              Vantaxe
+             </th>
+             <th>
+              Inconveniente
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              1 segundo
+             </td>
+             <td>
+              Moito detalle
+             </td>
+             <td>
+              M&aacute;is datos e m&aacute;is ru&iacute;do
+             </td>
+            </tr>
+            <tr>
+             <td>
+              5 segundos
+             </td>
+             <td>
+              Bo equilibrio para pr&aacute;cticas curtas
+             </td>
+             <td>
+              Pode perder picos moi breves
+             </td>
+            </tr>
+            <tr>
+             <td>
+              15 segundos
+             </td>
+             <td>
+              Axeitado para seguimento xeral
+             </td>
+             <td>
+              Menos detalle
+             </td>
+            </tr>
+            <tr>
+             <td>
+              1 minuto
+             </td>
+             <td>
+              &Uacute;til para per&iacute;odos longos
+             </td>
+             <td>
+              Oculta variaci&oacute;ns r&aacute;pidas
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Un intervalo moi curto xera m&aacute;is detalle, pero tam&eacute;n m&aacute;is datos. Un intervalo demasiado longo pode ocultar picos breves.
+         </p>
+         <p>
+          Para unha pr&aacute;ctica de aula &eacute; razoable empregar intervalos de entre
+          <strong>
+           5 e 15 segundos
+          </strong>
+          , dependendo do tempo dispo&ntilde;ible e da carga que se queira observar.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          5.3. Uso did&aacute;ctico na UD3
+         </h3>
+         <p>
+          Nunha pr&aacute;ctica sinxela p&oacute;dese facer isto:
+         </p>
+         <ol class="mb-3">
+          <li>
+           Crear un conxunto de recopiladores de datos.
+          </li>
+          <li>
+           Engadir contadores de CPU, memoria e disco.
+          </li>
+          <li>
+           Configurar un intervalo de mostraxe.
+          </li>
+          <li>
+           Iniciar a recollida.
+          </li>
+          <li>
+           Executar unha tarefa que xere carga.
+          </li>
+          <li>
+           Deter a recollida.
+          </li>
+          <li>
+           Abrir os resultados.
+          </li>
+          <li>
+           Explicar que valores cambiaron e por que.
+          </li>
+         </ol>
+         <p>
+          O obxectivo non &eacute; aprender todas as opci&oacute;ns avanzadas da ferramenta, sen&oacute;n entender que
+          <strong>
+           os datos poden gardarse para analizalos despois
+          </strong>
+          .
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="6-alertas-de-rendemento">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-bell">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          6. Alertas de rendemento
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Unha
+          <strong>
+           alerta de rendemento
+          </strong>
+          permite definir unha condici&oacute;n sobre un contador. Cando esa condici&oacute;n se cumpre, o sistema pode executar unha acci&oacute;n.
+         </p>
+         <p>
+          A estrutura b&aacute;sica dunha alerta &eacute;:
+         </p>
+         <pre class="cmd-block"><code class="language-text">contador &rarr; condici&oacute;n &rarr; limiar &rarr; acci&oacute;n
+</code></pre>
+         <p>
+          Exemplos:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Contador
+             </th>
+             <th>
+              Condici&oacute;n
+             </th>
+             <th>
+              Limiar
+             </th>
+             <th>
+              Acci&oacute;n posible
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              CPU
+             </td>
+             <td>
+              superior a
+             </td>
+             <td>
+              90 %
+             </td>
+             <td>
+              Escribir un evento
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Espazo libre
+             </td>
+             <td>
+              inferior a
+             </td>
+             <td>
+              10 %
+             </td>
+             <td>
+              Xerar aviso
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Memoria dispo&ntilde;ible
+             </td>
+             <td>
+              inferior a
+             </td>
+             <td>
+              valor definido
+             </td>
+             <td>
+              Rexistrar evento
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Disco
+             </td>
+             <td>
+              cola superior a
+             </td>
+             <td>
+              valor definido
+             </td>
+             <td>
+              Gardar informaci&oacute;n
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          6.1. Limiar e contexto
+         </h3>
+         <p>
+          Un limiar non debe escollerse ao azar. Debe ter relaci&oacute;n co uso normal do equipo e co problema que se quere detectar.
+         </p>
+         <p>
+          Por exemplo, unha CPU por riba do 90 % pode ser normal durante unha tarefa puntual. Pode ser preocupante se se mant&eacute;n durante varios minutos e coincide con lentitude, bloqueos ou servizos afectados.
+         </p>
+         <p>
+          O mesmo ocorre co disco. Un disco moi activo durante unha copia grande &eacute; normal. Un disco saturado sen unha tarefa clara pode indicar un problema de I/O, actualizaci&oacute;ns, antivirus, falta de memoria ou erro de hardware.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          6.2. Acci&oacute;ns posibles
+         </h3>
+         <p>
+          As acci&oacute;ns poden variar segundo a ferramenta e a configuraci&oacute;n, pero didacticamente interesan sobre todo estas:
+         </p>
+         <ul class="mb-3">
+          <li>
+           escribir un evento;
+          </li>
+          <li>
+           iniciar un rexistro de datos;
+          </li>
+          <li>
+           executar un programa ou script;
+          </li>
+          <li>
+           deixar evidencia para revisi&oacute;n posterior.
+          </li>
+         </ul>
+         <p>
+          Para este nivel, o m&aacute;is razoable &eacute; traballar con alertas simples e centrarse en que o alumnado entenda:
+         </p>
+         <ul class="mb-3">
+          <li>
+           que contador se vix&iacute;a;
+          </li>
+          <li>
+           que limiar se escolle;
+          </li>
+          <li>
+           que acci&oacute;n se produce;
+          </li>
+          <li>
+           que evidencia queda.
+          </li>
+         </ul>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          6.3. Exemplos sinxelos de alerta
+         </h3>
+         <h4 class="h6 fw-bold mt-3 mb-2">
+          Exemplo 1: CPU alta sostida
+         </h4>
+         <pre class="cmd-block"><code class="language-text">Contador: % Processor Time
+Condici&oacute;n: superior a 90 %
+Interpretaci&oacute;n: posible saturaci&oacute;n se coincide con lentitude e se mant&eacute;n no tempo
+</code></pre>
+         <h4 class="h6 fw-bold mt-3 mb-2">
+          Exemplo 2: pouco espazo libre
+         </h4>
+         <pre class="cmd-block"><code class="language-text">Contador: espazo libre no volume
+Condici&oacute;n: inferior a un limiar definido
+Interpretaci&oacute;n: risco de problemas por falta de espazo
+</code></pre>
+         <h4 class="h6 fw-bold mt-3 mb-2">
+          Exemplo 3: moita actividade de disco
+         </h4>
+         <pre class="cmd-block"><code class="language-text">Contador: Disk Transfers/sec ou Current Disk Queue Length
+Condici&oacute;n: valor sostido alto
+Interpretaci&oacute;n: posible saturaci&oacute;n de I/O
+</code></pre>
+         <p>
+          Unha alerta non substit&uacute;e o diagn&oacute;stico. S&oacute; indica que unha condici&oacute;n se cumpriu. Despois hai que analizar a causa.
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="7-logs-e-rexistros-en-ubuntu">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-ubuntu">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          7. Logs e rexistros en Ubuntu
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          En Ubuntu e noutros sistemas GNU/Linux, a monitorizaci&oacute;n e o diagn&oacute;stico adoitan combinar varias fontes:
+         </p>
+         <ul class="mb-3">
+          <li>
+           comandos en tempo real;
+          </li>
+          <li>
+           ficheiros de log;
+          </li>
+          <li>
+           <code>
+            journalctl
+           </code>
+           ;
+          </li>
+          <li>
+           mensaxes do kernel;
+          </li>
+          <li>
+           estado dos servizos;
+          </li>
+          <li>
+           ferramentas adicionais como
+           <code>
+            vmstat
+           </code>
+           ,
+           <code>
+            iostat
+           </code>
+           ou soluci&oacute;ns externas.
+          </li>
+         </ul>
+         <p>
+          A diferenza de Windows, onde o Monitor de rendemento ofrece unha interface gr&aacute;fica centralizada para contadores e rexistros, en Linux &eacute; habitual combinar ferramentas pequenas, cada unha cunha finalidade concreta.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          7.1.
+          <code>
+           /var/log
+          </code>
+         </h3>
+         <p>
+          O cartafol
+          <code>
+           /var/log
+          </code>
+          almacena ficheiros de rexistro xerados polo sistema e por diferentes servizos.
+         </p>
+         <p>
+          Exemplos habituais en Ubuntu:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Ficheiro
+             </th>
+             <th>
+              Utilidade xeral
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              <code>
+               /var/log/syslog
+              </code>
+             </td>
+             <td>
+              Mensaxes xerais do sistema e servizos
+             </td>
+            </tr>
+            <tr>
+             <td>
+              <code>
+               /var/log/auth.log
+              </code>
+             </td>
+             <td>
+              Eventos de autenticaci&oacute;n e acceso
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Outros logs de servizos
+             </td>
+             <td>
+              Informaci&oacute;n espec&iacute;fica de aplicaci&oacute;ns ou servizos instalados
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Neste bloque interesa sobre todo entender que os logs poden axudar a explicar problemas de rendemento: servizos que fallan, erros repetidos, problemas de rede ou mensaxes relacionadas co hardware.
+         </p>
+         <p>
+          Os rexistros de autenticaci&oacute;n, como
+          <code>
+           auth.log
+          </code>
+          , traballaranse con m&aacute;is detalle no bloque de auditor&iacute;a.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          7.2.
+          <code>
+           journalctl
+          </code>
+         </h3>
+         <p>
+          Nos sistemas con
+          <code>
+           systemd
+          </code>
+          ,
+          <code>
+           journalctl
+          </code>
+          permite consultar o journal do sistema.
+         </p>
+         <p>
+          Comandos &uacute;tiles:
+         </p>
+         <pre class="cmd-block"><code class="language-bash">journalctl -xe
+journalctl -b
+journalctl -p warning..err
+journalctl -u nome_servizo
+</code></pre>
+         <p>
+          Significado:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Comando
+             </th>
+             <th>
+              Para que serve
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              <code>
+               journalctl -xe
+              </code>
+             </td>
+             <td>
+              Ver eventos recentes con m&aacute;is detalle
+             </td>
+            </tr>
+            <tr>
+             <td>
+              <code>
+               journalctl -b
+              </code>
+             </td>
+             <td>
+              Ver eventos do arranque actual
+             </td>
+            </tr>
+            <tr>
+             <td>
+              <code>
+               journalctl -p warning..err
+              </code>
+             </td>
+             <td>
+              Ver avisos e erros
+             </td>
+            </tr>
+            <tr>
+             <td>
+              <code>
+               journalctl -u nome_servizo
+              </code>
+             </td>
+             <td>
+              Ver eventos dun servizo concreto
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Cando hai un problema, &eacute; &uacute;til revisar se aparecen avisos ou erros repetidos ao mesmo tempo que se observa o s&iacute;ntoma.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          7.3. Mensaxes do kernel
+         </h3>
+         <p>
+          As mensaxes do kernel poden axudar a detectar problemas de hardware, discos, controladores ou dispositivos.
+         </p>
+         <p>
+          P&oacute;dense consultar con:
+         </p>
+         <pre class="cmd-block"><code class="language-bash">dmesg
+journalctl -k
+</code></pre>
+         <p>
+          Exemplos de situaci&oacute;ns onde pode ser &uacute;til revisar mensaxes do kernel:
+         </p>
+         <ul class="mb-3">
+          <li>
+           erros de disco;
+          </li>
+          <li>
+           problemas ao detectar hardware;
+          </li>
+          <li>
+           fallos de controladores;
+          </li>
+          <li>
+           desconexi&oacute;ns de dispositivos;
+          </li>
+          <li>
+           problemas de rede a baixo nivel.
+          </li>
+         </ul>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="8-ferramentas-linux-para-seguimento-basico">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-terminal">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          8. Ferramentas Linux para seguimento b&aacute;sico
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Ademais dos logs, Linux ofrece comandos que permiten observar o comportamento do sistema mentres est&aacute; en execuci&oacute;n.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          8.1.
+          <code>
+           top
+          </code>
+          e
+          <code>
+           htop
+          </code>
+         </h3>
+         <p>
+          <code>
+           top
+          </code>
+          permite observar procesos, CPU, memoria e carga do sistema en tempo real.
+         </p>
+         <pre class="cmd-block"><code class="language-bash">top
+</code></pre>
+         <p>
+          <code>
+           htop
+          </code>
+          ofrece unha interface m&aacute;is visual, se est&aacute; instalada:
+         </p>
+         <pre class="cmd-block"><code class="language-bash">htop
+</code></pre>
+         <p>
+          Uso did&aacute;ctico:
+         </p>
+         <ul class="mb-3">
+          <li>
+           detectar procesos con moita CPU;
+          </li>
+          <li>
+           ver consumo de memoria;
+          </li>
+          <li>
+           observar cantos procesos est&aacute;n activos;
+          </li>
+          <li>
+           comprobar se a carga cambia ao executar unha tarefa.
+          </li>
+         </ul>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          8.2.
+          <code>
+           vmstat
+          </code>
+         </h3>
+         <p>
+          <code>
+           vmstat
+          </code>
+          mostra estat&iacute;sticas de procesos, memoria, swap, I/O e CPU.
+         </p>
+         <p>
+          Exemplo:
+         </p>
+         <pre class="cmd-block"><code class="language-bash">vmstat 1
+</code></pre>
+         <p>
+          O n&uacute;mero
+          <code>
+           1
+          </code>
+          indica que se mostra unha li&ntilde;a cada segundo.
+         </p>
+         <p>
+          &Eacute; &uacute;til para ver tendencias de forma continua, especialmente cando queremos observar se hai uso de swap, actividade de I/O ou cambios de CPU.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          8.3.
+          <code>
+           iostat
+          </code>
+         </h3>
+         <p>
+          <code>
+           iostat
+          </code>
+          permite revisar estat&iacute;sticas de entrada/sa&iacute;da de disco.
+         </p>
+         <p>
+          Exemplo:
+         </p>
+         <pre class="cmd-block"><code class="language-bash">iostat 1
+</code></pre>
+         <p>
+          Se o comando non est&aacute; dispo&ntilde;ible, pode instalarse co paquete
+          <code>
+           sysstat
+          </code>
+          :
+         </p>
+         <pre class="cmd-block"><code class="language-bash">sudo apt update
+sudo apt install sysstat
+</code></pre>
+         <p>
+          Uso did&aacute;ctico:
+         </p>
+         <ul class="mb-3">
+          <li>
+           detectar discos con moita actividade;
+          </li>
+          <li>
+           observar lecturas e escrituras;
+          </li>
+          <li>
+           relacionar lentitude con I/O.
+          </li>
+         </ul>
+         <p>
+          Non &eacute; necesario dominar todas as columnas de
+          <code>
+           iostat
+          </code>
+          neste bloque. Abonda con entender que serve para analizar mellor a actividade de disco.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          8.4. Estado de servizos
+         </h3>
+         <p>
+          Moitos problemas de rendemento ou funcionamento est&aacute;n relacionados con servizos que fallan, reinician ou non est&aacute;n activos.
+         </p>
+         <p>
+          Comandos &uacute;tiles:
+         </p>
+         <pre class="cmd-block"><code class="language-bash">systemctl status nome_servizo
+journalctl -u nome_servizo
+</code></pre>
+         <p>
+          Exemplo:
+         </p>
+         <pre class="cmd-block"><code class="language-bash">systemctl status ssh
+journalctl -u ssh
+</code></pre>
+         <p>
+          A idea &eacute; relacionar:
+         </p>
+         <pre class="cmd-block"><code class="language-text">servizo afectado &rarr; estado do servizo &rarr; eventos rexistrados &rarr; posible causa
+</code></pre>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="9-introducion-conceptual-a-snmp">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-hdd-network">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          9. Introduci&oacute;n conceptual a SNMP
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          SNMP significa
+          <strong>
+           Simple Network Management Protocol
+          </strong>
+          . &Eacute; un protocolo usado para recoller informaci&oacute;n de sistemas, servidores, equipos de rede e outros dispositivos monitorizables.
+         </p>
+         <p>
+          Nesta unidade non se configurar&aacute; unha infraestrutura SNMP completa. O obxectivo &eacute; entender a idea xeral e reco&ntilde;ecer o seu papel nas ferramentas profesionais de monitorizaci&oacute;n.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          9.1. Elementos b&aacute;sicos de SNMP
+         </h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Concepto
+             </th>
+             <th>
+              Explicaci&oacute;n
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              SNMP
+             </td>
+             <td>
+              Protocolo para consultar informaci&oacute;n de dispositivos e sistemas monitorizados
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Axente
+             </td>
+             <td>
+              Servizo no equipo ou dispositivo que ofrece informaci&oacute;n
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Xestor ou servidor de monitorizaci&oacute;n
+             </td>
+             <td>
+              Equipo que consulta aos axentes
+             </td>
+            </tr>
+            <tr>
+             <td>
+              MIB
+             </td>
+             <td>
+              Estrutura que describe os obxectos monitorizables
+             </td>
+            </tr>
+            <tr>
+             <td>
+              OID
+             </td>
+             <td>
+              Identificador dun dato concreto dentro da MIB
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Exemplo conceptual:
+         </p>
+         <pre class="cmd-block"><code class="language-text">Servidor de monitorizaci&oacute;n &rarr; consulta SNMP &rarr; axente no equipo &rarr; dato de CPU, memoria ou rede
+</code></pre>
+         <p>
+          Ferramentas profesionais como Zabbix, Nagios ou soluci&oacute;ns similares poden empregar SNMP ou outros m&eacute;todos para recoller datos de equipos e dispositivos.
+         </p>
+         <p>
+          Neste bloque traballaremos principalmente con ferramentas locais como
+          <code>
+           perfmon
+          </code>
+          ,
+          <code>
+           top
+          </code>
+          ,
+          <code>
+           journalctl
+          </code>
+          ,
+          <code>
+           vmstat
+          </code>
+          ou
+          <code>
+           iostat
+          </code>
+          . SNMP queda como unha introduci&oacute;n ao modelo de monitorizaci&oacute;n centralizada.
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="10-como-escoller-que-revisar-segundo-o-sintoma">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-diagram-3">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          10. Como escoller que revisar segundo o s&iacute;ntoma
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Un erro frecuente &eacute; abrir ferramentas ao azar sen formular unha hip&oacute;tese. Antes de revisar contadores ou logs conv&eacute;n preguntar:
+          <strong>
+           que s&iacute;ntoma te&ntilde;o e que recurso poder&iacute;a estar relacionado?
+          </strong>
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              S&iacute;ntoma observado
+             </th>
+             <th>
+              Primeiro que revisar&iacute;a
+             </th>
+             <th>
+              Ferramentas posibles
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Sistema lento en xeral
+             </td>
+             <td>
+              CPU, memoria e disco
+             </td>
+             <td>
+              Administrador de tarefas,
+              <code>
+               perfmon
+              </code>
+              ,
+              <code>
+               top
+              </code>
+              ,
+              <code>
+               free -h
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Aplicaci&oacute;n que non responde
+             </td>
+             <td>
+              Proceso da aplicaci&oacute;n, eventos, CPU/memoria
+             </td>
+             <td>
+              Administrador de tarefas, Visor de eventos,
+              <code>
+               top
+              </code>
+              ,
+              <code>
+               journalctl
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Disco sempre activo
+             </td>
+             <td>
+              I/O, cola de disco, memoria
+             </td>
+             <td>
+              Monitor de recursos,
+              <code>
+               perfmon
+              </code>
+              ,
+              <code>
+               iostat
+              </code>
+              ,
+              <code>
+               vmstat
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Pouco espazo libre
+             </td>
+             <td>
+              Uso do sistema de ficheiros
+             </td>
+             <td>
+              Explorador,
+              <code>
+               df -h
+              </code>
+              ,
+              <code>
+               du -sh
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Servizo que falla
+             </td>
+             <td>
+              Estado do servizo e logs
+             </td>
+             <td>
+              <code>
+               services.msc
+              </code>
+              , Visor de eventos,
+              <code>
+               systemctl status
+              </code>
+              ,
+              <code>
+               journalctl -u
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Problemas tras o arranque
+             </td>
+             <td>
+              Eventos de arranque e kernel
+             </td>
+             <td>
+              Visor de eventos,
+              <code>
+               journalctl -b
+              </code>
+              ,
+              <code>
+               journalctl -k
+              </code>
+              ,
+              <code>
+               dmesg
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Acceso lento por rede
+             </td>
+             <td>
+              Rede, disco remoto, latencia
+             </td>
+             <td>
+              Monitor de recursos,
+              <code>
+               ping
+              </code>
+              ,
+              <code>
+               ss
+              </code>
+              , contadores de rede
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          A secuencia recomendable &eacute;:
+         </p>
+         <pre class="cmd-block"><code class="language-text">1. Identificar o s&iacute;ntoma.
+2. Formular unha hip&oacute;tese.
+3. Escoller m&eacute;tricas ou logs relacionados.
+4. Recoller evidencias.
+5. Interpretar os datos.
+6. Formular unha conclusi&oacute;n t&eacute;cnica.
+</code></pre>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="11-evidencias-que-debe-recoller-o-alumnado">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-camera">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          11. Evidencias que debe recoller o alumnado
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Nunha pr&aacute;ctica desta parte da UD3, o alumnado deber&iacute;a saber achegar evidencias como:
+         </p>
+         <ul class="mb-3">
+          <li>
+           captura dun contador engadido en
+           <code>
+            perfmon
+           </code>
+           ;
+          </li>
+          <li>
+           captura dunha gr&aacute;fica de Monitor de rendemento;
+          </li>
+          <li>
+           captura dun conxunto de recopiladores de datos;
+          </li>
+          <li>
+           ficheiro ou informe xerado pola recollida de datos;
+          </li>
+          <li>
+           captura dunha alerta configurada;
+          </li>
+          <li>
+           evento xerado pola alerta, se a pr&aacute;ctica o incl&uacute;e;
+          </li>
+          <li>
+           sa&iacute;da de
+           <code>
+            journalctl -b
+           </code>
+           ;
+          </li>
+          <li>
+           sa&iacute;da de
+           <code>
+            journalctl -p warning..err
+           </code>
+           ;
+          </li>
+          <li>
+           sa&iacute;da de
+           <code>
+            vmstat 1
+           </code>
+           ou
+           <code>
+            iostat 1
+           </code>
+           ;
+          </li>
+          <li>
+           explicaci&oacute;n do contador escollido;
+          </li>
+          <li>
+           explicaci&oacute;n do intervalo de mostraxe;
+          </li>
+          <li>
+           xustificaci&oacute;n do limiar elixido;
+          </li>
+          <li>
+           conclusi&oacute;n t&eacute;cnica baseada nas evidencias.
+          </li>
+         </ul>
+         <p>
+          Non se aceptar&iacute;a como diagn&oacute;stico completo unha frase como:
+         </p>
+         <pre class="cmd-block"><code class="language-text">O equipo &iacute;a lento e mirei o Monitor de rendemento.
+</code></pre>
+         <p>
+          Unha resposta mellor ser&iacute;a:
+         </p>
+         <pre class="cmd-block"><code class="language-text">Durante a proba observouse uso sostido de disco e unha cola de disco elevada. A lentitude coincidiu cunha tarefa de copia. A evidencia &eacute; a gr&aacute;fica do contador de disco e o rexistro xerado durante a proba.
+</code></pre>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="12-erros-habituais-de-interpretacion">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-exclamation-triangle">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          12. Erros habituais de interpretaci&oacute;n
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Erro
+             </th>
+             <th>
+              Por que &eacute; un problema
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Mirar s&oacute; unha gr&aacute;fica
+             </td>
+             <td>
+              Un pico illado non explica a causa
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Non indicar intervalo de mostraxe
+             </td>
+             <td>
+              Non se sabe cada canto se mediron os datos
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Usar limiares sen contexto
+             </td>
+             <td>
+              O que &eacute; normal nun equipo pode ser an&oacute;malo noutro
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Confundir log con m&eacute;trica
+             </td>
+             <td>
+              Un log explica feitos; unha m&eacute;trica mide valores
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Non gardar evidencias
+             </td>
+             <td>
+              O diagn&oacute;stico non se pode comprobar
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Non relacionar datos
+             </td>
+             <td>
+              A clave &eacute; conectar s&iacute;ntoma, contador, log e conclusi&oacute;n
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Engadir demasiados contadores
+             </td>
+             <td>
+              Pode dificultar a interpretaci&oacute;n
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Diagnosticar s&oacute; pola CPU
+             </td>
+             <td>
+              Moitas lentitudes ve&ntilde;en de disco, memoria ou rede
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Non comprobar o servizo afectado
+             </td>
+             <td>
+              Un problema pode estar nun servizo concreto e non no sistema completo
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          A regra pr&aacute;ctica &eacute; clara:
+         </p>
+         <pre class="cmd-block"><code class="language-text">m&eacute;trica sen interpretaci&oacute;n = dato solto
+log sen contexto = pista incompleta
+s&iacute;ntoma + m&eacute;trica + log + explicaci&oacute;n = diagn&oacute;stico t&eacute;cnico
+</code></pre>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="13-ideas-clave">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-journal-check">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          13. Ideas clave
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <ul class="mb-3">
+          <li>
+           A monitorizaci&oacute;n en tempo real permite ver o estado actual do sistema.
+          </li>
+          <li>
+           Os rexistros de rendemento permiten gardar datos para analizalos despois.
+          </li>
+          <li>
+           Windows usa contadores de rendemento para medir CPU, memoria, disco, rede e outros elementos.
+          </li>
+          <li>
+           <code>
+            perfmon
+           </code>
+           permite visualizar contadores, crear rexistros e traballar con conxuntos de recopiladores de datos.
+          </li>
+          <li>
+           Un conxunto de recopiladores define que se mide, cada canto tempo, durante canto tempo e onde se garda.
+          </li>
+          <li>
+           Unha alerta de rendemento avisa cando unha m&eacute;trica cumpre unha condici&oacute;n definida.
+          </li>
+          <li>
+           Os limiares deben escollerse con contexto, non de forma autom&aacute;tica.
+          </li>
+          <li>
+           En Ubuntu comb&iacute;nanse comandos, logs,
+           <code>
+            journalctl
+           </code>
+           e ferramentas como
+           <code>
+            vmstat
+           </code>
+           ou
+           <code>
+            iostat
+           </code>
+           .
+          </li>
+          <li>
+           <code>
+            journalctl
+           </code>
+           permite revisar eventos recentes, do arranque, de servizos concretos e de prioridades determinadas.
+          </li>
+          <li>
+           SNMP &eacute; un protocolo usado en monitorizaci&oacute;n centralizada, pero nesta unidade tr&aacute;tase s&oacute; a nivel conceptual.
+          </li>
+          <li>
+           Un bo diagn&oacute;stico debe relacionar s&iacute;ntoma, m&eacute;trica, log e conclusi&oacute;n.
+          </li>
+         </ul>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="14-preparacion-para-o-seguinte-bloque">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-arrow-right-circle">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          14. Preparaci&oacute;n para o seguinte bloque
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Este documento pecha a parte inicial de monitorizaci&oacute;n e rexistro de datos.
+         </p>
+         <p>
+          Nos seguintes documentos da UD3 o foco avanzar&aacute; cara a:
+         </p>
+         <ul class="mb-3">
+          <li>
+           auditor&iacute;a de uso e acceso;
+          </li>
+          <li>
+           revisi&oacute;n de eventos relacionados con autenticaci&oacute;n;
+          </li>
+          <li>
+           an&aacute;lise de incidencias;
+          </li>
+          <li>
+           simulaci&oacute;ns de problemas de rendemento;
+          </li>
+          <li>
+           elaboraci&oacute;n de evidencias e informes t&eacute;cnicos.
+          </li>
+         </ul>
+        </div>
+       </div>
+      </section>
+     </article>
+    </main>
+   </div>
+  </div>
+  <footer class="smpp-footer no-print">
+   <div class="smpp-footer-spacer">
+   </div>
+   <div class="smpp-footer-center">
+    <span>
+     CIFP A Carballeira &middot; Ourense
+    </span>
+    Administraci&oacute;n de sistemas inform&aacute;ticos &middot; Curso 2026/27
+    <br/>
+    Material did&aacute;ctico de uso interno
+   </div>
+   <img alt="" class="smpp-sauce" onerror="this.style.display='none'" src="../../assets/imax/sauce_clean.svg"/>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="../../assets/js/smpp.js">
+  </script>
+ </body>
+</html>

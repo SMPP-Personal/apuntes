@@ -1,0 +1,987 @@
+/* =============================================================
+   IMSO – Folla de estilos didácticos
+   CIFP A Carballeira · Módulo IMSO (26/27)
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   Base
+   ------------------------------------------------------------- */
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+code,
+pre {
+    font-family: 'Fira Code', monospace;
+}
+
+/* -------------------------------------------------------------
+   Panel lateral (índice / TOC)
+   ------------------------------------------------------------- */
+.sidebar {
+    position: sticky;
+    top: 2rem;
+    height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+.sidebar-panel {
+    background-color: var(--bs-tertiary-bg);
+    border-color: var(--bs-border-color) !important;
+    color: var(--bs-body-color);
+}
+
+.sidebar-panel h6 {
+    color: var(--bs-body-color);
+}
+
+.sidebar-panel hr {
+    border-color: var(--bs-border-color);
+    opacity: 1;
+}
+
+#toc .nav-link {
+    color: var(--bs-secondary-color);
+}
+
+#toc .nav-link:hover,
+#toc .nav-link:focus {
+    color: var(--bs-primary);
+}
+
+/* -------------------------------------------------------------
+   Bloques por plataforma (Windows / Linux)
+   ------------------------------------------------------------- */
+.section-platform {
+    overflow: hidden;
+}
+
+.section-platform.platform-windows {
+    border-color: rgba(13, 110, 253, 0.45) !important;
+}
+
+.section-platform.platform-linux {
+    border-color: rgba(25, 135, 84, 0.45) !important;
+}
+
+.section-platform .card-header {
+    font-weight: 600;
+    border-bottom: none;
+}
+
+.platform-windows > .card-header {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    color: #fff;
+}
+
+.platform-linux > .card-header {
+    background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+    color: #fff;
+}
+
+.section-card .card-header {
+    background-color: var(--bs-tertiary-bg);
+    border-bottom: 1px solid var(--bs-border-color);
+    font-weight: 600;
+}
+
+/* -------------------------------------------------------------
+   Comandos en <pre><code>
+   ------------------------------------------------------------- */
+.cmd-pre {
+    margin: 0;
+    padding: 0.65rem 0.85rem;
+    border-radius: 0.5rem;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    overflow-x: auto;
+}
+
+.cmd-pre code {
+    color: #7dd3fc;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+}
+
+[data-bs-theme="dark"] .cmd-pre {
+    background: #0f172a;
+    border-color: #475569;
+}
+
+[data-bs-theme="dark"] .cmd-pre code {
+    color: #67e8f9;
+}
+
+.list-group-item.cmd-item {
+    border-left: 3px solid var(--bs-primary);
+    background-color: var(--bs-body-bg);
+}
+
+.platform-linux .list-group-item.cmd-item {
+    border-left-color: var(--bs-success);
+}
+
+/* -------------------------------------------------------------
+   Exercicios / actividades
+   ------------------------------------------------------------- */
+.imso-ejercicio {
+    border-left: 4px solid var(--bs-primary);
+    background: linear-gradient(
+        135deg,
+        rgba(13, 110, 253, 0.08) 0%,
+        var(--bs-body-bg) 45%
+    );
+}
+
+[data-bs-theme="dark"] .imso-ejercicio {
+    background: linear-gradient(
+        135deg,
+        rgba(13, 110, 253, 0.18) 0%,
+        var(--bs-body-bg) 50%
+    );
+}
+
+.imso-ejercicio-titulo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--bs-primary);
+    margin-bottom: 1rem;
+    line-height: 1.35;
+    border-bottom: 2px solid var(--bs-primary);
+    padding-bottom: 0.4rem;
+}
+
+/* Número de exercicio sen fondo — só texto en cor primaria */
+.imso-ex-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--bs-primary);
+    border: 2px solid var(--bs-primary);
+    border-radius: 50%;
+    line-height: 1;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.imso-grupo-ejercicios {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--bs-emphasis-color);
+}
+
+.imso-enunciado {
+    color: var(--bs-body-color);
+    border-left: 3px solid var(--bs-border-color);
+    padding-left: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.imso-paso {
+    background-color: var(--bs-tertiary-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+}
+
+.imso-paso-texto {
+    flex: 1;
+    min-width: 0;
+}
+
+.imso-indicacions {
+    border-left: 3px solid rgba(13, 110, 253, 0.35);
+    padding-left: 0.5rem;
+}
+
+.imso-indicacion {
+    position: relative;
+    padding: 0.35rem 0 0.35rem 1.25rem;
+    color: var(--bs-secondary-color);
+}
+
+.imso-indicacion::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: var(--bs-primary);
+    font-weight: 700;
+}
+
+.imso-subpaso {
+    color: var(--bs-body-color);
+    border-left: 2px dashed var(--bs-border-color);
+    padding-left: 0.75rem;
+}
+
+.imso-contexto .imso-dato {
+    margin-bottom: 0.35rem;
+}
+
+/* -------------------------------------------------------------
+   Notas informativas
+   ------------------------------------------------------------- */
+.imso-nota {
+    border-left: 4px solid var(--bs-warning);
+}
+
+/* -------------------------------------------------------------
+   Bloques de código con botón de copiar
+   ------------------------------------------------------------- */
+pre.block-code {
+    background: #212529;
+    color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    position: relative;
+}
+
+.btn-copy {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    opacity: 0.5;
+}
+
+.btn-copy:hover {
+    opacity: 1;
+}
+
+/* -------------------------------------------------------------
+   Artigo principal
+   ------------------------------------------------------------- */
+article h1 {
+    color: var(--bs-emphasis-color);
+}
+
+article .lead {
+    color: var(--bs-secondary-color);
+}
+
+/* -------------------------------------------------------------
+   Impresión
+   ------------------------------------------------------------- */
+@media print {
+    .no-print {
+        display: none;
+    }
+}
+
+/* ── Blockquote personalizado ─────────────────────────────── */
+.blockquote-custom {
+    border-left: 4px solid var(--bs-secondary);
+    background: var(--bs-light);
+    color: var(--bs-secondary-emphasis);
+    font-style: italic;
+}
+
+[data-bs-theme="dark"] .blockquote-custom {
+    background: rgba(255,255,255,0.05);
+    border-left-color: var(--bs-secondary-border-subtle);
+}
+
+/* =============================================================
+   SMPP Brand — Navbar & Footer
+   ============================================================= */
+
+@font-face {
+    font-family: 'Yukarimobile';
+    src: url('../fonts/yukarimobil.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ── Navbar ── */
+.smpp-navbar {
+    background: #1e293b;
+    padding: 10px 0;
+    border-bottom: 2px solid #38bdf8;
+}
+
+.smpp-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.smpp-buho {
+    color: #38bdf8;
+    width: 38px;
+    height: 52px;
+    flex-shrink: 0;
+}
+
+.smpp-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.smpp-title {
+    font-family: 'Yukarimobile', monospace;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: #38bdf8;
+}
+
+.smpp-subtitle {
+    font-size: 10px;
+    color: #94a3b8;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 3px;
+}
+
+.smpp-module {
+    color: #cbd5e1;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* ── Footer ── */
+.smpp-footer {
+    background: #0f172a;
+    padding: 14px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #1e293b;
+    margin-top: 3rem;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.smpp-footer-spacer {
+    width: 36px;
+    flex-shrink: 0;
+}
+
+.smpp-footer-center {
+    flex: 1;
+    text-align: center;
+    color: #C9A84C;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.smpp-footer-center span {
+    display: block;
+    color: #C9A84C;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.smpp-sauce {
+    color: #C9A84C;
+    width: 36px;
+    height: 40px;
+    flex-shrink: 0;
+    opacity: 0.85;
+}
+
+
+/* =============================================================
+   IMSO – Complementos UD2 para apuntes, actividades e prácticas
+   Integra os estilos que ata agora aparecían dentro de <style>
+   nas páxinas HTML da UD2.
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   Utilidades xerais
+   ------------------------------------------------------------- */
+.section-anchor { scroll-margin-top: 1.5rem; }
+.table td,
+.table th { vertical-align: middle; }
+
+.table code,
+.list-group-item code,
+.card code,
+.alert code {
+  color: var(--bs-code-color);
+  background: var(--bs-tertiary-bg);
+  border-radius: .25rem;
+  padding: .05rem .25rem;
+}
+
+.meta-pill,
+.mini-badge,
+.concept-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .35rem .7rem;
+  border-radius: 999px;
+  border: 1px solid var(--bs-border-color);
+  background: var(--bs-tertiary-bg);
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--bs-secondary-color);
+}
+
+.mini-badge {
+  gap: .25rem;
+  padding: .25rem .5rem;
+  font-size: .78rem;
+  font-weight: 600;
+}
+
+.blockquote-custom {
+  border-left: 4px solid var(--bs-primary);
+  background: var(--bs-tertiary-bg);
+}
+
+/* -------------------------------------------------------------
+   Heroes / cabeceiras visuais
+   ------------------------------------------------------------- */
+.hero-domain {
+  background: radial-gradient(circle at top left, rgba(56,189,248,0.28), transparent 34%),
+              linear-gradient(135deg, #0f172a 0%, #1e3a8a 52%, #0f172a 100%);
+  color: #f8fafc;
+  border-radius: 1rem;
+  padding: 1.65rem 1.75rem;
+  border: 1px solid rgba(56,189,248,0.35);
+  box-shadow: 0 1rem 2.5rem rgba(15,23,42,0.22);
+}
+.hero-domain .lead { color: #cbd5e1; }
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.08);
+  color: #e0f2fe;
+  border-radius: 999px;
+  padding: .28rem .7rem;
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.hero-activity,
+.practice-hero,
+.theory-hero,
+.exercise-hero,
+.hero-reasoning {
+  background: linear-gradient(135deg, rgba(13,110,253,.13) 0%, rgba(14,165,233,.08) 48%, rgba(100,116,139,.06) 100%);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.practice-hero::after,
+.theory-hero::after,
+.exercise-hero::after,
+.hero-reasoning::after {
+  content: "";
+  position: absolute;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  right: -70px;
+  top: -85px;
+  background: radial-gradient(circle, rgba(13,110,253,.18), transparent 68%);
+  pointer-events: none;
+}
+
+[data-bs-theme="dark"] .hero-activity,
+[data-bs-theme="dark"] .practice-hero,
+[data-bs-theme="dark"] .theory-hero,
+[data-bs-theme="dark"] .exercise-hero,
+[data-bs-theme="dark"] .hero-reasoning {
+  background: linear-gradient(135deg, rgba(13,110,253,.22) 0%, rgba(14,165,233,.10) 48%, rgba(255,255,255,.03) 100%);
+  border-color: rgba(255,255,255,.10);
+}
+
+/* Modificadores opcionais para futuras páxinas */
+.hero-purple.practice-hero,
+.practice-hero.hero-purple {
+  background: linear-gradient(135deg, rgba(13,110,253,.15) 0%, rgba(124,58,237,.09) 42%, rgba(14,165,233,.08) 100%);
+}
+.hero-green.practice-hero,
+.practice-hero.hero-green {
+  background: linear-gradient(135deg, rgba(13,110,253,.15) 0%, rgba(14,165,233,.09) 42%, rgba(34,197,94,.08) 100%);
+}
+
+/* -------------------------------------------------------------
+   Tarxetas de conceptos, escenarios e contido
+   ------------------------------------------------------------- */
+.concept-card,
+.scenario-card,
+.content-card,
+.question-card,
+.task-card,
+.step-card,
+.requirement-card,
+.protocol-card,
+.capture-card {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  background: var(--bs-body-bg);
+  box-shadow: 0 .15rem .75rem rgba(15,23,42,.05);
+  overflow: hidden;
+}
+
+.concept-card {
+  border-left: 4px solid var(--bs-primary);
+  border-radius: .85rem;
+  box-shadow: 0 .35rem 1rem rgba(15,23,42,.05);
+}
+.concept-card.success { border-left-color: var(--bs-success); }
+.concept-card.warning { border-left-color: var(--bs-warning); }
+.concept-card.info { border-left-color: var(--bs-info); }
+
+.concept-icon,
+.section-icon,
+.activity-meta-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .75rem;
+  background: rgba(13,110,253,.12);
+  color: var(--bs-primary);
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+.concept-icon { width: 42px; height: 42px; font-size: 1.25rem; }
+.concept-card.success .concept-icon { background: var(--bs-success-bg-subtle); color: var(--bs-success); }
+.concept-card.warning .concept-icon { background: var(--bs-warning-bg-subtle); color: var(--bs-warning-text-emphasis); }
+.concept-card.info .concept-icon { background: var(--bs-info-bg-subtle); color: var(--bs-info-text-emphasis); }
+[data-bs-theme="dark"] .section-icon { background: rgba(13,110,253,.22); }
+
+.content-card .content-card-header,
+.step-card .step-header,
+.scenario-card .scenario-header,
+.task-card .task-header,
+.question-header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--bs-border-color);
+  background: var(--bs-tertiary-bg);
+}
+.content-card .content-card-body,
+.task-card .task-body,
+.question-body,
+.step-body { padding: 1.15rem; }
+
+.scenario-card .scenario-header,
+.task-card .task-header,
+.question-header,
+.step-card .step-header.is-primary {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  color: #fff;
+}
+.task-card .task-header { background: linear-gradient(135deg, var(--bs-primary) 0%, #0ea5e9 100%); }
+
+.activity-meta-card,
+.deliverable-card,
+.result-card,
+.key-card,
+.substep-card,
+.mini-step,
+.requirement-card,
+.protocol-card,
+.capture-card {
+  border: 1px solid var(--bs-border-color);
+  border-radius: .9rem;
+  background: var(--bs-body-bg);
+  padding: .95rem;
+  height: 100%;
+}
+.activity-meta-card,
+.result-card,
+.key-card { background: var(--bs-tertiary-bg); }
+.result-card i { color: #22c55e; }
+
+.deliverable-card {
+  background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+  border-color: #bae6fd;
+}
+[data-bs-theme="dark"] .deliverable-card {
+  background: linear-gradient(135deg, rgba(14,165,233,.10) 0%, rgba(255,255,255,.03) 100%);
+  border-color: rgba(14,165,233,.25);
+}
+
+.domain-summary,
+.instruction-box,
+.instruction-card,
+.orientation-box,
+.scenario-box {
+  border: 1px solid var(--bs-border-color);
+  border-left: 4px solid var(--bs-primary);
+  border-radius: .85rem;
+  background: var(--bs-tertiary-bg);
+  padding: 1rem;
+}
+
+.teacher-zone {
+  border: 1px solid rgba(245,158,11,.35);
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(245,158,11,.10) 0%, var(--bs-body-bg) 55%);
+}
+[data-bs-theme="dark"] .teacher-zone {
+  background: linear-gradient(135deg, rgba(245,158,11,.12) 0%, rgba(255,255,255,.03) 60%);
+}
+
+/* -------------------------------------------------------------
+   Grids de escenario e mapas
+   ------------------------------------------------------------- */
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: .75rem;
+}
+.scenario-item,
+.map-node {
+  border: 1px solid var(--bs-border-color);
+  border-radius: .85rem;
+  background: var(--bs-body-bg);
+  padding: .85rem;
+  box-shadow: 0 .10rem .45rem rgba(15,23,42,.04);
+}
+.scenario-label {
+  display: block;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--bs-secondary-color);
+  font-weight: 800;
+  margin-bottom: .2rem;
+}
+.network-map {
+  background: linear-gradient(135deg, rgba(14,165,233,.10) 0%, rgba(139,92,246,.08) 100%);
+  border: 1px solid rgba(14,165,233,.25);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+[data-bs-theme="dark"] .network-map {
+  background: linear-gradient(135deg, rgba(14,165,233,.12) 0%, rgba(139,92,246,.10) 100%);
+  border-color: rgba(125,211,252,.24);
+}
+.map-node {
+  text-align: center;
+  min-height: 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .25rem;
+}
+.map-node i { font-size: 1.55rem; }
+
+/* -------------------------------------------------------------
+   Comparativas, árbores, procesos e AGDLP
+   ------------------------------------------------------------- */
+.compare-panel {
+  border-radius: .9rem;
+  border: 1px solid var(--bs-border-color);
+  overflow: hidden;
+  height: 100%;
+  background: var(--bs-body-bg);
+}
+.compare-panel .compare-header {
+  padding: .8rem 1rem;
+  font-weight: 800;
+  color: #fff;
+}
+.compare-workgroup .compare-header { background: linear-gradient(135deg, #64748b, #334155); }
+.compare-domain .compare-header { background: linear-gradient(135deg, #0d6efd, #0a58ca); }
+
+.ou-tree,
+.code-tree,
+.tree-block {
+  border-radius: .85rem;
+  border: 1px solid var(--bs-border-color);
+  background: var(--bs-tertiary-bg);
+  padding: 1rem 1.15rem;
+}
+.ou-tree ul { margin-bottom: 0; }
+.ou-tree li { margin: .25rem 0; }
+.tree-block,
+.code-tree {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-color: #334155;
+  font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .9rem;
+  overflow-x: auto;
+  line-height: 1.55;
+  margin-bottom: 0;
+}
+
+.agdlp-step,
+.process-step {
+  border: 1px solid var(--bs-border-color);
+  border-radius: .85rem;
+  padding: .9rem;
+  background: var(--bs-body-bg);
+  text-align: center;
+  height: 100%;
+}
+.agdlp-letter,
+.planning-badge,
+.process-num,
+.step-number,
+.task-number,
+.question-number {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bs-primary);
+  color: #fff;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.task-number,
+.question-number {
+  width: 2rem;
+  height: 2rem;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.45);
+  margin-right: .55rem;
+}
+
+/* -------------------------------------------------------------
+   Listas, táboas e evidencias
+   ------------------------------------------------------------- */
+.key-list .list-group-item,
+.check-list .list-group-item,
+.solution-list .list-group-item,
+.answer-list .list-group-item {
+  border-left: 3px solid var(--bs-primary);
+}
+.solution-list .list-group-item { border-left-color: #f59e0b; }
+
+.vocab-table th,
+.parameter-table tbody tr td:first-child { white-space: nowrap; }
+.vocab-table td:first-child,
+.vocab-table th:first-child { width: 42%; }
+.parameter-table tbody tr td:first-child {
+  font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 700;
+  color: var(--bs-primary);
+}
+.evidence-table tbody tr td:first-child {
+  font-weight: 800;
+  color: var(--bs-primary);
+  width: 4.5rem;
+  text-align: center;
+}
+.error-table tbody tr td:first-child {
+  border-left: 4px solid #ef4444;
+  font-weight: 700;
+}
+.decision-table tbody tr td:first-child { font-weight: 700; }
+
+/* -------------------------------------------------------------
+   Avisos, perigos e destacados
+   ------------------------------------------------------------- */
+.notice,
+.warning-strong,
+.info-strong,
+.success-strong,
+.danger-strong {
+  border-radius: .85rem;
+  padding: .95rem 1rem;
+  border-left: 4px solid var(--bs-primary);
+  background: linear-gradient(135deg, rgba(13,110,253,.11), rgba(13,110,253,.035));
+}
+.notice.warning,
+.warning-strong {
+  border-left-color: #f59e0b;
+  background: linear-gradient(135deg, rgba(245,158,11,.13), rgba(245,158,11,.045));
+}
+.notice.success,
+.success-strong {
+  border-left-color: #22c55e;
+  background: linear-gradient(135deg, rgba(34,197,94,.13), rgba(34,197,94,.04));
+}
+.notice.danger,
+.danger-strong {
+  border-left-color: #ef4444;
+  background: linear-gradient(135deg, rgba(239,68,68,.12), rgba(239,68,68,.04));
+}
+.notice.security {
+  border-left-color: #7c3aed;
+  background: linear-gradient(135deg, rgba(124,58,237,.13), rgba(124,58,237,.04));
+}
+.info-strong {
+  border-left-color: #0ea5e9;
+  background: linear-gradient(135deg, rgba(14,165,233,.12), rgba(14,165,233,.04));
+}
+.site-card { border-left: 4px solid #8b5cf6; }
+
+.capture-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .45rem .75rem;
+  border-radius: .75rem;
+  background: rgba(245,158,11,.13);
+  border: 1px solid rgba(245,158,11,.28);
+  color: #92400e;
+  font-weight: 800;
+  font-size: .86rem;
+}
+[data-bs-theme="dark"] .capture-badge { color: #fbbf24; }
+
+/* -------------------------------------------------------------
+   Comandos e código
+   ------------------------------------------------------------- */
+.cmd-block,
+.code-block {
+  border-radius: .85rem;
+  border: 1px solid rgba(15,23,42,.16);
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: .9rem 1rem;
+  overflow-x: auto;
+  margin: .75rem 0;
+}
+.cmd-block code,
+.code-block code {
+  color: inherit;
+  background: transparent;
+  padding: 0;
+  font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .88rem;
+  white-space: pre;
+}
+.text-block { background: #1e293b; }
+
+/* Compatibilidade con bloques antigos */
+.cmd-pre {
+  margin: 0;
+  padding: .65rem .85rem;
+  border-radius: .5rem;
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  font-size: .9rem;
+  line-height: 1.45;
+  overflow-x: auto;
+}
+.cmd-pre code {
+  color: #7dd3fc;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+}
+[data-bs-theme="dark"] .cmd-pre { background: #0f172a; border-color: #475569; }
+[data-bs-theme="dark"] .cmd-pre code { color: #67e8f9; }
+
+/* -------------------------------------------------------------
+   Exercicios, respostas e impresión
+   ------------------------------------------------------------- */
+.answer-zone,
+.response-space,
+.response-lines,
+.answer-lines {
+  border: 1px dashed var(--bs-border-color);
+  border-radius: .75rem;
+  background: var(--bs-tertiary-bg);
+  min-height: 6rem;
+  padding: .9rem;
+}
+.response-lines,
+.answer-lines {
+  background-image: linear-gradient(to bottom, transparent 95%, rgba(100,116,139,.28) 96%);
+  background-size: 100% 1.8rem;
+}
+.check-box {
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 2px solid var(--bs-border-color);
+  border-radius: .25rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: .35rem;
+}
+
+.question-card { margin-bottom: 1rem; }
+.question-header {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, #4f46e5 100%);
+  color: #fff;
+}
+.reasoning-points { color: var(--bs-secondary-color); }
+
+.step-list {
+  counter-reset: step;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.step-list > li {
+  counter-increment: step;
+  display: flex;
+  gap: .8rem;
+  padding: .65rem 0;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+.step-list > li:last-child { border-bottom: 0; }
+.step-list > li::before {
+  content: counter(step);
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--bs-primary);
+  color: #fff;
+  font-weight: 800;
+  font-size: .85rem;
+  margin-top: .05rem;
+}
+
+.substep-card h4,
+.mini-step h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: .75rem;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+}
+
+.toc .nav-link.active,
+.sidebar .nav-link:hover { color: var(--bs-primary); }
+
+@media print {
+  .no-print { display: none !important; }
+  .practice-hero,
+  .theory-hero,
+  .exercise-hero,
+  .hero-reasoning,
+  .content-card,
+  .question-card,
+  .task-card,
+  .substep-card,
+  .result-card,
+  .key-card,
+  .mini-step { box-shadow: none !important; }
+  .cmd-block,
+  .cmd-pre,
+  .code-block { border: 1px solid #777; }
+  .answer-zone,
+  .response-space,
+  .response-lines,
+  .answer-lines { min-height: 8rem; }
+}

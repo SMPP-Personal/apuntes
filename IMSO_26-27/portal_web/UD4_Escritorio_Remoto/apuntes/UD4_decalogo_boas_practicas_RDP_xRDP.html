@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Decálogo de
+boas prácticas en escritorio remoto (RDP/xRDP)</title>
+  <style>
+    :root {
+      --bg: #eef6ff;
+      --paper: #ffffff;
+      --ink: #172033;
+      --muted: #5b6b82;
+      --brand: #005eb8;
+      --brand-2: #0979df;
+      --cyan: #00a3ff;
+      --navy: #0f2343;
+      --line: #d9e6f5;
+      --soft: #f7fbff;
+      --warn: #b45309;
+      --warn-bg: #fff7ed;
+      --ok: #0f766e;
+      --ok-bg: #ecfdf5;
+      --danger: #b42318;
+      --danger-bg: #fff1f2;
+      --code-bg: #0f172a;
+      --code-ink: #eaf1ff;
+      --shadow: 0 18px 48px rgba(30, 64, 112, .14);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(0,94,184,.20), transparent 32rem),
+        radial-gradient(circle at 90% 6%, rgba(0,163,255,.18), transparent 34rem),
+        linear-gradient(180deg, var(--bg) 0%, #f9fcff 46%, #ffffff 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: var(--brand); text-decoration-thickness: .1em; text-underline-offset: .18em; }
+    a:hover { color: #003f80; }
+    .page { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      margin: 28px auto 22px;
+      padding: clamp(28px, 5vw, 56px);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255,255,255,.70);
+      background:
+        linear-gradient(135deg, rgba(0,94,184,.98), rgba(0,128,215,.92) 58%, rgba(0,163,255,.82)),
+        #005eb8;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -140px;
+      top: -150px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.17);
+    }
+    .hero::after {
+      content: "RDP/xRDP";
+      position: absolute;
+      right: 32px;
+      bottom: 24px;
+      color: rgba(255,255,255,.13);
+      font-size: clamp(42px, 8vw, 102px);
+      font-weight: 900;
+      letter-spacing: -.06em;
+      line-height: .8;
+    }
+    .hero__content { position: relative; z-index: 1; max-width: 900px; }
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.22);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.02;
+      letter-spacing: -.055em;
+    }
+    .meta { margin-top: 18px; color: rgba(255,255,255,.88); font-weight: 600; }
+    .meta p { margin: 0; }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 0 0 22px;
+    }
+    .quick-card {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(216,230,245,.92);
+      box-shadow: 0 10px 28px rgba(30, 64, 112, .07);
+      backdrop-filter: blur(10px);
+    }
+    .quick-card strong { display:block; color: var(--brand); font-size: 1.8rem; line-height: 1; }
+    .quick-card span { display:block; margin-top: 8px; color: var(--muted); font-size: .95rem; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+      padding-bottom: 56px;
+    }
+    .toc {
+      position: sticky;
+      top: 18px;
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.86);
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 36px rgba(30,64,112,.09);
+    }
+    .toc h2 { margin: 0 0 10px; font-size: 1rem; color: var(--navy); }
+    .toc-list { margin: 0; padding-left: 1.25rem; }
+    .toc-list li { margin: 7px 0; color: var(--muted); }
+    .toc-list a { color: var(--muted); text-decoration: none; font-size: .92rem; }
+    .toc-list a:hover { color: var(--brand); }
+
+    .article-flow { display: grid; gap: 18px; }
+    .content-section {
+      position: relative;
+      padding: clamp(22px, 3.2vw, 34px);
+      border-radius: var(--radius-lg);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 36px rgba(30,64,112,.08);
+    }
+    .content-section--intro {
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      border-left: 7px solid var(--brand);
+    }
+    .practice-card {
+      padding-left: clamp(22px, 3.5vw, 40px);
+    }
+    .practice-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+      background: linear-gradient(180deg, var(--brand), var(--cyan));
+    }
+    .practice-number {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      margin-right: 10px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand), var(--cyan));
+      color: #fff;
+      font-weight: 900;
+      box-shadow: 0 10px 22px rgba(0,94,184,.24);
+      vertical-align: middle;
+    }
+    h2 {
+      margin: 0 0 16px;
+      color: var(--navy);
+      font-size: clamp(1.35rem, 2.7vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: -.03em;
+    }
+    p { margin: .85rem 0; }
+    strong { color: var(--navy); }
+
+    .callout {
+      margin: 18px 0;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    .callout p { margin: 0; }
+    .callout-key { border-left: 6px solid var(--brand); background: #eef6ff; }
+    .callout-warning { border-left: 6px solid var(--warn); background: var(--warn-bg); }
+    .callout-ok { border-left: 6px solid var(--ok); background: var(--ok-bg); }
+    .callout-note { border-left: 6px solid var(--brand-2); }
+
+    .clean-list, .step-list { padding-left: 1.35rem; }
+    .clean-list li, .step-list li { margin: .45rem 0; }
+    .step-list li::marker { color: var(--brand); font-weight: 800; }
+    .clean-list li::marker { color: var(--brand); }
+
+    .table-wrap { overflow-x: auto; margin: 18px 0 4px; border-radius: var(--radius-md); border: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; background: #fff; }
+    th, td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { background: #eaf4ff; color: var(--navy); font-size: .86rem; text-transform: uppercase; letter-spacing: .04em; }
+    tbody tr:nth-child(even) { background: #f8fbff; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .code-card { margin: 18px 0; border-radius: var(--radius-md); overflow: hidden; background: var(--code-bg); box-shadow: 0 12px 30px rgba(15,23,42,.18); }
+    .code-card__header { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #111d35; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .code-card__label { color: #bfd0ef; font-size: .78rem; font-weight: 800; letter-spacing: .08em; }
+    .copy-btn {
+      border: 1px solid rgba(255,255,255,.16);
+      color: #eaf1ff;
+      background: rgba(255,255,255,.08);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font: inherit;
+      font-size: .78rem;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,.15); }
+    pre { margin: 0; padding: 16px 18px; overflow-x: auto; color: var(--code-ink); background: transparent; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: .92rem; }
+    p code, li code { padding: .16em .36em; border-radius: .45em; background: #eef4fb; color: #16365d; }
+
+    .footer-note {
+      margin: 0 auto 40px;
+      padding: 18px 22px;
+      border-radius: var(--radius-lg);
+      background: #0f2343;
+      color: #dce9ff;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 930px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 620px) {
+      .page { width: min(100% - 20px, var(--max)); }
+      .quick-grid { grid-template-columns: 1fr; }
+      .hero { margin-top: 10px; }
+      .hero::after { display: none; }
+    }
+    @media print {
+      body { background: #fff; }
+      .toc, .copy-btn, .quick-grid { display: none; }
+      .layout { display: block; }
+      .hero, .content-section { box-shadow: none; }
+      .content-section { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page hero">
+    <div class="hero__content">
+      <span class="eyebrow">IMSO · UD4 · Ficha de seguridade</span>
+      <h1>Decálogo de
+boas prácticas en escritorio remoto (RDP/xRDP)</h1>
+      <div class="meta"><p><strong>Módulo:</strong> Implantación de Sistemas Operativos (IMSO) ·
+1.º ASIR<br/>
+<strong>Unidade didáctica 4:</strong> Implantación de software
+específico en arquitectura cliente-servidor</p></div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="quick-grid" aria-label="Resumo visual">
+      <div class="quick-card"><strong>10</strong><span>boas prácticas fundamentais</span></div>
+      <div class="quick-card"><strong>3389</strong><span>porto TCP/UDP que non debe expoñerse directamente</span></div>
+      <div class="quick-card"><strong>VPN</strong><span>capa previa recomendada para acceso externo</span></div>
+      <div class="quick-card"><strong>Logs</strong><span>evidencias clave para detectar accesos sospeitosos</span></div>
+    </section>
+
+    <div class="layout">
+      <nav class="toc" aria-label="Índice do documento">
+        <h2>Índice</h2>
+        <ol class="toc-list"><li><a href="#non-expoñas-rdp-directamente-a-internet">1. Non expoñas RDP
+directamente a Internet</a></li><li><a href="#usa-contas-con-contrasinais-fortes-e-únicos">2. Usa contas con
+contrasinais fortes e únicos</a></li><li><a href="#limita-os-usuarios-con-acceso-remoto">3. Limita os usuarios con
+acceso remoto</a></li><li><a href="#mantén-o-sistema-operativo-e-rdpxrdp-actualizados">4. Mantén o
+sistema operativo e RDP/xRDP actualizados</a></li><li><a href="#activa-network-level-authentication-nla-en-windows">5. Activa
+Network Level Authentication (NLA) en Windows</a></li><li><a href="#aplica-bloqueo-de-conta-ante-intentos-fallidos-repetidos">6.
+Aplica bloqueo de conta ante intentos fallidos repetidos</a></li><li><a href="#restrinxe-o-acceso-por-enderezos-ip-cando-sexa-posible">7.
+Restrinxe o acceso por enderezos IP cando sexa posible</a></li><li><a href="#desactiva-o-escritorio-remoto-onde-non-se-precise">8. Desactiva
+o escritorio remoto onde non se precise</a></li><li><a href="#revisa-e-garda-os-rexistros-de-acceso-remoto">9. Revisa e garda
+os rexistros de acceso remoto</a></li><li><a href="#para-acceso-externo-vpn-rdp-e-se-é-posible-mfa">10. Para acceso
+externo: VPN + RDP e, se é posible, MFA</a></li><li><a href="#recomendación-adicional-controla-redireccións-da-sesión-rdp">Recomendación
+adicional: controla redireccións da sesión RDP</a></li><li><a href="#resumo-cando-aplicar-cada-medida">Resumo: cando aplicar cada
+medida</a></li><li><a href="#preguntas-rápidas-de-repaso">Preguntas rápidas de repaso</a></li><li><a href="#idea-final">Idea final</a></li></ol>
+      </nav>
+      <article>
+        <div class="article-flow"><section class="content-section content-section--intro"><p>Activar o escritorio remoto sen aplicar medidas de seguridade
+adecuadas é un dos erros máis frecuentes en administración de sistemas.
+Esta ficha resume dez prácticas fundamentais que todo técnico debe
+coñecer ao traballar con RDP ou xRDP, tanto nun laboratorio como nun
+contorno de produción.</p><blockquote class="callout callout-key">
+<p>💡 <strong>Idea clave:</strong> o escritorio remoto debe estar
+dispoñible só para quen o necesita, desde redes autorizadas e con
+medidas de autenticación, actualización, rexistro e control de
+acceso.</p>
+</blockquote></section><section class="content-section practice-card"><span class="practice-number">1</span><h2 id="non-expoñas-rdp-directamente-a-internet">Non expoñas RDP
+directamente a Internet</h2><p>RDP e xRDP deben estar accesibles só desde a <strong>LAN</strong>,
+desde redes internas autorizadas ou a través dunha <strong>VPN
+corporativa</strong>.</p><p>Deixar accesible o porto <strong>3389 TCP/UDP</strong> desde calquera
+dirección de Internet converte o servidor nun obxectivo inmediato de
+ataques automatizados, tentativas de forza bruta e explotación de
+vulnerabilidades.</p><blockquote class="callout callout-warning">
+<p>⚠️ <strong>Regra profesional:</strong> se alguén precisa conectarse
+desde fóra da empresa, primeiro debe acceder á VPN e só despois iniciar
+a conexión RDP ao equipo interno.</p>
+</blockquote></section><section class="content-section practice-card"><span class="practice-number">2</span><h2 id="usa-contas-con-contrasinais-fortes-e-únicos">Usa contas con
+contrasinais fortes e únicos</h2><p>As contas con acceso remoto deben empregar contrasinais
+<strong>longos, únicos e non reutilizados</strong> noutros servizos.</p><p>Evita contrasinais curtos, previsibles, compartidos ou baseados en
+datos persoais. Unha conta con RDP activo e contrasinal débil é unha das
+vías de entrada máis habituais para ataques automatizados.</p><p>Non é recomendable obrigar a cambiar o contrasinal de forma periódica
+sen motivo. O cambio debe forzarse cando exista sospeita de compromiso,
+filtración ou uso indebido da conta.</p></section><section class="content-section practice-card"><span class="practice-number">3</span><h2 id="limita-os-usuarios-con-acceso-remoto">Limita os usuarios con
+acceso remoto</h2><p>Só deben poder conectarse por escritorio remoto os usuarios que
+realmente o necesiten.</p><p>En Windows, o acceso debe controlarse mediante o grupo
+<strong>Usuarios de escritorio remoto</strong> ou mediante políticas
+específicas. Os administradores xa teñen permiso por defecto, pero iso
+non significa que todo o persoal deba traballar con contas
+administrativas.</p><p>En Linux con xRDP, convén crear grupos ou contas específicas segundo
+a finalidade do acceso.</p><blockquote class="callout callout-key">
+<p>💡 <strong>Principio de mínimo privilexio:</strong> o usuario remoto
+non debe ser administrador salvo que sexa imprescindible para a tarefa
+que vai realizar.</p>
+</blockquote></section><section class="content-section practice-card"><span class="practice-number">4</span><h2 id="mantén-o-sistema-operativo-e-rdpxrdp-actualizados">Mantén o
+sistema operativo e RDP/xRDP actualizados</h2><p>Moitos ataques contra servizos de escritorio remoto aproveitan
+vulnerabilidades xa coñecidas e con parche dispoñible.</p><p>Por iso é fundamental manter actualizados:</p><ul class="clean-list">
+<li>o sistema operativo Windows ou Ubuntu;</li>
+<li>o servizo de Escritorio remoto ou xRDP;</li>
+<li>os compoñentes de seguridade;</li>
+<li>o firewall e as ferramentas de protección do sistema.</li>
+</ul><p>Nun laboratorio educativo tamén é importante aplicar actualizacións,
+porque o alumnado debe aprender boas prácticas reais, non só facer que a
+conexión funcione.</p></section><section class="content-section practice-card"><span class="practice-number">5</span><h2 id="activa-network-level-authentication-nla-en-windows">Activa
+Network Level Authentication (NLA) en Windows</h2><p><strong>Network Level Authentication (NLA)</strong> obriga a que o
+usuario se autentique antes de que o servidor cree a sesión completa de
+escritorio remoto.</p><p>Isto reduce a superficie de ataque porque un intento fallido non
+chega a cargar o escritorio completo nin consume os mesmos recursos que
+unha sesión iniciada.</p><p>NLA debe permanecer activado salvo que exista unha incompatibilidade
+xustificada cun cliente antigo ou cun escenario moi concreto de
+laboratorio.</p></section><section class="content-section practice-card"><span class="practice-number">6</span><h2 id="aplica-bloqueo-de-conta-ante-intentos-fallidos-repetidos">Aplica bloqueo de conta ante intentos fallidos repetidos</h2><p>Configura políticas para que unha conta se bloquee temporalmente tras
+varios intentos incorrectos de inicio de sesión.</p><p>Esta medida dificulta os ataques de <strong>forza bruta</strong>, nos
+que un atacante proba automaticamente moitas combinacións de usuario e
+contrasinal.</p><p>Non se deben configurar limiares excesivamente baixos, porque
+poderían bloquear usuarios lexítimos con facilidade ou facilitar unha
+denegación de servizo contra contas reais.</p><blockquote class="callout callout-ok">
+<p>✅ <strong>Boa práctica:</strong> combinar bloqueo temporal,
+contrasinais fortes e revisión de eventos de inicio de sesión.</p>
+</blockquote></section><section class="content-section practice-card"><span class="practice-number">7</span><h2 id="restrinxe-o-acceso-por-enderezos-ip-cando-sexa-posible">Restrinxe o acceso por enderezos IP cando sexa posible</h2><p>En contornos con varias subredes, VLAN, sedes ou acceso por VPN,
+limita as conexións RDP aos rangos realmente autorizados mediante regras
+de firewall.</p><p>Exemplos:</p><ul class="clean-list">
+<li>permitir RDP só desde a subrede de administración;</li>
+<li>permitir RDP só desde o rango de saída da VPN;</li>
+<li>bloquear calquera conexión procedente de redes non autorizadas;</li>
+<li>abrir o porto 3389 só para a rede do laboratorio cando se usa
+xRDP.</li>
+</ul><blockquote class="callout callout-warning">
+<p>⚠️ Cambiar o porto 3389 pode reducir ruído de escaneos automáticos
+simples, pero <strong>non substitúe</strong> VPN, firewall, NLA, MFA nin
+actualizacións.</p>
+</blockquote></section><section class="content-section practice-card"><span class="practice-number">8</span><h2 id="desactiva-o-escritorio-remoto-onde-non-se-precise">Desactiva
+o escritorio remoto onde non se precise</h2><p>Canto maior sexa o número de equipos con RDP ou xRDP activo, maior
+será a superficie de ataque.</p><p>O servizo debe estar activado exclusivamente nos servidores ou postos
+de traballo onde se utilice de forma real. Se un equipo non precisa
+acceso remoto, o máis seguro é manter o servizo desactivado.</p><p>Tamén convén revisar periodicamente que non quedaron servizos
+activados por erro tras unha práctica, unha incidencia ou unha
+configuración temporal.</p></section><section class="content-section practice-card"><span class="practice-number">9</span><h2 id="revisa-e-garda-os-rexistros-de-acceso-remoto">Revisa e garda
+os rexistros de acceso remoto</h2><p>Os rexistros permiten detectar conexións sospeitosas, intentos
+fallidos repetidos, accesos desde IPs inesperadas ou uso indebido de
+contas.</p><p>En Windows, revisa o <strong>Visor de eventos</strong>,
+especialmente:</p><ul class="clean-list">
+<li><strong>Evento 4624</strong>: inicio de sesión correcto;</li>
+<li><strong>Evento 4625</strong>: inicio de sesión fallido.</li>
+</ul><p>En conexións RDP interesa comprobar a conta empregada, a IP de orixe
+e o tipo de inicio de sesión.</p><p>En Ubuntu con xRDP, poden revisarse os rexistros do servizo:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="fu">sudo</span> journalctl <span class="at">-u</span> xrdp</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="fu">sudo</span> journalctl <span class="at">-u</span> xrdp-sesman</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="fu">sudo</span> tail <span class="at">-f</span> /var/log/xrdp.log</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a><span class="fu">sudo</span> tail <span class="at">-f</span> /var/log/xrdp-sesman.log</span></code></pre></div></div><p>Se existe <code>/var/log/auth.log</code>, tamén pode consultarse para
+revisar autenticacións do sistema:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="fu">sudo</span> tail <span class="at">-f</span> /var/log/auth.log</span></code></pre></div></div></section><section class="content-section practice-card"><span class="practice-number">10</span><h2 id="para-acceso-externo-vpn-rdp-e-se-é-posible-mfa">Para acceso
+externo: VPN + RDP e, se é posible, MFA</h2><p>O modelo recomendado para teletraballo ou acceso desde fóra da
+empresa é:</p><ol class="step-list" type="1">
+<li>O usuario conéctase primeiro á <strong>VPN
+corporativa</strong>.</li>
+<li>A VPN autentica o usuario e cifra o tráfico.</li>
+<li>Unha vez dentro da rede interna, o usuario inicia a sesión RDP
+contra o equipo destino.</li>
+<li>Para contas críticas, engádese <strong>MFA</strong> ou segundo
+factor de autenticación.</li>
+</ol><p>Este modelo é máis seguro que publicar RDP directamente en Internet
+porque o servidor RDP non queda exposto a calquera atacante externo.</p><p>En contornos Microsoft máis avanzados tamén poden empregarse
+solucións como <strong>Remote Desktop Gateway</strong>, pero a idea
+básica segue sendo a mesma: non deixar RDP aberto directamente a
+Internet.</p></section><section class="content-section"><h2 id="recomendación-adicional-controla-redireccións-da-sesión-rdp">Recomendación
+adicional: controla redireccións da sesión RDP</h2><p>RDP permite redirixir recursos do equipo cliente cara á sesión
+remota, como:</p><ul class="clean-list">
+<li>portapapeis;</li>
+<li>unidades locais;</li>
+<li>impresoras;</li>
+<li>audio;</li>
+<li>dispositivos conectados.</li>
+</ul><p>Estas opcións son cómodas, pero tamén poden introducir riscos de fuga
+de información ou movemento non controlado de ficheiros.</p><p>En contornos sensibles, revisa ou limita a redirección de unidades,
+portapapeis e impresoras segundo a política da organización.</p></section><section class="content-section"><h2 id="resumo-cando-aplicar-cada-medida">Resumo: cando aplicar cada
+medida</h2><div class="table-wrap"><table class="summary-table">
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Boa práctica</th>
+<th>Laboratorio FP</th>
+<th>Empresa / Produción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Non expor 3389 TCP/UDP a Internet</td>
+<td>✅ Recomendado</td>
+<td>✅ Obrigatorio</td>
+</tr>
+<tr class="even">
+<td>2. Contrasinais fortes, únicos e non reutilizados</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>3. Limitar usuarios con acceso remoto</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>4. Sistema operativo e RDP/xRDP actualizados</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>5. NLA activado en Windows</td>
+<td>✅ Recomendado</td>
+<td>✅ Obrigatorio</td>
+</tr>
+<tr class="even">
+<td>6. Bloqueo por intentos fallidos</td>
+<td>⚠️ Recomendado se se traballa seguridade</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>7. Restrición por IP ou subrede</td>
+<td>⚠️ Recomendado se hai varias redes/VLAN</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>8. Desactivar RDP onde non se usa</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>9. Revisar logs de acceso</td>
+<td>✅ Recomendado</td>
+<td>✅ Obrigatorio</td>
+</tr>
+<tr class="even">
+<td>10. VPN + RDP + MFA</td>
+<td>ℹ️ Concepto a coñecer / simulable</td>
+<td>✅ Obrigatorio</td>
+</tr>
+<tr class="odd">
+<td>Control de redireccións RDP</td>
+<td>ℹ️ Concepto a coñecer</td>
+<td>✅ Recomendado</td>
+</tr>
+</tbody>
+</table></div></section><section class="content-section"><h2 id="preguntas-rápidas-de-repaso">Preguntas rápidas de repaso</h2><ol class="step-list" type="1">
+<li>Por que non se debe publicar directamente RDP en Internet?</li>
+<li>Que vantaxe achega unha VPN antes de iniciar a conexión RDP?</li>
+<li>Que problema pode causar unha política de bloqueo de contas
+demasiado agresiva?</li>
+<li>Que diferenza hai entre limitar usuarios e limitar IPs de
+orixe?</li>
+<li>Para que serve NLA en Windows?</li>
+<li>Que rexistros revisarías ante varios intentos fallidos de
+conexión?</li>
+<li>Por que a redirección de unidades ou portapapeis pode ser un
+risco?</li>
+<li>Por que cambiar o porto 3389 non é unha medida de seguridade
+suficiente?</li>
+</ol></section><section class="content-section"><h2 id="idea-final">Idea final</h2><p>O escritorio remoto é unha ferramenta moi útil para administración,
+soporte e teletraballo, pero debe implantarse con criterio. A prioridade
+non é só conseguir que a conexión funcione, senón facelo de maneira
+controlada, documentada e segura.</p></section></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="page footer-note">
+    Material de apoio para Implantación de Sistemas Operativos · Escritorio remoto en arquitectura cliente-servidor.
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const card = button.closest('.code-card');
+        const code = card ? card.querySelector('pre') : null;
+        if (!code) return;
+        try {
+          await navigator.clipboard.writeText(code.innerText.trim());
+          const old = button.textContent;
+          button.textContent = 'Copiado';
+          setTimeout(() => button.textContent = old, 1400);
+        } catch (error) {
+          button.textContent = 'Non copiado';
+          setTimeout(() => button.textContent = 'Copiar', 1400);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

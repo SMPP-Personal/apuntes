@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UD4 – Comparativa de solucións de acceso remoto</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --paper: #ffffff;
+      --ink: #172033;
+      --muted: #5e6b80;
+      --line: #d9e2ef;
+      --brand: #1d4ed8;
+      --brand-dark: #153f9f;
+      --brand-soft: #dbeafe;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --warn: #b45309;
+      --warn-soft: #fff7ed;
+      --danger: #b91c1c;
+      --shadow: 0 18px 45px rgba(15, 23, 42, .10);
+      --radius: 20px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(29, 78, 216, .13), transparent 36rem),
+        radial-gradient(circle at top right, rgba(15, 118, 110, .11), transparent 34rem),
+        var(--bg);
+      line-height: 1.65;
+    }
+    .top-progress {
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0;
+      background: linear-gradient(90deg, var(--brand), var(--accent));
+      box-shadow: 0 0 18px rgba(29, 78, 216, .45);
+    }
+    .layout {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 28px;
+      padding: 28px;
+    }
+    .sidebar {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      height: calc(100vh - 48px);
+      overflow: auto;
+      padding: 18px;
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(217,226,239,.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .sidebar-title {
+      font-size: .82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--brand-dark);
+      margin-bottom: 12px;
+    }
+    .nav-link {
+      display: block;
+      padding: 10px 12px;
+      margin: 4px 0;
+      border-radius: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 650;
+      font-size: .94rem;
+      border: 1px solid transparent;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--brand-dark);
+      background: var(--brand-soft);
+      border-color: #bfdbfe;
+    }
+    .nav-sub {
+      margin-left: 12px;
+      font-size: .88rem;
+      font-weight: 600;
+      padding: 8px 10px;
+    }
+    .main { min-width: 0; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 38px;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, .96), rgba(30, 64, 175, .94)),
+        linear-gradient(45deg, var(--brand), var(--accent));
+      color: white;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -130px auto;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.12);
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      color: rgba(255,255,255,.92);
+      font-size: .86rem;
+      font-weight: 700;
+    }
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 4.1rem);
+      line-height: 1.04;
+      letter-spacing: -.04em;
+      max-width: 980px;
+    }
+    .hero .lead {
+      max-width: 920px;
+      color: rgba(255,255,255,.82);
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0 28px;
+    }
+    .tech-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 12px 26px rgba(15,23,42,.06);
+      min-height: 150px;
+    }
+    .tech-card__title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--brand-dark);
+      margin-bottom: 8px;
+    }
+    .tech-card p { margin: 0 0 12px; color: var(--muted); font-size: .94rem; }
+    .tech-meta { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tech-meta span {
+      display: inline-flex;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+      font-size: .76rem;
+      font-weight: 800;
+    }
+    .content-card {
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(217,226,239,.95);
+      border-radius: 26px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+    .content-card > p:first-child { margin-top: 0; }
+    h2 {
+      margin: 42px 0 16px;
+      padding-top: 12px;
+      font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+      line-height: 1.15;
+      letter-spacing: -.025em;
+      color: #0f172a;
+    }
+    h2:first-child { margin-top: 0; }
+    h3 {
+      margin: 30px 0 12px;
+      font-size: 1.35rem;
+      color: var(--brand-dark);
+    }
+    p { margin: 13px 0; }
+    a { color: var(--brand); }
+    strong { color: #111827; }
+    ul, ol { padding-left: 1.45rem; }
+    li { margin: .42rem 0; }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 26px 0; }
+    code {
+      font-family: var(--mono);
+      background: #eef2ff;
+      color: #1e1b4b;
+      border-radius: 7px;
+      padding: .12em .38em;
+      font-size: .92em;
+    }
+    .table-scroll {
+      overflow-x: auto;
+      margin: 18px 0 26px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .06);
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      min-width: 920px;
+      font-size: .94rem;
+    }
+    table th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #eaf1ff;
+      color: #0f2a61;
+      text-align: left;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .045em;
+      padding: 14px 16px;
+      border-bottom: 1px solid #cbd5e1;
+      white-space: nowrap;
+    }
+    table td {
+      vertical-align: top;
+      padding: 15px 16px;
+      border-bottom: 1px solid #edf2f7;
+      color: #273244;
+    }
+    table tr:nth-child(even) td { background: #fbfdff; }
+    table tr:hover td { background: #f0f7ff; }
+    table td:first-child, table th:first-child {
+      font-weight: 850;
+      color: #102a61;
+      background-clip: padding-box;
+    }
+    .callout {
+      margin: 18px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #f8fbff;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, .045);
+    }
+    .callout p { margin: 0; }
+    .callout.warning {
+      border-color: #fed7aa;
+      background: var(--warn-soft);
+    }
+    .callout.note {
+      border-color: #bfdbfe;
+      background: #eff6ff;
+    }
+    .callout.key {
+      border-color: #99f6e4;
+      background: #f0fdfa;
+    }
+    .section-highlight {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0;
+    }
+    .mini {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: #fbfdff;
+    }
+    .mini b { display: block; color: var(--brand-dark); margin-bottom: 6px; }
+    .back-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 0;
+      background: var(--brand);
+      color: white;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      display: none;
+    }
+    .back-top.show { display: inline-flex; align-items: center; justify-content: center; }
+    @media (max-width: 1150px) {
+      .layout { grid-template-columns: 1fr; padding: 18px; }
+      .sidebar { position: relative; top: auto; height: auto; max-height: none; }
+      .tech-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
+      .hero { padding: 26px; border-radius: 22px; }
+      .content-card { padding: 22px; border-radius: 20px; }
+      .tech-grid, .section-highlight { grid-template-columns: 1fr; }
+      table { min-width: 760px; }
+    }
+    @media print {
+      body { background: white; }
+      .layout { display: block; padding: 0; }
+      .sidebar, .back-top, .top-progress { display: none !important; }
+      .hero { box-shadow: none; border-radius: 0; }
+      .content-card, .tech-card, .table-scroll { box-shadow: none; }
+      h2 { break-after: avoid; }
+      .table-scroll { overflow: visible; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-progress" id="topProgress"></div>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Índice do documento">
+      <div class="sidebar-title">Índice</div>
+      <a class="nav-link " href="#1-taboa-comparativa">1. Táboa comparativa</a>
+<a class="nav-link " href="#2-guia-de-seleccion-rapida">2. Guía de selección rápida</a>
+<a class="nav-link " href="#3-porto-de-referencia-rapida">3. Porto de referencia rápida</a>
+<a class="nav-link " href="#4-diferenzas-practicas-entre-as-tecnoloxias">4. Diferenzas prácticas entre as tecnoloxías</a>
+<a class="nav-link nav-sub" href="#rdp-xrdp">RDP / xRDP</a>
+<a class="nav-link nav-sub" href="#vnc">VNC</a>
+<a class="nav-link nav-sub" href="#ssh">SSH</a>
+<a class="nav-link nav-sub" href="#teamviewer-anydesk-ferramentas-similares">TeamViewer / AnyDesk / ferramentas similares</a>
+<a class="nav-link " href="#5-resumo-para-exame">5. Resumo para exame</a>
+<a class="nav-link " href="#6-idea-final">6. Idea final</a>
+    </aside>
+    <main class="main">
+      <header class="hero">
+        <div class="badge-row">
+          <span class="badge">IMSO · 1.º ASIR</span>
+          <span class="badge">UD4</span>
+          <span class="badge">Acceso remoto</span>
+          <span class="badge">Ficha comparativa</span>
+        </div>
+        <h1>UD4 – Comparativa de solucións de acceso remoto</h1>
+        <p class="lead">Comparativa didáctica para escoller a tecnoloxía de acceso remoto segundo escenario, sistema operativo, perfil de usuario e requisitos de seguridade.</p>
+      </header>
+
+      <section class="tech-grid" aria-label="Resumo de tecnoloxías">
+        
+<article class="tech-card">
+  <div class="tech-card__title">RDP</div>
+  <p>Sesión gráfica remota en Windows</p>
+  <div class="tech-meta"><span>3389 TCP/UDP</span><span>LAN ou VPN</span></div>
+</article>
+
+
+<article class="tech-card">
+  <div class="tech-card__title">xRDP</div>
+  <p>Servidor Linux compatible con clientes RDP</p>
+  <div class="tech-meta"><span>3389/TCP</span><span>Contornos mixtos</span></div>
+</article>
+
+
+<article class="tech-card">
+  <div class="tech-card__title">VNC</div>
+  <p>Compartición/control visual de pantalla</p>
+  <div class="tech-meta"><span>5900/TCP</span><span>Verificar cifrado</span></div>
+</article>
+
+
+<article class="tech-card">
+  <div class="tech-card__title">SSH</div>
+  <p>Terminal remota e túneles cifrados</p>
+  <div class="tech-meta"><span>22/TCP</span><span>Servidores Linux</span></div>
+</article>
+
+
+<article class="tech-card">
+  <div class="tech-card__title">TeamViewer / AnyDesk</div>
+  <p>Soporte remoto con provedor externo</p>
+  <div class="tech-meta"><span>Variable</span><span>2FA e RGPD</span></div>
+</article>
+
+      </section>
+
+      <article class="content-card">
+        
+<p><strong>Módulo:</strong> Implantación de Sistemas Operativos (IMSO) · 1.º ASIR<br/>
+<strong>Unidade didáctica 4:</strong> Implantación de software específico en arquitectura cliente-servidor</p>
+<hr/>
+<p>Existen varias tecnoloxías para acceder remotamente a un equipo. Coñecer as diferenzas entre elas permite escoller a opción máis adecuada segundo o escenario, o sistema operativo, o perfil do usuario e os requisitos de seguridade.</p>
+<p>Non todas estas solucións fan exactamente o mesmo:</p>
+<ul>
+<li><strong>RDP/xRDP</strong> permiten acceder a unha sesión gráfica remota.</li>
+<li><strong>VNC</strong> adoita empregarse para compartir ou controlar unha pantalla remota.</li>
+<li><strong>SSH</strong> está orientado á administración remota por terminal e á creación de túneles cifrados.</li>
+<li><strong>TeamViewer, AnyDesk e ferramentas similares</strong> están pensadas para soporte remoto sinxelo mediante infraestrutura dun provedor externo.</li>
+</ul>
+<blockquote class="callout warning">
+<p>⚠️ <strong>Idea clave:</strong> a mellor solución non é só a que permite conectarse, senón a que permite facelo de forma segura e axeitada ao escenario.</p>
+</blockquote>
+<hr/>
+<h2 id="1-taboa-comparativa">1. Táboa comparativa</h2>
+<div class="table-scroll"><table class="data-table table-1">
+<thead>
+<tr>
+<th>Tecnoloxía</th>
+<th>Tipo</th>
+<th>Servidor típico</th>
+<th>Cliente habitual</th>
+<th>Porto por defecto</th>
+<th>Cifrado / autenticación</th>
+<th>Escenarios típicos</th>
+<th>Vantaxes</th>
+<th>Inconvenientes / riscos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RDP</strong></td>
+<td>Protocolo de escritorio remoto cliente-servidor</td>
+<td>Windows Server; Windows 10/11 Pro, Enterprise ou Education</td>
+<td>Cliente RDP en Windows, Linux, macOS ou outros sistemas</td>
+<td><strong>3389 TCP/UDP</strong></td>
+<td>Sesión cifrada. <strong>NLA</strong> recomendada como autenticación previa antes de crear a sesión completa</td>
+<td>Administración de servidores Windows, acceso a postos de traballo, teletraballo mediante VPN</td>
+<td>Integrado en Windows; bo rendemento; permite redirección de recursos como impresoras, portapapeis ou unidades; moi estendido en empresas</td>
+<td>Se se expón directamente a Internet é obxectivo frecuente de ataques; require VPN, firewall, actualizacións, contrasinais robustos e limitación de usuarios</td>
+</tr>
+<tr>
+<td><strong>xRDP</strong></td>
+<td>Servidor Linux compatible con clientes RDP</td>
+<td>Ubuntu, Debian e outras distribucións GNU/Linux con contorno gráfico</td>
+<td>Cliente RDP estándar: <code>mstsc</code>, Remmina, FreeRDP, KRDC…</td>
+<td>Habitualmente <strong>3389/TCP</strong></td>
+<td>Transporte RDP cifrado, normalmente mediante TLS. Cómpre revisar certificados e configuración do servizo</td>
+<td>Acceso a escritorios Linux dende clientes Windows; laboratorios ou empresas con contornos mixtos</td>
+<td>Permite usar o cliente RDP de Windows para conectarse a Linux; útil en redes mixtas; non require instalar un cliente especial en Windows</td>
+<td>Pode requirir configurar o escritorio gráfico; pode aparecer pantalla negra con GNOME/Wayland; mesmos riscos ca RDP se se abre a Internet sen protección</td>
+</tr>
+<tr>
+<td><strong>VNC</strong></td>
+<td>Protocolo de compartición ou control gráfico de pantalla</td>
+<td>Linux, Windows, macOS ou dispositivos embebidos</td>
+<td>Clientes VNC multiplataforma: RealVNC Viewer, TigerVNC, Remmina…</td>
+<td>Normalmente <strong>5900/TCP</strong> para a primeira pantalla</td>
+<td>Depende da implementación e da configuración. Debe verificarse se usa TLS/cifrado seguro ou encapsularse mediante SSH</td>
+<td>Soporte visual, acceso ocasional a escritorios, contornos mixtos, administración gráfica sinxela</td>
+<td>Multiplataforma; moitas implementacións libres; permite ver ou controlar a pantalla dun equipo remoto</td>
+<td>Implementacións antigas ou mal configuradas poden non cifrar correctamente; rendemento inferior a RDP; risco elevado se se expón sen protección</td>
+</tr>
+<tr>
+<td><strong>SSH</strong></td>
+<td>Protocolo de administración remota por terminal e túneles cifrados</td>
+<td>Servidores Linux/Unix; tamén dispoñible en Windows con OpenSSH</td>
+<td>OpenSSH en Linux, macOS e Windows; PuTTY en Windows</td>
+<td><strong>22/TCP</strong></td>
+<td>Cifrado forte por defecto e autenticación mediante contrasinal ou chave pública</td>
+<td>Administración de servidores Linux por liña de comandos; execución remota de scripts; transferencia segura; reenvío de X11; túnel seguro para outros protocolos como VNC</td>
+<td>Moi seguro e estándar; lixeiro; non require escritorio gráfico; permite automatización e administración profesional</td>
+<td>Non ofrece escritorio completo por defecto; require coñecementos de terminal; pode resultar complexo para usuarios sen experiencia</td>
+</tr>
+<tr>
+<td><strong>TeamViewer / AnyDesk / similares</strong></td>
+<td>Ferramentas comerciais de soporte ou acceso remoto mediadas por infraestrutura dun provedor</td>
+<td>Windows, macOS, Linux; tamén aplicacións móbiles</td>
+<td>Cliente propio de cada plataforma</td>
+<td>Variable segundo produto; normalmente conexións saíntes a Internet</td>
+<td>Cifrado integrado segundo o produto. Deben revisarse 2FA, permisos, acceso non supervisado e política corporativa</td>
+<td>Soporte remoto a usuarios finais; asistencia puntual; helpdesk; acceso dende fóra sen abrir portos na LAN</td>
+<td>Moi sinxelas de usar; multiplataforma; funcionan normalmente sen configurar portos de entrada; útiles para soporte a usuarios non técnicos</td>
+<td>Dependencia dun provedor externo; licenza de pago en uso comercial; riscos de privacidade, RGPD e configuración insegura de acceso permanente</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="callout note">
+<p><strong>Nota sobre VNC:</strong> non debe asumirse que unha conexión VNC está cifrada de forma segura só por empregar un cliente moderno. Hai implementacións que ofrecen cifrado integrado, outras requiren activar TLS explicitamente e outras deben protexerse mediante un túnel SSH. En contornos non confiables, a opción máis segura é <strong>VNC sobre SSH</strong> ou unha alternativa con cifrado verificado.</p>
+</blockquote>
+<blockquote class="callout note">
+<p><strong>Nota sobre NLA:</strong> <strong>Network Level Authentication</strong> non é o cifrado da sesión RDP. É unha medida de autenticación previa: o usuario debe autenticarse antes de que o servidor cree a sesión remota completa.</p>
+</blockquote>
+<hr/>
+<h2 id="2-guia-de-seleccion-rapida">2. Guía de selección rápida</h2>
+<p>Ante un escenario concreto, estas preguntas axudan a escoller a tecnoloxía máis adecuada.</p>
+<div class="table-scroll"><table class="data-table table-2">
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Tecnoloxía recomendada</th>
+<th>Condición de seguridade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Administrar un servidor Windows dende outro equipo na mesma LAN</td>
+<td><strong>RDP</strong></td>
+<td>Só usuarios autorizados, NLA activado e firewall restrinxido á rede interna</td>
+</tr>
+<tr>
+<td>Conectarse a un escritorio Ubuntu dende un cliente Windows</td>
+<td><strong>xRDP</strong></td>
+<td>Abrir só o porto necesario na LAN; evitar exposición directa a Internet</td>
+</tr>
+<tr>
+<td>Administrar un servidor Linux sen contorno gráfico</td>
+<td><strong>SSH</strong></td>
+<td>Preferible usar chaves públicas, desactivar accesos innecesarios e manter o servizo actualizado</td>
+</tr>
+<tr>
+<td>Usar VNC nunha rede non confiable</td>
+<td><strong>VNC sobre túnel SSH</strong></td>
+<td>Non asumir cifrado VNC por defecto; encapsular ou verificar TLS</td>
+</tr>
+<tr>
+<td>Dar soporte remoto puntual a un usuario sen coñecementos técnicos</td>
+<td><strong>TeamViewer / AnyDesk / similar</strong></td>
+<td>Solicitar autorización explícita, limitar permisos e revisar requisitos de privacidade/RGPD</td>
+</tr>
+<tr>
+<td>Acceder ao PC da oficina dende casa</td>
+<td><strong>VPN + RDP</strong></td>
+<td>Nunca expor RDP directamente a Internet; primeiro VPN, despois RDP</td>
+</tr>
+<tr>
+<td>Cifrar o tráfico doutro protocolo sen cifrado propio</td>
+<td><strong>SSH como túnel</strong></td>
+<td>Usar o túnel só para servizos autorizados e documentar a configuración</td>
+</tr>
+<tr>
+<td>Ver exactamente a pantalla que está usando un usuario</td>
+<td><strong>VNC ou ferramenta de soporte remoto</strong></td>
+<td>Confirmar consentimento do usuario e evitar acceso non supervisado sen política clara</td>
+</tr>
+<tr>
+<td>Traballar nun servidor sen interface gráfica</td>
+<td><strong>SSH</strong></td>
+<td>É a opción máis lixeira e profesional para servidores Linux</td>
+</tr>
+<tr>
+<td>Acceso remoto externo con datos sensibles</td>
+<td><strong>VPN + RDP/SSH + MFA</strong></td>
+<td>Recomendable aplicar MFA, rexistros de acceso e restrición por IP</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+<h2 id="3-porto-de-referencia-rapida">3. Porto de referencia rápida</h2>
+<div class="table-scroll"><table class="data-table table-3">
+<thead>
+<tr>
+<th>Tecnoloxía</th>
+<th style="text-align:right">Porto por defecto</th>
+<th>Protocolo</th>
+<th>Observación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RDP en Windows</strong></td>
+<td style="text-align:right">3389</td>
+<td>TCP/UDP</td>
+<td>TCP é a referencia clásica; UDP pode mellorar rendemento e latencia</td>
+</tr>
+<tr>
+<td><strong>xRDP en Linux</strong></td>
+<td style="text-align:right">3389</td>
+<td>TCP</td>
+<td>Habitualmente escoita en TCP 3389, salvo configuración distinta</td>
+</tr>
+<tr>
+<td><strong>VNC</strong></td>
+<td style="text-align:right">5900</td>
+<td>TCP</td>
+<td>A pantalla <code>:0</code> adoita usar 5900; <code>:1</code> adoita usar 5901, etc.</td>
+</tr>
+<tr>
+<td><strong>SSH</strong></td>
+<td style="text-align:right">22</td>
+<td>TCP</td>
+<td>Pode empregarse para administración remota e túneles cifrados</td>
+</tr>
+<tr>
+<td><strong>TeamViewer / AnyDesk / similares</strong></td>
+<td style="text-align:right">Variable</td>
+<td>TCP/UDP</td>
+<td>Normalmente usan conexións saíntes; depende do produto e da rede</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="callout warning">
+<p>⚠️ <strong>Advertencia:</strong> cambiar o porto por defecto pode reducir ruído de escaneos automáticos simples, pero <strong>non substitúe</strong> unha boa configuración de seguridade. Non substitúe VPN, firewall, NLA, MFA, actualizacións nin contrasinais robustos.</p>
+</blockquote>
+<hr/>
+<h2 id="4-diferenzas-practicas-entre-as-tecnoloxias">4. Diferenzas prácticas entre as tecnoloxías</h2>
+<h3 id="rdp-xrdp">RDP / xRDP</h3>
+<p>RDP e xRDP son axeitados cando se precisa unha <strong>sesión gráfica remota</strong>. O escritorio execútase no equipo remoto e o cliente recibe a representación gráfica desa sesión.</p>
+<p>Son opcións adecuadas para:</p>
+<ul>
+<li>administración gráfica de servidores Windows;</li>
+<li>conexión a postos de traballo dentro dunha rede interna;</li>
+<li>teletraballo mediante VPN;</li>
+<li>acceso a escritorios Linux dende clientes Windows con xRDP.</li>
+</ul>
+<p>Non deben empregarse expostos directamente a Internet.</p>
+<hr/>
+<h3 id="vnc">VNC</h3>
+<p>VNC é útil cando interesa <strong>ver ou controlar a pantalla dun equipo remoto</strong>, especialmente en contornos mixtos ou de soporte visual.</p>
+<p>Pode ser axeitado para:</p>
+<ul>
+<li>asistencia sobre un escritorio xa aberto;</li>
+<li>acceso gráfico a equipos Linux;</li>
+<li>laboratorios onde se quere observar a pantalla dun equipo;</li>
+<li>escenarios nos que RDP non está dispoñible.</li>
+</ul>
+<p>O principal risco é asumir que VNC cifra sempre de forma segura. Non debe empregarse en redes non confiables sen TLS verificado, VPN ou túnel SSH.</p>
+<hr/>
+<h3 id="ssh">SSH</h3>
+<p>SSH é a ferramenta estándar para administrar servidores Linux por terminal. Non ofrece un escritorio completo por defecto, pero é máis lixeiro, seguro e profesional para administración de sistemas.</p>
+<p>É axeitado para:</p>
+<ul>
+<li>administración de servidores sen contorno gráfico;</li>
+<li>execución remota de comandos;</li>
+<li>automatización mediante scripts;</li>
+<li>transferencia segura de ficheiros;</li>
+<li>creación de túneles cifrados para protexer outros protocolos.</li>
+</ul>
+<hr/>
+<h3 id="teamviewer-anydesk-ferramentas-similares">TeamViewer / AnyDesk / ferramentas similares</h3>
+<p>Estas ferramentas son moi cómodas para soporte remoto porque normalmente non requiren abrir portos de entrada na rede local. O equipo cliente establece conexións saíntes cara á infraestrutura do provedor.</p>
+<p>Son axeitadas para:</p>
+<ul>
+<li>asistencia puntual a usuarios finais;</li>
+<li>soporte técnico remoto;</li>
+<li>intervencións rápidas sen configurar VPN ou firewall;</li>
+<li>usuarios con poucos coñecementos técnicos.</li>
+</ul>
+<p>Non obstante, deben empregarse con criterio:</p>
+<ul>
+<li>revisar licenza para uso profesional;</li>
+<li>activar 2FA cando estea dispoñible;</li>
+<li>limitar o acceso non supervisado;</li>
+<li>rexistrar intervencións;</li>
+<li>cumprir a normativa de privacidade e protección de datos.</li>
+</ul>
+<hr/>
+<h2 id="5-resumo-para-exame">5. Resumo para exame</h2>
+<div class="table-scroll"><table class="data-table table-4">
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Resposta clave</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Que usarías para administrar un servidor Linux sen escritorio?</td>
+<td><strong>SSH</strong>, porque permite administración por terminal de forma segura e lixeira.</td>
+</tr>
+<tr>
+<td>Que usarías para conectarte a un PC Windows da oficina dende casa?</td>
+<td><strong>VPN + RDP</strong>, nunca RDP exposto directamente a Internet.</td>
+</tr>
+<tr>
+<td>Que risco ten VNC?</td>
+<td>Que algunhas implementacións non cifran correctamente se non se configura TLS ou túnel SSH.</td>
+</tr>
+<tr>
+<td>Que diferenza hai entre RDP e SSH?</td>
+<td>RDP ofrece sesión gráfica remota; SSH ofrece terminal remota e túneles cifrados.</td>
+</tr>
+<tr>
+<td>Que vantaxe teñen TeamViewer ou AnyDesk?</td>
+<td>Son fáciles para soporte remoto e normalmente funcionan con conexións saíntes sen abrir portos na LAN.</td>
+</tr>
+<tr>
+<td>Que risco teñen TeamViewer ou AnyDesk?</td>
+<td>Dependencia dun provedor externo, licenza, privacidade, RGPD e acceso non supervisado mal configurado.</td>
+</tr>
+<tr>
+<td>Que é NLA en RDP?</td>
+<td>Autenticación previa antes de crear a sesión remota completa.</td>
+</tr>
+<tr>
+<td>Cambiar o porto 3389 fai seguro RDP?</td>
+<td>Non. Pode reducir escaneos simples, pero non substitúe VPN, firewall, NLA, MFA nin actualizacións.</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+<h2 id="6-idea-final">6. Idea final</h2>
+<p>A elección dunha solución de acceso remoto debe responder sempre a tres preguntas:</p>
+<ol>
+<li><p><strong>Que necesito facer?</strong><br/>
+Ver unha pantalla, abrir unha sesión gráfica, administrar por terminal ou dar soporte puntual.</p>
+</li>
+<li><p><strong>Dende onde me vou conectar?</strong><br/>
+LAN, VPN, rede pública ou Internet.</p>
+</li>
+<li><p><strong>Como vou protexer o acceso?</strong><br/>
+Usuarios autorizados, contrasinais robustos, chaves, NLA, VPN, MFA, firewall, rexistros e actualizacións.</p>
+</li>
+</ol>
+<blockquote class="callout key">
+<p>A conexión remota non debe configurarse só para que funcione. Debe configurarse para que funcione <strong>e</strong> sexa segura.</p>
+</blockquote>
+
+      </article>
+    </main>
+  </div>
+  <button class="back-top" id="backTop" type="button" aria-label="Volver arriba">↑</button>
+  <script>
+    const progress = document.getElementById('topProgress');
+    const backTop = document.getElementById('backTop');
+    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+    const sections = navLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+
+    function updateProgress() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pct = height > 0 ? (scrollTop / height) * 100 : 0;
+      progress.style.width = pct + '%';
+      backTop.classList.toggle('show', scrollTop > 500);
+
+      let current = sections[0];
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= 120) current = section;
+      }
+      navLinks.forEach(link => link.classList.toggle('active', current && link.getAttribute('href') === '#' + current.id));
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    updateProgress();
+  </script>
+</body>
+</html>

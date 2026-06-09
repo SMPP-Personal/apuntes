@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B3 Permisos, ACL e acceso a recursos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#punto-partida">1. Punto de partida</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ntfs-comparticion">2. NTFS vs compartición</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#acl-dacl-ace">3. ACL, DACL e ACE</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#permisos-ntfs">4. Permisos NTFS</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#herdanza">5. Herdanza</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#permisos-efectivos">6. Permisos efectivos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#denegar">7. Denegar vs non conceder</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#agdlp">8. AGDLP</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#exemplo">9. Exemplo aplicado</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#boas-practicas">10. Boas prácticas</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#erros">11. Erros frecuentes</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#vocabulario">12. Vocabulario</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ideas-chave">13. Ideas clave</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Contido principal ── -->
+    <main class="col-lg-9">
+      <article>
+
+        <!-- Cabeceira -->
+        <header class="mb-4">
+          <div class="theory-hero">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-shield-lock"></i> UD2 · Bloque 3</span>
+              <span class="hero-chip"><i class="bi bi-key"></i> Permisos · ACL · DACL</span>
+              <span class="hero-chip"><i class="bi bi-hdd-network"></i> cifpsauce.local</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">Permisos, ACL e acceso a recursos</h1>
+            <p class="lead mb-0">Como se combinan permisos NTFS, permisos de compartición, herdanzas, denegacións e pertenza a grupos para decidir quen pode acceder a un recurso.</p>
+          </div>
+        </header>
+
+        <div class="notice info mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div>
+            <strong>Idea central:</strong> nun dominio ben administrado non se conceden permisos usuario por usuario. O habitual é empregar grupos, documentar a estrutura e comprobar sempre o resultado cun usuario real de proba.
+          </div>
+        </div>
+
+        <!-- 1. Punto de partida -->
+        <section id="punto-partida" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-flag"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">1. Punto de partida</h2>
+                <p class="mb-0 small text-muted">Aplicamos a organización do dominio a recursos concretos.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p>Neste bloque imos estudar como se controla o acceso a ficheiros e carpetas nun dominio Windows. Traballaremos co escenario xa coñecido da UD2:</p>
+              <div class="table-responsive">
+                <table class="table table-sm table-striped align-middle decision-table">
+                  <thead>
+                    <tr><th>Elemento</th><th>Valor no laboratorio</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Dominio</td><td><code>cifpsauce.local</code></td></tr>
+                    <tr><td>Primeiro controlador de dominio</td><td><code>dcbuho.cifpsauce.local</code></td></tr>
+                    <tr><td>Grupos de exemplo</td><td><code>GG_Alumnado_Curso1</code>, <code>GG_Alumnado_Curso2</code>, <code>GG_Profesorado</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Nos bloques anteriores creamos e organizamos o dominio:</p>
+              <ul class="check-list mb-3">
+                <li>deseñamos a estrutura inicial de OU;</li>
+                <li>definimos contas de usuario e contas de equipo;</li>
+                <li>creamos grupos de seguridade por colectivos;</li>
+                <li>introducimos a lóxica <strong>AGDLP</strong> para asignar permisos.</li>
+              </ul>
+              <p class="mb-0">Agora aplicaremos esa organización a recursos concretos, como cartafoles compartidos de aula, carpetas de curso ou cartafoles persoais. Neste bloque aínda non faremos unha práctica completa de servidor de ficheiros, pero si a teoría necesaria para que a práctica teña sentido.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. NTFS vs compartición -->
+        <section id="ntfs-comparticion" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-symlink me-2 text-primary"></i>2. Permisos NTFS vs permisos de compartición</h2>
+          <p>En Windows hai dous niveis principais de control de acceso cando traballamos con carpetas compartidas por rede: <strong>permisos NTFS</strong> e <strong>permisos de compartición</strong>. A diferenza entre ambos é fundamental.</p>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="concept-card h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-hdd"></i></span>
+                  <div>
+                    <h3 class="h5 fw-bold mb-2">2.1. Permisos NTFS</h3>
+                    <p>Configúranse sobre ficheiros e carpetas situados nun volume NTFS.</p>
+                    <ul class="small mb-0">
+                      <li>Desde <strong>Propiedades → Seguridade</strong>.</li>
+                      <li>Aplícanse ao acceso local e por rede.</li>
+                      <li>Permiten control detallado por usuario, grupo ou equipo.</li>
+                      <li>Poden herdarse desde cartafoles superiores.</li>
+                      <li>Forman parte da ACL do obxecto.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="concept-card info h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-share"></i></span>
+                  <div>
+                    <h3 class="h5 fw-bold mb-2">2.2. Permisos de compartición</h3>
+                    <p>Configúranse sobre o recurso que se publica na rede.</p>
+                    <ul class="small mb-0">
+                      <li>Desde <strong>Propiedades → Compartir</strong> ou <strong>Uso compartido avanzado</strong>.</li>
+                      <li>Só se aplican cando se accede por rede.</li>
+                      <li>Non se aplican ao acceso local no servidor.</li>
+                      <li>Son menos detallados ca NTFS.</li>
+                      <li>Permisos habituais: Lectura, Cambio e Control total.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="key-card">
+                <h3 class="h6 fw-bold"><i class="bi bi-folder2 me-2 text-primary"></i>Cartafol local</h3>
+                <pre><code>C:\DatosDominio\Curso1</code></pre>
+                <p class="small mb-0">Aquí configúranse os permisos NTFS.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="key-card">
+                <h3 class="h6 fw-bold"><i class="bi bi-globe2 me-2 text-primary"></i>Recurso compartido</h3>
+                <pre><code>\\dcbuho\curso1</code></pre>
+                <p class="small mb-0">Aquí configúranse os permisos de compartición.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice warning mb-4 d-flex gap-2 align-items-start">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+            <div><strong>Regra clave:</strong> cando un usuario accede a unha carpeta compartida por rede, Windows combina permisos de compartición e permisos NTFS. O acceso final queda limitado polo <strong>conxunto máis restritivo</strong> entre ambos.</div>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">2.4. Exemplos sinxelos</h3>
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <div class="content-card h-100">
+                <div class="content-card-header">
+                  <span class="section-icon"><i class="bi bi-lock"></i></span>
+                  <h4 class="h6 fw-bold mb-0">Compartición limita o acceso</h4>
+                </div>
+                <div class="content-card-body">
+                  <div class="table-responsive">
+                    <table class="table table-sm table-bordered align-middle">
+                      <thead><tr><th>Nivel</th><th>Grupo</th><th>Permiso</th></tr></thead>
+                      <tbody>
+                        <tr><td>Compartición</td><td><code>GG_Alumnado_Curso1</code></td><td>Lectura</td></tr>
+                        <tr><td>NTFS</td><td><code>GG_Alumnado_Curso1</code></td><td>Modificar</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="mb-0 small"><strong>Resultado:</strong> por rede só poderá ler, porque a compartición é máis restritiva.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="content-card h-100">
+                <div class="content-card-header">
+                  <span class="section-icon"><i class="bi bi-unlock"></i></span>
+                  <h4 class="h6 fw-bold mb-0">NTFS marca o detalle real</h4>
+                </div>
+                <div class="content-card-body">
+                  <div class="table-responsive">
+                    <table class="table table-sm table-bordered align-middle">
+                      <thead><tr><th>Nivel</th><th>Grupo</th><th>Permiso</th></tr></thead>
+                      <tbody>
+                        <tr><td>Compartición</td><td><code>GG_Alumnado_Curso1</code></td><td>Control total</td></tr>
+                        <tr><td>NTFS</td><td><code>GG_Alumnado_Curso1</code></td><td>Modificar</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="mb-0 small"><strong>Resultado:</strong> poderá modificar, porque a compartición non limita máis ca NTFS.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice success mt-4 d-flex gap-2 align-items-start">
+            <i class="bi bi-check-circle-fill flex-shrink-0 mt-1"></i>
+            <div><strong>Boa práctica:</strong> en moitos contornos configúrase a compartición de forma ampla para os grupos autorizados e concrétase o control real en NTFS. O importante é que a decisión sexa coherente e estea documentada.</div>
+          </div>
+        </section>
+
+        <!-- 3. ACL -->
+        <section id="acl-dacl-ace" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-list-check me-2 text-primary"></i>3. ACL, DACL e ACE</h2>
+          <p>Unha <strong>ACL</strong> é unha lista de control de acceso. No contexto de permisos de ficheiros e carpetas, cando falamos de ACL normalmente referímonos á <strong>DACL</strong> (<em>Discretionary Access Control List</em>), que é a lista de entradas que indican quen ten permitido ou denegado o acceso a un obxecto.</p>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <div class="key-card h-100">
+                <h3 class="h6 fw-bold"><i class="bi bi-card-list me-2 text-primary"></i>ACL</h3>
+                <p class="small mb-0">Lista de control de acceso.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="key-card h-100">
+                <h3 class="h6 fw-bold"><i class="bi bi-shield-check me-2 text-primary"></i>DACL</h3>
+                <p class="small mb-0">Lista de entradas que permiten ou denegan permisos.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="key-card h-100">
+                <h3 class="h6 fw-bold"><i class="bi bi-list-ul me-2 text-primary"></i>ACE</h3>
+                <p class="small mb-0">Cada entrada concreta da ACL.</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">3.1. Que contén unha ACE?</h3>
+          <div class="row g-3 mb-4">
+            <div class="col-md-4"><div class="concept-card h-100 p-3"><h4 class="h6 fw-bold">1. A quen afecta</h4><p class="small mb-0">Usuario, grupo, equipo ou entidade especial como <code>Usuarios autenticados</code>.</p></div></div>
+            <div class="col-md-4"><div class="concept-card info h-100 p-3"><h4 class="h6 fw-bold">2. Que permisos inclúe</h4><p class="small mb-0">Ler, escribir, modificar, eliminar, cambiar permisos, tomar posesión, etc.</p></div></div>
+            <div class="col-md-4"><div class="concept-card warning h-100 p-3"><h4 class="h6 fw-bold">3. Se permite ou denega</h4><p class="small mb-0"><strong>Permitir</strong> (<em>Allow</em>) ou <strong>Denegar</strong> (<em>Deny</em>).</p></div></div>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">3.2. Exemplo conceptual de DACL</h3>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle decision-table">
+              <thead><tr><th>Entrada</th><th>Tipo</th><th>Permiso</th></tr></thead>
+              <tbody>
+                <tr><td><code>Administradores</code></td><td>Permitir</td><td>Control total</td></tr>
+                <tr><td><code>SYSTEM</code></td><td>Permitir</td><td>Control total</td></tr>
+                <tr><td><code>DL_Curso1_Modificar</code></td><td>Permitir</td><td>Modificar</td></tr>
+                <tr><td><code>DL_Curso1_ControlTotal</code></td><td>Permitir</td><td>Control total</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="notice info d-flex gap-2 align-items-start">
+            <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+            <div>Neste exemplo, os permisos non se asignan directamente ao alumnado ou profesorado, senón a grupos pensados para controlar o acceso ao recurso.</div>
+          </div>
+        </section>
+
+        <!-- 4. Permisos básicos e avanzados -->
+        <section id="permisos-ntfs" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-sliders me-2 text-primary"></i>4. Permisos básicos e avanzados en NTFS</h2>
+          <p>Windows mostra permisos NTFS en dous niveis: <strong>permisos básicos</strong> e <strong>permisos avanzados</strong>.</p>
+
+          <h3 class="h5 fw-semibold mb-3">4.1. Permisos básicos máis habituais</h3>
+          <div class="table-responsive mb-4">
+            <table class="table table-sm table-striped align-middle decision-table">
+              <thead><tr><th>Permiso</th><th>Significado xeral</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Ler</strong></td><td>Permite abrir e ver ficheiros ou cartafoles.</td></tr>
+                <tr><td><strong>Ler e executar</strong></td><td>Permite ler e executar programas ou scripts.</td></tr>
+                <tr><td><strong>Listar contido do cartafol</strong></td><td>Permite ver os elementos dun cartafol.</td></tr>
+                <tr><td><strong>Escribir</strong></td><td>Permite crear ficheiros ou modificar contido, segundo o caso.</td></tr>
+                <tr><td><strong>Modificar</strong></td><td>Permite ler, escribir, crear, modificar e eliminar ficheiros.</td></tr>
+                <tr><td><strong>Control total</strong></td><td>Inclúe modificar e ademais cambiar permisos e tomar posesión.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">4.2. Modificar vs Control total</h3>
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="concept-card success h-100 p-3">
+                <h4 class="h6 fw-bold"><i class="bi bi-pencil-square me-2"></i>Modificar</h4>
+                <p class="small">Permite crear, editar e eliminar ficheiros.</p>
+                <p class="small mb-0"><strong>Non debería permitir sen necesidade:</strong> cambiar permisos ou tomar posesión.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="concept-card warning h-100 p-3">
+                <h4 class="h6 fw-bold"><i class="bi bi-shield-lock me-2"></i>Control total</h4>
+                <p class="small">Permite modificar e ademais cambiar permisos e tomar posesión.</p>
+                <p class="small mb-0"><strong>Uso recomendado:</strong> administración ou responsables reais do recurso.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice warning mb-4 d-flex gap-2 align-items-start">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+            <div>Nunha carpeta de curso, normalmente o alumnado podería ter <strong>Modificar</strong>, o profesorado ou administración podería ter <strong>Control total</strong>, e outros colectivos poderían ter só <strong>Ler</strong> ou ningún permiso.</div>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">4.3. Permisos avanzados</h3>
+          <p>Os permisos avanzados permiten un control máis fino: crear ficheiros, crear cartafoles, eliminar subcartafoles e ficheiros, ler ou escribir atributos, cambiar permisos e tomar posesión.</p>
+          <p class="mb-0">Para esta UD, o máis importante é comprender os permisos básicos. Os permisos avanzados axudan a entender que permisos como <strong>Modificar</strong> ou <strong>Control total</strong> son combinacións de permisos máis concretos.</p>
+        </section>
+
+        <!-- 5. Herdanza -->
+        <section id="herdanza" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-diagram-2 me-2 text-primary"></i>5. Herdanza de permisos</h2>
+          <p>Por defecto, os permisos NTFS poden herdarse desde un cartafol pai aos seus cartafoles e ficheiros fillos.</p>
+
+          <div class="content-card mb-4">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-folder2-open"></i></span>
+              <h3 class="h5 fw-bold mb-0">5.1. Que significa herdar permisos?</h3>
+            </div>
+            <div class="content-card-body">
+              <p>Se configuramos permisos nun cartafol raíz, por exemplo:</p>
+              <pre><code>C:\DatosDominio\Curso1</code></pre>
+              <p>os ficheiros e subcartafoles creados dentro poden recibir automaticamente eses permisos.</p>
+              <pre class="tree-block"><code>C:\DatosDominio\Curso1
+├── practicas
+├── exames
+└── entregas</code></pre>
+              <p class="mb-0">Se a herdanza está activada, os permisos de <code>Curso1</code> poden propagarse a <code>practicas</code>, <code>exames</code> e <code>entregas</code>.</p>
+            </div>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">5.2. Permisos herdados e explícitos</h3>
+          <div class="table-responsive mb-4">
+            <table class="table table-sm table-striped align-middle decision-table">
+              <thead><tr><th>Tipo de permiso</th><th>Significado</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Permiso herdado</strong></td><td>Chega desde un cartafol pai.</td></tr>
+                <tr><td><strong>Permiso explícito</strong></td><td>Configúrase directamente sobre o obxecto actual.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">5.3. Romper ou desactivar a herdanza</h3>
+          <p>Nalgúns casos pode ser necesario que un subcartafol teña permisos distintos aos do cartafol pai.</p>
+          <pre><code>C:\DatosDominio\Curso1\exames</code></pre>
+          <p>Pode interesar que <code>exames</code> sexa accesible só para profesorado. Ao desactivar a herdanza, Windows adoita ofrecer dúas opcións:</p>
+          <ol>
+            <li><strong>Converter</strong> os permisos herdados en permisos explícitos.</li>
+            <li><strong>Eliminar</strong> os permisos herdados.</li>
+          </ol>
+
+          <div class="notice success d-flex gap-2 align-items-start">
+            <i class="bi bi-check-circle-fill flex-shrink-0 mt-1"></i>
+            <div><strong>Boa práctica:</strong> mantén a herdanza sempre que sexa posible. Rompea só cando exista unha razón clara e documentada.</div>
+          </div>
+        </section>
+
+        <!-- 6. Permisos efectivos -->
+        <section id="permisos-efectivos" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-calculator me-2 text-primary"></i>6. Permisos efectivos</h2>
+          <p>Os <strong>permisos efectivos</strong> son o resultado real que ten un usuario ou grupo sobre un recurso despois de combinar todos os factores que afectan ao acceso.</p>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="key-card h-100">
+                <h3 class="h6 fw-bold"><i class="bi bi-layers me-2 text-primary"></i>Factores que inflúen</h3>
+                <ul class="small mb-0">
+                  <li>Permisos NTFS directos.</li>
+                  <li>Permisos recibidos por pertenza a grupos.</li>
+                  <li>Permisos herdados e explícitos.</li>
+                  <li>Permisos de compartición.</li>
+                  <li>Entradas de Permitir e Denegar.</li>
+                  <li>Acceso local ou por rede.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="key-card h-100">
+                <h3 class="h6 fw-bold"><i class="bi bi-list-ol me-2 text-primary"></i>Regra simplificada</h3>
+                <ol class="small mb-0">
+                  <li>O usuario pode recibir permisos por varios grupos.</li>
+                  <li>Os permisos permitidos poden acumularse.</li>
+                  <li>A compartición pode limitar o resultado por rede.</li>
+                  <li>Unha entrada explícita de Denegar pode bloquear un permiso.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice warning mb-4 d-flex gap-2 align-items-start">
+            <i class="bi bi-exclamation-diamond-fill flex-shrink-0 mt-1"></i>
+            <div><strong>Matiz técnico:</strong> esta explicación é unha simplificación. En casos complexos tamén inflúen a orde das ACE, a herdanza, se a ACE é explícita ou herdada e o tipo concreto de acceso solicitado.</div>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">6.3. Ferramenta “Effective access”</h3>
+          <p>Windows inclúe unha ferramenta para calcular o acceso efectivo:</p>
+          <pre><code>Propiedades do cartafol → Seguridade → Avanzado → Effective Access</code></pre>
+          <p>É especialmente útil cando un usuario pertence a moitos grupos, hai permisos herdados e explícitos, hai entradas de Denegar ou os permisos parecen correctos pero o acceso falla.</p>
+        </section>
+
+        <!-- 7. Denegar -->
+        <section id="denegar" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-slash-circle me-2 text-danger"></i>7. Denegar vs non conceder</h2>
+          <p>Un dos erros máis frecuentes é pensar que para impedir algo hai que marcar sempre <strong>Denegar</strong>. Non é así.</p>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="concept-card success h-100 p-3">
+                <h3 class="h5 fw-bold"><i class="bi bi-dash-circle me-2"></i>7.1. Non conceder</h3>
+                <p><strong>Non conceder</strong> significa que simplemente non damos ese permiso.</p>
+                <p class="small mb-0">Se <code>GG_Alumnado_Curso1</code> non aparece na ACL dunha carpeta e ningún outro grupo lle dá acceso, o usuario non pode entrar. Non hai unha denegación explícita: simplemente non existe permiso suficiente.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="concept-card warning h-100 p-3">
+                <h3 class="h5 fw-bold"><i class="bi bi-x-octagon me-2"></i>7.2. Denegar</h3>
+                <p><strong>Denegar</strong> crea unha ACE explícita que bloquea un permiso.</p>
+                <p class="small mb-0">Se <code>alu.curso1.005</code> ten unha entrada explícita de Denegar lectura, pode quedar bloqueado aínda que pertenza a un grupo permitido.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice danger d-flex gap-2 align-items-start">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+            <div><strong>Regra práctica:</strong> antes de usar Denegar, revisa se podes resolver o problema cun deseño mellor de grupos. Nunha administración limpa, normalmente é mellor non conceder un permiso que crear unha entrada explícita de Denegar.</div>
+          </div>
+        </section>
+
+        <!-- 8. AGDLP -->
+        <section id="agdlp" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-diagram-3 me-2 text-primary"></i>8. Estratexia recomendada con grupos: AGDLP</h2>
+          <p>A estratexia <strong>AGDLP</strong> axuda a asignar permisos de forma ordenada:</p>
+
+          <div class="content-card mb-4">
+            <div class="content-card-body">
+              <pre class="tree-block"><code>A  → Accounts       → Contas de usuario
+G  → Global Groups  → Grupos globais
+DL → Domain Local   → Grupos de dominio local
+P  → Permissions    → Permisos sobre recursos</code></pre>
+              <p class="mb-0 text-center fw-semibold">Contas → Grupos globais → Grupos de dominio local → Permisos</p>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="content-card h-100">
+                <div class="content-card-header"><span class="section-icon"><i class="bi bi-person"></i></span><h3 class="h5 fw-bold mb-0">8.2. Exemplo con alumnado</h3></div>
+                <div class="content-card-body">
+                  <pre class="tree-block"><code>alu.curso1.001
+   ↓ pertence a
+GG_Alumnado_Curso1
+   ↓ está aniñado en
+DL_Curso1_Modificar
+   ↓ recibe permiso
+Modify sobre C:\DatosDominio\Curso1</code></pre>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="content-card h-100">
+                <div class="content-card-header"><span class="section-icon"><i class="bi bi-person-workspace"></i></span><h3 class="h5 fw-bold mb-0">8.3. Exemplo con profesorado</h3></div>
+                <div class="content-card-body">
+                  <pre class="tree-block"><code>prof.001
+   ↓ pertence a
+GG_Profesorado
+   ↓ está aniñado en
+DL_Curso1_ControlTotal
+   ↓ recibe permiso
+Full control sobre C:\DatosDominio\Curso1</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">8.4. Nomes recomendados para grupos</h3>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="key-card h-100">
+                <h4 class="h6 fw-bold">Grupos globais por colectivo</h4>
+                <ul class="small mb-0">
+                  <li><code>GG_Alumnado_Curso1</code></li>
+                  <li><code>GG_Alumnado_Curso2</code></li>
+                  <li><code>GG_Profesorado</code></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="key-card h-100">
+                <h4 class="h6 fw-bold">Grupos de dominio local por recurso e permiso</h4>
+                <ul class="small mb-0">
+                  <li><code>DL_Curso1_Lectura</code></li>
+                  <li><code>DL_Curso1_Modificar</code></li>
+                  <li><code>DL_Curso1_ControlTotal</code></li>
+                  <li><code>DL_Profesorado_ControlTotal</code></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice info mt-4 d-flex gap-2 align-items-start">
+            <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+            <div><strong>Importante:</strong> os permisos NTFS deberían asignarse preferentemente aos grupos de dominio local ligados ao recurso, non directamente a usuarios soltos.</div>
+          </div>
+        </section>
+
+        <!-- 9. Exemplo -->
+        <section id="exemplo" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-building-gear me-2 text-primary"></i>9. Exemplo conceptual aplicado a <code>cifpsauce.local</code></h2>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="key-card h-100">
+                <h3 class="h6 fw-bold"><i class="bi bi-folder2 me-2 text-primary"></i>Cartafol local no servidor</h3>
+                <pre><code>C:\DatosDominio\Curso1</code></pre>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="key-card h-100">
+                <h3 class="h6 fw-bold"><i class="bi bi-hdd-network me-2 text-primary"></i>Recurso compartido por rede</h3>
+                <pre><code>\\dcbuho\curso1</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice warning mb-4 d-flex gap-2 align-items-start">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+            <div><strong>Nota de laboratorio:</strong> nesta UD podemos usar <code>dcbuho</code> tamén como servidor de ficheiros por simplicidade. Nun contorno profesional adoita ser recomendable separar o controlador de dominio e o servidor de ficheiros.</div>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">9.2. Obxectivo de permisos</h3>
+          <div class="table-responsive mb-4">
+            <table class="table table-sm table-striped align-middle decision-table">
+              <thead><tr><th>Colectivo</th><th>Permiso desexado</th></tr></thead>
+              <tbody>
+                <tr><td>Alumnado de Curso1</td><td>Modificar ficheiros da carpeta de Curso1</td></tr>
+                <tr><td>Profesorado</td><td>Control total sobre a carpeta de Curso1</td></tr>
+                <tr><td>Outro alumnado</td><td>Sen acceso</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">9.3. Grupos e aniñamento</h3>
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="key-card h-100">
+                <h4 class="h6 fw-bold">Grupos globais</h4>
+                <ul class="small mb-0"><li><code>GG_Alumnado_Curso1</code></li><li><code>GG_Profesorado</code></li></ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="key-card h-100">
+                <h4 class="h6 fw-bold">Grupos de dominio local</h4>
+                <ul class="small mb-0"><li><code>DL_Curso1_Modificar</code></li><li><code>DL_Curso1_ControlTotal</code></li></ul>
+              </div>
+            </div>
+          </div>
+          <pre class="tree-block"><code>GG_Alumnado_Curso1 → DL_Curso1_Modificar
+GG_Profesorado     → DL_Curso1_ControlTotal</code></pre>
+
+          <h3 class="h5 fw-semibold mt-4 mb-3">9.4. Permisos de compartición</h3>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm table-bordered align-middle">
+              <thead><tr><th>Grupo</th><th>Permiso de compartición</th></tr></thead>
+              <tbody>
+                <tr><td><code>DL_Curso1_Modificar</code></td><td>Control total</td></tr>
+                <tr><td><code>DL_Curso1_ControlTotal</code></td><td>Control total</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Así a compartición non limita o acceso e o detalle queda controlado en NTFS. Outra opción didáctica é poñer a compartición máis restritiva para comprobar como afecta aos permisos efectivos.</p>
+
+          <h3 class="h5 fw-semibold mt-4 mb-3">9.5. Permisos NTFS</h3>
+          <p>Sobre <code>C:\DatosDominio\Curso1</code> poderiamos configurar:</p>
+          <div class="table-responsive mb-4">
+            <table class="table table-sm table-striped align-middle decision-table">
+              <thead><tr><th>Grupo</th><th>Permiso NTFS</th></tr></thead>
+              <tbody>
+                <tr><td><code>DL_Curso1_Modificar</code></td><td>Modify / Modificar</td></tr>
+                <tr><td><code>DL_Curso1_ControlTotal</code></td><td>Full control / Control total</td></tr>
+                <tr><td><code>Administradores</code></td><td>Full control / Control total</td></tr>
+                <tr><td><code>SYSTEM</code></td><td>Full control / Control total</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-3">9.6. Comprobación</h3>
+          <ul class="check-list">
+            <li><code>alu.curso1.001</code> debería poder crear e modificar ficheiros en <code>\\dcbuho\curso1</code>.</li>
+            <li><code>prof.001</code> debería ter control total.</li>
+            <li><code>alu.curso2.001</code> non debería acceder, salvo que pertenza a algún grupo con permiso.</li>
+          </ul>
+          <div class="notice danger d-flex gap-2 align-items-start">
+            <i class="bi bi-shield-exclamation flex-shrink-0 mt-1"></i>
+            <div><strong>Non chega con mirar a ACL:</strong> hai que probar o acceso cun usuario real ou comprobar o acceso efectivo.</div>
+          </div>
+        </section>
+
+        <!-- 10. Boas prácticas -->
+        <section id="boas-practicas" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-check2-circle me-2 text-success"></i>10. Boas prácticas</h2>
+          <div class="content-card">
+            <div class="content-card-body">
+              <ul class="check-list mb-0">
+                <li>Dar permisos a <strong>grupos</strong>, non a usuarios individuais.</li>
+                <li>Usar grupos globais para colectivos de persoas.</li>
+                <li>Usar grupos de dominio local para permisos sobre recursos.</li>
+                <li>Aplicar permisos NTFS de forma documentada.</li>
+                <li>Manter a herdanza sempre que sexa posible.</li>
+                <li>Romper herdanza só cando exista unha razón clara.</li>
+                <li>Evitar a opción <strong>Denegar</strong> salvo casos moi xustificados.</li>
+                <li>Non abusar de <code>Everyone</code> / <code>Todos</code> como solución rápida.</li>
+                <li>Separar ben permisos NTFS e permisos de compartición.</li>
+                <li>Probar sempre cun usuario real de cada colectivo.</li>
+                <li>Documentar que grupo ten que permiso sobre que recurso.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 11. Erros frecuentes -->
+        <section id="erros" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-bug me-2 text-danger"></i>11. Erros frecuentes</h2>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle decision-table">
+              <thead><tr><th>Erro</th><th>Consecuencia</th></tr></thead>
+              <tbody>
+                <tr><td>Confundir permisos NTFS e permisos de compartición</td><td>O acceso real non coincide co esperado.</td></tr>
+                <tr><td>Dar permisos directamente a usuarios</td><td>A administración vólvese caótica.</td></tr>
+                <tr><td>Usar <code>Everyone</code> sen pensar</td><td>Pode abrir acceso a máis persoas das previstas.</td></tr>
+                <tr><td>Abusar de <code>Denegar</code></td><td>Os permisos efectivos fanse difíciles de diagnosticar.</td></tr>
+                <tr><td>Romper herdanza sen documentalo</td><td>Aparecen excepcións difíciles de manter.</td></tr>
+                <tr><td>Poñer Control total cando abonda Modificar</td><td>O usuario pode cambiar permisos ou tomar posesión.</td></tr>
+                <tr><td>Non comprobar cun usuario real</td><td>A configuración pode parecer correcta pero fallar no uso real.</td></tr>
+                <tr><td>Esquecer que o acceso local non usa permisos de compartición</td><td>A análise dos permisos queda incompleta.</td></tr>
+                <tr><td>Configurar ben NTFS pero deixar a compartición en Lectura</td><td>Por rede o usuario non poderá modificar.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 12. Vocabulario -->
+        <section id="vocabulario" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-translate me-2 text-primary"></i>12. Vocabulario galego – inglés</h2>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle vocab-table">
+              <thead><tr><th>Galego</th><th>Inglés</th></tr></thead>
+              <tbody>
+                <tr><td>Permisos NTFS</td><td>NTFS permissions</td></tr>
+                <tr><td>Permisos de compartición</td><td>Share permissions</td></tr>
+                <tr><td>Recurso compartido</td><td>Shared folder / Shared resource</td></tr>
+                <tr><td>Lista de control de acceso</td><td>Access Control List (ACL)</td></tr>
+                <tr><td>Lista discrecional de control de acceso</td><td>Discretionary Access Control List (DACL)</td></tr>
+                <tr><td>Entrada de control de acceso</td><td>Access Control Entry (ACE)</td></tr>
+                <tr><td>Herdanza de permisos</td><td>Permission inheritance</td></tr>
+                <tr><td>Permiso herdado</td><td>Inherited permission</td></tr>
+                <tr><td>Permiso explícito</td><td>Explicit permission</td></tr>
+                <tr><td>Permisos efectivos</td><td>Effective permissions / Effective access</td></tr>
+                <tr><td>Control total</td><td>Full control</td></tr>
+                <tr><td>Modificar</td><td>Modify</td></tr>
+                <tr><td>Ler e executar</td><td>Read &amp; execute</td></tr>
+                <tr><td>Listar contido do cartafol</td><td>List folder contents</td></tr>
+                <tr><td>Ler</td><td>Read</td></tr>
+                <tr><td>Escribir</td><td>Write</td></tr>
+                <tr><td>Denegar</td><td>Deny</td></tr>
+                <tr><td>Permitir</td><td>Allow</td></tr>
+                <tr><td>Propietario</td><td>Owner</td></tr>
+                <tr><td>Tomar posesión</td><td>Take ownership</td></tr>
+                <tr><td>Cambiar permisos</td><td>Change permissions</td></tr>
+                <tr><td>Grupo global</td><td>Global group</td></tr>
+                <tr><td>Grupo de dominio local</td><td>Domain local group</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 13. Ideas clave -->
+        <section id="ideas-chave" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-stars me-2 text-primary"></i>13. Ideas clave do bloque</h2>
+          <div class="resumo-card p-4">
+            <ul class="list-group list-group-flush mb-0">
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>Os permisos NTFS aplícanse tanto ao acceso local como ao acceso por rede.</li>
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>Os permisos de compartición só se aplican cando se accede por rede.</li>
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>No acceso por rede, o resultado queda limitado pola combinación máis restritiva entre compartición e NTFS.</li>
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>Unha ACL contén entradas ACE que permiten ou denegan permisos.</li>
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>No contexto de ficheiros e carpetas, normalmente estamos falando da DACL.</li>
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>A herdanza simplifica a administración, pero pode romperse en casos xustificados.</li>
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>Os permisos efectivos dependen da pertenza a grupos, das ACE, da herdanza, das denegacións e do tipo de acceso.</li>
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>É mellor non conceder un permiso que abusar de Denegar.</li>
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>AGDLP axuda a administrar permisos de forma ordenada.</li>
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>En laboratorio podemos usar <code>dcbuho</code> como servidor de ficheiros, pero nun contorno real convén separar roles.</li>
+              <li class="list-group-item bg-transparent small"><i class="bi bi-check2-circle me-2 text-success"></i>Sempre hai que probar a configuración cun usuario real ou comprobar o acceso efectivo.</li>
+            </ul>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <img src="../../assets/imax/sauce_clean.svg" alt="" class="smpp-sauce" onerror="this.style.display='none'">
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B3 Actividade 5 Permisos NTFS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+</head>
+<body>
+
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc"><ul class="nav flex-column gap-1 small">
+              <li class="nav-item"><a class="nav-link py-1" href="#1-titulo">1. Título</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#2-obxectivos-da-actividade">2. Obxectivos da actividade</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#3-escenario">3. Escenario</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#4-idea-previa-aplicar-agdlp">4. Idea previa: aplicar AGDLP</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#5-parte-a-version-gui">5. Parte A – Versión GUI</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#a-1-crear-os-grupos-de-dominio-local">A.1. Crear os grupos de dominio local</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#a-2-engadir-grupos-globais-dentro-dos-grupos-de-dominio-local">A.2. Engadir grupos globais dentro dos grupos de dominio local</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#a-3-crear-as-carpetas-de-curso-no-servidor">A.3. Crear as carpetas de curso no servidor</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#a-4-compartir-a-carpeta-de-curso1">A.4. Compartir a carpeta de Curso1</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#a-5-compartir-a-carpeta-de-curso2">A.5. Compartir a carpeta de Curso2</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#a-6-configurar-permisos-ntfs-para-curso1">A.6. Configurar permisos NTFS para Curso1</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#a-7-configurar-permisos-ntfs-para-curso2">A.7. Configurar permisos NTFS para Curso2</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#a-8-comprobar-permisos-efectivos">A.8. Comprobar permisos efectivos</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#6-parte-b-probas-desde-equipos-cliente">6. Parte B – Probas desde equipos cliente</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#b-1-proba-con-alu-curso1-001">B.1. Proba con alu.curso1.001</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#b-2-proba-con-alu-curso2-001">B.2. Proba con alu.curso2.001</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#b-3-proba-con-prof-001">B.3. Proba con prof.001</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#7-parte-c-version-powershell">7. Parte C – Versión PowerShell</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#c-1-variables-basicas">C.1. Variables básicas</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#c-2-crear-carpetas">C.2. Crear carpetas</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#c-3-comprobar-se-xa-existen-os-recursos-compartidos">C.3. Comprobar se xa existen os recursos compartidos</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#c-4-crear-os-recursos-compartidos">C.4. Crear os recursos compartidos</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#c-5-configurar-permisos-ntfs-en-curso1">C.5. Configurar permisos NTFS en Curso1</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#c-6-configurar-permisos-ntfs-en-curso2">C.6. Configurar permisos NTFS en Curso2</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#c-7-comprobar-permisos-ntfs-con-powershell">C.7. Comprobar permisos NTFS con PowerShell</a></li>
+<li class="nav-item ms-2"><a class="nav-link py-1 small" href="#c-8-probas-de-acceso">C.8. Probas de acceso</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#8-capturas-obrigatorias">8. Capturas obrigatorias</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#9-resultado-esperado">9. Resultado esperado</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#10-erros-frecuentes">10. Erros frecuentes</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#11-reflexion-final">11. Reflexión final</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#12-ideas-clave">12. Ideas clave</a></li>
+            </ul></nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="col-lg-9">
+      <article>
+        <header class="mb-4">
+          <div class="practice-hero hero-green">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-diagram-3"></i> UD2 · Bloque 3</span>
+              <span class="hero-chip"><i class="bi bi-folder-lock"></i> Actividade 5</span>
+              <span class="hero-chip"><i class="bi bi-shield-lock"></i> NTFS + Compartición</span>
+              <span class="hero-chip"><i class="bi bi-diagram-2"></i> AGDLP</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">Permisos NTFS e acceso a carpetas de curso</h1>
+            <p class="lead mb-0">Configuración de carpetas compartidas en <code>dcbuho</code> usando grupos globais, grupos de dominio local e probas reais desde clientes do dominio.</p>
+          </div>
+        </header>
+
+        <div class="notice warning mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+          <div><strong>Idea central:</strong> nesta práctica os permisos non se asignan a usuarios soltos. Practicamos a cadea <code>usuario → grupo global → grupo de dominio local → permiso sobre recurso</code>.</div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mx-auto mb-2">G</div><strong>Grupos globais</strong><p class="small text-muted mb-0">Representan colectivos: alumnado de Curso1, Curso2 e profesorado.</p></div></div>
+          <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mx-auto mb-2">DL</div><strong>Dominio local</strong><p class="small text-muted mb-0">Representa permisos sobre recursos concretos.</p></div></div>
+          <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mx-auto mb-2">P</div><strong>Permisos</strong><p class="small text-muted mb-0">Modify, Full Control, Change e acceso efectivo.</p></div></div>
+        </div>
+
+        <section id="1-titulo" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>1. Título</h2>
+<p><strong>Actividade 5 – Configuración de permisos NTFS e acceso a carpetas de curso usando grupos de seguridade</strong></p>
+<hr class="my-4">
+</section>
+<section id="2-obxectivos-da-actividade" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>2. Obxectivos da actividade</h2>
+<p>Ao rematar a actividade, o alumnado deberá ser capaz de:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">Crear carpetas de curso nun servidor do dominio.</li>
+<li class="list-group-item">Compartir carpetas para que sexan accesibles por rede.</li>
+<li class="list-group-item">Distinguir entre <strong>permisos de compartición</strong> e <strong>permisos NTFS</strong>.</li>
+<li class="list-group-item">Aplicar unha estrutura básica de permisos seguindo a lóxica <strong>AGDLP</strong>.</li>
+<li class="list-group-item">Crear e utilizar grupos de <strong>dominio local</strong> para asignar permisos sobre recursos.</li>
+<li class="list-group-item">Comprobar o acceso efectivo desde equipos cliente con usuarios de distintos cursos.</li>
+<li class="list-group-item">Diagnosticar erros frecuentes de acceso a carpetas compartidas.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="3-escenario" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>3. Escenario</h2>
+<p>No dominio <code>cifpsauce.local</code> xa están creados os seguintes obxectos:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><code>OU=Alumnado</code></li>
+<li class="list-group-item"><code>OU=Curso1</code></li>
+<li class="list-group-item"><code>OU=Curso2</code></li>
+<li class="list-group-item"><code>OU=Profesorado</code></li>
+<li class="list-group-item"><code>OU=Grupos</code></li>
+<li class="list-group-item">Usuarios:</li>
+<li class="list-group-item"><code>alu.curso1.001</code></li>
+<li class="list-group-item"><code>alu.curso1.002</code></li>
+<li class="list-group-item"><code>alu.curso2.001</code></li>
+<li class="list-group-item"><code>prof.001</code></li>
+<li class="list-group-item">Grupos globais:</li>
+<li class="list-group-item"><code>GG_Alumnado_Curso1</code></li>
+<li class="list-group-item"><code>GG_Alumnado_Curso2</code></li>
+<li class="list-group-item"><code>GG_Profesorado</code></li>
+</ul>
+<p>Nesta práctica imos crear carpetas de curso no servidor <code>dcbuho</code> e configurar os permisos para que:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">o alumnado de Curso1 poida acceder só á carpeta de Curso1;</li>
+<li class="list-group-item">o alumnado de Curso2 poida acceder só á carpeta de Curso2;</li>
+<li class="list-group-item">o profesorado poida acceder ás dúas carpetas con control total;</li>
+<li class="list-group-item">os permisos se asignen usando grupos, non usuarios individuais.</li>
+</ul>
+<div class="notice warning my-3 d-flex gap-2 align-items-start"><i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i><div><strong>Nota de laboratorio:</strong> nesta práctica usamos <code>dcbuho</code> tamén como servidor de ficheiros para simplificar o escenario. Nun contorno profesional é recomendable separar o controlador de dominio e o servidor de ficheiros.</div></div>
+<hr class="my-4">
+</section>
+<section id="4-idea-previa-aplicar-agdlp" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>4. Idea previa: aplicar AGDLP</h2>
+<p>Nesta práctica non imos dar permisos directamente aos usuarios nin directamente aos grupos globais de alumnado. Imos seguir unha versión sinxela da estratexia <strong>AGDLP</strong>:</p>
+<pre class="cmd-pre"><code>Accounts → Global groups → Domain Local groups → Permissions
+Contas   → Grupos globais → Grupos de dominio local → Permisos</code></pre>
+<p>Aplicado ao noso caso:</p>
+<pre class="cmd-pre"><code>alu.curso1.001
+   ↓
+GG_Alumnado_Curso1
+   ↓
+DL_Curso1_Modificar
+   ↓
+Permiso Modify sobre C:\DatosDominio\Cursos\Curso1</code></pre>
+<pre class="cmd-pre"><code>prof.001
+   ↓
+GG_Profesorado
+   ↓
+DL_Cursos_ControlTotal
+   ↓
+Permiso Full Control sobre Curso1 e Curso2</code></pre>
+<h3 id="grupos-de-dominio-local-que-imos-crear" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>Grupos de dominio local que imos crear</h3>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Grupo de dominio local</th><th>Uso previsto</th></tr></thead>
+<tbody>
+<tr><td><code>DL_Curso1_Modificar</code></td><td>Permitir modificar a carpeta de Curso1</td></tr>
+<tr><td><code>DL_Curso2_Modificar</code></td><td>Permitir modificar a carpeta de Curso2</td></tr>
+<tr><td><code>DL_Cursos_ControlTotal</code></td><td>Permitir control total ao profesorado sobre as carpetas de curso</td></tr>
+</tbody></table></div>
+<h3 id="aninado-de-grupos" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>Aniñado de grupos</h3>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Grupo global</th><th>Engádese como membro de...</th></tr></thead>
+<tbody>
+<tr><td><code>GG_Alumnado_Curso1</code></td><td><code>DL_Curso1_Modificar</code></td></tr>
+<tr><td><code>GG_Alumnado_Curso2</code></td><td><code>DL_Curso2_Modificar</code></td></tr>
+<tr><td><code>GG_Profesorado</code></td><td><code>DL_Cursos_ControlTotal</code></td></tr>
+</tbody></table></div>
+<hr class="my-4">
+</section>
+<section id="5-parte-a-version-gui" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>5. Parte A – Versión GUI</h2>
+<h3 id="a-1-crear-os-grupos-de-dominio-local" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>A.1. Crear os grupos de dominio local</h3>
+<p>En <code>dcbuho</code>, abre <strong>Active Directory Users and Computers</strong>.</p>
+<ol class="mb-3">
+<li>Vai á OU <code>Grupos</code>.</li>
+<li>Crea os seguintes grupos:</li>
+</ol>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Nome do grupo</th><th>Ámbito</th><th>Tipo</th></tr></thead>
+<tbody>
+<tr><td><code>DL_Curso1_Modificar</code></td><td>Domain Local</td><td>Security</td></tr>
+<tr><td><code>DL_Curso2_Modificar</code></td><td>Domain Local</td><td>Security</td></tr>
+<tr><td><code>DL_Cursos_ControlTotal</code></td><td>Domain Local</td><td>Security</td></tr>
+</tbody></table></div>
+<p>Marca cando estea feito:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Grupo <code>DL_Curso1_Modificar</code> creado.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Grupo <code>DL_Curso2_Modificar</code> creado.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Grupo <code>DL_Cursos_ControlTotal</code> creado.</li>
+</ul>
+<hr class="my-4">
+<h3 id="a-2-engadir-grupos-globais-dentro-dos-grupos-de-dominio-local" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>A.2. Engadir grupos globais dentro dos grupos de dominio local</h3>
+<p>Agora engade os grupos globais dentro dos grupos de dominio local correspondentes.</p>
+<ol class="mb-3">
+<li>Abre as propiedades de <code>DL_Curso1_Modificar</code>.</li>
+<li>Pestana <strong>Members</strong> → <strong>Add...</strong>.</li>
+<li>Engade <code>GG_Alumnado_Curso1</code>.</li>
+</ol>
+<p>Repite o proceso:</p>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Grupo de dominio local</th><th>Membro que debes engadir</th></tr></thead>
+<tbody>
+<tr><td><code>DL_Curso1_Modificar</code></td><td><code>GG_Alumnado_Curso1</code></td></tr>
+<tr><td><code>DL_Curso2_Modificar</code></td><td><code>GG_Alumnado_Curso2</code></td></tr>
+<tr><td><code>DL_Cursos_ControlTotal</code></td><td><code>GG_Profesorado</code></td></tr>
+</tbody></table></div>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>GG_Alumnado_Curso1</code> engadido a <code>DL_Curso1_Modificar</code>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>GG_Alumnado_Curso2</code> engadido a <code>DL_Curso2_Modificar</code>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>GG_Profesorado</code> engadido a <code>DL_Cursos_ControlTotal</code>.</li>
+</ul>
+<div class="notice warning my-3 d-flex gap-2 align-items-start"><i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i><div><strong>Importante:</strong> se cambias a pertenza a grupos dun usuario que xa tiña sesión iniciada nun cliente, pode ser necesario pechar sesión e volver entrar para que se actualice o token de seguridade do usuario.</div></div>
+<hr class="my-4">
+<h3 id="a-3-crear-as-carpetas-de-curso-no-servidor" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>A.3. Crear as carpetas de curso no servidor</h3>
+<p>En <code>dcbuho</code>, crea a seguinte estrutura:</p>
+<pre class="cmd-pre"><code>C:\DatosDominio\Cursos\Curso1
+C:\DatosDominio\Cursos\Curso2</code></pre>
+<p>Se non existe <code>C:\DatosDominio\Cursos</code>, créao primeiro.</p>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Cartafol <code>C:\DatosDominio\Cursos\Curso1</code> creado.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Cartafol <code>C:\DatosDominio\Cursos\Curso2</code> creado.</li>
+</ul>
+<hr class="my-4">
+<h3 id="a-4-compartir-a-carpeta-de-curso1" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>A.4. Compartir a carpeta de Curso1</h3>
+<p>Imos crear o recurso compartido:</p>
+<pre class="cmd-pre"><code>\\dcbuho\curso1</code></pre>
+<p>Pasos orientativos:</p>
+<ol class="mb-3">
+<li>Clic dereito en <code>C:\DatosDominio\Cursos\Curso1</code>.</li>
+<li><strong>Propiedades</strong> → pestana <strong>Compartir</strong>.</li>
+<li>Preme en <strong>Uso compartido avanzado</strong> / <strong>Advanced Sharing</strong>.</li>
+<li>Marca <strong>Compartir esta carpeta</strong>.</li>
+<li>Nome do recurso compartido: <code>curso1</code>.</li>
+<li>En <strong>Permisos</strong>, configura:</li>
+</ol>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Grupo</th><th>Permiso de compartición</th></tr></thead>
+<tbody>
+<tr><td><code>DL_Curso1_Modificar</code></td><td>Change / Cambiar</td></tr>
+<tr><td><code>DL_Cursos_ControlTotal</code></td><td>Full Control / Control total</td></tr>
+</tbody></table></div>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Recurso compartido <code>\\dcbuho\curso1</code> creado.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>DL_Curso1_Modificar</code> ten permiso de compartición <strong>Change</strong>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>DL_Cursos_ControlTotal</code> ten permiso de compartición <strong>Full Control</strong>.</li>
+</ul>
+<div class="notice warning my-3 d-flex gap-2 align-items-start"><i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i><div><strong>Nota:</strong> os permisos de compartición só se aplican cando se accede por rede. O detalle fino controlarémolo cos permisos NTFS.</div></div>
+<hr class="my-4">
+<h3 id="a-5-compartir-a-carpeta-de-curso2" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>A.5. Compartir a carpeta de Curso2</h3>
+<p>Imos crear o recurso compartido:</p>
+<pre class="cmd-pre"><code>\\dcbuho\curso2</code></pre>
+<p>Configura os permisos de compartición así:</p>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Grupo</th><th>Permiso de compartición</th></tr></thead>
+<tbody>
+<tr><td><code>DL_Curso2_Modificar</code></td><td>Change / Cambiar</td></tr>
+<tr><td><code>DL_Cursos_ControlTotal</code></td><td>Full Control / Control total</td></tr>
+</tbody></table></div>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Recurso compartido <code>\\dcbuho\curso2</code> creado.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>DL_Curso2_Modificar</code> ten permiso de compartición <strong>Change</strong>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>DL_Cursos_ControlTotal</code> ten permiso de compartición <strong>Full Control</strong>.</li>
+</ul>
+<hr class="my-4">
+<h3 id="a-6-configurar-permisos-ntfs-para-curso1" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>A.6. Configurar permisos NTFS para Curso1</h3>
+<p>Queremos:</p>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Grupo</th><th>Permiso NTFS sobre <code>Curso1</code></th></tr></thead>
+<tbody>
+<tr><td><code>DL_Curso1_Modificar</code></td><td>Modify / Modificar</td></tr>
+<tr><td><code>DL_Cursos_ControlTotal</code></td><td>Full Control / Control total</td></tr>
+</tbody></table></div>
+<p>Pasos:</p>
+<ol class="mb-3">
+<li>Clic dereito en <code>C:\DatosDominio\Cursos\Curso1</code>.</li>
+<li><strong>Propiedades</strong> → pestana <strong>Seguridade</strong>.</li>
+<li>Preme en <strong>Editar...</strong>.</li>
+<li>Engade <code>DL_Curso1_Modificar</code> e marca <strong>Modificar</strong>.</li>
+<li>Engade <code>DL_Cursos_ControlTotal</code> e marca <strong>Control total</strong>.</li>
+<li>Revisa se hai permisos herdados demasiado amplos para <code>Usuarios</code>, <code>Usuarios autenticados</code> ou grupos xenéricos.</li>
+</ol>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>DL_Curso1_Modificar</code> ten <strong>Modify</strong> sobre Curso1.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>DL_Cursos_ControlTotal</code> ten <strong>Full Control</strong> sobre Curso1.</li>
+</ul>
+<div class="notice warning my-3 d-flex gap-2 align-items-start"><i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i><div><strong>Recomendación:</strong> non uses <strong>Denegar</strong> para impedir que Curso2 entre en Curso1. Se a estrutura de grupos está ben deseñada, simplemente non lle concedes permisos a <code>GG_Alumnado_Curso2</code> nin a ningún grupo no que estea incluído.</div></div>
+<hr class="my-4">
+<h3 id="a-7-configurar-permisos-ntfs-para-curso2" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>A.7. Configurar permisos NTFS para Curso2</h3>
+<p>Queremos:</p>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Grupo</th><th>Permiso NTFS sobre <code>Curso2</code></th></tr></thead>
+<tbody>
+<tr><td><code>DL_Curso2_Modificar</code></td><td>Modify / Modificar</td></tr>
+<tr><td><code>DL_Cursos_ControlTotal</code></td><td>Full Control / Control total</td></tr>
+</tbody></table></div>
+<p>Pasos:</p>
+<ol class="mb-3">
+<li>Clic dereito en <code>C:\DatosDominio\Cursos\Curso2</code>.</li>
+<li><strong>Propiedades</strong> → pestana <strong>Seguridade</strong>.</li>
+<li>Preme en <strong>Editar...</strong>.</li>
+<li>Engade <code>DL_Curso2_Modificar</code> e marca <strong>Modificar</strong>.</li>
+<li>Engade <code>DL_Cursos_ControlTotal</code> e marca <strong>Control total</strong>.</li>
+</ol>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>DL_Curso2_Modificar</code> ten <strong>Modify</strong> sobre Curso2.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>DL_Cursos_ControlTotal</code> ten <strong>Full Control</strong> sobre Curso2.</li>
+</ul>
+<hr class="my-4">
+<h3 id="a-8-comprobar-permisos-efectivos" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>A.8. Comprobar permisos efectivos</h3>
+<p>Antes de probar desde o cliente, comproba polo menos un caso desde a interface gráfica:</p>
+<ol class="mb-3">
+<li>Clic dereito en <code>C:\DatosDominio\Cursos\Curso1</code>.</li>
+<li><strong>Propiedades</strong> → <strong>Seguridade</strong> → <strong>Avanzado</strong>.</li>
+<li>Busca a opción <strong>Acceso efectivo</strong> / <strong>Effective Access</strong>.</li>
+<li>Comproba o acceso de <code>alu.curso1.001</code>.</li>
+<li>Comproba tamén o acceso de <code>alu.curso2.001</code>.</li>
+</ol>
+<p>Resultado esperado:</p>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Usuario</th><th>Curso1</th><th>Curso2</th></tr></thead>
+<tbody>
+<tr><td><code>alu.curso1.001</code></td><td>Pode modificar</td><td>Non debería poder modificar</td></tr>
+<tr><td><code>alu.curso2.001</code></td><td>Non debería poder modificar</td><td>Pode modificar</td></tr>
+<tr><td><code>prof.001</code></td><td>Control total</td><td>Control total</td></tr>
+</tbody></table></div>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Comprobado acceso efectivo de <code>alu.curso1.001</code>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Comprobado acceso efectivo de <code>alu.curso2.001</code>.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="6-parte-b-probas-desde-equipos-cliente" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>6. Parte B – Probas desde equipos cliente</h2>
+<p>Antes de probar os permisos, comproba que o cliente resolve correctamente o servidor.</p>
+<p>Nun equipo cliente unido ao dominio, abre CMD ou PowerShell e executa:</p>
+<pre class="cmd-pre"><code>ping dcbuho.cifpsauce.local
+nslookup dcbuho.cifpsauce.local
+net view \\dcbuho</code></pre>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> O cliente resolve <code>dcbuho.cifpsauce.local</code>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> O cliente pode ver os recursos compartidos de <code>\\dcbuho</code>.</li>
+</ul>
+<hr class="my-4">
+<h3 id="b-1-proba-con-alu-curso1-001" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>B.1. Proba con <code>alu.curso1.001</code></h3>
+<ol class="mb-3">
+<li>Inicia sesión no cliente como <code>CIFPSAUCE\alu.curso1.001</code>.</li>
+<li>Abre o Explorador de ficheiros.</li>
+<li>Accede a:</li>
+</ol>
+<pre class="cmd-pre"><code>\\dcbuho\curso1</code></pre>
+<ol class="mb-3">
+<li>Proba crear un cartafol chamado <code>apuntes-alu1</code>.</li>
+<li>Proba crear un ficheiro <code>proba-curso1.txt</code>.</li>
+<li>Agora intenta acceder a:</li>
+</ol>
+<pre class="cmd-pre"><code>\\dcbuho\curso2</code></pre>
+<p>Resultado esperado:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><code>alu.curso1.001</code> pode crear/modificar en <code>curso1</code>.</li>
+<li class="list-group-item"><code>alu.curso1.001</code> non debería poder crear/modificar en <code>curso2</code>; idealmente non debería ter acceso ao recurso se non ten permisos.</li>
+</ul>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>alu.curso1.001</code> pode crear/modificar en <code>\\dcbuho\curso1</code>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>alu.curso1.001</code> non pode crear/modificar en <code>\\dcbuho\curso2</code>.</li>
+</ul>
+<hr class="my-4">
+<h3 id="b-2-proba-con-alu-curso2-001" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>B.2. Proba con <code>alu.curso2.001</code></h3>
+<ol class="mb-3">
+<li>Pecha sesión.</li>
+<li>Inicia sesión como <code>CIFPSAUCE\alu.curso2.001</code>.</li>
+<li>Proba acceder a:</li>
+</ol>
+<pre class="cmd-pre"><code>\\dcbuho\curso2</code></pre>
+<ol class="mb-3">
+<li>Crea un ficheiro de proba.</li>
+<li>Proba acceder a:</li>
+</ol>
+<pre class="cmd-pre"><code>\\dcbuho\curso1</code></pre>
+<p>Resultado esperado:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><code>alu.curso2.001</code> pode crear/modificar en <code>curso2</code>.</li>
+<li class="list-group-item"><code>alu.curso2.001</code> non debería poder crear/modificar en <code>curso1</code>.</li>
+</ul>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>alu.curso2.001</code> pode crear/modificar en <code>\\dcbuho\curso2</code>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>alu.curso2.001</code> non pode crear/modificar en <code>\\dcbuho\curso1</code>.</li>
+</ul>
+<hr class="my-4">
+<h3 id="b-3-proba-con-prof-001" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>B.3. Proba con <code>prof.001</code></h3>
+<ol class="mb-3">
+<li>Pecha sesión.</li>
+<li>Inicia sesión como <code>CIFPSAUCE\prof.001</code>.</li>
+<li>Proba acceder a:</li>
+</ol>
+<pre class="cmd-pre"><code>\\dcbuho\curso1
+\\dcbuho\curso2</code></pre>
+<ol class="mb-3">
+<li>Proba crear, modificar e eliminar ficheiros de proba en ambos recursos.</li>
+</ol>
+<p>Resultado esperado:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><code>prof.001</code> pode xestionar contido en <code>curso1</code>.</li>
+<li class="list-group-item"><code>prof.001</code> pode xestionar contido en <code>curso2</code>.</li>
+</ul>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>prof.001</code> pode xestionar contido en <code>\\dcbuho\curso1</code>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>prof.001</code> pode xestionar contido en <code>\\dcbuho\curso2</code>.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="7-parte-c-version-powershell" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>7. Parte C – Versión PowerShell</h2>
+<p>Esta parte permite reproducir a configuración anterior mediante comandos. Pódese facer nunha VM limpa, nun snapshot previo ou despois de limpar a configuración anterior segundo indique o profesorado.</p>
+<div class="notice warning my-3 d-flex gap-2 align-items-start"><i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i><div><strong>Advertencia:</strong> se xa existen os recursos compartidos <code>curso1</code> ou <code>curso2</code>, non os volvas crear sen revisar antes a configuración existente.</div></div>
+<hr class="my-4">
+<h3 id="c-1-variables-basicas" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>C.1. Variables básicas</h3>
+<p>En <code>dcbuho</code>, abre <strong>PowerShell como administrador</strong>.</p>
+<pre class="cmd-pre"><code>$baseCursos = &quot;C:\DatosDominio\Cursos&quot;
+$curso1 = Join-Path $baseCursos &quot;Curso1&quot;
+$curso2 = Join-Path $baseCursos &quot;Curso2&quot;
+
+# Grupos de dominio local empregados para permisos
+$dlCurso1Modificar = &quot;CIFPSAUCE\DL_Curso1_Modificar&quot;
+$dlCurso2Modificar = &quot;CIFPSAUCE\DL_Curso2_Modificar&quot;
+$dlCursosControlTotal = &quot;CIFPSAUCE\DL_Cursos_ControlTotal&quot;</code></pre>
+<hr class="my-4">
+<h3 id="c-2-crear-carpetas" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>C.2. Crear carpetas</h3>
+<pre class="cmd-pre"><code>New-Item -ItemType Directory -Path $curso1 -Force
+New-Item -ItemType Directory -Path $curso2 -Force</code></pre>
+<p>Comprobación:</p>
+<pre class="cmd-pre"><code>Test-Path $curso1
+Test-Path $curso2</code></pre>
+<hr class="my-4">
+<h3 id="c-3-comprobar-se-xa-existen-os-recursos-compartidos" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>C.3. Comprobar se xa existen os recursos compartidos</h3>
+<pre class="cmd-pre"><code>Get-SmbShare -Name &quot;curso1&quot; -ErrorAction SilentlyContinue
+Get-SmbShare -Name &quot;curso2&quot; -ErrorAction SilentlyContinue</code></pre>
+<p>Se non devolve nada, os recursos non existen aínda.</p>
+<hr class="my-4">
+<h3 id="c-4-crear-os-recursos-compartidos" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>C.4. Crear os recursos compartidos</h3>
+<pre class="cmd-pre"><code>New-SmbShare `
+  -Name &quot;curso1&quot; `
+  -Path $curso1 `
+  -FullAccess $dlCursosControlTotal `
+  -ChangeAccess $dlCurso1Modificar
+
+New-SmbShare `
+  -Name &quot;curso2&quot; `
+  -Path $curso2 `
+  -FullAccess $dlCursosControlTotal `
+  -ChangeAccess $dlCurso2Modificar</code></pre>
+<p>Comprobación:</p>
+<pre class="cmd-pre"><code>Get-SmbShare -Name &quot;curso1&quot;, &quot;curso2&quot;
+Get-SmbShareAccess -Name &quot;curso1&quot;
+Get-SmbShareAccess -Name &quot;curso2&quot;</code></pre>
+<hr class="my-4">
+<h3 id="c-5-configurar-permisos-ntfs-en-curso1" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>C.5. Configurar permisos NTFS en Curso1</h3>
+<pre class="cmd-pre"><code>$acl1 = Get-Acl $curso1
+
+$ruleCurso1Modificar = New-Object System.Security.AccessControl.FileSystemAccessRule(
+    $dlCurso1Modificar,
+    &quot;Modify&quot;,
+    &quot;ContainerInherit, ObjectInherit&quot;,
+    &quot;None&quot;,
+    &quot;Allow&quot;
+)
+
+$ruleCursosControlTotal1 = New-Object System.Security.AccessControl.FileSystemAccessRule(
+    $dlCursosControlTotal,
+    &quot;FullControl&quot;,
+    &quot;ContainerInherit, ObjectInherit&quot;,
+    &quot;None&quot;,
+    &quot;Allow&quot;
+)
+
+$acl1.SetAccessRule($ruleCurso1Modificar)
+$acl1.SetAccessRule($ruleCursosControlTotal1)
+
+Set-Acl -Path $curso1 -AclObject $acl1</code></pre>
+<hr class="my-4">
+<h3 id="c-6-configurar-permisos-ntfs-en-curso2" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>C.6. Configurar permisos NTFS en Curso2</h3>
+<pre class="cmd-pre"><code>$acl2 = Get-Acl $curso2
+
+$ruleCurso2Modificar = New-Object System.Security.AccessControl.FileSystemAccessRule(
+    $dlCurso2Modificar,
+    &quot;Modify&quot;,
+    &quot;ContainerInherit, ObjectInherit&quot;,
+    &quot;None&quot;,
+    &quot;Allow&quot;
+)
+
+$ruleCursosControlTotal2 = New-Object System.Security.AccessControl.FileSystemAccessRule(
+    $dlCursosControlTotal,
+    &quot;FullControl&quot;,
+    &quot;ContainerInherit, ObjectInherit&quot;,
+    &quot;None&quot;,
+    &quot;Allow&quot;
+)
+
+$acl2.SetAccessRule($ruleCurso2Modificar)
+$acl2.SetAccessRule($ruleCursosControlTotal2)
+
+Set-Acl -Path $curso2 -AclObject $acl2</code></pre>
+<hr class="my-4">
+<h3 id="c-7-comprobar-permisos-ntfs-con-powershell" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>C.7. Comprobar permisos NTFS con PowerShell</h3>
+<pre class="cmd-pre"><code>(Get-Acl $curso1).Access |
+  Select-Object IdentityReference, FileSystemRights, InheritanceFlags, AccessControlType
+
+(Get-Acl $curso2).Access |
+  Select-Object IdentityReference, FileSystemRights, InheritanceFlags, AccessControlType</code></pre>
+<p>Comprobación máis filtrada:</p>
+<pre class="cmd-pre"><code>(Get-Acl $curso1).Access |
+  Where-Object { $_.IdentityReference -like &quot;*Curso1*&quot; -or $_.IdentityReference -like &quot;*Cursos_ControlTotal*&quot; } |
+  Select-Object IdentityReference, FileSystemRights, InheritanceFlags, AccessControlType
+
+(Get-Acl $curso2).Access |
+  Where-Object { $_.IdentityReference -like &quot;*Curso2*&quot; -or $_.IdentityReference -like &quot;*Cursos_ControlTotal*&quot; } |
+  Select-Object IdentityReference, FileSystemRights, InheritanceFlags, AccessControlType</code></pre>
+<hr class="my-4">
+<h3 id="c-8-probas-de-acceso" class="h5 fw-semibold mt-4 mb-3"><i class="bi bi-check2-square me-2 text-secondary"></i>C.8. Probas de acceso</h3>
+<p>As probas de acceso real fanse igual que na Parte B:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">iniciar sesión como <code>alu.curso1.001</code>;</li>
+<li class="list-group-item">probar <code>\\dcbuho\curso1</code> e <code>\\dcbuho\curso2</code>;</li>
+<li class="list-group-item">iniciar sesión como <code>alu.curso2.001</code>;</li>
+<li class="list-group-item">probar ambos recursos;</li>
+<li class="list-group-item">iniciar sesión como <code>prof.001</code>;</li>
+<li class="list-group-item">comprobar acceso a ambas carpetas.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="8-capturas-obrigatorias" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>8. Capturas obrigatorias</h2>
+<p>Inclúe na túa memoria as seguintes evidencias:</p>
+<ol class="mb-3">
+<li>Carpetas <code>Curso1</code> e <code>Curso2</code> creadas en <code>C:\DatosDominio\Cursos</code>.</li>
+<li>Grupos <code>DL_Curso1_Modificar</code>, <code>DL_Curso2_Modificar</code> e <code>DL_Cursos_ControlTotal</code> creados.</li>
+<li>Propiedades de <code>DL_Curso1_Modificar</code> mostrando como membro <code>GG_Alumnado_Curso1</code>.</li>
+<li>Propiedades de <code>DL_Curso2_Modificar</code> mostrando como membro <code>GG_Alumnado_Curso2</code>.</li>
+<li>Propiedades de <code>DL_Cursos_ControlTotal</code> mostrando como membro <code>GG_Profesorado</code>.</li>
+<li>Permisos de compartición de <code>curso1</code>.</li>
+<li>Permisos NTFS de <code>C:\DatosDominio\Cursos\Curso1</code>.</li>
+<li>Proba de acceso correcta con <code>alu.curso1.001</code> en <code>\\dcbuho\curso1</code>.</li>
+<li>Proba de acceso denegado ou limitado con <code>alu.curso1.001</code> en <code>\\dcbuho\curso2</code>.</li>
+<li>Proba de acceso correcta con <code>prof.001</code> en <code>curso1</code> e <code>curso2</code>.</li>
+<li>Se fas a parte PowerShell: saída de <code>Get-SmbShareAccess</code> e <code>Get-Acl</code>.</li>
+</ol>
+<hr class="my-4">
+</section>
+<section id="9-resultado-esperado" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>9. Resultado esperado</h2>
+<p>Ao rematar a práctica deberías ter:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><code>C:\DatosDominio\Cursos\Curso1</code> creado.</li>
+<li class="list-group-item"><code>C:\DatosDominio\Cursos\Curso2</code> creado.</li>
+<li class="list-group-item">Recurso compartido <code>\\dcbuho\curso1</code>.</li>
+<li class="list-group-item">Recurso compartido <code>\\dcbuho\curso2</code>.</li>
+<li class="list-group-item">Grupo <code>DL_Curso1_Modificar</code> con <code>GG_Alumnado_Curso1</code> como membro.</li>
+<li class="list-group-item">Grupo <code>DL_Curso2_Modificar</code> con <code>GG_Alumnado_Curso2</code> como membro.</li>
+<li class="list-group-item">Grupo <code>DL_Cursos_ControlTotal</code> con <code>GG_Profesorado</code> como membro.</li>
+<li class="list-group-item">Alumnado de Curso1 con permiso de modificación só en <code>curso1</code>.</li>
+<li class="list-group-item">Alumnado de Curso2 con permiso de modificación só en <code>curso2</code>.</li>
+<li class="list-group-item">Profesorado con control total sobre ambas carpetas.</li>
+<li class="list-group-item">Probas realizadas desde un equipo cliente unido ao dominio.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="10-erros-frecuentes" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>10. Erros frecuentes</h2>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Erro</th><th>Consecuencia</th></tr></thead>
+<tbody>
+<tr><td>Dar permisos directamente a usuarios</td><td>A administración faise difícil cando hai moitos usuarios</td></tr>
+<tr><td>Dar permisos directamente aos grupos globais</td><td>Rómpese a lóxica AGDLP que estamos practicando</td></tr>
+<tr><td>Esquecer engadir os grupos globais dentro dos grupos DL</td><td>Os usuarios non recibirán os permisos esperados</td></tr>
+<tr><td>Configurar NTFS correctamente pero esquecer a compartición</td><td>O acceso por rede pode fallar</td></tr>
+<tr><td>Facer a compartición máis restritiva ca NTFS</td><td>O permiso final por rede será máis limitado do esperado</td></tr>
+<tr><td>Usar <code>Deny</code> para bloquear acceso a outro curso</td><td>Complica o diagnóstico e normalmente non é necesario</td></tr>
+<tr><td>Probar sen pechar sesión despois de cambiar pertenza a grupos</td><td>O usuario pode seguir cun token antigo sen os novos grupos</td></tr>
+<tr><td>Deixar permisos residuais para <code>Usuarios autenticados</code></td><td>Pode haber accesos non previstos</td></tr>
+<tr><td>Non probar desde un cliente real</td><td>Non se comproba o comportamento real por rede</td></tr>
+<tr><td>Confundir <code>Change</code> de compartición con <code>Modify</code> de NTFS</td><td>Son permisos parecidos, pero pertencen a capas distintas</td></tr>
+</tbody></table></div>
+<hr class="my-4">
+</section>
+<section id="11-reflexion-final" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>11. Reflexión final</h2>
+<p>Responde brevemente:</p>
+<ol class="mb-3">
+<li>Que vantaxe ten usar a cadea <code>usuario → grupo global → grupo de dominio local → permiso</code>?</li>
+<li>Por que non é boa idea asignar permisos directamente a cada usuario?</li>
+<li>Que diferenza hai entre permiso de compartición e permiso NTFS?</li>
+<li>Que ocorre se NTFS permite modificar, pero a compartición só permite lectura?</li>
+<li>Por que é mellor non usar <code>Deny</code> se podemos resolver o problema cun bo deseño de grupos?</li>
+<li>Que deberías revisar se un usuario non pode acceder a unha carpeta á que teoricamente debería acceder?</li>
+</ol>
+<hr class="my-4">
+</section>
+<section id="12-ideas-clave" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-check me-2 text-primary"></i>12. Ideas clave</h2>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">Os permisos deben asignarse a grupos, non a usuarios individuais.</li>
+<li class="list-group-item">Os grupos globais representan colectivos de persoas.</li>
+<li class="list-group-item">Os grupos de dominio local representan permisos sobre recursos.</li>
+<li class="list-group-item">AGDLP axuda a manter unha administración clara e escalable.</li>
+<li class="list-group-item">Os permisos de compartición e os permisos NTFS combínanse no acceso por rede.</li>
+<li class="list-group-item">O permiso efectivo será o resultado da combinación entre pertenza a grupos, NTFS e compartición.</li>
+<li class="list-group-item">Non conceder un permiso é máis limpo que usar <code>Denegar</code> sen necesidade.</li>
+<li class="list-group-item">As probas deben facerse sempre cun usuario real desde un equipo cliente.</li>
+</ul>
+</section>
+      </article>
+    </main>
+  </div>
+</div>
+
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <svg class="smpp-sauce" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="2" y="8" width="32" height="24" rx="4" fill="#0f172a" stroke="#C9A84C" stroke-width="2"/>
+    <rect x="7" y="13" width="10" height="2" rx="1" fill="#C9A84C"/>
+    <rect x="7" y="18" width="22" height="2" rx="1" fill="#C9A84C" opacity="0.6"/>
+    <rect x="7" y="23" width="16" height="2" rx="1" fill="#C9A84C" opacity="0.4"/>
+    <circle cx="28" cy="13" r="3" fill="#C9A84C"/>
+  </svg>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

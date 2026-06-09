@@ -1,0 +1,28 @@
+Listado de rutas de carpetas para el volumen Windows
+El número de serie del volumen es 000000F9 6A28:B101
+C:.
+¦   listado.txt
+¦   
++---B1_Introduccion_planificacion
+¦       UD2_B1_actividade_deseño_dominio_CIFP.html
+¦       UD2_B1_apuntes_introduccion_dominios.html
+¦       UD2_B1_exercicios_razoamento.html
+¦       UD2_B1_practica_guiada_instalacion_dominio.html
+¦       
++---B2_Instalacion_posta_marcha
+¦       UD2_B2_apuntes_instalacion_dominio.html
+¦       UD2_B2_exercicios_razoamento.html
+¦       UD2_B2_guion_practico_GUI.html
+¦       UD2_B2_guion_practico_PowerShell.html
+¦       
++---B3_Organizacion_control_acceso
+        UD2_B3_actividade3_organizacion_dominio.html
+        UD2_B3_actividade4_perfis_mobiles.html
+        UD2_B3_actividade5_permisos_NTFS.html
+        UD2_B3_actividade6_GPO_dominio.html
+        UD2_B3_apuntes_GPO_dominios_Windows.html
+        UD2_B3_apuntes_OU_contas_grupos_perfis.html
+        UD2_B3_apuntes_permisos_ACL.html
+        UD2_B3_guion_PowerShell_OU_usuarios_grupos.html
+        UD2_B3_incidencias_usuario_login.html
+        

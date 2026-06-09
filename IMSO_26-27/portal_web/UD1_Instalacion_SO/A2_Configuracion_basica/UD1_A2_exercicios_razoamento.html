@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD1·A2 Exercicios de razoamento</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/imax/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../../assets/imax/favicon-192x192.png">
+  <link rel="stylesheet" href="../../assets/css/imso.css">
+</head>
+<body>
+
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <svg class="smpp-buho" viewBox="0 0 229 312" xmlns="http://www.w3.org/2000/svg">
+        <path style="fill:currentColor; stroke:none;" d="M105 108C106.092 114.321 109.507 120.706 113.105 125.995C114.41 127.914 116.335 130.793 118.971 130.793C124.125 130.793 128.715 118.035 130.03 114C132.244 107.21 125.014 104.125 123.533 98C120.754 86.5074 129.693 74.19 138 67.3287C157.973 50.8312 192.629 59.108 202.945 31C204.354 27.1625 205.448 23.0815 205.829 19C206.087 16.2374 206.217 10.8515 201.941 11.8896C198.923 12.6226 196.377 15.4949 194 17.3349C189.874 20.5287 185.494 23.3441 181 25.9892C165.371 35.1885 147.345 41.6379 133.001 52.8148C127.207 57.3293 120.76 62.5979 119 70C115.415 66.464 113.433 61.7111 109.907 58.0394C103.191 51.0461 94.5309 45.7304 86 41.2554C77.5157 36.8048 69.2107 31.9363 61 27C54.0486 22.8208 47.253 18.4236 41 13.2462C38.7202 11.3585 35.3527 7.37711 32.1481 7.34491C28.1078 7.30429 28.9077 14.4963 29.0903 17C29.7718 26.3471 34.528 37.0498 41.3002 43.5355C49.0509 50.9583 59.042 52.381 69 54.679C81.9826 57.6751 96.7591 63.1685 105.101 74.0039C113.115 84.4131 117.391 99.0055 105 108M77 34C93.1178 40.7015 105.681 49.6805 118 62C125.47 56.7377 131.175 49.6462 139 44.696C146.908 39.6936 156.266 37.2023 164 32C144.997 23.8218 125.188 24.0442 105 24.9606C95.8176 25.3775 83.5405 26.8395 77 34M45 236C44.0329 231.357 45.9018 227.424 47.3295 223C49.5337 216.17 51.8331 209.021 53.331 202C58.4858 177.839 57.2483 151.977 43.3326 131C40.5022 126.733 37.9642 122.276 34 119C13.5911 153.967 20.8598 200.055 39.7315 234C46.4638 246.11 57.1047 261.995 70 268C68.7266 271.915 67.0985 275.822 67.0795 280C67.0589 284.506 69.1213 288.275 66 292L64 283L0 283L0 298L229 298L229 283L185 283C177.471 283 171.098 281.377 169 290C167.72 285.671 168.28 281.452 167.897 277C167.703 274.756 166.687 272.24 167.403 270.015C168.823 265.596 174.783 262.324 177.83 258.996C185.706 250.395 192.759 241.341 198.219 231C216.651 196.09 220.708 154.705 202 119L200 119C195.225 127.971 188.66 136.16 185.623 146C176.155 176.674 183.596 206.106 192 236C184.733 228.487 182.147 212.073 180.715 202C178.107 183.662 176.157 166.083 181.9 148C186.243 134.328 196.345 123.431 201.034 110C202.851 104.796 202.968 98.4671 203.561 93C204.592 83.4871 201.411 71.4355 197.1 63C195.77 60.3991 194.162 56.648 191.61 55.0278C187.749 52.5758 181.717 54.2114 178 56C183.08 69.2073 192.944 77.4351 190.7 93C188.539 107.992 177.449 116.891 165 123.846C139.596 138.037 103.483 139.257 77 127.208C62.0637 120.412 43.3332 105.644 45.304 87C46.6451 74.3132 54.0586 66.8928 61 57C56.5757 55.0418 50.1327 52.4993 45.304 54.6034C42.0733 56.0112 40.3836 60.0725 38.841 63C34.0537 72.0854 31.6528 83.7362 32.1042 94C32.4567 102.016 33.7145 109.789 37.3735 117C43.5612 129.195 52.6836 138.506 56.4059 152C62.0757 172.554 58.4646 195.967 52.4298 216C50.3798 222.805 47.0873 229.227 45 236M77 67.5185C61.7765 70.6989 54.1473 89.383 64.419 101.907C69.8284 108.502 79.9791 110.197 88 108.482C101.144 105.673 108.48 90.0544 101.721 78.0008C97.3132 70.1394 85.7216 65.6965 77 67.5185M152 67.4406C132.074 70.5515 123.567 99.1812 145 107.656C149.194 109.314 154.589 109.446 159 108.671C185.386 104.034 178.266 63.34 152 67.4406z"/>
+      </svg>
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1 fw-semibold" href="#q1">1. Conta estándar vs administrativa</a></li>
+                <li class="nav-item"><a class="nav-link py-1 fw-semibold" href="#q2">2. Usuarios vs grupos</a></li>
+                <li class="nav-item"><a class="nav-link py-1 fw-semibold" href="#q3">3. Permisos Linux</a></li>
+                <li class="nav-item"><a class="nav-link py-1 fw-semibold" href="#q4">4. NTFS en cartafol compartido</a></li>
+                <li class="nav-item"><a class="nav-link py-1 fw-semibold" href="#q5">5. Sistema de ficheiros</a></li>
+                <li class="nav-item"><a class="nav-link py-1 fw-semibold" href="#q6">6. NAT vs adaptador ponte</a></li>
+                <li class="nav-item"><a class="nav-link py-1 fw-semibold" href="#q7">7. Problema de DNS</a></li>
+                <li class="nav-item"><a class="nav-link py-1 fw-semibold" href="#q8">8. Compartición insegura</a></li>
+                <li class="nav-item"><a class="nav-link py-1 fw-semibold" href="#q9">9. Cotas de disco</a></li>
+                <li class="nav-item"><a class="nav-link py-1 fw-semibold" href="#q10">10. Caso integrado</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="col-lg-9">
+      <article>
+        <header class="mb-4">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle fw-semibold">UD1 · A2</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis border border-secondary-subtle">Exercicios de razoamento</span>
+          </div>
+          <h1 class="h2 fw-bold mb-1">Exercicios de razoamento</h1>
+          <p class="lead mb-0">Situacións reais para reflexionar sobre usuarios, permisos, rede e sistemas de ficheiros.</p>
+        </header>
+
+        <!-- Q1 -->
+        <section id="q1" class="mb-4">
+          <div class="card border shadow-sm imso-ejercicio">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="imso-ex-num">1</span>
+                  <h2 class="h5 imso-ejercicio-titulo mb-0">Conta estándar vs administrativa</h2>
+                </div>
+              </div>
+              <p class="mb-2">Nun equipo de aula hai dúas contas locais:</p>
+              <ul class="mb-3 small">
+                <li><code>admin_aula</code> (administradora)</li>
+                <li><code>alumno1</code> (estándar)</li>
+              </ul>
+              <ol class="mb-0 small">
+                <li class="mb-1">Explica dúas razóns polas que <strong>non é boa idea</strong> que o alumnado use <code>admin_aula</code> para traballar a diario.</li>
+                <li>Pon un exemplo concreto de problema que se podería evitar usando só contas estándar.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Q2 -->
+        <section id="q2" class="mb-4">
+          <div class="card border shadow-sm imso-ejercicio">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="imso-ex-num">2</span>
+                <h2 class="h5 imso-ejercicio-titulo mb-0">Usuarios vs grupos</h2>
+              </div>
+              <p class="mb-2">Nun equipo compartido por varios estudantes, o docente crea:</p>
+              <ul class="mb-3 small">
+                <li>10 contas de usuario (<code>alu01</code>, <code>alu02</code>, …)</li>
+                <li>un grupo local chamado <code>AlumnadoAula</code></li>
+                <li>un cartafol <code>C:\AulaTraballos</code> para traballos</li>
+              </ul>
+              <ol class="mb-0 small">
+                <li class="mb-1">Que vantaxe ten dar permisos ao <strong>grupo</strong> <code>AlumnadoAula</code> sobre <code>C:\AulaTraballos</code> en vez de configurar permisos usuario por usuario?</li>
+                <li>Que terías que facer se chega un alumno novo para que poida usar ese cartafol, se xa usas grupos correctamente?</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Q3 -->
+        <section id="q3" class="mb-4">
+          <div class="card border shadow-sm imso-ejercicio">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="imso-ex-num">3</span>
+                <h2 class="h5 imso-ejercicio-titulo mb-0">Permisos Linux sobre cartafoles persoais</h2>
+              </div>
+              <p class="small mb-2">Nun sistema Ubuntu hai dous usuarios: <code>ana</code> e <code>beto</code>. Cada un ten o seu directorio en <code>/home</code>.</p>
+              <ol class="small mb-0">
+                <li class="mb-1">Explica, a nivel de idea, por que non debería ser posible que <code>beto</code> modifique ficheiros persoais de <code>ana</code> en <code>/home/ana</code>.</li>
+                <li>Que podería significar un permiso <code>rwx------</code> nun cartafol de usuario, e como protexe os datos?</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Q4 -->
+        <section id="q4" class="mb-4">
+          <div class="card border shadow-sm imso-ejercicio">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="imso-ex-num">4</span>
+                <h2 class="h5 imso-ejercicio-titulo mb-0">Permisos NTFS nun cartafol compartido</h2>
+              </div>
+              <p class="small mb-2">Nun Windows de aula:</p>
+              <ul class="mb-3 small">
+                <li>o cartafol <code>C:\CompartidoClase</code> ten permisos NTFS de <strong>Modificar</strong> para o grupo <code>AlumnadoAula</code>,</li>
+                <li>pero para o grupo <code>Invitados</code> só ten <strong>Lectura e execución</strong>.</li>
+              </ul>
+              <ol class="small mb-0">
+                <li class="mb-1">Que diferenza práctica notarás entre un usuario de <code>AlumnadoAula</code> e un usuario de <code>Invitados</code> ao traballar nese cartafol?</li>
+                <li>Pon un exemplo de situación real na que che interese que alguén poida <strong>ver</strong> ficheiros nun cartafol pero non <strong>borrarlos nin modificalos</strong>.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Q5 -->
+        <section id="q5" class="mb-4">
+          <div class="card border shadow-sm imso-ejercicio">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="imso-ex-num">5</span>
+                <h2 class="h5 imso-ejercicio-titulo mb-0">Seleccionar sistema de ficheiros</h2>
+              </div>
+              <p class="small mb-2">Tes estas opcións para formatar un disco ou unidade:</p>
+              <ul class="small mb-3">
+                <li><code>NTFS</code></li>
+                <li><code>FAT32</code></li>
+                <li><code>exFAT</code></li>
+                <li><code>ext4</code></li>
+              </ul>
+              <p class="small mb-2">Indica que sistema escollerías (e por que) en cada caso:</p>
+              <ol class="small mb-0">
+                <li class="mb-1">Disco principal dun equipo Windows 11.</li>
+                <li class="mb-1">Unidade USB que ten que funcionar en moitos equipos diferentes (incluídos televisores e coches) e onde os ficheiros que se moverán <strong>non superarán os 4 GB</strong>.</li>
+                <li class="mb-1">Unidade USB para mover ficheiros grandes (vídeos, imaxes de disco) que poden superar os 4 GB entre equipos Windows e Linux.</li>
+                <li>Partición raíz (<code>/</code>) dunha instalación de Ubuntu en VM.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Q6 -->
+        <section id="q6" class="mb-4">
+          <div class="card border shadow-sm imso-ejercicio">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="imso-ex-num">6</span>
+                <h2 class="h5 imso-ejercicio-titulo mb-0">NAT vs adaptador ponte en VirtualBox</h2>
+              </div>
+              <p class="small mb-2">Nunha práctica con Ubuntu en VirtualBox:</p>
+              <ul class="small mb-3">
+                <li>co adaptador en <strong>NAT</strong>, a VM ten Internet pero non responde a pings dende outros PCs da aula;</li>
+                <li>o docente di que, para facer un servidor accesible dende outros equipos, hai que poñer <strong>adaptador ponte</strong>.</li>
+              </ul>
+              <ol class="small mb-0">
+                <li class="mb-1">Explica con palabras túas que diferenza práctica hai entre NAT e adaptador ponte para esta situación.</li>
+                <li>Pon un exemplo de práctica de laboratorio onde case con seguridade necesitarías <strong>adaptador ponte</strong> en lugar de NAT. Razoa a túa resposta.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Q7 -->
+        <section id="q7" class="mb-4">
+          <div class="card border shadow-sm imso-ejercicio">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="imso-ex-num">7</span>
+                <h2 class="h5 imso-ejercicio-titulo mb-0">Problema de rede por DNS</h2>
+              </div>
+              <p class="small mb-2">Nun equipo Ubuntu:</p>
+              <ul class="small mb-3">
+                <li><code>ip a</code> mostra unha IP correcta,</li>
+                <li><code>ping 8.8.8.8 -c 4</code> funciona sen problemas,</li>
+                <li>pero <code>ping www.iescentro.gal -c 4</code> non resolve o nome.</li>
+              </ul>
+              <ol class="small mb-0">
+                <li class="mb-1">Que parte da configuración de rede sospeitarías que está mal ou falta?</li>
+                <li>Explica brevemente un procedemento razoable para diagnosticar e corrixir este problema (non fan falta comandos exactos, só os pasos lóxicos en orde).</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Q8 -->
+        <section id="q8" class="mb-4">
+          <div class="card border shadow-sm imso-ejercicio">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="imso-ex-num">8</span>
+                <h2 class="h5 imso-ejercicio-titulo mb-0">Compartición insegura en Windows</h2>
+              </div>
+              <p class="small mb-2">Nunha VM Windows, un alumno fai isto:</p>
+              <ul class="small mb-3">
+                <li>comparte o cartafol <code>C:\</code> enteiro,</li>
+                <li>dá acceso con <strong>Control total</strong> ao grupo «Todos»,</li>
+                <li>a VM está en adaptador ponte, na mesma rede que outros equipos.</li>
+              </ul>
+              <ol class="small mb-0">
+                <li class="mb-1">Describe polo menos dous riscos reais desta configuración.</li>
+                <li>Propón unha alternativa moito máis segura se o que quería era compartir só un cartafol de intercambio para a clase.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Q9 -->
+        <section id="q9" class="mb-4">
+          <div class="card border shadow-sm imso-ejercicio">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="imso-ex-num">9</span>
+                <h2 class="h5 imso-ejercicio-titulo mb-0">Cotas de disco nun servidor</h2>
+              </div>
+              <p class="small mb-2">Nun servidor de ficheiros para alumnado, cada usuario ten asignada unha cota de <strong>2 GB</strong> no volume <code>D:\DatosAlumnos</code>.</p>
+              <ol class="small mb-0">
+                <li class="mb-1">Que problemas reais se están tentando evitar implantando cotas de disco?</li>
+                <li class="mb-1">Que podería pasar se non houbese ningún tipo de cota e un alumno, por erro ou abuso, empezase a gardar ficheiros moi grandes?</li>
+                <li>Explica a diferenza entre <strong>cota máxima</strong> (límite duro) e <strong>nivel de advertencia</strong>, e que implicación práctica ten cada un para o usuario.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Q10 -->
+        <section id="q10" class="mb-4">
+          <div class="card border shadow-sm imso-ejercicio">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="imso-ex-num">10</span>
+                <h2 class="h5 imso-ejercicio-titulo mb-0">Caso integrado: usuarios, permisos e rede</h2>
+              </div>
+              <p class="small mb-2">Nun aula de prácticas queres que:</p>
+              <ul class="small mb-3">
+                <li>cada alumno traballe co seu usuario local,</li>
+                <li>haxa un cartafol compartido no PC do docente para entregar traballos,</li>
+                <li>os alumnos poidan <strong>copiar</strong> os seus ficheiros a ese cartafol,</li>
+                <li>pero <strong>non poidan borrar nin modificar</strong> o que entregaron outros compañeiros.</li>
+              </ul>
+              <p class="small mb-2">Describe, a nivel de idea (non fai falta o detalle de todas as pantallas), un deseño posible:</p>
+              <ol class="small mb-0">
+                <li class="mb-1">Que tipo de conta debe ter o docente e o alumnado no PC do docente.</li>
+                <li class="mb-1">Como configurarías o cartafol compartido (permisos NTFS e de compartición en rede) para cumprir o requisito.</li>
+                <li>Que modo de rede en VirtualBox usarías se ese cartafol está nunha VM e o alumnado traballa desde outras VMs. Razoa a resposta.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Sistemas Microinformáticos e Periféricos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <svg class="smpp-sauce" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="2" y="8" width="32" height="24" rx="4" fill="#0f172a" stroke="#C9A84C" stroke-width="2"/>
+    <rect x="7" y="13" width="10" height="2" rx="1" fill="#C9A84C"/>
+    <rect x="7" y="18" width="22" height="2" rx="1" fill="#C9A84C" opacity="0.6"/>
+    <rect x="7" y="23" width="16" height="2" rx="1" fill="#C9A84C" opacity="0.4"/>
+    <circle cx="28" cy="13" r="3" fill="#C9A84C"/>
+  </svg>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const icon = document.getElementById('theme-icon');
+    const isDark = html.getAttribute('data-bs-theme') === 'dark';
+    html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
+    icon.className = isDark ? 'bi bi-moon-stars' : 'bi bi-sun-fill';
+  }
+</script>
+
+</body>
+</html>

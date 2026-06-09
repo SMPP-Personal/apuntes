@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2 Índice de materiais</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/smpp.css">
+</head>
+<body>
+
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#inicio">
+      <i class="bi bi-mortarboard-fill smpp-buho"></i>
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO · UD2</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice UD2</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#inicio">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ruta">Ruta recomendada</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#buscador">Localizar documentos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#tipos">Tipos de material</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#fase-comprender">1. Comprender que é un dominio e por que se usa</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#fase-instalar">2. Instalar e poñer en marcha o dominio</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#fase-organizar">3. Organizar Active Directory</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#fase-acceso">4. Controlar acceso</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#fase-gpo">5. Aplicar políticas de dominio con GPO</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#fase-diagnostico">6. Diagnosticar incidencias e preparar a avaliación práctica</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#mapa">Mapa de carpetas</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="col-lg-9">
+      <article>
+
+        <header id="inicio" class="mb-4 section-anchor">
+          <div class="practice-hero hero-purple">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-hdd-network"></i> UD2</span>
+              <span class="hero-chip"><i class="bi bi-diagram-3"></i> Dominios Windows</span>
+              <span class="hero-chip"><i class="bi bi-folder2-open"></i> 17 documentos</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">UD2 · Índice organizado de materiais</h1>
+            <p class="lead mb-0">Ruta de traballo para estudar a unidade nunha orde lóxica: comprender o dominio, deseñalo, instalalo, organizar Active Directory, controlar permisos, aplicar GPO e diagnosticar incidencias.</p>
+          </div>
+        </header>
+
+        <div class="notice info mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div>
+            <strong>Como usar este índice:</strong> a orde proposta non reproduce literalmente as carpetas. Está pensada para que o alumnado avance desde a comprensión conceptual ata a administración e diagnóstico dun dominio funcional.
+          </div>
+        </div>
+
+        <section id="ruta" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-signpost-2"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">Ruta recomendada para o alumnado</h2>
+                <p class="mb-0 small text-muted">Fluxo de aprendizaxe para preparar a unidade antes das prácticas e da avaliación.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="row g-3">
+                <div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-comprender"><div class="process-step"><div class="process-num mx-auto mb-2">1</div><h3 class="h6 fw-bold">Comprender</h3><p class="small mb-0">Dominio, controlador de dominio, DNS e organización inicial.</p></div></a></div><div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-instalar"><div class="process-step"><div class="process-num mx-auto mb-2">2</div><h3 class="h6 fw-bold">Instalar</h3><p class="small mb-0">Servidor, promoción a controlador de dominio e comprobacións.</p></div></a></div><div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-organizar"><div class="process-step"><div class="process-num mx-auto mb-2">3</div><h3 class="h6 fw-bold">Organizar</h3><p class="small mb-0">OU, usuarios, grupos e administración con PowerShell.</p></div></a></div><div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-acceso"><div class="process-step"><div class="process-num mx-auto mb-2">4</div><h3 class="h6 fw-bold">Controlar acceso</h3><p class="small mb-0">Permisos NTFS, ACL, perfís e recursos compartidos.</p></div></a></div><div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-gpo"><div class="process-step"><div class="process-num mx-auto mb-2">5</div><h3 class="h6 fw-bold">Aplicar GPO</h3><p class="small mb-0">Directivas de grupo, ligazóns, filtros e diagnóstico.</p></div></a></div><div class="col-md-6 col-xl-4"><a class="text-decoration-none text-reset" href="#fase-diagnostico"><div class="process-step"><div class="process-num mx-auto mb-2">6</div><h3 class="h6 fw-bold">Diagnosticar</h3><p class="small mb-0">Incidencias integradas e evidencias técnicas.</p></div></a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="buscador" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-search"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">Localizar documentos</h2>
+                <p class="mb-0 small text-muted">Busca por tema, tipo de documento, carpeta ou palabra do nome do ficheiro.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="row g-2 align-items-center">
+                <div class="col-md">
+                  <input id="doc-search" type="search" class="form-control form-control-lg" placeholder="Ex.: dominio, DNS, OU, grupos, permisos, GPO, PowerShell, incidencias...">
+                </div>
+                <div class="col-md-auto">
+                  <button id="clear-search" class="btn btn-outline-secondary btn-lg" type="button">
+                    <i class="bi bi-x-circle me-1"></i>Limpar
+                  </button>
+                </div>
+              </div>
+              <p id="search-counter" class="small text-muted mt-2 mb-0">17 documentos dispoñibles</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="tipos" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-collection"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">Tipos de material dispoñible</h2>
+                <p class="mb-0 small text-muted">Vista rápida do tipo de recursos incluídos na UD2.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="row g-3">
+                <div class="col-md-6 col-xl-3"><div class="key-card"><i class="bi bi-journal-text me-2 text-primary"></i><strong>Apuntes</strong><br><span class="small text-muted">5 documento(s)</span></div></div><div class="col-md-6 col-xl-3"><div class="key-card"><i class="bi bi-pencil-square me-2 text-primary"></i><strong>Actividade</strong><br><span class="small text-muted">5 documento(s)</span></div></div><div class="col-md-6 col-xl-3"><div class="key-card"><i class="bi bi-question-circle me-2 text-primary"></i><strong>Exercicios</strong><br><span class="small text-muted">2 documento(s)</span></div></div><div class="col-md-6 col-xl-3"><div class="key-card"><i class="bi bi-play-circle me-2 text-primary"></i><strong>Práctica guiada</strong><br><span class="small text-muted">1 documento(s)</span></div></div><div class="col-md-6 col-xl-3"><div class="key-card"><i class="bi bi-list-check me-2 text-primary"></i><strong>Guión práctico</strong><br><span class="small text-muted">2 documento(s)</span></div></div><div class="col-md-6 col-xl-3"><div class="key-card"><i class="bi bi-terminal me-2 text-primary"></i><strong>Guión PowerShell</strong><br><span class="small text-muted">1 documento(s)</span></div></div><div class="col-md-6 col-xl-3"><div class="key-card"><i class="bi bi-bug me-2 text-primary"></i><strong>Incidencias</strong><br><span class="small text-muted">1 documento(s)</span></div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <section id="fase-comprender" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-diagram-3"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">1. Comprender que é un dominio e por que se usa</h2>
+                <p class="mb-0 small text-muted">Conceptos previos: dominio, controlador de dominio, DNS, contas, OU e planificación inicial.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> Antes de instalar nada, o alumnado debe entender para que serve un dominio, que problema resolve e que elementos haberá que deseñar.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="introdución aos dominios windows base teórica da unidade: dominio, controlador de dominio, contas centralizadas, dns e administración centralizada. b1_introduccion_planificacion/ud2_b1_apuntes_introduccion_dominios.html 1º apuntes">
+                <a class="text-decoration-none text-reset" href="B1_Introduccion_planificacion/UD2_B1_apuntes_introduccion_dominios.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-hdd-network"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">1º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Introdución aos dominios Windows</h3>
+                        <p class="small text-muted mb-2">Base teórica da unidade: dominio, controlador de dominio, contas centralizadas, DNS e administración centralizada.</p>
+                        <code class="small">B1_Introduccion_planificacion/UD2_B1_apuntes_introduccion_dominios.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="deseño do dominio do cifp actividade para pensar a estrutura inicial: nome de dominio, ou, usuarios, grupos e organización do centro. b1_introduccion_planificacion/ud2_b1_actividade_deseño_dominio_cifp.html 2º actividade">
+                <a class="text-decoration-none text-reset" href="B1_Introduccion_planificacion/UD2_B1_actividade_deseño_dominio_CIFP.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-pencil-square"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">2º</span>
+                          <span class="mini-badge">Actividade</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Deseño do dominio do CIFP</h3>
+                        <p class="small text-muted mb-2">Actividade para pensar a estrutura inicial: nome de dominio, OU, usuarios, grupos e organización do centro.</p>
+                        <code class="small">B1_Introduccion_planificacion/UD2_B1_actividade_deseño_dominio_CIFP.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="razoamento sobre introdución e planificación preguntas para comprobar que se entende a finalidade dun dominio antes de pasar á instalación. b1_introduccion_planificacion/ud2_b1_exercicios_razoamento.html 3º exercicios">
+                <a class="text-decoration-none text-reset" href="B1_Introduccion_planificacion/UD2_B1_exercicios_razoamento.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-question-circle"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">3º</span>
+                          <span class="mini-badge">Exercicios</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Razoamento sobre introdución e planificación</h3>
+                        <p class="small text-muted mb-2">Preguntas para comprobar que se entende a finalidade dun dominio antes de pasar á instalación.</p>
+                        <code class="small">B1_Introduccion_planificacion/UD2_B1_exercicios_razoamento.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="fase-instalar" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-server"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">2. Instalar e poñer en marcha o dominio</h2>
+                <p class="mb-0 small text-muted">Do deseño á instalación real do dominio e o primeiro controlador de dominio.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> Nesta fase o alumnado debe transformar o deseño nun dominio funcional, entender os pasos de instalación e documentar evidencias.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="instalación guiada do dominio primeira práctica de instalación do dominio, pensada como acompañamento paso a paso. b1_introduccion_planificacion/ud2_b1_practica_guiada_instalacion_dominio.html 4º práctica guiada">
+                <a class="text-decoration-none text-reset" href="B1_Introduccion_planificacion/UD2_B1_practica_guiada_instalacion_dominio.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-play-circle"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">4º</span>
+                          <span class="mini-badge">Práctica guiada</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Instalación guiada do dominio</h3>
+                        <p class="small text-muted mb-2">Primeira práctica de instalación do dominio, pensada como acompañamento paso a paso.</p>
+                        <code class="small">B1_Introduccion_planificacion/UD2_B1_practica_guiada_instalacion_dominio.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="instalación dun dominio windows explicación da instalación, promoción do controlador de dominio, dns e comprobacións iniciais. b2_instalacion_posta_marcha/ud2_b2_apuntes_instalacion_dominio.html 5º apuntes">
+                <a class="text-decoration-none text-reset" href="B2_Instalacion_posta_marcha/UD2_B2_apuntes_instalacion_dominio.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-journal-text"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">5º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Instalación dun dominio Windows</h3>
+                        <p class="small text-muted mb-2">Explicación da instalación, promoción do controlador de dominio, DNS e comprobacións iniciais.</p>
+                        <code class="small">B2_Instalacion_posta_marcha/UD2_B2_apuntes_instalacion_dominio.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="instalación e posta en marcha con interface gráfica guión para realizar a instalación empregando ferramentas gráficas de windows server. b2_instalacion_posta_marcha/ud2_b2_guion_practico_gui.html 6º guión práctico">
+                <a class="text-decoration-none text-reset" href="B2_Instalacion_posta_marcha/UD2_B2_guion_practico_GUI.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-window-sidebar"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">6º</span>
+                          <span class="mini-badge">Guión práctico</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Instalación e posta en marcha con interface gráfica</h3>
+                        <p class="small text-muted mb-2">Guión para realizar a instalación empregando ferramentas gráficas de Windows Server.</p>
+                        <code class="small">B2_Instalacion_posta_marcha/UD2_B2_guion_practico_GUI.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="instalación e posta en marcha con powershell versión orientada a comandos para instalar, comprobar e documentar a posta en marcha. b2_instalacion_posta_marcha/ud2_b2_guion_practico_powershell.html 7º guión práctico">
+                <a class="text-decoration-none text-reset" href="B2_Instalacion_posta_marcha/UD2_B2_guion_practico_PowerShell.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-terminal"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">7º</span>
+                          <span class="mini-badge">Guión práctico</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Instalación e posta en marcha con PowerShell</h3>
+                        <p class="small text-muted mb-2">Versión orientada a comandos para instalar, comprobar e documentar a posta en marcha.</p>
+                        <code class="small">B2_Instalacion_posta_marcha/UD2_B2_guion_practico_PowerShell.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="razoamento sobre instalación e posta en marcha preguntas para verificar que non se executaron pasos de forma mecánica sen entendelos. b2_instalacion_posta_marcha/ud2_b2_exercicios_razoamento.html 8º exercicios">
+                <a class="text-decoration-none text-reset" href="B2_Instalacion_posta_marcha/UD2_B2_exercicios_razoamento.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-lightbulb"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">8º</span>
+                          <span class="mini-badge">Exercicios</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Razoamento sobre instalación e posta en marcha</h3>
+                        <p class="small text-muted mb-2">Preguntas para verificar que non se executaron pasos de forma mecánica sen entendelos.</p>
+                        <code class="small">B2_Instalacion_posta_marcha/UD2_B2_exercicios_razoamento.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="fase-organizar" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-people"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">3. Organizar Active Directory: OU, contas, grupos e perfís</h2>
+                <p class="mb-0 small text-muted">Estrutura lóxica do dominio e administración básica de identidades.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> Un dominio útil precisa unha estrutura clara: OU ben pensadas, contas coherentes, grupos con finalidade e perfís correctamente configurados.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="ou, contas, grupos e perfís documento base para organizar o dominio e entender os obxectos principais de active directory. b3_organizacion_control_acceso/ud2_b3_apuntes_ou_contas_grupos_perfis.html 9º apuntes">
+                <a class="text-decoration-none text-reset" href="B3_Organizacion_control_acceso/UD2_B3_apuntes_OU_contas_grupos_perfis.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-person-vcard"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">9º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">OU, contas, grupos e perfís</h3>
+                        <p class="small text-muted mb-2">Documento base para organizar o dominio e entender os obxectos principais de Active Directory.</p>
+                        <code class="small">B3_Organizacion_control_acceso/UD2_B3_apuntes_OU_contas_grupos_perfis.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="organización do dominio actividade práctica para crear e ordenar a estrutura do dominio segundo o escenario da unidade. b3_organizacion_control_acceso/ud2_b3_actividade3_organizacion_dominio.html 10º actividade">
+                <a class="text-decoration-none text-reset" href="B3_Organizacion_control_acceso/UD2_B3_actividade3_organizacion_dominio.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-diagram-2"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">10º</span>
+                          <span class="mini-badge">Actividade</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Organización do dominio</h3>
+                        <p class="small text-muted mb-2">Actividade práctica para crear e ordenar a estrutura do dominio segundo o escenario da unidade.</p>
+                        <code class="small">B3_Organizacion_control_acceso/UD2_B3_actividade3_organizacion_dominio.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="ou, usuarios e grupos con powershell guía para crear e xestionar ou, contas e grupos mediante comandos. b3_organizacion_control_acceso/ud2_b3_guion_powershell_ou_usuarios_grupos.html 11º guión powershell">
+                <a class="text-decoration-none text-reset" href="B3_Organizacion_control_acceso/UD2_B3_guion_PowerShell_OU_usuarios_grupos.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-terminal-fill"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">11º</span>
+                          <span class="mini-badge">Guión PowerShell</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">OU, usuarios e grupos con PowerShell</h3>
+                        <p class="small text-muted mb-2">Guía para crear e xestionar OU, contas e grupos mediante comandos.</p>
+                        <code class="small">B3_Organizacion_control_acceso/UD2_B3_guion_PowerShell_OU_usuarios_grupos.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="fase-acceso" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-shield-lock"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">4. Controlar acceso: permisos, ACL e perfís móbiles</h2>
+                <p class="mb-0 small text-muted">Do usuario creado ao acceso real aos recursos do dominio.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> Aquí o alumnado debe relacionar usuarios, grupos, permisos NTFS, ACL, cartafoles persoais e perfís móbiles. É unha fase crítica para evitar permisos excesivos.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="permisos e acl explicación dos permisos ntfs, listas de control de acceso e relación co deseño de grupos. b3_organizacion_control_acceso/ud2_b3_apuntes_permisos_acl.html 12º apuntes">
+                <a class="text-decoration-none text-reset" href="B3_Organizacion_control_acceso/UD2_B3_apuntes_permisos_ACL.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-key"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">12º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Permisos e ACL</h3>
+                        <p class="small text-muted mb-2">Explicación dos permisos NTFS, listas de control de acceso e relación co deseño de grupos.</p>
+                        <code class="small">B3_Organizacion_control_acceso/UD2_B3_apuntes_permisos_ACL.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="permisos ntfs práctica para aplicar e comprobar permisos sobre recursos compartidos e cartafoles do dominio. b3_organizacion_control_acceso/ud2_b3_actividade5_permisos_ntfs.html 13º actividade">
+                <a class="text-decoration-none text-reset" href="B3_Organizacion_control_acceso/UD2_B3_actividade5_permisos_NTFS.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-folder-check"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">13º</span>
+                          <span class="mini-badge">Actividade</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Permisos NTFS</h3>
+                        <p class="small text-muted mb-2">Práctica para aplicar e comprobar permisos sobre recursos compartidos e cartafoles do dominio.</p>
+                        <code class="small">B3_Organizacion_control_acceso/UD2_B3_actividade5_permisos_NTFS.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="perfís móbiles actividade sobre configuración e comprobación de perfís móbiles no dominio. b3_organizacion_control_acceso/ud2_b3_actividade4_perfis_mobiles.html 14º actividade">
+                <a class="text-decoration-none text-reset" href="B3_Organizacion_control_acceso/UD2_B3_actividade4_perfis_mobiles.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-person-gear"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">14º</span>
+                          <span class="mini-badge">Actividade</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Perfís móbiles</h3>
+                        <p class="small text-muted mb-2">Actividade sobre configuración e comprobación de perfís móbiles no dominio.</p>
+                        <code class="small">B3_Organizacion_control_acceso/UD2_B3_actividade4_perfis_mobiles.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="fase-gpo" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-sliders"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">5. Aplicar políticas de dominio con GPO</h2>
+                <p class="mb-0 small text-muted">Configuración centralizada de usuarios e equipos mediante directivas de grupo.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> Nesta fase convén ter xa clara a estrutura de OU, porque as GPO non se entenden ben se non se sabe onde están usuarios e equipos.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="gpo en dominios windows documento teórico-práctico para entender ligazóns, ámbito, herdanza, filtrado e diagnóstico de gpo. b3_organizacion_control_acceso/ud2_b3_apuntes_gpo_dominios_windows.html 15º apuntes">
+                <a class="text-decoration-none text-reset" href="B3_Organizacion_control_acceso/UD2_B3_apuntes_GPO_dominios_Windows.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-sliders2"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">15º</span>
+                          <span class="mini-badge">Apuntes</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">GPO en dominios Windows</h3>
+                        <p class="small text-muted mb-2">Documento teórico-práctico para entender ligazóns, ámbito, herdanza, filtrado e diagnóstico de GPO.</p>
+                        <code class="small">B3_Organizacion_control_acceso/UD2_B3_apuntes_GPO_dominios_Windows.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="gpo de dominio práctica para crear, ligar, aplicar e verificar directivas de grupo no escenario da unidade. b3_organizacion_control_acceso/ud2_b3_actividade6_gpo_dominio.html 16º actividade">
+                <a class="text-decoration-none text-reset" href="B3_Organizacion_control_acceso/UD2_B3_actividade6_GPO_dominio.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-check2-square"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">16º</span>
+                          <span class="mini-badge">Actividade</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">GPO de dominio</h3>
+                        <p class="small text-muted mb-2">Práctica para crear, ligar, aplicar e verificar directivas de grupo no escenario da unidade.</p>
+                        <code class="small">B3_Organizacion_control_acceso/UD2_B3_actividade6_GPO_dominio.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="fase-diagnostico" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-activity"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">6. Diagnosticar incidencias e preparar a avaliación práctica</h2>
+                <p class="mb-0 small text-muted">Aplicación integrada: inicio de sesión, DNS, grupos, permisos, cartafoles persoais e GPO.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="instruction-box mb-4">
+                <strong>Obxectivo desta fase:</strong> Esta fase pecha a unidade: o alumnado debe demostrar que entende os síntomas, formula hipóteses, comproba e xustifica a solución con evidencias.
+              </div>
+              <div class="row g-3">
+
+              <div class="col-md-6 col-xl-4" data-doc-card data-search="diagnóstico de usuario e inicio de sesión prácticas de diagnóstico sobre login, grupos, permisos, cartafol persoal, dns e gpo. b3_organizacion_control_acceso/ud2_b3_incidencias_usuario_login.html 17º incidencias">
+                <a class="text-decoration-none text-reset" href="B3_Organizacion_control_acceso/UD2_B3_incidencias_usuario_login.html">
+                  <div class="concept-card h-100 p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <span class="concept-icon"><i class="bi bi-bug"></i></span>
+                      <div class="min-w-0">
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                          <span class="mini-badge">17º</span>
+                          <span class="mini-badge">Incidencias</span>
+                        </div>
+                        <h3 class="h6 fw-bold mb-2">Diagnóstico de usuario e inicio de sesión</h3>
+                        <p class="small text-muted mb-2">Prácticas de diagnóstico sobre login, grupos, permisos, cartafol persoal, DNS e GPO.</p>
+                        <code class="small">B3_Organizacion_control_acceso/UD2_B3_incidencias_usuario_login.html</code>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="mapa" class="mb-5 section-anchor">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-folder2-open"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">Mapa de carpetas da UD2</h2>
+                <p class="mb-0 small text-muted">Estrutura.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <pre class="tree-block"><code>B1_Introduccion_planificacion/
+├── UD2_B1_actividade_deseño_dominio_CIFP.html
+├── UD2_B1_apuntes_introduccion_dominios.html
+├── UD2_B1_exercicios_razoamento.html
+└── UD2_B1_practica_guiada_instalacion_dominio.html
+
+B2_Instalacion_posta_marcha/
+├── UD2_B2_apuntes_instalacion_dominio.html
+├── UD2_B2_exercicios_razoamento.html
+├── UD2_B2_guion_practico_GUI.html
+└── UD2_B2_guion_practico_PowerShell.html
+
+B3_Organizacion_control_acceso/
+├── UD2_B3_actividade3_organizacion_dominio.html
+├── UD2_B3_actividade4_perfis_mobiles.html
+├── UD2_B3_actividade5_permisos_NTFS.html
+├── UD2_B3_actividade6_GPO_dominio.html
+├── UD2_B3_apuntes_GPO_dominios_Windows.html
+├── UD2_B3_apuntes_OU_contas_grupos_perfis.html
+├── UD2_B3_apuntes_permisos_ACL.html
+├── UD2_B3_guion_PowerShell_OU_usuarios_grupos.html
+└── UD2_B3_incidencias_usuario_login.html</code></pre>
+              <div class="notice warning mt-3 mb-0 d-flex gap-2 align-items-start">
+                <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+                <div><B>Xa estamos no ecuador do curso!</B>Segue con enerxía, ilusión e constancia, porque cada paso que das achégate máis aos teus obxectivos. <B>Ti podes!</B></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <i class="bi bi-tree-fill smpp-sauce"></i>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/smpp.js"></script>
+<script>
+(function () {
+  'use strict';
+  const searchInput = document.getElementById('doc-search');
+  const clearButton = document.getElementById('clear-search');
+  const counter = document.getElementById('search-counter');
+  const cards = Array.from(document.querySelectorAll('[data-doc-card]'));
+  const sections = Array.from(document.querySelectorAll('section[id^="fase-"]'));
+
+  function normalize(text) {
+    return (text || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '');
+  }
+
+  function updateSearch() {
+    const query = normalize(searchInput.value);
+    let visible = 0;
+
+    cards.forEach((card) => {
+      const haystack = normalize(card.getAttribute('data-search'));
+      const match = !query || haystack.includes(query);
+      card.classList.toggle('d-none', !match);
+      if (match) visible += 1;
+    });
+
+    sections.forEach((section) => {
+      const visibleCards = section.querySelectorAll('[data-doc-card]:not(.d-none)').length;
+      section.classList.toggle('d-none', query && visibleCards === 0);
+    });
+
+    counter.textContent = query
+      ? visible + ' documento(s) atopado(s) de 17'
+      : '17 documentos dispoñibles';
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', updateSearch);
+  }
+  if (clearButton) {
+    clearButton.addEventListener('click', () => {
+      searchInput.value = '';
+      updateSearch();
+      searchInput.focus();
+    });
+  }
+})();
+</script>
+</body>
+</html>

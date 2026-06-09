@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B3 Introdución ás GPO en dominios Windows</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#punto-partida">1. Punto de partida</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#que-e-gpo">2. Que é unha GPO</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#non-grupos">3. Non se aplica a grupos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#gpmc">4. GPMC</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#crear-ligar">5. Crear vs ligar</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#onde-ligar">6. Onde se ligan</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#lsdou">7. LSDOU</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#computer-user">8. Computer/User</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#policies-preferences">9. Policies/Preferences</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#exemplos-uso">10. Exemplos de uso</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#creacion-ligazon">11. Creación e ligazón</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#security-filtering">12. Security Filtering</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#enforced-block">13. Enforced / Block</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#diagnostico">14. Diagnóstico</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#exemplo-aplicado">15. Exemplo aplicado</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#boas-practicas">16. Boas prácticas</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#erros">17. Erros frecuentes</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#vocabulario">18. Vocabulario</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ideas-chave">19. Ideas clave</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Contido principal ── -->
+    <main class="col-lg-9">
+      <article>
+
+        <!-- Cabeceira -->
+        <header class="mb-4">
+          <div class="theory-hero">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-diagram-3"></i> UD2 · Bloque 3</span>
+              <span class="hero-chip"><i class="bi bi-sliders"></i> GPO</span>
+              <span class="hero-chip"><i class="bi bi-hdd-network"></i> cifpsauce.local</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">Introdución ás GPO en dominios Windows</h1>
+            <p class="lead mb-0">Como usar obxectos de directiva de grupo para configurar de forma centralizada usuarios e equipos dun dominio Windows.</p>
+          </div>
+        </header>
+
+        <div class="notice info mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div>
+            <strong>Idea central:</strong> unha GPO créase, configúrase e despois lígase a un sitio, dominio ou OU. Os grupos poden axudar a filtrar, pero non son o punto principal de ligazón.
+          </div>
+        </div>
+
+        <!-- 1. Punto de partida -->
+        <section id="punto-partida" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-flag"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">1. Punto de partida</h2>
+                <p class="mb-0 small text-muted">O dominio xa existe; agora configuramos usuarios e equipos centralizadamente.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p>Neste bloque introducimos as <strong>Group Policy Objects (GPO)</strong> nun dominio Windows, aplicadas ao escenario da UD2.</p>
+              <div class="table-responsive mb-3">
+                <table class="table table-sm table-striped align-middle decision-table">
+                  <thead>
+                    <tr><th>Elemento</th><th>Valor no laboratorio</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Dominio</td><td><code>cifpsauce.local</code></td></tr>
+                    <tr><td>Primeiro controlador de dominio</td><td><code>dcbuho.cifpsauce.local</code></td></tr>
+                    <tr><td>OU previstas</td><td><code>Alumnado</code>, <code>Curso1</code>, <code>Curso2</code>, <code>Profesorado</code>, <code>Administracion</code>, <code>Equipos-Aulas</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>O obxectivo é comprender <strong>que son as GPO, onde se aplican, como se organizan e como se diagnostican</strong>, antes de pasar ás prácticas guiadas con interface gráfica e PowerShell.</p>
+              <p>Neste momento da UD2 asumimos que:</p>
+              <ul class="check-list mb-3">
+                <li>o dominio <code>cifpsauce.local</code> xa está creado;</li>
+                <li>o servidor <code>dcbuho</code> funciona como controlador de dominio e servidor DNS;</li>
+                <li>xa coñecemos dominio, OU, contas de usuario, contas de equipo, grupos de seguridade e permisos sobre recursos.</li>
+              </ul>
+              <div class="row g-3">
+                <div class="col-md-4"><div class="key-card"><i class="bi bi-shield-lock me-2 text-primary"></i>Establecer políticas de seguridade</div></div>
+                <div class="col-md-4"><div class="key-card"><i class="bi bi-display me-2 text-primary"></i>Aplicar restricións de escritorio</div></div>
+                <div class="col-md-4"><div class="key-card"><i class="bi bi-hdd-network me-2 text-primary"></i>Mapear unidades de rede</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Que é unha GPO -->
+        <section id="que-e-gpo" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-sliders me-2 text-primary"></i>2. Que é unha GPO</h2>
+          <p>Unha <strong>GPO</strong> (<em>Group Policy Object</em>) é un obxecto de Active Directory que contén configuracións administrativas para usuarios e equipos.</p>
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="concept-card h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-person-gear"></i></span>
+                  <div>
+                    <h3 class="h5 fw-bold mb-2">Usuarios</h3>
+                    <ul class="small mb-0">
+                      <li>restricións do escritorio;</li>
+                      <li>configuración do menú Inicio;</li>
+                      <li>scripts de inicio de sesión;</li>
+                      <li>mapeo de unidades;</li>
+                      <li>preferencias de usuario.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="concept-card info h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-pc-display"></i></span>
+                  <div>
+                    <h3 class="h5 fw-bold mb-2">Equipos</h3>
+                    <ul class="small mb-0">
+                      <li>configuracións de seguridade;</li>
+                      <li>scripts de arranque ou apagado;</li>
+                      <li>configuracións de rede;</li>
+                      <li>firewall e sistema;</li>
+                      <li>instalación ou configuración de software.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="notice success d-flex gap-2 align-items-start">
+            <i class="bi bi-lightbulb-fill flex-shrink-0 mt-1"></i>
+            <div>En vez de configurar cada equipo ou cada usuario manualmente, créase unha GPO e aplícase de forma centralizada desde Active Directory.</div>
+          </div>
+        </section>
+
+        <!-- 3. Non se aplica directamente a un grupo -->
+        <section id="non-grupos" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-exclamation-diamond"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">3. Unha GPO non se aplica directamente a un grupo</h2>
+                <p class="mb-0 small text-muted">Ligazón non é o mesmo que filtrado.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="notice warning mb-3 d-flex gap-2 align-items-start">
+                <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+                <div><strong>Regra clave:</strong> unha GPO non se vincula directamente a un grupo como mecanismo principal.</div>
+              </div>
+              <p>As GPO vincúlanse a:</p>
+              <div class="row g-3 mb-3">
+                <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mb-2">S</div><strong>Sitios</strong><br><span class="small text-muted">Sites</span></div></div>
+                <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mb-2">D</div><strong>Dominios</strong><br><span class="small text-muted">Domains</span></div></div>
+                <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mb-2">OU</div><strong>Unidades organizativas</strong><br><span class="small text-muted">Organizational Units</span></div></div>
+              </div>
+              <p>Despois, se é necesario, unha GPO pode <strong>filtrarse</strong> mediante permisos ou grupos de seguridade. Pero iso é un filtro adicional, non a forma principal de aplicación.</p>
+              <div class="table-responsive mb-3">
+                <table class="table table-sm table-bordered align-middle">
+                  <thead><tr><th>Concepto</th><th>Función principal</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>OU</strong></td><td>Organizar usuarios/equipos e servir como punto de aplicación de GPO</td></tr>
+                    <tr><td><strong>Grupo</strong></td><td>Agrupar contas para permisos, dereitos ou filtrado</td></tr>
+                    <tr><td><strong>GPO</strong></td><td>Aplicar configuracións a usuarios ou equipos</td></tr>
+                    <tr><td><strong>Security Filtering</strong></td><td>Limitar que usuarios/equipos reciben unha GPO xa vinculada</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-6"><div class="notice danger h-100"><strong>Incorrecto:</strong><br>Crear unha GPO e “aplicala ao grupo <code>GG_Alumnado_Curso1</code>”.</div></div>
+                <div class="col-md-6"><div class="notice success h-100"><strong>Correcto:</strong><br>Crear unha GPO, ligala á OU <code>Curso1</code> e, se fai falta, filtrala para membros de <code>GG_Alumnado_Curso1</code>.</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. GPMC -->
+        <section id="gpmc" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-window-sidebar me-2 text-primary"></i>4. GPMC: consola de xestión de directivas de grupo</h2>
+          <p>Para xestionar GPO en Windows Server emprégase a consola <strong>Group Policy Management Console (GPMC)</strong>.</p>
+          <div class="row g-3 mb-3">
+            <div class="col-lg-6">
+              <div class="content-card h-100">
+                <div class="content-card-header"><span class="section-icon"><i class="bi bi-box-arrow-up-right"></i></span><h3 class="h5 fw-bold mb-0">Como abrila</h3></div>
+                <div class="content-card-body">
+                  <ul class="mb-3">
+                    <li><strong>Server Manager</strong> → <strong>Tools</strong> → <strong>Group Policy Management</strong>.</li>
+                    <li>Executando:</li>
+                  </ul>
+                  <pre class="cmd-block"><code>gpmc.msc</code></pre>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="content-card h-100">
+                <div class="content-card-header"><span class="section-icon"><i class="bi bi-tools"></i></span><h3 class="h5 fw-bold mb-0">Que permite facer</h3></div>
+                <div class="content-card-body">
+                  <ul class="mb-0">
+                    <li>ver dominio e OU;</li>
+                    <li>crear e editar GPO;</li>
+                    <li>ligar GPO a dominios ou OU;</li>
+                    <li>modificar a orde de aplicación;</li>
+                    <li>facer copias de seguridade;</li>
+                    <li>consultar resultados de políticas.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Crear vs ligar -->
+        <section id="crear-ligar" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-link-45deg me-2 text-primary"></i>5. Crear unha GPO non é o mesmo que ligala</h2>
+          <p>Un erro frecuente é pensar que unha GPO se aplica só por estar creada. En realidade hai dous pasos diferentes.</p>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6"><div class="process-step"><div class="process-num mx-auto mb-2">1</div><h3 class="h5 fw-bold">Crear a GPO</h3><p class="small mb-0">Créase dentro do contedor <strong>Group Policy Objects</strong>. Aínda non se aplica a ninguén se non está ligada.</p></div></div>
+            <div class="col-md-6"><div class="process-step"><div class="process-num mx-auto mb-2">2</div><h3 class="h5 fw-bold">Ligar a GPO</h3><p class="small mb-0">Vincúlase a un dominio, sitio ou OU. A partir dese momento pode aplicarse aos usuarios ou equipos do ámbito.</p></div></div>
+          </div>
+          <div class="tree-block mb-3"><code>Créase: GPO_Alumnado_Curso1_Escritorio
+Lígase: OU=Curso1
+Resultado: aplícase aos usuarios/equipos desa OU segundo configuracións e filtros</code></div>
+          <p class="mb-0">Se unha GPO existe pero non está ligada, é como unha regra gardada pero non aplicada.</p>
+        </section>
+
+        <!-- 6. Onde se ligan -->
+        <section id="onde-ligar" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-diagram-2 me-2 text-primary"></i>6. Onde se ligan as GPO</h2>
+          <div class="table-responsive mb-4">
+            <table class="table table-striped table-sm align-middle decision-table">
+              <thead><tr><th>Lugar de ligazón</th><th>Cando ten sentido</th></tr></thead>
+              <tbody>
+                <tr><td>Sitio</td><td>Cando queremos aplicar configuracións segundo unha localización física ou rede.</td></tr>
+                <tr><td>Dominio</td><td>Cando queremos afectar a todo o dominio.</td></tr>
+                <tr><td>OU</td><td>Cando queremos afectar só a unha parte organizada do dominio.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Na UD2 traballaremos sobre todo con GPO ligadas ao dominio <code>cifpsauce.local</code> e a OU como <code>Alumnado</code>, <code>Curso1</code>, <code>Profesorado</code> ou <code>Equipos-Aulas</code>.</p>
+          <div class="table-responsive">
+            <table class="table table-sm table-bordered align-middle">
+              <thead><tr><th>Necesidade</th><th>Lugar máis lóxico para ligar a GPO</th></tr></thead>
+              <tbody>
+                <tr><td>Política xeral de contrasinais</td><td>Dominio</td></tr>
+                <tr><td>Restricións de escritorio para alumnado</td><td>OU <code>Alumnado</code> ou OU <code>Curso1</code></td></tr>
+                <tr><td>Configuración específica para equipos de aula</td><td>OU <code>Equipos-Aulas</code></td></tr>
+                <tr><td>Mapeo de unidades para profesorado</td><td>OU <code>Profesorado</code></td></tr>
+                <tr><td>Configuración común para todo o dominio</td><td>Dominio</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 7. LSDOU -->
+        <section id="lsdou" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-sort-down me-2 text-primary"></i>7. Orde de aplicación: LSDOU</h2>
+          <p>As GPO seguen unha orde de aplicación coñecida como <strong>LSDOU</strong>.</p>
+          <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3"><div class="agdlp-step"><div class="agdlp-letter mb-2">L</div><strong>Local</strong><br><span class="small text-muted">Política local do equipo</span></div></div>
+            <div class="col-6 col-lg-3"><div class="agdlp-step"><div class="agdlp-letter mb-2">S</div><strong>Site</strong><br><span class="small text-muted">GPO do sitio AD</span></div></div>
+            <div class="col-6 col-lg-3"><div class="agdlp-step"><div class="agdlp-letter mb-2">D</div><strong>Domain</strong><br><span class="small text-muted">GPO do dominio</span></div></div>
+            <div class="col-6 col-lg-3"><div class="agdlp-step"><div class="agdlp-letter mb-2">OU</div><strong>OU</strong><br><span class="small text-muted">OU superiores → internas</span></div></div>
+          </div>
+          <div class="tree-block mb-3"><code>cifpsauce.local
+└── OU=Alumnado
+    └── OU=Curso1</code></div>
+          <ol class="step-list mb-3">
+            <li><div>Política local do equipo.</div></li>
+            <li><div>GPO do sitio, se existe.</div></li>
+            <li><div>GPO do dominio <code>cifpsauce.local</code>.</div></li>
+            <li><div>GPO da OU <code>Alumnado</code>.</div></li>
+            <li><div>GPO da OU <code>Curso1</code>.</div></li>
+          </ol>
+          <div class="notice warning d-flex gap-2 align-items-start">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+            <div>Como regra xeral, se varias GPO configuran o mesmo axuste, a configuración aplicada máis tarde na orde LSDOU pode prevalecer. Pero tamén inflúen a orde das ligazóns, <strong>Enforced</strong>, <strong>Block inheritance</strong>, filtros de seguridade, filtros WMI e se a configuración é de usuario ou equipo.</div>
+          </div>
+        </section>
+
+        <!-- 8. Computer/User -->
+        <section id="computer-user" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-person-workspace me-2 text-primary"></i>8. Computer Configuration e User Configuration</h2>
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="concept-card h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-pc-display-horizontal"></i></span>
+                  <div>
+                    <h3 class="h5 fw-bold mb-2">8.1. Computer Configuration</h3>
+                    <p>Aplica configuracións aos <strong>equipos</strong>.</p>
+                    <ul class="small mb-0">
+                      <li>no arranque do sistema;</li>
+                      <li>periodicamente en segundo plano;</li>
+                      <li>ao forzar actualización con <code>gpupdate</code>;</li>
+                      <li>seguridade do equipo, firewall, scripts, software, restricións de sistema.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="concept-card info h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-person-check"></i></span>
+                  <div>
+                    <h3 class="h5 fw-bold mb-2">8.2. User Configuration</h3>
+                    <p>Aplica configuracións aos <strong>usuarios</strong>.</p>
+                    <ul class="small mb-0">
+                      <li>no inicio de sesión;</li>
+                      <li>periodicamente en segundo plano;</li>
+                      <li>ao forzar actualización con <code>gpupdate</code>;</li>
+                      <li>escritorio, menú Inicio, scripts, unidades de rede, redirección e preferencias.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h3 class="h5 fw-semibold mb-3">8.3. Erro moi común</h3>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm table-bordered align-middle">
+              <thead><tr><th>Se configuras...</th><th>A GPO debe aplicarse a...</th></tr></thead>
+              <tbody>
+                <tr><td>Axustes de equipo</td><td>OU onde están as contas de equipo</td></tr>
+                <tr><td>Axustes de usuario</td><td>OU onde están as contas de usuario</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="notice danger d-flex gap-2 align-items-start">
+            <i class="bi bi-x-octagon-fill flex-shrink-0 mt-1"></i>
+            <div>Para o nivel desta UD, a regra práctica será: <strong>Configuración de usuario → OU con usuarios</strong>. <strong>Configuración de equipo → OU con equipos</strong>.</div>
+          </div>
+        </section>
+
+        <!-- 9. Policies / Preferences -->
+        <section id="policies-preferences" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-toggles2 me-2 text-primary"></i>9. Policies e Preferences</h2>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="compare-panel compare-domain">
+                <div class="compare-header">Policies</div>
+                <div class="p-3">
+                  <p>Son configuracións administradas.</p>
+                  <ul class="small mb-0">
+                    <li>impoñen unha configuración;</li>
+                    <li>adoitan impedir ou revertir cambios do usuario;</li>
+                    <li>úsanse para restricións e seguridade;</li>
+                    <li>teñen carácter máis obrigatorio.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="compare-panel compare-workgroup">
+                <div class="compare-header">Preferences</div>
+                <div class="p-3">
+                  <p>Permiten distribuír configuracións máis flexibles.</p>
+                  <ul class="small mb-0">
+                    <li>mapear unidades de rede;</li>
+                    <li>crear accesos directos;</li>
+                    <li>configurar impresoras;</li>
+                    <li>copiar ficheiros;</li>
+                    <li>aplicar valores iniciais ou condicións.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="notice info mt-3 d-flex gap-2 align-items-start">
+            <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+            <div>Para mapear unha unidade de rede do profesorado, adoita ser máis cómodo usar <strong>Group Policy Preferences</strong> que un script manual de inicio de sesión.</div>
+          </div>
+        </section>
+
+        <!-- 10. Exemplos frecuentes -->
+        <section id="exemplos-uso" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-text me-2 text-primary"></i>10. Exemplos frecuentes de uso de GPO</h2>
+          <div class="accordion" id="accordionExemplos">
+            <div class="accordion-item">
+              <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#exemplo1">10.1. Políticas de contrasinais</button></h3>
+              <div id="exemplo1" class="accordion-collapse collapse show" data-bs-parent="#accordionExemplos"><div class="accordion-body">
+                <p>A política xeral de contrasinais e bloqueo de contas dun dominio debe tratarse con coidado. Nunha práctica inicial pode revisarse ou axustarse desde a <strong>Default Domain Policy</strong>, lembrando que afecta ao dominio, debe documentarse e non é unha GPO calquera para probar sen consecuencias.</p>
+                <ul><li>lonxitude mínima;</li><li>complexidade;</li><li>historial de contrasinais;</li><li>idade máxima ou mínima;</li><li>bloqueo tras intentos fallidos.</li></ul>
+              </div></div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exemplo2">10.2. Fine-Grained Password Policies</button></h3>
+              <div id="exemplo2" class="accordion-collapse collapse" data-bs-parent="#accordionExemplos"><div class="accordion-body">
+                <p>En contornos máis avanzados existen as <strong>Fine-Grained Password Policies</strong>, que permiten aplicar políticas de contrasinais diferentes a determinados usuarios ou grupos. Neste bloque só se mencionan como contexto.</p>
+                <div class="notice warning mb-0">Non debemos asumir que unha política de contrasinais diferente para <code>Alumnado</code> se consegue simplemente ligando unha GPO á OU <code>Alumnado</code>.</div>
+              </div></div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exemplo3">10.3. Restricións de escritorio para alumnado</button></h3>
+              <div id="exemplo3" class="accordion-collapse collapse" data-bs-parent="#accordionExemplos"><div class="accordion-body">
+                <p>Poden usarse para ocultar Panel de control, limitar ferramentas, restrinxir cambios, configurar escritorio ou limitar opcións do menú Inicio.</p>
+                <p>Estas configuracións adoitan ir en <strong>User Configuration</strong> e deberían ligarse a unha OU que conteña usuarios.</p>
+                <div class="tree-block"><code>OU=Alumnado
+└── OU=Curso1</code></div>
+              </div></div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exemplo4">10.4. Configuración de equipos de aula</button></h3>
+              <div id="exemplo4" class="accordion-collapse collapse" data-bs-parent="#accordionExemplos"><div class="accordion-body">
+                <p>Inclúe configuracións de seguridade do equipo, firewall, scripts de arranque, opcións locais de sistema ou instalación de software para equipos.</p>
+                <p>Adoitan ir en <strong>Computer Configuration</strong> e ligarse a unha OU con equipos.</p>
+                <div class="tree-block"><code>OU=Equipos-Aulas</code></div>
+              </div></div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exemplo5">10.5. Mapeo de unidades de rede</button></h3>
+              <div id="exemplo5" class="accordion-collapse collapse" data-bs-parent="#accordionExemplos"><div class="accordion-body">
+                <p>Para conectar automaticamente unidades de rede pódense usar scripts de inicio de sesión ou <strong>Group Policy Preferences</strong>.</p>
+                <ul><li><code>H:</code> para cartafol persoal;</li><li><code>P:</code> para materiais de profesorado;</li><li><code>C1:</code> para recursos de Curso1.</li></ul>
+              </div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 11. Creación e ligazón -->
+        <section id="creacion-ligazon" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-plus-square me-2 text-primary"></i>11. Creación e ligazón dunha GPO</h2>
+          <ol class="step-list mb-4">
+            <li><div>Abrir <strong>Group Policy Management</strong>.</div></li>
+            <li><div>Crear unha nova GPO no contedor <strong>Group Policy Objects</strong> ou directamente desde a OU.</div></li>
+            <li><div>Poñer un nome descritivo.</div></li>
+            <li><div>Editar a GPO.</div></li>
+            <li><div>Configurar as opcións necesarias.</div></li>
+            <li><div>Ligar a GPO ao dominio ou á OU correspondente.</div></li>
+            <li><div>Probar cun usuario ou equipo de laboratorio.</div></li>
+            <li><div>Verificar coas ferramentas de diagnóstico.</div></li>
+          </ol>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="notice success h-100"><strong>Nomes claros</strong><br><code>GPO_Alumnado_Curso1_Escritorio</code><br><code>GPO_EquiposAula_SeguridadeBasica</code><br><code>GPO_Profesorado_MapeoUnidades</code></div></div>
+            <div class="col-md-6"><div class="notice danger h-100"><strong>Nomes pobres</strong><br><code>GPO1</code><br><code>Prueba</code><br><code>Usuarios</code><br><code>NuevaGPO</code></div></div>
+          </div>
+        </section>
+
+        <!-- 12. Security Filtering -->
+        <section id="security-filtering" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-funnel me-2 text-primary"></i>12. Security Filtering</h2>
+          <p>Ademais de ligar unha GPO a unha OU ou dominio, pódese limitar quen a recibe mediante <strong>Security Filtering</strong>.</p>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6"><div class="key-card"><strong>Condición 1</strong><br>O usuario ou equipo está dentro do ámbito da ligazón.</div></div>
+            <div class="col-md-6"><div class="key-card"><strong>Condición 2</strong><br>O usuario ou equipo ten permisos <strong>Read</strong> e <strong>Apply Group Policy</strong>.</div></div>
+          </div>
+          <p>Por defecto, unha GPO adoita aplicarse a <strong>Authenticated Users</strong> dentro do seu ámbito.</p>
+          <div class="tree-block mb-3"><code>GPO ligada a OU=Alumnado
+Security Filtering: GG_Alumnado_Curso1
+Resultado: só usuarios da OU Alumnado que pertenzan ao grupo</code></div>
+          <div class="notice warning d-flex gap-2 align-items-start">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+            <div>O filtrado por grupos é potente, pero se se usa demasiado pode complicar moito o diagnóstico. Sempre que sexa posible, é mellor comezar cunha estrutura de OU clara.</div>
+          </div>
+        </section>
+
+        <!-- 13. Enforced / Block inheritance -->
+        <section id="enforced-block" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-signpost-split me-2 text-primary"></i>13. Enforced e Block inheritance</h2>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <div class="concept-card warning h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-pin-angle"></i></span>
+                  <div><h3 class="h5 fw-bold mb-2">13.1. Enforced</h3><p class="mb-0">Fai que unha GPO teña prioridade especial e que non poida ser bloqueada por herdanza nas OU inferiores. Debe usarse con moito coidado.</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="concept-card warning h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-slash-circle"></i></span>
+                  <div><h3 class="h5 fw-bold mb-2">13.2. Block inheritance</h3><p class="mb-0">Permite que unha OU bloquee a herdanza de GPO superiores. Pode ser útil, pero complica entender por que unha política non se aplica.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="notice danger mb-0">Non usar <strong>Enforced</strong> nin <strong>Block inheritance</strong> nas primeiras prácticas salvo que o obxectivo sexa precisamente estudar o seu efecto.</div>
+        </section>
+
+        <!-- 14. Diagnóstico -->
+        <section id="diagnostico" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-activity me-2 text-primary"></i>14. Actualización e diagnóstico de GPO no cliente</h2>
+          <p>As GPO aplícanse automaticamente no arranque do sistema, no inicio de sesión e periodicamente en segundo plano. Durante unha práctica, podemos forzar e diagnosticar a aplicación con comandos.</p>
+          <div class="row g-3 mb-3">
+            <div class="col-md-4"><div class="key-card"><h3 class="h6 fw-bold">Forzar actualización</h3><pre class="cmd-block"><code>gpupdate /force</code></pre></div></div>
+            <div class="col-md-4"><div class="key-card"><h3 class="h6 fw-bold">Resumo aplicado</h3><pre class="cmd-block"><code>gpresult /r</code></pre></div></div>
+            <div class="col-md-4"><div class="key-card"><h3 class="h6 fw-bold">Informe HTML</h3><pre class="cmd-block"><code>gpresult /h C:\GPO_Report.html</code></pre></div></div>
+          </div>
+          <div class="key-card mb-4"><h3 class="h6 fw-bold"><i class="bi bi-window me-2 text-primary"></i>Resultado gráfico de políticas</h3><pre class="cmd-block"><code>rsop.msc</code></pre></div>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle parameter-table">
+              <thead><tr><th>Ferramenta</th><th>Para que serve</th></tr></thead>
+              <tbody>
+                <tr><td><code>gpupdate /force</code></td><td>Forzar actualización das GPO.</td></tr>
+                <tr><td><code>gpresult /r</code></td><td>Ver resumo de GPO aplicadas.</td></tr>
+                <tr><td><code>gpresult /h informe.html</code></td><td>Xerar informe HTML detallado.</td></tr>
+                <tr><td><code>rsop.msc</code></td><td>Ver graficamente o resultado das políticas.</td></tr>
+                <tr><td>GPMC</td><td>Revisar ligazóns, orde, filtrado e configuración.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 15. Exemplo aplicado -->
+        <section id="exemplo-aplicado" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-hdd-network me-2 text-primary"></i>15. Exemplo conceptual aplicado a <code>cifpsauce.local</code></h2>
+          <div class="row g-3 mb-4">
+            <div class="col-lg-6">
+              <div class="content-card h-100">
+                <div class="content-card-header"><span class="section-icon"><i class="bi bi-display"></i></span><h3 class="h5 fw-bold mb-0">15.1. Restricións de escritorio de Curso1</h3></div>
+                <div class="content-card-body">
+                  <p><strong>Obxectivo:</strong> aplicar restricións só ao alumnado de Curso1.</p>
+                  <ul>
+                    <li>GPO: <code>GPO_Alumnado_Curso1_Escritorio</code></li>
+                    <li>Ligazón: <code>OU=Curso1</code> dentro de <code>OU=Alumnado</code></li>
+                    <li>Rama: <strong>User Configuration</strong></li>
+                    <li>Comprobación: iniciar sesión con <code>alu.curso1.001</code>, executar <code>gpupdate /force</code> e revisar <code>gpresult /r</code>.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="content-card h-100">
+                <div class="content-card-header"><span class="section-icon"><i class="bi bi-pc-display"></i></span><h3 class="h5 fw-bold mb-0">15.2. Equipos de aula</h3></div>
+                <div class="content-card-body">
+                  <p><strong>Obxectivo:</strong> aplicar unha configuración aos equipos de aula independentemente do usuario.</p>
+                  <ul>
+                    <li>GPO: <code>GPO_EquiposAula_SeguridadeBasica</code></li>
+                    <li>Ligazón: <code>OU=Equipos-Aulas</code></li>
+                    <li>Rama: <strong>Computer Configuration</strong></li>
+                    <li>Comprobación: reiniciar equipo, executar <code>gpupdate /force</code> e revisar <code>gpresult /r</code>.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="notice security d-flex gap-2 align-items-start">
+            <i class="bi bi-shield-lock-fill flex-shrink-0 mt-1"></i>
+            <div><strong>Política xeral de contrasinais:</strong> normalmente revisarase na <strong>Default Domain Policy</strong>, afecta ao dominio completo e non debe modificarse sen indicación clara do profesorado. Calquera cambio debe quedar documentado.</div>
+          </div>
+        </section>
+
+        <!-- 16. Boas prácticas -->
+        <section id="boas-practicas" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-check2-circle me-2 text-success"></i>16. Boas prácticas con GPO</h2>
+          <ul class="list-group list-group-flush check-list">
+            <li class="list-group-item">Usar nomes descritivos e coherentes.</li>
+            <li class="list-group-item">Separar GPO por finalidade.</li>
+            <li class="list-group-item">Non crear GPO xigantes con moitas configuracións sen relación.</li>
+            <li class="list-group-item">Probar nunha OU pequena antes de aplicar ao dominio enteiro.</li>
+            <li class="list-group-item">Non modificar <code>Default Domain Policy</code> nin <code>Default Domain Controllers Policy</code> sen entender o impacto.</li>
+            <li class="list-group-item">Documentar cada GPO: nome, obxectivo, ligazón, configuracións principais e ámbito.</li>
+            <li class="list-group-item">Evitar abusar de <strong>Security Filtering</strong>.</li>
+            <li class="list-group-item">Evitar usar <strong>Enforced</strong> e <strong>Block inheritance</strong> salvo casos xustificados.</li>
+            <li class="list-group-item">Revisar sempre con <code>gpresult</code> se a GPO se está aplicando.</li>
+            <li class="list-group-item">Ter claro se a configuración é de usuario ou de equipo antes de decidir onde ligar a GPO.</li>
+          </ul>
+        </section>
+
+        <!-- 17. Erros frecuentes -->
+        <section id="erros" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-bug me-2 text-danger"></i>17. Erros frecuentes</h2>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle error-table">
+              <thead><tr><th>Erro</th><th>Consecuencia</th></tr></thead>
+              <tbody>
+                <tr><td>Crear unha GPO pero non ligala</td><td>A GPO non se aplica a ninguén.</td></tr>
+                <tr><td>Ligar unha GPO de usuario a unha OU só con equipos</td><td>A parte de usuario non terá efecto.</td></tr>
+                <tr><td>Ligar unha GPO de equipo a unha OU só con usuarios</td><td>A parte de equipo non terá efecto.</td></tr>
+                <tr><td>Pensar que unha GPO se aplica directamente a un grupo</td><td>Confusión entre ligazón e filtrado.</td></tr>
+                <tr><td>Modificar <code>Default Domain Policy</code> sen criterio</td><td>Pode afectar a todo o dominio.</td></tr>
+                <tr><td>Non comprobar con <code>gpresult</code></td><td>Non se sabe realmente que políticas se aplicaron.</td></tr>
+                <tr><td>Usar demasiado Security Filtering</td><td>Diagnóstico máis complexo.</td></tr>
+                <tr><td>Confundir Policies con Preferences</td><td>Configuracións que non se comportan como se esperaba.</td></tr>
+                <tr><td>Non esperar ao reinicio ou inicio de sesión</td><td>A GPO pode non aplicarse aínda.</td></tr>
+                <tr><td>Non documentar cambios</td><td>Dificulta resolver incidencias despois.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 18. Vocabulario -->
+        <section id="vocabulario" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-translate me-2 text-primary"></i>18. Vocabulario galego-inglés</h2>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle vocab-table">
+              <thead><tr><th>Galego</th><th>Inglés</th></tr></thead>
+              <tbody>
+                <tr><td>Obxecto de directiva de grupo</td><td>Group Policy Object (GPO)</td></tr>
+                <tr><td>Directiva de grupo</td><td>Group Policy</td></tr>
+                <tr><td>Consola de administración de directivas de grupo</td><td>Group Policy Management Console (GPMC)</td></tr>
+                <tr><td>Ligazón dunha GPO</td><td>GPO link</td></tr>
+                <tr><td>Ligar unha GPO</td><td>Link a GPO</td></tr>
+                <tr><td>Herdanza de GPO</td><td>GPO inheritance</td></tr>
+                <tr><td>Bloquear herdanza</td><td>Block inheritance</td></tr>
+                <tr><td>Forzar unha GPO</td><td>Enforced</td></tr>
+                <tr><td>Filtrado de seguridade</td><td>Security Filtering</td></tr>
+                <tr><td>Configuración de equipo</td><td>Computer Configuration</td></tr>
+                <tr><td>Configuración de usuario</td><td>User Configuration</td></tr>
+                <tr><td>Políticas</td><td>Policies</td></tr>
+                <tr><td>Preferencias</td><td>Preferences</td></tr>
+                <tr><td>Resultado de políticas</td><td>Resultant Set of Policy (RSoP)</td></tr>
+                <tr><td>Actualizar directivas</td><td>Update Group Policy</td></tr>
+                <tr><td>Informe de directivas</td><td>Group Policy report</td></tr>
+                <tr><td>Usuarios autenticados</td><td>Authenticated Users</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 19. Ideas clave -->
+        <section id="ideas-chave" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>19. Ideas clave do bloque</h2>
+          <div class="resumo-card p-4 mb-3">
+            <ul class="list-group list-group-flush key-list">
+              <li class="list-group-item bg-transparent">As GPO permiten configurar usuarios e equipos de forma centralizada.</li>
+              <li class="list-group-item bg-transparent">Unha GPO créase primeiro e despois debe ligarse a un sitio, dominio ou OU.</li>
+              <li class="list-group-item bg-transparent">As GPO non se vinculan directamente a grupos; os grupos poden usarse para filtrado.</li>
+              <li class="list-group-item bg-transparent">A orde xeral de aplicación é <strong>LSDOU</strong>: Local, Site, Domain, OU.</li>
+              <li class="list-group-item bg-transparent">As configuracións de equipo e de usuario aplícanse a obxectos distintos.</li>
+              <li class="list-group-item bg-transparent">Para configuracións de usuario, a GPO debe afectar a usuarios; para configuracións de equipo, a equipos.</li>
+              <li class="list-group-item bg-transparent">A política de contrasinais do dominio require especial coidado.</li>
+              <li class="list-group-item bg-transparent"><code>gpupdate</code>, <code>gpresult</code> e <code>rsop.msc</code> son ferramentas básicas para diagnosticar GPO.</li>
+              <li class="list-group-item bg-transparent">Un bo deseño de OU facilita moito a aplicación e diagnóstico das GPO.</li>
+            </ul>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <img src="../../assets/imax/sauce_clean.svg" alt="" class="smpp-sauce" onerror="this.style.display='none'">
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

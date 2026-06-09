@@ -1,0 +1,2530 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   UD3 &ndash; Bloque 1. Rendemento e obxectos monitorizables
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Fira+Code&amp;display=swap" rel="stylesheet"/>
+  <link href="../../assets/css/smpp.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <nav class="smpp-navbar no-print">
+   <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+     <img alt="SMPP" class="smpp-buho" onerror="this.style.display='none'" src="../../assets/imax/buho_clean.svg"/>
+     <div class="smpp-brand-text">
+      <span class="smpp-title">
+       SMPP
+      </span>
+      <span class="smpp-subtitle">
+       Sistemas &amp; Programaci&oacute;n
+      </span>
+     </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+     <span class="smpp-module">
+      MP0369 &middot; IMSO 26/27
+     </span>
+     <button aria-label="Cambiar tema" class="btn btn-outline-light btn-sm" onclick="toggleTheme()">
+      <i class="bi bi-moon-stars" id="theme-icon">
+      </i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <div class="container-xl py-4">
+   <div class="row g-4">
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+     <div class="sidebar">
+      <div class="card shadow-sm sidebar-panel border">
+       <div class="card-body px-3 py-3">
+        <h6 class="text-uppercase fw-bold mb-1">
+         <i class="bi bi-list-ul me-1">
+         </i>
+         &Iacute;ndice
+        </h6>
+        <hr class="my-2"/>
+        <nav id="toc">
+         <ul class="nav flex-column gap-1 small">
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#1-que-entendemos-por-rendemento-dun-sistema">
+            1. Que entendemos por rendemento dun sistema
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#2-carga-recursos-e-resposta-do-sistema">
+            2. Carga, recursos e resposta do sistema
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#3-conceptos-basicos-para-interpretar-o-rendemento">
+            3. Conceptos b&aacute;sicos para interpretar o rendemento
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#4-cpu">
+            4. CPU
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#5-memoria-ram-e-swap">
+            5. Memoria RAM e swap
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#6-disco-e-entrada-saida">
+            6. Disco e entrada/sa&iacute;da
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#7-rede">
+            7. Rede
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#8-procesos-e-servizos">
+            8. Procesos e servizos
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#9-ferramentas-basicas-en-windows">
+            9. Ferramentas b&aacute;sicas en Windows
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#10-ferramentas-basicas-en-ubuntu">
+            10. Ferramentas b&aacute;sicas en Ubuntu
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#11-relacionar-metricas-sintomas-e-sucesos">
+            11. Relacionar m&eacute;tricas, s&iacute;ntomas e sucesos
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#12-taboa-resumo-de-diagnostico">
+            12. T&aacute;boa resumo de diagn&oacute;stico
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#13-erros-habituais-ao-interpretar-rendemento">
+            13. Erros habituais ao interpretar rendemento
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#14-ideas-clave">
+            14. Ideas clave
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+    </aside>
+    <main class="col-lg-9">
+     <article>
+      <header class="mb-4">
+       <div class="theory-hero">
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+         <span class="hero-chip">
+          <i class="bi bi-speedometer2">
+          </i>
+          UD3 &middot; Bloque 1
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-activity">
+          </i>
+          Rendemento
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-bar-chart-line">
+          </i>
+          M&eacute;tricas
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-terminal">
+          </i>
+          Windows e Ubuntu
+         </span>
+        </div>
+        <h1 class="h2 fw-bold mb-2">
+         UD3 &ndash; Bloque 1. Rendemento e obxectos monitorizables
+        </h1>
+        <p class="lead mb-0">
+         Apunte t&eacute;cnico para identificar recursos cr&iacute;ticos, interpretar s&iacute;ntomas de rendemento e escoller ferramentas de diagn&oacute;stico en Windows e Ubuntu.
+        </p>
+       </div>
+      </header>
+      <div class="notice info mb-4 d-flex gap-2 align-items-start">
+       <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+       </i>
+       <div>
+        <strong>
+         Idea central:
+        </strong>
+        diagnosticar rendemento require relacionar carga, recursos dispo&ntilde;ibles, s&iacute;ntomas, m&eacute;tricas e evidencias; unha barra alta illada non abonda para conclu&iacute;r a causa.
+       </div>
+      </div>
+      <div class="row g-3 mb-4">
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-cpu text-primary">
+          </i>
+          <strong>
+           CPU
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Uso por proceso, picos, carga sostida e procesos en espera.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-memory text-primary">
+          </i>
+          <strong>
+           RAM e swap
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Memoria dispo&ntilde;ible, presi&oacute;n de memoria e intercambio.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-hdd-stack text-primary">
+          </i>
+          <strong>
+           Disco e I/O
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Espazo, lecturas/escrituras, colas e tempos de resposta.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-router text-primary">
+          </i>
+          <strong>
+           Rede
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Latencia, perda de paquetes, conexi&oacute;ns e tr&aacute;fico.
+         </p>
+        </div>
+       </div>
+      </div>
+      <section class="mb-5 section-anchor" id="1-que-entendemos-por-rendemento-dun-sistema">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-speedometer2">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          1. Que entendemos por rendemento dun sistema
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          O
+          <strong>
+           rendemento dun sistema operativo
+          </strong>
+          &eacute; a capacidade que ten un equipo para responder &aacute;s tarefas que se lle solicitan nun tempo aceptable e sen degradar o funcionamento xeral.
+         </p>
+         <p>
+          Nun sistema real non abonda con que o equipo &ldquo;arranque&rdquo; ou con que unha aplicaci&oacute;n &ldquo;abra&rdquo;. Hai que observar como se comporta cando traballan usuarios, procesos, servizos, discos, rede e aplicaci&oacute;ns ao mesmo tempo.
+         </p>
+         <p>
+          Un sistema ten bo rendemento cando:
+         </p>
+         <ul class="mb-3">
+          <li>
+           responde nun tempo razoable;
+          </li>
+          <li>
+           non queda bloqueado con facilidade;
+          </li>
+          <li>
+           reparte correctamente os recursos dispo&ntilde;ibles;
+          </li>
+          <li>
+           mant&eacute;n activos os servizos necesarios;
+          </li>
+          <li>
+           non presenta erros repetidos nos rexistros;
+          </li>
+          <li>
+           permite realizar o traballo previsto sen interrupci&oacute;ns constantes.
+          </li>
+         </ul>
+         <p>
+          Pola contra, un sistema pode ter problemas de rendemento a&iacute;nda que tecnicamente siga funcionando. Por exemplo, pode iniciar sesi&oacute;n correctamente, pero tardar moito en abrir aplicaci&oacute;ns, copiar ficheiros, acceder &aacute; rede ou responder &aacute;s acci&oacute;ns do usuario.
+         </p>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+          </i>
+          <div>
+           <p>
+            <strong>
+             Idea clave:
+            </strong>
+            o rendemento non se aval&iacute;a mirando un &uacute;nico dato illado. C&oacute;mpre relacionar carga, recursos dispo&ntilde;ibles, s&iacute;ntomas observados e evidencias t&eacute;cnicas.
+           </p>
+          </div>
+         </div>
+         <hr>
+         </hr>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="2-carga-recursos-e-resposta-do-sistema">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-diagram-3">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          2. Carga, recursos e resposta do sistema
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Para analizar o rendemento conv&eacute;n distinguir tres ideas:
+          <strong>
+           carga
+          </strong>
+          ,
+          <strong>
+           recursos
+          </strong>
+          e
+          <strong>
+           resposta
+          </strong>
+          .
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Concepto
+             </th>
+             <th>
+              Significado
+             </th>
+             <th>
+              Exemplo
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Carga
+             </td>
+             <td>
+              Traballo que se lle pide ao sistema.
+             </td>
+             <td>
+              Abrir moitas aplicaci&oacute;ns, copiar ficheiros grandes, executar unha m&aacute;quina virtual, recibir moitas conexi&oacute;ns.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Recursos
+             </td>
+             <td>
+              Elementos que o sistema usa para atender esa carga.
+             </td>
+             <td>
+              CPU, RAM, disco, rede, procesos, servizos.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Resposta
+             </td>
+             <td>
+              Comportamento do sistema ante a carga.
+             </td>
+             <td>
+              Resposta r&aacute;pida, lentitude, bloqueos, erros, consumo excesivo.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Un mesmo equipo pode funcionar ben cunha carga lixeira e ter problemas cando aumenta o traballo. Por iso &eacute; importante observar o sistema en diferentes situaci&oacute;ns:
+         </p>
+         <ul class="mb-3">
+          <li>
+           equipo recentemente iniciado;
+          </li>
+          <li>
+           usuario traballando con aplicaci&oacute;ns habituais;
+          </li>
+          <li>
+           copia de ficheiros;
+          </li>
+          <li>
+           instalaci&oacute;n ou actualizaci&oacute;n;
+          </li>
+          <li>
+           execuci&oacute;n dunha m&aacute;quina virtual;
+          </li>
+          <li>
+           servizo atendendo petici&oacute;ns de rede;
+          </li>
+          <li>
+           varios procesos consumindo recursos ao mesmo tempo.
+          </li>
+         </ul>
+         <p>
+          O diagn&oacute;stico consiste en responder preguntas como estas:
+         </p>
+         <ul class="mb-3">
+          <li>
+           Que recurso est&aacute; m&aacute;is cargado?
+          </li>
+          <li>
+           O uso alto &eacute; puntual ou mantense no tempo?
+          </li>
+          <li>
+           Que proceso ou servizo provoca a carga?
+          </li>
+          <li>
+           Hai erros ou avisos relacionados?
+          </li>
+          <li>
+           O problema afecta a todo o sistema ou s&oacute; a unha aplicaci&oacute;n?
+          </li>
+          <li>
+           Hai unha causa clara ou s&oacute; unha sospeita inicial?
+          </li>
+         </ul>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="3-conceptos-basicos-para-interpretar-o-rendemento">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-lightbulb">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          3. Conceptos b&aacute;sicos para interpretar o rendemento
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          3.1. Li&ntilde;a base
+         </h3>
+         <p>
+          A
+          <strong>
+           li&ntilde;a base
+          </strong>
+          &eacute; unha referencia do comportamento normal dun sistema cando funciona correctamente.
+         </p>
+         <p>
+          Permite comparar o estado actual co estado habitual. Sen unha li&ntilde;a base, &eacute; dif&iacute;cil saber se un valor &eacute; preocupante ou normal para ese equipo.
+         </p>
+         <p>
+          Exemplos:
+         </p>
+         <ul class="mb-3">
+          <li>
+           uso de CPU normal cando o equipo est&aacute; en repouso;
+          </li>
+          <li>
+           memoria consumida tras iniciar sesi&oacute;n;
+          </li>
+          <li>
+           espazo libre habitual no disco;
+          </li>
+          <li>
+           tempo normal de arranque;
+          </li>
+          <li>
+           tr&aacute;fico de rede habitual nunha sesi&oacute;n de traballo.
+          </li>
+         </ul>
+         <p>
+          Se un equipo adoita ter a CPU ao 5 % en repouso e un d&iacute;a permanece ao 80 % sen raz&oacute;n aparente, hai un indicio claro de cambio. Se un servidor adoita ter moito tr&aacute;fico de rede en determinadas horas, ese tr&aacute;fico pode ser normal nese contexto.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          3.2. Limiar
+         </h3>
+         <p>
+          Un
+          <strong>
+           limiar
+          </strong>
+          &eacute; un valor a partir do cal unha m&eacute;trica pode indicar un problema ou require revisi&oacute;n.
+         </p>
+         <p>
+          Exemplos orientativos:
+         </p>
+         <ul class="mb-3">
+          <li>
+           CPU moi alta durante moito tempo;
+          </li>
+          <li>
+           memoria dispo&ntilde;ible moi baixa;
+          </li>
+          <li>
+           uso intenso de swap;
+          </li>
+          <li>
+           disco case cheo;
+          </li>
+          <li>
+           tempo de resposta de disco elevado;
+          </li>
+          <li>
+           erros repetidos de rede;
+          </li>
+          <li>
+           servizo cr&iacute;tico detido.
+          </li>
+         </ul>
+         <p>
+          Os limiares non deben interpretarse de forma mec&aacute;nica. Un pico breve de CPU ao 100 % pode ser normal se o sistema est&aacute; executando unha tarefa pesada. O problema aparece cando o uso &eacute; alto durante un tempo prolongado e ademais hai s&iacute;ntomas: lentitude, aplicaci&oacute;ns que non responden ou servizos afectados.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          3.3. Saturaci&oacute;n
+         </h3>
+         <p>
+          A
+          <strong>
+           saturaci&oacute;n
+          </strong>
+          ocorre cando un recurso est&aacute; ao l&iacute;mite e non pode atender correctamente m&aacute;is traballo.
+         </p>
+         <p>
+          Exemplos:
+         </p>
+         <ul class="mb-3">
+          <li>
+           CPU permanentemente ao 100 %;
+          </li>
+          <li>
+           RAM esgotada e uso intenso de swap;
+          </li>
+          <li>
+           disco con moita cola de operaci&oacute;ns;
+          </li>
+          <li>
+           rede ocupada case por completo;
+          </li>
+          <li>
+           demasiados procesos competindo polos mesmos recursos.
+          </li>
+         </ul>
+         <p>
+          A saturaci&oacute;n dun recurso pode afectar a todo o sistema, a&iacute;nda que o resto dos recursos estean libres.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          3.4. Latencia
+         </h3>
+         <p>
+          A
+          <strong>
+           latencia
+          </strong>
+          &eacute; o tempo que tarda unha operaci&oacute;n en responder.
+         </p>
+         <p>
+          Pode aparecer en diferentes contextos:
+         </p>
+         <ul class="mb-3">
+          <li>
+           unha aplicaci&oacute;n tarda en abrir;
+          </li>
+          <li>
+           unha orde tarda en executarse;
+          </li>
+          <li>
+           un disco tarda en responder a lecturas ou escrituras;
+          </li>
+          <li>
+           unha conexi&oacute;n de rede responde con atraso;
+          </li>
+          <li>
+           unha p&aacute;xina ou recurso compartido tarda en cargar.
+          </li>
+         </ul>
+         <p>
+          Un sistema pode ter moitos recursos dispo&ntilde;ibles e, con todo, ofrecer mala experiencia se a latencia &eacute; alta.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          3.5. Rendemento efectivo
+         </h3>
+         <p>
+          O
+          <strong>
+           rendemento efectivo
+          </strong>
+          ou
+          <em>
+           throughput
+          </em>
+          &eacute; a cantidade de traballo que o sistema consegue completar nun tempo determinado.
+         </p>
+         <p>
+          Exemplos:
+         </p>
+         <ul class="mb-3">
+          <li>
+           ficheiros copiados por minuto;
+          </li>
+          <li>
+           petici&oacute;ns atendidas por un servizo;
+          </li>
+          <li>
+           datos transferidos pola rede;
+          </li>
+          <li>
+           operaci&oacute;ns de lectura/escritura completadas polo disco.
+          </li>
+         </ul>
+         <p>
+          Non &eacute; o mesmo ter moita actividade que ter bo rendemento. Un disco pode estar traballando constantemente e, con todo, completar poucas operaci&oacute;ns se est&aacute; saturado ou ten erros.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          3.6. Colo de botella
+         </h3>
+         <p>
+          Un
+          <strong>
+           colo de botella
+          </strong>
+          &eacute; o recurso que limita o rendemento global do sistema.
+         </p>
+         <p>
+          Exemplos:
+         </p>
+         <ul class="mb-3">
+          <li>
+           CPU libre, pero disco saturado: o problema principal &eacute; o disco.
+          </li>
+          <li>
+           Moita RAM libre, pero rede lenta: o problema pode estar na conectividade.
+          </li>
+          <li>
+           CPU alta causada por un &uacute;nico proceso: o problema pode estar nese proceso.
+          </li>
+          <li>
+           Memoria insuficiente e uso continuo de swap: o problema principal &eacute; a RAM.
+          </li>
+         </ul>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+          </i>
+          <div>
+           <p>
+            <strong>
+             Regra pr&aacute;ctica:
+            </strong>
+            antes de aplicar unha soluci&oacute;n hai que localizar que recurso est&aacute; limitando o sistema. Engadir RAM non resolve un problema causado por disco, e cambiar a rede non resolve unha saturaci&oacute;n de CPU.
+           </p>
+          </div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="4-cpu">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-cpu">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          4. CPU
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          A
+          <strong>
+           CPU
+          </strong>
+          executa as instruci&oacute;ns dos programas e servizos. &Eacute; un dos recursos m&aacute;is visibles cando o sistema vai lento, pero non sempre &eacute; a causa real do problema.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          4.1. Que observar na CPU
+         </h3>
+         <p>
+          Ao monitorizar CPU interesa revisar:
+         </p>
+         <ul class="mb-3">
+          <li>
+           porcentaxe de uso global;
+          </li>
+          <li>
+           porcentaxe de uso por proceso;
+          </li>
+          <li>
+           n&uacute;mero de procesos activos;
+          </li>
+          <li>
+           procesos que consumen CPU de forma continuada;
+          </li>
+          <li>
+           diferenza entre picos puntuais e uso sostido;
+          </li>
+          <li>
+           se a carga afecta a un n&uacute;cleo ou a varios;
+          </li>
+          <li>
+           se hai procesos esperando tempo de CPU.
+          </li>
+         </ul>
+         <p>
+          Un uso alto de CPU pode ser normal durante unha compilaci&oacute;n, unha actualizaci&oacute;n, unha an&aacute;lise antivirus ou unha tarefa de compresi&oacute;n. O problema aparece cando o uso alto non ten explicaci&oacute;n clara ou impide traballar con normalidade.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          4.2. S&iacute;ntomas habituais de problemas de CPU
+         </h3>
+         <p>
+          Alg&uacute;ns s&iacute;ntomas asociados &aacute; CPU son:
+         </p>
+         <ul class="mb-3">
+          <li>
+           sistema lento de forma xeral;
+          </li>
+          <li>
+           aplicaci&oacute;ns que tardan en responder;
+          </li>
+          <li>
+           ventilador funcionando con moita intensidade;
+          </li>
+          <li>
+           procesos que non baixan o consumo;
+          </li>
+          <li>
+           dificultade para abrir novas aplicaci&oacute;ns;
+          </li>
+          <li>
+           atrasos ao cambiar entre vent&aacute;s ou tarefas.
+          </li>
+         </ul>
+         <p>
+          A&iacute;nda as&iacute;, estes s&iacute;ntomas tam&eacute;n poden estar provocados por memoria insuficiente, disco saturado ou problemas de rede. Por iso hai que comparar varias m&eacute;tricas.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          4.3. Ferramentas &uacute;tiles para CPU
+         </h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Sistema
+             </th>
+             <th>
+              Ferramentas
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Windows
+             </td>
+             <td>
+              Administrador de tarefas, Monitor de recursos, Monitor de rendemento (
+              <code>
+               perfmon
+              </code>
+              )
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ubuntu
+             </td>
+             <td>
+              <code>
+               top
+              </code>
+              ,
+              <code>
+               htop
+              </code>
+              ,
+              <code>
+               ps aux
+              </code>
+              ,
+              <code>
+               uptime
+              </code>
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Exemplos en Ubuntu:
+         </p>
+         <pre class="cmd-block"><code class="language-bash"># Ver procesos e consumo en tempo real
+top
+
+# Alternativa m&aacute;is visual, se est&aacute; instalada
+htop
+
+# Listar procesos con consumo de CPU e memoria
+ps aux
+
+# Ver carga media do sistema
+uptime
+</code></pre>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="5-memoria-ram-e-swap">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-memory">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          5. Memoria RAM e swap
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          A
+          <strong>
+           memoria RAM
+          </strong>
+          almacena datos e instruci&oacute;ns que os procesos est&aacute;n usando no momento. Cando a RAM &eacute; insuficiente, o sistema pode recorrer &aacute; memoria de intercambio, chamada
+          <strong>
+           swap
+          </strong>
+          en Linux ou ficheiro de paxinaci&oacute;n en Windows.
+         </p>
+         <p>
+          O uso de memoria de intercambio permite que o sistema siga funcionando, pero &eacute; moito m&aacute;is lento ca usar RAM. Por iso, un uso intenso e constante de swap adoita indicar presi&oacute;n de memoria.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          5.1. Que observar na memoria
+         </h3>
+         <p>
+          Ao monitorizar memoria interesa revisar:
+         </p>
+         <ul class="mb-3">
+          <li>
+           memoria total instalada;
+          </li>
+          <li>
+           memoria usada;
+          </li>
+          <li>
+           memoria dispo&ntilde;ible;
+          </li>
+          <li>
+           procesos que m&aacute;is memoria consumen;
+          </li>
+          <li>
+           uso de cach&eacute;;
+          </li>
+          <li>
+           uso de swap ou ficheiro de paxinaci&oacute;n;
+          </li>
+          <li>
+           evoluci&oacute;n do consumo ao abrir ou pechar aplicaci&oacute;ns.
+          </li>
+         </ul>
+         <p>
+          En Linux &eacute; importante non interpretar mal a cach&eacute;. O sistema pode usar memoria libre como cach&eacute; de disco para mellorar o rendemento. Iso non significa necesariamente que falte memoria. O dato m&aacute;is &uacute;til adoita ser a memoria dispo&ntilde;ible.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          5.2. S&iacute;ntomas habituais de problemas de memoria
+         </h3>
+         <p>
+          Alg&uacute;ns s&iacute;ntomas relacionados coa memoria son:
+         </p>
+         <ul class="mb-3">
+          <li>
+           lentitude xeral;
+          </li>
+          <li>
+           disco moi activo sen unha copia clara de ficheiros;
+          </li>
+          <li>
+           aplicaci&oacute;ns que tardan moito en abrir;
+          </li>
+          <li>
+           avisos de memoria insuficiente;
+          </li>
+          <li>
+           procesos pechados polo sistema;
+          </li>
+          <li>
+           uso intenso de swap;
+          </li>
+          <li>
+           m&aacute;quinas virtuais ou navegadores consumindo moita RAM.
+          </li>
+         </ul>
+         <p>
+          Un caso t&iacute;pico &eacute; un equipo con pouca RAM que abre varias aplicaci&oacute;ns pesadas. A CPU pode non estar saturada, pero o sistema responde mal porque est&aacute; movendo datos continuamente entre RAM e disco.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          5.3. Ferramentas &uacute;tiles para memoria
+         </h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Sistema
+             </th>
+             <th>
+              Ferramentas
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Windows
+             </td>
+             <td>
+              Administrador de tarefas, Monitor de recursos, Monitor de rendemento (
+              <code>
+               perfmon
+              </code>
+              )
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ubuntu
+             </td>
+             <td>
+              <code>
+               free -h
+              </code>
+              ,
+              <code>
+               top
+              </code>
+              ,
+              <code>
+               htop
+              </code>
+              ,
+              <code>
+               vmstat
+              </code>
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Exemplos en Ubuntu:
+         </p>
+         <pre class="cmd-block"><code class="language-bash"># Ver memoria en formato lexible
+free -h
+
+# Ver procesos e consumo de memoria
+top
+
+# Ver informaci&oacute;n b&aacute;sica de memoria, swap e actividade do sistema
+vmstat
+</code></pre>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+          </i>
+          <div>
+           <p>
+            <strong>
+             Nota:
+            </strong>
+            <code>
+             vmstat
+            </code>
+            pode non resultar intuitivo ao principio, pero &eacute; &uacute;til para ver se hai actividade de intercambio e presi&oacute;n de memoria.
+           </p>
+          </div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="6-disco-e-entrada-saida">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-hdd-stack">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          6. Disco e entrada/sa&iacute;da
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          O disco ou subsistema de almacenamento infl&uacute;e moito no rendemento. Un sistema pode parecer bloqueado non porque falte CPU, sen&oacute;n porque o disco tarda demasiado en responder.
+         </p>
+         <p>
+          A entrada/sa&iacute;da, tam&eacute;n chamada
+          <strong>
+           I/O
+          </strong>
+          , fai referencia &aacute;s operaci&oacute;ns de lectura e escritura sobre dispositivos como discos, SSD, unidades externas ou recursos de almacenamento.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          6.1. Que observar no disco
+         </h3>
+         <p>
+          Ao monitorizar disco interesa revisar:
+         </p>
+         <ul class="mb-3">
+          <li>
+           espazo libre e ocupado;
+          </li>
+          <li>
+           actividade de lectura e escritura;
+          </li>
+          <li>
+           procesos que m&aacute;is usan o disco;
+          </li>
+          <li>
+           tempo de resposta;
+          </li>
+          <li>
+           cola de operaci&oacute;ns pendentes;
+          </li>
+          <li>
+           erros de disco;
+          </li>
+          <li>
+           tipo de dispositivo: HDD, SSD, unidade externa, almacenamento de rede;
+          </li>
+          <li>
+           se hai tarefas intensivas: copias, actualizaci&oacute;ns, indexaci&oacute;n, antivirus, m&aacute;quinas virtuais.
+          </li>
+         </ul>
+         <p>
+          Un disco case cheo tam&eacute;n pode causar problemas. O sistema operativo necesita espazo para ficheiros temporais, actualizaci&oacute;ns, cach&eacute;s, logs e memoria de apoio.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          6.2. Fragmentaci&oacute;n e discos actuais
+         </h3>
+         <p>
+          En discos duros mec&aacute;nicos, a fragmentaci&oacute;n pod&iacute;a afectar ao rendemento porque os datos quedaban repartidos por zonas distintas do disco. En equipos actuais con SSD, o problema adoita estar m&aacute;is relacionado coa saturaci&oacute;n de I/O, falta de espazo, desgaste, erros ou tarefas intensivas de lectura/escritura.
+         </p>
+         <p>
+          Non se debe aplicar a desfragmentaci&oacute;n cl&aacute;sica como soluci&oacute;n universal. Primeiro hai que identificar o tipo de disco e a causa real do problema.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          6.3. S&iacute;ntomas habituais de problemas de disco
+         </h3>
+         <p>
+          Alg&uacute;ns s&iacute;ntomas asociados ao disco son:
+         </p>
+         <ul class="mb-3">
+          <li>
+           sistema que &ldquo;se conxela&rdquo; por momentos;
+          </li>
+          <li>
+           aplicaci&oacute;ns que tardan moito en abrir;
+          </li>
+          <li>
+           arranque lento;
+          </li>
+          <li>
+           copias de ficheiros moi lentas;
+          </li>
+          <li>
+           disco ao 100 % de actividade en Windows;
+          </li>
+          <li>
+           erros repetidos nos logs;
+          </li>
+          <li>
+           m&aacute;quinas virtuais moi lentas;
+          </li>
+          <li>
+           uso intenso de disco cando falta RAM.
+          </li>
+         </ul>
+         <p>
+          Un disco saturado pode facer que todo o sistema pareza lento, mesmo con CPU baixa e memoria suficiente.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          6.4. Ferramentas &uacute;tiles para disco
+         </h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Sistema
+             </th>
+             <th>
+              Ferramentas
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Windows
+             </td>
+             <td>
+              Administrador de tarefas, Monitor de recursos, Monitor de rendemento (
+              <code>
+               perfmon
+              </code>
+              ), Visor de eventos
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ubuntu
+             </td>
+             <td>
+              <code>
+               df -h
+              </code>
+              ,
+              <code>
+               du -sh
+              </code>
+              ,
+              <code>
+               lsblk
+              </code>
+              ,
+              <code>
+               iostat
+              </code>
+              ,
+              <code>
+               journalctl
+              </code>
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Exemplos en Ubuntu:
+         </p>
+         <pre class="cmd-block"><code class="language-bash"># Ver espazo libre e ocupado por sistema de ficheiros
+df -h
+
+# Ver tama&ntilde;o dunha ruta concreta
+du -sh /ruta
+
+# Ver discos e partici&oacute;ns
+lsblk
+
+# Ver estat&iacute;sticas de entrada/sa&iacute;da, se est&aacute; dispo&ntilde;ible
+iostat
+</code></pre>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+          </i>
+          <div>
+           <p>
+            <strong>
+             Nota:
+            </strong>
+            <code>
+             iostat
+            </code>
+            adoita estar inclu&iacute;do no paquete
+            <code>
+             sysstat
+            </code>
+            . Pode non estar instalado por defecto.
+           </p>
+          </div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="7-rede">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-router">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          7. Rede
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          A rede &eacute; esencial en sistemas conectados: acceso a Internet, recursos compartidos, servidores, autenticaci&oacute;n, actualizaci&oacute;ns e comunicaci&oacute;n entre equipos.
+         </p>
+         <p>
+          Un problema de rede pode parecer un problema do sistema: aplicaci&oacute;ns lentas, unidades de rede que non abren, servizos que non responden ou erros de autenticaci&oacute;n.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          7.1. Que observar na rede
+         </h3>
+         <p>
+          Ao monitorizar rede interesa revisar:
+         </p>
+         <ul class="mb-3">
+          <li>
+           interfaces activas;
+          </li>
+          <li>
+           enderezo IP e configuraci&oacute;n;
+          </li>
+          <li>
+           tr&aacute;fico entrante e sa&iacute;nte;
+          </li>
+          <li>
+           latencia;
+          </li>
+          <li>
+           perda de paquetes;
+          </li>
+          <li>
+           erros na interface;
+          </li>
+          <li>
+           conexi&oacute;ns abertas;
+          </li>
+          <li>
+           servizos escoitando en portos;
+          </li>
+          <li>
+           procesos que xeran tr&aacute;fico.
+          </li>
+         </ul>
+         <p>
+          Non todos os problemas de rede son de ancho de banda. Pode haber boa velocidade dispo&ntilde;ible e, con todo, fallos por DNS, latencia, perda de paquetes, firewall, servizos ca&iacute;dos ou configuraci&oacute;n incorrecta.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          7.2. S&iacute;ntomas habituais de problemas de rede
+         </h3>
+         <p>
+          Alg&uacute;ns s&iacute;ntomas relacionados coa rede son:
+         </p>
+         <ul class="mb-3">
+          <li>
+           recursos compartidos que tardan en abrir;
+          </li>
+          <li>
+           cortes ao copiar ficheiros por rede;
+          </li>
+          <li>
+           imposibilidade de resolver nomes DNS;
+          </li>
+          <li>
+           conexi&oacute;ns que se establecen pero responden lentamente;
+          </li>
+          <li>
+           servizos inaccesibles;
+          </li>
+          <li>
+           moitas conexi&oacute;ns abertas sen explicaci&oacute;n;
+          </li>
+          <li>
+           erros ou paquetes descartados na interface.
+          </li>
+         </ul>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          7.3. Ferramentas &uacute;tiles para rede
+         </h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Sistema
+             </th>
+             <th>
+              Ferramentas
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Windows
+             </td>
+             <td>
+              Administrador de tarefas, Monitor de recursos,
+              <code>
+               ping
+              </code>
+              ,
+              <code>
+               ipconfig
+              </code>
+              ,
+              <code>
+               netstat
+              </code>
+              , Visor de eventos
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ubuntu
+             </td>
+             <td>
+              <code>
+               ip a
+              </code>
+              ,
+              <code>
+               ip -s link
+              </code>
+              ,
+              <code>
+               ping
+              </code>
+              ,
+              <code>
+               ss
+              </code>
+              ,
+              <code>
+               journalctl
+              </code>
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Exemplos en Ubuntu:
+         </p>
+         <pre class="cmd-block"><code class="language-bash"># Ver interfaces e enderezos IP
+ip a
+
+# Ver estat&iacute;sticas das interfaces, inclu&iacute;ndo erros e paquetes descartados
+ip -s link
+
+# Comprobar conectividade b&aacute;sica
+ping 8.8.8.8
+
+# Ver conexi&oacute;ns e portos en escoita
+ss -tulpen
+</code></pre>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+          </i>
+          <div>
+           <p>
+            <strong>
+             Nota:
+            </strong>
+            para ver toda a informaci&oacute;n de procesos asociada &aacute;s conexi&oacute;ns con
+            <code>
+             ss -tulpen
+            </code>
+            , pode ser necesario executar o comando con permisos de administraci&oacute;n.
+           </p>
+          </div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="8-procesos-e-servizos">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-gear-wide-connected">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          8. Procesos e servizos
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Os
+          <strong>
+           procesos
+          </strong>
+          son programas en execuci&oacute;n. Cada proceso consume recursos: CPU, memoria, disco, rede ou unha combinaci&oacute;n deles.
+         </p>
+         <p>
+          Os
+          <strong>
+           servizos
+          </strong>
+          son procesos ou conxuntos de procesos que se executan en segundo plano para ofrecer unha funci&oacute;n do sistema: rede, impresi&oacute;n, actualizaci&oacute;ns, autenticaci&oacute;n, DNS, servidor web, base de datos, etc.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          8.1. Que observar nos procesos
+         </h3>
+         <p>
+          Ao monitorizar procesos interesa revisar:
+         </p>
+         <ul class="mb-3">
+          <li>
+           nome do proceso;
+          </li>
+          <li>
+           PID ou identificador;
+          </li>
+          <li>
+           usuario que o executa;
+          </li>
+          <li>
+           consumo de CPU;
+          </li>
+          <li>
+           consumo de memoria;
+          </li>
+          <li>
+           actividade de disco;
+          </li>
+          <li>
+           actividade de rede;
+          </li>
+          <li>
+           tempo de execuci&oacute;n;
+          </li>
+          <li>
+           estado do proceso;
+          </li>
+          <li>
+           se responde ou est&aacute; bloqueado.
+          </li>
+         </ul>
+         <p>
+          Un proceso pode consumir moito CPU durante pouco tempo e ser normal. Outro pode consumir menos, pero manterse as&iacute; durante horas e afectar ao rendemento xeral.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          8.2. Que observar nos servizos
+         </h3>
+         <p>
+          Ao revisar servizos interesa comprobar:
+         </p>
+         <ul class="mb-3">
+          <li>
+           se est&aacute;n activos, parados ou fallidos;
+          </li>
+          <li>
+           se arrancan automaticamente;
+          </li>
+          <li>
+           se se reinician de forma inesperada;
+          </li>
+          <li>
+           que dependencias te&ntilde;en;
+          </li>
+          <li>
+           se aparecen erros relacionados nos logs;
+          </li>
+          <li>
+           que impacto te&ntilde;en se se dete&ntilde;en.
+          </li>
+         </ul>
+         <p>
+          Nun servidor, un servizo cr&iacute;tico parado pode ser m&aacute;is importante ca un consumo alto de CPU. Por exemplo, se falla un servizo de rede, os usuarios poden percibir que &ldquo;o sistema non funciona&rdquo; a&iacute;nda que os recursos estean pouco usados.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          8.3. Procesos colgados, bloqueados e zombis
+         </h3>
+         <p>
+          Hai que distinguir varios casos:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Situaci&oacute;n
+             </th>
+             <th>
+              Explicaci&oacute;n
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Proceso con alto consumo
+             </td>
+             <td>
+              Usa moita CPU, memoria, disco ou rede. Pode ser normal ou problem&aacute;tico segundo o contexto.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Proceso colgado
+             </td>
+             <td>
+              Non responde ou queda bloqueado. Pode consumir recursos ou impedir que a aplicaci&oacute;n funcione.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Proceso bloqueado
+             </td>
+             <td>
+              Est&aacute; esperando por alg&uacute;n recurso: disco, rede, outro proceso, entrada do usuario, etc.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Proceso zombi
+             </td>
+             <td>
+              En Unix/Linux, &eacute; un proceso que xa rematou, pero o proceso pai a&iacute;nda non recolleu o seu estado. Normalmente non consume CPU de forma activa.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          A expresi&oacute;n &ldquo;proceso zombi&rdquo; non debe usarse como sin&oacute;nimo xeral de proceso problem&aacute;tico. Un proceso zombi indica un problema de xesti&oacute;n de procesos, pero non adoita ser a causa directa dun consumo alto de CPU.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          8.4. Ferramentas &uacute;tiles para procesos e servizos
+         </h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Sistema
+             </th>
+             <th>
+              Procesos
+             </th>
+             <th>
+              Servizos
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Windows
+             </td>
+             <td>
+              Administrador de tarefas, Monitor de recursos, PowerShell
+             </td>
+             <td>
+              <code>
+               services.msc
+              </code>
+              , Administrador de tarefas, PowerShell, Visor de eventos
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ubuntu
+             </td>
+             <td>
+              <code>
+               top
+              </code>
+              ,
+              <code>
+               htop
+              </code>
+              ,
+              <code>
+               ps aux
+              </code>
+             </td>
+             <td>
+              <code>
+               systemctl status
+              </code>
+              ,
+              <code>
+               journalctl -u
+              </code>
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Exemplos en Ubuntu:
+         </p>
+         <pre class="cmd-block"><code class="language-bash"># Ver todos os procesos en formato detallado
+ps aux
+
+# Ver o estado dun servizo
+systemctl status nome_servizo
+
+# Ver eventos dun servizo concreto
+journalctl -u nome_servizo
+
+# Ver avisos e erros recentes do sistema
+journalctl -p warning..err
+</code></pre>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="9-ferramentas-basicas-en-windows">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-windows">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          9. Ferramentas b&aacute;sicas en Windows
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Windows incorpora varias ferramentas &uacute;tiles para observar rendemento. Cada unha ten un nivel de detalle distinto.
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Ferramenta
+             </th>
+             <th>
+              Uso principal
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Administrador de tarefas
+             </td>
+             <td>
+              Vista r&aacute;pida de procesos e consumo global de CPU, memoria, disco e rede.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Monitor de recursos
+             </td>
+             <td>
+              An&aacute;lise m&aacute;is detallada por proceso: CPU, memoria, disco e rede.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Monitor de rendemento (
+              <code>
+               perfmon
+              </code>
+              )
+             </td>
+             <td>
+              Contadores de rendemento, gr&aacute;ficas, rexistro de datos e an&aacute;lise m&aacute;is avanzada.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Visor de eventos
+             </td>
+             <td>
+              Revisi&oacute;n de erros, avisos e sucesos que axudan a explicar problemas.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              <code>
+               msinfo32
+              </code>
+             </td>
+             <td>
+              Informaci&oacute;n detallada do sistema, hardware e configuraci&oacute;n.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              <code>
+               dxdiag
+              </code>
+             </td>
+             <td>
+              Informaci&oacute;n de DirectX, pantalla, son e controladores relacionados.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              <code>
+               winver
+              </code>
+             </td>
+             <td>
+              Versi&oacute;n de Windows instalada.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          9.1. Administrador de tarefas
+         </h3>
+         <p>
+          &Eacute; a ferramenta m&aacute;is r&aacute;pida para unha primeira revisi&oacute;n.
+         </p>
+         <p>
+          Permite comprobar:
+         </p>
+         <ul class="mb-3">
+          <li>
+           procesos en execuci&oacute;n;
+          </li>
+          <li>
+           consumo de CPU por proceso;
+          </li>
+          <li>
+           consumo de memoria;
+          </li>
+          <li>
+           actividade de disco;
+          </li>
+          <li>
+           actividade de rede;
+          </li>
+          <li>
+           aplicaci&oacute;ns que non responden;
+          </li>
+          <li>
+           programas de inicio;
+          </li>
+          <li>
+           usuarios conectados.
+          </li>
+         </ul>
+         <p>
+          &Eacute; &uacute;til para detectar un problema evidente, pero non sempre chega para explicar a causa.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          9.2. Monitor de recursos
+         </h3>
+         <p>
+          O Monitor de recursos ofrece m&aacute;is detalle ca o Administrador de tarefas.
+         </p>
+         <p>
+          Permite ver:
+         </p>
+         <ul class="mb-3">
+          <li>
+           que procesos usan m&aacute;is CPU;
+          </li>
+          <li>
+           que procesos len ou escriben no disco;
+          </li>
+          <li>
+           que ficheiros est&aacute;n sendo usados;
+          </li>
+          <li>
+           que procesos te&ntilde;en conexi&oacute;ns de rede;
+          </li>
+          <li>
+           uso de memoria m&aacute;is detallado.
+          </li>
+         </ul>
+         <p>
+          &Eacute; especialmente &uacute;til cando o sistema mostra o disco ao 100 % ou cando hai que saber que proceso est&aacute; xerando actividade de rede.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          9.3. Monitor de rendemento (
+          <code>
+           perfmon
+          </code>
+          )
+         </h3>
+         <p>
+          O Monitor de rendemento permite traballar con
+          <strong>
+           contadores de rendemento
+          </strong>
+          .
+         </p>
+         <p>
+          Pode empregarse para:
+         </p>
+         <ul class="mb-3">
+          <li>
+           observar m&eacute;tricas en tempo real;
+          </li>
+          <li>
+           crear gr&aacute;ficas;
+          </li>
+          <li>
+           engadir contadores de CPU, memoria, disco, rede ou procesos;
+          </li>
+          <li>
+           rexistrar datos durante un per&iacute;odo de tempo;
+          </li>
+          <li>
+           comparar comportamento normal e comportamento an&oacute;malo.
+          </li>
+         </ul>
+         <p>
+          &Eacute; unha ferramenta m&aacute;is profesional ca o Administrador de tarefas, porque permite observar tendencias e non s&oacute; unha captura puntual.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          9.4. Visor de eventos
+         </h3>
+         <p>
+          O Visor de eventos non mide directamente o rendemento, pero axuda a explicar problemas.
+         </p>
+         <p>
+          Por exemplo:
+         </p>
+         <ul class="mb-3">
+          <li>
+           erro de disco que coincide con bloqueos;
+          </li>
+          <li>
+           servizo que se det&eacute;n ao mesmo tempo que falla unha aplicaci&oacute;n;
+          </li>
+          <li>
+           apagado inesperado;
+          </li>
+          <li>
+           controlador con problemas;
+          </li>
+          <li>
+           aviso de recurso ou sistema.
+          </li>
+         </ul>
+         <p>
+          Neste documento s&oacute; se presenta como ferramenta de apoio. O tratamento m&aacute;is detallado de rexistros, eventos e alertas traballarase nun documento espec&iacute;fico.
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="10-ferramentas-basicas-en-ubuntu">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-ubuntu">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          10. Ferramentas b&aacute;sicas en Ubuntu
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          En Ubuntu moitas tarefas de monitorizaci&oacute;n fanse desde a terminal. Isto permite obter informaci&oacute;n r&aacute;pida, repetir comprobaci&oacute;ns e gardar evidencias en texto.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          10.1. Informaci&oacute;n de contexto
+         </h3>
+         <p>
+          Antes de diagnosticar, conv&eacute;n saber con que sistema estamos traballando.
+         </p>
+         <pre class="cmd-block"><code class="language-bash"># Versi&oacute;n da distribuci&oacute;n
+lsb_release -a
+
+# Informaci&oacute;n do kernel e arquitectura
+uname -a
+
+# Discos e partici&oacute;ns
+lsblk
+
+# Interfaces de rede e enderezos IP
+ip a
+</code></pre>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          10.2. CPU e procesos
+         </h3>
+         <pre class="cmd-block"><code class="language-bash"># Vista din&aacute;mica de procesos
+top
+
+# Vista m&aacute;is c&oacute;moda, se est&aacute; instalada
+htop
+
+# Lista de procesos
+ps aux
+
+# Carga media do sistema
+uptime
+</code></pre>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          10.3. Memoria
+         </h3>
+         <pre class="cmd-block"><code class="language-bash"># Memoria e swap en formato lexible
+free -h
+
+# Estat&iacute;sticas b&aacute;sicas de memoria, procesos e actividade
+vmstat
+</code></pre>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          10.4. Disco
+         </h3>
+         <pre class="cmd-block"><code class="language-bash"># Espazo libre e ocupado
+df -h
+
+# Tama&ntilde;o dunha ruta concreta
+du -sh /ruta
+
+# Discos e partici&oacute;ns
+lsblk
+
+# Estat&iacute;sticas de I/O, se est&aacute; dispo&ntilde;ible
+iostat
+</code></pre>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          10.5. Rede
+         </h3>
+         <pre class="cmd-block"><code class="language-bash"># Interfaces e enderezos
+ip a
+
+# Estat&iacute;sticas das interfaces
+ip -s link
+
+# Proba b&aacute;sica de conectividade
+ping nome_ou_ip
+
+# Conexi&oacute;ns e portos
+ss -tulpen
+</code></pre>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          10.6. Servizos e eventos
+         </h3>
+         <pre class="cmd-block"><code class="language-bash"># Estado dun servizo
+systemctl status nome_servizo
+
+# Eventos dun servizo concreto
+journalctl -u nome_servizo
+
+# Eventos do arranque actual
+journalctl -b
+
+# Avisos e erros
+journalctl -p warning..err
+</code></pre>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+          </i>
+          <div>
+           <p>
+            <strong>
+             Importante:
+            </strong>
+            neste bloque, os logs &uacute;sanse como apoio ao diagn&oacute;stico de rendemento. A auditor&iacute;a de acceso e uso desenvolverase no bloque correspondente da UD3.
+           </p>
+          </div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="11-relacionar-metricas-sintomas-e-sucesos">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-activity">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          11. Relacionar m&eacute;tricas, s&iacute;ntomas e sucesos
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Monitorizar non &eacute; s&oacute; abrir unha ferramenta e mirar barras. O obxectivo &eacute; relacionar tres elementos:
+         </p>
+         <ol class="mb-3">
+          <li>
+           <strong>
+            S&iacute;ntoma observado:
+           </strong>
+           o que nota o usuario ou a administradora do sistema.
+          </li>
+          <li>
+           <strong>
+            M&eacute;trica:
+           </strong>
+           dato medible que confirma ou descarta unha hip&oacute;tese.
+          </li>
+          <li>
+           <strong>
+            Suceso ou evidencia:
+           </strong>
+           rexistro, evento, sa&iacute;da de comando ou captura que axuda a explicar o problema.
+          </li>
+         </ol>
+         <p>
+          Exemplo:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Elemento
+             </th>
+             <th>
+              Exemplo
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              S&iacute;ntoma
+             </td>
+             <td>
+              O equipo queda bloqueado ao abrir unha m&aacute;quina virtual.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              M&eacute;trica
+             </td>
+             <td>
+              Memoria dispo&ntilde;ible moi baixa e uso de swap.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Evidencia
+             </td>
+             <td>
+              Captura de memoria en Windows ou sa&iacute;da de
+              <code>
+               free -h
+              </code>
+              en Ubuntu.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Interpretaci&oacute;n
+             </td>
+             <td>
+              A m&aacute;quina virtual require m&aacute;is memoria da que o equipo pode ofrecer con comodidade.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Outro exemplo:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Elemento
+             </th>
+             <th>
+              Exemplo
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              S&iacute;ntoma
+             </td>
+             <td>
+              O sistema tarda moito en abrir aplicaci&oacute;ns.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              M&eacute;trica
+             </td>
+             <td>
+              Disco ao 100 % durante varios minutos.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Evidencia
+             </td>
+             <td>
+              Monitor de recursos mostra un proceso con moitas lecturas/escrituras.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Interpretaci&oacute;n
+             </td>
+             <td>
+              O colo de botella est&aacute; no disco, non necesariamente na CPU.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          A conclusi&oacute;n t&eacute;cnica debe basearse sempre en evidencias. Non chega con dicir &ldquo;vai lento&rdquo;; hai que indicar que se observou, con que ferramenta e que dato xustifica o diagn&oacute;stico.
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="12-taboa-resumo-de-diagnostico">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-table">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          12. T&aacute;boa resumo de diagn&oacute;stico
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Recurso
+             </th>
+             <th>
+              Que observar
+             </th>
+             <th>
+              S&iacute;ntomas posibles
+             </th>
+             <th>
+              Ferramentas Windows
+             </th>
+             <th>
+              Ferramentas Ubuntu
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              CPU
+             </td>
+             <td>
+              Uso global, uso por proceso, carga sostida
+             </td>
+             <td>
+              Lentitude, aplicaci&oacute;ns sen resposta, ventilador alto
+             </td>
+             <td>
+              Administrador de tarefas, Monitor de recursos,
+              <code>
+               perfmon
+              </code>
+             </td>
+             <td>
+              <code>
+               top
+              </code>
+              ,
+              <code>
+               htop
+              </code>
+              ,
+              <code>
+               ps aux
+              </code>
+              ,
+              <code>
+               uptime
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Memoria
+             </td>
+             <td>
+              RAM dispo&ntilde;ible, procesos con m&aacute;is consumo, swap
+             </td>
+             <td>
+              Lentitude xeral, disco moi activo, avisos de memoria
+             </td>
+             <td>
+              Administrador de tarefas, Monitor de recursos,
+              <code>
+               perfmon
+              </code>
+             </td>
+             <td>
+              <code>
+               free -h
+              </code>
+              ,
+              <code>
+               top
+              </code>
+              ,
+              <code>
+               htop
+              </code>
+              ,
+              <code>
+               vmstat
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Disco
+             </td>
+             <td>
+              Espazo libre, lecturas/escrituras, tempo de resposta, erros
+             </td>
+             <td>
+              Bloqueos, arranque lento, aplicaci&oacute;ns que tardan
+             </td>
+             <td>
+              Monitor de recursos, Administrador de tarefas, Visor de eventos,
+              <code>
+               perfmon
+              </code>
+             </td>
+             <td>
+              <code>
+               df -h
+              </code>
+              ,
+              <code>
+               du -sh
+              </code>
+              ,
+              <code>
+               lsblk
+              </code>
+              ,
+              <code>
+               iostat
+              </code>
+              ,
+              <code>
+               journalctl
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Rede
+             </td>
+             <td>
+              Tr&aacute;fico, latencia, erros, conexi&oacute;ns abertas
+             </td>
+             <td>
+              Recursos remotos lentos, cortes, servizos inaccesibles
+             </td>
+             <td>
+              Monitor de recursos, Administrador de tarefas,
+              <code>
+               ping
+              </code>
+              ,
+              <code>
+               ipconfig
+              </code>
+              ,
+              <code>
+               netstat
+              </code>
+             </td>
+             <td>
+              <code>
+               ip a
+              </code>
+              ,
+              <code>
+               ip -s link
+              </code>
+              ,
+              <code>
+               ping
+              </code>
+              ,
+              <code>
+               ss
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Procesos
+             </td>
+             <td>
+              Consumo, PID, usuario, estado, tempo de execuci&oacute;n
+             </td>
+             <td>
+              Aplicaci&oacute;ns colgadas, consumo an&oacute;malo, procesos sen resposta
+             </td>
+             <td>
+              Administrador de tarefas, Monitor de recursos, PowerShell
+             </td>
+             <td>
+              <code>
+               top
+              </code>
+              ,
+              <code>
+               htop
+              </code>
+              ,
+              <code>
+               ps aux
+              </code>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Servizos
+             </td>
+             <td>
+              Estado, reinicios, erros, dependencias
+             </td>
+             <td>
+              Servizos ca&iacute;dos, funcionalidades non dispo&ntilde;ibles
+             </td>
+             <td>
+              <code>
+               services.msc
+              </code>
+              , Visor de eventos, PowerShell
+             </td>
+             <td>
+              <code>
+               systemctl status
+              </code>
+              ,
+              <code>
+               journalctl -u
+              </code>
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="13-erros-habituais-ao-interpretar-rendemento">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-exclamation-triangle">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          13. Erros habituais ao interpretar rendemento
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Erro
+             </th>
+             <th>
+              Por que &eacute; un problema
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Pensar que CPU ao 100 % sempre &eacute; fallo
+             </td>
+             <td>
+              Pode ser normal durante unha tarefa pesada e puntual.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Mirar s&oacute; unha m&eacute;trica
+             </td>
+             <td>
+              A lentitude pode vir de CPU, RAM, disco, rede ou combinaci&oacute;n de varias.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Confundir memoria usada con falta de memoria
+             </td>
+             <td>
+              En Linux parte da memoria pode estar usada como cach&eacute;.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Culpar &aacute; rede sen comprobar DNS, latencia ou servizo
+             </td>
+             <td>
+              Non todo problema de acceso remoto &eacute; ancho de banda.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ignorar os logs
+             </td>
+             <td>
+              Un evento ou erro pode explicar a m&eacute;trica observada.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Non comparar co estado normal
+             </td>
+             <td>
+              Sen li&ntilde;a base &eacute; dif&iacute;cil saber se un valor &eacute; an&oacute;malo.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Aplicar soluci&oacute;ns sen evidencia
+             </td>
+             <td>
+              Pode empeorar o sistema ou non resolver a causa real.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="14-ideas-clave">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-journal-check">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          14. Ideas clave
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <ul class="mb-3">
+          <li>
+           O rendemento depende da relaci&oacute;n entre carga, recursos dispo&ntilde;ibles e resposta do sistema.
+          </li>
+          <li>
+           Os principais obxectos monitorizables son CPU, memoria, disco, rede, procesos e servizos.
+          </li>
+          <li>
+           Un dato illado non adoita ser suficiente para diagnosticar un problema.
+          </li>
+          <li>
+           Un pico puntual de consumo non sempre indica unha incidencia.
+          </li>
+          <li>
+           A saturaci&oacute;n sostida dun recurso pode converterse nun colo de botella.
+          </li>
+          <li>
+           A memoria de intercambio axuda a evitar fallos, pero o seu uso intensivo adoita degradar o rendemento.
+          </li>
+          <li>
+           Un disco saturado pode facer que todo o sistema pareza lento a&iacute;nda que a CPU estea libre.
+          </li>
+          <li>
+           Os procesos colgados e os procesos zombis non son o mesmo.
+          </li>
+          <li>
+           En Windows, o Administrador de tarefas e o Monitor de recursos serven para unha primeira an&aacute;lise;
+           <code>
+            perfmon
+           </code>
+           permite unha monitorizaci&oacute;n m&aacute;is avanzada.
+          </li>
+          <li>
+           En Ubuntu, comandos como
+           <code>
+            top
+           </code>
+           ,
+           <code>
+            free -h
+           </code>
+           ,
+           <code>
+            df -h
+           </code>
+           ,
+           <code>
+            ss
+           </code>
+           ,
+           <code>
+            systemctl
+           </code>
+           e
+           <code>
+            journalctl
+           </code>
+           permiten recoller evidencias t&eacute;cnicas.
+          </li>
+          <li>
+           Diagnosticar &eacute; relacionar s&iacute;ntomas, m&eacute;tricas e sucesos antes de aplicar unha correcci&oacute;n.
+          </li>
+         </ul>
+        </div>
+       </div>
+      </section>
+     </article>
+    </main>
+   </div>
+  </div>
+  <footer class="smpp-footer no-print">
+   <div class="smpp-footer-spacer">
+   </div>
+   <div class="smpp-footer-center">
+    <span>
+     CIFP A Carballeira &middot; Ourense
+    </span>
+    Administraci&oacute;n de sistemas inform&aacute;ticos &middot; Curso 2026/27
+    <br/>
+    Material did&aacute;ctico de uso interno
+   </div>
+   <img alt="" class="smpp-sauce" onerror="this.style.display='none'" src="../../assets/imax/sauce_clean.svg"/>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="../../assets/js/smpp.js">
+  </script>
+ </body>
+</html>

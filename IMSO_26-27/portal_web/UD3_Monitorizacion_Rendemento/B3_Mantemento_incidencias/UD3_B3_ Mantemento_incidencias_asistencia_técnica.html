@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>UD3 · B3 – Mantemento, incidencias e asistencia técnica</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+  <!-- Estilos SMPP -->
+  <link href="../../assets/css/smpp.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="smpp-navbar no-print">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="smpp-brand" href="#">
+        <img src="../../assets/img/buho-clean.svg"
+             alt="SMPP"
+             class="smpp-buho"
+             onerror="this.style.display='none'">
+        <div class="smpp-brand-text">
+          <span class="smpp-title">SMPP</span>
+          <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+        </div>
+      </a>
+
+      <div class="d-flex align-items-center gap-3">
+        <span class="smpp-module">
+          MP0369 · IMSO 26/27
+        </span>
+        <button class="btn btn-outline-light btn-sm"
+                type="button"
+                onclick="toggleTheme()"
+                aria-label="Cambiar tema"
+                title="Cambiar tema">
+          <i class="bi bi-moon-stars" id="theme-icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contido principal -->
+  <div class="container-xl py-4">
+    <div class="row g-4">
+
+      <!-- Índice lateral -->
+      <aside class="col-lg-3 d-none d-lg-block no-print">
+        <div class="sidebar">
+          <div class="card shadow-sm sidebar-panel border">
+            <div class="card-body px-3 py-3">
+              <h6 class="text-uppercase fw-bold mb-1">
+                <i class="bi bi-list-ul me-1"></i> Índice
+              </h6>
+              <hr class="my-2">
+              <nav id="toc" class="toc">
+                <ul class="nav flex-column gap-1 small">
+                  <li class="nav-item"><a class="nav-link py-1" href="#contexto">1. Contextualización</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#obxectivos">2. Obxectivos</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#mantemento">3.1 Mantemento</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#mantemento-tipos">3.1.1 Tipos de mantemento</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#actualizacions">3.1.2 Actualizacións</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#snmp">3.2 Monitorización remota e SNMP</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#incidencias">3.3 Protocolos de incidencias</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#asistencia">3.4 Asistencia técnica</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#parte-tecnico">3.5 Parte técnico</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#simulacion">3.6 Simulación de rendemento</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#mini-practica">4. Mini práctica</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#cadro-resumo">5. Cadro resumo</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#vocabulario">6. Vocabulario</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Columna principal -->
+      <main class="col-lg-9">
+        <article>
+
+          <!-- Hero -->
+          <header class="mb-4">
+            <div class="practice-hero hero-blue">
+              <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <span class="hero-chip">
+                  <i class="bi bi-journal-text"></i>
+                  UD3 · B3 – Mantemento e incidencias
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-pc-display"></i>
+                  Windows &amp; Ubuntu
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-life-preserver"></i>
+                  Asistencia técnica
+                </span>
+              </div>
+
+              <h1 class="h2 fw-bold mb-2">
+                UD3 · B3 – Mantemento, incidencias e asistencia técnica
+              </h1>
+
+              <p class="lead mb-0">
+                Bloque centrado en manter sistemas operativos en bo estado,
+                actuar ante incidencias e documentar a asistencia técnica de forma profesional.
+              </p>
+            </div>
+          </header>
+
+          <!-- Contextualización -->
+          <section class="mb-4 section-anchor" id="contexto">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-compass"></i></span>
+                <h2 class="h4 fw-bold mb-0">1. Contextualización</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Nos bloques anteriores aprendemos a medir o que fai o sistema (B1 – rendemento e monitorización)
+                  e a rexistrar quen accede e que fai (B2 – auditoría). Agora damos un paso máis:
+                  actuar cando algo falla e manter o sistema en bo estado ao longo do tempo.
+                </p>
+                <p>
+                  Un administrador ou administradora de sistemas non só configura equipos:
+                  tamén os mantén, resolve problemas e presta asistencia técnica cando algo non funciona.
+                  Estas tarefas agrúpanse en:
+                </p>
+                <ul>
+                  <li><strong>mantemento</strong>;</li>
+                  <li><strong>resolución de incidencias</strong>;</li>
+                  <li><strong>asistencia técnica</strong>;</li>
+                  <li><strong>documentación das actuacións realizadas</strong>.</li>
+                </ul>
+                <p>
+                  A idea principal é que un problema técnico non se resolve por intuición ou
+                  proba-e-erro sen control: cómpre seguir un proceso ordenado de
+                  recoller información, diagnosticar, actuar, verificar e documentar.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Obxectivos -->
+          <section class="mb-4 section-anchor" id="obxectivos">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-bullseye"></i></span>
+                <h2 class="h4 fw-bold mb-0">2. Obxectivos de aprendizaxe</h2>
+              </div>
+              <div class="content-card-body">
+                <p>Ao rematar este bloque, deberías ser quen de:</p>
+                <ul>
+                  <li>Identificar tarefas básicas de mantemento preventivo e correctivo nun sistema operativo.</li>
+                  <li>Diferenciar mantemento preventivo, correctivo, evolutivo e predictivo.</li>
+                  <li>Identificar os mecanismos de actualización do software base en Windows e Ubuntu.</li>
+                  <li>Describir e aplicar un protocolo básico de actuación ante incidencias.</li>
+                  <li>Diagnosticar incidencias sinxelas usando ferramentas de monitorización e rexistros.</li>
+                  <li>Aplicar accións correctoras básicas en Windows e Ubuntu sen cambios innecesarios.</li>
+                  <li>Explicar a diferenza entre asistencia técnica presencial e remota.</li>
+                  <li>Coñecer ferramentas habituais de asistencia remota: RDP, SSH, VNC, solucións comerciais.</li>
+                  <li>Aplicar boas prácticas de seguridade na asistencia remota.</li>
+                  <li>Documentar incidencias e a súa resolución nun parte técnico.</li>
+                  <li>Describir o concepto de SNMP e o seu papel na monitorización centralizada.</li>
+                  <li>Empregar a simulación de rendemento como técnica básica de análise e comparación.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3.1 Mantemento -->
+          <section class="mb-5 section-anchor" id="mantemento">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-gear"></i></span>
+                <h2 class="h4 fw-bold mb-0">3.1 Mantemento de sistemas operativos</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  O mantemento dun sistema operativo consiste en realizar tarefas periódicas
+                  para mantelo estable, seguro e eficiente ao longo do tempo.
+                  Non é só resolver problemas cando aparecen: un bo mantemento reduce
+                  o número e gravidade das incidencias.
+                </p>
+
+                <h3 class="h6 fw-bold mt-3">Actividades típicas de mantemento</h3>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Actividade</th>
+                        <th>Descrición</th>
+                        <th>Windows</th>
+                        <th>Ubuntu / Linux</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Actualización do sistema</strong></td>
+                        <td>Instalación de parches de seguridade, correccións de erros e melloras.</td>
+                        <td>Windows Update.</td>
+                        <td><code>sudo apt update</code> e <code>sudo apt upgrade</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Control do espazo en disco</strong></td>
+                        <td>Revisar espazo libre, temporais, ficheiros grandes e logs que medran demasiado.</td>
+                        <td>Sensor de almacenamento, Liberador de espazo, <code>cleanmgr</code>.</td>
+                        <td><code>df -h</code>, <code>du -sh</code>, <code>sudo apt autoremove</code>, revisión de <code>/var/log</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Revisión de servizos e procesos</strong></td>
+                        <td>Comprobar que os servizos críticos están activos e responden.</td>
+                        <td><code>services.msc</code>, Administrador de tarefas, Monitor de recursos.</td>
+                        <td><code>systemctl status</code>, <code>top</code>, <code>htop</code>, <code>ps</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Verificación de copias</strong></td>
+                        <td>Confirmar que existen copias recentes e que se poden restaurar.</td>
+                        <td>Historial de ficheiros, puntos de restauración, ferramentas de backup.</td>
+                        <td><code>rsync</code>, ferramentas de backup, snapshots LVM/Btrfs/ZFS se existen.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Snapshots de VMs</strong></td>
+                        <td>Gardar o estado dunha VM antes dun cambio importante.</td>
+                        <td>Snapshots en VMware ou VirtualBox.</td>
+                        <td>O mesmo, cando Ubuntu está nunha VM.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="notice info d-flex gap-2 align-items-start mt-2">
+                  <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+                  <div>
+                    Os snapshots de VMware/VirtualBox pertencen ao hipervisor, non ao sistema operativo.
+                    En aula son moi útiles para poder volver atrás antes de cambios arriscados.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3.1.1 Tipos de mantemento -->
+          <section class="mb-5 section-anchor" id="mantemento-tipos">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-diagram-3"></i></span>
+                <h2 class="h4 fw-bold mb-0">3.1.1 Tipos de mantemento</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Non todas as tarefas de mantemento teñen o mesmo obxectivo.
+                  Adoitan clasificarse en:
+                </p>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Tipo</th>
+                        <th>Que significa</th>
+                        <th>Exemplo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Preventivo</strong></td>
+                        <td>Evitar problemas antes de que aparezan.</td>
+                        <td>Actualizar o sistema, revisar espazo libre, comprobar copias.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Correctivo</strong></td>
+                        <td>Resolver un fallo que xa se produciu.</td>
+                        <td>Reiniciar un servizo caído, corrixir permisos mal configurados.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Evolutivo</strong></td>
+                        <td>Mellorar ou ampliar o sistema.</td>
+                        <td>Aumentar RAM, migrar a unha versión nova, instalar unha ferramenta mellor.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Predictivo</strong></td>
+                        <td>Anticipar problemas a partir de indicadores.</td>
+                        <td>Detectar que un disco se enche ou que aparecen erros SMART.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="mb-0">
+                  Resumo clave: o mantemento preventivo reduce incidencias; o correctivo resolve incidencias;
+                  o evolutivo mellora o sistema; o predictivo tenta anticiparse aos fallos.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3.1.2 Actualizacións -->
+          <section class="mb-5 section-anchor" id="actualizacions">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-arrow-repeat"></i></span>
+                <h2 class="h4 fw-bold mb-0">3.1.2 Actualizacións do sistema</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Manter o sistema actualizado é fundamental por seguridade e estabilidade.
+                  Un sistema sen actualizar pode ter vulnerabilidades coñecidas ou erros xa corrixidos
+                  en versións novas.
+                </p>
+
+                <h3 class="h6 fw-bold mt-3">Actualizacións en Windows</h3>
+                <p>
+                  <strong>Windows Update</strong> xestiona actualizacións do sistema e doutros compoñentes
+                  de Microsoft, incluíndo controladores ou firmware segundo a configuración.
+                </p>
+                <p>
+                  Aínda que Microsoft usa terminoloxía propia, pódense distinguir estas categorías:
+                </p>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Tipo</th>
+                        <th>Descrición</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Actualizacións de calidade</strong></td>
+                        <td>Actualizacións periódicas acumulativas con parches de seguridade, correccións e melloras.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Actualizacións de características</strong></td>
+                        <td>Versións maiores que engaden ou cambian funcionalidades do sistema.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Controladores / firmware</strong></td>
+                        <td>Actualizacións relacionadas co hardware e dispositivos concretos.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Parches de seguridade</strong></td>
+                        <td>Actualizacións centradas en vulnerabilidades específicas (ás veces incluídas noutras).</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+                  <div>
+                    Antes dunha actualización importante nun equipo crítico é recomendable
+                    ter copia ou punto de restauración e evitar facela en horas de uso intenso.
+                  </div>
+                </div>
+
+                <h3 class="h6 fw-bold mt-4">Actualizacións en Ubuntu / Linux</h3>
+                <p>
+                  En Ubuntu, o sistema de paquetes <code>apt</code> xestiona as actualizacións
+                  do software instalado desde os repositorios configurados.
+                </p>
+                <p class="mb-1">Proceso habitual en dous pasos:</p>
+                <pre class="cmd-block"><code>sudo apt update      # Actualiza a lista de paquetes dispoñibles
+sudo apt upgrade     # Instala as versións novas dos paquetes instalados</code></pre>
+
+                <p class="mb-1 mt-3">Outros comandos útiles:</p>
+                <pre class="cmd-block"><code>apt list --upgradable     # Paquetes con actualización dispoñible
+sudo apt autoremove       # Elimina paquetes que xa non son necesarios
+sudo apt full-upgrade     # Pode instalar/eliminar paquetes para completar a actualización</code></pre>
+
+                <div class="notice info d-flex gap-2 align-items-start mt-2">
+                  <i class="bi bi-exclamation-circle flex-shrink-0 mt-1"></i>
+                  <div>
+                    Actualizar é boa práctica de mantemento, pero nunha incidencia real
+                    primeiro recóllese información e faise diagnóstico; despois decídese
+                    se actualizar forma parte da solución.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3.2 SNMP -->
+          <section class="mb-5 section-anchor" id="snmp">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-diagram-2"></i></span>
+                <h2 class="h4 fw-bold mb-0">3.2 Monitorización remota e SNMP</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Coas ferramentas locais (Administrador de tarefas, <code>top</code>, Visor de eventos,
+                  <code>journalctl</code>…) monitorizamos un equipo dende el mesmo.
+                  Nunha empresa con moitos equipos interesa unha monitorización centralizada.
+                </p>
+                <p>
+                  Un dos protocolos clásicos para iso é <strong>SNMP</strong>
+                  (<em>Simple Network Management Protocol</em>).
+                </p>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Concepto</th>
+                        <th>Explicación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>SNMP</strong></td>
+                        <td>Protocolo para consultar información de xestión e monitorización de dispositivos.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>MIB</strong></td>
+                        <td>Base de información que define que datos se poden consultar.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Axente SNMP</strong></td>
+                        <td>Compoñente no equipo monitorizado que responde ás consultas.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Servidor de monitorización</strong></td>
+                        <td>Equipo central que consulta aos axentes e garda os datos.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Comunidade SNMP</strong></td>
+                        <td>Cadea de texto empregada como mecanismo básico de acceso en versións clásicas.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p class="mb-1">Exemplos de ferramentas que poden empregar SNMP ou axentes propios:</p>
+                <ul>
+                  <li>Nagios, Zabbix, Pandora FMS, LibreNMS, PRTG;</li>
+                  <li>Prometheus (co uso de <em>exporters</em>);</li>
+                  <li>outros sistemas con axentes específicos (Zabbix Agent, Telegraf, etc.).</li>
+                </ul>
+
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-info-circle flex-shrink-0 mt-1"></i>
+                  <div>
+                    SNMP é moi estendido, pero non é a única base da monitorización profesional:
+                    tamén se usan APIs, axentes propios, WMI/WinRM, exporters de Prometheus, etc.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3.3 Incidencias -->
+          <section class="mb-5 section-anchor" id="incidencias">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-exclamation-triangle"></i></span>
+                <h2 class="h4 fw-bold mb-0">3.3 Protocolos de actuación ante incidencias</h2>
+              </div>
+              <div class="content-card-body">
+
+                <h3 class="h6 fw-bold">3.3.1 Que é unha incidencia?</h3>
+                <p>
+                  Unha incidencia é calquera problema que afecta ao funcionamento normal dun sistema,
+                  servizo ou recurso, xa sexa para un usuario, un equipo ou parte da rede.
+                </p>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Tipo</th>
+                        <th>Exemplos</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Rendemento</td>
+                        <td>Equipo moi lento, CPU ao 100 %, disco cheo, pouca RAM.</td>
+                      </tr>
+                      <tr>
+                        <td>Servizo</td>
+                        <td>Servizo web, de ficheiros ou impresión que non responde.</td>
+                      </tr>
+                      <tr>
+                        <td>Acceso</td>
+                        <td>Usuario que non pode iniciar sesión ou ten permisos incorrectos.</td>
+                      </tr>
+                      <tr>
+                        <td>Conectividade</td>
+                        <td>Equipo sen rede, IP mal configurada, DNS errado.</td>
+                      </tr>
+                      <tr>
+                        <td>Estabilidade</td>
+                        <td>Reinicios inesperados, pantalla azul, bloqueo do escritorio.</td>
+                      </tr>
+                      <tr>
+                        <td>Seguridade</td>
+                        <td>Inicio de sesión sospeitoso, malware, permisos modificados.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h3 class="h6 fw-bold mt-4">3.3.2 Protocolo básico</h3>
+                <p>Proponse un protocolo en cinco etapas:</p>
+                <pre class="cmd-block"><code>Recoller información → Diagnosticar → Actuar → Verificar → Documentar</code></pre>
+
+                <h4 class="h6 fw-bold mt-3">Etapa 1 – Recollida de información</h4>
+                <p>Antes de tocar nada, recolle datos como:</p>
+                <ul>
+                  <li>Que pasa exactamente e desde cando?</li>
+                  <li>Afecta a un usuario, equipo ou a varios?</li>
+                  <li>Que facía o usuario cando apareceu o problema?</li>
+                  <li>Houbo cambios, instalacións ou actualizacións recentes?</li>
+                  <li>É constante ou intermitente? Hai mensaxes de erro?</li>
+                </ul>
+
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+                  <div>
+                    Anotar a hora aproximada do problema facilita atopar eventos ou logs
+                    no intervalo correcto.
+                  </div>
+                </div>
+
+                <h4 class="h6 fw-bold mt-4">Etapa 2 – Diagnóstico inicial</h4>
+                <p>
+                  Revísanse ferramentas de monitorización e rexistros para atopar a causa máis probable,
+                  sen cambiar configuracións sen necesidade.
+                </p>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Sistema</th>
+                        <th>Ferramentas</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Windows</td>
+                        <td>Administrador de tarefas, Monitor de recursos, Visor de eventos, <code>services.msc</code>,
+                            <code>ipconfig</code>, <code>ping</code>, <code>nslookup</code>.</td>
+                      </tr>
+                      <tr>
+                        <td>Ubuntu / Linux</td>
+                        <td><code>top</code>, <code>htop</code>, <code>free -h</code>, <code>df -h</code>,
+                            <code>systemctl status</code>, <code>journalctl</code>, <code>/var/log/syslog</code>,
+                            <code>ip a</code>, <code>ping</code>, <code>resolvectl</code>.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h4 class="h6 fw-bold mt-4">Etapa 3 – Accións correctoras</h4>
+                <p>
+                  Unha acción correctora é unha medida aplicada para resolver ou reducir o problema.
+                  Debe estar vinculada ao diagnóstico e convén empezar polas opcións menos invasivas.
+                </p>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Problema</th>
+                        <th>Acción correctora razoable</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>CPU ao 100 %</td>
+                        <td>Identificar o proceso, comprobar se é crítico, valorar detelo só se procede.</td>
+                      </tr>
+                      <tr>
+                        <td>Disco cheo</td>
+                        <td>Revisar ficheiros grandes, limpar temporais, rotar logs, eliminar software non usado.</td>
+                      </tr>
+                      <tr>
+                        <td>Servizo parado</td>
+                        <td>Revisar estado e logs antes de reiniciar o servizo.</td>
+                      </tr>
+                      <tr>
+                        <td>Sen rede</td>
+                        <td>Comprobar IP, máscara, porta de enlace, DNS, cableado ou adaptador virtual.</td>
+                      </tr>
+                      <tr>
+                        <td>Usuario sen acceso</td>
+                        <td>Revisar conta, bloqueo, grupos e permisos efectivos.</td>
+                      </tr>
+                      <tr>
+                        <td>Actualización fallida</td>
+                        <td>Revisar mensaxe de erro, espazo, conexión a repositorios/Windows Update.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-exclamation-triangle flex-shrink-0 mt-1"></i>
+                  <div>
+                    Erro habitual: matar procesos ou borrar logs sen analizar.
+                    Iso pode ocultar a causa real ou eliminar evidencias útiles.
+                  </div>
+                </div>
+
+                <h4 class="h6 fw-bold mt-4">Etapas 4 e 5 – Verificación e documentación</h4>
+                <p>
+                  Tras actuar hai que comprobar que o problema desapareceu
+                  (repetindo a acción, revisando métricas e consultando o usuario)
+                  e documentar todo nun parte de incidencia.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3.4 Asistencia técnica -->
+          <section class="mb-5 section-anchor" id="asistencia">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-telephone"></i></span>
+                <h2 class="h4 fw-bold mb-0">3.4 Asistencia técnica: presencial e remota</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  A asistencia técnica consiste en axudar cando un equipo ou servizo non funciona.
+                  Pode ser presencial ou remota.
+                </p>
+
+                <h3 class="h6 fw-bold mt-3">3.4.1 Asistencia presencial</h3>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Vantaxe</th>
+                        <th>Inconveniente</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Acceso directo ao equipo e ao usuario.</td>
+                        <td>Require desprazamento e tempo.</td>
+                      </tr>
+                      <tr>
+                        <td>Permite revisar hardware e cableado.</td>
+                        <td>Pouco escalable para moitos usuarios/sedes.</td>
+                      </tr>
+                      <tr>
+                        <td>Facilita falar con usuarios pouco técnicos.</td>
+                        <td>Pode ser innecesaria se é só problema de software.</td>
+                      </tr>
+                      <tr>
+                        <td>Útil cando non hai rede nin acceso remoto.</td>
+                        <td>Imposible se o equipo está lonxe ou apagado.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h3 class="h6 fw-bold mt-4">3.4.2 Asistencia remota</h3>
+                <p>
+                  Na asistencia remota o técnico accede ao equipo a través da rede. É habitual
+                  en administración de servidores e soporte a usuarios.
+                </p>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Ferramenta</th>
+                        <th>Sistema</th>
+                        <th>Descrición</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>RDP</strong></td>
+                        <td>Windows</td>
+                        <td>Protocolo nativo de escritorio remoto, normalmente porto 3389.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>SSH</strong></td>
+                        <td>Linux/Ubuntu</td>
+                        <td>Acceso remoto cifrado por terminal, porto 22.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>VNC</strong></td>
+                        <td>Multiplataforma</td>
+                        <td>Acceso gráfico; require config. de seguridade adecuada.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>TeamViewer / AnyDesk</strong></td>
+                        <td>Multiplataforma</td>
+                        <td>Ferramentas comerciais/freemium de soporte remoto.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>VPN + ferramentas internas</strong></td>
+                        <td>Multiplataforma</td>
+                        <td>Acceso á rede da empresa antes de usar RDP, SSH, etc.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h4 class="h6 fw-bold mt-3">Boas prácticas de seguridade</h4>
+                <ul>
+                  <li>Non expoñer RDP, SSH ou VNC directamente a Internet sen protección.</li>
+                  <li>Usar VPN, firewall, listas de control de acceso cando proceda.</li>
+                  <li>Empregar contrasinais robustas e, se é posible, autenticación multifactor.</li>
+                  <li>Pechar sempre a sesión remota ao rematar.</li>
+                  <li>Rexistrar quen se conectou, cando e con que finalidade.</li>
+                  <li>Pedir autorización cando se accede ao posto dun usuario.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3.5 Parte técnico -->
+          <section class="mb-5 section-anchor" id="parte-tecnico">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-file-earmark-text"></i></span>
+                <h2 class="h4 fw-bold mb-0">3.5 Documentación de incidencias: o parte técnico</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Documentar incidencias non é burocracia: é unha ferramenta de traballo.
+                  Un parte ben cuberto permite aprender do problema, detectar repeticións
+                  e xustificar o traballo realizado.
+                </p>
+
+                <h3 class="h6 fw-bold mt-3">3.5.1 Elementos dun parte</h3>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Apartado</th>
+                        <th>Contido</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Identificación</td>
+                        <td>Data, hora, equipo/servidor, usuario afectado, técnico responsable.</td>
+                      </tr>
+                      <tr>
+                        <td>Descrición do problema</td>
+                        <td>Síntoma, desde cando, contexto e impacto.</td>
+                      </tr>
+                      <tr>
+                        <td>Diagnóstico</td>
+                        <td>Métricas, eventos, logs e causa probable.</td>
+                      </tr>
+                      <tr>
+                        <td>Accións realizadas</td>
+                        <td>Pasos executados, ferramentas usadas e orde.</td>
+                      </tr>
+                      <tr>
+                        <td>Resultado</td>
+                        <td>Incidencia resolta, parcial ou pendente; forma de verificación.</td>
+                      </tr>
+                      <tr>
+                        <td>Recomendacións</td>
+                        <td>Medidas para evitar repeticións ou mellorar prevención.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">3.5.2 Exemplo breve</h3>
+                <pre class="cmd-block"><code>Identificación: 08/06/2026, equipo AULA-15, usuario alu.015, técnica: Silvia.
+Descrición: o usuario non pode iniciar sesión desde as 09:10.
+Diagnóstico: conta bloqueada por varios intentos fallidos.
+Accións: comprobación de identidade, desbloqueo da conta, recomendación de cambiar contrasinal.
+Resultado: o usuario inicia sesión correctamente ás 09:25.
+Recomendacións: revisar intentos fallidos e lembrar ao usuario o procedemento correcto.</code></pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3.6 Simulación -->
+          <section class="mb-5 section-anchor" id="simulacion">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-speedometer2"></i></span>
+                <h2 class="h4 fw-bold mb-0">3.6 Simulación de rendemento</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  A simulación de rendemento consiste en comparar como se comporta o sistema
+                  baixo distintas condicións para decidir que melloras teñen sentido.
+                </p>
+                <ol>
+                  <li>Partir dunha configuración base (por exemplo, VM con 2 GB de RAM e pouco espazo).</li>
+                  <li>Aplicar unha mesma carga de traballo.</li>
+                  <li>Medir CPU, RAM, disco, tempos de resposta.</li>
+                  <li>Cambiar unha condición (máis RAM, máis espazo, etc.).</li>
+                  <li>Repetir a carga e comparar resultados.</li>
+                </ol>
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Elemento</th>
+                        <th>Exemplo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Config. inicial</td>
+                        <td>VM con 2 GB de RAM e disco ao 95 %.</td>
+                      </tr>
+                      <tr>
+                        <td>Carga aplicada</td>
+                        <td>Abrir navegador, editor e copiar un ficheiro grande.</td>
+                      </tr>
+                      <tr>
+                        <td>Métricas</td>
+                        <td>CPU, RAM, tempo de apertura, uso de disco.</td>
+                      </tr>
+                      <tr>
+                        <td>Cambio</td>
+                        <td>Aumentar RAM a 4 GB e liberar 5 GB de disco.</td>
+                      </tr>
+                      <tr>
+                        <td>Comparación</td>
+                        <td>O tempo de apertura baixa e o sistema usa menos disco.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+                  <div>
+                    Nunha simulación é mellor cambiar unha variable cada vez;
+                    se cambias varias á vez, non saberás cal produciu a mellora.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 4 Mini práctica -->
+          <section class="mb-5 section-anchor" id="mini-practica">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-clipboard-check"></i></span>
+                <h2 class="h4 fw-bold mb-0">4. Mini práctica guiada de aula</h2>
+              </div>
+              <div class="content-card-body">
+                <h3 class="h6 fw-bold">4.1 Escenario</h3>
+                <p>
+                  Un usuario indica que o seu equipo vai moi lento e ás veces non pode
+                  abrir unha aplicación. O problema comezou “esta mañá”.
+                  O obxectivo é aplicar o protocolo de incidencias e cubrir un parte técnico.
+                </p>
+
+                <h3 class="h6 fw-bold mt-3">4.2 Tarefas</h3>
+                <ol>
+                  <li>Recoller información inicial (síntoma, desde cando, impacto).</li>
+                  <li>Revisar CPU, RAM, disco, procesos e servizos.</li>
+                  <li>Revisar rexistros recentes (Visor de eventos, <code>journalctl</code>, <code>/var/log/syslog</code>).</li>
+                  <li>Formular unha hipótese técnica.</li>
+                  <li>Aplicar unha acción correctora pouco invasiva.</li>
+                  <li>Verificar se o problema mellora.</li>
+                  <li>Cubrir un parte de incidencia.</li>
+                </ol>
+
+                <h3 class="h6 fw-bold mt-3">4.3 Evidencias mínimas</h3>
+                <ul>
+                  <li>Captura ou saída da ferramenta de diagnóstico.</li>
+                  <li>Indicador que xustifica a hipótese (CPU, RAM, disco, servizo, erro en logs…).</li>
+                  <li>Acción correctora aplicada.</li>
+                  <li>Comprobación posterior.</li>
+                  <li>Parte de incidencia cuberto.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- 5 Cadro resumo -->
+          <section class="mb-5 section-anchor" id="cadro-resumo">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></span>
+                <h2 class="h4 fw-bold mb-0">5. Cadro resumo</h2>
+              </div>
+              <div class="content-card-body">
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Bloque</th>
+                        <th>Ideas principais</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Mantemento</td>
+                        <td>Tarefas para manter o sistema estable, seguro e eficiente.</td>
+                      </tr>
+                      <tr>
+                        <td>Tipos de mantemento</td>
+                        <td>Preventivo, correctivo, evolutivo, predictivo.</td>
+                      </tr>
+                      <tr>
+                        <td>Actualizacións Windows</td>
+                        <td>Windows Update xestiona actualizacións de calidade, características, seguridade e drivers.</td>
+                      </tr>
+                      <tr>
+                        <td>Actualizacións Ubuntu</td>
+                        <td><code>apt update</code> e <code>apt upgrade</code> para manter paquetes ao día.</td>
+                      </tr>
+                      <tr>
+                        <td>Incidencia</td>
+                        <td>Calquera problema que afecta ao funcionamento normal dun sistema.</td>
+                      </tr>
+                      <tr>
+                        <td>Protocolo</td>
+                        <td>Recoller información → Diagnosticar → Actuar → Verificar → Documentar.</td>
+                      </tr>
+                      <tr>
+                        <td>Asistencia presencial</td>
+                        <td>Acceso directo ao equipo; útil pero pouco escalable.</td>
+                      </tr>
+                      <tr>
+                        <td>Asistencia remota</td>
+                        <td>RDP, SSH, VNC ou ferramentas comerciais; require boas prácticas de seguridade.</td>
+                      </tr>
+                      <tr>
+                        <td>SNMP</td>
+                        <td>Protocolo clásico para monitorización centralizada.</td>
+                      </tr>
+                      <tr>
+                        <td>Parte de incidencia</td>
+                        <td>Documento que recolle problema, diagnóstico, accións e recomendacións.</td>
+                      </tr>
+                      <tr>
+                        <td>Simulación de rendemento</td>
+                        <td>Comparar o sistema baixo distintas condicións para decidir melloras.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 6 Vocabulario -->
+          <section class="mb-5 section-anchor" id="vocabulario">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-translate"></i></span>
+                <h2 class="h4 fw-bold mb-0">6. Vocabulario</h2>
+              </div>
+              <div class="content-card-body">
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Galego</th>
+                        <th>Inglés</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Mantemento</td><td>Maintenance</td></tr>
+                      <tr><td>Mantemento preventivo</td><td>Preventive maintenance</td></tr>
+                      <tr><td>Mantemento correctivo</td><td>Corrective maintenance</td></tr>
+                      <tr><td>Mantemento evolutivo</td><td>Evolutionary maintenance</td></tr>
+                      <tr><td>Mantemento predictivo</td><td>Predictive maintenance</td></tr>
+                      <tr><td>Actualización</td><td>Update / Upgrade</td></tr>
+                      <tr><td>Parche de seguridade</td><td>Security patch</td></tr>
+                      <tr><td>Incidencia</td><td>Incident / Issue</td></tr>
+                      <tr><td>Protocolo de actuación</td><td>Response protocol</td></tr>
+                      <tr><td>Diagnóstico</td><td>Diagnosis / Troubleshooting</td></tr>
+                      <tr><td>Acción correctora</td><td>Corrective action</td></tr>
+                      <tr><td>Asistencia técnica</td><td>Technical support</td></tr>
+                      <tr><td>Asistencia remota</td><td>Remote support</td></tr>
+                      <tr><td>Escritorio remoto</td><td>Remote desktop</td></tr>
+                      <tr><td>Rexistro / log</td><td>Log</td></tr>
+                      <tr><td>SNMP</td><td>Simple Network Management Protocol</td></tr>
+                      <tr><td>Axente SNMP</td><td>SNMP agent</td></tr>
+                      <tr><td>Servidor de monitorización</td><td>Monitoring server</td></tr>
+                      <tr><td>Autenticación multifactor</td><td>Multi-factor authentication</td></tr>
+                      <tr><td>VPN</td><td>Virtual Private Network</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <!-- Pé de páxina -->
+  <footer class="smpp-footer no-print">
+    <div class="smpp-footer-spacer"></div>
+    <div class="smpp-footer-center">
+      <span>CIFP A Carballeira · Ourense</span>
+      <span>Administración de Sistemas Informáticos · Curso 26/27</span>
+      <span>Material didáctico de uso interno</span>
+    </div>
+    <img src="../../assets/img/sauce-clean.svg"
+         alt=""
+         class="smpp-sauce"
+         onerror="this.style.display='none'">
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- JS SMPP -->
+  <script src="../../assets/js/smpp.js"></script>
+
+</body>
+</html>

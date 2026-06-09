@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B3 Actividade 6 GPO</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+</head>
+<body>
+
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc"><ul class="nav flex-column gap-1 small">
+              <li class="nav-item"><a class="nav-link py-1" href="#1-titulo">1. Título</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#2-obxectivos">2. Obxectivos</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#3-punto-de-partida">3. Punto de partida</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#4-aviso-importante-politica-de-contrasinais-vs-gpo-de-usuario">4. Aviso importante: política de contrasinais vs GPO de usuario</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#parte-a-gui-politica-de-contrasinais-e-gpo-para-curso1">Parte A – GUI: política de contrasinais e GPO para Curso1</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#a-1-abrir-group-policy-management">A.1. Abrir Group Policy Management</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#a-2-revisar-ou-axustar-a-politica-xeral-de-contrasinais-do-dominio">A.2. Revisar ou axustar a política xeral de contrasinais do dominio</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#a-3-crear-unha-gpo-para-alumnado-de-curso1">A.3. Crear unha GPO para alumnado de Curso1</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#a-4-ligar-a-gpo-a-ou-curso1">A.4. Ligar a GPO á OU Curso1</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#a-5-security-filtering-nesta-practica">A.5. Security Filtering nesta práctica</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#a-6-comprobacion-previa-no-cliente">A.6. Comprobación previa no cliente</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#a-7-probar-a-gpo-co-usuario-alu-curso1-001">A.7. Probar a GPO co usuario alu.curso1.001</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#a-8-comprobar-que-a-gpo-non-afecta-ao-profesorado">A.8. Comprobar que a GPO non afecta ao profesorado</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#parte-b-powershell-creacion-e-ligazon-basica-de-gpo">Parte B – PowerShell: creación e ligazón básica de GPO</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#b-1-cargar-o-modulo-grouppolicy">B.1. Cargar o módulo GroupPolicy</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#b-2-crear-unha-gpo-nova-con-powershell">B.2. Crear unha GPO nova con PowerShell</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#b-3-ligar-a-gpo-a-ou-curso1">B.3. Ligar a GPO á OU Curso1</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#b-4-establecer-unha-configuracion-simple-de-rexistro">B.4. Establecer unha configuración simple de rexistro</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#b-5-comprobar-a-herdanza-e-ligazons-da-ou">B.5. Comprobar a herdanza e ligazóns da OU</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#5-capturas-obrigatorias">5. Capturas obrigatorias</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#6-resultado-esperado">6. Resultado esperado</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#7-erros-frecuentes">7. Erros frecuentes</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#8-cuestions-de-reflexion-final">8. Cuestións de reflexión final</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#9-ideas-clave">9. Ideas clave</a></li>
+            </ul></nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="col-lg-9">
+      <article>
+        <header class="mb-4">
+          <div class="practice-hero hero-purple">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-diagram-3"></i> UD2 · Bloque 3</span>
+              <span class="hero-chip"><i class="bi bi-sliders"></i> Actividade 6</span>
+              <span class="hero-chip"><i class="bi bi-shield-check"></i> GPO</span>
+              <span class="hero-chip"><i class="bi bi-terminal"></i> GUI + PowerShell</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">GPO de dominio e GPO para alumnado de Curso1</h1>
+            <p class="lead mb-0">Configuración da política xeral de contrasinais, creación dunha GPO de usuario para Curso1 e diagnóstico con <code>gpupdate</code>, <code>gpresult</code> e <code>rsop.msc</code>.</p>
+          </div>
+        </header>
+
+        <div class="notice warning mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+          <div><strong>Clave da práctica:</strong> unha GPO creada non fai nada ata que se liga a un sitio, dominio ou OU. Ademais, unha política de contrasinais do dominio non funciona igual ca unha restrición de usuario ligada a unha OU.</div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mx-auto mb-2">D</div><strong>Dominio</strong><p class="small text-muted mb-0">Revisión da política xeral de contrasinais en <code>Default Domain Policy</code>.</p></div></div>
+          <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mx-auto mb-2">OU</div><strong>Curso1</strong><p class="small text-muted mb-0">Ligazón da GPO de usuario á OU onde están as contas do alumnado.</p></div></div>
+          <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mx-auto mb-2">R</div><strong>Resultado</strong><p class="small text-muted mb-0">Comprobación con cliente, <code>gpresult</code> e informe HTML.</p></div></div>
+        </div>
+
+        <section id="1-titulo" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>1. Título</h2>
+<p><strong>Actividade 6 – Configuración de políticas de contrasinais e restricións de usuario mediante GPO en <code>cifpsauce.local</code></strong></p>
+<hr class="my-4">
+</section>
+<section id="2-obxectivos" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>2. Obxectivos</h2>
+<p>Ao rematar a actividade, o alumnado deberá ser capaz de:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">Localizar e revisar a <strong>política xeral de contrasinais</strong> do dominio <code>cifpsauce.local</code>.</li>
+<li class="list-group-item">Comprender que a política xeral de contrasinais do dominio non funciona igual ca unha GPO de usuario ligada a unha OU.</li>
+<li class="list-group-item">Crear unha <strong>GPO específica para alumnado de Curso1</strong>.</li>
+<li class="list-group-item">Ligar unha GPO á OU correcta dentro da estrutura do dominio.</li>
+<li class="list-group-item">Aplicar unha restrición simple de usuario mediante GPO.</li>
+<li class="list-group-item">Verificar a aplicación das GPO nun equipo cliente usando <code>gpupdate</code>, <code>gpresult</code>, <code>gpresult /h</code> e, opcionalmente, <code>rsop.msc</code>.</li>
+<li class="list-group-item">Comprobar que unha GPO ligada a <code>OU=Curso1</code> non afecta ao profesorado situado noutra OU.</li>
+<li class="list-group-item">Coñecer unha introdución básica á creación e ligazón de GPO mediante PowerShell.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="3-punto-de-partida" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>3. Punto de partida</h2>
+<p>Antes de comezar, comproba que xa existe o seguinte escenario:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">Dominio: <code>cifpsauce.local</code>.</li>
+<li class="list-group-item">Primeiro controlador de dominio: <code>dcbuho.cifpsauce.local</code>.</li>
+<li class="list-group-item">Servizo DNS do dominio funcionando correctamente.</li>
+<li class="list-group-item">OU creadas:</li>
+<li class="list-group-item"><code>OU=Alumnado</code></li>
+<li class="list-group-item"><code>OU=Curso1</code></li>
+<li class="list-group-item"><code>OU=Curso2</code></li>
+<li class="list-group-item"><code>OU=Profesorado</code></li>
+<li class="list-group-item"><code>OU=Administracion</code></li>
+<li class="list-group-item"><code>OU=Equipos-Aulas</code></li>
+<li class="list-group-item"><code>OU=Grupos</code></li>
+<li class="list-group-item">Usuarios de exemplo:</li>
+<li class="list-group-item"><code>alu.curso1.001</code> situado en <code>OU=Curso1</code>.</li>
+<li class="list-group-item"><code>alu.curso1.002</code> situado en <code>OU=Curso1</code>.</li>
+<li class="list-group-item"><code>alu.curso2.001</code> situado en <code>OU=Curso2</code>.</li>
+<li class="list-group-item"><code>prof.001</code> situado en <code>OU=Profesorado</code>.</li>
+<li class="list-group-item">Equipo cliente Windows unido ao dominio, por exemplo <code>PC-AULA01</code>.</li>
+</ul>
+<p>Nesta práctica usaremos principalmente dúas ferramentas:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><strong>Group Policy Management</strong> / <strong>Administración de directivas de grupo</strong> (<code>gpmc.msc</code>).</li>
+<li class="list-group-item">Un equipo cliente unido ao dominio para probar as políticas.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="4-aviso-importante-politica-de-contrasinais-vs-gpo-de-usuario" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>4. Aviso importante: política de contrasinais vs GPO de usuario</h2>
+<p>Nesta actividade imos traballar con dous tipos de configuración que non deben confundirse:</p>
+<div class="table-responsive my-3"><table class="table table-sm table-striped align-middle decision-table">
+<thead><tr><th>Configuración</th><th>Onde se aplica</th><th>Exemplo</th></tr></thead>
+<tbody>
+<tr><td>Política xeral de contrasinais do dominio</td><td>A nivel de dominio</td><td>Lonxitude mínima, complexidade, caducidade</td></tr>
+<tr><td>Restrición de usuario mediante GPO</td><td>A usuarios situados nunha OU concreta</td><td>Bloquear Panel de control para alumnado de Curso1</td></tr>
+</tbody></table></div>
+<p>A política xeral de contrasinais do dominio debe tratarse con coidado. Nun laboratorio podemos revisar ou axustar a <strong>Default Domain Policy</strong> para entender onde se configuran estas opcións, pero nun contorno real non se debería modificar sen planificación, copia de seguridade e documentación.</p>
+<div class="notice warning my-3 d-flex gap-2 align-items-start"><i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i><div><strong>Idea clave:</strong> non intentes crear unha política de contrasinais diferente para <code>OU=Curso1</code> ligando unha GPO normal a esa OU. As políticas de contrasinais do dominio teñen un tratamento específico. Para aplicar políticas diferentes a usuarios ou grupos existen mecanismos avanzados como as <strong>Fine-Grained Password Policies</strong>, que non se traballan nesta actividade.</div></div>
+<hr class="my-4">
+</section>
+<section id="parte-a-gui-politica-de-contrasinais-e-gpo-para-curso1" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-window-sidebar me-2 text-primary"></i>Parte A – GUI: política de contrasinais e GPO para Curso1</h2>
+</section>
+<section id="a-1-abrir-group-policy-management" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>A.1. Abrir Group Policy Management</h2>
+<p>En <code>dcbuho</code>:</p>
+<ol class="mb-3">
+<li>Inicia sesión cunha conta con permisos de administración no dominio.</li>
+<li>Abre <strong>Server Manager</strong>.</li>
+<li>Vai a <strong>Tools</strong> → <strong>Group Policy Management</strong>.</li>
+<li>No panel esquerdo, navega por:</li>
+</ol>
+<pre class="cmd-pre"><code>Forest: cifpsauce.local
+└── Domains
+    └── cifpsauce.local</code></pre>
+<p>Marca cando estea feito:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> GPMC aberta.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Dominio <code>cifpsauce.local</code> visible na consola.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="a-2-revisar-ou-axustar-a-politica-xeral-de-contrasinais-do-dominio" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>A.2. Revisar ou axustar a política xeral de contrasinais do dominio</h2>
+<p>Nesta parte imos localizar a <strong>Default Domain Policy</strong> e revisar onde se configura a política xeral de contrasinais.</p>
+<ol class="mb-3">
+<li>Na GPMC, dentro do dominio <code>cifpsauce.local</code>, localiza a GPO <strong>Default Domain Policy</strong>.</li>
+<li>Clic dereito sobre <strong>Default Domain Policy</strong> → <strong>Edit...</strong>.</li>
+<li>No editor da GPO, navega ata:</li>
+</ol>
+<pre class="cmd-pre"><code>Computer Configuration
+└── Policies
+    └── Windows Settings
+        └── Security Settings
+            └── Account Policies
+                └── Password Policy</code></pre>
+<ol class="mb-3">
+<li>Revisa opcións como:</li>
+</ol>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><strong>Minimum password length</strong>.</li>
+<li class="list-group-item"><strong>Maximum password age</strong>.</li>
+<li class="list-group-item"><strong>Password must meet complexity requirements</strong>.</li>
+</ul>
+<ol class="mb-3">
+<li>Se o profesorado o indica, modifica valores de laboratorio, por exemplo:</li>
+</ol>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><strong>Minimum password length</strong>: <code>8</code> caracteres.</li>
+<li class="list-group-item"><strong>Maximum password age</strong>: <code>30</code> días.</li>
+<li class="list-group-item"><strong>Password must meet complexity requirements</strong>: <code>Enabled</code>.</li>
+</ul>
+<ol class="mb-3">
+<li>Pecha o editor da GPO.</li>
+</ol>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>Default Domain Policy</code> localizada.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Ruta de <code>Password Policy</code> identificada.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Valores revisados ou modificados segundo indique o profesorado.</li>
+</ul>
+<div class="notice warning my-3 d-flex gap-2 align-items-start"><i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i><div><strong>Advertencia:</strong> documenta calquera cambio feito na <code>Default Domain Policy</code>. É unha GPO sensible porque afecta a todo o dominio.</div></div>
+<hr class="my-4">
+</section>
+<section id="a-3-crear-unha-gpo-para-alumnado-de-curso1" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>A.3. Crear unha GPO para alumnado de Curso1</h2>
+<p>Agora imos crear unha GPO de usuario para aplicar unha restrición ao alumnado de Curso1.</p>
+<p>A restrición escollida será bloquear o acceso ao Panel de control e á configuración do PC.</p>
+<ol class="mb-3">
+<li>Na GPMC, dentro do dominio <code>cifpsauce.local</code>, localiza o contedor <strong>Group Policy Objects</strong>.</li>
+<li>Clic dereito sobre <strong>Group Policy Objects</strong> → <strong>New...</strong>.</li>
+<li>Nome da nova GPO:</li>
+</ol>
+<pre class="cmd-pre"><code>GPO_Alumnado_Curso1_Restricions</code></pre>
+<ol class="mb-3">
+<li>Preme <strong>OK</strong>.</li>
+<li>Clic dereito sobre a nova GPO → <strong>Edit...</strong>.</li>
+<li>No editor da GPO, navega ata:</li>
+</ol>
+<pre class="cmd-pre"><code>User Configuration
+└── Policies
+    └── Administrative Templates
+        └── Control Panel</code></pre>
+<ol class="mb-3">
+<li>Localiza a política:</li>
+</ol>
+<pre class="cmd-pre"><code>Prohibit access to Control Panel and PC settings</code></pre>
+<ol class="mb-3">
+<li>Ábrea e marca:</li>
+</ol>
+<pre class="cmd-pre"><code>Enabled</code></pre>
+<ol class="mb-3">
+<li>Pecha o editor da GPO.</li>
+</ol>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> GPO <code>GPO_Alumnado_Curso1_Restricions</code> creada.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Política de bloqueo do Panel de control configurada en <code>Enabled</code>.</li>
+</ul>
+<div class="notice warning my-3 d-flex gap-2 align-items-start"><i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i><div><strong>Importante:</strong> esta é unha configuración de <strong>User Configuration</strong>. Polo tanto, debe aplicarse a unha OU onde estean contas de usuario. Neste caso, <code>OU=Curso1</code> contén os usuarios de alumnado de Curso1.</div></div>
+<hr class="my-4">
+</section>
+<section id="a-4-ligar-a-gpo-a-ou-curso1" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>A.4. Ligar a GPO á OU <code>Curso1</code></h2>
+<p>Unha GPO creada no contedor <strong>Group Policy Objects</strong> non se aplica por si soa. Hai que ligala a un sitio, dominio ou OU.</p>
+<p>Neste caso, imos ligala a <code>OU=Curso1</code>.</p>
+<ol class="mb-3">
+<li>Na GPMC, navega ata:</li>
+</ol>
+<pre class="cmd-pre"><code>Forest: cifpsauce.local
+└── Domains
+    └── cifpsauce.local
+        └── Alumnado
+            └── Curso1</code></pre>
+<ol class="mb-3">
+<li>Clic dereito sobre <code>Curso1</code> → <strong>Link an Existing GPO...</strong>.</li>
+<li>Selecciona:</li>
+</ol>
+<pre class="cmd-pre"><code>GPO_Alumnado_Curso1_Restricions</code></pre>
+<ol class="mb-3">
+<li>Preme <strong>OK</strong>.</li>
+<li>Comproba no panel dereito que a GPO aparece ligada á OU <code>Curso1</code>.</li>
+</ol>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> GPO ligada a <code>OU=Curso1</code>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> A ligazón aparece visible na GPMC.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="a-5-security-filtering-nesta-practica" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>A.5. Security Filtering nesta práctica</h2>
+<p>Na pestana <strong>Scope</strong> da GPO verás a sección <strong>Security Filtering</strong>.</p>
+<p>Nesta práctica deixaremos o valor por defecto:</p>
+<pre class="cmd-pre"><code>Authenticated Users</code></pre>
+<p>Isto é suficiente porque a GPO está ligada a <code>OU=Curso1</code>, polo que só entra no ámbito da ligazón o alumnado situado nesa OU.</p>
+<p>Nunha práctica máis avanzada poderiamos filtrar a GPO por un grupo como <code>GG_Alumnado_Curso1</code>, pero iso require revisar correctamente permisos de <strong>Read</strong> e <strong>Apply Group Policy</strong>. Por agora non o faremos para non mesturar conceptos.</p>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Security Filtering revisado.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Mantido <code>Authenticated Users</code> nesta práctica.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="a-6-comprobacion-previa-no-cliente" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>A.6. Comprobación previa no cliente</h2>
+<p>No equipo cliente unido ao dominio, antes de probar a GPO, inicia sesión como <code>alu.curso1.001</code> e abre CMD ou PowerShell.</p>
+<p>Executa:</p>
+<pre class="cmd-pre"><code>whoami
+hostname
+ping dcbuho.cifpsauce.local
+nslookup dcbuho.cifpsauce.local</code></pre>
+<p>Comproba:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> O usuario é <code>cifpsauce\alu.curso1.001</code> ou equivalente.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> O equipo cliente responde correctamente.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>dcbuho.cifpsauce.local</code> resolve correctamente por DNS.</li>
+</ul>
+<p>Se falla DNS ou o cliente non está ben unido ao dominio, a GPO pode non aplicarse aínda que estea ben configurada no servidor.</p>
+<hr class="my-4">
+</section>
+<section id="a-7-probar-a-gpo-co-usuario-alu-curso1-001" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>A.7. Probar a GPO co usuario <code>alu.curso1.001</code></h2>
+<p>No equipo cliente, coa sesión iniciada como <code>alu.curso1.001</code>:</p>
+<ol class="mb-3">
+<li>Forza a actualización das directivas:</li>
+</ol>
+<pre class="cmd-pre"><code>gpupdate /force</code></pre>
+<ol class="mb-3">
+<li>Se o sistema pide pechar sesión ou reiniciar, sigue a indicación do profesorado.</li>
+<li>Comproba as políticas aplicadas:</li>
+</ol>
+<pre class="cmd-pre"><code>gpresult /r</code></pre>
+<ol class="mb-3">
+<li>Xera tamén un informe HTML:</li>
+</ol>
+<pre class="cmd-pre"><code>gpresult /h C:\GPO_Report_alu_curso1_001.html</code></pre>
+<ol class="mb-3">
+<li>Opcionalmente, abre a ferramenta gráfica de resultado de políticas:</li>
+</ol>
+<pre class="cmd-pre"><code>rsop.msc</code></pre>
+<ol class="mb-3">
+<li>Comproba que entre as GPO de usuario aplicadas aparece:</li>
+</ol>
+<pre class="cmd-pre"><code>GPO_Alumnado_Curso1_Restricions</code></pre>
+<ol class="mb-3">
+<li>Intenta abrir o <strong>Panel de control</strong> ou <strong>Configuración</strong>.</li>
+</ol>
+<p>Resultado esperado:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">O Panel de control ou Configuración debería estar bloqueado ou mostrar unha mensaxe indicando que existe unha restrición administrativa.</li>
+</ul>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>gpupdate /force</code> executado.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>gpresult /r</code> mostra a GPO aplicada.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Informe HTML xerado con <code>gpresult /h</code>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Panel de control ou Configuración bloqueados para <code>alu.curso1.001</code>.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="a-8-comprobar-que-a-gpo-non-afecta-ao-profesorado" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>A.8. Comprobar que a GPO non afecta ao profesorado</h2>
+<p>Agora proba cun usuario situado noutra OU.</p>
+<ol class="mb-3">
+<li>Pecha sesión no cliente.</li>
+<li>Inicia sesión como:</li>
+</ol>
+<pre class="cmd-pre"><code>prof.001</code></pre>
+<ol class="mb-3">
+<li>Executa:</li>
+</ol>
+<pre class="cmd-pre"><code>gpupdate /force
+gpresult /r</code></pre>
+<ol class="mb-3">
+<li>Comproba que a GPO seguinte <strong>non aparece</strong> entre as GPO de usuario aplicadas:</li>
+</ol>
+<pre class="cmd-pre"><code>GPO_Alumnado_Curso1_Restricions</code></pre>
+<ol class="mb-3">
+<li>Intenta abrir o Panel de control ou Configuración.</li>
+</ol>
+<p>Resultado esperado:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><code>prof.001</code> non debería recibir a GPO de Curso1.</li>
+<li class="list-group-item">O Panel de control debería estar accesible normalmente.</li>
+</ul>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>prof.001</code> non recibe <code>GPO_Alumnado_Curso1_Restricions</code>.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Panel de control accesible para <code>prof.001</code>.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="parte-b-powershell-creacion-e-ligazon-basica-de-gpo" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-terminal me-2 text-primary"></i>Parte B – PowerShell: creación e ligazón básica de GPO</h2>
+<p>Nesta parte non imos substituír toda a configuración gráfica. A restrición real do Panel de control xa a fixemos coa GUI.</p>
+<p>O obxectivo desta sección é ver que PowerShell permite:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">crear unha GPO;</li>
+<li class="list-group-item">ligala a unha OU;</li>
+<li class="list-group-item">establecer unha configuración simple de rexistro;</li>
+<li class="list-group-item">consultar herdanza e ligazóns;</li>
+<li class="list-group-item">xerar informes.</li>
+</ul>
+<div class="notice info my-3 d-flex gap-2 align-items-start"><i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i><div><strong>Nota:</strong> localizar todas as claves de rexistro asociadas ás plantillas administrativas pode ser complexo. Por iso usaremos unha clave didáctica sinxela como demostración.</div></div>
+<hr class="my-4">
+</section>
+<section id="b-1-cargar-o-modulo-grouppolicy" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>B.1. Cargar o módulo GroupPolicy</h2>
+<p>En <code>dcbuho</code>, abre PowerShell como administrador.</p>
+<p>Executa:</p>
+<pre class="cmd-pre"><code>Import-Module GroupPolicy</code></pre>
+<p>Comproba que o módulo está dispoñible:</p>
+<pre class="cmd-pre"><code>Get-Command -Module GroupPolicy | Select-Object -First 10</code></pre>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Módulo <code>GroupPolicy</code> cargado.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="b-2-crear-unha-gpo-nova-con-powershell" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>B.2. Crear unha GPO nova con PowerShell</h2>
+<p>Crea unha GPO de demostración:</p>
+<pre class="cmd-pre"><code>$nomeGPO = &quot;GPO_Alumnado_Curso1_Restricions_PS&quot;
+
+$gpo = New-GPO `
+  -Name $nomeGPO `
+  -Comment &quot;Exemplo de GPO creada desde PowerShell para Curso1&quot;
+
+$gpo</code></pre>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> GPO <code>GPO_Alumnado_Curso1_Restricions_PS</code> creada.</li>
+</ul>
+<p>Se a GPO xa existe, non a crees de novo sen consultar co profesorado.</p>
+<hr class="my-4">
+</section>
+<section id="b-3-ligar-a-gpo-a-ou-curso1" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>B.3. Ligar a GPO á OU <code>Curso1</code></h2>
+<p>Define o DN da OU <code>Curso1</code>:</p>
+<pre class="cmd-pre"><code>$dominio = &quot;DC=cifpsauce,DC=local&quot;
+$ouCurso1 = &quot;OU=Curso1,OU=Alumnado,$dominio&quot;</code></pre>
+<p>Liga a GPO á OU:</p>
+<pre class="cmd-pre"><code>New-GPLink `
+  -Name $nomeGPO `
+  -Target $ouCurso1 `
+  -Enforced:$false</code></pre>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> GPO ligada a <code>OU=Curso1</code> mediante PowerShell.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="b-4-establecer-unha-configuracion-simple-de-rexistro" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>B.4. Establecer unha configuración simple de rexistro</h2>
+<p>Imos crear unha entrada de rexistro de usuario como exemplo didáctico.</p>
+<pre class="cmd-pre"><code>Set-GPRegistryValue `
+  -Name $nomeGPO `
+  -Key &quot;HKCU\Software\DemoCurso1&quot; `
+  -ValueName &quot;Curso&quot; `
+  -Type String `
+  -Value &quot;Curso1&quot;</code></pre>
+<p>Esta configuración non bloquea o Panel de control. Só serve para demostrar que PowerShell pode escribir configuracións dentro dunha GPO.</p>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Entrada de rexistro didáctica configurada na GPO.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="b-5-comprobar-a-herdanza-e-ligazons-da-ou" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>B.5. Comprobar a herdanza e ligazóns da OU</h2>
+<p>Para comprobar as GPO ligadas e herdadas nunha OU, usa:</p>
+<pre class="cmd-pre"><code>Get-GPInheritance -Target $ouCurso1</code></pre>
+<p>Para listar as GPO do dominio:</p>
+<pre class="cmd-pre"><code>Get-GPO -All | Select-Object DisplayName, Id</code></pre>
+<p>Para xerar un informe HTML da GPO creada por PowerShell:</p>
+<pre class="cmd-pre"><code>Get-GPOReport `
+  -Name $nomeGPO `
+  -ReportType Html `
+  -Path &quot;C:\GPO_Curso1_PS.html&quot;</code></pre>
+<p>Marca:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>Get-GPInheritance</code> mostra a ligazón da GPO.</li>
+<li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Informe HTML xerado.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="5-capturas-obrigatorias" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-camera me-2 text-primary"></i>5. Capturas obrigatorias</h2>
+<p>Inclúe na memoria da práctica as seguintes evidencias:</p>
+<ol class="mb-3">
+<li>GPMC aberta co dominio <code>cifpsauce.local</code> visible.</li>
+<li><code>Default Domain Policy</code> aberta na ruta de <strong>Password Policy</strong>.</li>
+<li>Valor revisado ou modificado da lonxitude mínima/complexidade de contrasinal.</li>
+<li>GPO <code>GPO_Alumnado_Curso1_Restricions</code> creada.</li>
+<li>Política <strong>Prohibit access to Control Panel and PC settings</strong> en <code>Enabled</code>.</li>
+<li>GPO ligada a <code>OU=Curso1</code>.</li>
+<li>Saída de <code>gpresult /r</code> para <code>alu.curso1.001</code> mostrando a GPO aplicada.</li>
+<li>Panel de control ou Configuración bloqueado para <code>alu.curso1.001</code>.</li>
+<li>Saída de <code>gpresult /r</code> para <code>prof.001</code> sen a GPO de Curso1 aplicada.</li>
+<li>Se realizas a parte PowerShell: saída de <code>Get-GPInheritance</code> ou informe <code>C:\GPO_Curso1_PS.html</code>.</li>
+</ol>
+<hr class="my-4">
+</section>
+<section id="6-resultado-esperado" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-check2-circle me-2 text-primary"></i>6. Resultado esperado</h2>
+<p>Ao rematar a práctica deberías ter:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">A política xeral de contrasinais do dominio revisada ou axustada na <code>Default Domain Policy</code>, segundo indique o profesorado.</li>
+<li class="list-group-item">A GPO <code>GPO_Alumnado_Curso1_Restricions</code> creada.</li>
+<li class="list-group-item">A GPO ligada a <code>OU=Curso1</code>.</li>
+<li class="list-group-item">A restrición de acceso ao Panel de control activada.</li>
+<li class="list-group-item">O usuario <code>alu.curso1.001</code> recibindo a GPO.</li>
+<li class="list-group-item">O usuario <code>prof.001</code> sen recibir esa GPO.</li>
+<li class="list-group-item">Evidencias xeradas con <code>gpresult /r</code> ou <code>gpresult /h</code>.</li>
+<li class="list-group-item">Se se fai a ampliación, unha GPO creada e ligada mediante PowerShell.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="7-erros-frecuentes" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-exclamation-triangle me-2 text-primary"></i>7. Erros frecuentes</h2>
+<p>Evita estes erros:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">Crear unha GPO pero esquecer ligala a unha OU, dominio ou sitio.</li>
+<li class="list-group-item">Ligar a GPO á OU incorrecta.</li>
+<li class="list-group-item">Configurar unha restrición en <strong>Computer Configuration</strong> cando se quería afectar a usuarios.</li>
+<li class="list-group-item">Configurar unha restrición en <strong>User Configuration</strong> e ligala só a unha OU de equipos.</li>
+<li class="list-group-item">Probar a GPO sen pechar sesión, reiniciar ou executar <code>gpupdate /force</code> cando sexa necesario.</li>
+<li class="list-group-item">Non comprobar con <code>gpresult /r</code>.</li>
+<li class="list-group-item">Modificar a <code>Default Domain Policy</code> sen documentar o cambio.</li>
+<li class="list-group-item">Pensar que unha política de contrasinais diferente se pode aplicar simplemente ligando unha GPO a unha OU.</li>
+<li class="list-group-item">Quitar <code>Authenticated Users</code> do filtrado sen entender os permisos de lectura e aplicación da GPO.</li>
+<li class="list-group-item">Usar nomes de profesorado ligados a curso, como <code>prof.curso1.001</code>, en vez de nomes xenéricos como <code>prof.001</code>.</li>
+</ul>
+<hr class="my-4">
+</section>
+<section id="8-cuestions-de-reflexion-final" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-chat-square-text me-2 text-primary"></i>8. Cuestións de reflexión final</h2>
+<p>Responde brevemente:</p>
+<ol class="mb-3">
+<li>Cal é a diferenza entre crear unha GPO e ligala a unha OU?</li>
+<li>Por que a GPO de restrición de Panel de control afecta a <code>alu.curso1.001</code> pero non a <code>prof.001</code>?</li>
+<li>Por que hai que ter coidado ao modificar a <code>Default Domain Policy</code>?</li>
+<li>Que información che ofrece <code>gpresult /r</code>?</li>
+<li>Para que pode ser útil xerar un informe con <code>gpresult /h</code>?</li>
+<li>Que diferenza hai entre unha GPO ligada a unha OU e unha GPO filtrada mediante Security Filtering?</li>
+</ol>
+<hr class="my-4">
+</section>
+<section id="9-ideas-clave" class="mb-5">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-lightbulb me-2 text-primary"></i>9. Ideas clave</h2>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">As GPO non se aplican directamente a grupos como mecanismo principal: primeiro se ligan a sitios, dominios ou OU.</li>
+<li class="list-group-item">Unha GPO creada pero non ligada non terá efecto.</li>
+<li class="list-group-item"><code>Computer Configuration</code> afecta a equipos; <code>User Configuration</code> afecta a usuarios.</li>
+<li class="list-group-item">A política xeral de contrasinais do dominio non funciona igual ca unha restrición de usuario ligada a unha OU.</li>
+<li class="list-group-item"><code>gpupdate</code>, <code>gpresult</code> e <code>rsop.msc</code> son ferramentas básicas para diagnosticar GPO.</li>
+<li class="list-group-item">En prácticas iniciais, é mellor manter o deseño simple: OU ben organizadas, GPO ben nomeadas e poucas excepcións.</li>
+</ul>
+</section>
+      </article>
+    </main>
+  </div>
+</div>
+
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <svg class="smpp-sauce" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="2" y="8" width="32" height="24" rx="4" fill="#0f172a" stroke="#C9A84C" stroke-width="2"/>
+    <rect x="7" y="13" width="10" height="2" rx="1" fill="#C9A84C"/>
+    <rect x="7" y="18" width="22" height="2" rx="1" fill="#C9A84C" opacity="0.6"/>
+    <rect x="7" y="23" width="16" height="2" rx="1" fill="#C9A84C" opacity="0.4"/>
+    <circle cx="28" cy="13" r="3" fill="#C9A84C"/>
+  </svg>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

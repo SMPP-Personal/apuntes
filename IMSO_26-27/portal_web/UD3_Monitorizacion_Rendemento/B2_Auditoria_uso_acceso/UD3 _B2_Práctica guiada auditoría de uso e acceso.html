@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>UD3 · B2 – Práctica guiada: auditoría de uso e acceso</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+  <!-- Fonts (Inter + Fira Code) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+  <!-- Estilos propios SMPP / IMSO -->
+  <link href="../../assets/css/smpp.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar SMPP -->
+  <nav class="smpp-navbar no-print">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="smpp-brand" href="#">
+        <img src="../../assets/img/buho-clean.svg"
+             alt="SMPP"
+             class="smpp-buho"
+             onerror="this.style.display='none'">
+        <div class="smpp-brand-text">
+          <span class="smpp-title">SMPP</span>
+          <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+        </div>
+      </a>
+
+      <div class="d-flex align-items-center gap-3">
+        <span class="smpp-module">
+          MP0369 · IMSO 26/27
+        </span>
+
+        <button class="btn btn-outline-light btn-sm"
+                type="button"
+                onclick="toggleTheme()"
+                aria-label="Cambiar tema"
+                title="Cambiar tema">
+          <i class="bi bi-moon-stars" id="theme-icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contido principal -->
+  <div class="container-xl py-4">
+    <div class="row g-4">
+
+      <!-- Índice lateral -->
+      <aside class="col-lg-3 d-none d-lg-block no-print">
+        <div class="sidebar">
+          <div class="card shadow-sm sidebar-panel border">
+            <div class="card-body px-3 py-3">
+              <h6 class="text-uppercase fw-bold mb-1">
+                <i class="bi bi-list-ul me-1"></i> Índice
+              </h6>
+              <hr class="my-2">
+
+              <nav id="toc" class="toc">
+                <ul class="nav flex-column gap-1 small">
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#introducion">
+                      Introdución
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#recursos">
+                      Recursos necesarios
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#parte-a">
+                      Parte A – Windows 11
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#parte-b">
+                      Parte B – Ubuntu
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#parte-c">
+                      Parte C – Reflexión e documentación
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#ficha">
+                      Ficha de rexistro
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Columna principal -->
+      <main class="col-lg-9">
+        <article>
+
+          <!-- Hero principal -->
+          <header class="mb-4">
+            <div class="practice-hero hero-green">
+              <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <span class="hero-chip">
+                  <i class="bi bi-collection"></i>
+                  UD3 · B2 – Auditoría de uso e acceso
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-pc-display"></i>
+                  Windows 11 &amp; Ubuntu
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-clipboard-check"></i>
+                  Práctica guiada
+                </span>
+              </div>
+
+              <h1 class="h2 fw-bold mb-2">
+                UD3 · B2 – Práctica guiada: auditoría de uso e acceso
+              </h1>
+
+              <p class="lead mb-0">
+                Configuración básica de auditoría en Windows 11 e Ubuntu, xeración de evidencias
+                e rexistro dos resultados nunha ficha sinxela.
+              </p>
+            </div>
+          </header>
+
+          <!-- Meta recurso / instrucións globais -->
+          <section class="mb-4 section-anchor" id="introducion">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-info-circle"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Introdución</h2>
+              </div>
+              <div class="content-card-body">
+
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6 col-xl-3">
+                    <div class="key-card h-100">
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-mortarboard text-primary"></i>
+                        <strong>Módulo</strong>
+                      </div>
+                      <p class="small mb-0">
+                        MP0369 – Implantación de sistemas operativos.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-3">
+                    <div class="key-card h-100">
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-diagram-3 text-primary"></i>
+                        <strong>Ciclo</strong>
+                      </div>
+                      <p class="small mb-0">
+                        Administración de sistemas informáticos en rede.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-3">
+                    <div class="key-card h-100">
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-arrow-up-right-circle text-primary"></i>
+                        <strong>Nivel</strong>
+                      </div>
+                      <p class="small mb-0">
+                        1.º curso.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-3">
+                    <div class="key-card h-100">
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-person text-primary"></i>
+                        <strong>Autora</strong>
+                      </div>
+                      <p class="small mb-0">
+                        Silvia M. Peña Pérez.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <p>
+                  Nesta práctica vas configurar e comprobar a auditoría básica de uso e acceso
+                  en dúas máquinas virtuais:
+                </p>
+                <ul>
+                  <li><strong>Windows 11 local</strong>, sen dominio.</li>
+                  <li><strong>Ubuntu local</strong>, con interface gráfica, sen dominio.</li>
+                </ul>
+
+                <p>Ao rematar deberías ser quen de:</p>
+                <ul>
+                  <li>activar políticas básicas de auditoría en Windows e comprobar os eventos xerados;</li>
+                  <li>configurar auditoría sobre un cartafol concreto en Windows;</li>
+                  <li>provocar e identificar eventos de inicio de sesión correcto e fallido;</li>
+                  <li>localizar e interpretar entradas de autenticación en Ubuntu;</li>
+                  <li>comprobar como queda rexistrado o uso de <code>sudo</code>;</li>
+                  <li>documentar o proceso nunha ficha sinxela.</li>
+                </ul>
+
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-exclamation-circle flex-shrink-0 mt-1"></i>
+                  <div>
+                    <strong>Nota importante.</strong>
+                    Traballa sempre nas túas propias VMs. Podes consultar a un compañeiro/a se tes
+                    dúbidas, pero as capturas e a ficha final deben corresponder ás túas máquinas.
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Recursos necesarios -->
+          <section class="mb-5 section-anchor" id="recursos">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-pc-display"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Recursos necesarios</h2>
+              </div>
+              <div class="content-card-body">
+                <ul>
+                  <li>VM con <strong>Windows 11 Pro, Education ou Enterprise</strong>.</li>
+                  <li>VM con <strong>Ubuntu Desktop</strong>.</li>
+                  <li>Usuario administrador local en Windows.</li>
+                  <li>Usuario habitual en Ubuntu con permisos para executar <code>sudo</code>.</li>
+                  <li>Este documento impreso ou en pantalla.</li>
+                  <li>Ficha de rexistro incluída ao final deste documento.</li>
+                </ul>
+
+                <div class="notice warning d-flex gap-2 align-items-start mt-2">
+                  <i class="bi bi-exclamation-triangle flex-shrink-0 mt-1"></i>
+                  <div>
+                    <strong>Aviso sobre Windows.</strong>
+                    Esta práctica usa <code>secpol.msc</code>. Se o comando non abre, avisa á profesora.
+                    Algunhas edicións de Windows non inclúen a ferramenta de políticas de seguridade local.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- PARTE A – Windows -->
+          <section class="mb-5 section-anchor" id="parte-a">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-windows"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Parte A – Auditoría en Windows 11</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- A1 -->
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">A1</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Comprobación do estado inicial
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Inicia a túa VM con Windows 11 e inicia sesión cun usuario administrador local.
+                      </li>
+                      <li>
+                        Abre o <strong>Visor de eventos</strong>:
+                        <ul>
+                          <li>Preme <code>Windows + R</code>.</li>
+                          <li>Escribe <code>eventvwr.msc</code>.</li>
+                          <li>Preme Intro.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        No panel esquerdo, navega ata:
+                        <div class="cmd-block"><code>Rexistros de Windows → Seguridade</code></div>
+                      </li>
+                      <li>
+                        Observa o rexistro de seguridade:
+                        <ul>
+                          <li>Hai entradas?</li>
+                          <li>Cantas aproximadamente?</li>
+                          <li>Que tipos de eventos ves na columna <strong>Palabras clave</strong>?</li>
+                          <li>Aparecen auditorías correctas, auditorías con erro ou ambas?</li>
+                        </ul>
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Anota na ficha.</strong>
+                        Número aproximado de entradas e tipos de eventos que observas neste momento.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- A2 -->
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">A2</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Activación das políticas de auditoría
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Abre o editor de <strong>políticas de seguridade local</strong>:
+                        <ul>
+                          <li>Preme <code>Windows + R</code>.</li>
+                          <li>Escribe <code>secpol.msc</code>.</li>
+                          <li>Preme Intro.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        Navega ata:
+                        <div class="cmd-block">
+                          <code>Configuración de seguridade → Políticas locais → Política de auditoría</code>
+                        </div>
+                        Verás unha lista de categorías. O estado actual pode ser
+                        <strong>Sen auditoría</strong> nalgunhas delas.
+                      </li>
+                      <li>
+                        Activa as seguintes políticas facendo dobre clic en cada unha e marcando as opcións
+                        indicadas:
+                        <div class="table-responsive my-2">
+                          <table class="table table-sm table-striped align-middle">
+                            <thead>
+                              <tr>
+                                <th>Política</th>
+                                <th>Activar</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Auditar eventos de inicio de sesión</td>
+                                <td>Correcto e Erro</td>
+                              </tr>
+                              <tr>
+                                <td>Auditar o acceso a obxectos</td>
+                                <td>Correcto e Erro</td>
+                              </tr>
+                              <tr>
+                                <td>Auditar o uso de privilexios</td>
+                                <td>Erro</td>
+                              </tr>
+                              <tr>
+                                <td>Auditar eventos do sistema</td>
+                                <td>Correcto e Erro</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </li>
+                      <li>
+                        Pecha <code>secpol.msc</code>.
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-camera flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Captura.</strong>
+                        Fai unha captura da lista de políticas co novo estado activado.
+                      </div>
+                    </div>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Aclaración técnica.</strong>
+                        Activar a auditoría permite que Windows rexistre determinados sucesos, pero non
+                        significa que todos os accesos a todos os ficheiros queden automaticamente rexistrados.
+                        Para auditar un cartafol concreto tamén hai que configurar a súa auditoría desde
+                        as propiedades de seguridade do cartafol.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- A3 -->
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">A3</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Xeración de eventos de inicio de sesión
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Pecha a sesión actual do usuario administrador:
+                        <div class="cmd-block">
+                          <code>Menú Inicio → icona do usuario → Pechar sesión</code>
+                        </div>
+                      </li>
+                      <li>
+                        Na pantalla de inicio de sesión, introduce intencionadamente unha
+                        <strong>contrasinal incorrecta</strong> para o usuario administrador.
+                        Faino <strong>tres veces seguidas</strong>.
+                      </li>
+                      <li>
+                        Introduce agora a <strong>contrasinal correcta</strong> e inicia sesión.
+                      </li>
+                      <li>
+                        Abre de novo:
+                        <div class="cmd-block">
+                          <code>Visor de eventos → Rexistros de Windows → Seguridade</code>
+                        </div>
+                      </li>
+                      <li>
+                        Busca eventos recentes relacionados coa hora na que fixeches as probas.
+                        Deberías localizar eventos como estes:
+                        <div class="table-responsive my-2">
+                          <table class="table table-sm table-striped align-middle">
+                            <thead>
+                              <tr>
+                                <th>ID de evento</th>
+                                <th>Significado xeral</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>4625</td>
+                                <td>Inicio de sesión fallido</td>
+                              </tr>
+                              <tr>
+                                <td>4624</td>
+                                <td>Inicio de sesión correcto</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        É posible que Windows xere máis eventos arredor do mesmo momento.
+                        Usa a hora aproximada e o ID de evento para localizar os que correspondan
+                        coa túa proba.
+                      </li>
+                      <li>
+                        Fai clic nun evento <strong>4625</strong> e le a descrición completa
+                        no panel inferior.
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Anota na ficha.</strong>
+                        Data/hora, ID, tipo e resumo da descrición de polo menos dous eventos.
+                      </div>
+                    </div>
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-camera flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Captura.</strong>
+                        Fai unha captura que mostre eventos 4625 e 4624 no rexistro.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- A4 (idea clave) -->
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">A4</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Auditoría sobre un cartafol
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <p>
+                      Nesta parte vas configurar a auditoría sobre un cartafol concreto e provocar
+                      un acceso denegado para que Windows xere un evento relacionado co acceso a obxectos.
+                    </p>
+                    <div class="notice info d-flex gap-2 align-items-start">
+                      <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Idea clave.</strong>
+                        Auditar un cartafol non cambia os permisos. Para xerar un evento de acceso denegado
+                        necesitas dúas cousas:
+                        <ol class="mb-0">
+                          <li>Configurar auditoría sobre o cartafol.</li>
+                          <li>Facer que un usuario real non teña permiso para acceder ou escribir nel.</li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- A4.1 -->
+                <div class="step-card mb-3">
+                  <div class="step-header">
+                    <span class="task-number">A4.1</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Crear o cartafol de proba
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Crea o seguinte cartafol:
+                        <pre class="cmd-block"><code>C:\Auditoria\UD3_Privado</code></pre>
+                        Se non existe a carpeta <code>C:\Auditoria</code>, créaa primeiro.
+                      </li>
+                      <li>
+                        Dentro de <code>UD3_Privado</code>, crea un ficheiro de texto chamado:
+                        <pre class="cmd-block"><code>aviso.txt</code></pre>
+                        Escribe dentro unha frase sinxela, por exemplo:
+                        <pre class="cmd-block"><code>Cartafol privado para a práctica de auditoría.</code></pre>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+
+                <!-- A4.2 -->
+                <div class="step-card mb-3">
+                  <div class="step-header">
+                    <span class="task-number">A4.2</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Crear un segundo usuario local
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Crea un segundo usuario local sen privilexios administrativos:
+                        <div class="cmd-block">
+                          <code>Configuración → Contas → Familia e outros usuarios → Engadir outro usuario</code>
+                        </div>
+                      </li>
+                      <li>
+                        Crea o usuario:
+                        <pre class="cmd-block"><code>proba_audit</code></pre>
+                        Usa unha contrasinal temporal indicada pola profesora ou acordada para a práctica.
+                      </li>
+                    </ol>
+                    <div class="notice warning mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-exclamation-triangle flex-shrink-0 mt-1"></i>
+                      <div>
+                        Non uses unha contrasinal persoal nin unha contrasinal que empregues noutros servizos.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- A4.3 -->
+                <div class="step-card mb-3">
+                  <div class="step-header">
+                    <span class="task-number">A4.3</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Configurar permisos NTFS para provocar acceso denegado
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>Volle ao usuario administrador.</li>
+                      <li>
+                        Fai clic dereito sobre o cartafol:
+                        <pre class="cmd-block"><code>C:\Auditoria\UD3_Privado</code></pre>
+                        Entra en:
+                        <div class="cmd-block">
+                          <code>Propiedades → Seguridade → Avanzada</code>
+                        </div>
+                      </li>
+                      <li>
+                        Revisa que o usuario administrador ou o grupo <strong>Administradores</strong>
+                        teña control sobre o cartafol.
+                      </li>
+                      <li>
+                        Engade unha regra explícita para o usuario <code>proba_audit</code>:
+                        <ul>
+                          <li>Principal: <code>proba_audit</code></li>
+                          <li>Tipo: <strong>Denegar</strong></li>
+                          <li>Permisos básicos: <strong>Lectura e execución</strong> e <strong>Escritura</strong></li>
+                        </ul>
+                        Aplica os cambios.
+                      </li>
+                    </ol>
+                    <div class="notice warning mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-exclamation-triangle flex-shrink-0 mt-1"></i>
+                      <div>
+                        Nun contorno real hai que ter coidado coas regras de denegación explícita,
+                        porque poden complicar a administración de permisos. Aquí úsanse só para
+                        provocar unha evidencia clara na práctica.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- A4.4 -->
+                <div class="step-card mb-3">
+                  <div class="step-header">
+                    <span class="task-number">A4.4</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Configurar a auditoría do cartafol
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Nas propiedades avanzadas do cartafol, entra na pestana:
+                        <div class="cmd-block"><code>Auditoría</code></div>
+                      </li>
+                      <li>
+                        Preme <strong>Engadir</strong> e configura unha entrada de auditoría:
+                        <ul>
+                          <li>Principal: <code>proba_audit</code></li>
+                          <li>Tipo: <strong>Erro</strong></li>
+                          <li>Aplicar a: <strong>Este cartafol, subcartafoles e ficheiros</strong></li>
+                          <li>Permisos básicos: <strong>Lectura e execución</strong> e <strong>Escritura</strong></li>
+                        </ul>
+                        Aplica os cambios e pecha as propiedades.
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+
+                <!-- A4.5 -->
+                <div class="step-card mb-3">
+                  <div class="step-header">
+                    <span class="task-number">A4.5</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Xerar o acceso denegado
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Cambia ao usuario <code>proba_audit</code>:
+                        <div class="cmd-block">
+                          <code>Menú Inicio → icona do usuario → Cambiar usuario</code>
+                        </div>
+                      </li>
+                      <li>
+                        Tenta acceder ao cartafol:
+                        <pre class="cmd-block"><code>C:\Auditoria\UD3_Privado</code></pre>
+                      </li>
+                      <li>
+                        Tenta tamén crear un ficheiro dentro do cartafol.
+                        O obxectivo é provocar unha mensaxe de acceso denegado.
+                      </li>
+                      <li>
+                        Volve á sesión do usuario administrador.
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+
+                <!-- A4.6 -->
+                <div class="step-card mb-3">
+                  <div class="step-header">
+                    <span class="task-number">A4.6</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Localizar o evento no Visor de eventos
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Abre:
+                        <div class="cmd-block">
+                          <code>Visor de eventos → Rexistros de Windows → Seguridade</code>
+                        </div>
+                      </li>
+                      <li>
+                        Busca eventos arredor da hora na que fixeches a proba co usuario
+                        <code>proba_audit</code>. Podes empregar:
+                        <div class="cmd-block"><code>Filtrar rexistro actual...</code></div>
+                      </li>
+                      <li>
+                        Busca eventos relacionados co acceso a obxectos. Algúns IDs que poden aparecer son:
+                        <div class="table-responsive my-2">
+                          <table class="table table-sm table-striped align-middle">
+                            <thead>
+                              <tr>
+                                <th>ID de evento</th>
+                                <th>Posible significado</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>4663</td>
+                                <td>Intento de acceso a un obxecto</td>
+                              </tr>
+                              <tr>
+                                <td>4656</td>
+                                <td>Solicitude de identificador para un obxecto</td>
+                              </tr>
+                              <tr>
+                                <td>4670</td>
+                                <td>Cambio de permisos sobre un obxecto</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </li>
+                      <li>
+                        Abre o evento que pareza relacionado co cartafol <code>UD3_Privado</code>
+                        e revisa:
+                        <ul>
+                          <li>usuario;</li>
+                          <li>data e hora;</li>
+                          <li>nome do obxecto;</li>
+                          <li>tipo de acceso;</li>
+                          <li>se foi unha auditoría correcta ou unha auditoría con erro.</li>
+                        </ul>
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Anota na ficha.</strong>
+                        Se apareceu algún evento relacionado co cartafol, con que ID e que describe.
+                      </div>
+                    </div>
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-camera flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Captura.</strong>
+                        Fai unha captura do evento atopado.
+                      </div>
+                    </div>
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-question-circle flex-shrink-0 mt-1"></i>
+                      <div>
+                        Se non aparece ningún evento, indícao na ficha e explica que comprobacións farías:
+                        política de auditoría activada, entrada de auditoría no cartafol, permisos NTFS
+                        e hora exacta da proba.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- PARTE B – Ubuntu -->
+          <section class="mb-5 section-anchor" id="parte-b">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-terminal"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Parte B – Auditoría e rexistros en Ubuntu</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- B1 -->
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">B1</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Localización dos logs de autenticación
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Inicia a túa VM Ubuntu e inicia sesión co usuario habitual.
+                      </li>
+                      <li>
+                        Abre un terminal:
+                        <div class="cmd-block"><code>Ctrl + Alt + T</code></div>
+                      </li>
+                      <li>
+                        Consulta as últimas liñas do log de autenticación:
+                        <pre class="cmd-block"><code>sudo tail -n 30 /var/log/auth.log</code></pre>
+                        Este comando mostra as últimas 30 liñas do log de autenticación.
+                      </li>
+                      <li>
+                        Observa as liñas que aparecen:
+                        <ul>
+                          <li>Que tipos de eventos ves?</li>
+                          <li>Aparece o teu usuario?</li>
+                          <li>Hai algún evento relacionado con <code>sudo</code>?</li>
+                          <li>Hai algún evento relacionado co inicio ou peche de sesión?</li>
+                        </ul>
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Anota na ficha.</strong>
+                        2 ou 3 liñas que che parezan relevantes e explica brevemente que indica cada unha.
+                      </div>
+                    </div>
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-info-circle flex-shrink-0 mt-1"></i>
+                      <div>
+                        Se <code>/var/log/auth.log</code> non existe ou non mostra información suficiente,
+                        usa <code>journalctl</code>, como se indica máis adiante nesta práctica.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- B2 -->
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">B2</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Xeración de eventos de autenticación
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Pecha a sesión gráfica actual:
+                        <div class="cmd-block">
+                          <code>Menú do sistema → Pechar sesión</code>
+                        </div>
+                      </li>
+                      <li>
+                        Na pantalla de inicio de sesión, introduce intencionadamente unha
+                        <strong>contrasinal incorrecta</strong> dúas veces.
+                      </li>
+                      <li>
+                        Despois introduce a contrasinal correcta e inicia sesión.
+                      </li>
+                      <li>
+                        Abre un terminal e consulta de novo o log:
+                        <pre class="cmd-block"><code>sudo tail -n 40 /var/log/auth.log</code></pre>
+                      </li>
+                      <li>
+                        Busca liñas relacionadas coa hora dos intentos fallidos e do inicio correcto.
+                        Segundo a configuración da VM, poden aparecer termos como:
+                        <pre class="cmd-block"><code>authentication failure
+gdm-password
+pam_unix
+session opened
+session closed</code></pre>
+                        Se o acceso se fixese por SSH, poderían aparecer tamén mensaxes como:
+                        <pre class="cmd-block"><code>Failed password
+Accepted password</code></pre>
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Anota na ficha.</strong>
+                        Unha liña relacionada cun intento fallido e unha liña relacionada
+                        cun inicio correcto ou apertura de sesión.
+                      </div>
+                    </div>
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-camera flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Captura.</strong>
+                        Fai unha captura do terminal mostrando esas liñas.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- B3 -->
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">B3</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Rexistro do uso de sudo
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Executa os seguintes comandos no terminal, un a un:
+                        <pre class="cmd-block"><code>sudo apt update
+sudo ls /root</code></pre>
+                      </li>
+                      <li>
+                        Consulta o log para ver como quedaron rexistrados:
+                        <pre class="cmd-block"><code>sudo grep "sudo" /var/log/auth.log | tail -n 10</code></pre>
+                      </li>
+                      <li>
+                        Localiza as liñas correspondentes aos comandos que acabas de executar.
+                        Nunha liña de <code>sudo</code> adoita aparecer información como:
+                        <ul>
+                          <li>usuario que executou o comando;</li>
+                          <li>terminal desde o que se executou;</li>
+                          <li>directorio de traballo;</li>
+                          <li>usuario de destino, normalmente <code>root</code>;</li>
+                          <li>comando executado.</li>
+                        </ul>
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Anota na ficha.</strong>
+                        Que información aparece en cada liña.
+                      </div>
+                    </div>
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-camera flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Captura.</strong>
+                        Fai unha captura do terminal mostrando as liñas de <code>sudo</code>.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- B4 -->
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">B4</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Consulta con journalctl
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Usa <code>journalctl</code> para ver eventos recentes do sistema relacionados
+                        con autenticación, sesións ou <code>sudo</code>:
+                        <pre class="cmd-block"><code>sudo journalctl --since "today" | grep -Ei "sudo|login|auth|authentication|session|gdm" | tail -n 30</code></pre>
+                      </li>
+                      <li>
+                        Se a túa VM ten SSH instalado e activo, tamén podes consultar:
+                        <pre class="cmd-block"><code>sudo journalctl -u ssh --since "today"</code></pre>
+                        Se non tes SSH instalado ou activo, este segundo comando pode non devolver resultados útiles.
+                        Non pasa nada.
+                      </li>
+                      <li>
+                        Observa o formato das entradas e compárao co de <code>/var/log/auth.log</code>.
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Anota na ficha.</strong>
+                        Unha diferenza que observes entre o formato de <code>auth.log</code>
+                        e o de <code>journalctl</code>.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- PARTE C – Reflexión -->
+          <section class="mb-5 section-anchor" id="parte-c">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-journal-check"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Parte C – Reflexión e documentación</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- C1 -->
+                <div class="step-card mb-3">
+                  <div class="step-header">
+                    <span class="task-number">C1</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Impacto no rendemento e tamaño dos rexistros
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <p>
+                      Responde na ficha:
+                    </p>
+                    <ol>
+                      <li>
+                        En Windows, activaches auditoría sobre inicios de sesión e acceso a un cartafol
+                        concreto. Que pasaría se activases a auditoría de
+                        <strong>todos os accesos correctos</strong> sobre
+                        <strong>todos os ficheiros do sistema</strong>? Que efecto tería no tamaño do
+                        rexistro e no rendemento?
+                      </li>
+                      <li>
+                        En Ubuntu, os logs de autenticación crecen co tempo. Que mecanismo existe para
+                        rotar, comprimir ou eliminar rexistros antigos e evitar que ocupen demasiado espazo?
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+                      <div>
+                        Pista: en moitos sistemas Linux emprégase unha ferramenta chamada
+                        <code>logrotate</code>.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- C2 -->
+                <div class="step-card mb-3">
+                  <div class="step-header">
+                    <span class="task-number">C2</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Comparativa final
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <p>
+                      Completa na ficha a seguinte táboa comparativa a partir do que fixeches na práctica:
+                    </p>
+                    <div class="table-responsive my-2">
+                      <table class="table table-sm table-striped align-middle">
+                        <thead>
+                          <tr>
+                            <th>Aspecto</th>
+                            <th>Windows 11</th>
+                            <th>Ubuntu</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Onde se activa ou configura a auditoría</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>Onde se len os eventos</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>Como se busca un evento concreto</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>Que información inclúe cada entrada</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>Como se xestionan os rexistros antigos</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-info-circle flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Matiz importante.</strong>
+                        Nesta práctica, en Windows activaches políticas de auditoría.
+                        En Ubuntu consultaches rexistros de autenticación xerados polo sistema.
+                        Para auditoría avanzada en Linux existen ferramentas específicas
+                        como <code>auditd</code>, pero non se traballan nesta práctica.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Ficha de rexistro -->
+          <section class="mb-5 section-anchor" id="ficha">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-file-earmark-text"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Ficha de rexistro – Práctica guiada B2</h2>
+              </div>
+              <div class="content-card-body">
+                <p><em>Para entregar ao rematar a práctica.</em></p>
+
+                <div class="response-space mb-3">
+                  <p><strong>Nome:</strong></p>
+                  <p><strong>Data:</strong></p>
+                  <p><strong>VM Windows usada:</strong></p>
+                  <p><strong>VM Ubuntu usada:</strong></p>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">A1 – Estado inicial do rexistro de seguridade en Windows</h3>
+                <div class="answer-lines mb-3">
+                  <p>Número aproximado de entradas observadas:</p>
+                  <p>Tipos de eventos observados:</p>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">A2 – Políticas de auditoría activadas</h3>
+                <ul class="check-list list-group list-group-flush mb-3">
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Auditar eventos de inicio de sesión: correcto e erro
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Auditar o acceso a obxectos: correcto e erro
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Auditar o uso de privilexios: erro
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Auditar eventos do sistema: correcto e erro
+                  </li>
+                </ul>
+
+                <h3 class="h6 fw-bold mt-3">A3 – Eventos de inicio de sesión en Windows</h3>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Nº</th>
+                        <th>ID evento</th>
+                        <th>Tipo</th>
+                        <th>Data/hora</th>
+                        <th>Usuario</th>
+                        <th>Descrición resumida</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td><td></td><td></td><td></td><td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>2</td><td></td><td></td><td></td><td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>3</td><td></td><td></td><td></td><td></td><td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">A4 – Auditoría sobre o cartafol C:\Auditoria\UD3_Privado</h3>
+                <div class="response-space mb-3">
+                  <p>Apareceu algún evento relacionado co cartafol?</p>
+                  <p>[ ] Si   [ ] Non</p>
+                  <p>ID do evento, se apareceu:</p>
+                  <p>Usuario asociado ao evento:</p>
+                  <p>Descrición resumida:</p>
+                  <p>Se non apareceu, indica que comprobacións farías:</p>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">B1 – Liñas relevantes de /var/log/auth.log ou journalctl</h3>
+                <div class="response-space mb-3">
+                  <p><strong>Liña 1:</strong></p>
+                  <p>Explicación:</p>
+                  <p><strong>Liña 2:</strong></p>
+                  <p>Explicación:</p>
+                  <p><strong>Liña 3:</strong></p>
+                  <p>Explicación:</p>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">B2 – Eventos de autenticación xerados en Ubuntu</h3>
+                <div class="response-space mb-3">
+                  <p><strong>Liña relacionada cun intento fallido:</strong></p>
+                  <p>Explicación:</p>
+                  <p><strong>Liña relacionada cun inicio correcto ou apertura de sesión:</strong></p>
+                  <p>Explicación:</p>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">B3 – Rexistro de uso de sudo</h3>
+                <div class="response-space mb-3">
+                  <p><strong>Liña correspondente a sudo apt update:</strong></p>
+                  <p>Explicación:</p>
+                  <p><strong>Liña correspondente a sudo ls /root:</strong></p>
+                  <p>Explicación:</p>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">B4 – Diferenza entre auth.log e journalctl</h3>
+                <div class="answer-lines mb-3">
+                  <p>Escribe unha diferenza observada:</p>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">C1 – Reflexión sobre impacto no rendemento</h3>
+                <div class="response-space mb-3">
+                  <p>a) Que pasaría se se auditase todo sobre todos os ficheiros?</p>
+                  <p>b) Que mecanismo se usa en Ubuntu/Linux para evitar que os logs medren indefinidamente?</p>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">C2 – Táboa comparativa Windows vs Ubuntu</h3>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Aspecto</th>
+                        <th>Windows 11</th>
+                        <th>Ubuntu</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Onde se activa ou configura a auditoría</td>
+                        <td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>Onde se len os eventos</td>
+                        <td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>Como se busca un evento concreto</td>
+                        <td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>Que información inclúe cada entrada</td>
+                        <td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>Como se xestionan os rexistros antigos</td>
+                        <td></td><td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">Capturas entregadas</h3>
+                <ul class="check-list list-group list-group-flush mb-3">
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Políticas de auditoría activadas en Windows.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Eventos 4624 e 4625 no Visor de eventos.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Evento relacionado co cartafol C:\Auditoria\UD3_Privado,
+                    ou explicación de por que non apareceu.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Terminal Ubuntu con liñas de /var/log/auth.log ou journalctl.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Terminal Ubuntu con liñas de uso de sudo.
+                  </li>
+                </ul>
+
+                <h3 class="h6 fw-bold mt-3">Observacións finais do alumno/a</h3>
+                <div class="response-lines mb-2">
+                  <p>
+                    Indica aquí calquera problema atopado durante a práctica ou calquera diferenza
+                    entre o que esperabas ver e o que apareceu realmente nos rexistros:
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <!-- Pé de páxina SMPP -->
+  <footer class="smpp-footer no-print">
+    <div class="smpp-footer-spacer"></div>
+    <div class="smpp-footer-center">
+      <span>CIFP A Carballeira · Ourense</span>
+      <span>Administración de Sistemas Informáticos · Curso 26/27</span>
+      <span>Material didáctico de uso interno</span>
+    </div>
+    <img src="../../assets/img/sauce-clean.svg"
+         alt=""
+         class="smpp-sauce"
+         onerror="this.style.display='none'">
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS común SMPP / IMSO -->
+  <script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

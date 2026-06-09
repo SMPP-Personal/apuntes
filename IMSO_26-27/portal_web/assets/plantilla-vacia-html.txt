@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>TODO · Título da unidade ou práctica</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+  <!-- Fonts (Inter + Fira Code) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+  <!-- Estilos propios SMPP / IMSO -->
+  <!-- Ruta dous niveis arriba -->
+  <link href="../../assets/css/smpp.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar SMPP -->
+  <nav class="smpp-navbar no-print">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <!-- Marca / logo -->
+      <a class="smpp-brand" href="#">
+        <!-- Ruta do buho: dous niveis arriba -->
+        <img src="../../assets/img/buho-clean.svg"
+             alt="SMPP"
+             class="smpp-buho"
+             onerror="this.style.display='none'">
+        <div class="smpp-brand-text">
+          <span class="smpp-title">SMPP</span>
+          <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+        </div>
+      </a>
+
+      <!-- Módulo + botón tema -->
+      <div class="d-flex align-items-center gap-3">
+        <span class="smpp-module">
+          <!-- EXEMPLO: MP0369 · IMSO 26/27 -->
+          TODO · Código módulo / curso
+        </span>
+
+        <button class="btn btn-outline-light btn-sm"
+                type="button"
+                onclick="toggleTheme()"
+                aria-label="Cambiar tema"
+                title="Cambiar tema">
+          <i class="bi bi-moon-stars" id="theme-icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contido principal -->
+  <div class="container-xl py-4">
+    <div class="row g-4">
+
+      <!-- Índice lateral (TOC) -->
+      <aside class="col-lg-3 d-none d-lg-block no-print">
+        <div class="sidebar">
+          <div class="card shadow-sm sidebar-panel border">
+            <div class="card-body px-3 py-3">
+              <h6 class="text-uppercase fw-bold mb-1">
+                <i class="bi bi-list-ul me-1"></i> Índice
+              </h6>
+              <hr class="my-2">
+
+              <!-- TOC: ligazóns a cada section id="..." -->
+              <nav id="toc" class="toc">
+                <ul class="nav flex-column gap-1 small">
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#introducion">
+                      1. Introdución
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#obxectivos">
+                      2. Obxectivos
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#requisitos">
+                      3. Requisitos previos
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#contido-principal">
+                      4. Contido principal
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#actividades">
+                      5. Actividades / tarefas
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#avaliacion">
+                      6. Criterios de avaliación
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Columna principal -->
+      <main class="col-lg-9">
+        <article>
+
+          <!-- Hero principal -->
+          <header class="mb-4">
+            <div class="practice-hero hero-green">
+              <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <!-- Chips meta -->
+                <span class="hero-chip">
+                  <i class="bi bi-collection"></i>
+                  TODO · UD / Bloque
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-pc-display"></i>
+                  TODO · Plataforma / ámbito
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-clipboard-check"></i>
+                  TODO · Tipo (apuntes / práctica / exercicios)
+                </span>
+              </div>
+
+              <h1 class="h2 fw-bold mb-2">
+                TODO · Título completo da unidade / práctica
+              </h1>
+
+              <p class="lead mb-0">
+                TODO · Breve descrición da actividade ou dos contidos.
+              </p>
+            </div>
+          </header>
+
+          <!-- Nota inicial opcional -->
+          <div class="notice info mb-4 d-flex gap-2 align-items-start">
+            <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+            <div>
+              <strong>Idea central.</strong>
+              TODO · Mensaxe clave que queres que o alumnado teña presente.
+            </div>
+          </div>
+
+          <!-- Section 1: Introdución -->
+          <section class="mb-5 section-anchor" id="introducion">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-journal-text"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">1. Introdución</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  TODO · Contexto xeral da unidade ou práctica, relación co módulo
+                  e coa realidade profesional do alumnado.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 2: Obxectivos -->
+          <section class="mb-5 section-anchor" id="obxectivos">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-bullseye"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">2. Obxectivos</h2>
+              </div>
+              <div class="content-card-body">
+                <p>Nesta unidade o alumnado deberá ser quen de:</p>
+                <ul class="mb-3">
+                  <li>TODO · Obxectivo 1.</li>
+                  <li>TODO · Obxectivo 2.</li>
+                  <li>TODO · Obxectivo 3.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 3: Requisitos previos -->
+          <section class="mb-5 section-anchor" id="requisitos">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-pc-display"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">3. Requisitos previos</h2>
+              </div>
+              <div class="content-card-body">
+                <p>Antes de comezar, o alumnado debería ter:</p>
+                <ul class="mb-3">
+                  <li>TODO · Coñecemento previo 1.</li>
+                  <li>TODO · Coñecemento previo 2.</li>
+                  <li>TODO · Recursos materiais / software necesarios.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 4: Contido principal -->
+          <section class="mb-5 section-anchor" id="contido-principal">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-diagram-3"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">4. Contido principal</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exemplo de tarxeta de concepto -->
+                <div class="concept-card mb-3">
+                  <div class="p-3 d-flex gap-3 align-items-start">
+                    <div class="concept-icon">
+                      <i class="bi bi-lightbulb"></i>
+                    </div>
+                    <div>
+                      <h3 class="h5 fw-bold mb-1">
+                        TODO · Concepto clave
+                      </h3>
+                      <p class="mb-2">
+                        TODO · Explicación breve do conceito clave.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Exemplo de bloque de comandos -->
+                <h3 class="h6 fw-bold mt-3">Exemplo de comando</h3>
+                <div class="cmd-block">
+                  <code>TODO · comando --opcion</code>
+                </div>
+
+                <!-- Exemplo de táboa -->
+                <div class="table-responsive my-3">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Elemento</th>
+                        <th>Descrición</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>TODO 1</td>
+                        <td>Descrición do elemento 1.</td>
+                      </tr>
+                      <tr>
+                        <td>TODO 2</td>
+                        <td>Descrición do elemento 2.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 5: Actividades / tarefas -->
+          <section class="mb-5 section-anchor" id="actividades">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-clipboard-check"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">5. Actividades / tarefas</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exemplo de step-card para unha tarefa -->
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">A1</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      TODO · Nome da actividade A1
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <p>
+                      TODO · Instrucións principais da actividade.
+                    </p>
+
+                    <ol class="step-list">
+                      <li>
+                        Primeiro paso que debe realizar o alumnado.
+                      </li>
+                      <li>
+                        Segundo paso ou comprobación.
+                      </li>
+                    </ol>
+
+                    <div class="answer-zone mt-3">
+                      <!-- Espazo para respostas manuscritas / texto -->
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 6: Criterios de avaliación -->
+          <section class="mb-5 section-anchor" id="avaliacion">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-check2-square"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">6. Criterios de avaliación</h2>
+              </div>
+              <div class="content-card-body">
+                <div class="table-responsive my-3">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Criterio</th>
+                        <th style="text-align:right;">Peso orientativo (%)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>TODO · Recollida de evidencias / tarefas.</td>
+                        <td style="text-align:right;">30</td>
+                      </tr>
+                      <tr>
+                        <td>TODO · Interpretación e razoamento técnico.</td>
+                        <td style="text-align:right;">40</td>
+                      </tr>
+                      <tr>
+                        <td>Claridade, presentación e vocabulario técnico.</td>
+                        <td style="text-align:right;">30</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <!-- Pé de páxina SMPP -->
+  <footer class="smpp-footer no-print">
+    <div class="smpp-footer-spacer"></div>
+    <div class="smpp-footer-center">
+      <span>CIFP A Carballeira · Ourense</span>
+      <span>Administración de Sistemas Informáticos · Curso 26/27</span>
+      <span>Material didáctico de uso interno</span>
+    </div>
+    <img src="../../assets/img/sauce-clean.svg"
+         alt=""
+         class="smpp-sauce"
+         onerror="this.style.display='none'">
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS común SMPP / IMSO: dous niveis arriba -->
+  <script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

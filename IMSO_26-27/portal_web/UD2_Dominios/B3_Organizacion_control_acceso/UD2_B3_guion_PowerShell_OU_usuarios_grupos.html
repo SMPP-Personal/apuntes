@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B3 Guión PowerShell OU, usuarios e grupos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+</head>
+<body>
+
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" data-theme-toggle aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc"><ul class="nav flex-column gap-1 small">
+              <li class="nav-item"><a class="nav-link py-1" href="#punto-de-partida">0. Punto de partida</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#comprobar-o-dominio-e-importar-o-módulo-de-active-directory">1. Comprobar o dominio e importar o módulo de Active Directory</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#definir-variables-base">2. Definir variables base</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#crear-a-estrutura-de-unidades-organizativas">3. Crear a estrutura de unidades organizativas</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#crear-contas-de-usuario">4. Crear contas de usuario</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#crear-usuarios-de-alumnado">4.2. Crear usuarios de alumnado</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#crear-usuario-de-profesorado">4.3. Crear usuario de profesorado</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#crear-usuario-de-administración">4.4. Crear usuario de administración</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#crear-grupos-globais-de-seguridade">5. Crear grupos globais de seguridade</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#engadir-usuarios-aos-grupos-correspondentes">6. Engadir usuarios aos grupos correspondentes</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#opcional-crear-conta-de-equipo-para-pc-aula01">7. Opcional: crear conta de equipo para PC-AULA01</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#comprobación-final-completa">8. Comprobación final completa</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#capturas-obrigatorias">9. Capturas obrigatorias</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#resultado-esperado">10. Resultado esperado</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#erros-frecuentes">11. Erros frecuentes</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#resumo-de-cmdlets-empregados">12. Resumo de cmdlets empregados</a></li>
+<li class="nav-item"><a class="nav-link py-1" href="#ideas-clave-da-práctica">13. Ideas clave da práctica</a></li>
+            </ul></nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="col-lg-9">
+      <article>
+        <header class="mb-4">
+          <div class="practice-hero hero-purple">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-diagram-3"></i> UD2 · Bloque 3</span>
+              <span class="hero-chip"><i class="bi bi-terminal"></i> PowerShell</span>
+              <span class="hero-chip"><i class="bi bi-folder-tree"></i> OU</span>
+              <span class="hero-chip"><i class="bi bi-people"></i> Usuarios e grupos</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">Guión PowerShell – Creación de OU, usuarios e grupos</h1>
+            <p class="lead mb-0">Automatización da estrutura inicial de <code>cifpsauce.local</code>: OU, usuarios de exemplo, grupos globais de seguridade e comprobacións finais.</p>
+          </div>
+        </header>
+
+        <div class="notice warning mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+          <div><strong>Antes de executar:</strong> usa un dominio limpo ou un snapshot anterior á práctica GUI. Se os obxectos xa existen, algúns comandos devolverán erro.</div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mx-auto mb-2">OU</div><strong>Organización</strong><p class="small text-muted mb-0">Créanse OU para alumnado, profesorado, administración, equipos e grupos.</p></div></div>
+          <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mx-auto mb-2"><i class="bi bi-person-plus"></i></div><strong>Contas</strong><p class="small text-muted mb-0">Usuarios xenéricos: <code>alu.*</code>, <code>prof.001</code> e <code>adm.001</code>.</p></div></div>
+          <div class="col-md-4"><div class="agdlp-step"><div class="agdlp-letter mx-auto mb-2">GG</div><strong>Grupos globais</strong><p class="small text-muted mb-0">Representan colectivos; os grupos de dominio local chegarán cos permisos NTFS.</p></div></div>
+        </div>
+
+        
+<section class="mb-5" id="punto-de-partida">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-play-circle me-2 text-primary"></i>0. Punto de partida</h2>
+<p>Este guión permite crear mediante <strong>PowerShell</strong> a
+estrutura inicial de organización do dominio
+<code>cifpsauce.local</code>: unidades organizativas, usuarios de
+exemplo e grupos globais de seguridade.</p>
+<p>Partimos da seguinte situación:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">Estás en <code>dcbuho.cifpsauce.local</code>.</li>
+<li class="list-group-item">O dominio <code>cifpsauce.local</code> xa está instalado e funciona
+correctamente.</li>
+<li class="list-group-item">Iniciaches sesión cun usuario con permisos de administración no
+dominio.</li>
+<li class="list-group-item">Vas executar <strong>Windows PowerShell como
+administrador</strong>.</li>
+</ul>
+<div class="notice warning my-3">
+<p><strong>Aviso importante:</strong> este guión está pensado para
+executarse nun dominio limpo ou nun snapshot anterior á creación manual
+das OU, usuarios e grupos. Se xa fixeches a actividade GUI anterior,
+algúns comandos poden devolver erro porque os obxectos xa existen.</p>
+</div>
+<p>Neste guión crearemos <strong>grupos globais</strong> de colectivos:
+alumnado, profesorado e administración. Os grupos de dominio local para
+permisos sobre recursos, por exemplo <code>DL_Curso1_Modificar</code>,
+crearanse máis adiante na actividade de permisos NTFS.</p>
+<hr/>
+</section>
+<section class="mb-5" id="comprobar-o-dominio-e-importar-o-módulo-de-active-directory">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-diagram-3 me-2 text-primary"></i>1. Comprobar o dominio e importar o módulo de Active Directory</h2>
+<p>Abre <strong>PowerShell como administrador</strong> e executa:</p>
+<pre class="cmd-block"><code>Import-Module ActiveDirectory
+
+Get-ADDomain
+Get-ADForest</code></pre>
+<p>Debes comprobar que:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><code>Get-ADDomain</code> devolve información do dominio
+<code>cifpsauce.local</code>.</li>
+<li class="list-group-item"><code>Get-ADForest</code> devolve información do bosque no que o
+dominio raíz é <code>cifpsauce.local</code>.</li>
+</ul>
+<p>Se estes comandos non funcionan, revisa:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">que estás executando PowerShell nun controlador de dominio ou equipo
+con ferramentas RSAT instaladas;</li>
+<li class="list-group-item">que o módulo <code>ActiveDirectory</code> está dispoñible;</li>
+<li class="list-group-item">que iniciaches sesión cunha conta con permisos adecuados.</li>
+</ul>
+<hr/>
+</section>
+<section class="mb-5" id="definir-variables-base">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-braces me-2 text-primary"></i>2. Definir variables base</h2>
+<p>Para evitar repetir rutas LDAP longas, imos gardar o DN do dominio
+nunha variable:</p>
+<pre class="cmd-block"><code># DN base do dominio
+$dominio = "DC=cifpsauce,DC=local"
+
+# OU principais
+$ouAlumnado      = "OU=Alumnado,$dominio"
+$ouCurso1        = "OU=Curso1,OU=Alumnado,$dominio"
+$ouCurso2        = "OU=Curso2,OU=Alumnado,$dominio"
+$ouProfesorado   = "OU=Profesorado,$dominio"
+$ouAdministracion = "OU=Administracion,$dominio"
+$ouEquipos       = "OU=Equipos-Aulas,$dominio"
+$ouGrupos        = "OU=Grupos,$dominio"</code></pre>
+<div class="notice warning my-3">
+<p><strong>Lembra:</strong> nun Distinguished Name, as comas e a orde
+importan. <code>OU=Curso1,OU=Alumnado,DC=cifpsauce,DC=local</code> non é
+o mesmo que
+<code>OU=Alumnado,OU=Curso1,DC=cifpsauce,DC=local</code>.</p>
+</div>
+<hr/>
+</section>
+<section class="mb-5" id="crear-a-estrutura-de-unidades-organizativas">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-tree me-2 text-primary"></i>3. Crear a estrutura de unidades organizativas</h2>
+<p>Queremos conseguir esta árbore:</p>
+<pre class="tree-block"><code>cifpsauce.local
+├── OU=Alumnado
+│   ├── OU=Curso1
+│   └── OU=Curso2
+├── OU=Profesorado
+├── OU=Administracion
+├── OU=Equipos-Aulas
+└── OU=Grupos</code></pre>
+<p>Executa:</p>
+<pre class="cmd-block"><code># OU de primeiro nivel
+New-ADOrganizationalUnit -Name "Alumnado"       -Path $dominio -ProtectedFromAccidentalDeletion $true
+New-ADOrganizationalUnit -Name "Profesorado"    -Path $dominio -ProtectedFromAccidentalDeletion $true
+New-ADOrganizationalUnit -Name "Administracion" -Path $dominio -ProtectedFromAccidentalDeletion $true
+New-ADOrganizationalUnit -Name "Equipos-Aulas"  -Path $dominio -ProtectedFromAccidentalDeletion $true
+New-ADOrganizationalUnit -Name "Grupos"         -Path $dominio -ProtectedFromAccidentalDeletion $true
+
+# OU de segundo nivel dentro de Alumnado
+New-ADOrganizationalUnit -Name "Curso1" -Path $ouAlumnado -ProtectedFromAccidentalDeletion $true
+New-ADOrganizationalUnit -Name "Curso2" -Path $ouAlumnado -ProtectedFromAccidentalDeletion $true</code></pre>
+<p>A opción <code>-ProtectedFromAccidentalDeletion $true</code> activa a
+protección contra borrado accidental. É unha boa práctica cando creamos
+OU que logo van conter usuarios, equipos ou grupos.</p>
+<section class="level3" id="comprobación">
+<h3 class="h5 fw-semibold mt-4 mb-3">Comprobación</h3>
+<pre class="cmd-block"><code>Get-ADOrganizationalUnit -Filter * -SearchBase $dominio |
+  Select-Object Name, DistinguishedName |
+  Sort-Object DistinguishedName</code></pre>
+<p>Debes ver as OU creadas co DN esperado.</p>
+<hr/>
+</section>
+</section>
+<section class="mb-5" id="crear-contas-de-usuario">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-person-plus me-2 text-primary"></i>4. Crear contas de usuario</h2>
+<p>Imos crear usuarios de exemplo para:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">alumnado de Curso1;</li>
+<li class="list-group-item">alumnado de Curso2;</li>
+<li class="list-group-item">profesorado;</li>
+<li class="list-group-item">administración.</li>
+</ul>
+<p>Usuarios que se crearán:</p>
+<div class="table-responsive my-3"><table class="table table-striped table-hover align-middle vocab-table">
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th>Conta</th>
+<th>OU</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Alumnado Curso1</td>
+<td><code>alu.curso1.001</code></td>
+<td><code>OU=Curso1,OU=Alumnado</code></td>
+</tr>
+<tr class="even">
+<td>Alumnado Curso1</td>
+<td><code>alu.curso1.002</code></td>
+<td><code>OU=Curso1,OU=Alumnado</code></td>
+</tr>
+<tr class="odd">
+<td>Alumnado Curso2</td>
+<td><code>alu.curso2.001</code></td>
+<td><code>OU=Curso2,OU=Alumnado</code></td>
+</tr>
+<tr class="even">
+<td>Profesorado</td>
+<td><code>prof.001</code></td>
+<td><code>OU=Profesorado</code></td>
+</tr>
+<tr class="odd">
+<td>Administración</td>
+<td><code>adm.001</code></td>
+<td><code>OU=Administracion</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="notice info-strong my-3">
+<p>Para profesorado empregamos nomes xenéricos como
+<code>prof.001</code>, porque un profesor ou profesora pode impartir en
+varios cursos. O curso non debe quedar ligado necesariamente ao nome da
+conta.</p>
+</div>
+<section class="level3" id="definir-contrasinal-inicial">
+<h3 class="h5 fw-semibold mt-4 mb-3">4.1. Definir contrasinal inicial</h3>
+<p>Executa:</p>
+<pre class="cmd-block"><code># Contrasinal común de laboratorio para as contas de exemplo
+# O cmdlet New-ADUser espera un SecureString
+$pass = Read-Host "Introduce o contrasinal inicial para as contas de exemplo" -AsSecureString</code></pre>
+<div class="notice security my-3">
+<p>Nun contorno real non deberías reutilizar o mesmo contrasinal para
+todas as contas. Aquí faise só para simplificar a práctica de
+laboratorio.</p>
+</div>
+<hr/>
+</section>
+</section>
+<section class="mb-5" id="crear-usuarios-de-alumnado">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-person-plus me-2 text-primary"></i>4.2. Crear usuarios de alumnado</h2>
+<pre class="cmd-block"><code># alu.curso1.001
+New-ADUser `
+  -Name "Alumno Curso1 001" `
+  -GivenName "Alumno" `
+  -Surname "Curso1 001" `
+  -DisplayName "Alumno Curso1 001" `
+  -SamAccountName "alu.curso1.001" `
+  -UserPrincipalName "alu.curso1.001@cifpsauce.local" `
+  -Path $ouCurso1 `
+  -AccountPassword $pass `
+  -Enabled $true `
+  -ChangePasswordAtLogon $true
+
+# alu.curso1.002
+New-ADUser `
+  -Name "Alumno Curso1 002" `
+  -GivenName "Alumno" `
+  -Surname "Curso1 002" `
+  -DisplayName "Alumno Curso1 002" `
+  -SamAccountName "alu.curso1.002" `
+  -UserPrincipalName "alu.curso1.002@cifpsauce.local" `
+  -Path $ouCurso1 `
+  -AccountPassword $pass `
+  -Enabled $true `
+  -ChangePasswordAtLogon $true
+
+# alu.curso2.001
+New-ADUser `
+  -Name "Alumno Curso2 001" `
+  -GivenName "Alumno" `
+  -Surname "Curso2 001" `
+  -DisplayName "Alumno Curso2 001" `
+  -SamAccountName "alu.curso2.001" `
+  -UserPrincipalName "alu.curso2.001@cifpsauce.local" `
+  -Path $ouCurso2 `
+  -AccountPassword $pass `
+  -Enabled $true `
+  -ChangePasswordAtLogon $true</code></pre>
+<section class="level3" id="comprobación-1">
+<h3 class="h5 fw-semibold mt-4 mb-3">Comprobación</h3>
+<pre class="cmd-block"><code>Get-ADUser -Filter * -SearchBase $ouCurso1 |
+  Select-Object SamAccountName, DistinguishedName
+
+Get-ADUser -Filter * -SearchBase $ouCurso2 |
+  Select-Object SamAccountName, DistinguishedName</code></pre>
+<p>Debes comprobar que:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><code>alu.curso1.001</code> e <code>alu.curso1.002</code> están en
+<code>OU=Curso1</code>;</li>
+<li class="list-group-item"><code>alu.curso2.001</code> está en <code>OU=Curso2</code>.</li>
+</ul>
+<hr/>
+</section>
+</section>
+<section class="mb-5" id="crear-usuario-de-profesorado">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-person-plus me-2 text-primary"></i>4.3. Crear usuario de profesorado</h2>
+<pre class="cmd-block"><code>New-ADUser `
+  -Name "Profesor 001" `
+  -GivenName "Profesor" `
+  -Surname "001" `
+  -DisplayName "Profesor 001" `
+  -SamAccountName "prof.001" `
+  -UserPrincipalName "prof.001@cifpsauce.local" `
+  -Path $ouProfesorado `
+  -AccountPassword $pass `
+  -Enabled $true `
+  -ChangePasswordAtLogon $true</code></pre>
+<section class="level3" id="comprobación-2">
+<h3 class="h5 fw-semibold mt-4 mb-3">Comprobación</h3>
+<pre class="cmd-block"><code>Get-ADUser -Filter * -SearchBase $ouProfesorado |
+  Select-Object SamAccountName, DistinguishedName</code></pre>
+<p>Debes comprobar que <code>prof.001</code> está en
+<code>OU=Profesorado</code>.</p>
+<hr/>
+</section>
+</section>
+<section class="mb-5" id="crear-usuario-de-administración">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-person-plus me-2 text-primary"></i>4.4. Crear usuario de administración</h2>
+<pre class="cmd-block"><code>New-ADUser `
+  -Name "Administracion 001" `
+  -GivenName "Administracion" `
+  -Surname "001" `
+  -DisplayName "Administracion 001" `
+  -SamAccountName "adm.001" `
+  -UserPrincipalName "adm.001@cifpsauce.local" `
+  -Path $ouAdministracion `
+  -AccountPassword $pass `
+  -Enabled $true `
+  -ChangePasswordAtLogon $true</code></pre>
+<section class="level3" id="comprobación-3">
+<h3 class="h5 fw-semibold mt-4 mb-3">Comprobación</h3>
+<pre class="cmd-block"><code>Get-ADUser -Filter * -SearchBase $ouAdministracion |
+  Select-Object SamAccountName, DistinguishedName</code></pre>
+<p>Debes comprobar que <code>adm.001</code> está en
+<code>OU=Administracion</code>.</p>
+<hr/>
+</section>
+</section>
+<section class="mb-5" id="crear-grupos-globais-de-seguridade">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-people me-2 text-primary"></i>5. Crear grupos globais de seguridade</h2>
+<p>Nesta práctica crearemos <strong>grupos globais de
+seguridade</strong> para representar colectivos de usuarios.</p>
+<div class="table-responsive my-3"><table class="table table-striped table-hover align-middle vocab-table">
+<thead>
+<tr class="header">
+<th>Grupo</th>
+<th>Finalidade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>GG_Alumnado_Curso1</code></td>
+<td>Alumnado de Curso1</td>
+</tr>
+<tr class="even">
+<td><code>GG_Alumnado_Curso2</code></td>
+<td>Alumnado de Curso2</td>
+</tr>
+<tr class="odd">
+<td><code>GG_Profesorado</code></td>
+<td>Profesorado</td>
+</tr>
+<tr class="even">
+<td><code>GG_Administracion</code></td>
+<td>Persoal de administración</td>
+</tr>
+</tbody>
+</table></div>
+<p>Todos se crearán en <code>OU=Grupos</code>.</p>
+<pre class="cmd-block"><code>New-ADGroup `
+  -Name "GG_Alumnado_Curso1" `
+  -SamAccountName "GG_Alumnado_Curso1" `
+  -GroupScope Global `
+  -GroupCategory Security `
+  -Path $ouGrupos
+
+New-ADGroup `
+  -Name "GG_Alumnado_Curso2" `
+  -SamAccountName "GG_Alumnado_Curso2" `
+  -GroupScope Global `
+  -GroupCategory Security `
+  -Path $ouGrupos
+
+New-ADGroup `
+  -Name "GG_Profesorado" `
+  -SamAccountName "GG_Profesorado" `
+  -GroupScope Global `
+  -GroupCategory Security `
+  -Path $ouGrupos
+
+New-ADGroup `
+  -Name "GG_Administracion" `
+  -SamAccountName "GG_Administracion" `
+  -GroupScope Global `
+  -GroupCategory Security `
+  -Path $ouGrupos</code></pre>
+<div class="notice info-strong my-3">
+<p>Estes grupos globais representan colectivos. Máis adiante, cando
+configuremos permisos sobre carpetas ou recursos, empregaremos grupos de
+dominio local segundo a estratexia AGDLP.</p>
+</div>
+<section class="level3" id="comprobación-4">
+<h3 class="h5 fw-semibold mt-4 mb-3">Comprobación</h3>
+<pre class="cmd-block"><code>Get-ADGroup -Filter * -SearchBase $ouGrupos |
+  Select-Object SamAccountName, GroupScope, GroupCategory, DistinguishedName</code></pre>
+<p>Debes comprobar que os grupos existen en <code>OU=Grupos</code> e que
+son de tipo <code>Security</code> e ámbito <code>Global</code>.</p>
+<hr/>
+</section>
+</section>
+<section class="mb-5" id="engadir-usuarios-aos-grupos-correspondentes">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-person-plus me-2 text-primary"></i>6. Engadir usuarios aos grupos correspondentes</h2>
+<pre class="cmd-block"><code># Alumnado de Curso1
+Add-ADGroupMember `
+  -Identity "GG_Alumnado_Curso1" `
+  -Members "alu.curso1.001", "alu.curso1.002"
+
+# Alumnado de Curso2
+Add-ADGroupMember `
+  -Identity "GG_Alumnado_Curso2" `
+  -Members "alu.curso2.001"
+
+# Profesorado
+Add-ADGroupMember `
+  -Identity "GG_Profesorado" `
+  -Members "prof.001"
+
+# Administración
+Add-ADGroupMember `
+  -Identity "GG_Administracion" `
+  -Members "adm.001"</code></pre>
+<section class="level3" id="comprobación-de-membros">
+<h3 class="h5 fw-semibold mt-4 mb-3">Comprobación de membros</h3>
+<pre class="cmd-block"><code>Get-ADGroupMember "GG_Alumnado_Curso1" |
+  Select-Object Name, SamAccountName, objectClass
+
+Get-ADGroupMember "GG_Alumnado_Curso2" |
+  Select-Object Name, SamAccountName, objectClass
+
+Get-ADGroupMember "GG_Profesorado" |
+  Select-Object Name, SamAccountName, objectClass
+
+Get-ADGroupMember "GG_Administracion" |
+  Select-Object Name, SamAccountName, objectClass</code></pre>
+<p>Debes comprobar que:</p>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item"><code>alu.curso1.001</code> e <code>alu.curso1.002</code> aparecen
+como membros de <code>GG_Alumnado_Curso1</code>;</li>
+<li class="list-group-item"><code>alu.curso2.001</code> aparece como membro de
+<code>GG_Alumnado_Curso2</code>;</li>
+<li class="list-group-item"><code>prof.001</code> aparece como membro de
+<code>GG_Profesorado</code>;</li>
+<li class="list-group-item"><code>adm.001</code> aparece como membro de
+<code>GG_Administracion</code>.</li>
+</ul>
+<hr/>
+</section>
+</section>
+<section class="mb-5" id="opcional-crear-conta-de-equipo-para-pc-aula01">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-pc-display me-2 text-primary"></i>7. Opcional: crear conta de equipo para <code>PC-AULA01</code></h2>
+<p>O habitual é que a conta de equipo se cree automaticamente cando un
+cliente Windows se une ao dominio. Nesta práctica pódese crear
+manualmente só como demostración.</p>
+<pre class="cmd-block"><code>New-ADComputer `
+  -Name "PC-AULA01" `
+  -SamAccountName "PC-AULA01$" `
+  -Path $ouEquipos `
+  -Enabled $true</code></pre>
+<section class="level3" id="comprobación-5">
+<h3 class="h5 fw-semibold mt-4 mb-3">Comprobación</h3>
+<pre class="cmd-block"><code>Get-ADComputer -Filter * -SearchBase $ouEquipos |
+  Select-Object Name, DistinguishedName</code></pre>
+<p>Debes comprobar que <code>PC-AULA01</code> aparece en
+<code>OU=Equipos-Aulas</code>.</p>
+<hr/>
+</section>
+</section>
+<section class="mb-5" id="comprobación-final-completa">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-check2-square me-2 text-primary"></i>8. Comprobación final completa</h2>
+<p>Executa estas comprobacións finais para ter unha visión xeral da
+estrutura creada.</p>
+<section class="level3" id="ou-creadas">
+<h3 class="h5 fw-semibold mt-4 mb-3">8.1. OU creadas</h3>
+<pre class="cmd-block"><code>Get-ADOrganizationalUnit -Filter * -SearchBase $dominio |
+  Select-Object Name, DistinguishedName |
+  Sort-Object DistinguishedName</code></pre>
+</section>
+<section class="level3" id="usuarios-creados">
+<h3 class="h5 fw-semibold mt-4 mb-3">8.2. Usuarios creados</h3>
+<pre class="cmd-block"><code>Get-ADUser -Filter * -SearchBase "OU=Alumnado,$dominio" |
+  Select-Object SamAccountName, DistinguishedName
+
+Get-ADUser -Filter * -SearchBase $ouProfesorado |
+  Select-Object SamAccountName, DistinguishedName
+
+Get-ADUser -Filter * -SearchBase $ouAdministracion |
+  Select-Object SamAccountName, DistinguishedName</code></pre>
+</section>
+<section class="level3" id="grupos-creados">
+<h3 class="h5 fw-semibold mt-4 mb-3">8.3. Grupos creados</h3>
+<pre class="cmd-block"><code>Get-ADGroup -Filter * -SearchBase $ouGrupos |
+  Select-Object SamAccountName, GroupScope, GroupCategory, DistinguishedName</code></pre>
+</section>
+<section class="level3" id="membros-dos-grupos">
+<h3 class="h5 fw-semibold mt-4 mb-3">8.4. Membros dos grupos</h3>
+<pre class="cmd-block"><code>Get-ADGroupMember "GG_Alumnado_Curso1" |
+  Select-Object Name, SamAccountName, objectClass
+
+Get-ADGroupMember "GG_Profesorado" |
+  Select-Object Name, SamAccountName, objectClass</code></pre>
+<hr/>
+</section>
+</section>
+<section class="mb-5" id="capturas-obrigatorias">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-camera me-2 text-primary"></i>9. Capturas obrigatorias</h2>
+<p>Entrega ou incorpora á memoria as seguintes evidencias:</p>
+<ol class="list-group list-group-numbered mb-3" type="1">
+<li class="list-group-item d-flex align-items-start gap-2">Saída de <code>Get-ADDomain</code>.</li>
+<li class="list-group-item d-flex align-items-start gap-2">Saída de <code>Get-ADOrganizationalUnit</code> mostrando as OU
+creadas.</li>
+<li class="list-group-item d-flex align-items-start gap-2">Saída de <code>Get-ADUser</code> mostrando os usuarios de
+<code>OU=Curso1</code>.</li>
+<li class="list-group-item d-flex align-items-start gap-2">Saída de <code>Get-ADGroup</code> mostrando os grupos de
+<code>OU=Grupos</code>.</li>
+<li class="list-group-item d-flex align-items-start gap-2">Saída de <code>Get-ADGroupMember "GG_Alumnado_Curso1"</code>.</li>
+<li class="list-group-item d-flex align-items-start gap-2">Captura de <strong>Active Directory Users and Computers</strong> coa
+estrutura creada.</li>
+<li class="list-group-item d-flex align-items-start gap-2">Se fixeches a parte opcional, saída de <code>Get-ADComputer</code>
+mostrando <code>PC-AULA01</code>.</li>
+</ol>
+<hr/>
+</section>
+<section class="mb-5 result-zone" id="resultado-esperado">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-bullseye me-2 text-primary"></i>10. Resultado esperado</h2>
+<p>Ao rematar a práctica, o dominio <code>cifpsauce.local</code> debería
+conter:</p>
+<section class="level3" id="unidades-organizativas">
+<h3 class="h5 fw-semibold mt-4 mb-3">Unidades organizativas</h3>
+<pre class="tree-block"><code>OU=Alumnado
+  OU=Curso1
+  OU=Curso2
+OU=Profesorado
+OU=Administracion
+OU=Equipos-Aulas
+OU=Grupos</code></pre>
+</section>
+<section class="level3" id="usuarios">
+<h3 class="h5 fw-semibold mt-4 mb-3">Usuarios</h3>
+<pre class="tree-block"><code>alu.curso1.001
+alu.curso1.002
+alu.curso2.001
+prof.001
+adm.001</code></pre>
+</section>
+<section class="level3" id="grupos-globais-de-seguridade">
+<h3 class="h5 fw-semibold mt-4 mb-3">Grupos globais de seguridade</h3>
+<pre class="tree-block"><code>GG_Alumnado_Curso1
+GG_Alumnado_Curso2
+GG_Profesorado
+GG_Administracion</code></pre>
+</section>
+<section class="level3" id="pertenza-a-grupos">
+<h3 class="h5 fw-semibold mt-4 mb-3">Pertenza a grupos</h3>
+<pre class="tree-block"><code>GG_Alumnado_Curso1 → alu.curso1.001, alu.curso1.002
+GG_Alumnado_Curso2 → alu.curso2.001
+GG_Profesorado → prof.001
+GG_Administracion → adm.001</code></pre>
+<hr/>
+</section>
+</section>
+<section class="mb-5" id="erros-frecuentes">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-exclamation-triangle me-2 text-primary"></i>11. Erros frecuentes</h2>
+<div class="table-responsive my-3"><table class="table table-striped align-middle error-table">
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Erro</th>
+<th>Consecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Executar PowerShell sen permisos de administrador</td>
+<td>Algúns comandos poden fallar por falta de permisos</td>
+</tr>
+<tr class="even">
+<td>Non importar o módulo <code>ActiveDirectory</code></td>
+<td>Os cmdlets <code>New-ADUser</code>, <code>New-ADGroup</code>, etc.
+non estarán dispoñibles</td>
+</tr>
+<tr class="odd">
+<td>Escribir mal o DN</td>
+<td>O obxecto créase noutro sitio ou o comando falla</td>
+</tr>
+<tr class="even">
+<td>Esquecer comas nos DN</td>
+<td>O DN non é válido</td>
+</tr>
+<tr class="odd">
+<td>Executar o guión dúas veces</td>
+<td>Pode aparecer erro porque as OU, usuarios ou grupos xa existen</td>
+</tr>
+<tr class="even">
+<td>Crear grupos fóra de <code>OU=Grupos</code></td>
+<td>A estrutura do dominio queda menos ordenada</td>
+</tr>
+<tr class="odd">
+<td>Crear grupos como <code>Distribution</code></td>
+<td>Non serven para permisos de seguridade</td>
+</tr>
+<tr class="even">
+<td>Usar <code>prof.curso1.001</code></td>
+<td>Volvemos ligar a conta do profesorado a un curso concreto</td>
+</tr>
+<tr class="odd">
+<td>Esquecer engadir usuarios aos grupos</td>
+<td>Os grupos existen pero non teñen utilidade práctica</td>
+</tr>
+<tr class="even">
+<td>Non comprobar a saída dos comandos</td>
+<td>Pódense arrastrar erros sen detectalos</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+</section>
+<section class="mb-5" id="resumo-de-cmdlets-empregados">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-list-columns me-2 text-primary"></i>12. Resumo de cmdlets empregados</h2>
+<div class="table-responsive my-3"><table class="table table-striped table-hover align-middle vocab-table">
+<thead>
+<tr class="header">
+<th>Tarefa</th>
+<th>Cmdlet principal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Importar módulo de AD</td>
+<td><code>Import-Module ActiveDirectory</code></td>
+</tr>
+<tr class="even">
+<td>Consultar dominio</td>
+<td><code>Get-ADDomain</code></td>
+</tr>
+<tr class="odd">
+<td>Consultar bosque</td>
+<td><code>Get-ADForest</code></td>
+</tr>
+<tr class="even">
+<td>Crear OU</td>
+<td><code>New-ADOrganizationalUnit</code></td>
+</tr>
+<tr class="odd">
+<td>Crear usuario</td>
+<td><code>New-ADUser</code></td>
+</tr>
+<tr class="even">
+<td>Crear grupo</td>
+<td><code>New-ADGroup</code></td>
+</tr>
+<tr class="odd">
+<td>Engadir membros a grupo</td>
+<td><code>Add-ADGroupMember</code></td>
+</tr>
+<tr class="even">
+<td>Crear conta de equipo</td>
+<td><code>New-ADComputer</code></td>
+</tr>
+<tr class="odd">
+<td>Consultar usuarios</td>
+<td><code>Get-ADUser</code></td>
+</tr>
+<tr class="even">
+<td>Consultar grupos</td>
+<td><code>Get-ADGroup</code></td>
+</tr>
+<tr class="odd">
+<td>Consultar membros dun grupo</td>
+<td><code>Get-ADGroupMember</code></td>
+</tr>
+<tr class="even">
+<td>Consultar equipos</td>
+<td><code>Get-ADComputer</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+</section>
+<section class="mb-5" id="ideas-clave-da-práctica">
+<h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-lightbulb me-2 text-primary"></i>13. Ideas clave da práctica</h2>
+<ul class="list-group list-group-flush check-list mb-3">
+<li class="list-group-item">PowerShell permite automatizar a creación de estrutura en Active
+Directory.</li>
+<li class="list-group-item">As OU serven para organizar obxectos e facilitar administración e
+GPO.</li>
+<li class="list-group-item">Os grupos globais representan colectivos de usuarios.</li>
+<li class="list-group-item">Os permisos sobre recursos traballaranse máis adiante usando grupos
+de dominio local.</li>
+<li class="list-group-item">É fundamental comprobar sempre a saída dos comandos.</li>
+<li class="list-group-item">Un script que funciona unha vez pode fallar se se executa de novo
+sobre obxectos xa existentes.</li>
+</ul>
+</section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <svg class="smpp-sauce" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="2" y="8" width="32" height="24" rx="4" fill="#0f172a" stroke="#C9A84C" stroke-width="2"/>
+    <rect x="7" y="13" width="10" height="2" rx="1" fill="#C9A84C"/>
+    <rect x="7" y="18" width="22" height="2" rx="1" fill="#C9A84C" opacity="0.6"/>
+    <rect x="7" y="23" width="16" height="2" rx="1" fill="#C9A84C" opacity="0.4"/>
+    <circle cx="28" cy="13" r="3" fill="#C9A84C"/>
+  </svg>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UD4 –
+Caso real: teletraballo con VPN e escritorio remoto</title>
+  <style>
+    :root {
+      --bg: #edf6ff;
+      --bg-2: #f8fbff;
+      --ink: #162033;
+      --muted: #5d6d82;
+      --brand: #005eb8;
+      --brand-2: #0b74de;
+      --brand-3: #12b5ff;
+      --vpn: #0f766e;
+      --rdp: #7c3aed;
+      --vdi: #c2410c;
+      --accent: #f59e0b;
+      --card: #ffffff;
+      --line: #d7e5f5;
+      --code-bg: #0f172a;
+      --code-ink: #e7efff;
+      --shadow: 0 18px 45px rgba(24, 52, 92, .13);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(0, 94, 184, .22), transparent 34rem),
+        radial-gradient(circle at 93% 10%, rgba(15, 118, 110, .18), transparent 34rem),
+        linear-gradient(180deg, var(--bg) 0%, #f7faff 45%, #fff 100%);
+      line-height: 1.65;
+    }
+    a { color: var(--brand); text-decoration-thickness: .1em; text-underline-offset: .18em; }
+    a:hover { color: #003d7a; }
+    .page-shell { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .hero {
+      position: relative;
+      margin: 28px auto 24px;
+      padding: clamp(28px, 5vw, 58px);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(135deg, rgba(0, 94, 184, .97), rgba(15, 118, 110, .88) 58%, rgba(18, 181, 255, .8));
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+    .hero::before, .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(255,255,255,.16);
+      pointer-events: none;
+    }
+    .hero::before { width: 330px; height: 330px; right: -110px; top: -145px; }
+    .hero::after { width: 230px; height: 230px; left: 62%; bottom: -125px; }
+    .hero__content { position: relative; z-index: 1; max-width: 900px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .35rem .7rem;
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      font-size: .82rem;
+      font-weight: 850;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 1rem 0 .8rem;
+      max-width: 950px;
+      font-size: clamp(2rem, 5vw, 4.15rem);
+      line-height: 1.02;
+      letter-spacing: -.045em;
+    }
+    .hero .meta { max-width: 780px; font-size: 1.05rem; color: rgba(255,255,255,.92); }
+    .hero .meta p { margin: .2rem 0; }
+    .hero .meta strong { color: #fff; }
+    .hero__chips { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.35rem; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .46rem .72rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.28);
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 750;
+    }
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 0 0 22px;
+    }
+    .quick-card {
+      min-height: 125px;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 10px 30px rgba(33, 57, 96, .06);
+    }
+    .quick-card strong { display: block; color: #123a68; margin-bottom: .25rem; font-size: 1.02rem; }
+    .quick-card span { display: block; color: var(--muted); font-size: .9rem; line-height: 1.45; }
+    .quick-icon { font-size: 1.55rem; line-height: 1; margin-bottom: .55rem; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 24px;
+      align-items: start;
+    }
+    .toc-panel {
+      position: sticky;
+      top: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(33, 57, 96, .08);
+      overflow: hidden;
+    }
+    .toc-panel__title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.1rem;
+      border-bottom: 1px solid var(--line);
+      font-weight: 900;
+      color: #0f2a4f;
+    }
+    .toc-panel__title span { font-size: .82rem; color: var(--muted); font-weight: 700; }
+    .toc-list { list-style: none; padding: .8rem 1rem 1rem; margin: 0; max-height: calc(100vh - 130px); overflow: auto; }
+    .toc-list ul { list-style: none; padding: .15rem 0 .45rem .8rem; margin: 0; }
+    .toc-list li { margin: .1rem 0; }
+    .toc-list a {
+      display: block;
+      padding: .35rem .45rem;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #29415f;
+      font-size: .92rem;
+      line-height: 1.25;
+    }
+    .toc-list a:hover { background: #edf7ff; color: var(--brand); }
+    .toc-h2 > a { font-weight: 850; }
+    .toc-h3 > a { font-size: .84rem; color: var(--muted); }
+    .article-flow { display: grid; gap: 22px; }
+    .content-section {
+      position: relative;
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.95);
+      box-shadow: 0 16px 42px rgba(30, 61, 101, .09);
+      overflow: hidden;
+    }
+    .content-section::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 7px;
+      background: linear-gradient(180deg, var(--brand), var(--brand-3));
+    }
+    .content-section--activity::before { background: linear-gradient(180deg, var(--accent), #f97316); }
+    .content-section--key::before { background: linear-gradient(180deg, var(--vpn), #14b8a6); }
+    h2, h3, h4 { line-height: 1.18; color: #102947; }
+    h2 {
+      margin: 0 0 1.1rem;
+      font-size: clamp(1.45rem, 2.5vw, 2rem);
+      letter-spacing: -.025em;
+    }
+    h3 {
+      margin: 2rem 0 .75rem;
+      font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+      padding-left: .8rem;
+      border-left: 4px solid var(--brand-2);
+    }
+    .activity-heading { border-left-color: var(--accent); }
+    .criteria-heading { border-left-color: var(--vpn); }
+    h4 { margin: 1.6rem 0 .65rem; font-size: 1.05rem; color: #173d67; }
+    p { margin: .85rem 0; }
+    strong { color: #0f3157; }
+    .clean-list, .step-list { padding-left: 1.25rem; }
+    .clean-list li, .step-list li { margin: .45rem 0; padding-left: .18rem; }
+    .step-list li::marker { font-weight: 900; color: var(--brand); }
+    .clean-list li::marker { color: var(--brand-2); }
+    .callout {
+      margin: 1.3rem 0;
+      padding: 1rem 1.1rem 1rem 1.25rem;
+      border-radius: 16px;
+      border: 1px solid;
+      border-left-width: 7px;
+    }
+    .callout p { margin: 0; }
+    .callout-warning { background: #fff7ed; border-color: #fed7aa; color: #59320a; }
+    .callout-key { background: #ecfeff; border-color: #a5f3fc; color: #164e63; }
+    .callout-note { background: #f2f7ff; border-color: #cfe0ff; color: #233b5e; }
+    .callout strong { color: inherit; }
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 1.2rem 0;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(30, 61, 101, .06);
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 690px; }
+    th, td { padding: .85rem .9rem; border-bottom: 1px solid #e7eef8; vertical-align: top; text-align: left; }
+    th {
+      background: linear-gradient(180deg, #eef8ff, #e7f2ff);
+      color: #0d315a;
+      font-size: .88rem;
+      text-transform: uppercase;
+      letter-spacing: .035em;
+    }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover td { background: #fbfdff; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: .92em;
+      color: #0f4e8f;
+      background: #eef6ff;
+      padding: .12rem .32rem;
+      border-radius: 7px;
+      border: 1px solid #d8e9ff;
+    }
+    .code-card {
+      margin: 1.1rem 0;
+      border-radius: 17px;
+      overflow: hidden;
+      background: var(--code-bg);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, .18);
+      border: 1px solid rgba(148, 163, 184, .25);
+    }
+    .code-card--diagram { background: linear-gradient(135deg, #08111f, #0f253f); }
+    .code-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .62rem .85rem;
+      background: rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .code-card__label {
+      color: #cbd5e1;
+      font-size: .76rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+    .copy-btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      padding: .32rem .65rem;
+      background: rgba(255,255,255,.08);
+      color: #e2e8f0;
+      font-size: .78rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,.14); }
+    .code-card pre { margin: 0; padding: 1rem; overflow-x: auto; }
+    .diagram-pre { text-align: left; }
+    .code-card code {
+      display: block;
+      color: var(--code-ink);
+      background: transparent;
+      border: 0;
+      padding: 0;
+      border-radius: 0;
+      font-size: .92rem;
+      line-height: 1.65;
+      white-space: pre;
+    }
+    .sourceCode span { color: inherit !important; }
+    .footer-note {
+      margin: 28px 0 36px;
+      padding: 1rem 1.1rem;
+      border: 1px dashed #aac5e7;
+      border-radius: 18px;
+      color: var(--muted);
+      background: rgba(255,255,255,.74);
+      font-size: .92rem;
+    }
+    @media (max-width: 1020px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc-panel { position: static; order: -1; }
+      .toc-list { max-height: none; }
+      .quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .page-shell { width: min(100% - 20px, var(--max)); }
+      .hero { margin-top: 10px; border-radius: 18px; }
+      .quick-grid { grid-template-columns: 1fr; }
+      .content-section { border-radius: 18px; }
+      table { min-width: 760px; }
+    }
+    @media print {
+      body { background: #fff; color: #000; }
+      .hero { color: #000; background: #fff; box-shadow: none; border: 1px solid #bbb; }
+      .hero::before, .hero::after, .toc-panel, .quick-grid, .copy-btn { display: none !important; }
+      .layout { display: block; }
+      .content-section { box-shadow: none; border: 1px solid #bbb; break-inside: avoid; }
+      .content-section::before { background: #444; }
+      a { color: #000; text-decoration: none; }
+      .code-card { box-shadow: none; border: 1px solid #333; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero__content">
+        <div class="eyebrow">IMSO · UD4 · Caso real</div>
+        <h1>UD4 –
+Caso real: teletraballo con VPN e escritorio remoto</h1>
+        <div class="meta"><p><strong>Exemplo
+didáctico: acceso remoto na Xunta de Galicia</strong></p><p><strong>Módulo:</strong> Implantación de Sistemas Operativos (IMSO) ·
+1.º ASIR<br/>
+<strong>Unidade didáctica 4:</strong> Implantación de software
+específico en arquitectura cliente-servidor</p></div>
+        <div class="hero__chips" aria-label="Etiquetas do tema">
+          <span class="chip">🔐 VPNXG</span>
+          <span class="chip">🖥️ RDP</span>
+          <span class="chip">☁️ VDI</span>
+          <span class="chip">🧾 Caso real</span>
+          <span class="chip">🧪 Actividades</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="quick-grid" aria-label="Resumo visual do caso">
+      <div class="quick-card"><div class="quick-icon">1️⃣</div><strong>Primeiro VPN</strong><span>O acceso remoto comeza cun túnel seguro cara á rede corporativa.</span></div>
+      <div class="quick-card"><div class="quick-icon">🖥️</div><strong>Opción A: RDP</strong><span>O PC de casa controla o PC físico da oficina a través da VPN.</span></div>
+      <div class="quick-card"><div class="quick-icon">☁️</div><strong>Opción B: VDI</strong><span>A sesión execútase nun escritorio virtual centralizado.</span></div>
+      <div class="quick-card"><div class="quick-icon">🛡️</div><strong>Idea clave</strong><span>O porto RDP non debe abrirse directamente a Internet.</span></div>
+    </div>
+
+    <div class="layout">
+      <main>
+        <div class="article-flow"><section class="content-section"><h2 id="introdución">1. Introdución</h2><p>Este documento presenta un caso real de acceso remoto nun organismo
+público: o sistema de teletraballo da <strong>Xunta de Galicia</strong>.
+O seu obxectivo é conectar os conceptos técnicos da UD4
+—<strong>arquitectura cliente-servidor</strong>, <strong>VPN</strong>,
+<strong>RDP</strong>, <strong>VDI</strong>, autenticación e seguridade—
+cun escenario profesional documentado.</p><blockquote class="callout callout-warning">
+<p><strong>Nota importante:</strong> este material está baseado en
+documentación pública da Xunta de Galicia sobre teletraballo, VPNXG e
+VDI. Non pretende describir toda a arquitectura interna real da
+organización, senón empregar un exemplo profesional para comprender os
+conceptos traballados na unidade.</p>
+</blockquote><p>A idea principal é que os compoñentes que se estudan no laboratorio
+—cliente, servidor, túnel VPN, escritorio remoto e autenticación— tamén
+se empregan en contornos reais con miles de persoas usuarias.</p></section><section class="content-section"><h2 id="esquema-xeral-do-sistema">2. Esquema xeral do sistema</h2><div class="code-card code-card--diagram"><div class="code-card__header"><span class="code-card__label">ESQUEMA</span><button class="copy-btn" type="button">Copiar</button></div><pre class="text diagram-pre"><code>PC de casa
+    │
+    │  Internet
+    │  Tráfico protexido polo túnel VPN
+    ▼
+Pasarela VPNXG – VPN corporativa
+    │
+    │  Acceso autorizado á rede corporativa / RCXG
+    ▼
+┌─────────────────────────────────────────────┐
+│  Opción A: PC físico da oficina             │
+│  Conexión a Escritorio remoto / RDP         │
+│                                             │
+│  Opción B: VDI                              │
+│  Escritorio virtual con Citrix / navegador  │
+└─────────────────────────────────────────────┘</code></pre></div><p>A VPN non significa que o equipo de casa pase a ser un equipo interno
+sen restricións. O que ocorre é que se crea un <strong>túnel
+cifrado</strong> cara á rede corporativa e se permite o acceso aos
+recursos internos autorizados segundo o perfil, permisos e políticas de
+seguridade aplicadas.</p></section><section class="content-section"><h2 id="fases-do-proceso">3. Fases do proceso</h2><div class="table-wrap"><table>
+<colgroup>
+<col style="width: 25%"/>
+<col style="width: 25%"/>
+<col style="width: 25%"/>
+<col style="width: 25%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fase</th>
+<th>Que fai a persoa usuaria</th>
+<th>Que ocorre tecnicamente</th>
+<th>Ferramentas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Solicitude de acceso</strong></td>
+<td>Solicita a alta da VPN persoal a través do portal correspondente. Se
+hai incidencias, contacta co soporte ou CAU.</td>
+<td>O servizo de TI valida a solicitude, habilita a conta de acceso
+remoto e asigna os permisos necesarios.</td>
+<td>Portal AxudoT, CAU ou soporte técnico</td>
+</tr>
+<tr class="even">
+<td><strong>2. Preparación do equipo de casa</strong></td>
+<td>Emprega un equipo de confianza, actualizado e protexido con
+contrasinal. Instala o cliente VPN se é necesario.</td>
+<td>O equipo queda preparado para crear unha conexión segura coa rede
+corporativa.</td>
+<td>Cliente BIG-IP Edge Client ou acceso web a VPNXG</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Conexión á VPN</strong></td>
+<td>Inicia sesión na VPN coas súas credenciais corporativas e, segundo o
+perfil, cun segundo factor.</td>
+<td>Créase un túnel cifrado entre o equipo de casa e a rede corporativa.
+O acceso queda limitado aos recursos autorizados.</td>
+<td>Usuario corporativo, contrasinal, certificado dixital ou código de
+verificación</td>
+</tr>
+<tr class="even">
+<td><strong>4. Acceso a recursos internos</strong></td>
+<td>Accede á intranet e ás aplicacións internas permitidas.</td>
+<td>O tráfico cara aos servizos internos circula a través do túnel
+VPN.</td>
+<td>Navegador, intranet, aplicacións corporativas</td>
+</tr>
+<tr class="odd">
+<td><strong>5A. Escritorio remoto ao PC físico da oficina</strong></td>
+<td>Abre <em>Conexión a Escritorio remoto</em> (<code>mstsc</code>) e
+conéctase ao seu equipo da oficina.</td>
+<td>O PC de casa actúa como <strong>cliente RDP</strong> e o PC da
+oficina como <strong>servidor RDP</strong>. A conexión RDP realízase a
+través da VPN, non directamente desde Internet.</td>
+<td>Cliente RDP de Windows (<code>mstsc</code>)</td>
+</tr>
+<tr class="even">
+<td><strong>5B. Alternativa: VDI</strong></td>
+<td>Accede a un escritorio virtual mediante Citrix Workspace App ou
+navegador.</td>
+<td>A sesión execútase nunha infraestrutura de escritorios virtuais. Non
+depende de que o PC físico da oficina estea aceso.</td>
+<td><code>vdi.xunta.gal</code>, Citrix Workspace App, navegador,
+certificado dixital ou OTP segundo configuración</td>
+</tr>
+<tr class="odd">
+<td><strong>6. Traballo remoto</strong></td>
+<td>Traballa desde casa empregando aplicacións e recursos
+corporativos.</td>
+<td>En RDP, as aplicacións execútanse no PC da oficina. En VDI,
+execútanse na infraestrutura virtual corporativa. O equipo de casa
+funciona principalmente como cliente de visualización e entrada.</td>
+<td>VPN + RDP ou VDI</td>
+</tr>
+</tbody>
+</table></div></section><section class="content-section"><h2 id="condicións-técnicas-importantes">4. Condicións técnicas
+importantes</h2><h3 id="no-acceso-por-rdp-ao-pc-físico">4.1. No acceso por RDP ao PC
+físico</h3><p>Para que a opción <strong>VPN + RDP ao PC da oficina</strong>
+funcione, deben cumprirse varias condicións:</p><ul class="clean-list">
+<li>O PC da oficina debe estar <strong>aceso</strong>.</li>
+<li>Debe estar conectado á rede corporativa.</li>
+<li>Debe permitir conexións de escritorio remoto.</li>
+<li>A conta da persoa usuaria debe ter permisos para conectarse por
+RDP.</li>
+<li>O acceso ao servizo RDP debe estar restrinxido á rede interna ou á
+VPN.</li>
+<li>O porto RDP non debe estar exposto directamente a Internet.</li>
+</ul><p>Nun esquema deste tipo, o equipo de casa <strong>non se conecta
+directamente desde Internet ao porto RDP do PC da oficina</strong>.
+Primeiro conéctase á VPN e despois accede ao equipo interno mediante
+RDP.</p><h3 id="no-acceso-por-vdi">4.2. No acceso por VDI</h3><p>Na opción <strong>VDI</strong> (<em>Virtual Desktop
+Infrastructure</em>), a persoa usuaria non accede ao seu PC físico da
+oficina, senón a un <strong>escritorio virtual</strong> executado na
+infraestrutura corporativa.</p><p>Isto ten consecuencias importantes:</p><ul class="clean-list">
+<li>Non é necesario que o PC físico da oficina estea aceso.</li>
+<li>A sesión pode continuar aínda que haxa incidencias no posto
+físico.</li>
+<li>A administración centralizada é máis sinxela.</li>
+<li>A organización pode controlar mellor as políticas de seguridade,
+redirección de recursos e acceso a datos.</li>
+<li>Require infraestrutura específica de virtualización de
+escritorios.</li>
+</ul></section><section class="content-section"><h2 id="conceptos-da-ud4-no-caso-real">5. Conceptos da UD4 no caso
+real</h2><div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concepto da UD4</th>
+<th>Onde aparece no caso real</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Arquitectura cliente-servidor</strong></td>
+<td>O PC de casa actúa como cliente e o PC da oficina ou a VDI como
+servidor ou destino remoto.</td>
+</tr>
+<tr class="even">
+<td><strong>RDP / escritorio remoto</strong></td>
+<td>Na conexión ao PC físico da oficina mediante <em>Conexión a
+Escritorio remoto</em> (<code>mstsc</code>).</td>
+</tr>
+<tr class="odd">
+<td><strong>VPN como capa previa de seguridade</strong></td>
+<td>Antes de acceder a RDP ou recursos internos, a persoa usuaria debe
+autenticarse e crear un túnel seguro.</td>
+</tr>
+<tr class="even">
+<td><strong>Autenticación forte</strong></td>
+<td>Pode aparecer mediante certificado dixital, código OTP ou outro
+segundo factor segundo o perfil de acceso.</td>
+</tr>
+<tr class="odd">
+<td><strong>VDI como alternativa a RDP</strong></td>
+<td>A sesión non depende dun PC físico concreto, senón dunha
+infraestrutura de escritorios virtuais.</td>
+</tr>
+<tr class="even">
+<td><strong>Non expor RDP directamente a Internet</strong></td>
+<td>O acceso a RDP debe realizarse a través da VPN ou doutro mecanismo
+seguro, non abrindo 3389 directamente a Internet.</td>
+</tr>
+<tr class="odd">
+<td><strong>Políticas de seguridade</strong></td>
+<td>Controlan quen pode acceder, desde onde, con que factores de
+autenticación e a que recursos internos.</td>
+</tr>
+</tbody>
+</table></div></section><section class="content-section"><h2 id="diferenza-entre-rdp-ao-pc-físico-e-vdi">6. Diferenza entre RDP
+ao PC físico e VDI</h2><div class="table-wrap"><table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>RDP ao PC da oficina</th>
+<th>VDI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Destino da conexión</strong></td>
+<td>PC físico da persoa usuaria na oficina</td>
+<td>Escritorio virtual en infraestrutura corporativa</td>
+</tr>
+<tr class="even">
+<td><strong>O PC da oficina debe estar aceso?</strong></td>
+<td>Si</td>
+<td>Non</td>
+</tr>
+<tr class="odd">
+<td><strong>Onde se executan as aplicacións?</strong></td>
+<td>No PC físico da oficina</td>
+<td>Nun escritorio virtual aloxado na infraestrutura corporativa</td>
+</tr>
+<tr class="even">
+<td><strong>Que ocorre se o PC da oficina está apagado?</strong></td>
+<td>Non se pode acceder por RDP a ese equipo</td>
+<td>A VDI pode seguir dispoñible</td>
+</tr>
+<tr class="odd">
+<td><strong>Mantemento</strong></td>
+<td>Máis dependente de cada posto físico</td>
+<td>Máis centralizado</td>
+</tr>
+<tr class="even">
+<td><strong>Uso típico</strong></td>
+<td>Solución clásica para acceder ao posto habitual</td>
+<td>Solución máis escalable e centralizada</td>
+</tr>
+<tr class="odd">
+<td><strong>Seguridade</strong></td>
+<td>Depende da VPN, permisos do PC e configuración RDP</td>
+<td>Depende da plataforma VDI, autenticación e políticas
+corporativas</td>
+</tr>
+<tr class="even">
+<td><strong>Experiencia da persoa usuaria</strong></td>
+<td>Traballa sobre o seu PC real da oficina</td>
+<td>Traballa sobre un escritorio virtual</td>
+</tr>
+</tbody>
+</table></div></section><section class="content-section"><h2 id="boas-prácticas-de-seguridade-no-teletraballo">7. Boas prácticas
+de seguridade no teletraballo</h2><p>Antes de conectarse a unha rede corporativa desde casa, deben
+aplicarse medidas mínimas de seguridade:</p><ol class="step-list" type="1">
+<li><p><strong>Empregar un equipo de confianza.</strong><br/>
+Non se debe acceder desde equipos públicos, compartidos sen control ou
+desactualizados.</p></li>
+<li><p><strong>Manter o sistema actualizado.</strong><br/>
+O sistema operativo, navegador, antivirus e cliente VPN deben estar ao
+día.</p></li>
+<li><p><strong>Protexer o equipo con contrasinal.</strong><br/>
+Non debe quedar unha sesión aberta sen supervisión.</p></li>
+<li><p><strong>Usar unha rede fiable.</strong><br/>
+Evitar redes Wi-Fi públicas ou descoñecidas para acceder a recursos
+corporativos.</p></li>
+<li><p><strong>Pechar a sesión ao rematar.</strong><br/>
+Ao finalizar a xornada débese pechar a sesión RDP/VDI e desconectar a
+VPN.</p></li>
+<li><p><strong>Non compartir credenciais.</strong><br/>
+O usuario, contrasinal, certificado ou OTP son persoais e non se deben
+ceder a ninguén.</p></li>
+<li><p><strong>Non copiar datos fóra da contorna
+autorizada.</strong><br/>
+O portapapeis, a impresión, as unidades locais ou a descarga de
+ficheiros poden estar restrinxidos por política corporativa.</p></li>
+<li><p><strong>Comunicar incidencias.</strong><br/>
+Se hai erros de autenticación, accesos sospeitosos ou perda dun
+certificado/dispositivo, debe avisarse ao soporte técnico.</p></li>
+</ol></section><section class="content-section"><h2 id="relación-co-laboratorio-da-ud4">8. Relación co laboratorio da
+UD4</h2><div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>No laboratorio da UD4</th>
+<th>No caso real da Xunta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VM cliente</td>
+<td>PC de casa da persoa traballadora</td>
+</tr>
+<tr class="even">
+<td>VM servidor con RDP ou xRDP</td>
+<td>PC físico da oficina ou escritorio VDI</td>
+</tr>
+<tr class="odd">
+<td>Rede interna simulada</td>
+<td>Rede corporativa / RCXG</td>
+</tr>
+<tr class="even">
+<td>Usuarios creados para a práctica</td>
+<td>Usuario corporativo real</td>
+</tr>
+<tr class="odd">
+<td>Firewall básico</td>
+<td>Políticas corporativas, devasas e control de acceso</td>
+</tr>
+<tr class="even">
+<td>Conexión directa na LAN</td>
+<td>Primeiro VPN, despois acceso ao recurso interno</td>
+</tr>
+<tr class="odd">
+<td>Proba de conexión RDP</td>
+<td>Acceso real a posto físico ou escritorio virtual</td>
+</tr>
+<tr class="even">
+<td>Capturas para memoria</td>
+<td>Rexistros, validacións, incidencias e procedementos de soporte</td>
+</tr>
+</tbody>
+</table></div><p>Esta comparación permite entender que o laboratorio reproduce unha
+versión simplificada dun escenario profesional: os principios son os
+mesmos, pero nunha organización real hai máis capas de control,
+autenticación, rexistro e seguridade.</p></section><section class="content-section content-section--activity"><h2 class="activity-heading" id="actividades">9. Actividades</h2><h3 class="activity-heading" id="actividade-1-comprensión">Actividade 1 — Comprensión 🟢</h3><p>Describe, en 4–5 liñas, os pasos que segue unha persoa traballadora
+para acceder ao seu PC da oficina desde casa usando <strong>VPN +
+escritorio remoto</strong>.</p><p>Na resposta debes indicar:</p><ul class="clean-list">
+<li>que papel ten o PC de casa;</li>
+<li>que papel ten a VPN;</li>
+<li>que papel ten o PC da oficina;</li>
+<li>por que non se accede directamente por RDP desde Internet.</li>
+</ul><h3 class="activity-heading" id="actividade-2-análise">Actividade 2 — Análise 🟡</h3><p>Observa o esquema do sistema e responde:</p><ol class="step-list" type="1">
+<li>Por que a VPN é o primeiro paso e non se pode saltar?</li>
+<li>Que risco habería se o porto RDP do PC da oficina estivese aberto
+directamente a Internet?</li>
+<li>Que vantaxe ten a VDI fronte ao RDP ao PC físico?</li>
+<li>Por que o equipo de casa non debe considerarse automaticamente “un
+equipo interno” da organización?</li>
+</ol><h3 class="activity-heading" id="actividade-3-aplicación">Actividade 3 — Aplicación 🔴</h3><p>Deseña un esquema similar para un <strong>pequeno centro
+educativo</strong> con 10 profesores que precisan acceder desde casa aos
+seus equipos do centro.</p><p>A túa proposta debe incluír:</p><ul class="clean-list">
+<li>infraestrutura necesaria;</li>
+<li>servidor ou servizo VPN;</li>
+<li>equipos destino;</li>
+<li>contas individuais;</li>
+<li>pasos que seguiría un profesor para conectarse;</li>
+<li>medidas de seguridade;</li>
+<li>que farías se un PC do centro está apagado;</li>
+<li>que rexistros ou evidencias revisarías en caso de incidencia.</li>
+</ul></section><section class="content-section content-section--activity"><h2 class="activity-heading criteria-heading" id="criterios-mínimos-para-a-actividade-3">10. Criterios mínimos
+para a actividade 3</h2><p>A proposta considerarase correcta se inclúe, como mínimo:</p><div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Debe aparecer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>VPN previa</strong></td>
+<td>O profesorado debe conectarse primeiro á VPN antes de usar RDP.</td>
+</tr>
+<tr class="even">
+<td><strong>RDP non exposto</strong></td>
+<td>Non se debe abrir o porto 3389 directamente a Internet.</td>
+</tr>
+<tr class="odd">
+<td><strong>Contas individuais</strong></td>
+<td>Non se deben empregar contas compartidas.</td>
+</tr>
+<tr class="even">
+<td><strong>Permisos limitados</strong></td>
+<td>Só deben ter acceso remoto os usuarios que o necesiten.</td>
+</tr>
+<tr class="odd">
+<td><strong>MFA ou segundo factor</strong></td>
+<td>Recomendado se a infraestrutura o permite.</td>
+</tr>
+<tr class="even">
+<td><strong>Rexistro de accesos</strong></td>
+<td>Deben revisarse logs de VPN e de inicio de sesión remoto.</td>
+</tr>
+<tr class="odd">
+<td><strong>Equipos acesos ou alternativa</strong></td>
+<td>Se se accede a PCs físicos, deben estar acesos; como alternativa
+pode estudarse VDI ou outro servizo centralizado.</td>
+</tr>
+<tr class="even">
+<td><strong>Seguridade do equipo persoal</strong></td>
+<td>O equipo de casa debe estar actualizado, protexido e ser de
+confianza.</td>
+</tr>
+<tr class="odd">
+<td><strong>Peche de sesión</strong></td>
+<td>Debe desconectarse RDP/VDI e VPN ao rematar.</td>
+</tr>
+</tbody>
+</table></div></section><section class="content-section"><h2 id="preguntas-rápidas-de-repaso">11. Preguntas rápidas de
+repaso</h2><ol class="step-list" type="1">
+<li>Cal é a diferenza entre conectarse por RDP ao PC da oficina e usar
+unha VDI?</li>
+<li>Por que é perigoso abrir RDP directamente a Internet?</li>
+<li>Que función cumpre a VPN antes do escritorio remoto?</li>
+<li>Por que o PC da oficina debe estar aceso no acceso por RDP ao posto
+físico?</li>
+<li>Que vantaxe ten a autenticación con OTP ou certificado fronte ao uso
+só de usuario e contrasinal?</li>
+<li>Que riscos poden existir se se permite copiar ficheiros entre o PC
+de casa e o escritorio remoto?</li>
+<li>Que debería facer unha persoa usuaria ao rematar a xornada de
+teletraballo?</li>
+</ol></section><section class="content-section content-section--key"><h2 id="ideas-clave">12. Ideas clave</h2><blockquote class="callout callout-note">
+<p>O acceso remoto profesional adoita construírse por capas: primeiro
+autenticación e VPN, despois acceso ao recurso interno autorizado.</p>
+</blockquote><blockquote class="callout callout-note">
+<p>RDP permite acceder a un PC físico remoto, pero non debe estar
+exposto directamente a Internet.</p>
+</blockquote><blockquote class="callout callout-note">
+<p>A VDI permite traballar nun escritorio virtual centralizado e non
+depende de que o PC físico da oficina estea aceso.</p>
+</blockquote><blockquote class="callout callout-note">
+<p>A VPN non converte sen máis o equipo de casa nun equipo interno: dá
+acceso controlado a recursos autorizados.</p>
+</blockquote><blockquote class="callout callout-note">
+<p>A seguridade no teletraballo depende tanto da infraestrutura
+corporativa como do comportamento da persoa usuaria: equipo actualizado,
+credenciais protexidas, conexión segura e peche correcto da sesión.</p>
+</blockquote></section></div>
+      </main>
+      <aside class="toc-panel" aria-label="Índice do caso">
+        <div class="toc-panel__title">Índice <span>UD4</span></div>
+        <nav><ul class="toc-list"><li class="toc-h2"><a href="#introdución">1. Introdución</a><ul></ul></li><li class="toc-h2"><a href="#esquema-xeral-do-sistema">2. Esquema xeral do sistema</a><ul></ul></li><li class="toc-h2"><a href="#fases-do-proceso">3. Fases do proceso</a><ul></ul></li><li class="toc-h2"><a href="#condicións-técnicas-importantes">4. Condicións técnicas
+importantes</a><ul><li class="toc-h3"><a href="#no-acceso-por-rdp-ao-pc-físico">4.1. No acceso por RDP ao PC
+físico</a></li><li class="toc-h3"><a href="#no-acceso-por-vdi">4.2. No acceso por VDI</a></li></ul></li><li class="toc-h2"><a href="#conceptos-da-ud4-no-caso-real">5. Conceptos da UD4 no caso
+real</a><ul></ul></li><li class="toc-h2"><a href="#diferenza-entre-rdp-ao-pc-físico-e-vdi">6. Diferenza entre RDP
+ao PC físico e VDI</a><ul></ul></li><li class="toc-h2"><a href="#boas-prácticas-de-seguridade-no-teletraballo">7. Boas prácticas
+de seguridade no teletraballo</a><ul></ul></li><li class="toc-h2"><a href="#relación-co-laboratorio-da-ud4">8. Relación co laboratorio da
+UD4</a><ul></ul></li><li class="toc-h2"><a href="#actividades">9. Actividades</a><ul><li class="toc-h3"><a href="#actividade-1-comprensión">Actividade 1 — Comprensión 🟢</a></li><li class="toc-h3"><a href="#actividade-2-análise">Actividade 2 — Análise 🟡</a></li><li class="toc-h3"><a href="#actividade-3-aplicación">Actividade 3 — Aplicación 🔴</a></li></ul></li><li class="toc-h2"><a href="#criterios-mínimos-para-a-actividade-3">10. Criterios mínimos
+para a actividade 3</a><ul></ul></li><li class="toc-h2"><a href="#preguntas-rápidas-de-repaso">11. Preguntas rápidas de
+repaso</a><ul></ul></li><li class="toc-h2"><a href="#ideas-clave">12. Ideas clave</a><ul></ul></li></ul></nav>
+      </aside>
+    </div>
+
+    <div class="footer-note">
+      Material HTML xerado a partir da versión corrixida en Markdown. Mantén o contido íntegro e engade maquetación visual para estudo, aula e consulta técnica.
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const card = button.closest('.code-card');
+        const code = card ? card.querySelector('code') : null;
+        if (!code) return;
+        try {
+          await navigator.clipboard.writeText(code.innerText);
+          const old = button.textContent;
+          button.textContent = 'Copiado';
+          setTimeout(() => button.textContent = old, 1300);
+        } catch (error) {
+          button.textContent = 'Selecciona';
+          setTimeout(() => button.textContent = 'Copiar', 1300);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

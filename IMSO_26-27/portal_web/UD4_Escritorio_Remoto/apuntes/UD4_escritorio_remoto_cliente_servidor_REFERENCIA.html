@@ -1,0 +1,1116 @@
+<!doctype html>
+<html lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UD4 –
+Escritorio remoto en arquitectura cliente-servidor</title>
+  <style>
+    :root {
+      --bg: #eef5ff;
+      --bg-2: #f8fbff;
+      --ink: #172033;
+      --muted: #5f6e85;
+      --brand: #005eb8;
+      --brand-2: #0b74de;
+      --brand-3: #00a3ff;
+      --accent: #f59e0b;
+      --ok: #0f766e;
+      --danger: #b42318;
+      --card: #ffffff;
+      --line: #d8e4f5;
+      --code-bg: #0f172a;
+      --code-ink: #e5edff;
+      --shadow: 0 18px 45px rgba(24, 52, 92, .13);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(0, 94, 184, .22), transparent 34rem),
+        radial-gradient(circle at 95% 12%, rgba(0, 163, 255, .18), transparent 36rem),
+        linear-gradient(180deg, var(--bg) 0%, #f7faff 42%, #ffffff 100%);
+      line-height: 1.65;
+    }
+
+    a { color: var(--brand); text-decoration-thickness: .1em; text-underline-offset: .18em; }
+    a:hover { color: #003d7a; }
+
+    .page-shell { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+
+    .hero {
+      position: relative;
+      margin: 28px auto 24px;
+      padding: clamp(28px, 5vw, 56px);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(135deg, rgba(0, 94, 184, .96), rgba(20, 116, 214, .88) 52%, rgba(0, 163, 255, .78)),
+        linear-gradient(135deg, #005eb8, #00a3ff);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before, .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(255,255,255,.16);
+      pointer-events: none;
+    }
+    .hero::before { width: 320px; height: 320px; right: -110px; top: -140px; }
+    .hero::after { width: 220px; height: 220px; left: 62%; bottom: -120px; }
+
+    .hero__content { position: relative; z-index: 1; max-width: 880px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .35rem .7rem;
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 1rem 0 .8rem;
+      max-width: 900px;
+      font-size: clamp(2rem, 5vw, 4.25rem);
+      line-height: 1.02;
+      letter-spacing: -.045em;
+    }
+    .hero .meta { max-width: 780px; font-size: 1.05rem; color: rgba(255,255,255,.92); }
+    .hero .meta p { margin: 0; }
+    .hero .meta strong { color: #fff; }
+    .hero__chips { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.35rem; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .46rem .72rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.28);
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .toc-panel {
+      position: sticky;
+      top: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(33, 57, 96, .08);
+      overflow: hidden;
+    }
+    .toc-panel__title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.1rem;
+      border-bottom: 1px solid var(--line);
+      font-weight: 900;
+      color: #0f2a4f;
+    }
+    .toc-panel__title span { font-size: .82rem; color: var(--muted); font-weight: 700; }
+    .toc-list { list-style: none; padding: .8rem 1rem 1rem; margin: 0; max-height: calc(100vh - 130px); overflow: auto; }
+    .toc-list ul { list-style: none; padding: .15rem 0 .45rem .8rem; margin: 0; }
+    .toc-list li { margin: .1rem 0; }
+    .toc-list a {
+      display: block;
+      padding: .35rem .45rem;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #29415f;
+      font-size: .92rem;
+      line-height: 1.25;
+    }
+    .toc-list a:hover { background: #edf5ff; color: var(--brand); }
+    .toc-h2 > a { font-weight: 850; }
+    .toc-h3 > a { font-size: .84rem; color: var(--muted); }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 0 0 22px;
+    }
+    .quick-card {
+      min-height: 118px;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 10px 30px rgba(33, 57, 96, .06);
+    }
+    .quick-card strong { display: block; color: #123a68; margin-bottom: .25rem; font-size: 1.02rem; }
+    .quick-card span { display: block; color: var(--muted); font-size: .9rem; line-height: 1.45; }
+    .quick-icon { font-size: 1.55rem; line-height: 1; margin-bottom: .55rem; }
+
+    .article-flow { display: grid; gap: 22px; }
+    .content-section {
+      position: relative;
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 16px 42px rgba(30, 61, 101, .09);
+      overflow: hidden;
+    }
+    .content-section::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 7px;
+      background: linear-gradient(180deg, var(--brand), var(--brand-3));
+    }
+
+    h2, h3, h4 { line-height: 1.18; color: #102947; }
+    h2 {
+      margin: 0 0 1.1rem;
+      font-size: clamp(1.45rem, 2.5vw, 2rem);
+      letter-spacing: -.025em;
+    }
+    h3 {
+      margin: 2rem 0 .75rem;
+      font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+      padding-left: .8rem;
+      border-left: 4px solid var(--brand-2);
+    }
+    h4 { margin: 1.6rem 0 .65rem; font-size: 1.05rem; color: #173d67; }
+    p { margin: .85rem 0; }
+    strong { color: #0f3157; }
+
+    .clean-list, .step-list { padding-left: 1.25rem; }
+    .clean-list li, .step-list li { margin: .45rem 0; padding-left: .18rem; }
+    .step-list li::marker { font-weight: 900; color: var(--brand); }
+    .clean-list li::marker { color: var(--brand-2); }
+
+    .callout {
+      margin: 1.3rem 0;
+      padding: 1rem 1.1rem 1rem 1.25rem;
+      border-radius: 16px;
+      border: 1px solid;
+      border-left-width: 7px;
+    }
+    .callout p { margin: 0; }
+    .callout-warning { background: #fff7ed; border-color: #fed7aa; color: #59320a; }
+    .callout-key { background: #eef9ff; border-color: #b9e6ff; color: #123d5a; }
+    .callout-note { background: #f2f7ff; border-color: #cfe0ff; color: #233b5e; }
+    .callout strong { color: inherit; }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 1.2rem 0;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(30, 61, 101, .06);
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 640px; }
+    th, td { padding: .85rem .9rem; border-bottom: 1px solid #e7eef8; vertical-align: top; text-align: left; }
+    th {
+      background: linear-gradient(180deg, #eef6ff, #e7f1ff);
+      color: #0d315a;
+      font-size: .9rem;
+      text-transform: uppercase;
+      letter-spacing: .035em;
+    }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover td { background: #fbfdff; }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: .92em;
+      color: #0f4e8f;
+      background: #eef6ff;
+      padding: .12rem .32rem;
+      border-radius: 7px;
+      border: 1px solid #d8e9ff;
+    }
+    .code-card {
+      margin: 1.1rem 0;
+      border-radius: 17px;
+      overflow: hidden;
+      background: var(--code-bg);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, .18);
+      border: 1px solid rgba(148, 163, 184, .25);
+    }
+    .code-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .62rem .85rem;
+      background: rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .code-card__label {
+      color: #cbd5e1;
+      font-size: .76rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+    .copy-btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      padding: .32rem .65rem;
+      background: rgba(255,255,255,.08);
+      color: #e2e8f0;
+      font-size: .78rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,.14); }
+    .code-card pre { margin: 0; padding: 1rem; overflow-x: auto; }
+    .code-card code {
+      display: block;
+      color: var(--code-ink);
+      background: transparent;
+      border: 0;
+      padding: 0;
+      border-radius: 0;
+      font-size: .92rem;
+      line-height: 1.65;
+      white-space: pre;
+    }
+    .sourceCode span { color: inherit !important; }
+
+    .footer-note {
+      margin: 28px 0 36px;
+      padding: 1rem 1.1rem;
+      border: 1px dashed #aac5e7;
+      border-radius: 18px;
+      color: var(--muted);
+      background: rgba(255,255,255,.74);
+      font-size: .92rem;
+    }
+
+    @media (max-width: 1020px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc-panel { position: static; order: -1; }
+      .toc-list { max-height: none; }
+      .quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .page-shell { width: min(100% - 20px, var(--max)); }
+      .hero { margin-top: 10px; border-radius: 18px; }
+      .quick-grid { grid-template-columns: 1fr; }
+      .content-section { border-radius: 18px; }
+      table { min-width: 760px; }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      .hero { color: #000; background: #fff; box-shadow: none; border: 1px solid #bbb; }
+      .hero::before, .hero::after, .toc-panel, .quick-grid, .copy-btn { display: none !important; }
+      .layout { display: block; }
+      .content-section { box-shadow: none; border: 1px solid #bbb; break-inside: avoid; }
+      .content-section::before { background: #444; }
+      a { color: #000; text-decoration: none; }
+      .code-card { box-shadow: none; border: 1px solid #333; }
+      .code-card pre { white-space: pre-wrap; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero__content">
+        <div class="eyebrow">IMSO · Unidade didáctica 4</div>
+        <h1>UD4 –
+Escritorio remoto en arquitectura cliente-servidor</h1>
+        <div class="meta"></div>
+        <div class="hero__chips" aria-label="Etiquetas do tema">
+          <span class="chip">🖥️ RDP</span>
+          <span class="chip">🐧 xRDP</span>
+          <span class="chip">🔐 Seguridade</span>
+          <span class="chip">🧪 Diagnóstico</span>
+          <span class="chip">📝 Memoria técnica</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="quick-grid" aria-label="Resumo visual da unidade">
+      <div class="quick-card"><div class="quick-icon">🧭</div><strong>Idea central</strong><span>Controlar un equipo remoto mantendo aplicacións e datos no servidor.</span></div>
+      <div class="quick-card"><div class="quick-icon">🔌</div><strong>Protocolos</strong><span>RDP, xRDP, VNC, SSH e clientes como Remmina.</span></div>
+      <div class="quick-card"><div class="quick-icon">🛡️</div><strong>Risco clave</strong><span>Non expoñer RDP directamente a Internet.</span></div>
+      <div class="quick-card"><div class="quick-icon">🔎</div><strong>Proba práctica</strong><span>Rede, servizo, firewall, permisos, credenciais e rexistros.</span></div>
+    </div>
+
+    <div class="layout">
+      <main>
+        <div class="article-flow"><section class="content-section"><h2 id="texto-de-referencia-completo-corrixido">Texto de referencia
+completo corrixido</h2><p><strong>Módulo:</strong> Implantación de Sistemas Operativos (IMSO) ·
+1.º ASIR<br/>
+<strong>Unidade didáctica 4:</strong> Implantación de software
+específico en arquitectura cliente-servidor</p></section><section class="content-section"><h2 id="introdución-e-contexto-profesional">1. Introdución e contexto
+profesional</h2><p>Acceder de forma remota a equipos de traballo converteuse nunha
+tarefa habitual en administración de sistemas, soporte técnico e
+teletraballo. En moitas empresas, administracións e centros educativos,
+o persoal de TI precisa <strong>administrar servidores e postos de
+usuario sen estar fisicamente diante deles</strong>, e o persoal usuario
+pode necesitar acceder ao seu posto dende fóra da oficina.</p><p>O <strong>escritorio remoto</strong> é unha tecnoloxía que permite
+acceder a unha sesión gráfica dun equipo remoto: vemos o seu escritorio,
+empregamos teclado e rato dende o equipo cliente, pero as aplicacións e
+os datos seguen executándose no equipo remoto.</p><p>Nun contorno cliente-servidor:</p><ul class="clean-list">
+<li>O equipo ao que accedemos actúa como <strong>servidor</strong> de
+escritorio remoto.</li>
+<li>O equipo dende o que nos conectamos funciona como
+<strong>cliente</strong> de escritorio remoto.</li>
+</ul><p>Cómpre diferenciar conceptos próximos pero non idénticos:</p><div class="table-wrap"><table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concepto</th>
+<th>Que permite facer</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Escritorio remoto</strong></td>
+<td>Acceder a unha sesión gráfica dun equipo remoto</td>
+<td>RDP, xRDP</td>
+</tr>
+<tr class="even">
+<td><strong>Asistencia remota</strong></td>
+<td>Axudar a unha persoa usuaria vendo ou controlando a súa sesión
+activa</td>
+<td>Quick Assist, VNC, AnyDesk, TeamViewer, RustDesk</td>
+</tr>
+<tr class="odd">
+<td><strong>Administración remota por terminal</strong></td>
+<td>Administrar un sistema mediante comandos, sen escritorio gráfico
+completo</td>
+<td>SSH</td>
+</tr>
+</tbody>
+</table></div><p>Este tema céntrase en comprender a arquitectura cliente-servidor,
+implantar un servizo básico de escritorio remoto con
+<strong>RDP/xRDP</strong>, aplicar medidas mínimas de seguridade e
+aprender a diagnosticar incidencias típicas.</p></section><section class="content-section"><h2 id="arquitectura-cliente-servidor-aplicada-ao-escritorio-remoto">2.
+Arquitectura cliente-servidor aplicada ao escritorio remoto</h2><h3 id="modelo-lóxico-cliente-servidor">2.1. Modelo lóxico
+cliente-servidor</h3><p>O escritorio remoto segue o <strong>modelo lóxico
+cliente-servidor</strong>:</p><ul class="clean-list">
+<li><strong>Servidor de escritorio remoto:</strong>
+<ul class="clean-list">
+<li>É o equipo ao que queremos acceder.</li>
+<li>Executa o sistema operativo e as aplicacións.</li>
+<li>Garda os datos e mantén a sesión do usuario.</li>
+<li>Ten instalado e activo un servizo de acceso remoto: RDP en Windows,
+xRDP en Linux ou outra solución equivalente.</li>
+</ul></li>
+<li><strong>Cliente de escritorio remoto:</strong>
+<ul class="clean-list">
+<li>É o equipo dende o que se realiza a conexión.</li>
+<li>Executa un programa cliente, por exemplo <em>Conexión a Escritorio
+remoto</em> en Windows.</li>
+<li>Envía pulsacións de teclado e movementos de rato ao servidor.</li>
+<li>Recibe a representación gráfica do escritorio remoto.</li>
+</ul></li>
+</ul><p>A comunicación realízase a través dun porto concreto. No caso de RDP
+de Microsoft, o porto por defecto é o <strong>3389</strong>.
+Tradicionalmente identifícase co <strong>3389/TCP</strong>, pero nas
+versións actuais tamén pode empregarse <strong>3389/UDP</strong> para
+mellorar o rendemento e a latencia da sesión.</p><blockquote class="callout callout-key">
+<p>💡 <strong>Idea clave:</strong> en RDP de Windows, cando se fala de
+“porto 3389”, convén lembrar que pode haber tráfico TCP e UDP. En xRDP
+sobre Ubuntu, o habitual é abrir o <strong>3389/TCP</strong> no
+firewall.</p>
+</blockquote><h3 id="fluxo-básico-dunha-sesión">2.2. Fluxo básico dunha sesión</h3><ol class="step-list" type="1">
+<li><p>O usuario abre o cliente de escritorio remoto no equipo
+cliente.</p></li>
+<li><p>Indica o <strong>nome ou IP do servidor</strong>, o usuario e o
+contrasinal.</p></li>
+<li><p>O cliente establece unha conexión co porto correspondente do
+servidor.</p></li>
+<li><p>O servidor <strong>verifica as credenciais</strong> e, se son
+correctas, crea, retoma ou asigna unha sesión de escritorio asociada a
+ese usuario.</p></li>
+<li><p>O servidor envía actualizacións gráficas da pantalla e recibe
+eventos de entrada, como teclado e rato, en tempo real.</p></li>
+</ol><blockquote class="callout callout-key">
+<p>💡 <strong>Idea clave:</strong> o que circula pola rede son
+actualizacións gráficas, eventos de entrada e datos de sesión. Non se
+envían aplicacións completas nin ficheiros completos cada vez que se usa
+unha aplicación. Por iso o consumo de ancho de banda adoita ser inferior
+ao dunha transmisión de vídeo de alta calidade, aínda que depende da
+resolución, efectos gráficos, movemento na pantalla e redireccións
+activadas.</p>
+</blockquote></section><section class="content-section"><h2 id="tecnoloxías-habituais-de-acceso-remoto">3. Tecnoloxías habituais
+de acceso remoto</h2><p>Non todas as tecnoloxías de acceso remoto fan exactamente o mesmo. A
+seguinte táboa axuda a situalas:</p><div class="table-wrap"><table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tecnoloxía</th>
+<th>Que ofrece</th>
+<th>Uso típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>RDP</strong></td>
+<td>Sesión gráfica remota en Windows</td>
+<td>Administración de servidores Windows, acceso a postos de traballo,
+teletraballo mediante VPN</td>
+</tr>
+<tr class="even">
+<td><strong>xRDP</strong></td>
+<td>Servidor Linux compatible con clientes RDP</td>
+<td>Acceder a un escritorio Ubuntu dende un cliente Windows</td>
+</tr>
+<tr class="odd">
+<td><strong>VNC</strong></td>
+<td>Visualización ou control gráfico de pantalla</td>
+<td>Soporte visual, contornos mixtos, asistencia puntual</td>
+</tr>
+<tr class="even">
+<td><strong>SSH</strong></td>
+<td>Terminal remota e túneles cifrados</td>
+<td>Administración de servidores Linux sen escritorio gráfico</td>
+</tr>
+<tr class="odd">
+<td><strong>TeamViewer / AnyDesk / similares</strong></td>
+<td>Soporte remoto mediante infraestrutura dun provedor</td>
+<td>Axuda puntual a usuarios finais, helpdesk, acceso externo
+sinxelo</td>
+</tr>
+</tbody>
+</table></div><h3 id="rdp-en-windows">3.1. RDP en Windows</h3><p>O <strong>Remote Desktop Protocol (RDP)</strong> é o protocolo
+propietario de Microsoft para escritorio remoto. Está amplamente usado
+en contornos corporativos porque:</p><ul class="clean-list">
+<li>Vén integrado en Windows Server.</li>
+<li>Pode aceptar conexións en Windows 10/11 <strong>Pro, Enterprise e
+Education</strong>.</li>
+<li>As edicións Windows Home poden actuar como cliente RDP, pero non
+como servidor RDP nativo.</li>
+<li>Hai clientes RDP para Windows, Linux, macOS e outros sistemas, polo
+que permite arquitecturas heteroxéneas.</li>
+</ul><p>Características clave:</p><ul class="clean-list">
+<li><strong>Porto por defecto:</strong> 3389 TCP/UDP en RDP de
+Microsoft.</li>
+<li>Permite <strong>redirección opcional de recursos</strong>:
+impresoras, discos locais, portapapeis, audio, etc.</li>
+<li>Inclúe cifrado da sesión.</li>
+<li>Recoméndase activar <strong>Network Level Authentication
+(NLA)</strong>.</li>
+</ul><blockquote class="callout callout-warning">
+<p>⚠️ <strong>NLA non é “cifrado”.</strong> NLA é unha medida de
+autenticación previa: obriga a autenticar o usuario antes de crear a
+sesión RDP completa. Reduce a superficie de ataque e o consumo de
+recursos fronte a intentos masivos de conexión.</p>
+</blockquote><h3 id="xrdp-en-linux">3.2. xRDP en Linux</h3><p>En contornos GNU/Linux existe <strong>xRDP</strong>, un servidor
+compatible con clientes RDP que permite iniciar unha sesión gráfica
+remota nun sistema Linux.</p><p>Isto permite, por exemplo, que un usuario cun cliente Windows use
+<em>Conexión a Escritorio remoto</em> para acceder a un escritorio
+Ubuntu.</p><p>Características clave:</p><ul class="clean-list">
+<li>xRDP actúa como servidor compatible co protocolo RDP.</li>
+<li>Habitualmente escoita no porto <strong>3389/TCP</strong>.</li>
+<li>Pode empregar escritorios como XFCE ou GNOME, aínda que a
+compatibilidade depende da configuración.</li>
+<li>En contornos de laboratorio adoita ser máis estable usar un
+escritorio lixeiro como <strong>XFCE</strong>.</li>
+</ul><blockquote class="callout callout-warning">
+<p>⚠️ <strong>Non convén dicir que xRDP “se conecta á sesión local” sen
+máis.</strong> En moitos escenarios xRDP crea ou xestiona unha sesión
+gráfica remota distinta. Se o mesmo usuario xa ten unha sesión gráfica
+local aberta, poden aparecer problemas como pantalla negra, peche de
+sesión ou comportamento irregular.</p>
+</blockquote></section><section class="content-section"><h2 id="implantación-de-escritorio-remoto-nun-contorno-de-laboratorio">4.
+Implantación de escritorio remoto nun contorno de laboratorio</h2><p>Nesta sección descríbese un escenario típico de laboratorio de 1.º
+ASIR:</p><ul class="clean-list">
+<li>Unha ou dúas VMs actuando como <strong>servidor</strong> de
+escritorio remoto:
+<ul class="clean-list">
+<li>Windows 10/11 Pro, Enterprise, Education ou Windows Server.</li>
+<li>Opcionalmente Ubuntu con xRDP.</li>
+</ul></li>
+<li>Unha ou varias VMs actuando como <strong>clientes</strong>:
+<ul class="clean-list">
+<li>Windows.</li>
+<li>Linux con Remmina ou FreeRDP.</li>
+</ul></li>
+<li>Rede interna de laboratorio, por exemplo
+<code>192.168.56.0/24</code>, con conectividade entre todas as VMs.</li>
+</ul><h3 id="preparación-do-entorno">4.1. Preparación do entorno</h3><p>Antes de activar o escritorio remoto convén:</p><ol class="step-list" type="1">
+<li><strong>Planificar as VMs:</strong>
+<ul class="clean-list">
+<li>Asignar recursos suficientes ao servidor: CPU, RAM e disco.</li>
+<li>Os clientes poden ter recursos máis modestos, xa que executarán
+menos carga local.</li>
+</ul></li>
+<li><strong>Configurar a rede:</strong>
+<ul class="clean-list">
+<li>Escoller un modo de rede coherente: rede interna, NAT con port
+forwarding, bridged, etc.</li>
+<li>Asignar IP estática ao servidor ou reservar enderezo no DHCP.</li>
+<li>Comprobar conectividade con <code>ping</code> entre cliente e
+servidor antes de continuar.</li>
+</ul></li>
+<li><strong>Crear contas de usuario:</strong>
+<ul class="clean-list">
+<li>Unha conta de administración para configurar o servizo.</li>
+<li>Contas específicas para o alumnado ou usuarios finais que accederán
+por escritorio remoto.</li>
+</ul></li>
+</ol><p>Esta preparación reduce problemas posteriores e facilita a
+documentación do escenario.</p><h3 id="activación-de-rdp-en-windows">4.2. Activación de RDP en
+Windows</h3><p>Para activar o servidor RDP nun equipo Windows compatible:</p><ol class="step-list" type="1">
+<li><p>Verificar que a edición permite aceptar conexións RDP:</p>
+<ul class="clean-list">
+<li>Windows 10/11 Pro.</li>
+<li>Windows 10/11 Enterprise.</li>
+<li>Windows 10/11 Education.</li>
+<li>Windows Server.</li>
+</ul></li>
+<li><p>Abrir:</p>
+<p><strong>Configuración → Sistema → Escritorio remoto</strong></p></li>
+<li><p>Activar a opción de permitir conexións remotas.</p></li>
+<li><p>Engadir as contas que poderán conectarse:</p>
+<ul class="clean-list">
+<li>Os membros do grupo <strong>Administradores</strong> teñen permiso
+por defecto.</li>
+<li>O resto de usuarios deben engadirse ao grupo <strong>Usuarios de
+escritorio remoto</strong>.</li>
+</ul></li>
+<li><p>Comprobar que o firewall ten activa a regra de escritorio
+remoto.</p></li>
+<li><p>Verificar que o equipo ten unha IP accesible dende os
+clientes.</p></li>
+</ol><p>En laboratorio, o acceso limítase á rede interna. <strong>Non se
+expón RDP directamente a Internet.</strong></p><h3 id="instalación-e-activación-de-xrdp-en-ubuntu">4.3. Instalación e
+activación de xRDP en Ubuntu</h3><p>Instalar xRDP:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="fu">sudo</span> apt install xrdp</span></code></pre></div></div><p>Activar e iniciar os servizos:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable xrdp</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a><span class="fu">sudo</span> systemctl start xrdp</span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a><span class="fu">sudo</span> systemctl status xrdp</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a><span class="fu">sudo</span> systemctl status xrdp-sesman</span></code></pre></div></div><p>Abrir o porto só para a rede do laboratorio:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="fu">sudo</span> ufw allow from 192.168.56.0/24 to any port 3389 proto tcp</span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a><span class="fu">sudo</span> ufw status</span></code></pre></div></div><blockquote class="callout callout-warning">
+<p>⚠️ <strong>Pantalla negra con GNOME en Ubuntu 22.04/24.04:</strong>
+poden aparecer pantallas negras ou sesións que non cargan correctamente
+ao usar xRDP con GNOME. Nun laboratorio educativo, unha solución
+práctica e estable adoita ser instalar XFCE e configurar a sesión remota
+para usalo.</p>
+</blockquote><p>Instalar XFCE e configurar a sesión remota:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a><span class="fu">sudo</span> apt install xfce4 xfce4-goodies</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a><span class="bu">echo</span> xfce4-session <span class="op">&gt;</span> ~/.xsession</span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a><span class="fu">sudo</span> systemctl restart xrdp</span></code></pre></div></div><p>Recomendacións prácticas:</p><ul class="clean-list">
+<li>Probar cun usuario que non teña xa unha sesión gráfica local
+aberta.</li>
+<li>Reiniciar <code>xrdp</code> despois de modificar a configuración da
+sesión.</li>
+<li>Revisar <code>xrdp-sesman</code> se a autenticación funciona pero a
+sesión gráfica non chega a abrir.</li>
+<li>Documentar cal foi o escritorio usado na práctica: GNOME, XFCE ou
+outro.</li>
+</ul><h3 id="configuración-de-clientes-de-escritorio-remoto">4.4.
+Configuración de clientes de escritorio remoto</h3><h4 id="en-windows">En Windows</h4><p>O programa <strong>Conexión a Escritorio remoto</strong>
+(<code>mstsc</code>) permite:</p><ul class="clean-list">
+<li>Indicar o equipo destino: nome ou IP.</li>
+<li>Escoller usuario.</li>
+<li>Axustar opcións de pantalla.</li>
+<li>Modificar opcións de rendemento.</li>
+<li>Activar ou desactivar redirección de recursos:
+<ul class="clean-list">
+<li>portapapeis;</li>
+<li>impresoras;</li>
+<li>discos locais;</li>
+<li>audio;</li>
+<li>dispositivos locais.</li>
+</ul></li>
+</ul><blockquote class="callout callout-warning">
+<p>⚠️ <strong>Seguridade das redireccións:</strong> a redirección de
+discos locais, portapapeis e impresoras facilita o traballo, pero tamén
+pode supoñer risco de fuga de información ou movemento de ficheiros non
+controlado. En contornos sensibles debe revisarse ou limitarse.</p>
+</blockquote><h4 id="en-linux">En Linux</h4><p>Clientes recomendados:</p><ul class="clean-list">
+<li><strong>Remmina</strong> — cliente gráfico multiplataforma, moi
+completo.</li>
+<li><strong>FreeRDP</strong> — implementación libre do protocolo RDP,
+usable en liña de comandos ou como base doutros clientes.</li>
+</ul><blockquote class="callout callout-warning">
+<p>⚠️ <code>rdesktop</code> foi un cliente RDP moi usado en Linux, pero
+está abandonado e sen mantemento activo dende hai anos. Non se recomenda
+o seu uso en contornos actuais.</p>
+</blockquote><p>Nunha práctica típica:</p><ol class="step-list" type="1">
+<li>O alumnado abre o cliente RDP.</li>
+<li>Introduce a IP do servidor e as credenciais.</li>
+<li>Establece a primeira sesión remota.</li>
+<li>Comproba que pode usar aplicacións no servidor.</li>
+<li>Documenta a conexión exitosa mediante captura e explicación
+técnica.</li>
+</ol></section><section class="content-section"><h2 id="seguridade-do-escritorio-remoto">5. Seguridade do escritorio
+remoto</h2><h3 id="riscos-de-ter-rdp-exposto-a-internet">5.1. Riscos de ter RDP
+exposto a Internet</h3><p>RDP é un dos servizos máis escaneados e atacados cando está exposto a
+Internet. O risco aumenta se se combinan:</p><ul class="clean-list">
+<li>porto 3389 accesible dende calquera IP pública;</li>
+<li>contas con nomes previsibles;</li>
+<li>contrasinais débiles ou reutilizados;</li>
+<li>sistemas sen actualizar;</li>
+<li>falta de rexistros e monitorización.</li>
+</ul><p>Segundo INCIBE, nun estudo con honeypots RDP publicamente accesibles
+rexistráronse millóns de intentos de inicio de sesión fraudulentos en
+poucos días, e o primeiro ataque chegou en moi pouco tempo despois de
+expoñer o servizo.</p><p>Principais riscos:</p><ul class="clean-list">
+<li><strong>Ataques de forza bruta</strong> sobre usuario e
+contrasinal.</li>
+<li><strong>Explotación de vulnerabilidades non parcheadas</strong>,
+como ocorreu historicamente con vulnerabilidades tipo
+<em>BlueKeep</em>.</li>
+<li>Uso de RDP como canle de entrada para instalar
+<strong>ransomware</strong>, cryptojacking ou outro malware.</li>
+<li>Movemento lateral dentro da rede se o atacante consegue credenciais
+válidas.</li>
+</ul><blockquote class="callout callout-warning">
+<p>⚠️ <strong>Regra básica:</strong> RDP non debe exporse directamente a
+Internet. O acceso externo debe realizarse mediante VPN, pasarela segura
+ou unha arquitectura equivalente correctamente protexida.</p>
+</blockquote><h3 id="boas-prácticas-recomendadas">5.2. Boas prácticas
+recomendadas</h3><h4 id="sistemas-actualizados">1. Sistemas actualizados</h4><ul class="clean-list">
+<li>Manter Windows, Ubuntu e os compoñentes de RDP/xRDP sempre
+parcheados.</li>
+<li>Evitar sistemas fóra de soporte, porque non reciben parches de
+seguridade.</li>
+<li>Revisar actualizacións antes de abrir servizos de rede.</li>
+</ul><h4 id="vpn-rdp-para-acceso-externo">2. VPN + RDP para acceso
+externo</h4><ul class="clean-list">
+<li>Non expor directamente o porto 3389 a Internet.</li>
+<li>Empregar unha <strong>VPN</strong> para crear un túnel cifrado entre
+o usuario e a rede corporativa.</li>
+<li>Unha vez dentro da VPN, usar RDP cara ao equipo destino.</li>
+</ul><h4 id="contrasinais-longos-únicos-e-non-reutilizados">3. Contrasinais
+longos, únicos e non reutilizados</h4><ul class="clean-list">
+<li>Evitar contas <code>administrator</code>, <code>admin</code> ou
+<code>user</code> con contrasinais débiles.</li>
+<li>Usar contrasinais longos e non reutilizados noutros servizos.</li>
+<li>Evitar contrasinais triviais, previsibles ou filtrados.</li>
+<li>En contornos reais, complementar con MFA cando sexa posible.</li>
+</ul><blockquote class="callout callout-key">
+<p>💡 As políticas modernas de seguridade priorizan lonxitude, unicidade
+e detección de contrasinais comprometidos. As regras excesivamente
+artificiais de composición ou os cambios periódicos sen motivo poden non
+mellorar a seguridade se levan a contrasinais previsibles.</p>
+</blockquote><h4 id="bloqueo-de-conta-ante-intentos-fallidos">4. Bloqueo de conta
+ante intentos fallidos</h4><ul class="clean-list">
+<li>Configurar bloqueo temporal tras varios intentos incorrectos
+dificulta os ataques de forza bruta.</li>
+<li>O limiar debe ser razoable para evitar bloqueos accidentais.</li>
+<li>Un limiar excesivamente baixo pode facilitar unha denegación de
+servizo contra usuarios lexítimos.</li>
+</ul><h4 id="autenticación-multifactor">5. Autenticación multifactor</h4><ul class="clean-list">
+<li>Engadir un segundo factor para a VPN e/ou acceso remoto
+crítico.</li>
+<li>Pode empregarse unha aplicación de códigos, token físico, biometría
+ou outro método aprobado pola organización.</li>
+</ul><h4 id="limitación-de-ips-e-firewall">6. Limitación de IPs e
+firewall</h4><ul class="clean-list">
+<li>Restrinxir o acceso a RDP a rangos de IP de confianza.</li>
+<li>En laboratorio, permitir só a subrede interna.</li>
+<li>En empresa, permitir só a VPN, VLANs ou redes autorizadas.</li>
+</ul><h4 id="network-level-authentication">7. Network Level
+Authentication</h4><ul class="clean-list">
+<li>Activar <strong>NLA</strong> para que a autenticación se produza
+antes de crear a sesión RDP completa.</li>
+<li>Reduce superficie de ataque e consumo de recursos fronte a intentos
+masivos.</li>
+<li>Debe manterse activada salvo incompatibilidade xustificada cun
+cliente antigo.</li>
+</ul><h4 id="rexistros-e-monitorización">8. Rexistros e monitorización</h4><ul class="clean-list">
+<li>Revisar accesos correctos e fallidos.</li>
+<li>Detectar patróns sospeitosos:
+<ul class="clean-list">
+<li>moitos intentos fallidos;</li>
+<li>conexións en horarios anómalos;</li>
+<li>orixes descoñecidas;</li>
+<li>uso de contas privilexiadas.</li>
+</ul></li>
+</ul><h4 id="control-de-redireccións">9. Control de redireccións</h4><ul class="clean-list">
+<li>Revisar se é necesario permitir portapapeis, unidades locais,
+impresoras ou audio.</li>
+<li>En contornos sensibles, limitar redireccións para reducir risco de
+fuga de datos.</li>
+</ul><h4 id="non-confiar-no-cambio-de-porto-como-defensa-principal">10. Non
+confiar no cambio de porto como defensa principal</h4><p>Cambiar o porto 3389 pode reducir escaneos automáticos simples, pero
+<strong>non substitúe</strong>:</p><ul class="clean-list">
+<li>VPN;</li>
+<li>firewall;</li>
+<li>NLA;</li>
+<li>MFA;</li>
+<li>actualizacións;</li>
+<li>contrasinais robustos;</li>
+<li>monitorización.</li>
+</ul><blockquote class="callout callout-key">
+<p>💡 En laboratorio, estes conceptos trabállanse a nivel conceptual e
+en escenarios controlados sobre rede interna. Non é necesario
+implementar todas as medidas avanzadas, pero si coñecelas e saber
+xustificalas.</p>
+</blockquote></section><section class="content-section"><h2 id="diagnóstico-de-incidencias-en-escritorio-remoto">6. Diagnóstico
+de incidencias en escritorio remoto</h2><p>Na práctica diaria, un técnico de sistemas atópase con incidencias
+tanto no cliente como no servidor. É imprescindible seguir un
+<strong>esquema de diagnóstico ordenado</strong> para non omitir pasos
+clave.</p><h3 id="orde-xeral-de-diagnóstico">6.1. Orde xeral de diagnóstico</h3><div class="table-wrap"><table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Paso</th>
+<th>Que comprobar</th>
+<th>Exemplos de comprobación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Conectividade básica</td>
+<td><code>ping &lt;IP_servidor&gt;</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Configuración IP</td>
+<td><code>ipconfig</code>, <code>ip a</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Porto accesible</td>
+<td><code>Test-NetConnection</code>, <code>ss</code>, firewall</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Servizo activo</td>
+<td>RDP activado, <code>systemctl status xrdp</code></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Usuario autorizado</td>
+<td>Grupo <em>Usuarios de escritorio remoto</em>, permisos</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Credenciais correctas</td>
+<td>contrasinal, conta non bloqueada</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Rexistros</td>
+<td>Visor de eventos, <code>journalctl</code>, logs de xRDP</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Rendemento</td>
+<td>CPU, RAM, rede, calidade gráfica</td>
+</tr>
+</tbody>
+</table></div><h3 id="problemas-de-conectividade">6.2. Problemas de conectividade</h3><p>Causas frecuentes:</p><ul class="clean-list">
+<li>O servidor está apagado ou desconectado da rede.</li>
+<li>IP mal configurada en servidor ou cliente.</li>
+<li>O servizo de escritorio remoto non está activo.</li>
+<li>O firewall bloquea o porto correspondente.</li>
+<li>O cliente está tentando conectar a unha IP incorrecta.</li>
+</ul><p>Comprobacións en Windows cliente:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">POWERSHELL</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb5"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>ipconfig</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>ping <span class="op">&lt;</span>IP_servidor<span class="op">&gt;</span></span>
+<span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a>Test-NetConnection <span class="op">&lt;</span>IP_servidor<span class="op">&gt;</span> <span class="op">-</span>Port <span class="dv">3389</span></span>
+<span id="cb5-4"><a aria-hidden="true" href="#cb5-4" tabindex="-1"></a><span class="dt">mstsc</span></span></code></pre></div></div><p>Comprobacións en Linux cliente:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a><span class="ex">ip</span> a</span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a><span class="fu">ping</span> <span class="op">&lt;</span>IP_servidor<span class="op">&gt;</span></span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a><span class="ex">nc</span> <span class="at">-vz</span> <span class="op">&lt;</span>IP_servidor<span class="op">&gt;</span> 3389</span></code></pre></div></div><h3 id="problemas-de-autenticación">6.3. Problemas de autenticación</h3><p>Causas habituais:</p><ul class="clean-list">
+<li>Contrasinal incorrecto.</li>
+<li>Usuario sen permisos para escritorio remoto.</li>
+<li>Usuario non pertence ao grupo correcto.</li>
+<li>Conta bloqueada por intentos fallidos previos.</li>
+<li>Políticas de seguridade que impiden o acceso.</li>
+</ul><p>Comprobacións en Windows servidor:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">POWERSHELL</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb7"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>Get-LocalGroupMember <span class="st">"Usuarios de escritorio remoto"</span></span>
+<span id="cb7-2"><a aria-hidden="true" href="#cb7-2" tabindex="-1"></a>Get-NetFirewallRule <span class="op">-</span>DisplayGroup <span class="st">"Escritorio remoto"</span></span></code></pre></div></div><p>Tamén se pode revisar:</p><ul class="clean-list">
+<li><strong>Visor de eventos</strong> (<code>eventvwr</code>).</li>
+<li>Rexistros de seguridade:
+<ul class="clean-list">
+<li>evento 4624: inicio de sesión correcto;</li>
+<li>evento 4625: inicio de sesión fallido.</li>
+</ul></li>
+</ul><p>Comprobacións en Ubuntu con xRDP:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="fu">sudo</span> systemctl status xrdp</span>
+<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a><span class="fu">sudo</span> systemctl status xrdp-sesman</span>
+<span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a><span class="fu">sudo</span> journalctl <span class="at">-u</span> xrdp</span>
+<span id="cb8-4"><a aria-hidden="true" href="#cb8-4" tabindex="-1"></a><span class="fu">sudo</span> journalctl <span class="at">-u</span> xrdp-sesman</span>
+<span id="cb8-5"><a aria-hidden="true" href="#cb8-5" tabindex="-1"></a><span class="fu">sudo</span> tail <span class="at">-f</span> /var/log/xrdp.log</span>
+<span id="cb8-6"><a aria-hidden="true" href="#cb8-6" tabindex="-1"></a><span class="fu">sudo</span> tail <span class="at">-f</span> /var/log/xrdp-sesman.log</span></code></pre></div></div><p>Se existe <code>/var/log/auth.log</code>, tamén pode revisarse:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a><span class="fu">sudo</span> tail <span class="at">-f</span> /var/log/auth.log</span></code></pre></div></div><h3 id="problemas-de-pantalla-negra-en-xrdp">6.4. Problemas de pantalla
+negra en xRDP</h3><p>Causas posibles:</p><ul class="clean-list">
+<li>Incompatibilidade ou conflito co escritorio gráfico.</li>
+<li>Usuario cunha sesión local xa iniciada.</li>
+<li>Configuración incorrecta de <code>.xsession</code>.</li>
+<li>Problemas con <code>xrdp-sesman</code>.</li>
+<li>Servidor gráfico ou contorno de escritorio non axeitado para a
+sesión remota.</li>
+</ul><p>Comprobacións:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a><span class="fu">cat</span> ~/.xsession</span>
+<span id="cb10-2"><a aria-hidden="true" href="#cb10-2" tabindex="-1"></a><span class="fu">sudo</span> systemctl restart xrdp</span>
+<span id="cb10-3"><a aria-hidden="true" href="#cb10-3" tabindex="-1"></a><span class="fu">sudo</span> systemctl status xrdp-sesman</span>
+<span id="cb10-4"><a aria-hidden="true" href="#cb10-4" tabindex="-1"></a><span class="fu">sudo</span> journalctl <span class="at">-u</span> xrdp-sesman</span></code></pre></div></div><p>Solución práctica habitual en laboratorio:</p><div class="code-card"><div class="code-card__header"><span class="code-card__label">BASH</span><button class="copy-btn" type="button">Copiar</button></div><div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a><span class="fu">sudo</span> apt install xfce4 xfce4-goodies</span>
+<span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a><span class="bu">echo</span> xfce4-session <span class="op">&gt;</span> ~/.xsession</span>
+<span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a><span class="fu">sudo</span> systemctl restart xrdp</span></code></pre></div></div><h3 id="rendemento-pobre-e-cortes-de-sesión">6.5. Rendemento pobre e
+cortes de sesión</h3><p>Causas posibles:</p><ul class="clean-list">
+<li>Ancho de banda insuficiente ou conxestionado.</li>
+<li>Calidade gráfica excesiva para o enlace dispoñible.</li>
+<li>Moita resolución ou varios monitores.</li>
+<li>Redirección de audio/vídeo innecesaria.</li>
+<li>Moitos usuarios no mesmo servidor.</li>
+<li>CPU ou RAM insuficiente no servidor.</li>
+</ul><p>Pasos recomendados:</p><ol class="step-list" type="1">
+<li>Axustar parámetros de rendemento no cliente.</li>
+<li>Desactivar efectos visuais innecesarios.</li>
+<li>Desactivar fondo de escritorio e animacións.</li>
+<li>Desactivar redirección de audio se non é necesaria.</li>
+<li>Probar a sesión dende a LAN interna.</li>
+<li>Comprobar consumo de CPU, RAM e rede no servidor.</li>
+</ol></section><section class="content-section"><h2 id="documentación-da-implantación">7. Documentación da
+implantación</h2><p>Non abonda con saber activar e usar o escritorio remoto. Un técnico
+de sistemas debe ser capaz de <strong>documentar</strong> todo o
+proceso, incluíndo incidencias e soporte prestado.</p><h3 id="estrutura-recomendada-da-memoria-técnica">7.1. Estrutura
+recomendada da memoria técnica</h3><p>Unha memoria técnica completa debe incluír:</p><ol class="step-list" type="1">
+<li><strong>Título e introdución</strong>
+<ul class="clean-list">
+<li>Servizo implantado: RDP, xRDP ou ambos.</li>
+<li>Obxectivo da práctica.</li>
+</ul></li>
+<li><strong>Descrición do entorno</strong>
+<ul class="clean-list">
+<li>Equipos ou VMs empregadas.</li>
+<li>Sistemas operativos.</li>
+<li>RAM, disco e configuración básica.</li>
+<li>Esquema de rede.</li>
+<li>Enderezos IP.</li>
+</ul></li>
+<li><strong>Procedemento de implantación</strong>
+<ul class="clean-list">
+<li>Pasos para activar RDP/xRDP.</li>
+<li>Configuración de usuarios.</li>
+<li>Grupos e permisos.</li>
+<li>Firewall e porto empregado.</li>
+</ul></li>
+<li><strong>Configuración dos clientes</strong>
+<ul class="clean-list">
+<li>Programa usado: <code>mstsc</code>, Remmina, FreeRDP.</li>
+<li>Parámetros de conexión.</li>
+<li>Usuario usado na proba.</li>
+</ul></li>
+<li><strong>Probas realizadas</strong>
+<ul class="clean-list">
+<li>Primeira conexión.</li>
+<li>Apertura de aplicacións.</li>
+<li>Creación ou gardado dun ficheiro.</li>
+<li>Proba de desconexión e reconexión.</li>
+<li>Resultado obtido.</li>
+</ul></li>
+<li><strong>Incidencias e resolucións</strong>
+<ul class="clean-list">
+<li>Problema atopado.</li>
+<li>Síntoma observado.</li>
+<li>Diagnóstico.</li>
+<li>Solución aplicada.</li>
+<li>Resultado final.</li>
+</ul></li>
+<li><strong>Asistencia remota</strong>
+<ul class="clean-list">
+<li>Exemplo dunha intervención documentada no formato:
+<ul class="clean-list">
+<li>síntoma;</li>
+<li>diagnóstico;</li>
+<li>solución;</li>
+<li>recomendación ao usuario.</li>
+</ul></li>
+</ul></li>
+<li><strong>Conclusións e melloras propostas</strong>
+<ul class="clean-list">
+<li>Valoración do proceso.</li>
+<li>Melloras que se aplicarían nun entorno real:
+<ul class="clean-list">
+<li>VPN;</li>
+<li>MFA;</li>
+<li>segmentación de rede;</li>
+<li>restrición de IPs;</li>
+<li>revisión de logs;</li>
+<li>control de redireccións.</li>
+</ul></li>
+</ul></li>
+</ol><h3 id="evidencias-mínimas-recomendadas">7.2. Evidencias mínimas
+recomendadas</h3><p>A memoria debería incluír, como mínimo:</p><div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Evidencia</th>
+<th>Que demostra</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Captura da configuración IP do servidor</td>
+<td>Que o servidor ten un enderezo accesible na rede</td>
+</tr>
+<tr class="even">
+<td>Captura de conectividade cliente-servidor</td>
+<td>Que existe comunicación básica entre equipos</td>
+</tr>
+<tr class="odd">
+<td>Captura de RDP activado ou <code>systemctl status xrdp</code></td>
+<td>Que o servizo está activo</td>
+</tr>
+<tr class="even">
+<td>Captura do firewall ou regra configurada</td>
+<td>Que o porto foi permitido só no ámbito necesario</td>
+</tr>
+<tr class="odd">
+<td>Captura do usuario/grupo autorizado</td>
+<td>Que o usuario ten permiso para conectarse</td>
+</tr>
+<tr class="even">
+<td>Captura da conexión remota exitosa</td>
+<td>Que a implantación funciona</td>
+</tr>
+<tr class="odd">
+<td>Captura dunha incidencia real ou simulada</td>
+<td>Que se realizou diagnóstico técnico</td>
+</tr>
+<tr class="even">
+<td>Explicación da solución aplicada</td>
+<td>Que se entende o proceso, non só se copiou unha captura</td>
+</tr>
+<tr class="odd">
+<td>Reflexión de seguridade</td>
+<td>Que se comprende por que non debe exporse 3389 a Internet</td>
+</tr>
+</tbody>
+</table></div></section><section class="content-section"><h2 id="resumo-e-ideas-clave-para-exame">8. Resumo e ideas clave para
+exame</h2><blockquote class="callout callout-key">
+<p>💡 O escritorio remoto é unha ferramenta esencial en administración
+de sistemas, soporte técnico e teletraballo, pero non todas as
+ferramentas de acceso remoto fan o mesmo: RDP/xRDP ofrecen sesión
+gráfica remota, VNC permite control ou visualización de pantalla, e SSH
+administra por terminal.</p>
+</blockquote><blockquote class="callout callout-key">
+<p>💡 RDP é o protocolo máis habitual en contornos Windows. Usa por
+defecto o porto 3389: TCP é a referencia clásica e UDP pode empregarse
+para mellorar rendemento en versións actuais.</p>
+</blockquote><blockquote class="callout callout-key">
+<p>💡 xRDP permite aceptar conexións RDP nun sistema Linux. En Ubuntu
+adoita abrirse o porto 3389/TCP e pode ser recomendable empregar XFCE
+para evitar problemas de sesión gráfica.</p>
+</blockquote><blockquote class="callout callout-key">
+<p>💡 A implantación require tres fases: preparar o entorno, activar o
+servizo e configurar clientes para probar conexións.</p>
+</blockquote><blockquote class="callout callout-key">
+<p>💡 A seguridade é crítica: sistemas actualizados, non expor RDP
+directamente a Internet, usar VPN para acceso externo, contrasinais
+longos e únicos, bloqueo de conta ben configurado, NLA, MFA e revisión
+de rexistros.</p>
+</blockquote><blockquote class="callout callout-key">
+<p>💡 Un técnico de sistemas debe diagnosticar incidencias seguindo unha
+orde lóxica: rede → IP → porto → servizo → firewall → usuario →
+credenciais → rexistros → rendemento.</p>
+</blockquote><blockquote class="callout callout-key">
+<p>💡 Nunha memoria técnica non abonda con capturas. Hai que explicar
+que demostra cada evidencia e como se resolveu cada incidencia.</p>
+</blockquote></section><section class="content-section"><h2 id="preguntas-rápidas-de-repaso">9. Preguntas rápidas de repaso</h2><ol class="step-list" type="1">
+<li>Que equipo actúa como servidor e cal como cliente nunha conexión de
+escritorio remoto?</li>
+<li>Que diferenza hai entre escritorio remoto, asistencia remota e
+administración por SSH?</li>
+<li>Que edicións de Windows poden aceptar conexións RDP entrantes de
+forma nativa?</li>
+<li>Que porto usa RDP por defecto?</li>
+<li>Por que non se debe expoñer RDP directamente a Internet?</li>
+<li>Que función cumpre NLA?</li>
+<li>Por que pode aparecer unha pantalla negra ao usar xRDP con
+GNOME?</li>
+<li>Que vantaxe ten empregar XFCE nun laboratorio con xRDP?</li>
+<li>Que comandos usarías para comprobar se <code>xrdp</code> está
+activo?</li>
+<li>Que evidencias mínimas debería incluír unha memoria técnica desta
+práctica?</li>
+</ol></section></div>
+      </main>
+      <aside class="toc-panel" aria-label="Índice da unidade">
+        <div class="toc-panel__title">Índice <span>UD4</span></div>
+        <nav><ul class="toc-list"><li class="toc-h2"><a href="#texto-de-referencia-completo-corrixido">Texto de referencia
+completo corrixido</a><ul></ul></li><li class="toc-h2"><a href="#introdución-e-contexto-profesional">1. Introdución e contexto
+profesional</a><ul></ul></li><li class="toc-h2"><a href="#arquitectura-cliente-servidor-aplicada-ao-escritorio-remoto">2.
+Arquitectura cliente-servidor aplicada ao escritorio remoto</a><ul><li class="toc-h3"><a href="#modelo-lóxico-cliente-servidor">2.1. Modelo lóxico
+cliente-servidor</a></li><li class="toc-h3"><a href="#fluxo-básico-dunha-sesión">2.2. Fluxo básico dunha sesión</a></li></ul></li><li class="toc-h2"><a href="#tecnoloxías-habituais-de-acceso-remoto">3. Tecnoloxías habituais
+de acceso remoto</a><ul><li class="toc-h3"><a href="#rdp-en-windows">3.1. RDP en Windows</a></li><li class="toc-h3"><a href="#xrdp-en-linux">3.2. xRDP en Linux</a></li></ul></li><li class="toc-h2"><a href="#implantación-de-escritorio-remoto-nun-contorno-de-laboratorio">4.
+Implantación de escritorio remoto nun contorno de laboratorio</a><ul><li class="toc-h3"><a href="#preparación-do-entorno">4.1. Preparación do entorno</a></li><li class="toc-h3"><a href="#activación-de-rdp-en-windows">4.2. Activación de RDP en
+Windows</a></li><li class="toc-h3"><a href="#instalación-e-activación-de-xrdp-en-ubuntu">4.3. Instalación e
+activación de xRDP en Ubuntu</a></li><li class="toc-h3"><a href="#configuración-de-clientes-de-escritorio-remoto">4.4.
+Configuración de clientes de escritorio remoto</a></li></ul></li><li class="toc-h2"><a href="#seguridade-do-escritorio-remoto">5. Seguridade do escritorio
+remoto</a><ul><li class="toc-h3"><a href="#riscos-de-ter-rdp-exposto-a-internet">5.1. Riscos de ter RDP
+exposto a Internet</a></li><li class="toc-h3"><a href="#boas-prácticas-recomendadas">5.2. Boas prácticas
+recomendadas</a></li></ul></li><li class="toc-h2"><a href="#diagnóstico-de-incidencias-en-escritorio-remoto">6. Diagnóstico
+de incidencias en escritorio remoto</a><ul><li class="toc-h3"><a href="#orde-xeral-de-diagnóstico">6.1. Orde xeral de diagnóstico</a></li><li class="toc-h3"><a href="#problemas-de-conectividade">6.2. Problemas de conectividade</a></li><li class="toc-h3"><a href="#problemas-de-autenticación">6.3. Problemas de autenticación</a></li><li class="toc-h3"><a href="#problemas-de-pantalla-negra-en-xrdp">6.4. Problemas de pantalla
+negra en xRDP</a></li><li class="toc-h3"><a href="#rendemento-pobre-e-cortes-de-sesión">6.5. Rendemento pobre e
+cortes de sesión</a></li></ul></li><li class="toc-h2"><a href="#documentación-da-implantación">7. Documentación da
+implantación</a><ul><li class="toc-h3"><a href="#estrutura-recomendada-da-memoria-técnica">7.1. Estrutura
+recomendada da memoria técnica</a></li><li class="toc-h3"><a href="#evidencias-mínimas-recomendadas">7.2. Evidencias mínimas
+recomendadas</a></li></ul></li><li class="toc-h2"><a href="#resumo-e-ideas-clave-para-exame">8. Resumo e ideas clave para
+exame</a><ul></ul></li><li class="toc-h2"><a href="#preguntas-rápidas-de-repaso">9. Preguntas rápidas de repaso</a><ul></ul></li></ul></nav>
+      </aside>
+    </div>
+
+    <div class="footer-note">
+      Material HTML xerado a partir da versión corrixida en Markdown. Mantén o contido íntegro e engade maquetación visual para estudo, aula e consulta técnica.
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const card = button.closest('.code-card');
+        const code = card ? card.querySelector('code') : null;
+        if (!code) return;
+        try {
+          await navigator.clipboard.writeText(code.innerText);
+          const old = button.textContent;
+          button.textContent = 'Copiado';
+          setTimeout(() => button.textContent = old, 1300);
+        } catch (error) {
+          button.textContent = 'Selecciona';
+          setTimeout(() => button.textContent = 'Copiar', 1300);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

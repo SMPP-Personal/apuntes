@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B2 Guión práctico PowerShell · Instalación do dominio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/imso.css">
+
+  <style>
+    .practice-hero {
+      background: linear-gradient(135deg, rgba(13,110,253,0.15) 0%, rgba(124,58,237,0.09) 42%, rgba(14,165,233,0.08) 100%);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .practice-hero::after {
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      right: -82px;
+      top: -88px;
+      background: radial-gradient(circle, rgba(124,58,237,.22), transparent 68%);
+      pointer-events: none;
+    }
+    [data-bs-theme="dark"] .practice-hero {
+      background: linear-gradient(135deg, rgba(13,110,253,0.24) 0%, rgba(124,58,237,0.15) 45%, rgba(14,165,233,0.08) 100%);
+      border-color: rgba(255,255,255,0.10);
+    }
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .35rem .7rem;
+      border-radius: 999px;
+      border: 1px solid var(--bs-border-color);
+      background: var(--bs-tertiary-bg);
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--bs-secondary-color);
+    }
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: .75rem;
+    }
+    .scenario-item {
+      border: 1px solid var(--bs-border-color);
+      border-radius: .85rem;
+      background: var(--bs-body-bg);
+      padding: .85rem;
+      box-shadow: 0 .10rem .45rem rgba(15,23,42,.04);
+    }
+    .scenario-label {
+      display: block;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--bs-secondary-color);
+      font-weight: 800;
+      margin-bottom: .2rem;
+    }
+    .content-card {
+      border: 1px solid var(--bs-border-color);
+      border-radius: 1rem;
+      background: var(--bs-body-bg);
+      box-shadow: 0 .15rem .75rem rgba(15,23,42,.05);
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .content-card .content-card-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: 1rem 1.15rem;
+      border-bottom: 1px solid var(--bs-border-color);
+      background: var(--bs-tertiary-bg);
+    }
+    .content-card .content-card-body { padding: 1.15rem; }
+    .section-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: .75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(13,110,253,.12);
+      color: var(--bs-primary);
+      font-size: 1.15rem;
+    }
+    [data-bs-theme="dark"] .section-icon { background: rgba(13,110,253,.22); }
+    .notice {
+      border-radius: .85rem;
+      padding: .95rem 1rem;
+      border-left: 4px solid var(--bs-primary);
+      background: linear-gradient(135deg, rgba(13,110,253,.11), rgba(13,110,253,.035));
+    }
+    .notice.warning {
+      border-left-color: #f59e0b;
+      background: linear-gradient(135deg, rgba(245,158,11,.13), rgba(245,158,11,.045));
+    }
+    .notice.success {
+      border-left-color: #22c55e;
+      background: linear-gradient(135deg, rgba(34,197,94,.13), rgba(34,197,94,.04));
+    }
+    .notice.danger {
+      border-left-color: #ef4444;
+      background: linear-gradient(135deg, rgba(239,68,68,.12), rgba(239,68,68,.04));
+    }
+    .notice.security {
+      border-left-color: #7c3aed;
+      background: linear-gradient(135deg, rgba(124,58,237,.13), rgba(124,58,237,.04));
+    }
+    .cmd-block {
+      border-radius: .85rem;
+      border: 1px solid rgba(15,23,42,.16);
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: .9rem 1rem;
+      overflow-x: auto;
+      margin: .75rem 0;
+    }
+    .cmd-block code {
+      color: inherit;
+      font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .88rem;
+      white-space: pre;
+    }
+    .text-block { background: #1e293b; }
+    .table td, .table th { vertical-align: middle; }
+    .parameter-table tbody tr td:first-child {
+      font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 700;
+      color: var(--bs-primary);
+      white-space: nowrap;
+    }
+    .evidence-table tbody tr td:first-child {
+      font-weight: 800;
+      color: var(--bs-primary);
+      width: 4.5rem;
+      text-align: center;
+    }
+    .error-table tbody tr td:first-child {
+      border-left: 4px solid #ef4444;
+      font-weight: 700;
+    }
+    .result-card {
+      border: 1px solid var(--bs-border-color);
+      border-radius: .9rem;
+      background: var(--bs-tertiary-bg);
+      height: 100%;
+      padding: .95rem;
+    }
+    .result-card i { color: #22c55e; }
+    .key-card {
+      border: 1px solid var(--bs-border-color);
+      border-radius: .9rem;
+      background: var(--bs-tertiary-bg);
+      height: 100%;
+      padding: 1rem;
+    }
+    .mini-step {
+      border: 1px solid var(--bs-border-color);
+      border-radius: .9rem;
+      padding: 1rem;
+      background: var(--bs-body-bg);
+      height: 100%;
+    }
+    .mini-step h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      display: flex;
+      gap: .45rem;
+      align-items: center;
+      margin-bottom: .65rem;
+    }
+    .toc .nav-link.active, .sidebar .nav-link:hover { color: var(--bs-primary); }
+    @media print {
+      .practice-hero, .content-card, .result-card, .key-card, .mini-step { box-shadow: none !important; }
+      .no-print { display: none !important; }
+      .cmd-block { border: 1px solid #777; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Layout ── -->
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1">
+              <i class="bi bi-list-ul me-1"></i>Índice
+            </h6>
+            <hr class="my-2">
+            <nav id="toc" class="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-punto-partida">0. Punto de partida</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-antes">1. Antes de empezar</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-comprobacion">2. Comprobación inicial</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-ip">3. IP estática</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-nome">4. Nome do equipo</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-roles">5. Roles AD DS/DNS</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-promocion">6. Promoción con PowerShell</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-login">7. Inicio de sesión</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-verificacion">8. Verificación AD</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-dns">9. Verificación DNS</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-mmc">10. MMC opcional</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-dcdiag">11. DCDIAG</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-capturas">12. Capturas</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-resultado">13. Resultado esperado</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-erros">14. Erros frecuentes</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-ideas">15. Ideas clave</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Contido principal ── -->
+    <main class="col-lg-9">
+      <article>
+
+        <!-- Cabeceira -->
+        <header class="practice-hero mb-4">
+          <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+            <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle fw-semibold">UD2 · B2</span>
+            <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle fw-semibold">Guión práctico PowerShell</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis border border-secondary-subtle">Windows Server 2022</span>
+          </div>
+          <h1 class="h2 fw-bold mb-2">Guión práctico 2 – Instalación e creación do dominio usando só PowerShell</h1>
+          <p class="lead mb-3">Creación do dominio <code>cifpsauce.local</code> co primeiro controlador de dominio <code>dcbuho</code>, empregando comandos PowerShell para preparar rede, instalar roles e promover o servidor.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="meta-pill"><i class="bi bi-terminal"></i> Método: PowerShell</span>
+            <span class="meta-pill"><i class="bi bi-diagram-3"></i> Dominio: <code>cifpsauce.local</code></span>
+            <span class="meta-pill"><i class="bi bi-server"></i> DC: <code>dcbuho</code></span>
+            <span class="meta-pill"><i class="bi bi-hdd-network"></i> IP: <code>192.168.50.10/24</code></span>
+            <span class="meta-pill"><i class="bi bi-camera"></i> 8 evidencias</span>
+          </div>
+        </header>
+
+        <!-- 0 Punto de partida -->
+        <section id="sec-punto-partida" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-play-circle"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">0. Punto de partida</h2>
+              <p class="text-muted small mb-0">Situación inicial da máquina virtual.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <p>Nesta práctica vas crear o dominio <strong><code>cifpsauce.local</code></strong> empregando <strong>só PowerShell</strong> para preparar o servidor, instalar os roles necesarios e promover o equipo a controlador de dominio.</p>
+            <p>O resultado final debe ser equivalente ao obtido co guión práctico GUI:</p>
+            <div class="scenario-grid mb-3">
+              <div class="scenario-item"><span class="scenario-label">Dominio</span><code>cifpsauce.local</code></div>
+              <div class="scenario-item"><span class="scenario-label">NetBIOS</span><code>CIFPSAUCE</code></div>
+              <div class="scenario-item"><span class="scenario-label">Primeiro DC</span><code>dcbuho.cifpsauce.local</code></div>
+              <div class="scenario-item"><span class="scenario-label">IP</span><code>192.168.50.10/24</code></div>
+              <div class="scenario-item"><span class="scenario-label">DNS preferido</span><code>192.168.50.10</code></div>
+              <div class="scenario-item"><span class="scenario-label">Roles</span>AD DS e DNS Server</div>
+            </div>
+            <div class="notice danger">
+              <h3 class="h6 fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i>Moi importante</h3>
+              <p class="mb-0">Este guión debe facerse nunha <strong>VM limpa</strong> ou nun <strong>snapshot anterior</strong> á instalación de AD DS. Non intentes crear de novo o bosque <code>cifpsauce.local</code> nun servidor que xa foi promovido a controlador de dominio.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1 Antes -->
+        <section id="sec-antes" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-card-checklist"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">1. Antes de empezar</h2>
+              <p class="text-muted small mb-0">Requisitos previos e snapshot da máquina.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="mini-step">
+                  <h3><i class="bi bi-pc-display"></i>1.1. Requisitos previos</h3>
+                  <ul class="mb-0">
+                    <li>Windows Server 2022 instalado.</li>
+                    <li>Nome provisional de equipo, por exemplo <code>SERVER2022</code>.</li>
+                    <li>Sesión iniciada cunha conta con permisos de administración local.</li>
+                    <li>Acceso a PowerShell como administrador.</li>
+                    <li>Adaptador conectado á rede de laboratorio correspondente.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mini-step">
+                  <h3><i class="bi bi-camera"></i>1.2. Snapshot da máquina</h3>
+                  <ol class="mb-2">
+                    <li>Apaga ou deixa estable a VM, segundo indique o profesorado.</li>
+                    <li>Crea un snapshot ou unha copia da máquina.</li>
+                    <li>Ponlle un nome claro.</li>
+                  </ol>
+<pre class="cmd-block text-block"><code>Antes_ADDS_PowerShell</code></pre>
+                  <p class="small text-muted mb-0">Este snapshot permitirá repetir a práctica se algo falla ou se necesitas volver ao estado inicial.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2 Comprobación inicial -->
+        <section id="sec-comprobacion" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-search"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">2. Comprobación inicial da rede e do equipo</h2>
+              <p class="text-muted small mb-0">Antes de modificar a configuración, revisa o estado actual.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <p>Abre <strong>Windows PowerShell como administrador</strong> e executa:</p>
+<pre class="cmd-block"><code>Get-NetAdapter
+Get-NetIPConfiguration
+hostname</code></pre>
+            <p>Debes anotar:</p>
+            <ul>
+              <li>nome real do adaptador de rede;</li>
+              <li>IP actual, se a ten;</li>
+              <li>gateway, se existe;</li>
+              <li>servidor DNS configurado actualmente;</li>
+              <li>nome actual do equipo.</li>
+            </ul>
+            <div class="notice">
+              <h3 class="h6 fw-bold"><i class="bi bi-lightbulb-fill me-1"></i>Nome do adaptador</h3>
+              <p class="mb-0">Nos exemplos usarase o adaptador <code>Ethernet</code>. Se no teu servidor aparece outro nome, debes substituír <code>Ethernet</code> polo nome real do teu adaptador.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3 IP -->
+        <section id="sec-ip" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-hdd-network"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">3. Configurar IP estática con PowerShell</h2>
+              <p class="text-muted small mb-0">Configuración de rede necesaria para o primeiro DC.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <h3 class="h5 fw-bold">3.1. Identificar o adaptador de rede</h3>
+            <p>Executa:</p>
+<pre class="cmd-block"><code>Get-NetAdapter</code></pre>
+            <p>Localiza o adaptador principal. Normalmente chamarase <code>Ethernet</code>, pero pode ter outro nome dependendo da VM.</p>
+<pre class="cmd-block text-block"><code>Nome do adaptador: ______________________________</code></pre>
+            <h3 class="h5 fw-bold mt-4">3.2. Configurar IP, máscara e gateway</h3>
+            <p>Se o adaptador se chama <code>Ethernet</code>, executa:</p>
+<pre class="cmd-block"><code>New-NetIPAddress `
+  -InterfaceAlias &quot;Ethernet&quot; `
+  -IPAddress &quot;192.168.50.10&quot; `
+  -PrefixLength 24 `
+  -DefaultGateway &quot;192.168.50.1&quot;</code></pre>
+            <div class="table-responsive">
+              <table class="table table-bordered parameter-table align-middle">
+                <thead><tr><th>Parámetro</th><th>Significado</th></tr></thead>
+                <tbody>
+                  <tr><td>-InterfaceAlias</td><td>Nome do adaptador de rede.</td></tr>
+                  <tr><td>-IPAddress</td><td>IP fixa que terá o servidor.</td></tr>
+                  <tr><td>-PrefixLength 24</td><td>Equivale á máscara <code>255.255.255.0</code>.</td></tr>
+                  <tr><td>-DefaultGateway</td><td>Porta de enlace da rede de laboratorio.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notice warning mb-3">
+              <h3 class="h6 fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i>Posible erro</h3>
+              <p class="mb-0">Se o adaptador xa ten unha IP estática ou unha gateway configurada, este comando pode devolver erro. Nesta práctica recoméndase partir dunha VM limpa ou dun snapshot anterior. Se aparece un erro, consulta co profesorado antes de eliminar configuracións de rede.</p>
+            </div>
+            <h3 class="h5 fw-bold mt-4">3.3. Configurar o DNS do servidor</h3>
+            <p>O servidor debe apuntar como DNS preferido á súa propia IP:</p>
+<pre class="cmd-block"><code>Set-DnsClientServerAddress `
+  -InterfaceAlias &quot;Ethernet&quot; `
+  -ServerAddresses &quot;192.168.50.10&quot;</code></pre>
+            <div class="notice">
+              <h3 class="h6 fw-bold"><i class="bi bi-info-circle-fill me-1"></i>Por que se apunta a si mesmo?</h3>
+              <p class="mb-0">Ao finalizar a promoción, este servidor será controlador de dominio e tamén servidor DNS do dominio. Debe resolver a zona interna <code>cifpsauce.local</code>. Non deixes como DNS principal un DNS externo como <code>8.8.8.8</code> nin o router da aula.</p>
+            </div>
+            <h3 class="h5 fw-bold mt-4">3.4. Comprobar a configuración de rede</h3>
+<pre class="cmd-block"><code>Get-NetIPAddress -InterfaceAlias &quot;Ethernet&quot;
+Get-DnsClientServerAddress -InterfaceAlias &quot;Ethernet&quot;
+ipconfig /all</code></pre>
+            <div class="table-responsive">
+              <table class="table table-bordered align-middle">
+                <thead><tr><th>Elemento</th><th>Valor esperado</th></tr></thead>
+                <tbody>
+                  <tr><td>IP</td><td><code>192.168.50.10</code></td></tr>
+                  <tr><td>Máscara</td><td><code>255.255.255.0</code> ou prefixo <code>/24</code></td></tr>
+                  <tr><td>Gateway</td><td><code>192.168.50.1</code>, se existe na rede de laboratorio</td></tr>
+                  <tr><td>DNS preferido</td><td><code>192.168.50.10</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Se hai gateway real na rede de laboratorio, podes probar:</p>
+<pre class="cmd-block"><code>ping 192.168.50.1</code></pre>
+          </div>
+        </section>
+
+        <!-- 4 Nome -->
+        <section id="sec-nome" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-pencil-square"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">4. Cambiar o nome do equipo a <code>dcbuho</code></h2>
+              <p class="text-muted small mb-0">O nome debe quedar aplicado antes da promoción.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <p>Executa PowerShell como administrador:</p>
+<pre class="cmd-block"><code>Rename-Computer -NewName &quot;dcbuho&quot; -Restart</code></pre>
+            <p>O servidor reiniciarase automaticamente. Despois do reinicio, inicia sesión de novo como administrador local e comproba o nome:</p>
+<pre class="cmd-block"><code>hostname</code></pre>
+            <p>O resultado debe ser:</p>
+<pre class="cmd-block text-block"><code>dcbuho</code></pre>
+            <div class="notice warning">
+              <h3 class="h6 fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i>Erro frecuente</h3>
+              <p class="mb-0">Non continúes coa instalación de AD DS se o servidor aínda non se chama <code>dcbuho</code>. Cambiar o nome despois de promover o servidor a controlador de dominio non é unha boa práctica nun laboratorio inicial.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5 Roles -->
+        <section id="sec-roles" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-box-seam"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">5. Instalar os roles AD DS e DNS con PowerShell</h2>
+              <p class="text-muted small mb-0">Instalación dos compoñentes necesarios antes da promoción.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <p>Abre PowerShell como administrador e instala os roles <strong>Active Directory Domain Services</strong> e <strong>DNS Server</strong>, incluíndo as ferramentas de administración:</p>
+<pre class="cmd-block"><code>Install-WindowsFeature AD-Domain-Services, DNS -IncludeManagementTools</code></pre>
+            <p>Ao rematar, revisa o resultado do comando. Debes comprobar que a instalación se completou correctamente.</p>
+            <p>Tamén podes verificar os roles instalados con:</p>
+<pre class="cmd-block"><code>Get-WindowsFeature AD-Domain-Services, DNS</code></pre>
+            <div class="notice">
+              <h3 class="h6 fw-bold"><i class="bi bi-info-circle-fill me-1"></i>Non confundas rol con dominio</h3>
+              <p class="mb-0">Instalar o rol AD DS non crea aínda o dominio. Só prepara o servidor para poder ser promovido posteriormente a controlador de dominio.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6 Promocion -->
+        <section id="sec-promocion" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-diagram-3"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">6. Promover o servidor a controlador de dominio dun novo bosque</h2>
+              <p class="text-muted small mb-0">Creación de <code>cifpsauce.local</code> mediante <code>Install-ADDSForest</code>.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <h3 class="h5 fw-bold">6.1. Importar o módulo de despregamento de AD DS</h3>
+<pre class="cmd-block"><code>Import-Module ADDSDeployment</code></pre>
+            <h3 class="h5 fw-bold mt-4">6.2. Crear o novo bosque <code>cifpsauce.local</code></h3>
+            <p>Executa o seguinte comando:</p>
+<pre class="cmd-block"><code>Install-ADDSForest `
+  -DomainName &quot;cifpsauce.local&quot; `
+  -DomainNetbiosName &quot;CIFPSAUCE&quot; `
+  -SafeModeAdministratorPassword (Read-Host &quot;Introduce o contrasinal DSRM&quot; -AsSecureString) `
+  -InstallDNS `
+  -Force</code></pre>
+            <p>Durante a execución pedirase o contrasinal <strong>DSRM</strong>.</p>
+            <div class="notice security mb-3">
+              <h3 class="h6 fw-bold"><i class="bi bi-shield-lock-fill me-1"></i>Contrasinal DSRM</h3>
+              <p class="mb-0">É o contrasinal do modo de restauración de servizos de directorio. Debe conservarse nun lugar seguro indicado polo profesorado. Non debe escribirse nunha ficha pública nin nun documento compartido sen protección.</p>
+            </div>
+            <h3 class="h5 fw-bold mt-4">6.3. Explicación dos parámetros principais</h3>
+            <div class="table-responsive">
+              <table class="table table-bordered parameter-table align-middle">
+                <thead><tr><th>Parámetro</th><th>Significado</th></tr></thead>
+                <tbody>
+                  <tr><td>-DomainName "cifpsauce.local"</td><td>Nome DNS completo do dominio raíz do novo bosque.</td></tr>
+                  <tr><td>-DomainNetbiosName "CIFPSAUCE"</td><td>Nome NetBIOS curto do dominio.</td></tr>
+                  <tr><td>-SafeModeAdministratorPassword</td><td>Define o contrasinal DSRM.</td></tr>
+                  <tr><td>-InstallDNS</td><td>Configura DNS para o novo dominio.</td></tr>
+                  <tr><td>-Force</td><td>Reduce preguntas interactivas adicionais.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notice mb-3">
+              <h3 class="h6 fw-bold"><i class="bi bi-hdd-network-fill me-1"></i>DNS</h3>
+              <p class="mb-0">Nesta práctica instalamos explicitamente o rol DNS antes da promoción e ademais usamos <code>-InstallDNS</code> durante <code>Install-ADDSForest</code>. Isto garante que o novo bosque queda configurado co DNS necesario para <code>cifpsauce.local</code>.</p>
+            </div>
+            <div class="notice">
+              <h3 class="h6 fw-bold"><i class="bi bi-layers-fill me-1"></i>Nivel funcional</h3>
+              <p class="mb-0">En Windows Server 2022, o nivel funcional máis recente dispoñible segue sendo normalmente <strong>Windows Server 2016</strong>. Ao non indicar parámetros específicos de nivel funcional, deixamos que o cmdlet empregue os valores predeterminados axeitados.</p>
+            </div>
+            <h3 class="h5 fw-bold mt-4">6.4. Reinicio automático</h3>
+            <p class="mb-0">O cmdlet comprobará os requisitos, instalará e configurará AD DS, creará o novo bosque e reiniciará o servidor automaticamente ao rematar.</p>
+          </div>
+        </section>
+
+        <!-- 7 Login -->
+        <section id="sec-login" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-person-check"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">7. Inicio de sesión despois da promoción</h2>
+              <p class="text-muted small mb-0">Primeiro acceso despois de converter o servidor en DC.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <p>Tras o reinicio, inicia sesión xa no dominio. Podes empregar:</p>
+<pre class="cmd-block text-block"><code>CIFPSAUCE\Administrador</code></pre>
+            <p class="mb-0">Tamén podes seleccionar o dominio correspondente na pantalla de inicio de sesión. Comproba que o equipo xa pertence ao dominio <code>cifpsauce.local</code>.</p>
+          </div>
+        </section>
+
+        <!-- 8 Verificacion -->
+        <section id="sec-verificacion" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-clipboard2-check"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">8. Verificación básica con PowerShell</h2>
+              <p class="text-muted small mb-0">Comprobación de dominio, bosque, DC, IP e DNS.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <h3 class="h5 fw-bold">8.1. Verificar dominio e bosque</h3>
+<pre class="cmd-block"><code>Get-ADDomain
+Get-ADForest</code></pre>
+            <p>Debes comprobar que:</p>
+            <ul>
+              <li>o dominio é <code>cifpsauce.local</code>;</li>
+              <li>o bosque ten como dominio raíz <code>cifpsauce.local</code>;</li>
+              <li>o nome NetBIOS é <code>CIFPSAUCE</code>.</li>
+            </ul>
+            <h3 class="h5 fw-bold mt-4">8.2. Verificar que <code>dcbuho</code> é controlador de dominio</h3>
+<pre class="cmd-block"><code>Get-ADDomainController</code></pre>
+            <p>Debe aparecer <code>dcbuho</code> como controlador de dominio do dominio <code>cifpsauce.local</code>.</p>
+            <h3 class="h5 fw-bold mt-4">8.3. Verificar IP e DNS do propio servidor</h3>
+<pre class="cmd-block"><code>Get-NetIPConfiguration
+Get-DnsClientServerAddress -InterfaceAlias &quot;Ethernet&quot;</code></pre>
+            <p>Comproba que o DNS segue apuntando a:</p>
+<pre class="cmd-block text-block"><code>192.168.50.10</code></pre>
+          </div>
+        </section>
+
+        <!-- 9 DNS -->
+        <section id="sec-dns" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-globe2"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">9. Verificación DNS</h2>
+              <p class="text-muted small mb-0">Comprobación de nomes e rexistros necesarios para AD DS.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <h3 class="h5 fw-bold">9.1. Resolver o nome completo do controlador de dominio</h3>
+<pre class="cmd-block"><code>Resolve-DnsName dcbuho.cifpsauce.local
+nslookup dcbuho.cifpsauce.local</code></pre>
+            <p>O resultado debe apuntar á IP:</p>
+<pre class="cmd-block text-block"><code>192.168.50.10</code></pre>
+            <h3 class="h5 fw-bold mt-4">9.2. Resolver o dominio</h3>
+<pre class="cmd-block"><code>Resolve-DnsName cifpsauce.local
+nslookup cifpsauce.local</code></pre>
+            <h3 class="h5 fw-bold mt-4">9.3. Comprobación dos rexistros SRV</h3>
+<pre class="cmd-block"><code>nslookup -type=SRV _ldap._tcp.dc._msdcs.cifpsauce.local</code></pre>
+            <p>Esta comprobación verifica a existencia de rexistros SRV empregados polos clientes para localizar controladores de dominio.</p>
+            <div class="notice">
+              <h3 class="h6 fw-bold"><i class="bi bi-lightbulb-fill me-1"></i>Interpretación inicial</h3>
+              <p class="mb-0">Se esta comprobación resulta difícil de interpretar, non te preocupes: o importante nesta práctica inicial é entender que Active Directory usa DNS non só para nomes simples, senón tamén para localizar servizos internos do dominio.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10 MMC -->
+        <section id="sec-mmc" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-window-sidebar"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">10. Verificación gráfica opcional con MMC</h2>
+              <p class="text-muted small mb-0">Comprobación visual aínda que o guión sexa de PowerShell.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <p>Desde <strong>Server Manager → Tools</strong>, podes abrir:</p>
+            <ul>
+              <li><strong>Active Directory Users and Computers</strong>;</li>
+              <li><strong>DNS</strong>.</li>
+            </ul>
+            <p>Comproba:</p>
+            <ul class="mb-0">
+              <li>que existe o dominio <code>cifpsauce.local</code>;</li>
+              <li>que aparecen os contedores básicos de Active Directory;</li>
+              <li>que existe a zona DNS <code>cifpsauce.local</code>;</li>
+              <li>que hai un rexistro A para <code>dcbuho</code>;</li>
+              <li>que existen contedores como <code>_msdcs</code> e rexistros relacionados con AD DS.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 11 DCDIAG -->
+        <section id="sec-dcdiag" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-activity"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">11. Comprobación avanzada opcional</h2>
+              <p class="text-muted small mb-0">Proba adicional de DNS no controlador de dominio.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <p>Se o profesorado o solicita, executa:</p>
+<pre class="cmd-block"><code>dcdiag /test:dns</code></pre>
+            <div class="notice warning">
+              <h3 class="h6 fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i>Aviso sobre <code>dcdiag</code></h3>
+              <p class="mb-0"><code>dcdiag</code> pode mostrar avisos ou información técnica avanzada. Non todos os avisos implican que a práctica estea mal. O profesorado indicará que resultados deben considerarse correctos neste nivel.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 12 Capturas -->
+        <section id="sec-capturas" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-camera"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">12. Capturas obrigatorias</h2>
+              <p class="text-muted small mb-0">Evidencias que deben aparecer na memoria ou ficha de práctica.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered evidence-table align-middle">
+                <thead><tr><th>Nº</th><th>Evidencia</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>Saída de <code>Get-NetIPConfiguration</code> coa IP <code>192.168.50.10</code>.</td></tr>
+                  <tr><td>2</td><td>Saída de <code>hostname</code> mostrando <code>dcbuho</code>.</td></tr>
+                  <tr><td>3</td><td>Saída de <code>Install-WindowsFeature AD-Domain-Services, DNS -IncludeManagementTools</code>.</td></tr>
+                  <tr><td>4</td><td>Execución de <code>Install-ADDSForest</code> ou pantalla previa ao reinicio.</td></tr>
+                  <tr><td>5</td><td>Saída de <code>Get-ADDomain</code> e <code>Get-ADForest</code>.</td></tr>
+                  <tr><td>6</td><td>Saída de <code>Get-ADDomainController</code>.</td></tr>
+                  <tr><td>7</td><td>Saída de <code>Resolve-DnsName dcbuho.cifpsauce.local</code> ou <code>nslookup dcbuho.cifpsauce.local</code>.</td></tr>
+                  <tr><td>8</td><td>Comprobación dos rexistros SRV ou consola DNS, se o profesorado o solicita.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 13 Resultado -->
+        <section id="sec-resultado" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-check2-circle"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">13. Resultado esperado</h2>
+              <p class="text-muted small mb-0">Estado final correcto da práctica.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered align-middle">
+                <thead><tr><th>Elemento</th><th>Resultado esperado</th></tr></thead>
+                <tbody>
+                  <tr><td>Nome do servidor</td><td><code>dcbuho</code></td></tr>
+                  <tr><td>FQDN do servidor</td><td><code>dcbuho.cifpsauce.local</code></td></tr>
+                  <tr><td>IP do servidor</td><td><code>192.168.50.10/24</code></td></tr>
+                  <tr><td>DNS preferido</td><td><code>192.168.50.10</code></td></tr>
+                  <tr><td>Dominio</td><td><code>cifpsauce.local</code></td></tr>
+                  <tr><td>Nome NetBIOS</td><td><code>CIFPSAUCE</code></td></tr>
+                  <tr><td>Bosque</td><td>Novo bosque co dominio raíz <code>cifpsauce.local</code></td></tr>
+                  <tr><td>Roles instalados</td><td>AD DS e DNS Server</td></tr>
+                  <tr><td>Zona DNS</td><td><code>cifpsauce.local</code></td></tr>
+                  <tr><td>Inicio de sesión</td><td><code>CIFPSAUCE\Administrador</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 14 Erros -->
+        <section id="sec-erros" class="content-card">
+          <div class="content-card-header">
+            <span class="section-icon"><i class="bi bi-bug"></i></span>
+            <div>
+              <h2 class="h4 fw-bold mb-0">14. Erros frecuentes</h2>
+              <p class="text-muted small mb-0">Problemas típicos ao facer a instalación por PowerShell.</p>
+            </div>
+          </div>
+          <div class="content-card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered error-table align-middle">
+                <thead><tr><th>Erro</th><th>Consecuencia</th></tr></thead>
+                <tbody>
+                  <tr><td>Executar PowerShell sen permisos de administrador</td><td>Os comandos de rede, roles ou promoción poden fallar.</td></tr>
+                  <tr><td>Copiar <code>powershell</code> como parte do comando</td><td>O comando non funciona. A palabra <code>powershell</code> indica só a linguaxe do bloque de código.</td></tr>
+                  <tr><td>Non substituír o nome real do adaptador</td><td><code>New-NetIPAddress</code> ou <code>Set-DnsClientServerAddress</code> fallan.</td></tr>
+                  <tr><td>Executar o guión nun servidor xa promovido</td><td>Non se pode crear de novo o mesmo bosque nun DC existente.</td></tr>
+                  <tr><td>Esquecer reiniciar tras <code>Rename-Computer</code></td><td>O cambio de nome non queda aplicado antes da promoción.</td></tr>
+                  <tr><td>Deixar como DNS principal un DNS externo</td><td>O servidor pode non resolver correctamente <code>cifpsauce.local</code>.</td></tr>
+                  <tr><td>Escribir mal <code>cifpsauce.local</code></td><td>Créase un dominio incorrecto ou falla a promoción.</td></tr>
+                  <tr><td>Publicar ou perder o contrasinal DSRM</td><td>Supón un problema de seguridade e recuperación.</td></tr>
+                  <tr><td>Non revisar os rexistros DNS</td><td>Poden quedar problemas de localización do DC sen detectar.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 15 Ideas -->
+        <section id="sec-ideas" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-journal-check"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">15. Ideas clave</h2>
+                <p class="text-muted small mb-0">Resumo conceptual da práctica.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="row g-3">
+                <div class="col-md-6"><div class="key-card"><i class="bi bi-terminal text-primary me-2"></i>Instalar o rol <strong>AD DS</strong> non é o mesmo que crear un dominio.</div></div>
+                <div class="col-md-6"><div class="key-card"><i class="bi bi-terminal text-primary me-2"></i><code>Install-ADDSForest</code> crea un novo bosque e promove o servidor como controlador de dominio.</div></div>
+                <div class="col-md-6"><div class="key-card"><i class="bi bi-terminal text-primary me-2"></i>O primeiro DC debe ter IP fixa e DNS correctamente configurado.</div></div>
+                <div class="col-md-6"><div class="key-card"><i class="bi bi-terminal text-primary me-2"></i>Active Directory depende de DNS para localizar controladores de dominio e servizos internos.</div></div>
+                <div class="col-12"><div class="key-card"><i class="bi bi-terminal text-primary me-2"></i>PowerShell permite repetir, documentar e automatizar a instalación, pero require escribir os comandos con precisión.</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <img src="../../assets/imax/sauce_clean.svg" alt="" class="smpp-sauce" onerror="this.style.display='none'">
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const icon = document.getElementById('theme-icon');
+    const isDark = html.getAttribute('data-bs-theme') === 'dark';
+    html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
+    icon.className = isDark ? 'bi bi-moon-stars' : 'bi bi-sun-fill';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B3 Actividade 4 Perfís móbiles e cartafoles persoais</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#titulo">1. Título</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#obxectivos">2. Obxectivos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#punto-partida">3. Punto de partida</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#conceptos">4. Conceptos previos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#parte-a">5. Recursos compartidos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#parte-b">6. Perfil móbil</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#parte-c">7. Cartafol persoal</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#parte-d">8. Comprobación previa</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#parte-e">9. Proba no cliente</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#parte-f">10. Verificación servidor</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#parte-g">11. Segunda proba</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#capturas">12. Capturas</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#resultado">13. Resultado esperado</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#erros">14. Erros frecuentes</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#reflexion">15. Reflexión</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ideas-chave">16. Ideas clave</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Contido principal ── -->
+    <main class="col-lg-9">
+      <article>
+
+        <!-- Cabeceira -->
+        <header class="mb-4">
+          <div class="practice-hero hero-green">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-diagram-3"></i> UD2 · Bloque 3</span>
+              <span class="hero-chip"><i class="bi bi-person-workspace"></i> Actividade 4</span>
+              <span class="hero-chip"><i class="bi bi-folder-symlink"></i> Perfís e cartafoles</span>
+              <span class="hero-chip"><i class="bi bi-hdd-network"></i> cifpsauce.local</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">Perfís móbiles e cartafoles persoais</h1>
+            <p class="lead mb-0">Configuración de recursos compartidos ocultos, perfil móbil e unidade persoal <code>H:</code> para alumnado do dominio.</p>
+          </div>
+        </header>
+
+        <div class="notice warning mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+          <div>
+            <strong>Nota de laboratorio:</strong> nesta práctica usamos <code>dcbuho</code> tamén como servidor de ficheiros para simplificar. Nun contorno profesional é recomendable separar o controlador de dominio e o servidor de ficheiros.
+          </div>
+        </div>
+
+        <!-- 1. Título -->
+        <section id="titulo" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-flag"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">1. Título</h2>
+                <p class="mb-0 small text-muted">Actividade práctica guiada en dominio Windows.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p class="h5 mb-0"><strong>Actividade 4 – Configuración de perfís móbiles e cartafoles persoais para alumnado en Windows Server 2022</strong></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Obxectivos -->
+        <section id="obxectivos" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-bullseye me-2 text-primary"></i>2. Obxectivos da actividade</h2>
+          <p>Ao rematar a actividade, deberías ser capaz de:</p>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-share me-2 text-primary"></i>Crear un recurso compartido para <strong>perfís móbiles</strong>.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-folder2-open me-2 text-primary"></i>Crear un recurso compartido para <strong>cartafoles persoais</strong>.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-person-gear me-2 text-primary"></i>Configurar o <strong>Profile path</strong> dun usuario de dominio.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-hdd me-2 text-primary"></i>Configurar un <strong>home folder</strong> como unidade de rede <code>H:</code>.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-pc-display me-2 text-primary"></i>Comprobar o funcionamento desde un cliente unido ao dominio.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-signpost-split me-2 text-primary"></i>Diferenciar perfil móbil, cartafol persoal e redirección de cartafoles.</div></div>
+          </div>
+        </section>
+
+        <!-- 3. Punto de partida -->
+        <section id="punto-partida" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-play-circle"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">3. Punto de partida</h2>
+                <p class="mb-0 small text-muted">Estado mínimo antes de iniciar a práctica.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <ul class="check-list mb-3">
+                <li>O dominio <code>cifpsauce.local</code> está instalado e funcionando.</li>
+                <li>O servidor <code>dcbuho.cifpsauce.local</code> funciona como controlador de dominio e servidor DNS.</li>
+                <li>Existe <code>OU=Alumnado</code> → <code>OU=Curso1</code> cos usuarios <code>alu.curso1.001</code> e <code>alu.curso1.002</code>.</li>
+                <li>Existe o grupo global de seguridade <code>GG_Alumnado_Curso1</code>, cos usuarios anteriores como membros.</li>
+                <li>Existe un equipo cliente Windows 10/11 unido ao dominio, por exemplo <code>PC-AULA01</code>.</li>
+                <li>Traballarás en <code>dcbuho</code> cunha conta administrativa do dominio, por exemplo <code>CIFPSAUCE\Administrador</code>.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Conceptos previos -->
+        <section id="conceptos" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-diagram-2 me-2 text-primary"></i>4. Antes de empezar: conceptos que non debes mesturar</h2>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm table-striped align-middle decision-table">
+              <thead><tr><th>Elemento</th><th>Que garda ou para que serve</th><th>Onde se configura</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Perfil móbil</strong></td><td>Parte do contorno do usuario: configuracións, escritorio, datos do perfil, etc.</td><td>Pestana <strong>Profile</strong>, campo <strong>Profile path</strong></td></tr>
+                <tr><td><strong>Cartafol persoal</strong></td><td>Espazo persoal de traballo, normalmente montado como unidade de rede <code>H:</code>.</td><td>Pestana <strong>Profile</strong>, sección <strong>Home folder</strong></td></tr>
+                <tr><td><strong>Redirección de cartafoles</strong></td><td>Fai que carpetas como Documentos ou Escritorio apunten a unha ruta de servidor.</td><td>Normalmente mediante GPO</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="notice info h-100 d-flex gap-2 align-items-start"><i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i><div><strong>Aviso importante:</strong> un perfil móbil non é o mesmo que un cartafol persoal. O perfil móbil afecta ao contorno de sesión; o cartafol persoal é unha localización de almacenamento.</div></div></div>
+            <div class="col-md-6"><div class="notice warning h-100 d-flex gap-2 align-items-start"><i class="bi bi-speedometer2 flex-shrink-0 mt-1"></i><div><strong>Rendemento:</strong> os perfís móbiles poden facer máis lento o inicio e peche de sesión se conteñen moitos ficheiros.</div></div></div>
+          </div>
+        </section>
+
+        <!-- 5. Parte A -->
+        <section id="parte-a" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-share-fill me-2 text-primary"></i>5. Parte A – Preparar os recursos compartidos no servidor <code>dcbuho</code></h2>
+
+          <section id="carpetas" class="mb-4">
+            <div class="task-card">
+              <div class="task-header"><span class="task-number">A.1</span><div><h3 class="h5 fw-bold mb-0">Crear a estrutura de carpetas no servidor</h3><p class="small mb-0">Directorios base para perfís e cartafoles persoais.</p></div></div>
+              <div class="task-body">
+                <p>No servidor <code>dcbuho</code>, crea a seguinte estrutura:</p>
+                <pre><code>C:\DatosDominio\Perfis
+C:\DatosDominio\Usuarios</code></pre>
+                <ul class="list-group list-group-flush checklist-box">
+                  <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Cartafol <code>C:\DatosDominio\Perfis</code> creado.</li>
+                  <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Cartafol <code>C:\DatosDominio\Usuarios</code> creado.</li>
+                </ul>
+                <div class="notice info mt-3 d-flex gap-2 align-items-start"><i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i><div>Se no teu laboratorio xa se está usando outra unidade ou ruta estándar, adapta a ruta segundo indique o profesorado.</div></div>
+              </div>
+            </div>
+          </section>
+
+          <section id="comparticions" class="mb-4">
+            <div class="task-card">
+              <div class="task-header"><span class="task-number">A.2</span><div><h3 class="h5 fw-bold mb-0">Crear recursos compartidos ocultos</h3><p class="small mb-0">Usaremos <code>$</code> para que non aparezan facilmente nos listados de rede.</p></div></div>
+              <div class="task-body">
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle decision-table">
+                    <thead><tr><th>Cartafol local</th><th>Recurso compartido</th><th>Ruta UNC</th><th>Uso</th></tr></thead>
+                    <tbody>
+                      <tr><td><code>C:\DatosDominio\Perfis</code></td><td><code>perfis$</code></td><td><code>\\dcbuho\perfis$</code></td><td>Perfís móbiles</td></tr>
+                      <tr><td><code>C:\DatosDominio\Usuarios</code></td><td><code>usuarios$</code></td><td><code>\\dcbuho\usuarios$</code></td><td>Cartafoles persoais</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h4 class="h6 fw-bold mt-3">Crear o recurso <code>perfis$</code></h4>
+                <ol>
+                  <li>Clic dereito sobre <code>C:\DatosDominio\Perfis</code>.</li>
+                  <li>Entra en <strong>Propiedades</strong>.</li>
+                  <li>Vai á pestana <strong>Compartir</strong>.</li>
+                  <li>Preme en <strong>Uso compartido avanzado</strong> / <strong>Advanced Sharing</strong>.</li>
+                  <li>Marca <strong>Compartir esta carpeta</strong>.</li>
+                  <li>Nome do recurso compartido: <code>perfis$</code>.</li>
+                  <li>Permisos de compartición para laboratorio: <code>GG_Alumnado_Curso1</code> con <strong>Control total</strong>.</li>
+                  <li>Acepta os cambios.</li>
+                </ol>
+                <ul class="list-group list-group-flush checklist-box mb-3">
+                  <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Recurso compartido <code>\\dcbuho\perfis$</code> creado.</li>
+                </ul>
+
+                <h4 class="h6 fw-bold mt-3">Crear o recurso <code>usuarios$</code></h4>
+                <ol>
+                  <li>Clic dereito sobre <code>C:\DatosDominio\Usuarios</code>.</li>
+                  <li>Propiedades → <strong>Compartir</strong> → <strong>Uso compartido avanzado</strong>.</li>
+                  <li>Nome do recurso compartido: <code>usuarios$</code>.</li>
+                  <li>Permisos de compartición para laboratorio: <code>GG_Alumnado_Curso1</code> con <strong>Control total</strong>.</li>
+                  <li>Acepta os cambios.</li>
+                </ol>
+                <ul class="list-group list-group-flush checklist-box mb-3">
+                  <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Recurso compartido <code>\\dcbuho\usuarios$</code> creado.</li>
+                </ul>
+
+                <div class="row g-3">
+                  <div class="col-md-6"><div class="notice warning h-100 d-flex gap-2 align-items-start"><i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i><div><strong>Non confundas permisos de compartición con permisos NTFS.</strong> No acceso por rede actúan os dous.</div></div></div>
+                  <div class="col-md-6"><div class="notice danger h-100 d-flex gap-2 align-items-start"><i class="bi bi-shield-exclamation flex-shrink-0 mt-1"></i><div><strong>Evita usar <code>Everyone</code></strong> como solución por defecto. Usa grupos do dominio e afina con NTFS.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="ntfs" class="mb-4">
+            <div class="task-card">
+              <div class="task-header"><span class="task-number">A.3</span><div><h3 class="h5 fw-bold mb-0">Axustar permisos NTFS básicos</h3><p class="small mb-0">O usuario debe poder crear e usar o seu propio espazo.</p></div></div>
+              <div class="task-body">
+                <p>A configuración exacta de NTFS pode variar segundo o enfoque do profesorado. Como criterio didáctico:</p>
+                <ul class="check-list mb-3">
+                  <li>Evita dar permisos directamente usuario por usuario se podes facelo por grupos.</li>
+                  <li>Evita abrir os permisos a <code>Everyone</code>.</li>
+                  <li>Comproba sempre o acceso cun usuario real de dominio.</li>
+                </ul>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle decision-table">
+                    <thead><tr><th>Cartafol</th><th>Permiso orientativo</th></tr></thead>
+                    <tbody>
+                      <tr><td><code>C:\DatosDominio\Perfis</code></td><td><code>GG_Alumnado_Curso1</code> con permisos suficientes para crear/escribir o seu perfil.</td></tr>
+                      <tr><td><code>C:\DatosDominio\Usuarios</code></td><td><code>GG_Alumnado_Curso1</code> con permisos suficientes para crear/escribir o seu cartafol persoal.</td></tr>
+                      <tr><td>Ambos</td><td><code>Administradores</code> e/ou administradores do dominio con control administrativo.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <ul class="list-group list-group-flush checklist-box">
+                  <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Permisos NTFS revisados en <code>C:\DatosDominio\Perfis</code>.</li>
+                  <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Permisos NTFS revisados en <code>C:\DatosDominio\Usuarios</code>.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- 6. Parte B -->
+        <section id="parte-b" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-person-gear me-2 text-primary"></i>6. Parte B – Configurar o perfil móbil dun usuario</h2>
+          <div class="task-card">
+            <div class="task-header"><span class="task-number">B</span><div><h3 class="h5 fw-bold mb-0">Perfil móbil de <code>alu.curso1.001</code></h3><p class="small mb-0">Configuración do campo <strong>Profile path</strong>.</p></div></div>
+            <div class="task-body">
+              <h4 class="h6 fw-bold">B.1. Abrir as propiedades do usuario</h4>
+              <ol>
+                <li>En <code>dcbuho</code>, abre <strong>Server Manager</strong>.</li>
+                <li>Vai a <strong>Tools → Active Directory Users and Computers</strong>.</li>
+                <li>Navega a <code>cifpsauce.local → Alumnado → Curso1</code>.</li>
+                <li>Clic dereito sobre <code>alu.curso1.001</code>.</li>
+                <li>Preme en <strong>Properties</strong>.</li>
+              </ol>
+              <ul class="list-group list-group-flush checklist-box mb-3">
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Propiedades do usuario <code>alu.curso1.001</code> abertas.</li>
+              </ul>
+              <h4 class="h6 fw-bold">B.2. Definir a ruta do perfil móbil</h4>
+              <ol>
+                <li>Na xanela de propiedades do usuario, vai á pestana <strong>Profile</strong>.</li>
+                <li>No campo <strong>Profile path</strong>, escribe:</li>
+              </ol>
+              <pre><code>\\dcbuho\perfis$\alu.curso1.001</code></pre>
+              <ol start="3">
+                <li>Acepta os cambios.</li>
+              </ol>
+              <ul class="list-group list-group-flush checklist-box mb-3">
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Ruta de perfil móbil configurada como <code>\\dcbuho\perfis$\alu.curso1.001</code>.</li>
+              </ul>
+              <div class="notice info d-flex gap-2 align-items-start"><i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i><div>O cartafol físico <code>C:\DatosDominio\Perfis\alu.curso1.001</code> pode crearse automaticamente no primeiro inicio de sesión se a ruta, DNS, conectividade e permisos son correctos.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Parte C -->
+        <section id="parte-c" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-symlink me-2 text-primary"></i>7. Parte C – Configurar o cartafol persoal <span class="text-muted">(home folder)</span></h2>
+          <div class="task-card">
+            <div class="task-header"><span class="task-number">C</span><div><h3 class="h5 fw-bold mb-0">Unidade persoal <code>H:</code> para <code>alu.curso1.001</code></h3><p class="small mb-0">Configuración da sección <strong>Home folder</strong>.</p></div></div>
+            <div class="task-body">
+              <ol>
+                <li>Na mesma xanela de propiedades do usuario, pestana <strong>Profile</strong>, localiza a sección <strong>Home folder</strong>.</li>
+                <li>Selecciona <strong>Connect</strong>.</li>
+                <li>Escolle a letra de unidade <strong>H:</strong>.</li>
+                <li>No campo de ruta escribe:</li>
+              </ol>
+              <pre><code>\\dcbuho\usuarios$\alu.curso1.001</code></pre>
+              <ol start="5"><li>Acepta os cambios.</li></ol>
+              <ul class="list-group list-group-flush checklist-box mb-3">
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Cartafol persoal configurado como unidade <code>H:</code>.</li>
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Ruta configurada como <code>\\dcbuho\usuarios$\alu.curso1.001</code>.</li>
+              </ul>
+              <div class="notice info d-flex gap-2 align-items-start"><i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i><div>Se o cartafol físico non aparece tras o primeiro inicio de sesión, revisa ruta UNC, DNS, permisos de compartición, permisos NTFS e eventos do cliente.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. Parte D -->
+        <section id="parte-d" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-wifi me-2 text-primary"></i>8. Parte D – Comprobación previa desde o equipo cliente</h2>
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-terminal"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">Comprobar DNS e conectividade antes do inicio de sesión</h3>
+                <p class="mb-0 small text-muted">Se isto falla, non diagnostiques aínda perfís nin permisos.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p>No equipo cliente unido ao dominio, abre CMD ou PowerShell e executa:</p>
+              <pre><code>ping dcbuho.cifpsauce.local
+nslookup dcbuho.cifpsauce.local
+net view \\dcbuho</code></pre>
+              <ul class="list-group list-group-flush checklist-box mb-3">
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>ping dcbuho.cifpsauce.local</code> responde correctamente.</li>
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>nslookup dcbuho.cifpsauce.local</code> resolve a IP correcta do servidor.</li>
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>net view \\dcbuho</code> non falla por resolución de nome.</li>
+              </ul>
+              <div class="notice danger d-flex gap-2 align-items-start"><i class="bi bi-x-octagon-fill flex-shrink-0 mt-1"></i><div>Se estas comprobacións fallan, revisa DNS, conectividade e unión do cliente ao dominio antes de continuar.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9. Parte E -->
+        <section id="parte-e" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-pc-display me-2 text-primary"></i>9. Parte E – Proba desde un equipo cliente</h2>
+
+          <div class="task-card mb-4">
+            <div class="task-header"><span class="task-number">E.1</span><div><h3 class="h5 fw-bold mb-0">Primeiro inicio de sesión con perfil móbil</h3><p class="small mb-0">Inicio de sesión como usuario de dominio.</p></div></div>
+            <div class="task-body">
+              <ol>
+                <li>No equipo cliente, por exemplo <code>PC-AULA01</code>, chega á pantalla de inicio de sesión.</li>
+                <li>Inicia sesión como usuario de dominio:</li>
+              </ol>
+              <pre><code>CIFPSAUCE\alu.curso1.001</code></pre>
+              <p>Ou usando o UPN:</p>
+              <pre><code>alu.curso1.001@cifpsauce.local</code></pre>
+              <ol start="3"><li>Agarda a que cargue a sesión.</li></ol>
+              <ul class="list-group list-group-flush checklist-box mb-3"><li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Inicio de sesión correcto de <code>alu.curso1.001</code> no cliente.</li></ul>
+              <div class="notice info d-flex gap-2 align-items-start"><i class="bi bi-hourglass-split flex-shrink-0 mt-1"></i><div>O primeiro inicio de sesión pode tardar máis porque se crea e sincroniza a estrutura inicial do perfil.</div></div>
+            </div>
+          </div>
+
+          <div class="task-card mb-4">
+            <div class="task-header"><span class="task-number">E.2</span><div><h3 class="h5 fw-bold mb-0">Comprobar a unidade <code>H:</code></h3><p class="small mb-0">Validación do cartafol persoal no cliente.</p></div></div>
+            <div class="task-body">
+              <p>No cliente, abre o <strong>Explorador de ficheiros</strong> e comproba:</p>
+              <ul class="check-list mb-3">
+                <li>aparece unha unidade de rede <code>H:</code>;</li>
+                <li>apunta a <code>\\dcbuho\usuarios$\alu.curso1.001</code>;</li>
+                <li>podes crear un ficheiro de proba, por exemplo <code>proba.txt</code>.</li>
+              </ul>
+              <ul class="list-group list-group-flush checklist-box mb-3">
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Unidade <code>H:</code> visible no equipo cliente.</li>
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Unidade <code>H:</code> apunta á ruta correcta.</li>
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Ficheiro <code>proba.txt</code> creado en <code>H:</code>.</li>
+              </ul>
+              <p>Tamén podes comprobar desde CMD:</p>
+              <pre><code>net use</code></pre>
+              <ul class="list-group list-group-flush checklist-box"><li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> <code>net use</code> mostra a unidade <code>H:</code> conectada.</li></ul>
+            </div>
+          </div>
+
+          <div class="task-card">
+            <div class="task-header"><span class="task-number">E.3</span><div><h3 class="h5 fw-bold mb-0">Pechar sesión para sincronizar o perfil</h3><p class="small mb-0">A sincronización debe comprobarse tras peche de sesión correcto.</p></div></div>
+            <div class="task-body">
+              <ol>
+                <li>Crea unha modificación visible, por exemplo un ficheiro no escritorio chamado <code>perfil-proba.txt</code>.</li>
+                <li>Pecha sesión correctamente.</li>
+                <li>Non apagues a VM de golpe.</li>
+              </ol>
+              <ul class="list-group list-group-flush checklist-box mb-3">
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Ficheiro de proba creado no escritorio.</li>
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Sesión pechada correctamente para permitir sincronización do perfil.</li>
+              </ul>
+              <div class="notice warning d-flex gap-2 align-items-start"><i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i><div>Os cambios do perfil móbil sincronízanse especialmente no peche de sesión. Se apagas ou reinicias de forma brusca, a comprobación pode non ser fiable.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. Parte F -->
+        <section id="parte-f" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-server me-2 text-primary"></i>10. Parte F – Verificación no servidor</h2>
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-folder-check"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">Comprobar cartafoles creados e contido</h3>
+                <p class="mb-0 small text-muted">Validación desde <code>dcbuho</code>.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <ol>
+                <li>Abre <code>C:\DatosDominio\Perfis</code> e comproba se existe <code>C:\DatosDominio\Perfis\alu.curso1.001</code>.</li>
+                <li>Abre <code>C:\DatosDominio\Usuarios</code> e comproba se existe <code>C:\DatosDominio\Usuarios\alu.curso1.001</code>.</li>
+                <li>Comproba que dentro do cartafol persoal aparece o ficheiro <code>proba.txt</code> creado desde o cliente.</li>
+              </ol>
+              <ul class="list-group list-group-flush checklist-box">
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Cartafol de perfil <code>C:\DatosDominio\Perfis\alu.curso1.001</code> existe.</li>
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Cartafol persoal <code>C:\DatosDominio\Usuarios\alu.curso1.001</code> existe.</li>
+                <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> O ficheiro <code>proba.txt</code> aparece no cartafol persoal.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 11. Parte G -->
+        <section id="parte-g" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-pc-display-horizontal"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">11. Parte G – Segunda proba noutro equipo cliente <span class="text-muted">(opcional)</span></h2>
+                <p class="mb-0 small text-muted">Comprobar comportamento noutro equipo unido ao dominio.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <ol>
+                <li>Pecha sesión no primeiro equipo.</li>
+                <li>Inicia sesión como <code>alu.curso1.001</code> no segundo equipo.</li>
+                <li>Comproba se aparece a unidade <code>H:</code>, se o ficheiro <code>proba.txt</code> segue dispoñible e se parte do contorno do usuario se conserva.</li>
+              </ol>
+              <div class="row g-3">
+                <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i>Inicio de sesión correcto no segundo equipo.</div></div>
+                <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i>Unidade <code>H:</code> visible no segundo equipo.</div></div>
+                <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i>Contido do cartafol persoal dispoñible.</div></div>
+                <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i>Comportamento do perfil móbil observado.</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 12. Capturas -->
+        <section id="capturas" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-camera me-2 text-primary"></i>12. Capturas obrigatorias</h2>
+          <div class="content-card">
+            <div class="content-card-body">
+              <ol class="mb-0">
+                <li>Carpetas <code>C:\DatosDominio\Perfis</code> e <code>C:\DatosDominio\Usuarios</code> creadas no servidor.</li>
+                <li>Propiedades de compartición de <code>perfis$</code>.</li>
+                <li>Propiedades de compartición de <code>usuarios$</code>.</li>
+                <li>Propiedades do usuario <code>alu.curso1.001</code>, pestana <strong>Profile</strong>, co campo <strong>Profile path</strong> visible.</li>
+                <li>Propiedades do usuario <code>alu.curso1.001</code>, pestana <strong>Profile</strong>, coa sección <strong>Home folder</strong> e a unidade <code>H:</code> visible.</li>
+                <li>Comprobación desde cliente con <code>ping</code>, <code>nslookup</code> ou <code>net view</code>.</li>
+                <li>Inicio de sesión no cliente como <code>alu.curso1.001</code>.</li>
+                <li>Unidade <code>H:</code> visible no cliente.</li>
+                <li>Ficheiro <code>proba.txt</code> creado en <code>H:</code>.</li>
+                <li>Cartafol de perfil e cartafol persoal visibles no servidor.</li>
+                <li>Se fas a parte opcional, proba no segundo equipo cliente.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- 13. Resultado -->
+        <section id="resultado" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-check2-square"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">13. Resultado esperado</h2>
+                <p class="mb-0 small text-muted">Estado final mínimo da actividade.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="row g-3 mb-3">
+                <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i>Recurso <code>\\dcbuho\perfis$</code>.</div></div>
+                <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i>Recurso <code>\\dcbuho\usuarios$</code>.</div></div>
+                <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i><code>Profile path</code> configurado.</div></div>
+                <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i>Cartafol persoal como unidade <code>H:</code>.</div></div>
+                <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i>Inicio de sesión correcto no cliente.</div></div>
+                <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i>Unidade <code>H:</code> visible e funcional.</div></div>
+              </div>
+              <h4 class="h6 fw-bold">Rutas finais esperadas</h4>
+              <pre class="code-tree"><code>Perfil móbil:
+\\dcbuho\perfis$\alu.curso1.001
+
+Cartafol persoal H:
+\\dcbuho\usuarios$\alu.curso1.001</code></pre>
+              <p class="mb-0">Ademais, deberías comprender a diferenza básica entre <strong>perfil móbil</strong> e <strong>cartafol persoal</strong>.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 14. Erros frecuentes -->
+        <section id="erros" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-bug me-2 text-danger"></i>14. Erros frecuentes</h2>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle error-table">
+              <thead><tr><th>Erro</th><th>Consecuencia</th></tr></thead>
+              <tbody>
+                <tr><td>Escribir mal a ruta UNC</td><td>O perfil ou a unidade <code>H:</code> non cargan.</td></tr>
+                <tr><td>Usar <code>/</code> en vez de <code>\</code></td><td>A ruta non é válida en Windows.</td></tr>
+                <tr><td>Esquecer o <code>$</code> no recurso oculto</td><td>Apuntarás a unha ruta que non existe.</td></tr>
+                <tr><td>Permisos de compartición demasiado restritivos</td><td>O usuario non pode crear ou acceder ao seu cartafol.</td></tr>
+                <tr><td>Permisos NTFS demasiado abertos</td><td>Outros usuarios poderían acceder a datos alleos.</td></tr>
+                <tr><td>Usar <code>Everyone</code> como solución por defecto</td><td>Mala práctica de seguridade.</td></tr>
+                <tr><td>Cliente que non resolve <code>dcbuho</code></td><td>O problema será de DNS/conectividade, non do perfil.</td></tr>
+                <tr><td>Iniciar sesión cun usuario local</td><td>Non se aplican propiedades do usuario de dominio.</td></tr>
+                <tr><td>Non pechar sesión correctamente</td><td>O perfil pode non sincronizarse ben.</td></tr>
+                <tr><td>Gardar ficheiros grandes no escritorio</td><td>O perfil móbil pode tardar moito en cargar e gardar.</td></tr>
+                <tr><td>Confundir perfil móbil con cartafol persoal</td><td>Diagnóstico incorrecto dos problemas.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 15. Reflexión -->
+        <section id="reflexion" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-chat-square-text"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">15. Pequenas cuestións de reflexión</h2>
+                <p class="mb-0 small text-muted">Responde brevemente, en 2 ou 3 liñas por pregunta.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <ol class="mb-0">
+                <li class="mb-2">Que diferenzas hai entre <strong>perfil móbil</strong> e <strong>cartafol persoal</strong>?</li>
+                <li class="mb-2">Que datos ou configuracións poderían perderse se falla o perfil móbil?</li>
+                <li class="mb-2">Que datos poderían perderse se falla o cartafol persoal?</li>
+                <li class="mb-2">Que vantaxes ten para un centro de formación que o alumnado garde traballos nun cartafol persoal de servidor en vez de no disco local do equipo da aula?</li>
+                <li class="mb-2">Que problemas poden aparecer se moitos usuarios teñen perfís móbiles moi grandes?</li>
+                <li>Por que é importante comprobar DNS e conectividade antes de diagnosticar un erro de perfil?</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- 16. Ideas clave -->
+        <section id="ideas-chave" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>16. Ideas clave da actividade</h2>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-person-workspace me-2 text-primary"></i>O <strong>perfil móbil</strong> permite que parte do contorno do usuario viaxe entre equipos.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-folder2-open me-2 text-primary"></i>O <strong>cartafol persoal</strong> é un espazo de traballo propio, normalmente como unidade de rede.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-slash-lg me-2 text-primary"></i>As rutas deben escribirse como <strong>UNC</strong>, por exemplo <code>\\dcbuho\usuarios$\alu.curso1.001</code>.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-eye-slash me-2 text-primary"></i>Os recursos ocultos con <code>$</code> son útiles para carpetas de infraestrutura.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-shield-lock me-2 text-primary"></i>Os permisos de compartición e NTFS deben estar correctamente configurados.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-people me-2 text-primary"></i><code>Everyone</code> non debería usarse como solución por defecto.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-router me-2 text-primary"></i>Antes de culpar ao perfil, comproba DNS, conectividade e inicio de sesión no dominio.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-speedometer2 me-2 text-primary"></i>Os perfís móbiles grandes poden xerar inicios e peches de sesión lentos.</div></div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <svg class="smpp-sauce" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="2" y="8" width="32" height="24" rx="4" fill="#0f172a" stroke="#C9A84C" stroke-width="2"/>
+    <rect x="7" y="13" width="10" height="2" rx="1" fill="#C9A84C"/>
+    <rect x="7" y="18" width="22" height="2" rx="1" fill="#C9A84C" opacity="0.6"/>
+    <rect x="7" y="23" width="16" height="2" rx="1" fill="#C9A84C" opacity="0.4"/>
+    <circle cx="28" cy="13" r="3" fill="#C9A84C"/>
+  </svg>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

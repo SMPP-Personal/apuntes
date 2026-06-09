@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>UD3 · B2 – Práctica globalizadora: auditoría de uso e acceso</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+  <!-- Fonts (Inter + Fira Code) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+  <!-- Estilos propios SMPP / IMSO -->
+  <link href="../../assets/css/smpp.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar SMPP -->
+  <nav class="smpp-navbar no-print">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="smpp-brand" href="#">
+        <img src="../../assets/img/buho-clean.svg"
+             alt="SMPP"
+             class="smpp-buho"
+             onerror="this.style.display='none'">
+        <div class="smpp-brand-text">
+          <span class="smpp-title">SMPP</span>
+          <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+        </div>
+      </a>
+
+      <div class="d-flex align-items-center gap-3">
+        <span class="smpp-module">
+          MP0369 · IMSO 26/27
+        </span>
+
+        <button class="btn btn-outline-light btn-sm"
+                type="button"
+                onclick="toggleTheme()"
+                aria-label="Cambiar tema"
+                title="Cambiar tema">
+          <i class="bi bi-moon-stars" id="theme-icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contido principal -->
+  <div class="container-xl py-4">
+    <div class="row g-4">
+
+      <!-- Índice lateral -->
+      <aside class="col-lg-3 d-none d-lg-block no-print">
+        <div class="sidebar">
+          <div class="card shadow-sm sidebar-panel border">
+            <div class="card-body px-3 py-3">
+              <h6 class="text-uppercase fw-bold mb-1">
+                <i class="bi bi-list-ul me-1"></i> Índice
+              </h6>
+              <hr class="my-2">
+
+              <nav id="toc" class="toc">
+                <ul class="nav flex-column gap-1 small">
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#instrucions">
+                      Instrucións xerais
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#idea-clave">
+                      Idea clave da práctica
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#contexto">
+                      Contexto do suposto
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#tarefa0">
+                      Tarefa 0 – Revisión inicial
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#tarefa1">
+                      Tarefa 1 – Windows: cartafol Contratos
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#tarefa2">
+                      Tarefa 2 – Windows: valoración
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#tarefa3">
+                      Tarefa 3 – Ubuntu: revisión e probas
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#tarefa4">
+                      Tarefa 4 – Ubuntu: valoración
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#tarefa5">
+                      Tarefa 5 – Informe final
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#ficha">
+                      Ficha de resolución
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link py-1" href="#criterios">
+                      Criterios de avaliación
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Columna principal -->
+      <main class="col-lg-9">
+        <article>
+
+          <!-- Hero principal -->
+          <header class="mb-4">
+            <div class="practice-hero hero-purple">
+              <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <span class="hero-chip">
+                  <i class="bi bi-collection"></i>
+                  UD3 · B2 – Auditoría de uso e acceso
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-pc-display"></i>
+                  Windows 11 &amp; Ubuntu
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-diagram-3"></i>
+                  Práctica globalizadora
+                </span>
+              </div>
+
+              <h1 class="h2 fw-bold mb-2">
+                UD3 · B2 – Práctica globalizadora: auditoría de uso e acceso
+              </h1>
+
+              <p class="lead mb-0">
+                Suposto global no que deberás revisar rexistros, configurar auditoría, xerar evidencias
+                de proba e elaborar un informe profesional para a dirección técnica.
+              </p>
+            </div>
+          </header>
+
+          <!-- Instrucións xerais -->
+          <section class="mb-4 section-anchor" id="instrucions">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-info-circle"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Instrucións xerais</h2>
+              </div>
+              <div class="content-card-body">
+                <ul>
+                  <li>
+                    Traballa nas túas propias VMs:
+                    <ul>
+                      <li><strong>Windows 11 local UD1</strong>, sen dominio.</li>
+                      <li><strong>Ubuntu local UD1</strong>, con interface gráfica.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    Non hai pasos totalmente guiados: debes decidir como facer cada parte
+                    apoiándote nos apuntamentos e na prática guiada do B2.
+                  </li>
+                  <li>
+                    Podes consultar os apuntamentos, a práctica guiada e a documentación que teñas dispoñible.
+                  </li>
+                  <li>
+                    Entrega a <strong>ficha de resolución cuberta</strong>, o
+                    <strong>informe final</strong> e as <strong>capturas indicadas</strong>.
+                  </li>
+                  <li>
+                    O importante non é só que funcione, senón que <strong>xustifiques as túas decisións</strong>.
+                  </li>
+                  <li>
+                    Non presentes como incidente real unha proba que xerases ti durante a práctica.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Idea clave -->
+          <section class="mb-5 section-anchor" id="idea-clave">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-lightbulb"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Idea clave da práctica</h2>
+              </div>
+              <div class="content-card-body">
+                <p>Nesta práctica hai dúas fases diferentes:</p>
+                <ol>
+                  <li>
+                    <strong>Revisión inicial</strong>: consultar os rexistros para comprobar se xa existen
+                    eventos ou actividade previa que poida ser relevante.
+                  </li>
+                  <li>
+                    <strong>Probas controladas</strong>: xerar ti mesmo/a eventos de proba para demostrar
+                    que a auditoría funciona.
+                  </li>
+                </ol>
+                <p>
+                  No informe final debes distinguir claramente entre:
+                </p>
+                <ul>
+                  <li>evidencias atopadas antes de facer as probas;</li>
+                  <li>evidencias xeradas por ti durante a simulación;</li>
+                  <li>ausencia de evidencias sospeitosas.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Contexto -->
+          <section class="mb-5 section-anchor" id="contexto">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-building"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Contexto do suposto</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Traballas como técnico/a de sistemas nunha pequena empresa chamada
+                  <strong>Distribucións Sauce, S.L.</strong>
+                </p>
+                <p>A empresa ten dous equipos que debes revisar:</p>
+                <ul>
+                  <li>
+                    <strong>PC-ADMIN</strong>: equipo Windows 11 do responsable de administración.
+                    Nesta práctica será a túa VM Windows.
+                  </li>
+                  <li>
+                    <strong>SRV-SAUCE</strong>: pequeno servidor Ubuntu do departamento de sistemas.
+                    Nesta práctica será a túa VM Ubuntu.
+                  </li>
+                </ul>
+
+                <div class="blockquote-custom mt-3">
+                  <p><em>Correo do responsable de seguridade:</em></p>
+                  <p><em>
+                    Bos días,<br>
+                    Temos dúas situacións que nos preocupan:<br><br>
+                    1. No PC-ADMIN cremos que alguén puido intentar acceder á carpeta "Contratos"
+                    fóra do horario de traballo. Necesitamos saber se hai forma de rexistrar eses accesos e,
+                    se é posible, se xa hai evidencias de algo raro.<br><br>
+                    2. No SRV-SAUCE o administrador anterior deixou varios usuarios creados.
+                    Non sabemos se algún deles estivo activo ultimamente nin se se usou sudo sen autorización.<br><br>
+                    Agradecemos que nos prepares un informe breve co que atopes e co que configures.<br><br>
+                    Grazas,<br>
+                    Dirección técnica – Distribucións Sauce, S.L.
+                  </em></p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tarefa 0 -->
+          <section class="mb-5 section-anchor" id="tarefa0">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-search"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Tarefa 0 – Revisión inicial antes das probas</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Antes de configurar ou simular nada, revisa os rexistros dispoñibles en cada sistema.
+                </p>
+
+                <div class="step-card mb-3">
+                  <div class="step-header">
+                    <span class="task-number">0W</span>
+                    <h3 class="h5 fw-bold mb-0">En Windows 11</h3>
+                  </div>
+                  <div class="step-body">
+                    <p>
+                      Consulta o rexistro de seguridade e anota se ves eventos recentes relacionados con:
+                    </p>
+                    <ul>
+                      <li>inicios de sesión correctos;</li>
+                      <li>inicios de sesión fallidos;</li>
+                      <li>eventos de seguridade que che parezan relevantes.</li>
+                    </ul>
+                    <p class="mb-1"><strong>Resumo inicial Windows:</strong></p>
+                    <div class="answer-lines mt-1"></div>
+                  </div>
+                </div>
+
+                <div class="step-card mb-3">
+                  <div class="step-header">
+                    <span class="task-number">0U</span>
+                    <h3 class="h5 fw-bold mb-0">En Ubuntu</h3>
+                  </div>
+                  <div class="step-body">
+                    <p>
+                      Consulta os rexistros de autenticación e anota se ves eventos recentes relacionados con:
+                    </p>
+                    <ul>
+                      <li>inicios de sesión;</li>
+                      <li>intentos fallidos de autenticación;</li>
+                      <li>uso de <code>sudo</code>;</li>
+                      <li>usuarios locais existentes no sistema.</li>
+                    </ul>
+                    <p class="mb-1"><strong>Resumo inicial Ubuntu:</strong></p>
+                    <div class="answer-lines mt-1"></div>
+                  </div>
+                </div>
+
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+                  <div>
+                    <strong>Na ficha.</strong>
+                    Indica se atopaches algo relevante <strong>antes</strong> de facer as probas controladas.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tarefa 1 -->
+          <section class="mb-5 section-anchor" id="tarefa1">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-folder-lock"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Tarefa 1 – Windows 11: auditoría de acceso ao cartafol Contratos</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Nesta tarefa debes configurar a auditoría de acceso a un cartafol concreto e xerar
+                  evidencias controladas.
+                </p>
+
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">1.1</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Crear o cartafol e configurar políticas
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Crea o seguinte cartafol na VM Windows:
+                        <pre class="cmd-block"><code>C:\Auditoria\Contratos</code></pre>
+                      </li>
+                      <li>
+                        Configura as políticas de auditoría necesarias para que Windows poida rexistrar
+                        os seguintes tipos de sucesos:
+                        <ul>
+                          <li>inicios de sesión correctos;</li>
+                          <li>inicios de sesión fallidos;</li>
+                          <li>acceso a obxectos;</li>
+                          <li>eventos relevantes de seguridade.</li>
+                        </ul>
+                        <p class="mb-0">
+                          Podes apoiarche na práctica guiada do B2 para lembrar que políticas concretas
+                          necesitas.
+                        </p>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">1.2</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Auditoría e permisos no cartafol Contratos
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Configura a auditoría do cartafol <code>C:\Auditoria\Contratos</code> para rexistrar:
+                        <ul>
+                          <li>accesos correctos;</li>
+                          <li>accesos denegados.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        Configura os permisos NTFS necesarios para que:
+                        <ul>
+                          <li>o usuario administrador poida acceder ao cartafol;</li>
+                          <li>
+                            un usuario sen privilexios, por exemplo <code>proba_audit</code>,
+                            teña algún acceso denegado.
+                          </li>
+                        </ul>
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Importante.</strong>
+                        Auditar un cartafol non modifica os permisos. Para xerar unha evidencia de acceso
+                        denegado necesitas configurar a auditoría <strong>e</strong> tamén provocar
+                        unha situación real de acceso denegado mediante permisos NTFS.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="step-card mb-3">
+                  <div class="step-header is-primary">
+                    <span class="task-number">1.3</span>
+                    <h3 class="h5 fw-bold mb-0">
+                      Simulación e busca de evidencias
+                    </h3>
+                  </div>
+                  <div class="step-body">
+                    <ol class="step-list">
+                      <li>
+                        Simula polo menos estas tres situacións:
+                        <ul>
+                          <li>un acceso correcto ao cartafol co usuario administrador;</li>
+                          <li>un intento de acceso denegado desde un usuario sen permisos;</li>
+                          <li>un intento de inicio de sesión fallido no equipo.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        Localiza no <strong>rexistro de seguridade</strong> as evidencias de cada situación
+                        simulada. Algúns IDs de evento que che poden orientar son:
+                        <ul>
+                          <li><strong>4624</strong> – inicio de sesión correcto;</li>
+                          <li><strong>4625</strong> – inicio de sesión fallido;</li>
+                          <li><strong>4663</strong> – intento de acceso a un obxecto;</li>
+                          <li><strong>4656</strong> – solicitude de acceso a un obxecto;</li>
+                          <li><strong>4670</strong> – cambio de permisos sobre un obxecto.</li>
+                        </ul>
+                      </li>
+                    </ol>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-question-circle flex-shrink-0 mt-1"></i>
+                      <div>
+                        Non é obrigatorio que aparezan todos estes eventos. Debes localizar os que
+                        correspondan coa túa configuración e explicar que significa cada un.
+                      </div>
+                    </div>
+
+                    <div class="notice info mt-2 d-flex gap-2 align-items-start">
+                      <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+                      <div>
+                        <strong>Na ficha.</strong>
+                        Para cada evidencia atopada, anota: ID do evento, tipo, data/hora,
+                        usuario e resumo.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Tarefa 2 -->
+          <section class="mb-5 section-anchor" id="tarefa2">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-clipboard-check"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Tarefa 2 – Windows 11: valoración e recomendación</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  A partir do que revisaches, configuraches e simulaches, indica na ficha:
+                </p>
+                <ol>
+                  <li>
+                    Que políticas de auditoría activaches e por que escollestes esas e non outras.
+                  </li>
+                  <li>
+                    Que entrada de auditoría configuraches no cartafol
+                    <code>C:\Auditoria\Contratos</code>.
+                  </li>
+                  <li>
+                    Que permisos NTFS modificaches para provocar o acceso denegado.
+                  </li>
+                  <li>
+                    Se o nivel de auditoría configurado podería ter algún impacto no rendemento
+                    do equipo. Xustifica a resposta.
+                  </li>
+                  <li>
+                    Que recomendarías ao responsable de seguridade para manter este sistema baixo
+                    control a longo prazo.
+                  </li>
+                </ol>
+                <p class="mb-0">
+                  Debes incluír polo menos <strong>dúas recomendacións concretas</strong>.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tarefa 3 -->
+  
+<section class="mb-5 section-anchor" id="tarefa3">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon">
+        <i class="bi bi-terminal"></i>
+      </span>
+      <h2 class="h4 fw-bold mb-0">Tarefa 3 – Ubuntu: revisión de usuarios, autenticación e sudo</h2>
+    </div>
+    <div class="content-card-body">
+      <p>
+        Nesta tarefa debes revisar a actividade do servidor Ubuntu e xerar evidencias
+        controladas de autenticación e uso de privilexios.
+      </p>
+
+      <!-- 3.1 Usuarios locais e logs -->
+      <div class="step-card mb-3">
+        <div class="step-header is-primary">
+          <span class="task-number">3.1</span>
+          <h3 class="h5 fw-bold mb-0">
+            Usuarios locais e logs de autenticación
+          </h3>
+        </div>
+        <div class="step-body">
+
+          <!-- 3.1.1 Usuarios locais -->
+          <div class="mb-4">
+            <p><strong>3.1.1 Revisión de usuarios locais</strong></p>
+
+            <p class="mb-2">
+              Revisa que usuarios locais existen no sistema. Podes empregar métodos como:
+            </p>
+
+            <p class="mb-1">Comando para ver usuarios a través de NSS:</p>
+            <pre class="cmd-block mt-1"><code>getent passwd</code></pre>
+
+            <p class="mb-1">Ou revisar directamente o ficheiro de contas locais:</p>
+            <pre class="cmd-block mt-1"><code>/etc/passwd</code></pre>
+
+            <div class="notice info mt-2 d-flex gap-2 align-items-start">
+              <i class="bi bi-info-circle flex-shrink-0 mt-1"></i>
+              <div>
+                Non tes que analizar todas as contas do sistema unha por unha.
+                Céntrate nos usuarios normais, contas creadas manualmente ou contas
+                que che parezan relevantes.
+              </div>
+            </div>
+          </div>
+
+          <!-- 3.1.2 Logs de autenticación -->
+          <div>
+            <p><strong>3.1.2 Consulta dos logs de autenticación</strong></p>
+
+            <p class="mb-2">
+              Consulta os logs de autenticación da VM Ubuntu e busca evidencias de:
+            </p>
+            <ul class="mb-3">
+              <li>inicios ou aperturas de sesión recentes;</li>
+              <li>intentos fallidos de autenticación;</li>
+              <li>uso de <code>sudo</code> por calquera usuario.</li>
+            </ul>
+
+            <p class="mb-1">Podes comezar vendo as últimas liñas de autenticación:</p>
+            <pre class="cmd-block mt-1"><code>sudo tail -n 50 /var/log/auth.log</code></pre>
+
+            <p class="mb-1 mt-3">Se queres filtrar eventos concretos, podes usar:</p>
+            <pre class="cmd-block mt-1"><code>sudo grep -Ei "sudo|authentication|failure|failed|session|gdm|login" /var/log/auth.log | tail -n 30</code></pre>
+
+            <p class="mb-1 mt-3">
+              Se <code>/var/log/auth.log</code> non mostra a información esperada,
+              podes usar o xornal do sistema:
+            </p>
+            <pre class="cmd-block mt-1"><code>sudo journalctl --since "today" | grep -Ei "sudo|authentication|failure|failed|session|gdm|login" | tail -n 30</code></pre>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3.2 Probas controladas -->
+      <div class="step-card mb-3">
+        <div class="step-header is-primary">
+          <span class="task-number">3.2</span>
+          <h3 class="h5 fw-bold mb-0">
+            Probas controladas en Ubuntu
+          </h3>
+        </div>
+        <div class="step-body">
+
+          <div class="mb-3">
+            <p class="mb-2">
+              Xera polo menos estas situacións para que queden rexistradas:
+            </p>
+            <ul class="mb-2">
+              <li>un intento de inicio de sesión con contrasinal incorrecta;</li>
+              <li>un inicio correcto ou apertura de sesión;</li>
+              <li>dous usos de <code>sudo</code> con comandos distintos.</li>
+            </ul>
+
+            <p class="mb-1">Por exemplo, desde unha sesión válida podes executar:</p>
+            <pre class="cmd-block mt-1"><code>sudo apt update
+sudo ls /root</code></pre>
+          </div>
+
+          <div class="mb-2">
+            <p class="mb-1">
+              Localiza e copia as liñas do log que correspondan ás situacións anteriores,
+              usando os comandos anteriores (<code>tail</code>, <code>grep</code> ou
+              <code>journalctl</code>).
+            </p>
+          </div>
+
+          <div class="notice info mt-2 d-flex gap-2 align-items-start">
+            <i class="bi bi-pencil-square flex-shrink-0 mt-1"></i>
+            <div>
+              <strong>Na ficha.</strong>
+              Para cada liña relevante, indica: que ocorreu, quen interveu, cando ocorreu
+              e desde onde, se aparece. Se é unha sesión local e non aparece IP ou orixe,
+              indícao claramente.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+          <!-- Tarefa 4 -->
+          <section class="mb-5 section-anchor" id="tarefa4">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-journal-check"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Tarefa 4 – Ubuntu: valoración e recomendación</h2>
+              </div>
+              <div class="content-card-body">
+                <p>Indica na ficha:</p>
+                <ol>
+                  <li>Se atopaches actividade sospeitosa ou inusual nos logs.</li>
+                  <li>Se non atopaches actividade sospeitosa, xustifica por que.</li>
+                  <li>Que usuarios locais revisaches ou que criterio empregaches para identificalos.</li>
+                  <li>
+                    Que dous comandos ou métodos usaches para consultar os logs e por que os escollestes.
+                  </li>
+                  <li>
+                    Unha medida concreta que recomendarías para mellorar o control de accesos neste servidor.
+                  </li>
+                </ol>
+
+                <p class="mb-1">Exemplos de medidas recomendables:</p>
+                <ul>
+                  <li>revisar contas locais non empregadas;</li>
+                  <li>limitar o uso de <code>sudo</code>;</li>
+                  <li>revisar periodicamente <code>/var/log/auth.log</code> ou <code>journalctl</code>;</li>
+                  <li>configurar rotación de logs;</li>
+                  <li>empregar autenticación máis segura en accesos remotos;</li>
+                  <li>instalar ferramentas de auditoría avanzada se o contexto o require.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tarefa 5 -->
+          <section class="mb-5 section-anchor" id="tarefa5">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-file-earmark-text"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Tarefa 5 – Informe para a dirección técnica</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Redacta un <strong>informe breve</strong> dirixido á dirección técnica de
+                  Distribucións Sauce, S.L., respondendo ao correo recibido.
+                </p>
+                <p>O informe debe incluír:</p>
+                <ol>
+                  <li>
+                    <strong>Identificación</strong>
+                    <ul>
+                      <li>data;</li>
+                      <li>técnico/a;</li>
+                      <li>sistemas revisados.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Resumo do traballo realizado</strong>
+                    <ul>
+                      <li>que revisaches inicialmente;</li>
+                      <li>que configuraches en Windows;</li>
+                      <li>que consultaches en Ubuntu;</li>
+                      <li>que probas controladas fixeches.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Evidencias atopadas</strong>
+                    <ul>
+                      <li>mínimo 2 evidencias en Windows;</li>
+                      <li>mínimo 2 evidencias en Ubuntu;</li>
+                      <li>indicando se son evidencias previas ou xeradas durante a práctica.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Valoración</strong>
+                    <ul>
+                      <li>hai algo preocupante?</li>
+                      <li>o sistema estaba ben configurado?</li>
+                      <li>a auditoría actual é suficiente, excesiva ou insuficiente?</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Recomendacións</strong>
+                    <ul>
+                      <li>
+                        polo menos tres medidas concretas para mellorar a seguridade e o control de accesos.
+                      </li>
+                    </ul>
+                  </li>
+                </ol>
+
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-info-circle flex-shrink-0 mt-1"></i>
+                  <div>
+                    O informe debe estar escrito de forma profesional, como se fose un documento real
+                    para un cliente. Extensión orientativa: <strong>20–30 liñas</strong>. Non inventes
+                    incidentes: se non atopas actividade sospeitosa real, indícao claramente.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Ficha de resolución -->
+          <section class="mb-5 section-anchor" id="ficha">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-clipboard"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Ficha de resolución – Práctica globalizadora B2</h2>
+              </div>
+              <div class="content-card-body">
+                <p><em>Para entregar cuberta + capturas.</em></p>
+
+                <div class="response-space mb-3">
+                  <p><strong>Nome:</strong></p>
+                  <p><strong>Data:</strong></p>
+                  <p><strong>VM Windows usada:</strong></p>
+                  <p><strong>VM Ubuntu usada:</strong></p>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">Tarefa 0 – Revisión inicial (Windows 11)</h3>
+                <p>Atopaches eventos relevantes antes da simulación?</p>
+                <p>[ ] Si&nbsp;&nbsp;&nbsp;[ ] Non</p>
+                <p>Resumo dos eventos previos atopados, se os hai:</p>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>ID evento</th>
+                        <th>Tipo</th>
+                        <th>Data/hora</th>
+                        <th>Usuario</th>
+                        <th>Resumo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><div class="answer-lines mb-2"></div>
+</td><td><div class="answer-lines mb-2"></div>
+</td><td><div class="answer-lines mb-2"></div>
+</td><td><div class="answer-lines mb-2"></div>
+</td><td><div class="answer-lines mb-2"></div>
+</td>
+                      </tr>
+                      <tr>
+                        <td></td><td></td><td></td><td></td><td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+               
+                  <p>Se non atopaches nada relevante, xustifica brevemente:</p>
+ <div class="answer-lines mb-3">
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">Tarefa 0 – Revisión inicial (Ubuntu)</h3>
+                <p>Atopaches actividade relevante antes da simulación?</p>
+                <p>[ ] Si&nbsp;&nbsp;&nbsp;[ ] Non</p>
+                <p>Resumo das liñas ou eventos previos atopados, se os hai:</p>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Evidencia</th>
+                        <th>Liña de log ou resumo</th>
+                        <th>Explicación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>-</td><td>-</td><td>-</td>
+                      </tr>
+                      <tr>
+                        <td>-</td><td>-</td><td>-</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+                  <p>Usuarios locais revisados ou criterio empregado:</p>
+<div class="answer-lines mb-3">
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">Tarefa 1 – Evidencias de auditoría en Windows</h3>
+                <p><strong>Cartafol creado e ubicación:</strong></p>
+                <pre class="cmd-block"><code>C:\Auditoria\Contratos</code></pre>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Evidencia</th>
+                        <th>ID evento</th>
+                        <th>Tipo</th>
+                        <th>Data/hora</th>
+                        <th>Usuario</th>
+                        <th>Resumo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Acceso correcto ao cartafol</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>Acceso denegado ao cartafol</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>Inicio de sesión fallido</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p>Indica se estas evidencias son:</p>
+                <p>[ ] Previas á práctica&nbsp;&nbsp;&nbsp;[ ] Xeradas durante a proba controlada</p>
+
+                <h3 class="h6 fw-bold mt-3">Tarefa 2 – Valoración Windows</h3>
+
+<p class="mb-1"><strong>Políticas activadas e xustificación:</strong></p>
+<div class="answer-lines mb-2"></div>
+
+<p class="mb-1"><strong>Auditoría configurada no cartafol Contratos:</strong></p>
+<div class="answer-lines mb-2"></div>
+
+<p class="mb-1"><strong>Permisos NTFS modificados:</strong></p>
+<div class="answer-lines mb-2"></div>
+
+<p class="mb-1"><strong>Impacto no rendemento / tamaño do rexistro:</strong></p>
+<div class="answer-lines mb-3"></div>
+                <div class="response-space mb-3">
+                  <p><strong>Recomendacións para Windows:</strong></p>
+                  <p>1.</p>
+                  <p>2.</p>
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">Tarefa 3 – Evidencias de auditoría en Ubuntu</h3>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Evidencia</th>
+                        <th>Liña de log ou saída consultada</th>
+                        <th>Explicación</th>
+                        <th>Orixe/IP, se aparece</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Intento de autenticación fallido</td>
+                        <td></td><td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>Inicio correcto ou apertura de sesión</td>
+                        <td></td><td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>Uso de sudo, comando 1</td>
+                        <td></td><td></td><td></td>
+                      </tr>
+                      <tr>
+                        <td>Uso de sudo, comando 2</td>
+                        <td></td><td></td><td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p>Indica se estas evidencias son:</p>
+                <p>[ ] Previas á práctica&nbsp;&nbsp;&nbsp;[ ] Xeradas durante a proba controlada</p>
+
+                <h3 class="h6 fw-bold mt-3">Tarefa 4 – Valoración Ubuntu</h3>
+                <p>Actividade sospeitosa ou inusual atopada?</p>
+                <p>[ ] Si&nbsp;&nbsp;&nbsp;[ ] Non</p>
+ <p><strong>Xustificación:</strong></p>
+                <div class="answer-lines mb-2">
+                 
+                </div>
+                <div>
+                  <p><strong>Usuarios locais revisados / criterio empregado:</strong></p>
+                </div>
+<div class="answer-lines mb-2"></div>
+                <div class="response-space mb-1">
+                  <p><strong>Comandos ou métodos usados para consultar logs:</strong></p>
+                  <p>1.</p>
+                  <p>2.</p>
+                  <p><strong>Xustificación da elección:</strong></p>
+<div class="answer-lines mb-2"></div>
+
+                </div>
+  <p><strong>Medida de mellora recomendada:</strong></p>
+                <div class="answer-lines mb-3">
+                
+                </div>
+
+                <h3 class="h6 fw-bold mt-3">Tarefa 5 – Informe para a dirección técnica</h3>
+                <p><em>(Podes escribilo aquí ou adxuntalo como documento separado.)</em></p>
+               
+                  <p><strong>Identificación:</strong></p>
+ <div class="response-lines mb-3">
+                </div>
+                  <p><strong>Resumo do traballo realizado:</strong></p>
+ <div class="response-lines mb-3">
+                </div>
+                  <p><strong>Evidencias atopadas:</strong></p>
+ <div class="response-lines mb-3">
+                </div>
+                  <p><strong>Valoración:</strong></p>
+ <div class="response-lines mb-3">
+                </div>
+                  <p><strong>Recomendacións:</strong></p>
+ <div class="response-lines mb-3">
+                </div>
+
+
+                <h3 class="h6 fw-bold mt-3">Entrega obrigatoria</h3>
+                <ul class="check-list list-group list-group-flush mb-3">
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Ficha de resolución cuberta.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Informe final.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Mínimo 3 evidencias Windows.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Mínimo 4 evidencias Ubuntu.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Capturas asociadas ás evidencias.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Distinción clara entre evidencias previas e evidencias xeradas durante a práctica.
+                  </li>
+                </ul>
+
+                <h3 class="h6 fw-bold mt-3">Capturas entregadas</h3>
+                <ul class="check-list list-group list-group-flush mb-3">
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Políticas de auditoría activadas en Windows.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Propiedades de auditoría do cartafol C:\Auditoria\Contratos.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Permisos NTFS configurados para provocar o acceso denegado.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Eventos relevantes no Visor de eventos, mínimo 3.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Terminal Ubuntu con liñas relevantes de /var/log/auth.log ou journalctl.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Terminal Ubuntu con liñas de uso de sudo.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Evidencia da revisión de usuarios locais en Ubuntu.
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Criterios -->
+          <section class="mb-5 section-anchor" id="criterios">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon">
+                  <i class="bi bi-check2-square"></i>
+                </span>
+                <h2 class="h4 fw-bold mb-0">Criterios de avaliación</h2>
+              </div>
+              <div class="content-card-body">
+                <div class="table-responsive my-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Aspecto</th>
+                        <th style="text-align:right;">Peso</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Configuración correcta da auditoría en Windows: políticas, cartafol e permisos NTFS</td>
+                        <td style="text-align:right;">25%</td>
+                      </tr>
+                      <tr>
+                        <td>Localización e descrición correcta dos eventos Windows</td>
+                        <td style="text-align:right;">20%</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Localización e descrición correcta dos logs Ubuntu,
+                          incluíndo autenticación e sudo
+                        </td>
+                        <td style="text-align:right;">20%</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Valoración e recomendacións xustificadas en Windows e Ubuntu
+                        </td>
+                        <td style="text-align:right;">15%</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Calidade, claridade e profesionalidade do informe final
+                        </td>
+                        <td style="text-align:right;">20%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-info-circle flex-shrink-0 mt-1"></i>
+                  <div>
+                    <strong>Mínimo para superar a práctica.</strong>
+                    Evidencias reais nas dúas plataformas, ficha cuberta, informe final completo
+                    e diferenciación clara entre revisión inicial e probas controladas.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <!-- Pé de páxina SMPP -->
+  <footer class="smpp-footer no-print">
+    <div class="smpp-footer-spacer"></div>
+    <div class="smpp-footer-center">
+      <span>CIFP A Carballeira · Ourense</span>
+      <span>Administración de Sistemas Informáticos · Curso 26/27</span>
+      <span>Material didáctico de uso interno</span>
+    </div>
+    <img src="../../assets/img/sauce-clean.svg"
+         alt=""
+         class="smpp-sauce"
+         onerror="this.style.display='none'">
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS común SMPP / IMSO -->
+  <script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

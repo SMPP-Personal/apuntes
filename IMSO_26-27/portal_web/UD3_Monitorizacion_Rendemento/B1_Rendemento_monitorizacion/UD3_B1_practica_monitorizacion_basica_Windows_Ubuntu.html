@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   UD3 &ndash; Bloque 1. Pr&aacute;ctica guiada: monitorizaci&oacute;n b&aacute;sica en Windows e Ubuntu
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Fira+Code&amp;display=swap" rel="stylesheet"/>
+  <link href="../../assets/css/smpp.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <nav class="smpp-navbar no-print">
+   <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+     <img alt="SMPP" class="smpp-buho" onerror="this.style.display='none'" src="../../assets/imax/buho_clean.svg"/>
+     <div class="smpp-brand-text">
+      <span class="smpp-title">
+       SMPP
+      </span>
+      <span class="smpp-subtitle">
+       Sistemas &amp; Programaci&oacute;n
+      </span>
+     </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+     <span class="smpp-module">
+      MP0369 &middot; IMSO 26/27
+     </span>
+     <button aria-label="Cambiar tema" class="btn btn-outline-light btn-sm" onclick="toggleTheme()">
+      <i class="bi bi-moon-stars" id="theme-icon">
+      </i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <div class="container-xl py-4">
+   <div class="row g-4">
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+     <div class="sidebar">
+      <div class="card shadow-sm sidebar-panel border">
+       <div class="card-body px-3 py-3">
+        <h6 class="text-uppercase fw-bold mb-1">
+         <i class="bi bi-list-ul me-1">
+         </i>
+         &Iacute;ndice
+        </h6>
+        <hr class="my-2"/>
+        <nav id="toc">
+         <ul class="nav flex-column gap-1 small">
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#1-finalidade-da-practica">
+            1. Finalidade da pr&aacute;ctica
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#2-relacion-coa-ud3">
+            2. Relaci&oacute;n coa UD3
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#3-requisitos-previos">
+            3. Requisitos previos
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#4-normas-de-traballo">
+            4. Normas de traballo
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#5-ficha-de-entrega">
+            5. Ficha de entrega
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#parte-a-monitorizacion-basica-en-windows">
+            Parte A &ndash; Monitorizaci&oacute;n b&aacute;sica en Windows
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#parte-b-monitorizacion-basica-en-ubuntu">
+            Parte B &ndash; Monitorizaci&oacute;n b&aacute;sica en Ubuntu
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#parte-c-comparacion-windows-ubuntu">
+            Parte C &ndash; Comparaci&oacute;n Windows / Ubuntu
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#parte-d-informe-final-da-practica">
+            Parte D &ndash; Informe final da pr&aacute;ctica
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#criterios-de-correccion-orientativos">
+            Criterios de correcci&oacute;n orientativos
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#erros-frecuentes-que-debes-evitar">
+            Erros frecuentes que debes evitar
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#ideas-clave-da-practica">
+            Ideas clave da pr&aacute;ctica
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+    </aside>
+    <main class="col-lg-9">
+     <article>
+      <header class="mb-4">
+       <div class="practice-hero hero-green">
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+         <span class="hero-chip">
+          <i class="bi bi-speedometer2">
+          </i>
+          UD3 &middot; Bloque 1
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-pc-display">
+          </i>
+          Windows
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-terminal">
+          </i>
+          Ubuntu
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-clipboard-check">
+          </i>
+          Pr&aacute;ctica guiada
+         </span>
+        </div>
+        <h1 class="h2 fw-bold mb-2">
+         UD3 &ndash; Bloque 1. Pr&aacute;ctica guiada: monitorizaci&oacute;n b&aacute;sica en Windows e Ubuntu
+        </h1>
+        <p class="lead mb-0">
+         Actividade para observar recursos, recoller evidencias e comparar ferramentas b&aacute;sicas de monitorizaci&oacute;n en Windows e Ubuntu.
+        </p>
+       </div>
+      </header>
+      <div class="notice info mb-4 d-flex gap-2 align-items-start">
+       <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+       </i>
+       <div>
+        <strong>
+         Idea central:
+        </strong>
+        nesta pr&aacute;ctica non se busca resolver unha incidencia complexa, sen&oacute;n aprender a localizar datos, interpretar m&eacute;tricas b&aacute;sicas e xustificar unha conclusi&oacute;n t&eacute;cnica breve.
+       </div>
+      </div>
+      <div class="row g-3 mb-4">
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-windows text-primary">
+          </i>
+          <strong>
+           Windows
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Administrador de tarefas, Monitor de recursos e Visor de eventos.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-terminal text-primary">
+          </i>
+          <strong>
+           Ubuntu
+          </strong>
+         </div>
+         <p class="small mb-0">
+          `top`, `free -h`, `df -h`, `lsblk`, `ip a` e `journalctl`.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-camera text-primary">
+          </i>
+          <strong>
+           Evidencias
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Capturas, sa&iacute;das de comandos e datos propios do equipo.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-clipboard-data text-primary">
+          </i>
+          <strong>
+           Conclusi&oacute;n
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Interpretaci&oacute;n breve baseada nos datos observados.
+         </p>
+        </div>
+       </div>
+      </div>
+      <section class="mb-5 section-anchor" id="1-finalidade-da-practica">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-bullseye">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          1. Finalidade da pr&aacute;ctica
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Nesta pr&aacute;ctica vas aprender a utilizar ferramentas b&aacute;sicas de monitorizaci&oacute;n en
+          <strong>
+           Windows
+          </strong>
+          e
+          <strong>
+           Ubuntu
+          </strong>
+          para observar o estado dun sistema operativo.
+         </p>
+         <p>
+          O obxectivo non &eacute; resolver unha incidencia complexa, sen&oacute;n aprender a:
+         </p>
+         <ul class="mb-3">
+          <li>
+           localizar informaci&oacute;n relevante sobre CPU, memoria, disco, rede, procesos e servizos;
+          </li>
+          <li>
+           recoller evidencias t&eacute;cnicas;
+          </li>
+          <li>
+           interpretar datos b&aacute;sicos sen sacar conclusi&oacute;ns precipitadas;
+          </li>
+          <li>
+           comparar ferramentas equivalentes en Windows e Ubuntu;
+          </li>
+          <li>
+           expresar unha conclusi&oacute;n t&eacute;cnica breve baseada nos datos observados.
+          </li>
+         </ul>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+          </i>
+          <div>
+           <p>
+            <strong>
+             Idea clave:
+            </strong>
+            monitorizar non &eacute; s&oacute; abrir unha ferramenta e facer unha captura. Hai que explicar que dato se observa, que significa e que relaci&oacute;n poder&iacute;a ter cun posible problema de rendemento.
+           </p>
+          </div>
+         </div>
+         <hr>
+         </hr>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="2-relacion-coa-ud3">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-diagram-3">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          2. Relaci&oacute;n coa UD3
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Esta pr&aacute;ctica est&aacute; vinculada ao Bloque 1 da UD3:
+          <strong>
+           Rendemento e monitorizaci&oacute;n
+          </strong>
+          .
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Elemento
+             </th>
+             <th>
+              Relaci&oacute;n coa pr&aacute;ctica
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              RA principal
+             </td>
+             <td>
+              Detectar problemas de rendemento monitorizando o sistema.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              CA traballados
+             </td>
+             <td>
+              Identificaci&oacute;n de obxectos monitorizables, uso de ferramentas de monitorizaci&oacute;n en tempo real e consulta b&aacute;sica de rexistros.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Sistemas empregados
+             </td>
+             <td>
+              Windows e Ubuntu.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Tipo de actividade
+             </td>
+             <td>
+              Pr&aacute;ctica guiada con recollida de evidencias.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Produto final
+             </td>
+             <td>
+              Ficha t&eacute;cnica cuberta con capturas, sa&iacute;das de comandos e interpretaci&oacute;ns breves.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="3-requisitos-previos">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-pc-display">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          3. Requisitos previos
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Antes de comezar debes ter dispo&ntilde;ible:
+         </p>
+         <ul class="mb-3">
+          <li>
+           unha m&aacute;quina Windows;
+          </li>
+          <li>
+           unha m&aacute;quina Ubuntu, preferiblemente virtualizada;
+          </li>
+          <li>
+           permisos suficientes para abrir ferramentas do sistema;
+          </li>
+          <li>
+           terminal en Ubuntu;
+          </li>
+          <li>
+           acceso ao Administrador de tarefas, Monitor de recursos e Visor de eventos en Windows;
+          </li>
+          <li>
+           co&ntilde;ecementos b&aacute;sicos de comandos Linux.
+          </li>
+         </ul>
+         <p>
+          Non &eacute; necesario modificar configuraci&oacute;ns cr&iacute;ticas do sistema.
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="4-normas-de-traballo">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-shield-check">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          4. Normas de traballo
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Durante a pr&aacute;ctica debes seguir estas regras:
+         </p>
+         <ol class="mb-3">
+          <li>
+           Non peches procesos nin servizos se a profesora non o indica.
+          </li>
+          <li>
+           Non modifiques rexistros, permisos nin configuraci&oacute;ns avanzadas.
+          </li>
+          <li>
+           Non borres ficheiros de sistema.
+          </li>
+          <li>
+           Non copies respostas xen&eacute;ricas: cada dato debe corresponder ao teu equipo ou VM.
+          </li>
+          <li>
+           Cada captura ou sa&iacute;da debe ir acompa&ntilde;ada dunha explicaci&oacute;n.
+          </li>
+          <li>
+           Se un comando non funciona, ind&iacute;cao claramente e explica que erro aparece.
+          </li>
+         </ol>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="5-ficha-de-entrega">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-clipboard-check">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          5. Ficha de entrega
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Entrega unha ficha seguindo esta estrutura:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Apartado
+             </th>
+             <th>
+              Evidencia obrigatoria
+             </th>
+             <th>
+              Interpretaci&oacute;n obrigatoria
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Windows &ndash; Procesos
+             </td>
+             <td>
+              Captura do Administrador de tarefas
+             </td>
+             <td>
+              Que proceso destaca e por que.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Windows &ndash; Rendemento
+             </td>
+             <td>
+              Captura de CPU, memoria, disco ou rede
+             </td>
+             <td>
+              Que recurso parece m&aacute;is activo.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Windows &ndash; Monitor de recursos
+             </td>
+             <td>
+              Captura dalgunha lapela relevante
+             </td>
+             <td>
+              Que proceso usa m&aacute;is disco, CPU ou rede.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Windows &ndash; Eventos
+             </td>
+             <td>
+              Captura dun evento recente
+             </td>
+             <td>
+              Tipo de evento e posible significado.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ubuntu &ndash; Procesos
+             </td>
+             <td>
+              Sa&iacute;da de
+              <code>
+               top
+              </code>
+              ,
+              <code>
+               htop
+              </code>
+              ou
+              <code>
+               ps
+              </code>
+             </td>
+             <td>
+              Que proceso destaca.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ubuntu &ndash; Memoria
+             </td>
+             <td>
+              Sa&iacute;da de
+              <code>
+               free -h
+              </code>
+             </td>
+             <td>
+              Estado xeral da memoria e swap.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ubuntu &ndash; Disco
+             </td>
+             <td>
+              Sa&iacute;da de
+              <code>
+               df -h
+              </code>
+              e/ou
+              <code>
+               lsblk
+              </code>
+             </td>
+             <td>
+              Espazo dispo&ntilde;ible e estrutura de disco.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ubuntu &ndash; Logs
+             </td>
+             <td>
+              Sa&iacute;da de
+              <code>
+               journalctl
+              </code>
+             </td>
+             <td>
+              Se aparecen avisos ou erros relevantes.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Comparaci&oacute;n final
+             </td>
+             <td>
+              T&aacute;boa Windows/Ubuntu
+             </td>
+             <td>
+              Ferramentas equivalentes e conclusi&oacute;n.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="parte-a-monitorizacion-basica-en-windows">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-windows">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          Parte A &ndash; Monitorizaci&oacute;n b&aacute;sica en Windows
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            A1
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-windows me-2">
+            </i>
+            A1. Administrador de tarefas
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Abre o
+            <strong>
+             Administrador de tarefas
+            </strong>
+            .
+           </p>
+           <p>
+            Podes facelo con algunha destas opci&oacute;ns:
+           </p>
+           <pre class="cmd-block"><code class="language-text">Ctrl + Shift + Esc
+</code></pre>
+           <p>
+            ou:
+           </p>
+           <pre class="cmd-block"><code class="language-text">Bot&oacute;n dereito na barra de tarefas &rarr; Administrador de tarefas
+</code></pre>
+           <p>
+            Tam&eacute;n podes buscalo no men&uacute; Inicio.
+           </p>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Tarefa A1.1. Procesos
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Na lapela
+            <strong>
+             Procesos
+            </strong>
+            , observa os procesos activos.
+           </p>
+           <p>
+            Anota:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Dato
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Proceso que m&aacute;is CPU consume neste momento
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Porcentaxe aproximada de CPU dese proceso
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Proceso que m&aacute;is memoria consume neste momento
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Cantidade aproximada de memoria dese proceso
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ese proceso reco&ntilde;&eacute;cese como aplicaci&oacute;n, servizo ou proceso do sistema?
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Preguntas de interpretaci&oacute;n
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Responde con frases breves:
+           </p>
+           <ol class="mb-3">
+            <li>
+             O proceso que m&aacute;is CPU consume mant&eacute;n ese consumo durante varios segundos ou &eacute; s&oacute; un pico puntual?
+            </li>
+            <li>
+             O proceso que m&aacute;is memoria consume corresponde a unha aplicaci&oacute;n aberta por ti?
+            </li>
+            <li>
+             Hai alg&uacute;n proceso que non reco&ntilde;ezas? Que far&iacute;as antes de pechalo?
+            </li>
+            <li>
+             P&oacute;dese afirmar que hai un problema s&oacute; mirando esta pantalla? Xustifica a resposta.
+            </li>
+           </ol>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e unha captura da lapela
+            <strong>
+             Procesos
+            </strong>
+            onde se vexan os datos observados.
+           </p>
+           <hr/>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            A2
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-windows me-2">
+            </i>
+            A2. Lapela Rendemento
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Na lapela
+            <strong>
+             Rendemento
+            </strong>
+            , revisa polo menos estes recursos:
+           </p>
+           <ul class="mb-3">
+            <li>
+             CPU;
+            </li>
+            <li>
+             memoria;
+            </li>
+            <li>
+             disco;
+            </li>
+            <li>
+             rede.
+            </li>
+           </ul>
+           <p>
+            Completa a t&aacute;boa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Recurso
+               </th>
+               <th style="text-align:right">
+                Valor observado
+               </th>
+               <th>
+                Comentario breve
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                CPU
+               </td>
+               <td style="text-align:right">
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Memoria
+               </td>
+               <td style="text-align:right">
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Disco
+               </td>
+               <td style="text-align:right">
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Rede
+               </td>
+               <td style="text-align:right">
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Preguntas de interpretaci&oacute;n
+           </h3>
+          </div>
+          <div class="step-body">
+           <ol class="mb-3">
+            <li>
+             Que recurso parece m&aacute;is activo no momento da observaci&oacute;n?
+            </li>
+            <li>
+             Alg&uacute;n recurso aparece preto do 100 %?
+            </li>
+            <li>
+             Ese valor alto &eacute; puntual ou se mant&eacute;n durante un tempo?
+            </li>
+            <li>
+             Que ferramenta usar&iacute;as para ver con m&aacute;is detalle que proceso est&aacute; usando ese recurso?
+            </li>
+           </ol>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e unha captura da lapela
+            <strong>
+             Rendemento
+            </strong>
+            .
+           </p>
+           <hr/>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            A3
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-windows me-2">
+            </i>
+            A3. Monitor de recursos
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Abre o
+            <strong>
+             Monitor de recursos
+            </strong>
+            .
+           </p>
+           <p>
+            Podes facelo desde o Administrador de tarefas ou executando:
+           </p>
+           <pre class="cmd-block"><code class="language-text">resmon
+</code></pre>
+           <p>
+            Revisa as lapelas:
+           </p>
+           <ul class="mb-3">
+            <li>
+             CPU;
+            </li>
+            <li>
+             Memoria;
+            </li>
+            <li>
+             Disco;
+            </li>
+            <li>
+             Rede.
+            </li>
+           </ul>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Tarefa A3.1. Disco ou CPU
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Escolle unha lapela na que vexas actividade significativa.
+           </p>
+           <p>
+            Completa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Dato
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Lapela revisada
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Proceso que m&aacute;is destaca
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Recurso que est&aacute; usando
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Dato observado
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Posible explicaci&oacute;n
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Preguntas de interpretaci&oacute;n
+           </h3>
+          </div>
+          <div class="step-body">
+           <ol class="mb-3">
+            <li>
+             Que informaci&oacute;n ofrece o Monitor de recursos que non se ve tan claramente no Administrador de tarefas?
+            </li>
+            <li>
+             Se o disco aparece moi activo, que datos mirar&iacute;as?
+            </li>
+            <li>
+             Se a rede aparece con tr&aacute;fico, que proceso est&aacute; xerando ese tr&aacute;fico?
+            </li>
+            <li>
+             A informaci&oacute;n permite conclu&iacute;r unha causa ou s&oacute; formular unha hip&oacute;tese?
+            </li>
+           </ol>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e unha captura do Monitor de recursos.
+           </p>
+           <hr/>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            A4
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-windows me-2">
+            </i>
+            A4. Informaci&oacute;n do sistema
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Executa algunha destas ferramentas:
+           </p>
+           <pre class="cmd-block"><code class="language-text">msinfo32
+</code></pre>
+           <p>
+            ou:
+           </p>
+           <pre class="cmd-block"><code class="language-text">dxdiag
+</code></pre>
+           <p>
+            Tam&eacute;n podes consultar a versi&oacute;n de Windows con:
+           </p>
+           <pre class="cmd-block"><code class="language-text">winver
+</code></pre>
+           <p>
+            Completa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Dato
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Versi&oacute;n de Windows
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Procesador
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Memoria RAM total
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Tipo de sistema
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Observaci&oacute;n relevante
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Pregunta de interpretaci&oacute;n
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Por que &eacute; importante co&ntilde;ecer o hardware e a versi&oacute;n do sistema antes de diagnosticar problemas de rendemento?
+           </p>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e captura da ferramenta usada.
+           </p>
+           <hr/>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            A5
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-windows me-2">
+            </i>
+            A5. Visor de eventos
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Abre o
+            <strong>
+             Visor de eventos
+            </strong>
+            .
+           </p>
+           <p>
+            Podes executalo con:
+           </p>
+           <pre class="cmd-block"><code class="language-text">eventvwr.msc
+</code></pre>
+           <p>
+            Revisa:
+           </p>
+           <pre class="cmd-block"><code class="language-text">Registros de Windows &rarr; Sistema
+</code></pre>
+           <p>
+            e, se procede:
+           </p>
+           <pre class="cmd-block"><code class="language-text">Registros de Windows &rarr; Aplicaci&oacute;n
+</code></pre>
+           <p>
+            Busca un evento recente de tipo:
+           </p>
+           <ul class="mb-3">
+            <li>
+             Informaci&oacute;n;
+            </li>
+            <li>
+             Advertencia;
+            </li>
+            <li>
+             Erro.
+            </li>
+           </ul>
+           <p>
+            Completa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Dato
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Rexistro consultado
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Nivel do evento
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Data e hora
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Orixe
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Id. do evento
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Mensaxe resumida
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Poder&iacute;a estar relacionado co rendemento? Por que?
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Preguntas de interpretaci&oacute;n
+           </h3>
+          </div>
+          <div class="step-body">
+           <ol class="mb-3">
+            <li>
+             Que diferenza hai entre un evento informativo, unha advertencia e un erro?
+            </li>
+            <li>
+             Un erro no Visor de eventos sempre significa que hai unha incidencia grave?
+            </li>
+            <li>
+             Por que &eacute; &uacute;til revisar eventos cando se detecta lentitude ou comportamento an&oacute;malo?
+            </li>
+           </ol>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e captura do evento consultado.
+           </p>
+           <hr/>
+          </div>
+         </div>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="parte-b-monitorizacion-basica-en-ubuntu">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-terminal">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          Parte B &ndash; Monitorizaci&oacute;n b&aacute;sica en Ubuntu
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            B1
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-terminal me-2">
+            </i>
+            B1. Informaci&oacute;n xeral do sistema
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Abre unha terminal en Ubuntu.
+           </p>
+           <p>
+            Executa:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">lsb_release -a
+</code></pre>
+           <pre class="cmd-block"><code class="language-bash">uname -a
+</code></pre>
+           <p>
+            Completa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Dato
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Distribuci&oacute;n
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Versi&oacute;n
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Kernel
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Arquitectura
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e captura ou copia da sa&iacute;da dos comandos.
+           </p>
+           <hr/>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            B2
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-terminal me-2">
+            </i>
+            B2. Procesos e uso de CPU/memoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Executa:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">top
+</code></pre>
+           <p>
+            Observa durante 1 ou 2 minutos.
+           </p>
+           <p>
+            Se tes
+            <code>
+             htop
+            </code>
+            instalado, tam&eacute;n podes executar:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">htop
+</code></pre>
+           <p>
+            Para sa&iacute;r de
+            <code>
+             top
+            </code>
+            , pulsa:
+           </p>
+           <pre class="cmd-block"><code class="language-text">q
+</code></pre>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Tarefa B2.1. Observaci&oacute;n con top
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Completa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Dato
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Proceso con maior uso de CPU
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                %CPU aproximado
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Proceso con maior uso de memoria
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                %MEM aproximado
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                N&uacute;mero aproximado de tarefas/procesos
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Carga do sistema, se aparece
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-arrow-left-right me-2">
+            </i>
+            Comando alternativo
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Tam&eacute;n podes usar:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">ps aux --sort=-%cpu | head
+</code></pre>
+           <p>
+            e:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">ps aux --sort=-%mem | head
+</code></pre>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Preguntas de interpretaci&oacute;n
+           </h3>
+          </div>
+          <div class="step-body">
+           <ol class="mb-3">
+            <li>
+             O proceso que m&aacute;is CPU consume &eacute; estable ou cambia rapidamente?
+            </li>
+            <li>
+             Que diferenza hai entre ver procesos con
+             <code>
+              top
+             </code>
+             e con
+             <code>
+              ps aux
+             </code>
+             ?
+            </li>
+            <li>
+             Que dato che axuda a identificar o proceso? Nome, PID, usuario, consumo?
+            </li>
+            <li>
+             Pechar&iacute;as directamente un proceso que consume moito? Que comprobar&iacute;as antes?
+            </li>
+           </ol>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e captura de
+            <code>
+             top
+            </code>
+            ,
+            <code>
+             htop
+            </code>
+            ou sa&iacute;da de
+            <code>
+             ps
+            </code>
+            .
+           </p>
+           <hr/>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            B3
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-terminal me-2">
+            </i>
+            B3. Memoria RAM e swap
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Executa:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">free -h
+</code></pre>
+           <p>
+            Completa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Dato
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Memoria total
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Memoria usada
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Memoria dispo&ntilde;ible
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Swap total
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Swap usada
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Preguntas de interpretaci&oacute;n
+           </h3>
+          </div>
+          <div class="step-body">
+           <ol class="mb-3">
+            <li>
+             Hai memoria dispo&ntilde;ible suficiente?
+            </li>
+            <li>
+             Estase usando swap?
+            </li>
+            <li>
+             Se a swap est&aacute; moi usada, que pode indicar?
+            </li>
+            <li>
+             Por que un uso intenso de swap pode facer que o sistema vaia lento?
+            </li>
+           </ol>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e captura ou copia da sa&iacute;da de
+            <code>
+             free -h
+            </code>
+            .
+           </p>
+           <hr/>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            B4
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-terminal me-2">
+            </i>
+            B4. Disco e sistemas de ficheiros
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Executa:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">df -h
+</code></pre>
+           <p>
+            Tam&eacute;n executa:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">lsblk
+</code></pre>
+           <p>
+            Completa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Dato
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Sistema de ficheiros ra&iacute;z
+                <code>
+                 /
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Espazo total en
+                <code>
+                 /
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Espazo usado en
+                <code>
+                 /
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Espazo dispo&ntilde;ible en
+                <code>
+                 /
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Porcentaxe de uso en
+                <code>
+                 /
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Disco ou dispositivo principal segundo
+                <code>
+                 lsblk
+                </code>
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Preguntas de interpretaci&oacute;n
+           </h3>
+          </div>
+          <div class="step-body">
+           <ol class="mb-3">
+            <li>
+             O sistema ten pouco espazo libre?
+            </li>
+            <li>
+             Que problema poder&iacute;a causar unha partici&oacute;n case chea?
+            </li>
+            <li>
+             Que diferenza hai entre
+             <code>
+              df -h
+             </code>
+             e
+             <code>
+              lsblk
+             </code>
+             ?
+            </li>
+            <li>
+             Se o disco estivese saturado en I/O, bastar&iacute;a con mirar
+             <code>
+              df -h
+             </code>
+             ? Xustifica a resposta.
+            </li>
+           </ol>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e sa&iacute;da de
+            <code>
+             df -h
+            </code>
+            e
+            <code>
+             lsblk
+            </code>
+            .
+           </p>
+           <hr/>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            B5
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-terminal me-2">
+            </i>
+            B5. Rede
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Executa:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">ip a
+</code></pre>
+           <p>
+            Comproba conectividade cun destino indicado pola profesora ou, se procede, cunha IP co&ntilde;ecida da rede de aula:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">ping -c 4 ENDEREZO_OU_IP
+</code></pre>
+           <p>
+            Se queres ver conexi&oacute;ns abertas, podes usar:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">ss -tulpen
+</code></pre>
+           <div class="notice info my-3 d-flex gap-2 align-items-start">
+            <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+            </i>
+            <div>
+             <p>
+              Pode que
+              <code>
+               ss -tulpen
+              </code>
+              amose menos informaci&oacute;n se non se executa con permisos de administrador. Se &eacute; necesario e a profesora o indica, pode executarse con
+              <code>
+               sudo
+              </code>
+              .
+             </p>
+            </div>
+           </div>
+           <p>
+            Completa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Dato
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Interface principal
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Enderezo IP
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Hai conectividade no
+                <code>
+                 ping
+                </code>
+                ?
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Tempo medio aproximado de resposta
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Hai servizos escoitando segundo
+                <code>
+                 ss
+                </code>
+                ?
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Preguntas de interpretaci&oacute;n
+           </h3>
+          </div>
+          <div class="step-body">
+           <ol class="mb-3">
+            <li>
+             Que comproba
+             <code>
+              ip a
+             </code>
+             ?
+            </li>
+            <li>
+             Que comproba
+             <code>
+              ping
+             </code>
+             ?
+            </li>
+            <li>
+             Un
+             <code>
+              ping
+             </code>
+             correcto garante que todos os servizos de rede funcionen?
+            </li>
+            <li>
+             Para que pode servir
+             <code>
+              ss
+             </code>
+             nun diagn&oacute;stico b&aacute;sico?
+            </li>
+           </ol>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e sa&iacute;da dos comandos usados.
+           </p>
+           <hr/>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            B6
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-terminal me-2">
+            </i>
+            B6. Logs con journalctl
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Consulta os eventos do arranque actual:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">journalctl -b
+</code></pre>
+           <p>
+            Para ver s&oacute; avisos e erros do arranque actual:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">journalctl -b -p warning..err
+</code></pre>
+           <p>
+            Para ver as &uacute;ltimas li&ntilde;as dun comando longo podes usar:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">journalctl -b -p warning..err | tail -n 30
+</code></pre>
+           <p>
+            Completa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Dato
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Comando usado
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Aparecen avisos ou erros?
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Servizo, compo&ntilde;ente ou mensaxe relevante
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Poder&iacute;a estar relacionado co rendemento?
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Explicaci&oacute;n breve
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Preguntas de interpretaci&oacute;n
+           </h3>
+          </div>
+          <div class="step-body">
+           <ol class="mb-3">
+            <li>
+             Que diferenza hai entre mirar m&eacute;tricas en tempo real e revisar logs?
+            </li>
+            <li>
+             Que achega
+             <code>
+              journalctl
+             </code>
+             que non achega
+             <code>
+              top
+             </code>
+             ?
+            </li>
+            <li>
+             Un aviso no log sempre implica unha incidencia grave?
+            </li>
+            <li>
+             Por que &eacute; &uacute;til filtrar por prioridade con
+             <code>
+              -p warning..err
+             </code>
+             ?
+            </li>
+           </ol>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            &bull;
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-clipboard-check me-2">
+            </i>
+            Evidencia obrigatoria
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Incl&uacute;e captura ou sa&iacute;da do comando empregado.
+           </p>
+           <hr/>
+          </div>
+         </div>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="parte-c-comparacion-windows-ubuntu">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-windows">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          Parte C &ndash; Comparaci&oacute;n Windows / Ubuntu
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            C1
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-arrow-left-right me-2">
+            </i>
+            C1. Ferramentas equivalentes
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Completa a seguinte t&aacute;boa:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Necesidade
+               </th>
+               <th>
+                Windows
+               </th>
+               <th>
+                Ubuntu
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                Ver procesos en execuci&oacute;n
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ver uso de CPU
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ver uso de memoria
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ver uso de disco
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ver informaci&oacute;n do sistema
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ver eventos ou logs
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ver rede
+               </td>
+               <td>
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+           <hr/>
+          </div>
+         </div>
+         <div class="step-card mb-3">
+          <div class="step-header is-primary">
+           <span class="task-number">
+            C2
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            <i class="bi bi-arrow-left-right me-2">
+            </i>
+            C2. Interpretaci&oacute;n final
+           </h3>
+          </div>
+          <div class="step-body">
+           <p>
+            Responde:
+           </p>
+           <ol class="mb-3">
+            <li>
+             Que ferramenta che resultou m&aacute;is clara en Windows? Por que?
+            </li>
+            <li>
+             Que comando che resultou m&aacute;is &uacute;til en Ubuntu? Por que?
+            </li>
+            <li>
+             Que recurso parec&iacute;a m&aacute;is activo no teu equipo ou VM?
+            </li>
+            <li>
+             Viches alg&uacute;n erro ou aviso relevante nos logs ou eventos?
+            </li>
+            <li>
+             Que dato che parece m&aacute;is fiable: unha captura dun momento concreto ou unha observaci&oacute;n durante varios minutos? Xustifica a resposta.
+            </li>
+            <li>
+             Que far&iacute;as se un usuario dixese simplemente &ldquo;o ordenador vai lento&rdquo;?
+            </li>
+           </ol>
+           <hr/>
+          </div>
+         </div>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="parte-d-informe-final-da-practica">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-clipboard-check">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          Parte D &ndash; Informe final da pr&aacute;ctica
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Entrega un pequeno informe seguindo este modelo:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Campo
+             </th>
+             <th>
+              Resposta
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Nome do alumno/a
+             </td>
+             <td>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Equipo ou VM analizada
+             </td>
+             <td>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Sistema Windows empregado
+             </td>
+             <td>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Sistema Ubuntu empregado
+             </td>
+             <td>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Recurso m&aacute;is activo observado
+             </td>
+             <td>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ferramenta ou comando m&aacute;is &uacute;til
+             </td>
+             <td>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Evento ou log relevante atopado
+             </td>
+             <td>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Conclusi&oacute;n t&eacute;cnica final
+             </td>
+             <td>
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          A conclusi&oacute;n t&eacute;cnica final debe ter entre 5 e 8 li&ntilde;as e debe responder a estas cuesti&oacute;ns:
+         </p>
+         <ul class="mb-3">
+          <li>
+           Que observaches?
+          </li>
+          <li>
+           Que ferramenta ou comando o demostra?
+          </li>
+          <li>
+           Que recurso parec&iacute;a m&aacute;is relevante?
+          </li>
+          <li>
+           Hai indicios de problema real ou s&oacute; actividade normal?
+          </li>
+          <li>
+           Que revisar&iacute;as a continuaci&oacute;n se houbese unha incidencia?
+          </li>
+         </ul>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="criterios-de-correccion-orientativos">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-check2-square">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          Criterios de correcci&oacute;n orientativos
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Criterio
+             </th>
+             <th style="text-align:right">
+              Peso orientativo
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Recollida correcta de evidencias en Windows
+             </td>
+             <td style="text-align:right">
+              20 %
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Recollida correcta de evidencias en Ubuntu
+             </td>
+             <td style="text-align:right">
+              20 %
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Interpretaci&oacute;n dos datos observados
+             </td>
+             <td style="text-align:right">
+              25 %
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Comparaci&oacute;n Windows / Ubuntu
+             </td>
+             <td style="text-align:right">
+              15 %
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Claridade do informe final
+             </td>
+             <td style="text-align:right">
+              10 %
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Uso de vocabulario t&eacute;cnico axeitado
+             </td>
+             <td style="text-align:right">
+              10 %
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="erros-frecuentes-que-debes-evitar">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-exclamation-triangle">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          Erros frecuentes que debes evitar
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <ul class="mb-3">
+          <li>
+           Entregar s&oacute; capturas sen explicaci&oacute;n.
+          </li>
+          <li>
+           Copiar respostas xen&eacute;ricas que non corresponden ao teu equipo.
+          </li>
+          <li>
+           Confundir un pico puntual cun problema sostido.
+          </li>
+          <li>
+           Dicir que hai unha incidencia sen datos que o xustifiquen.
+          </li>
+          <li>
+           Pechar procesos sen comprobar antes que son.
+          </li>
+          <li>
+           Non indicar que ferramenta ou comando se utilizou.
+          </li>
+          <li>
+           Non diferenciar entre m&eacute;trica, s&iacute;ntoma e log.
+          </li>
+          <li>
+           Non explicar as sa&iacute;das de Ubuntu.
+          </li>
+          <li>
+           Ignorar avisos ou erros relevantes dos eventos/logs.
+          </li>
+          <li>
+           Afirmar que todo est&aacute; ben s&oacute; porque &ldquo;o equipo parece funcionar&rdquo;.
+          </li>
+         </ul>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="ideas-clave-da-practica">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-journal-check">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          Ideas clave da pr&aacute;ctica
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <ul class="mb-3">
+          <li>
+           Windows e Ubuntu te&ntilde;en ferramentas diferentes, pero os conceptos son os mesmos: CPU, memoria, disco, rede, procesos, servizos e eventos.
+          </li>
+          <li>
+           Unha m&eacute;trica illada non permite diagnosticar con seguridade.
+          </li>
+          <li>
+           &Eacute; importante observar durante un tempo, non s&oacute; facer unha captura puntual.
+          </li>
+          <li>
+           O Administrador de tarefas e
+           <code>
+            top
+           </code>
+           permiten unha primeira visi&oacute;n dos procesos.
+          </li>
+          <li>
+           <code>
+            free -h
+           </code>
+           ,
+           <code>
+            df -h
+           </code>
+           ,
+           <code>
+            lsblk
+           </code>
+           ,
+           <code>
+            ip a
+           </code>
+           e
+           <code>
+            journalctl
+           </code>
+           achegan datos fundamentais en Ubuntu.
+          </li>
+          <li>
+           O Visor de eventos e
+           <code>
+            journalctl
+           </code>
+           axudan a explicar que pasou no sistema.
+          </li>
+          <li>
+           Un bo diagn&oacute;stico debe relacionar s&iacute;ntoma, recurso, ferramenta, evidencia e conclusi&oacute;n.
+          </li>
+         </ul>
+        </div>
+       </div>
+      </section>
+     </article>
+    </main>
+   </div>
+  </div>
+  <footer class="smpp-footer no-print">
+   <div class="smpp-footer-spacer">
+   </div>
+   <div class="smpp-footer-center">
+    <span>
+     CIFP A Carballeira &middot; Ourense
+    </span>
+    Administraci&oacute;n de sistemas inform&aacute;ticos &middot; Curso 2026/27
+    <br/>
+    Material did&aacute;ctico de uso interno
+   </div>
+   <img alt="" class="smpp-sauce" onerror="this.style.display='none'" src="../../assets/imax/sauce_clean.svg"/>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="../../assets/js/smpp.js">
+  </script>
+ </body>
+</html>

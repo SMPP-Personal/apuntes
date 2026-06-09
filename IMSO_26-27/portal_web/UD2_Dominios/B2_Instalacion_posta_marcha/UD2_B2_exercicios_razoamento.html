@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B2 Cuestións de razoamento</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/imso.css">
+
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       Estilos específicos UD2·B2 – Exercicios de razoamento
+       ───────────────────────────────────────────────────────────── */
+    .exercise-hero {
+      background: linear-gradient(135deg, rgba(13,110,253,.13) 0%, rgba(14,165,233,.08) 48%, rgba(100,116,139,.06) 100%);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .exercise-hero::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      right: -70px;
+      top: -85px;
+      background: radial-gradient(circle, rgba(13,110,253,.18), transparent 68%);
+      pointer-events: none;
+    }
+    [data-bs-theme="dark"] .exercise-hero {
+      background: linear-gradient(135deg, rgba(13,110,253,.22) 0%, rgba(14,165,233,.10) 48%, rgba(255,255,255,.03) 100%);
+      border-color: rgba(255,255,255,.10);
+    }
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .35rem .7rem;
+      border-radius: 999px;
+      border: 1px solid var(--bs-border-color);
+      background: var(--bs-tertiary-bg);
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--bs-secondary-color);
+    }
+    .instruction-box {
+      border-left: 4px solid var(--bs-primary);
+      background: linear-gradient(135deg, rgba(13,110,253,.11), rgba(13,110,253,.03));
+      border-radius: .9rem;
+      padding: 1rem 1.1rem;
+    }
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: .75rem;
+    }
+    .scenario-item {
+      border: 1px solid var(--bs-border-color);
+      border-radius: .85rem;
+      background: var(--bs-body-bg);
+      padding: .85rem;
+      box-shadow: 0 .10rem .45rem rgba(15,23,42,.04);
+    }
+    .scenario-label {
+      display: block;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--bs-secondary-color);
+      font-weight: 800;
+      margin-bottom: .2rem;
+    }
+    .question-card {
+      border: 1px solid var(--bs-border-color);
+      border-radius: 1rem;
+      background: var(--bs-body-bg);
+      box-shadow: 0 .15rem .75rem rgba(15,23,42,.05);
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+    .question-header {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      padding: 1rem 1.15rem;
+      border-bottom: 1px solid var(--bs-border-color);
+      background: var(--bs-tertiary-bg);
+    }
+    .question-number {
+      width: 2.35rem;
+      height: 2.35rem;
+      border-radius: .8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--bs-primary);
+      color: #fff;
+      font-weight: 800;
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,.12);
+    }
+    .question-body {
+      padding: 1.2rem;
+    }
+    .question-body > p:first-child {
+      font-size: 1.02rem;
+    }
+    .answer-list li {
+      margin-bottom: .45rem;
+    }
+    .orientation-box {
+      border: 1px solid var(--bs-border-color);
+      border-radius: .9rem;
+      padding: .95rem 1rem;
+      background: linear-gradient(135deg, rgba(14,165,233,.10), rgba(14,165,233,.03));
+    }
+    .orientation-box h4 {
+      font-size: .9rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--bs-secondary-color);
+      font-weight: 800;
+      margin-bottom: .65rem;
+    }
+    .response-space {
+      border: 1px dashed var(--bs-border-color);
+      border-radius: .9rem;
+      padding: .85rem 1rem;
+      background: var(--bs-tertiary-bg);
+      min-height: 6rem;
+      color: var(--bs-secondary-color);
+      font-size: .9rem;
+    }
+    .response-lines {
+      margin-top: .5rem;
+      display: grid;
+      gap: .8rem;
+    }
+    .response-lines span {
+      display: block;
+      border-bottom: 1px solid var(--bs-border-color);
+      min-height: 1.2rem;
+    }
+    .concept-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      font-size: .78rem;
+      font-weight: 700;
+      border: 1px solid var(--bs-border-color);
+      background: var(--bs-tertiary-bg);
+      border-radius: 999px;
+      padding: .25rem .55rem;
+      color: var(--bs-secondary-color);
+    }
+    .closing-card {
+      border: 1px solid var(--bs-border-color);
+      border-radius: 1rem;
+      padding: 1.15rem;
+      background: linear-gradient(135deg, rgba(34,197,94,.11), rgba(34,197,94,.03));
+      border-left: 4px solid #22c55e;
+    }
+    code {
+      font-family: "Fira Code", Consolas, monospace;
+    }
+    .toc .nav-link.active, .sidebar .nav-link:hover { color: var(--bs-primary); }
+    @media print {
+      .no-print { display: none !important; }
+      .exercise-hero, .question-card { box-shadow: none !important; }
+      .question-card { break-inside: avoid; }
+      .response-space { min-height: 8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Layout ── -->
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-instrucions">Instrucións</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#q1">1. IP estática e DC</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#q2">2. DNS en AD</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#q3">3. Rol AD DS vs dominio</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#q4">4. Novo bosque</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#q5">5. GUI e PowerShell</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#q6">6. Documentación</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-peche">Peche</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Contido principal ── -->
+    <main class="col-lg-9">
+      <article>
+
+        <!-- Cabeceira -->
+        <header class="mb-4">
+          <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle fw-semibold">UD2 · B2</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis border border-secondary-subtle">Exercicios</span>
+            <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle">Razoamento técnico</span>
+          </div>
+          <div class="exercise-hero">
+            <h1 class="h2 fw-bold mb-2">Cuestións de razoamento</h1>
+            <p class="lead mb-3">Instalación e posta en marcha do dominio <code>cifpsauce.local</code>.</p>
+            <p class="mb-3">Estas cuestións serven para comprobar se comprendiches os conceptos principais do Bloque 2: requisitos previos, instalación de AD DS, papel de DNS, creación dun novo bosque, uso de GUI e PowerShell, e documentación da infraestrutura.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="meta-pill"><i class="bi bi-globe2"></i>Dominio: <code>cifpsauce.local</code></span>
+              <span class="meta-pill"><i class="bi bi-hdd-network"></i>DC: <code>dcbuho.cifpsauce.local</code></span>
+              <span class="meta-pill"><i class="bi bi-ethernet"></i>IP: <code>192.168.50.10</code></span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Instrucións -->
+        <section id="sec-instrucions" class="mb-4">
+          <div class="instruction-box">
+            <h2 class="h5 fw-bold mb-2"><i class="bi bi-pencil-square me-2 text-primary"></i>Instrución xeral</h2>
+            <p class="mb-3">Non se trata de copiar definicións dos apuntes. En cada resposta debes explicar a idea coas túas propias palabras e aplicala ao escenario da UD2.</p>
+            <div class="scenario-grid">
+              <div class="scenario-item">
+                <span class="scenario-label">Dominio</span>
+                <code>cifpsauce.local</code>
+              </div>
+              <div class="scenario-item">
+                <span class="scenario-label">Primeiro DC</span>
+                <code>dcbuho.cifpsauce.local</code>
+              </div>
+              <div class="scenario-item">
+                <span class="scenario-label">IP de exemplo</span>
+                <code>192.168.50.10</code>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cuestión 1 -->
+        <section id="q1" class="question-card">
+          <div class="question-header">
+            <span class="question-number">1</span>
+            <div>
+              <h2 class="h5 fw-bold mb-1">IP estática e controlador de dominio</h2>
+              <div class="d-flex flex-wrap gap-1">
+                <span class="concept-badge"><i class="bi bi-ethernet"></i>Rede</span>
+                <span class="concept-badge"><i class="bi bi-hdd-network"></i>DC</span>
+                <span class="concept-badge"><i class="bi bi-diagram-3"></i>DNS dos clientes</span>
+              </div>
+            </div>
+          </div>
+          <div class="question-body">
+            <p>Nun laboratorio de dominios, decides deixar o servidor que vai ser controlador de dominio con IP por DHCP.</p>
+            <h3 class="h6 fw-bold mt-3">Responde de forma razoada:</h3>
+            <ol class="answer-list">
+              <li>Explica por que isto é unha mala práctica nun contorno de dominio.</li>
+              <li>Indica polo menos <strong>dúas consecuencias prácticas</strong> que se poden producir se a IP do controlador de dominio cambia.</li>
+              <li>Explica que problemas poden aparecer se os clientes teñen configurado un servidor DNS incorrecto ou seguen apuntando a unha IP antiga.</li>
+            </ol>
+            <div class="orientation-box mt-3">
+              <h4><i class="bi bi-lightbulb me-1"></i>Para orientar a resposta</h4>
+              <ul class="mb-0">
+                <li>localización do controlador de dominio;</li>
+                <li>resolución da zona <code>cifpsauce.local</code>;</li>
+                <li>inicio de sesión dos usuarios;</li>
+                <li>acceso a recursos compartidos;</li>
+                <li>aplicación de políticas de grupo.</li>
+              </ul>
+            </div>
+            <div class="response-space mt-3">
+              <strong>Espazo de resposta</strong>
+              <div class="response-lines"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cuestión 2 -->
+        <section id="q2" class="question-card">
+          <div class="question-header">
+            <span class="question-number">2</span>
+            <div>
+              <h2 class="h5 fw-bold mb-1">Papel de DNS en Active Directory</h2>
+              <div class="d-flex flex-wrap gap-1">
+                <span class="concept-badge"><i class="bi bi-globe2"></i>DNS</span>
+                <span class="concept-badge"><i class="bi bi-search"></i>Localización</span>
+                <span class="concept-badge"><i class="bi bi-record-circle"></i>Rexistros SRV</span>
+              </div>
+            </div>
+          </div>
+          <div class="question-body">
+            <p>Active Directory depende de DNS para que os clientes poidan localizar os servizos do dominio.</p>
+            <h3 class="h6 fw-bold mt-3">Responde de forma razoada:</h3>
+            <ol class="answer-list">
+              <li>Explica por que un cliente de dominio necesita consultar o DNS do dominio para localizar un controlador de dominio.</li>
+              <li>Aclara por que DNS non autentica o usuario directamente, senón que axuda a atopar os servizos necesarios para iniciar sesión no dominio.</li>
+              <li>Describe que tipo de información especial se garda na zona DNS <code>cifpsauce.local</code>, especialmente os <strong>rexistros SRV</strong>.</li>
+              <li>Explica para que serven eses rexistros no funcionamento dun dominio Active Directory.</li>
+            </ol>
+            <div class="orientation-box mt-3">
+              <h4><i class="bi bi-lightbulb me-1"></i>Para orientar a resposta</h4>
+              <ul class="mb-0">
+                <li>resolución de nomes como <code>dcbuho.cifpsauce.local</code>;</li>
+                <li>localización de controladores de dominio;</li>
+                <li>servizos como Kerberos, LDAP ou catálogo global;</li>
+                <li>consecuencias dun DNS mal configurado.</li>
+              </ul>
+            </div>
+            <div class="response-space mt-3">
+              <strong>Espazo de resposta</strong>
+              <div class="response-lines"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cuestión 3 -->
+        <section id="q3" class="question-card">
+          <div class="question-header">
+            <span class="question-number">3</span>
+            <div>
+              <h2 class="h5 fw-bold mb-1">Diferenza entre instalar o rol AD DS e crear o dominio</h2>
+              <div class="d-flex flex-wrap gap-1">
+                <span class="concept-badge"><i class="bi bi-box-arrow-in-down"></i>Rol AD DS</span>
+                <span class="concept-badge"><i class="bi bi-arrow-up-circle"></i>Promoción</span>
+                <span class="concept-badge"><i class="bi bi-check2-circle"></i>Verificación</span>
+              </div>
+            </div>
+          </div>
+          <div class="question-body">
+            <p>Nunha práctica, unha persoa instala o rol <strong>Active Directory Domain Services</strong>, pero non completa a promoción do servidor a controlador de dominio.</p>
+            <h3 class="h6 fw-bold mt-3">Responde de forma razoada:</h3>
+            <ol class="answer-list">
+              <li>Explica a diferenza entre:
+                <ul>
+                  <li>ter instalado o rol <strong>AD DS</strong>;</li>
+                  <li>ter promovido o servidor a <strong>controlador de dominio</strong>;</li>
+                  <li>ter creado realmente o dominio <code>cifpsauce.local</code>.</li>
+                </ul>
+              </li>
+              <li>Indica que faltaría facer se só se instalou o rol, pero non se executou a promoción.</li>
+              <li>Explica como poderías comprobar se o dominio foi creado correctamente ou se só está instalado o rol.</li>
+            </ol>
+            <div class="orientation-box mt-3">
+              <h4><i class="bi bi-tools me-1"></i>Ferramentas ou comprobacións posibles</h4>
+              <ul class="mb-0">
+                <li><strong>Server Manager</strong>;</li>
+                <li><strong>Active Directory Users and Computers</strong>;</li>
+                <li>consola de <strong>DNS</strong>;</li>
+                <li><code>Get-ADDomain</code>;</li>
+                <li><code>Get-ADForest</code>;</li>
+                <li><code>Get-ADDomainController</code>;</li>
+                <li><code>nslookup dcbuho.cifpsauce.local</code>.</li>
+              </ul>
+            </div>
+            <div class="response-space mt-3">
+              <strong>Espazo de resposta</strong>
+              <div class="response-lines"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cuestión 4 -->
+        <section id="q4" class="question-card">
+          <div class="question-header">
+            <span class="question-number">4</span>
+            <div>
+              <h2 class="h5 fw-bold mb-1">Novo bosque, dominio existente e controlador adicional</h2>
+              <div class="d-flex flex-wrap gap-1">
+                <span class="concept-badge"><i class="bi bi-tree"></i>Bosque</span>
+                <span class="concept-badge"><i class="bi bi-diagram-2"></i>Dominio</span>
+                <span class="concept-badge"><i class="bi bi-plus-circle"></i>DC adicional</span>
+              </div>
+            </div>
+          </div>
+          <div class="question-body">
+            <p>No asistente de promoción de AD DS, para crear <code>cifpsauce.local</code> escollemos a opción <strong>Create a new forest</strong>, porque non existe unha infraestrutura previa de Active Directory.</p>
+            <h3 class="h6 fw-bold mt-3">Responde de forma razoada:</h3>
+            <ol class="answer-list">
+              <li>Explica por que neste laboratorio escollemos <strong>Create a new forest</strong>.</li>
+              <li>Indica en que caso se escollería <strong>Add a domain controller to an existing domain</strong>.</li>
+              <li>Indica en que caso se escollería <strong>Add a new domain to an existing forest</strong>.</li>
+              <li>Pon un exemplo sinxelo, a nivel teórico, no que un centro educativo podería necesitar engadir un novo dominio dentro dun bosque xa existente en lugar de crear un bosque novo.</li>
+            </ol>
+            <div class="orientation-box mt-3">
+              <h4><i class="bi bi-lightbulb me-1"></i>Para orientar a resposta</h4>
+              <ul class="mb-0">
+                <li>crear a primeira infraestrutura de Active Directory;</li>
+                <li>engadir redundancia cun segundo controlador de dominio;</li>
+                <li>ampliar unha estrutura xa existente con outro dominio.</li>
+              </ul>
+            </div>
+            <div class="response-space mt-3">
+              <strong>Espazo de resposta</strong>
+              <div class="response-lines"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cuestión 5 -->
+        <section id="q5" class="question-card">
+          <div class="question-header">
+            <span class="question-number">5</span>
+            <div>
+              <h2 class="h5 fw-bold mb-1">Comparando GUI e PowerShell</h2>
+              <div class="d-flex flex-wrap gap-1">
+                <span class="concept-badge"><i class="bi bi-window"></i>GUI</span>
+                <span class="concept-badge"><i class="bi bi-terminal"></i>PowerShell</span>
+                <span class="concept-badge"><i class="bi bi-arrow-repeat"></i>Automatización</span>
+              </div>
+            </div>
+          </div>
+          <div class="question-body">
+            <p>Na UD2 traballamos a instalación e creación do dominio <code>cifpsauce.local</code> tanto con interface gráfica como con PowerShell.</p>
+            <h3 class="h6 fw-bold mt-3">Responde de forma razoada:</h3>
+            <ol class="answer-list">
+              <li>Indica polo menos <strong>dúas vantaxes</strong> de usar PowerShell para instalar AD DS e crear o dominio, en comparación coa interface gráfica.</li>
+              <li>Non abonda con dicir que PowerShell é “máis rápido”: explica por que pode ser máis <strong>reproducible</strong>, <strong>documentable</strong> ou <strong>automatizable</strong>.</li>
+              <li>Indica polo menos <strong>unha vantaxe</strong> de usar a interface gráfica, especialmente pensando en alumnado que está aprendendo por primeira vez.</li>
+              <li>Indica tamén un posible <strong>risco</strong> de usar PowerShell se se copian comandos sen entender os parámetros.</li>
+            </ol>
+            <div class="orientation-box mt-3">
+              <h4><i class="bi bi-lightbulb me-1"></i>Para orientar a resposta</h4>
+              <ul class="mb-0">
+                <li>repetición da mesma instalación en varias máquinas;</li>
+                <li>gardar os comandos usados;</li>
+                <li>reducir erros manuais;</li>
+                <li>comprender visualmente os pasos do asistente;</li>
+                <li>risco de executar comandos nunha VM incorrecta ou cun parámetro mal escrito.</li>
+              </ul>
+            </div>
+            <div class="response-space mt-3">
+              <strong>Espazo de resposta</strong>
+              <div class="response-lines"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cuestión 6 -->
+        <section id="q6" class="question-card">
+          <div class="question-header">
+            <span class="question-number">6</span>
+            <div>
+              <h2 class="h5 fw-bold mb-1">Documentación da infraestrutura recén creada</h2>
+              <div class="d-flex flex-wrap gap-1">
+                <span class="concept-badge"><i class="bi bi-journal-text"></i>Documentación</span>
+                <span class="concept-badge"><i class="bi bi-clipboard-check"></i>Comprobacións</span>
+                <span class="concept-badge"><i class="bi bi-shield-lock"></i>DSRM</span>
+              </div>
+            </div>
+          </div>
+          <div class="question-body">
+            <p>Despois de crear un dominio, é imprescindible documentar a infraestrutura creada.</p>
+            <h3 class="h6 fw-bold mt-3">Responde de forma razoada:</h3>
+            <ol class="answer-list">
+              <li>Elabora unha lista dos <strong>datos mínimos</strong> que deberías recoller na ficha de documentación do dominio despois de crear <code>cifpsauce.local</code>.</li>
+              <li>Explica por que esa documentación é útil para a administración diaria.</li>
+              <li>Explica por que tamén será útil para futuras intervencións, como engadir un segundo controlador de dominio, resolver incidencias ou preparar unha práctica/exame.</li>
+            </ol>
+            <div class="orientation-box mt-3">
+              <h4><i class="bi bi-list-check me-1"></i>A ficha debería incluír, como mínimo</h4>
+              <ul class="mb-0">
+                <li>nome DNS do dominio;</li>
+                <li>indicación de que se trata dun bosque novo co dominio raíz <code>cifpsauce.local</code>;</li>
+                <li>nome NetBIOS do dominio;</li>
+                <li>nome do primeiro controlador de dominio;</li>
+                <li>FQDN do controlador de dominio;</li>
+                <li>IP, máscara, gateway e DNS configurados;</li>
+                <li>versión do sistema operativo;</li>
+                <li>roles instalados;</li>
+                <li>nivel funcional do bosque e do dominio;</li>
+                <li>existencia da zona DNS <code>cifpsauce.local</code>;</li>
+                <li>comprobacións realizadas despois da instalación;</li>
+                <li>data da instalación;</li>
+                <li>persoa ou equipo que realizou a práctica;</li>
+                <li>indicación de onde se garda de forma segura o contrasinal DSRM, sen escribilo directamente nun documento entregable.</li>
+              </ul>
+            </div>
+            <div class="response-space mt-3">
+              <strong>Espazo de resposta</strong>
+              <div class="response-lines"><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Peche -->
+        <section id="sec-peche" class="closing-card mb-5">
+          <h2 class="h5 fw-bold mb-2"><i class="bi bi-check-circle-fill me-2 text-success"></i>Peche da actividade</h2>
+          <p class="mb-0">Ao rematar estas cuestións deberías ser capaz de explicar, sen copiar definicións, por que a creación dun dominio non consiste só en “instalar un rol”, senón en preparar correctamente a rede, DNS, AD DS, o primeiro controlador de dominio e a documentación mínima da infraestrutura.</p>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <img src="../../assets/imax/sauce_clean.svg" alt="" class="smpp-sauce" onerror="this.style.display='none'">
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const icon = document.getElementById('theme-icon');
+    const isDark = html.getAttribute('data-bs-theme') === 'dark';
+    html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
+    icon.className = isDark ? 'bi bi-moon-stars' : 'bi bi-sun-fill';
+  }
+</script>
+</body>
+</html>

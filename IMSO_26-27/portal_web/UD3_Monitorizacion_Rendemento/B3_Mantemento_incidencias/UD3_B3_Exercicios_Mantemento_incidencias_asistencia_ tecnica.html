@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>UD3 · B3 – Exercicios de mantemento, incidencias e asistencia técnica</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+  <!-- Estilos SMPP -->
+  <link href="../../assets/css/smpp.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="smpp-navbar no-print">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="smpp-brand" href="#">
+        <img src="../../assets/img/buho-clean.svg"
+             alt="SMPP"
+             class="smpp-buho"
+             onerror="this.style.display='none'">
+        <div class="smpp-brand-text">
+          <span class="smpp-title">SMPP</span>
+          <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+        </div>
+      </a>
+
+      <div class="d-flex align-items-center gap-3">
+        <span class="smpp-module">
+          MP0369 · IMSO 26/27
+        </span>
+        <button class="btn btn-outline-light btn-sm"
+                type="button"
+                onclick="toggleTheme()"
+                aria-label="Cambiar tema"
+                title="Cambiar tema">
+          <i class="bi bi-moon-stars" id="theme-icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contido principal -->
+  <div class="container-xl py-4">
+    <div class="row g-4">
+
+      <!-- Índice lateral -->
+      <aside class="col-lg-3 d-none d-lg-block no-print">
+        <div class="sidebar">
+          <div class="card shadow-sm sidebar-panel border">
+            <div class="card-body px-3 py-3">
+              <h6 class="text-uppercase fw-bold mb-1">
+                <i class="bi bi-list-ul me-1"></i> Índice
+              </h6>
+              <hr class="my-2">
+              <nav id="toc" class="toc">
+                <ul class="nav flex-column gap-1 small">
+                  <li class="nav-item"><a class="nav-link py-1" href="#instrucions">Instrucións xerais</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#criterios">Criterios de corrección</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#bloque1">Bloque 1 · Mantemento e actualizacións</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#bloque2">Bloque 2 · Protocolo de incidencias</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#bloque3">Bloque 3 · Asistencia técnica</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#bloque4">Bloque 4 · Parte de incidencia</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#bloque5">Bloque 5 · SNMP e monitorización</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#autoavaliacion">Autoavaliación rápida</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Columna principal -->
+      <main class="col-lg-9">
+        <article>
+
+          <!-- Hero -->
+          <header class="mb-4">
+            <div class="practice-hero hero-blue">
+              <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <span class="hero-chip">
+                  <i class="bi bi-list-check"></i>
+                  UD3 · B3 – Exercicios de consolidación
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-gear"></i>
+                  Mantemento e incidencias
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-life-preserver"></i>
+                  Asistencia técnica
+                </span>
+              </div>
+
+              <h1 class="h2 fw-bold mb-2">
+                UD3 · B3 – Exercicios de mantemento, incidencias e asistencia técnica
+              </h1>
+
+              <p class="lead mb-0">
+                Caderno de exercicios para practicar o protocolo de actuación,
+                o mantemento de sistemas operativos e a documentación de incidencias.
+              </p>
+            </div>
+          </header>
+
+          <!-- Instrucións xerais -->
+          <section class="mb-4 section-anchor" id="instrucions">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-info-circle"></i></span>
+                <h2 class="h4 fw-bold mb-0">Instrucións xerais</h2>
+              </div>
+              <div class="content-card-body">
+                <ul>
+                  <li>Responde de forma clara e concisa.</li>
+                  <li>Cando compares Windows e Ubuntu, indica sempre a cal dos dous te refires.</li>
+                  <li>Nos exercicios de interpretación pode haber varias respostas válidas; xustifica o razoamento.</li>
+                  <li>Nos exercicios de incidencias, segue a orde: recoller información, diagnosticar, actuar, verificar, documentar.</li>
+                  <li>Non propoñas accións correctoras sen comprobar antes datos mínimos do sistema.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Criterios -->
+          <section class="mb-4 section-anchor" id="criterios">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-clipboard-check"></i></span>
+                <h2 class="h4 fw-bold mb-0">Criterios xerais de corrección</h2>
+              </div>
+              <div class="content-card-body">
+                <p>Valorarase especialmente:</p>
+                <ul>
+                  <li>precisión técnica das respostas;</li>
+                  <li>uso correcto do vocabulario de mantemento, incidencias e asistencia técnica;</li>
+                  <li>capacidade para xustificar decisións técnicas;</li>
+                  <li>aplicación ordenada do protocolo de actuación ante incidencias;</li>
+                  <li>documentación completa e clara nos partes de incidencia;</li>
+                  <li>diferencia entre respostas xenéricas e respostas baseadas en evidencias.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Bloque 1 -->
+          <section class="mb-5 section-anchor" id="bloque1">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-gear"></i></span>
+                <h2 class="h4 fw-bold mb-0">Bloque 1 · Mantemento e actualizacións</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exercicio 1 -->
+                <div class="exercise-card mb-4">
+                  <h3 class="h5 fw-bold">Exercicio 1</h3>
+                  <p>
+                    Define con palabras propias que é o <strong>mantemento dun sistema operativo</strong>.
+                    Indica a diferenza entre mantemento <strong>preventivo</strong> e
+                    mantemento <strong>correctivo</strong> e pon un exemplo de cada tipo.
+                  </p>
+                  <div class="response-space mb-3"></div>
+                </div>
+
+                <!-- Exercicio 2 -->
+                <div class="exercise-card mb-4">
+                  <h3 class="h5 fw-bold">Exercicio 2</h3>
+                  <p>
+                    Indica se as seguintes afirmacións son <strong>verdadeiras</strong> ou
+                    <strong>falsas</strong>. Se son falsas, corríxeas.
+                  </p>
+                  <ol type="a">
+                    <li>En Ubuntu, <code>sudo apt update</code> instala as versións novas de todos os paquetes do sistema.</li>
+                    <li>As actualizacións de seguridade son as máis urxentes porque corrixen vulnerabilidades explotables.</li>
+                    <li>Un sistema sen actualizar pode funcionar correctamente durante anos sen ningún risco.</li>
+                    <li>En Windows, Windows Update só xestiona actualizacións do sistema operativo.</li>
+                    <li>O control do espazo en disco forma parte do mantemento habitual dun servidor.</li>
+                  </ol>
+                  <div class="response-space mb-3"></div>
+                </div>
+
+                <!-- Exercicio 3 -->
+                <div class="exercise-card mb-4">
+                  <h3 class="h5 fw-bold">Exercicio 3</h3>
+                  <p>
+                    Completa a táboa indicando, para cada necesidade de mantemento,
+                    unha ferramenta ou comando correspondente en Windows e en Ubuntu.
+                  </p>
+                  <div class="table-responsive my-2">
+                    <table class="table table-sm table-striped align-middle">
+                      <thead>
+                        <tr>
+                          <th>Necesidade</th>
+                          <th>Windows</th>
+                          <th>Ubuntu</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Comprobar se hai actualizacións pendentes</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Instalar actualizacións dispoñibles</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Ver o espazo libre en disco</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Eliminar temporais ou paquetes innecesarios</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Comprobar o estado dun servizo</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Exercicio 4 -->
+                <div class="exercise-card mb-2">
+                  <h3 class="h5 fw-bold">Exercicio 4</h3>
+                  <p>
+                    Un administrador ten tres servidores Ubuntu que leva seis meses sen actualizar.
+                    Responde:
+                  </p>
+                  <ol type="a">
+                    <li>Que riscos concretos implica non actualizar eses servidores durante tanto tempo?</li>
+                    <li>
+                      Que pasos seguirías para actualizar os tres servidores de forma ordenada e segura,
+                      sabendo que son servidores en produción?
+                    </li>
+                  </ol>
+                  <div class="response-space mb-3"></div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Bloque 2 -->
+          <section class="mb-5 section-anchor" id="bloque2">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-exclamation-triangle"></i></span>
+                <h2 class="h4 fw-bold mb-0">Bloque 2 · Protocolo de actuación ante incidencias</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exercicio 5 -->
+                <div class="exercise-card mb-4">
+                  <h3 class="h5 fw-bold">Exercicio 5</h3>
+                  <p>
+                    Ordena correctamente as seguintes etapas dun protocolo de actuación ante incidencias:
+                  </p>
+                  <ul>
+                    <li>Aplicar a acción correctora.</li>
+                    <li>Documentar o proceso e o resultado nun parte de incidencia.</li>
+                    <li>Recoller información sobre o problema: síntoma, desde cando, cambios recentes e alcance.</li>
+                    <li>Verificar que o problema está resolto.</li>
+                    <li>Diagnosticar a causa probable usando ferramentas de monitorización e logs.</li>
+                  </ul>
+                  <div class="answer-lines mb-3"></div>
+                </div>
+
+                <!-- Exercicio 6 -->
+                <div class="exercise-card mb-4">
+                  <h3 class="h5 fw-bold">Exercicio 6</h3>
+                  <p>
+                    Para cada síntoma indica: información inicial que recollerías,
+                    ferramenta ou comando de diagnóstico inicial e unha acción correctora sinxela.
+                  </p>
+                  <div class="table-responsive my-2">
+                    <table class="table table-sm table-striped align-middle">
+                      <thead>
+                        <tr>
+                          <th>Síntoma</th>
+                          <th>Información inicial</th>
+                          <th>Ferramenta de diagnóstico</th>
+                          <th>Acción correctora razoable</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Equipo Windows moi lento dende esta mañá</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Servidor Ubuntu non pode gardar ficheiros novos</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Usuario non pode iniciar sesión en Windows</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Servizo web en Ubuntu non responde</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Exercicio 7 -->
+                <div class="exercise-card mb-4">
+                  <h3 class="h5 fw-bold">Exercicio 7</h3>
+                  <p>Un técnico recibe esta queixa dun usuario:</p>
+                  <blockquote class="blockquote">
+                    <p>
+                      “Dende onte o meu ordenador vai moi lento. Tampouco puiden abrir
+                      o programa de contabilidade esta mañá. Non sei que lle pasa.”
+                    </p>
+                  </blockquote>
+                  <ol type="a">
+                    <li>
+                      Que preguntas concretas lle farías ao usuario na etapa de
+                      <strong>recollida de información</strong>? Indica polo menos 4 preguntas.
+                    </li>
+                    <li>
+                      Que ferramentas usarías en Windows para o <strong>diagnóstico inicial</strong>
+                      e que buscarías en cada unha (Administrador de tarefas, Visor de eventos,
+                      revisión de espazo en disco, etc.)?
+                    </li>
+                    <li>
+                      Propón dúas posibles causas do problema e unha acción correctora para cada unha.
+                    </li>
+                  </ol>
+                  <div class="response-space mb-3"></div>
+                </div>
+
+                <!-- Exercicio 8 -->
+                <div class="exercise-card mb-2">
+                  <h3 class="h5 fw-bold">Exercicio 8</h3>
+                  <p>
+                    Un compañeiro di: “Cando resolvo un problema nun equipo non apunto nada,
+                    así vou máis rápido”.
+                  </p>
+                  <p>
+                    Explica por que esta actitude é problemática nun contorno profesional.
+                    Indica polo menos tres consecuencias negativas concretas de non documentar incidencias.
+                  </p>
+                  <div class="response-space mb-3"></div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Bloque 3 -->
+          <section class="mb-5 section-anchor" id="bloque3">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-telephone"></i></span>
+                <h2 class="h4 fw-bold mb-0">Bloque 3 · Asistencia técnica</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exercicio 9 -->
+                <div class="exercise-card mb-4">
+                  <h3 class="h5 fw-bold">Exercicio 9</h3>
+                  <p>
+                    Completa a táboa comparativa entre asistencia presencial e remota.
+                  </p>
+                  <div class="table-responsive my-2">
+                    <table class="table table-sm table-striped align-middle">
+                      <thead>
+                        <tr>
+                          <th>Aspecto</th>
+                          <th>Presencial</th>
+                          <th>Remota</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Necesidade de desprazamento</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Posibilidade de revisar hardware físico</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Escalabilidade para moitos usuarios</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Exemplo de ferramenta típica</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Situación na que é imprescindible</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Exercicio 10 -->
+                <div class="exercise-card mb-4">
+                  <h3 class="h5 fw-bold">Exercicio 10</h3>
+                  <p>
+                    Relaciona cada ferramenta de asistencia remota co seu sistema e descrición.
+                  </p>
+                  <div class="table-responsive my-2">
+                    <table class="table table-sm table-striped align-middle">
+                      <thead>
+                        <tr>
+                          <th>Ferramenta</th>
+                          <th>Sistema</th>
+                          <th>Descrición</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>RDP</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>SSH</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>VNC</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>TeamViewer</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <p class="mb-1">Opcións de sistema:</p>
+                  <ul>
+                    <li>Windows</li>
+                    <li>Linux</li>
+                    <li>Multiplataforma</li>
+                  </ul>
+
+                  <p class="mb-1">Opcións de descrición:</p>
+                  <ul>
+                    <li>Acceso remoto cifrado por terminal, porto 22 por defecto.</li>
+                    <li>Protocolo nativo de Windows para escritorio remoto, porto 3389 por defecto.</li>
+                    <li>Ferramenta comercial de soporte remoto a usuarios finais.</li>
+                    <li>Acceso remoto gráfico multiplataforma, alternativa a RDP.</li>
+                  </ul>
+                </div>
+
+                <!-- Exercicio 11 -->
+                <div class="exercise-card mb-2">
+                  <h3 class="h5 fw-bold">Exercicio 11</h3>
+                  <p>
+                    Un técnico conectouse por RDP a un equipo Windows e deixou a sesión remota aberta.
+                  </p>
+                  <ol type="a">
+                    <li>Que risco de seguridade supón deixar a sesión remota aberta?</li>
+                    <li>Indica dúas boas prácticas de seguridade que debería seguir sempre ao facer asistencia remota.</li>
+                    <li>Como debería quedar rexistrada esta asistencia no parte técnico?</li>
+                  </ol>
+                  <div class="response-space mb-3"></div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Bloque 4 -->
+          <section class="mb-5 section-anchor" id="bloque4">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-file-earmark-text"></i></span>
+                <h2 class="h4 fw-bold mb-0">Bloque 4 · Documentación e parte de incidencia</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exercicio 12 -->
+                <div class="exercise-card mb-4">
+                  <h3 class="h5 fw-bold">Exercicio 12</h3>
+                  <p>
+                    Le o seguinte resumo dunha incidencia e responde ás preguntas.
+                  </p>
+                  <blockquote class="blockquote">
+                    <p>
+                      O mércores 03/06/2026 o usuario Carlos Díaz (PC-RECEPCION, Windows 11)
+                      comunicou que o seu equipo ía moi lento dende o luns pola tarde.
+                      O técnico revisou o Administrador de tarefas / Task Manager e observou
+                      que o disco estaba ao 98% de uso constante. Ao revisar o espazo libre,
+                      comprobou que só quedaban 800 MB libres de 120 GB. Eliminou os ficheiros
+                      da carpeta temporal (<code>%TEMP%</code>) e baleirou a papeleira.
+                      Tras a limpeza, o espazo libre subiu a 18 GB e o disco baixou ao 12% de uso.
+                      O usuario confirmou que o equipo xa ía con normalidade.
+                      Recoméndase revisar o espazo en disco cada mes e activar avisos de espazo baixo.
+                    </p>
+                  </blockquote>
+                  <ol type="a">
+                    <li>Identifica no texto cada un dos seis apartados dun parte de incidencia.</li>
+                    <li>Falta algún dato importante no apartado de identificación? Cal?</li>
+                    <li>
+                      A acción correctora aplicada foi axeitada? Xustifica. Propoñeríase algunha acción
+                      complementaria?
+                    </li>
+                  </ol>
+                  <div class="response-space mb-3"></div>
+                </div>
+
+                <!-- Exercicio 13 -->
+                <div class="exercise-card mb-2">
+                  <h3 class="h5 fw-bold">Exercicio 13</h3>
+                  <p>
+                    Redacta un <strong>parte de incidencia completo</strong> para o seguinte caso:
+                  </p>
+                  <blockquote class="blockquote">
+                    <p>
+                      O 07/06/2026 detectaches que o servidor Ubuntu do laboratorio
+                      (<code>SRV-SAUCE</code>) non responde ao comando <code>ping</code>
+                      dende outros equipos. Ao revisar o equipo directamente, comprobas con
+                      <code>ip a</code> que o adaptador de rede está inactivo (<code>DOWN</code>).
+                      Executas <code>sudo ip link set enp0s3 up</code> e o adaptador actívase.
+                      Comprobas con <code>ping 8.8.8.8</code> que hai conectividade IP cara ao exterior
+                      e, despois, verificas dende outro equipo da rede que o servidor volve responder.
+                      Recoméndase revisar por que o adaptador se desactivou (posible fallo tras
+                      actualización, reinicio incompleto ou configuración non persistente).
+                    </p>
+                  </blockquote>
+                  <p>Cubre todos os apartados: identificación, descrición, diagnóstico, accións, resultado e recomendacións.</p>
+                  <div class="response-space mb-3"></div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Bloque 5 -->
+          <section class="mb-5 section-anchor" id="bloque5">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-diagram-2"></i></span>
+                <h2 class="h4 fw-bold mb-0">Bloque 5 · SNMP e monitorización centralizada</h2>
+              </div>
+              <div class="content-card-body">
+
+                <!-- Exercicio 14 -->
+                <div class="exercise-card mb-4">
+                  <h3 class="h5 fw-bold">Exercicio 14</h3>
+                  <ol type="a">
+                    <li>
+                      Que diferenza hai entre <strong>monitorización local</strong> e
+                      <strong>monitorización centralizada</strong>? Pon un exemplo de cada unha.
+                    </li>
+                    <li>Para que serve o protocolo <strong>SNMP</strong> nunha rede de empresa?</li>
+                    <li>Que é a <strong>MIB</strong> e para que se usa?</li>
+                    <li>Cita dous exemplos de ferramentas profesionais que poidan empregar SNMP.</li>
+                  </ol>
+                  <div class="response-space mb-3"></div>
+                </div>
+
+                <!-- Exercicio 15 -->
+                <div class="exercise-card mb-2">
+                  <h3 class="h5 fw-bold">Exercicio 15</h3>
+                  <p>
+                    Unha empresa ten 50 equipos en tres sedes. O responsable de sistemas
+                    debe saber se hai CPU ao 100 %, pouco espazo en disco ou servizos críticos detidos.
+                  </p>
+                  <ol type="a">
+                    <li>
+                      Sería viable facer ese seguimento só con monitorización local,
+                      conectándose equipo a equipo? Xustifica.
+                    </li>
+                    <li>
+                      Que tipo de solución sería máis adecuada? Que protocolo podería empregar?
+                    </li>
+                    <li>
+                      Que vantaxes concretas tería esa solución para o responsable de sistemas?
+                    </li>
+                  </ol>
+                  <div class="response-space mb-3"></div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Autoavaliación -->
+          <section class="mb-5 section-anchor" id="autoavaliacion">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-check2-circle"></i></span>
+                <h2 class="h4 fw-bold mb-0">Autoavaliación rápida</h2>
+              </div>
+              <div class="content-card-body">
+                <ul class="check-list list-group list-group-flush mb-3">
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Nos exercicios de protocolo (5–7) seguín a orde correcta das etapas.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Na táboa de asistencia (9) cubrín todos os campos.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    No parte de incidencia (13) incluín os seis apartados do modelo.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Nos exercicios de SNMP (14–15) diferencio local e centralizada.
+                  </li>
+                  <li class="list-group-item">
+                    <span class="check-box"></span>
+                    Nas respostas con casos prácticos xustifiquei as decisións técnicas
+                    e non propuxen accións sen diagnóstico previo.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <!-- Pé de páxina -->
+  <footer class="smpp-footer no-print">
+    <div class="smpp-footer-spacer"></div>
+    <div class="smpp-footer-center">
+      <span>CIFP A Carballeira · Ourense</span>
+      <span>Administración de Sistemas Informáticos · Curso 26/27</span>
+      <span>Material didáctico de uso interno</span>
+    </div>
+    <img src="../../assets/imax/sauce-clean.svg"
+         alt=""
+         class="smpp-sauce"
+         onerror="this.style.display='none'">
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- JS SMPP -->
+  <script src="../../assets/js/smpp.js"></script>
+
+</body>
+</html>

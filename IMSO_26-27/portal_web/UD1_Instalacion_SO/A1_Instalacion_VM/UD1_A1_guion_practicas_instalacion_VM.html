@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMSO – A1 · Guión de prácticas · Instalacion VM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/imax/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="../../assets/imax/favicon-192x192.png">
+    <link rel="stylesheet" href="../../assets/css/imso.css">
+</head>
+<body>
+
+<nav class="smpp-navbar no-print">
+    <div class="container d-flex align-items-center justify-content-between">
+        <a class="smpp-brand" href="#">
+            <svg class="smpp-buho" viewBox="0 0 229 312" xmlns="http://www.w3.org/2000/svg"><path style="fill:currentColor; stroke:none;" d="M105 108C106.092 114.321 109.507 120.706 113.105 125.995C114.41 127.914 116.335 130.793 118.971 130.793C124.125 130.793 128.715 118.035 130.03 114C132.244 107.21 125.014 104.125 123.533 98C120.754 86.5074 129.693 74.19 138 67.3287C157.973 50.8312 192.629 59.108 202.945 31C204.354 27.1625 205.448 23.0815 205.829 19C206.087 16.2374 206.217 10.8515 201.941 11.8896C198.923 12.6226 196.377 15.4949 194 17.3349C189.874 20.5287 185.494 23.3441 181 25.9892C165.371 35.1885 147.345 41.6379 133.001 52.8148C127.207 57.3293 120.76 62.5979 119 70C115.415 66.464 113.433 61.7111 109.907 58.0394C103.191 51.0461 94.5309 45.7304 86 41.2554C77.5157 36.8048 69.2107 31.9363 61 27C54.0486 22.8208 47.253 18.4236 41 13.2462C38.7202 11.3585 35.3527 7.37711 32.1481 7.34491C28.1078 7.30429 28.9077 14.4963 29.0903 17C29.7718 26.3471 34.528 37.0498 41.3002 43.5355C49.0509 50.9583 59.042 52.381 69 54.679C81.9826 57.6751 96.7591 63.1685 105.101 74.0039C113.115 84.4131 117.391 99.0055 105 108M77 34C93.1178 40.7015 105.681 49.6805 118 62C125.47 56.7377 131.175 49.6462 139 44.696C146.908 39.6936 156.266 37.2023 164 32C144.997 23.8218 125.188 24.0442 105 24.9606C95.8176 25.3775 83.5405 26.8395 77 34M45 236C44.0329 231.357 45.9018 227.424 47.3295 223C49.5337 216.17 51.8331 209.021 53.331 202C58.4858 177.839 57.2483 151.977 43.3326 131C40.5022 126.733 37.9642 122.276 34 119C13.5911 153.967 20.8598 200.055 39.7315 234C46.4638 246.11 57.1047 261.995 70 268C68.7266 271.915 67.0985 275.822 67.0795 280C67.0589 284.506 69.1213 288.275 66 292L64 283L0 283L0 298L229 298L229 283L185 283C177.471 283 171.098 281.377 169 290C167.72 285.671 168.28 281.452 167.897 277C167.703 274.756 166.687 272.24 167.403 270.015C168.823 265.596 174.783 262.324 177.83 258.996C185.706 250.395 192.759 241.341 198.219 231C216.651 196.09 220.708 154.705 202 119L200 119C195.225 127.971 188.66 136.16 185.623 146C176.155 176.674 183.596 206.106 192 236C184.733 228.487 182.147 212.073 180.715 202C178.107 183.662 176.157 166.083 181.9 148C186.243 134.328 196.345 123.431 201.034 110C202.851 104.796 202.968 98.4671 203.561 93C204.592 83.4871 201.411 71.4355 197.1 63C195.77 60.3991 194.162 56.648 191.61 55.0278C187.749 52.5758 181.717 54.2114 178 56C183.08 69.2073 192.944 77.4351 190.7 93C188.539 107.992 177.449 116.891 165 123.846C139.596 138.037 103.483 139.257 77 127.208C62.0637 120.412 43.3332 105.644 45.304 87C46.6451 74.3132 54.0586 66.8928 61 57C56.5757 55.0418 50.1327 52.4993 45.304 54.6034C42.0733 56.0112 40.3836 60.0725 38.841 63C34.0537 72.0854 31.6528 83.7362 32.1042 94C32.4567 102.016 33.7145 109.789 37.3735 117C43.5612 129.195 52.6836 138.506 56.4059 152C62.0757 172.554 58.4646 195.967 52.4298 216C50.3798 222.805 47.0873 229.227 45 236M77 67.5185C61.7765 70.6989 54.1473 89.383 64.419 101.907C69.8284 108.502 79.9791 110.197 88 108.482C101.144 105.673 108.48 90.0544 101.721 78.0008C97.3132 70.1394 85.7216 65.6965 77 67.5185M152 67.4406C132.074 70.5515 123.567 99.1812 145 107.656C149.194 109.314 154.589 109.446 159 108.671C185.386 104.034 178.266 63.34 152 67.4406z"/></svg>
+            <div class="smpp-brand-text">
+                <span class="smpp-title">SMPP</span>
+                <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+            </div>
+        </a>
+        <div class="d-flex align-items-center gap-3">
+            <span class="smpp-module">MP0369 · IMSO 26/27</span>
+            <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+                <i id="theme-icon" class="bi bi-moon-stars"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-3 d-none d-md-block no-print">
+            <div class="sidebar sidebar-panel p-3 shadow-sm rounded border">
+                <h6><i class="bi bi-list-ul"></i> Contido</h6>
+                <hr>
+                <nav id="toc" class="nav flex-column small">
+<a class="nav-link ms-3 py-1" href="#obxectivos-da-actividade">Obxectivos da actividade</a>
+<a class="nav-link ms-3 py-1" href="#1-obxectivo">1. Obxectivo</a>
+<a class="nav-link ms-3 py-1" href="#2-requisitos-previos">2. Requisitos previos</a>
+<a class="nav-link ms-3 py-1" href="#3-tarefas">3. Tarefas</a>
+<a class="nav-link ms-3 py-1" href="#4-entrega-mínima">4. Entrega mínima</a>
+<a class="nav-link ms-3 py-1" href="#2-situación-inicial">2. Situación inicial</a>
+</nav>
+            </div>
+        </div>
+
+        <main class="col-md-9 px-md-5">
+            <nav aria-label="breadcrumb" class="no-print mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                    <li class="breadcrumb-item active" id="breadcrumb-current">A1 · Guión de prácticas · Instalacion VM</li>
+                </ol>
+            </nav>
+
+            <article id="content">
+<h1 class="mb-2">A1 · Guión de prácticas · Instalacion VM</h1>
+<p class="lead mb-4">Apuntes do módulo IMSO · CIFP A Carballeira</p>
+<h3 id="instalación-de-sistemas-operativos-en-vm-ra1-bc1" class="mt-4 mb-2">Instalación de sistemas operativos en VM (RA1, BC1)</h3>
+<p><strong>UD:</strong> UD1. Instalación, configuración e aseguramento básico de sistemas operativos</p>
+<p><strong>Actividade:</strong> 1 – Instalación de sistemas operativos en máquinas virtuais (8 sesións).</p>
+<h4 id="obxectivos-da-actividade" class="mt-4 mb-2 fw-semibold">Obxectivos da actividade</h4>
+<ul>
+<li>Preparar máquinas virtuais adecuadas para instalar <strong>Ubuntu 24.04 LTS</strong>, <strong>Windows 11</strong>.</li>
+<li>Realizar a instalación completa en VM, comprendendo o proceso e non só “clicando seguinte”.</li>
+<li>Realizar <strong>comprobacións posteriores básicas</strong> (versión, disco, rede, actualizacións).</li>
+<li>Documentar a instalación e as incidencias de forma breve e útil.</li>
+</ul>
+<p>---</p>
+<h3 id="práctica-1-crear-unha-vm-para-ubuntu-2404" class="mt-4 mb-2">Práctica 1 · Crear unha VM para Ubuntu 24.04</h3>
+<h4 id="1-obxectivo" class="mt-4 mb-2 fw-semibold">1. Obxectivo</h4>
+<p>Crear unha máquina virtual en VirtualBox preparada para instalar <strong>Ubuntu 24.04 LTS Desktop</strong>, asignando recursos coherentes cunha aula de 1º ASIR.</p>
+<h4 id="2-requisitos-previos" class="mt-4 mb-2 fw-semibold">2. Requisitos previos</h4>
+<ul>
+<li>VirtualBox instalado no equipo anfitrión.</li>
+<li>ISO oficial de Ubuntu 24.04 LTS (<code class="px-1">ubuntu-24.04.x-desktop-amd64.iso</code>) descargada desde a web oficial.</li>
+<li>Coñecer a diferenza entre <strong>host</strong> e <strong>guest</strong> e o concepto de <strong>máquina virtual</strong>.</li>
+</ul>
+<h4 id="3-tarefas" class="mt-4 mb-2 fw-semibold">3. Tarefas</h4>
+<ol class="mb-2">
+<li><strong>Crear a VM:</strong></li>
+</ol>
+<ul>
+<li>Nome: <code class="px-1">Ubuntu24-Aula</code>.</li>
+<li>Tipo: Linux.</li>
+<li>Versión: Ubuntu 64-bit.</li>
+</ul>
+<ol class="mb-2">
+<li><strong>Asignar memoria RAM:</strong></li>
+</ol>
+<ul>
+<li>Asigna <strong>4096 MB (4 GB)</strong>.</li>
+<li>Xustifica en dúas liñas por que 4 GB é mellor opción ca 2 GB para esta práctica.</li>
+</ul>
+<ol class="mb-2">
+<li><strong>Asignar CPU:</strong></li>
+</ol>
+<ul>
+<li>Configura <strong>2 procesadores</strong>.</li>
+<li>Explica brevemente que pasaría se usas só 1.</li>
+</ul>
+<ol class="mb-2">
+<li><strong>Crear disco virtual:</strong></li>
+</ol>
+<ul>
+<li>Tipo: VDI.</li>
+<li>Reserva: dinámica.</li>
+<li>Tamaño: <strong>40 GB</strong>.</li>
+<li>Indica por que non é boa idea poñer só 20 GB.</li>
+</ul>
+<ol class="mb-2">
+<li><strong>Configurar rede:</strong></li>
+</ol>
+<ul>
+<li>Adaptador 1: <strong>NAT</strong> (modo por defecto).</li>
+<li>Explica en que situacións che podería interesar usar <strong>adaptador ponte</strong> máis adiante.</li>
+</ul>
+<ol class="mb-2">
+<li><strong>Montar a ISO:</strong></li>
+</ol>
+<ul>
+<li>Asocia a ISO <code class="px-1">ubuntu-24.04.x-desktop-amd64.iso</code> á unidade óptica virtual.</li>
+</ul>
+<ol class="mb-2">
+<li><strong>Revisión final da configuración:</strong></li>
+</ol>
+<ul>
+<li>Fai captura de pantalla da ventá de configuración da VM (Resumo).</li>
+<li>Garda a captura para anexala á documentación da práctica.</li>
+</ul>
+<h4 id="4-entrega-mínima" class="mt-4 mb-2 fw-semibold">4. Entrega mínima</h4>
+<ul>
+<li>Folla ou arquivo con:</li>
+<ul>
+<li>Táboa de configuración (RAM, CPU, disco, rede, ISO).</li>
+<li>Xustificación breve de decisións clave.</li>
+</ul>
+<ul>
+<li>1 captura da configuración da VM en VirtualBox.</li>
+</ul>
+</ul>
+<p>---</p>
+<h3 id="práctica-2-instalación-de-ubuntu-2404-en-vm" class="mt-4 mb-2">Práctica 2 · Instalación de Ubuntu 24.04 en VM</h3>
+<h4 id="1-obxectivo" class="mt-4 mb-2 fw-semibold">1. Obxectivo</h4>
+<p>Instalar <strong>Ubuntu 24.04 LTS Desktop</strong> na VM creada, seguindo un <strong>proceso ordenado de 15 pasos</strong> e entendendo cada decisión básica (idioma, teclado, particionado, usuario).</p>
+<h4 id="2-requisitos-previos" class="mt-4 mb-2 fw-semibold">2. Requisitos previos</h4>
+<ul>
+<li>VM <code class="px-1">Ubuntu24-Aula</code> creada e lista para arrancar desde ISO.</li>
+<li>Copia do <strong>esquema de 15 pasos</strong> de instalación que xa traballastes en clase.</li>
+</ul>
+<h4 id="3-tarefas" class="mt-4 mb-2 fw-semibold">3. Tarefas</h4>
+<ol class="mb-2">
+<li>Arranca a VM desde a ISO de Ubuntu.</li>
+<li>Segue o instalador e, en cada paso principal, anota:</li>
+</ol>
+<ul>
+<li>Que opción escolles.</li>
+<li>Por que a escolles.</li>
+</ul>
+<p>Pasos clave (mínimo):</p>
+<ul>
+<li>Idioma, teclado.</li>
+<li>Tipo de instalación (normal/mínima).</li>
+<li>Instalación xunto con outro SO / usando todo o disco virtual.</li>
+<li>Particionado (podes aceptar o esquema automático nesta primeira práctica).</li>
+<li>Creación de usuario e contrasinal.</li>
+<li>Nome do equipo.</li>
+<li>Configuración de actualizacións iniciais.</li>
+</ul>
+<ol class="mb-2">
+<li>Cando remate a copia de ficheiros e reinicie:</li>
+</ol>
+<ul>
+<li>Inicia sesión co usuario creado.</li>
+<li>Verifica que chegas ao escritorio gráfico.</li>
+</ul>
+<ol class="mb-2">
+<li>Fai 2–3 capturas:</li>
+</ol>
+<ul>
+<li>Pantalla de particionado (aínda que sexa automático).</li>
+<li>Pantalla de creación de usuario.</li>
+<li>Escritorio final instalado.</li>
+</ul>
+<h4 id="4-entrega-mínima" class="mt-4 mb-2 fw-semibold">4. Entrega mínima</h4>
+<ul>
+<li>Pequeno <strong>pseudomanual</strong> (1–2 páxinas) co resumo dos pasos que seguiches.</li>
+<li>Capturas de pantalla clave anexas.</li>
+</ul>
+<p>---</p>
+<h3 id="práctica-3-preparar-unha-vm-para-windows-11" class="mt-4 mb-2">Práctica 3 · Preparar unha VM para Windows 11</h3>
+<h4 id="1-obxectivo" class="mt-4 mb-2 fw-semibold">1. Obxectivo</h4>
+<p>Deseñar e crear unha VM en VirtualBox <strong>compatible con Windows 11</strong>, respectando os requisitos mínimos (RAM, disco, UEFI, TPM).</p>
+<h4 id="2-requisitos-previos" class="mt-4 mb-2 fw-semibold">2. Requisitos previos</h4>
+<ul>
+<li>VirtualBox instalado.</li>
+<li>(Opcional) ISO de Windows 11 x64, se a práctica se vai completar con instalación.</li>
+</ul>
+<h4 id="3-tarefas" class="mt-4 mb-2 fw-semibold">3. Tarefas</h4>
+<ol class="mb-2">
+<li>Crea unha VM nova:</li>
+</ol>
+<ul>
+<li>Nome: <code class="px-1">Win11-Aula</code>.</li>
+<li>Tipo: Windows.</li>
+<li>Versión: Windows 11 (64-bit) ou equivalente.</li>
+</ul>
+<ol class="mb-2">
+<li>Configura recursos segundo a táboa recomendada:</li>
+</ol>
+<ul>
+<li>RAM: <strong>6 GB</strong>.</li>
+<li>CPU: <strong>2 núcleos</strong>.</li>
+<li>Disco: <strong>80 GB</strong>, VDI, reserva dinámica.</li>
+<li>Firmware: <strong>UEFI</strong>.</li>
+<li>TPM: <strong>TPM 2.0 virtual</strong>, se VirtualBox dispoñible.</li>
+<li>Rede: NAT.</li>
+</ul>
+<ol class="mb-2">
+<li>Monta a ISO de Windows 11 x64.</li>
+</ol>
+<ol class="mb-2">
+<li>Fai captura da lapela “Sistema” (mostrando UEFI) e da lapela “Seguridade”/TPM, se aparece.</li>
+</ol>
+<ol class="mb-2">
+<li>Responde por escrito:</li>
+</ol>
+<ul>
+<li>Por que <strong>non</strong> se recomenda Windows 11 con 2 GB de RAM e 40 GB de disco.</li>
+<li>Que problema típico aparece cando faltan UEFI ou TPM ao instalar Windows 11.</li>
+</ul>
+<h4 id="4-entrega-mínima" class="mt-4 mb-2 fw-semibold">4. Entrega mínima</h4>
+<ul>
+<li>Táboa coas características da VM.</li>
+<li>2 capturas (configuración e montaxe da ISO).</li>
+<li>Respostas ás preguntas de reflexión.</li>
+</ul>
+<p>---</p>
+<h3 id="práctica-4-comprobación-posterior-en-ubuntu-2404" class="mt-4 mb-2">Práctica 4 · Comprobación posterior en Ubuntu 24.04</h3>
+<h4 id="1-obxectivo" class="mt-4 mb-2 fw-semibold">1. Obxectivo</h4>
+<p>Realizar as <strong>comprobacións básicas</strong> despois da instalación de Ubuntu 24.04 na VM, usando comandos de terminal e interpretando os resultados.</p>
+<h4 id="2-requisitos-previos" class="mt-4 mb-2 fw-semibold">2. Requisitos previos</h4>
+<ul>
+<li>Ubuntu 24.04 instalado e arrancando correctamente na VM.</li>
+<li>Acceso a unha terminal.</li>
+</ul>
+<h4 id="3-tarefas" class="mt-4 mb-2 fw-semibold">3. Tarefas</h4>
+<p>Na terminal de Ubuntu, executa os seguintes comandos e anota resultados e interpretación:</p>
+<ol class="mb-2">
+<li><code class="px-1">lsb_release -a</code></li>
+</ol>
+<ul>
+<li>Que versión de Ubuntu aparece?</li>
+<li>Que che confirmará este comando nunha práctica de exame?</li>
+</ul>
+<ol class="mb-2">
+<li><code class="px-1">lsblk</code></li>
+</ol>
+<ul>
+<li>Cantos discos aparecen?</li>
+<li>Que partición é a raíz (<code class="px-1">/</code>)?</li>
+<li>Está presente unha partición EFI? Que tamaño ten aproximadamente?</li>
+</ul>
+<ol class="mb-2">
+<li><code class="px-1">df -h</code></li>
+</ol>
+<ul>
+<li>Canto espazo ocupado ten a partición raíz?</li>
+<li>Canto espazo libre queda? É suficiente para as prácticas que imos facer?</li>
+</ul>
+<ol class="mb-2">
+<li><code class="px-1">ip a</code></li>
+</ol>
+<ul>
+<li>Que interface de rede aparece activa (por exemplo, <code class="px-1">enp0s3</code>)?</li>
+<li>Ten unha dirección IP? É do rango esperado para NAT en VirtualBox?</li>
+</ul>
+<ol class="mb-2">
+<li><code class="px-1">sudo apt update</code> e <code class="px-1">sudo apt full-upgrade</code></li>
+</ol>
+<ul>
+<li>Había actualizacións pendentes?</li>
+<li>Anota calquera erro de repositorios que apareza.</li>
+</ul>
+<ol class="mb-2">
+<li><code class="px-1">sudo ubuntu-drivers devices</code></li>
+</ol>
+<ul>
+<li>Aparece algún controlador recomendado? Cal?</li>
+</ul>
+<ol class="mb-2">
+<li><code class="px-1">hostnamectl</code></li>
+</ol>
+<ul>
+<li>Confirma o nome do equipo que configuraches durante a instalación.</li>
+<li>Que distribución e versión do kernel mostra?</li>
+</ul>
+<h4 id="4-entrega-mínima" class="mt-4 mb-2 fw-semibold">4. Entrega mínima</h4>
+<ul>
+<li>Taboa sinxela con columnas: <strong>Comando / Resultado relevante / Interpretación</strong>.</li>
+<li>Captura de terminal dalgún comando representativo (por exemplo <code class="px-1">lsblk</code> ou <code class="px-1">df -h</code>).</li>
+</ul>
+<p>---</p>
+<h3 id="práctica-5-diagnóstico-dunha-incidencia-de-rede-en-vm" class="mt-4 mb-2">Práctica 5 · Diagnóstico dunha incidencia de rede en VM</h3>
+<h4 id="1-obxectivo" class="mt-4 mb-2 fw-semibold">1. Obxectivo</h4>
+<p>Practicar o diagnóstico dunha <strong>VM sen Internet</strong>, combinando comprobacións en Ubuntu e en VirtualBox, e deixando constancia nun mini parte de incidencia.</p>
+<h4 id="2-situación-inicial" class="mt-4 mb-2 fw-semibold">2. Situación inicial</h4>
+<p>“Ubuntu está instalado en VirtualBox, pero <strong>non ten Internet</strong>.”</p>
+<h4 id="3-tarefas" class="mt-4 mb-2 fw-semibold">3. Tarefas</h4>
+<ol class="mb-2">
+<li>En Ubuntu:</li>
+</ol>
+<ul>
+<li>Executa <code class="px-1">ip a</code> e comproba se a interface principal ten IP.</li>
+<li>Se non ten IP, anota o que ves (por exemplo, só <code class="px-1">lo</code>).</li>
+</ul>
+<ol class="mb-2">
+<li>Proba conectividade:</li>
+</ol>
+<ul>
+<li>Se tes IP, proba: <code class="px-1">ping 8.8.8.8 -c 4</code></li>
+<li>Se responde, pero non navegas, pode ser problema de DNS.</li>
+</ul>
+<ol class="mb-2">
+<li>En VirtualBox:</li>
+</ol>
+<ul>
+<li>Abre a configuración da VM → Rede.</li>
+<li>Comproba o <strong>modo de rede</strong> (NAT, adaptador ponte, rede interna…).</li>
+<li>Se está en “Non conectado”, cámbiao a NAT e garda.</li>
+</ul>
+<ol class="mb-2">
+<li>Reinicia a VM e repite <code class="px-1">ip a</code> e <code class="px-1">ping</code>.</li>
+</ol>
+<ol class="mb-2">
+<li>Redacta un <strong>mini parte de incidencia</strong> co formato:</li>
+</ol>
+<ul>
+<li>Sintoma:</li>
+<li>Revisión inicial (comandos e pantallas):</li>
+<li>Causa probable:</li>
+<li>Pasos realizados:</li>
+<li>Resultado:</li>
+</ul>
+<h4 id="4-entrega-mínima" class="mt-4 mb-2 fw-semibold">4. Entrega mínima</h4>
+<ul>
+<li>Parte de incidencia completo nunha páxina.</li>
+<li>Captura da configuración de rede en VirtualBox antes/despois.</li>
+</ul>
+<p>---</p>
+<h3 id="práctica-6-documentación-mínima-da-instalación" class="mt-4 mb-2">Práctica 6 · Documentación mínima da instalación</h3>
+<h4 id="1-obxectivo" class="mt-4 mb-2 fw-semibold">1. Obxectivo</h4>
+<p>Cubrir unha <strong>ficha de documentación de instalación</strong> para a VM de Ubuntu  e para Windows 11, reutilizable noutras UD.</p>
+<h4 id="2-requisitos-previos" class="mt-4 mb-2 fw-semibold">2. Requisitos previos</h4>
+<ul>
+<li>Ter completado, como mínimo, as Prácticas 1, 2 e 4.</li>
+</ul>
+<h4 id="3-tarefas" class="mt-4 mb-2 fw-semibold">3. Tarefas</h4>
+<p>Emprega o modelo breve de documentación da instalación e complétao cos datos da túa VM:</p>
+<ul>
+<li>Data.</li>
+<li>Sistema operativo e versión.</li>
+<li>Tipo de instalación (VM, limpa, etc.).</li>
+<li>Recursos da VM (CPU, RAM, disco, rede, firmware, TPM).</li>
+<li>Esquema de particións (podes resumilo a partir de <code class="px-1">lsblk</code>).</li>
+<li>Usuario inicial e nome do equipo.</li>
+<li>Actualizacións realizadas.</li>
+<li>Controladores revisados.</li>
+<li>Aplicacións adicionais instaladas (se hai).</li>
+<li>Incidencias e solucións.</li>
+<li>Capturas achegadas (lista das capturas que acompañas).</li>
+</ul>
+<h4 id="4-entrega-mínima" class="mt-4 mb-2 fw-semibold">4. Entrega mínima</h4>
+<ul>
+<li>Documento completo (1–2 páxinas) seguindo o modelo.</li>
+<li>Capturas referenciadas no texto.</li>
+</ul>
+<p>---</p>
+<h3 id="recomendacións-de-traballo-autónomo" class="mt-4 mb-2">Recomendacións de traballo autónomo</h3>
+<ul>
+<li>Antes de empezar cada práctica, le <strong>primeiro o obxectivo</strong>: así saberás a que prestarlle atención.</li>
+<li>Se rematas antes, podes repetir a práctica cambiando algún parámetro (máis/menos RAM, outro modo de rede) e comentar o efecto.</li>
+<li>Garda sempre:</li>
+<ul>
+<li>ficheiro de documentación,</li>
+<li>partes de incidencia,</li>
+<li>capturas organizadas en cartafoles por práctica.</li>
+</ul>
+</ul>
+</article>
+        </main>
+    </div>
+</div>
+
+<footer class="smpp-footer no-print">
+    <div class="smpp-footer-spacer"></div>
+    <div class="smpp-footer-center">
+        <span>CIFP A Carballeira · Ourense</span>
+        MP0369 IMSO · ASIR 1º · Curso 2026/27
+        <br>© 2026 Silvia M. Peña Pérez
+    </div>
+    <svg class="smpp-sauce" viewBox="0 0 438 482" xmlns="http://www.w3.org/2000/svg"><path style="fill:currentColor; stroke:none;" d="M47 76C58.6855 68.2703 67.7902 57.024 80 50C77.6458 54.9471 73.8676 58.5736 70.8704 63.0895C67.478 68.2008 64.4348 75.5061 59.6242 79.4113C55.7145 82.5851 49.6257 82.1909 45.2855 84.9051C32.1 93.1508 23.3484 111.655 27 127C31.0319 124.975 33.8476 121.179 37.0039 117.999C42.9358 112.023 48.6447 105.497 55 100C53.1283 109.651 48.9683 119.285 48 129C25.7513 132.47 17.3801 158.502 21 178C28.603 170.971 41.141 161.21 44 151C48.4867 166.179 36.7002 172.328 28.5285 183C20.776 193.125 16.2468 212.045 22 224C30.2779 216.652 33.9743 205.356 42 198C40.4832 204.298 41.0617 212.007 38.2971 217.896C36.3197 222.108 31.3151 224.137 28.7022 228.004C21.5191 238.634 21.4961 255.756 27 267C34.5526 260.292 35.0289 249.373 42 243C41.9913 256.192 36.177 266.441 33.5177 279C30.8954 291.385 35.213 309.624 45 318C50.8146 307.99 54.2904 294.597 52.7099 283.004C51.4672 273.889 47.7423 265.393 47 256C51.3952 264.989 56.7585 273.499 62 282L64 282C67.7817 273.038 67.2806 258.799 62.6258 250.17C58.1562 241.884 50.7222 234.761 47.2832 226C44.6973 219.413 46 210.964 46 204C50.8637 213.678 53.9407 224.399 59 234C63.9755 231.322 64.0916 226.209 64.7145 221C65.7641 212.224 64.7675 202.551 59.8958 195C56.6113 189.909 51.2858 185.668 49.0093 180C47.1129 175.278 48.8987 169.908 49 165C55.7264 168.618 56.0412 179.705 60 186C68.7276 177.195 67.0077 158.597 62.24 148.17C60.3465 144.029 56.2746 140.646 55.5895 136C54.7719 130.455 57.7205 123.313 59.1512 118C63.4458 102.052 68.9262 80.9004 81 69C81.8848 75.0183 84.7354 81.8829 83.1605 88C80.6305 97.8266 70.9651 104.282 67.75 114C64.0585 125.158 65.8964 138.676 68 150C74.6037 141.274 81.0349 126.985 82 116L84 116C84 125.041 84.6079 134.366 81.3372 143C79.2557 148.495 74.8387 152.818 72.1343 158C67.3745 167.12 67.1531 177.052 69 187C79.2828 186.188 84.7449 166.82 85 158L87 158C87.0216 165.831 88.9233 173.296 86.4707 181C83.992 188.786 77.6127 195.643 73.9699 203C70.8135 209.374 69.9224 215.966 70.0039 223C70.0689 228.617 70.533 236.144 76 239C80.4232 226.639 87.0333 215.941 90 203C92.3624 210.992 93.3851 223.254 89.787 231C84.916 241.486 75.653 249.545 72.554 261.09C70.5693 268.483 68.9682 282.836 77 287C81.6849 275.747 88.4939 266.109 91 254C93.1118 261.144 93.3343 273.129 90.1019 280C85.4804 289.824 76.821 297.461 73.2485 308C70.0278 317.501 73.6167 325.764 75 335C78.8906 332.792 80.2807 328.906 82.2477 325C86.0592 317.432 90.2453 310.389 92 302C95.6835 314.462 89.3915 325.789 88.1705 338C86.8568 351.139 91.3126 361.585 97 373L100 373C103.526 363.859 106.277 353.918 105.957 344C105.714 336.484 102.928 329.251 101.235 322C99.6161 315.065 98.8905 308.047 98 301L103.119 312L116 330L118 330C121.55 317.99 116.902 303.342 110.533 293C107.347 287.826 102.944 283.543 100.327 278C96.6856 270.286 97 262.306 97 254C102.615 264.655 106.346 281.046 118 287C118.276 273.611 119.33 262.611 113.179 250C109.643 242.75 102.757 237.442 99.6844 230C96.6025 222.534 97.4405 214.759 96 207C101.942 215.347 106.291 231.85 117 235C119.35 222.342 117.077 208.885 109.896 198C105.43 191.231 98.6574 186.001 95.1883 178.576C92.2902 172.373 93.231 164.631 92 158C98.7453 168.118 103.266 181.528 115 187C115 175.563 113.962 163.806 107.401 154C103.045 147.49 95.5053 143.206 92.2778 136C89.164 129.048 90 120.412 90 113C98.1429 120.896 101.296 132.145 111 139C113.18 127.259 112.376 113.779 106.11 103.285C103.83 99.468 101.27 95.5043 98.4869 92.0394C96.6591 89.7636 94.088 87.8443 93.3187 84.9105C90.6475 74.7242 99.9761 64.4421 102 55C104.885 64.761 103.129 74.5311 107.343 84.2855C108.681 87.3809 109.154 90.0507 112 92C113.385 84.6468 114.889 77.2723 116.829 70.0394C117.84 66.2699 119.612 62.959 119.91 58.9992C120.474 51.5092 117.736 40.8851 121.769 34.1852C125.675 27.6945 135.076 26.0862 142 26.0038C155.069 25.8484 165.325 28.6063 177 34.2585C181.094 36.2406 185.625 37.9523 189 41C170.82 42.26 165.126 60.6693 160 75C154.133 73.96 150.257 75.2402 145 77.9236C123.713 88.7888 121 110.564 121 132C124.75 128.394 127.42 123.792 131.039 120C140.763 109.813 152.901 98.9617 157 85C159.195 92.4259 158.259 105.758 152.606 111.621C148.021 116.376 141.662 118.872 137.212 124.015C127.59 135.135 123.185 155.277 129 169L131 169C138.692 156.222 148.851 144.657 155 131C156.725 136.834 157.682 148.404 154.821 153.985C152.197 159.104 146.141 162.613 142.439 167C134.848 175.996 131.878 184.614 129.745 195.91C128.385 203.111 126.594 209.325 131 216C135.574 209.276 141.03 203.026 145.125 196C148.993 189.363 151.905 180.644 157 175C157 182.427 158.928 193.01 156.258 200C153.419 207.432 144.716 212.472 140.221 219C131.534 231.615 130.264 249.261 133 264C136.557 260.95 138.09 256.932 140.533 253C145.929 244.315 153.464 234.256 155 224C156.979 230.696 157.74 243.663 154.427 250C149.996 258.477 141.569 264.694 136.782 273.09C130.173 284.678 128.584 297.989 131 311C135.258 308.788 136.591 304.925 139.09 301C144.447 292.583 149.955 283.574 153 274C158.197 292.902 143.235 306.926 135.32 322C129.719 332.667 128.774 345.522 132 357C139.591 350.497 147 335.982 148 326L150 326C149.529 331.964 149.007 338.193 147.522 344C145.803 350.716 142.868 357.028 142.171 364C140.897 376.732 144.197 387.449 149 399C155.901 396.842 157.709 387.355 158.996 381C161.779 367.267 157.056 356.257 155.209 343C154.35 336.837 155 330.217 155 324C159.319 333.743 161.675 349.721 172 355C176.882 341.963 173.204 326.104 167.191 314C164.851 309.29 160.712 305.049 159.228 300C156.672 291.299 159 279.113 159 270C163.191 272.563 163.252 277.51 164.375 282C166.363 289.951 169.281 297.698 173 305L175 305C178.451 292.72 179.055 278.361 175.572 266C173.205 257.602 167.454 251.139 164.547 243C161.628 234.826 162 226.532 162 218C165.175 221.347 165.725 225.719 167.215 230C170.025 238.079 172.729 245.544 177 253C179.651 249.438 179.986 245.324 180.575 241C182.129 229.587 180.842 217.436 175.674 207.039C173.175 202.012 168.756 198.272 166.612 193C163.072 184.296 162.026 172.334 162 163C173.493 173.468 175.011 192.651 188 202C191.025 190.309 193.221 177.108 187.095 166C184.548 161.382 180.74 157.667 177 154.015C172.815 149.927 168.73 146.48 163 145L164 139C173.942 140.558 183.795 147.611 190.271 155C192.434 157.468 195.425 159.97 196.486 163.17C198.674 169.764 196.55 178.277 196.09 185C195.757 189.85 196.724 195.08 195.541 199.83C193.161 209.381 186.931 217.093 185.325 227C184.238 233.704 185.714 240.329 186 247C191.919 243.123 194.687 232.467 197 226C198.806 232.109 199.05 241.129 196.277 247C193.903 252.027 189.716 255.916 187.323 261C182.341 271.586 180.526 281.567 184 293C192.247 288.969 197.814 274.762 199 266C200.7 271.751 201.075 280.438 198.431 285.985C194.698 293.819 187.39 300.224 183.209 308C177.803 318.054 177.542 331.638 182 342L184 342C189.21 333.345 196.399 322.051 198 312C202.027 325.626 193.146 336.189 191.3 349C189.506 361.454 194.271 370.663 198 382C204.089 380.096 207.392 370.903 208.539 364.999C211.895 347.732 204 332.986 204 316C208.822 323.641 211.882 332.222 216.551 340C218.723 343.618 220.231 346.932 224 349C225.356 338.273 226.223 327.134 221.688 317C217.863 308.456 210.514 301.782 207.388 293C204.686 285.408 204.631 275.994 204 268C210.442 278.469 211.792 294.8 224 301C224 290.122 224.729 280.083 219.96 270C216.19 262.029 209.05 256.341 205.775 248C204.011 243.505 204.003 238.749 204 234C209.627 243.413 214.815 252.53 224 259C222.801 247.836 223.461 236.315 217.598 226.17C213.686 219.4 205.266 214.221 202.603 207C201.285 203.423 202 198.751 202 195C202 187.565 201.932 180.375 201 173C208.332 181.043 211.27 193.105 216.092 202.715C231.373 233.168 233.791 268.616 236.09 302C237.477 322.149 239.669 342.809 237.285 363C235.06 381.847 236.527 408.391 219.985 421.606C209.624 429.883 195.324 428 183 428L102 428L102 450L406 450C406 445.003 406.09 439.997 405.995 435.001C405.958 433.019 406.136 430.406 404.397 429.028C402.311 427.376 398.469 428.001 396 428L377 428L343 428C327.981 428 311.887 427.69 301.34 414.985C297.975 410.931 295.148 404.962 293.464 399.961C288.982 386.654 287.719 371.821 285.576 358C282.727 339.631 279.198 321.461 276.711 303C273.334 277.93 268.572 253.247 266.17 228C263.024 194.944 263.431 162.06 265.039 129C266.018 108.85 271.416 83.8931 283.838 67.5756C293.231 55.2366 306.851 50.5489 318.815 63.0934C322.806 67.2784 327.975 75.2986 326.795 81.4244C325.589 87.683 320.506 92.6815 318.896 99C316.079 110.056 316.93 120.368 321 131C329.849 121.55 332.621 109.018 336 97C339.291 105.764 342.242 116.552 337.853 125.576C334.063 133.367 326.655 138.893 323.04 147C317.605 159.191 317.603 171.133 320 184C323.474 181.893 325.56 178.369 327.794 175C333.086 167.02 338.717 156.744 339 147L341 147C341 154.921 342.434 164.453 339.671 172C336.484 180.706 329.325 187.066 324.944 195.09C318.093 207.64 317.468 222.347 321 236C326.795 229.81 330.926 220.797 334.139 213C335.967 208.563 336.793 203.638 340 200C340 206.356 341.419 214.683 339.236 220.715C336.425 228.482 330.746 234.779 326.985 242C320.988 253.511 316.88 274.132 324 286C328.23 279.765 331.722 272.997 334.547 266C336.231 261.83 336.99 257.414 340 254C340 260.568 341.246 268.614 339.161 274.91C336.387 283.288 330.174 290.192 326.27 298C320.212 310.117 319.223 324.248 324 337L326 337C332.771 328.023 337.274 315.852 340 305C344.235 319.327 334.3 333.121 332.3 347C330.343 360.579 336.006 371.097 341 383L343 383C349.64 371.58 352.66 358.121 350.406 345.015C349.293 338.541 346.239 332.574 345.3 326C344.37 319.493 345 312.564 345 306C348.78 314.784 350.853 330.312 360 335C363.008 326.579 363.527 314.506 360.336 306C356.774 296.503 350.088 288.346 346.562 279C343.512 270.912 344.829 263.294 345 255C348.3 262.308 351.26 269.758 354.703 277C356.711 281.225 358.33 285.462 363 287C366.281 270.081 364.025 257.138 355.688 242C352.747 236.66 347.605 231.828 345.8 225.985C343.307 217.913 345 207.393 345 199C351.246 211.425 355.527 224.074 363 236C366.035 232.015 365.977 225.908 365.999 221C366.035 212.938 364.935 204.496 361.334 197.17C357.386 189.138 350.551 182.208 347.409 173.83C344.269 165.458 346.117 154.838 345 146C348.922 153.466 351.697 161.531 355.707 169C357.823 172.942 359.592 176.569 364 178C364.871 166.967 366.418 155.648 361.91 145.09C358.285 136.599 350.119 129.583 347.498 120.83C345.644 114.638 346.772 107.375 345.486 101C341.97 83.5747 334.213 69.2838 324 55C331.377 57.6845 342.068 62.6928 345.821 70.0146C349.011 76.2384 346.332 85.2274 347.3 92C348.866 102.958 354.633 114.865 359 125L361 125C368.339 109.295 364.392 93.4456 356 79C361.639 83.6603 364.854 90.6064 368.258 96.9606C370.057 100.32 372.009 103.034 371.938 107.004C371.819 113.712 368.564 120.235 368.09 127C367.42 136.558 368.804 145.586 370 155C377.284 152.648 379.132 140.718 380 134C382.339 141.913 381.843 153.351 378.651 161C376.215 166.839 372.304 171.981 370.242 178C366.407 189.194 367.666 202.825 371 214L373 214C377.784 204.907 380.925 195.768 384 186C386.03 192.868 385 200.869 385 208C385 211.462 385.578 215.586 384.437 218.91C381.44 227.642 373.722 234.948 370.785 244C367.646 253.677 369.919 263.174 370 273C377.635 268.672 383.901 253.391 385 245C387.098 252.098 386.92 262.201 383.812 269C381.505 274.046 377.567 278.214 374.782 282.996C369.176 292.62 366.5 304.336 371 315C380.375 310.129 380.883 295.726 387 288C386.083 292.94 386.449 298.191 384.946 302.985C380.657 316.662 374.323 326.908 376.289 342C377.095 348.185 378.34 357.916 385 360C389.074 351.434 392.241 342.568 392.91 333C393.348 326.759 391.783 321.124 391.171 315C390.578 309.077 391 302.949 391 297L393 297C393.501 306.659 399.348 317.097 403 326L405 326C409.577 315.223 409.705 299.789 404.485 289.17C401.358 282.807 395.656 277.616 393.144 271C390.165 263.151 392 252.294 392 244L394 244C394.368 252.051 398.536 266.996 406 271C408.393 261.062 409.456 249.052 405.699 239.285C402.347 230.573 395.67 223.526 392.343 215C389.031 206.511 389.712 195.024 389 186L393.314 197.715L402 216L404 216C409.783 202.296 405.761 183.453 398.662 171C395.874 166.109 391.494 162.169 389.214 157C385.756 149.162 386.001 138.446 386 130C389.89 136.664 393.068 147.095 400 151C400.144 147.642 400.814 144.355 400.961 141C401.658 125.072 397.203 96.0644 375 100C373.066 89.6185 369.817 80.6395 363.39 72C346.11 48.7692 309.195 34.9424 283 50.213C262.209 62.3328 252.799 89.2344 251 112L249 112C248.128 98.2867 242.104 83.9779 235.781 72C229.124 59.3902 221.762 47.78 211 38.1736C182.409 12.6528 141.01 4.9234 106 21.5146C99.9242 24.394 94.1872 28.5596 88 31.0779C82.111 33.4749 75.7487 33.1811 70 36.4676C56.4637 44.2062 47.0428 60.4845 47 76z"/>
+<path style="fill:currentColor; stroke:none;" d="M154.424 30.787C140.108 34.1181 133.191 48.6903 128.66 61C127.738 63.506 123.169 77.5917 129.148 76.8241C132.917 76.3402 136.236 71.7392 139 69.4637C147.848 62.1805 158.069 56.1162 163.405 45.5363C166.202 39.9906 161.879 29.0522 154.424 30.787z"/>
+<path style="fill:currentColor; stroke:none;" d="M179 63C179.707 79.2221 190.175 91.4088 197.688 105C200.886 110.787 203.127 118.436 209 122C211.765 100.121 207.12 65.8802 179 63M293 63C288.721 72.1678 283.293 81.925 281.465 92C279.856 100.861 281.405 110.141 281.907 119C282.135 123.036 281.113 126.975 281.015 131C280.886 136.265 280.662 141.756 281.17 147C281.549 150.915 283.109 155.106 281.917 159C280.731 162.872 277.978 166.308 276.313 170C272.983 177.387 271.001 184.935 271 193C271 197.833 270.269 202.45 274 206C279.286 199.067 283.793 189.708 285 181C287.958 187.146 288.435 198.378 286.15 204.91C284.645 209.212 281.3 212.81 279.439 217C273.806 229.687 270.337 248.291 278 261C283.906 252.208 287.955 239.497 289 229C291.15 233.029 290.784 236.548 291.09 241C292.027 254.681 287.918 266.536 286.286 280C284.802 292.242 289.737 305.757 296 316L298 316C310.397 292.378 297.066 271.071 297 247C301.345 255.159 304.455 268.312 313 273C314.599 260.348 315.414 247.388 308.647 236C305.258 230.296 299.269 226.21 296.699 220C293.695 212.742 295.179 204.372 293 197C301.083 203.929 301.931 216.621 312 222C312.561 208.934 313.319 196.959 306.625 185.039C302.396 177.509 294.45 171.929 291.304 163.826C287.972 155.244 289.148 144.087 288 135C296.513 146.076 300.942 160.997 312 170C314.968 157.533 313.009 141.1 304.671 131C300.389 125.813 292.775 122.142 289.995 115.961C286.048 107.185 288.975 97.1434 289 88C297.313 96.5593 298.879 111.181 308 119C310.44 111.665 311.998 104.82 310.532 97C308.232 84.7242 299.844 74.7931 296 63L293 63z"/></svg>
+</footer>
+
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const icon = document.getElementById('theme-icon');
+        if (html.getAttribute('data-bs-theme') === 'light') {
+            html.setAttribute('data-bs-theme', 'dark');
+            icon.classList.replace('bi-moon-stars', 'bi-sun');
+        } else {
+            html.setAttribute('data-bs-theme', 'light');
+            icon.classList.replace('bi-sun', 'bi-moon-stars');
+        }
+    }
+</script>
+
+</body>
+</html>

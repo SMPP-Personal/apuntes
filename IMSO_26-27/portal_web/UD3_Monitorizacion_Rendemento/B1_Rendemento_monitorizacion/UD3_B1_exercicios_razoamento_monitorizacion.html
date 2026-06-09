@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   UD3 &ndash; Bloque 1. Exercicios de razoamento sobre monitorizaci&oacute;n e rendemento
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Fira+Code&amp;display=swap" rel="stylesheet"/>
+  <link href="../../assets/css/smpp.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <nav class="smpp-navbar no-print">
+   <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+     <img alt="SMPP" class="smpp-buho" onerror="this.style.display='none'" src="../../assets/imax/buho_clean.svg"/>
+     <div class="smpp-brand-text">
+      <span class="smpp-title">
+       SMPP
+      </span>
+      <span class="smpp-subtitle">
+       Sistemas &amp; Programaci&oacute;n
+      </span>
+     </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+     <span class="smpp-module">
+      MP0369 &middot; IMSO 26/27
+     </span>
+     <button aria-label="Cambiar tema" class="btn btn-outline-light btn-sm" onclick="toggleTheme()">
+      <i class="bi bi-moon-stars" id="theme-icon">
+      </i>
+     </button>
+    </div>
+   </div>
+  </nav>
+  <div class="container-xl py-4">
+   <div class="row g-4">
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+     <div class="sidebar">
+      <div class="card shadow-sm sidebar-panel border">
+       <div class="card-body px-3 py-3">
+        <h6 class="text-uppercase fw-bold mb-1">
+         <i class="bi bi-list-ul me-1">
+         </i>
+         &Iacute;ndice
+        </h6>
+        <hr class="my-2"/>
+        <nav id="toc">
+         <ul class="nav flex-column gap-1 small">
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#1-finalidade-do-boletin">
+            1. Finalidade do bolet&iacute;n
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#2-resultados-de-aprendizaxe-e-criterios-relacionados">
+            2. Resultados de aprendizaxe e criterios relacionados
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#3-instrucions-para-o-alumnado">
+            3. Instruci&oacute;ns para o alumnado
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#4-ferramentas-de-referencia">
+            4. Ferramentas de referencia
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#5-exemplo-resolto">
+            5. Exemplo resolto
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#6-exercicios-de-razoamento">
+            6. Exercicios de razoamento
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#7-actividade-de-sintese">
+            7. Actividade de s&iacute;ntese
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#8-criterios-de-correccion-orientativos">
+            8. Criterios de correcci&oacute;n orientativos
+           </a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link py-1" href="#9-ideas-clave">
+            9. Ideas clave
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+    </aside>
+    <main class="col-lg-9">
+     <article>
+      <header class="mb-4">
+       <div class="exercise-hero">
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+         <span class="hero-chip">
+          <i class="bi bi-speedometer2">
+          </i>
+          UD3 &middot; Bloque 1
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-pencil-square">
+          </i>
+          Bolet&iacute;n de exercicios
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-search">
+          </i>
+          Razoamento t&eacute;cnico
+         </span>
+         <span class="hero-chip">
+          <i class="bi bi-clipboard-check">
+          </i>
+          Evidencias
+         </span>
+        </div>
+        <h1 class="h2 fw-bold mb-2">
+         UD3 &ndash; Bloque 1. Exercicios de razoamento sobre monitorizaci&oacute;n e rendemento
+        </h1>
+        <p class="lead mb-0">
+         Actividades para practicar a relaci&oacute;n entre s&iacute;ntoma observado, recurso sospeitoso, ferramenta de comprobaci&oacute;n, evidencia e conclusi&oacute;n t&eacute;cnica.
+        </p>
+       </div>
+      </header>
+      <div class="notice info mb-4 d-flex gap-2 align-items-start">
+       <i class="bi bi-info-circle-fill flex-shrink-0 mt-1">
+       </i>
+       <div>
+        <strong>
+         Idea central:
+        </strong>
+        un s&iacute;ntoma non &eacute; unha causa. Cada resposta debe xustificarse con datos observables e unha interpretaci&oacute;n t&eacute;cnica razoada.
+       </div>
+      </div>
+      <div class="row g-3 mb-4">
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-search text-primary">
+          </i>
+          <strong>
+           S&iacute;ntoma
+          </strong>
+         </div>
+         <p class="small mb-0">
+          O que se observa non &eacute; a&iacute;nda a causa.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-cpu text-primary">
+          </i>
+          <strong>
+           Recurso
+          </strong>
+         </div>
+         <p class="small mb-0">
+          CPU, RAM, disco, rede, procesos ou servizos.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-tools text-primary">
+          </i>
+          <strong>
+           Ferramenta
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Escoller que comprobar primeiro.
+         </p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-clipboard-data text-primary">
+          </i>
+          <strong>
+           Evidencia
+          </strong>
+         </div>
+         <p class="small mb-0">
+          Dato concreto que xustifica a conclusi&oacute;n.
+         </p>
+        </div>
+       </div>
+      </div>
+      <section class="mb-5 section-anchor" id="1-finalidade-do-boletin">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-bullseye">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          1. Finalidade do bolet&iacute;n
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Este bolet&iacute;n serve para practicar o razoamento t&eacute;cnico antes de facer pr&aacute;cticas m&aacute;is completas de monitorizaci&oacute;n.
+         </p>
+         <p>
+          O obxectivo non &eacute; memorizar comandos nin ferramentas, sen&oacute;n aprender a relacionar:
+         </p>
+         <pre class="cmd-block"><code class="language-text">s&iacute;ntoma observado &rarr; recurso sospeitoso &rarr; ferramenta de comprobaci&oacute;n &rarr; evidencia &rarr; conclusi&oacute;n t&eacute;cnica
+</code></pre>
+         <p>
+          Nunha incidencia real, unha persoa usuaria pode dicir simplemente:
+         </p>
+         <div class="notice warning my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-chat-quote-fill flex-shrink-0 mt-1">
+          </i>
+          <div>
+           <p>
+            &ldquo;O equipo vai lento.&rdquo;
+           </p>
+          </div>
+         </div>
+         <p>
+          Esa frase non &eacute; un diagn&oacute;stico. &Eacute; s&oacute; un s&iacute;ntoma inicial. O traballo t&eacute;cnico consiste en formular hip&oacute;teses, comprobar datos e xustificar unha conclusi&oacute;n.
+         </p>
+         <hr>
+         </hr>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="2-resultados-de-aprendizaxe-e-criterios-relacionados">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-check2-square">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          2. Resultados de aprendizaxe e criterios relacionados
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Elemento
+             </th>
+             <th>
+              Relaci&oacute;n co bolet&iacute;n
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              RA1
+             </td>
+             <td>
+              Detecta problemas de rendemento monitorizando o sistema.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              CA1.1
+             </td>
+             <td>
+              Identificaci&oacute;n de obxectos monitorizables: CPU, memoria, disco, rede, procesos e servizos.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              CA1.2
+             </td>
+             <td>
+              Identificaci&oacute;n de sucesos e avisos relacionados co funcionamento do sistema.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              CA1.3
+             </td>
+             <td>
+              Uso de ferramentas de monitorizaci&oacute;n en tempo real.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              CA1.4
+             </td>
+             <td>
+              Interpretaci&oacute;n b&aacute;sica de rexistros ou datos de seguimento.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="3-instrucions-para-o-alumnado">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-list-check">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          3. Instruci&oacute;ns para o alumnado
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          En cada exercicio debes responder sempre seguindo este esquema:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Campo
+             </th>
+             <th>
+              Que debes indicar
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              S&iacute;ntoma principal
+             </td>
+             <td>
+              Que problema se observa.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Recurso sospeitoso
+             </td>
+             <td>
+              CPU, memoria RAM, disco, rede, procesos, servizos ou combinaci&oacute;n deles.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ferramenta inicial
+             </td>
+             <td>
+              Que ferramenta abrir&iacute;as primeiro para comprobar a hip&oacute;tese.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Evidencia necesaria
+             </td>
+             <td>
+              Que dato concreto buscar&iacute;as: porcentaxe, proceso, evento, comando, rexistro, etc.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Interpretaci&oacute;n
+             </td>
+             <td>
+              Que significar&iacute;a ese dato.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Conclusi&oacute;n provisional
+             </td>
+             <td>
+              Que explicaci&oacute;n t&eacute;cnica dar&iacute;as antes de aplicar unha soluci&oacute;n.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Non abonda con escribir s&oacute; &ldquo;CPU&rdquo;, &ldquo;RAM&rdquo; ou &ldquo;disco&rdquo;. Debes xustificar a resposta cunha frase t&eacute;cnica.
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="4-ferramentas-de-referencia">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-tools">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          4. Ferramentas de referencia
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          4.1. Windows
+         </h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Necesidade
+             </th>
+             <th>
+              Ferramenta
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Ver procesos e consumo inmediato
+             </td>
+             <td>
+              Administrador de tarefas
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ver CPU, memoria, disco e rede con m&aacute;is detalle
+             </td>
+             <td>
+              Monitor de recursos
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ver contadores de rendemento
+             </td>
+             <td>
+              Monitor de rendemento (
+              <code>
+               perfmon
+              </code>
+              )
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Revisar erros, avisos e eventos
+             </td>
+             <td>
+              Visor de eventos (
+              <code>
+               eventvwr.msc
+              </code>
+              )
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Consultar hardware e versi&oacute;n do sistema
+             </td>
+             <td>
+              <code>
+               msinfo32
+              </code>
+              ,
+              <code>
+               dxdiag
+              </code>
+              ,
+              <code>
+               winver
+              </code>
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          4.2. Ubuntu
+         </h3>
+         <p>
+          | Necesidade | Comando ou ferramenta |
+|---|---|
+| Ver procesos en tempo real |
+          <code>
+           top
+          </code>
+          ,
+          <code>
+           htop
+          </code>
+          |
+| Ver procesos ordenados por CPU |
+          <code>
+           ps aux --sort=-%cpu | head
+          </code>
+          |
+| Ver procesos ordenados por memoria |
+          <code>
+           ps aux --sort=-%mem | head
+          </code>
+          |
+| Ver memoria e swap |
+          <code>
+           free -h
+          </code>
+          |
+| Ver espazo en disco |
+          <code>
+           df -h
+          </code>
+          |
+| Ver discos e partici&oacute;ns |
+          <code>
+           lsblk
+          </code>
+          |
+| Ver uso b&aacute;sico de rede |
+          <code>
+           ip a
+          </code>
+          ,
+          <code>
+           ping
+          </code>
+          |
+| Ver conexi&oacute;ns e portos |
+          <code>
+           ss -tulpen
+          </code>
+          |
+| Ver eventos do arranque actual |
+          <code>
+           journalctl -b
+          </code>
+          |
+| Ver avisos e erros do arranque actual |
+          <code>
+           journalctl -b -p warning..err
+          </code>
+          |
+| Ver estado dun servizo |
+          <code>
+           systemctl status nome_servizo
+          </code>
+          |
+         </p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="5-exemplo-resolto">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-lightbulb">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          5. Exemplo resolto
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          Caso exemplo
+         </h3>
+         <p>
+          Un equipo tarda moito en abrir aplicaci&oacute;ns. O alumnado observa que a CPU est&aacute; ao 15 %, pero o disco aparece ao 100 % durante varios minutos.
+         </p>
+         <h3 class="h5 fw-bold mt-4 mb-3">
+          Resposta esperada
+         </h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Campo
+             </th>
+             <th>
+              Resposta
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              S&iacute;ntoma principal
+             </td>
+             <td>
+              O equipo responde lentamente ao abrir aplicaci&oacute;ns.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Recurso sospeitoso
+             </td>
+             <td>
+              Disco / entrada-sa&iacute;da.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Ferramenta inicial
+             </td>
+             <td>
+              Monitor de recursos en Windows ou
+              <code>
+               iostat
+              </code>
+              /
+              <code>
+               df -h
+              </code>
+              en Linux, segundo o sistema.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Evidencia necesaria
+             </td>
+             <td>
+              Uso de disco sostido, procesos con moitas lecturas/escrituras, tempo de resposta alto ou pouco espazo libre.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Interpretaci&oacute;n
+             </td>
+             <td>
+              A lentitude non parece causada pola CPU, sen&oacute;n por saturaci&oacute;n de disco ou actividade intensa de I/O.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Conclusi&oacute;n provisional
+             </td>
+             <td>
+              C&oacute;mpre identificar que proceso est&aacute; usando o disco e comprobar se hai falta de espazo, copia masiva, actualizaci&oacute;n, antivirus ou erro de disco.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="6-exercicios-de-razoamento">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-pencil-square">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          6. Exercicios de razoamento
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            1
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 1. CPU alta durante pouco tempo
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Un usuario abre unha aplicaci&oacute;n pesada e durante uns segundos a CPU aparece ao 100 %. Despois baixa ao 20 % e o equipo funciona con normalidade.
+           </p>
+           <p>
+            Responde:
+           </p>
+           <ol class="mb-3">
+            <li>
+             &Eacute; necesariamente un problema de rendemento? Xustifica a resposta.
+            </li>
+            <li>
+             Que ferramenta usar&iacute;as para comprobar que proceso provocou o pico?
+            </li>
+            <li>
+             Que dato che permitir&iacute;a diferenciar un pico normal dunha saturaci&oacute;n real?
+            </li>
+           </ol>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            2
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 2. CPU alta sostida
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Nun equipo Windows, o alumnado observa que a CPU permanece entre o 90 % e o 100 % durante m&aacute;is de dez minutos. O equipo tarda en responder e o ventilador est&aacute; funcionando constantemente.
+           </p>
+           <p>
+            Completa a ficha:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Campo
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                S&iacute;ntoma principal
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Recurso sospeitoso
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ferramenta inicial
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Evidencia necesaria
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Interpretaci&oacute;n
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Conclusi&oacute;n provisional
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            3
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 3. Moita memoria usada e sistema lento
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Nunha VM de Ubuntu, o sistema vai cada vez m&aacute;is lento. Ao executar
+            <code>
+             free -h
+            </code>
+            , aparece moi pouca memoria dispo&ntilde;ible e a swap est&aacute; sendo usada.
+           </p>
+           <p>
+            Responde:
+           </p>
+           <ol class="mb-3">
+            <li>
+             Que recurso est&aacute; probablemente causando o problema?
+            </li>
+            <li>
+             Que comando usar&iacute;as para localizar os procesos que m&aacute;is memoria consumen?
+            </li>
+            <li>
+             Que evidencia demostrar&iacute;a que a falta de RAM est&aacute; afectando ao rendemento?
+            </li>
+            <li>
+             Que conclusi&oacute;n provisional escribir&iacute;as?
+            </li>
+           </ol>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            4
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 4. Disco ao 100 % con CPU baixa
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Nun equipo Windows, o Administrador de tarefas mostra CPU baixa, memoria moderada e disco ao 100 % durante varios minutos. O equipo queda bloqueado por momentos.
+           </p>
+           <p>
+            Completa a ficha:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Campo
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                S&iacute;ntoma principal
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Recurso sospeitoso
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ferramenta inicial
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Evidencia necesaria
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Interpretaci&oacute;n
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Conclusi&oacute;n provisional
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            5
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 5. Falta de espazo en disco
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Nun servidor Ubuntu, unha aplicaci&oacute;n deixa de gardar ficheiros. Ao executar
+            <code>
+             df -h
+            </code>
+            , a partici&oacute;n
+            <code>
+             /
+            </code>
+            aparece ao 100 %.
+           </p>
+           <p>
+            Responde:
+           </p>
+           <ol class="mb-3">
+            <li>
+             Cal &eacute; o s&iacute;ntoma t&eacute;cnico principal?
+            </li>
+            <li>
+             Que recurso est&aacute; esgotado?
+            </li>
+            <li>
+             Que comando permitir&iacute;a localizar que cartafoles ocupan m&aacute;is espazo?
+            </li>
+            <li>
+             Que risco ten deixar unha partici&oacute;n do sistema sen espazo libre?
+            </li>
+           </ol>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            6
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 6. Servizo que non responde
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Un servizo web deixa de responder. A CPU e a memoria parecen normais. A rede tam&eacute;n responde a
+            <code>
+             ping
+            </code>
+            , pero a p&aacute;xina web non carga.
+           </p>
+           <p>
+            Responde:
+           </p>
+           <ol class="mb-3">
+            <li>
+             Por que non abonda con mirar s&oacute; CPU e memoria?
+            </li>
+            <li>
+             Que elemento deber&iacute;as comprobar agora?
+            </li>
+            <li>
+             Que comando usar&iacute;as en Ubuntu para comprobar o estado do servizo?
+            </li>
+            <li>
+             Que log ou rexistro revisar&iacute;as despois?
+            </li>
+           </ol>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            7
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 7. Problema de rede ou de servidor?
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Un usuario di que unha carpeta compartida tarda moito en abrir desde outro equipo. No servidor, CPU, memoria e disco parecen normais.
+           </p>
+           <p>
+            Completa a ficha:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Campo
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                S&iacute;ntoma principal
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Recurso sospeitoso
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ferramenta inicial
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Evidencia necesaria
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Interpretaci&oacute;n
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Conclusi&oacute;n provisional
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            8
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 8. Avisos repetidos no log
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Nunha VM Ubuntu, o rendemento &eacute; irregular. Ao executar:
+           </p>
+           <pre class="cmd-block"><code class="language-bash">journalctl -b -p warning..err
+</code></pre>
+           <p>
+            aparecen avisos repetidos relacionados cun dispositivo de almacenamento.
+           </p>
+           <p>
+            Responde:
+           </p>
+           <ol class="mb-3">
+            <li>
+             Que relaci&oacute;n pode haber entre os avisos do log e a lentitude?
+            </li>
+            <li>
+             Que recurso sospeitar&iacute;as?
+            </li>
+            <li>
+             Que outras ferramentas ou comandos usar&iacute;as para comprobar a hip&oacute;tese?
+            </li>
+            <li>
+             Por que un log non substit&uacute;e unha m&eacute;trica de rendemento?
+            </li>
+           </ol>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            9
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 9. Moitas conexi&oacute;ns abertas
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Nun servidor, varios usuarios indican que un servizo de rede responde moi lentamente. O administrador comproba que hai moitas conexi&oacute;ns abertas cara ao servizo.
+           </p>
+           <p>
+            Responde:
+           </p>
+           <ol class="mb-3">
+            <li>
+             Que recurso ou elemento monitorizable revisar&iacute;as?
+            </li>
+            <li>
+             Que comando poder&iacute;a axudar en Ubuntu a ver conexi&oacute;ns e portos?
+            </li>
+            <li>
+             Que ferramenta poder&iacute;a axudar en Windows?
+            </li>
+            <li>
+             Que evidencia permitir&iacute;a sospeitar saturaci&oacute;n ou exceso de conexi&oacute;ns?
+            </li>
+           </ol>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            10
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 10. Picos breves fronte a problema real
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Nunha pr&aacute;ctica, ao copiar un ficheiro grande, o alumnado observa que o disco e a rede suben moito durante a copia. Ao rematar, os valores volven &aacute; normalidade.
+           </p>
+           <p>
+            Responde:
+           </p>
+           <ol class="mb-3">
+            <li>
+             &Eacute; un problema de rendemento ou un comportamento esperado?
+            </li>
+            <li>
+             Que diferenza hai entre unha carga puntual e unha saturaci&oacute;n problem&aacute;tica?
+            </li>
+            <li>
+             Que deber&iacute;as observar para afirmar que hai unha incidencia real?
+            </li>
+           </ol>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            11
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 11. Proceso desco&ntilde;ecido con consumo alto
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Nun equipo Windows, aparece un proceso desco&ntilde;ecido consumindo moita CPU. O alumnado prop&oacute;n finalizalo directamente.
+           </p>
+           <p>
+            Responde:
+           </p>
+           <ol class="mb-3">
+            <li>
+             Por que non &eacute; recomendable finalizar procesos sen comprobar que son?
+            </li>
+            <li>
+             Que informaci&oacute;n buscar&iacute;as antes de actuar?
+            </li>
+            <li>
+             Que ferramenta usar&iacute;as para ver m&aacute;is detalle do proceso?
+            </li>
+            <li>
+             Que evidencia gardar&iacute;as antes de aplicar unha correcci&oacute;n?
+            </li>
+           </ol>
+           <hr/>
+          </div>
+         </div>
+         <div class="question-card">
+          <div class="question-header">
+           <span class="question-number">
+            12
+           </span>
+           <h3 class="h5 fw-bold mb-0">
+            Exercicio 12. M&aacute;quina virtual lenta
+           </h3>
+          </div>
+          <div class="question-body">
+           <p>
+            Unha VM vai lenta desde o arranque. Non hai unha aplicaci&oacute;n concreta consumindo moita CPU. A VM ten pouca memoria asignada e o sistema anfitri&oacute;n tam&eacute;n est&aacute; moi cargado.
+           </p>
+           <p>
+            Completa a ficha:
+           </p>
+           <div class="table-responsive my-3">
+            <table class="table table-sm table-striped align-middle">
+             <thead>
+              <tr>
+               <th>
+                Campo
+               </th>
+               <th>
+                Resposta
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                S&iacute;ntoma principal
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Recurso sospeitoso
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Ferramenta inicial
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Evidencia necesaria
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Interpretaci&oacute;n
+               </td>
+               <td>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                Conclusi&oacute;n provisional
+               </td>
+               <td>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+           <hr/>
+          </div>
+         </div>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="7-actividade-de-sintese">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-diagram-3">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          7. Actividade de s&iacute;ntese
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <p>
+          Escolle tres exercicios anteriores e elabora unha t&aacute;boa comparativa:
+         </p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Exercicio
+             </th>
+             <th>
+              S&iacute;ntoma
+             </th>
+             <th>
+              Recurso sospeitoso
+             </th>
+             <th>
+              Ferramenta
+             </th>
+             <th>
+              Evidencia
+             </th>
+             <th>
+              Conclusi&oacute;n
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+            </tr>
+            <tr>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+            </tr>
+            <tr>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+             <td>
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Despois responde:
+         </p>
+         <ol class="mb-3">
+          <li>
+           En que casos hab&iacute;a m&aacute;is dun recurso posible implicado?
+          </li>
+          <li>
+           En que casos ser&iacute;a imprescindible revisar logs ou eventos?
+          </li>
+          <li>
+           En que casos abondar&iacute;a con monitorizaci&oacute;n en tempo real?
+          </li>
+          <li>
+           Que erro de interpretaci&oacute;n poder&iacute;a cometer unha persoa se mira s&oacute; unha gr&aacute;fica?
+          </li>
+         </ol>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="8-criterios-de-correccion-orientativos">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-check2-square">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          8. Criterios de correcci&oacute;n orientativos
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr>
+             <th>
+              Nivel
+             </th>
+             <th>
+              Descrici&oacute;n
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Alto
+             </td>
+             <td>
+              Relaciona correctamente s&iacute;ntoma, recurso, ferramenta e evidencia. Xustifica a conclusi&oacute;n con precisi&oacute;n t&eacute;cnica.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Medio
+             </td>
+             <td>
+              Identifica o recurso principal e unha ferramenta adecuada, pero a explicaci&oacute;n &eacute; incompleta ou pouco precisa.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Baixo
+             </td>
+             <td>
+              Responde con palabras illadas, sen xustificar nin indicar evidencia concreta.
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Insuficiente
+             </td>
+             <td>
+              Confunde recursos, ferramentas ou s&iacute;ntomas, ou prop&oacute;n actuaci&oacute;ns sen comprobaci&oacute;n previa.
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>
+          Para obter unha boa valoraci&oacute;n, cada resposta debe inclu&iacute;r polo menos:
+         </p>
+         <ul class="mb-3">
+          <li>
+           recurso sospeitoso;
+          </li>
+          <li>
+           ferramenta ou comando de comprobaci&oacute;n;
+          </li>
+          <li>
+           dato concreto que se buscar&iacute;a;
+          </li>
+          <li>
+           interpretaci&oacute;n do dato;
+          </li>
+          <li>
+           conclusi&oacute;n provisional razoada.
+          </li>
+         </ul>
+         <hr/>
+        </div>
+       </div>
+      </section>
+      <section class="mb-5 section-anchor" id="9-ideas-clave">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon">
+          <i class="bi bi-journal-check">
+          </i>
+         </span>
+         <h2 class="h4 fw-bold mb-0">
+          9. Ideas clave
+         </h2>
+        </div>
+        <div class="content-card-body">
+         <ul class="mb-3">
+          <li>
+           Un s&iacute;ntoma non &eacute; unha causa.
+          </li>
+          <li>
+           Un pico puntual non sempre indica unha incidencia.
+          </li>
+          <li>
+           Un contador alto debe interpretarse segundo duraci&oacute;n, contexto e impacto.
+          </li>
+          <li>
+           A CPU non &eacute; sempre a culpable da lentitude.
+          </li>
+          <li>
+           Disco, memoria, rede, procesos e servizos tam&eacute;n poden limitar o rendemento.
+          </li>
+          <li>
+           Os logs e eventos axudan a explicar feitos, pero deben relacionarse con m&eacute;tricas.
+          </li>
+          <li>
+           Un diagn&oacute;stico t&eacute;cnico debe apoiarse en evidencias observables.
+          </li>
+         </ul>
+        </div>
+       </div>
+      </section>
+     </article>
+    </main>
+   </div>
+  </div>
+  <footer class="smpp-footer no-print">
+   <div class="smpp-footer-spacer">
+   </div>
+   <div class="smpp-footer-center">
+    <span>
+     CIFP A Carballeira &middot; Ourense
+    </span>
+    Administraci&oacute;n de sistemas inform&aacute;ticos &middot; Curso 2026/27
+    <br/>
+    Material did&aacute;ctico de uso interno
+   </div>
+   <img alt="" class="smpp-sauce" onerror="this.style.display='none'" src="../../assets/imax/sauce_clean.svg"/>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="../../assets/js/smpp.js">
+  </script>
+ </body>
+</html>

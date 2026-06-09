@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B3 Actividade 3 Organización inicial do dominio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#titulo">1. Título</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#obxectivos">2. Obxectivos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#punto-partida">3. Punto de partida</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#escenario">4. Escenario</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#checklist">5. Checklist GUI</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ou">5.2 Estrutura de OU</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#usuarios">5.3 Usuarios</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#grupos">5.4 Grupos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#equipos">5.5 Equipos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#capturas">6. Capturas</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#resultado">7. Resultado esperado</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#erros">8. Erros frecuentes</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#reflexion">9. Reflexión final</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ideas-chave">10. Ideas clave</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Contido principal ── -->
+    <main class="col-lg-9">
+      <article>
+
+        <!-- Cabeceira -->
+        <header class="mb-4">
+          <div class="practice-hero hero-green">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-diagram-3"></i> UD2 · Bloque 3</span>
+              <span class="hero-chip"><i class="bi bi-person-lines-fill"></i> Actividade 3</span>
+              <span class="hero-chip"><i class="bi bi-hdd-network"></i> cifpsauce.local</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">Organización inicial do dominio</h1>
+            <p class="lead mb-0">Creación de unidades organizativas, usuarios e grupos globais de seguridade en Active Directory.</p>
+          </div>
+        </header>
+
+        <div class="notice info mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div>
+            <strong>Idea central:</strong> nesta práctica vas organizar obxectos no dominio. As OU serven para estruturar e aplicar GPO; os grupos de seguridade serven para agrupar contas e preparar permisos ou filtrados.
+          </div>
+        </div>
+
+        <!-- 1. Título -->
+        <section id="titulo" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-flag"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">1. Título</h2>
+                <p class="mb-0 small text-muted">Actividade práctica guiada con interface gráfica.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p class="h5 mb-0"><strong>Actividade 3 – Creación de unidades organizativas, usuarios e grupos en <code>cifpsauce.local</code></strong></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Obxectivos -->
+        <section id="obxectivos" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-bullseye me-2 text-primary"></i>2. Obxectivos da actividade</h2>
+          <p>Ao rematar a actividade, deberías ser capaz de:</p>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-folder2-open me-2 text-primary"></i>Crear unha estrutura básica de <strong>OU</strong> para un centro de formación.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-person-plus me-2 text-primary"></i>Crear contas de usuario de dominio para alumnado, profesorado e administración.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-people me-2 text-primary"></i>Crear grupos globais de seguridade para colectivos de usuarios.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-person-check me-2 text-primary"></i>Engadir usuarios aos grupos correspondentes.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-search me-2 text-primary"></i>Comprobar a localización de usuarios, equipos e grupos en Active Directory.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-signpost-split me-2 text-primary"></i>Diferenciar entre organizar obxectos en OU e asignar pertenza a grupos.</div></div>
+          </div>
+        </section>
+
+        <!-- 3. Punto de partida -->
+        <section id="punto-partida" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-play-circle"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">3. Punto de partida</h2>
+                <p class="mb-0 small text-muted">Estado mínimo antes de iniciar a práctica.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <ul class="check-list mb-3">
+                <li>O dominio <code>cifpsauce.local</code> xa está instalado e funcionando.</li>
+                <li>O servidor <code>dcbuho.cifpsauce.local</code> funciona como controlador de dominio e servidor DNS.</li>
+                <li>Estás a traballar desde <code>dcbuho</code> cunha conta con permisos de administración sobre o dominio, por exemplo <code>CIFPSAUCE\Administrador</code>.</li>
+                <li>A consola <strong>Active Directory Users and Computers</strong> está dispoñible desde <strong>Server Manager → Tools</strong>.</li>
+              </ul>
+              <div class="notice info d-flex gap-2 align-items-start">
+                <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+                <div><strong>Nota didáctica:</strong> nesta actividade traballaremos coa consola gráfica de Active Directory. Máis adiante poderemos repetir operacións semellantes con PowerShell para automatizar a administración.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Escenario -->
+        <section id="escenario" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-building me-2 text-primary"></i>4. Escenario para o alumnado</h2>
+          <p>O centro de formación <strong>CIFP SAUCE</strong> quere organizar as contas do dominio seguindo estes criterios:</p>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6"><div class="concept-card h-100 p-3"><span class="concept-icon"><i class="bi bi-mortarboard"></i></span><strong>Alumnado</strong><p class="small mb-0 mt-2">Separar as contas en dous cursos: <code>Curso1</code> e <code>Curso2</code>.</p></div></div>
+            <div class="col-md-6"><div class="concept-card info h-100 p-3"><span class="concept-icon"><i class="bi bi-person-badge"></i></span><strong>Profesorado e administración</strong><p class="small mb-0 mt-2">Ter separadas as contas de profesorado e administración.</p></div></div>
+            <div class="col-md-6"><div class="concept-card success h-100 p-3"><span class="concept-icon"><i class="bi bi-pc-display"></i></span><strong>Equipos de aula</strong><p class="small mb-0 mt-2">Agrupar os computadores nunha OU específica.</p></div></div>
+            <div class="col-md-6"><div class="concept-card warning h-100 p-3"><span class="concept-icon"><i class="bi bi-people-fill"></i></span><strong>Grupos</strong><p class="small mb-0 mt-2">Crear unha OU específica para os grupos de seguridade.</p></div></div>
+          </div>
+          <p>O teu traballo é crear esta organización inicial no dominio <code>cifpsauce.local</code> usando <strong>Active Directory Users and Computers</strong>.</p>
+        </section>
+
+        <!-- 5. Checklist -->
+        <section id="checklist" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-ui-checks-grid me-2 text-primary"></i>5. Checklist práctico GUI</h2>
+
+          <section id="preparacion" class="mb-4">
+            <div class="task-card">
+              <div class="task-header"><span class="task-number">5.1</span><div><h3 class="h5 fw-bold mb-0">Preparación: abrir as ferramentas necesarias</h3><p class="small mb-0">Comprobación inicial da consola ADUC.</p></div></div>
+              <div class="task-body">
+                <ol class="mb-3">
+                  <li>Inicia sesión en <code>dcbuho.cifpsauce.local</code> como usuario administrador do dominio.</li>
+                  <li>Abre <strong>Server Manager → Tools → Active Directory Users and Computers</strong>.</li>
+                  <li>Comproba que ves o dominio <code>cifpsauce.local</code> na árbore da esquerda.</li>
+                  <li>Opcionalmente, activa <strong>View → Advanced Features</strong>, se o profesorado o indica.</li>
+                </ol>
+                <ul class="list-group list-group-flush checklist-box">
+                  <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Sesión iniciada con permisos de administración no dominio.</li>
+                  <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Consola <strong>Active Directory Users and Computers</strong> aberta.</li>
+                  <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Dominio <code>cifpsauce.local</code> visible.</li>
+                  <li class="list-group-item"><input class="form-check-input me-2" type="checkbox"> Vista avanzada activada, se se pide.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section id="ou" class="mb-4">
+            <div class="task-card">
+              <div class="task-header"><span class="task-number">5.2</span><div><h3 class="h5 fw-bold mb-0">Creación da estrutura de OU</h3><p class="small mb-0">Organización lóxica inicial do dominio.</p></div></div>
+              <div class="task-body">
+                <p>No dominio <code>cifpsauce.local</code>, crea a seguinte estrutura:</p>
+                <pre class="code-tree"><code>OU=Alumnado
+  OU=Curso1
+  OU=Curso2
+OU=Profesorado
+OU=Administracion
+OU=Equipos-Aulas
+OU=Grupos</code></pre>
+                <h4 class="h6 fw-bold mt-3">Pasos orientativos</h4>
+                <ol>
+                  <li>Clic dereito sobre o dominio <code>cifpsauce.local</code> → <strong>New → Organizational Unit</strong>.</li>
+                  <li>Crea as OU principais.</li>
+                  <li>Dentro de <code>OU=Alumnado</code>, crea <code>OU=Curso1</code> e <code>OU=Curso2</code>.</li>
+                  <li>Se aparece <strong>Protect container from accidental deletion</strong>, déixaa activada salvo indicación contraria.</li>
+                  <li>Comproba visualmente que a estrutura coincide co esquema.</li>
+                </ol>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i><code>OU=Alumnado</code></div></div>
+                  <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i><code>OU=Profesorado</code></div></div>
+                  <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i><code>OU=Administracion</code></div></div>
+                  <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i><code>OU=Equipos-Aulas</code></div></div>
+                  <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i><code>OU=Grupos</code></div></div>
+                  <div class="col-md-6"><div class="result-card"><i class="bi bi-check-circle"></i><code>OU=Curso1</code> e <code>OU=Curso2</code></div></div>
+                </div>
+                <div class="notice warning d-flex gap-2 align-items-start">
+                  <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+                  <div><strong>Importante:</strong> as OU serven para organizar obxectos, delegar administración e aplicar GPO. Non substitúen aos grupos de seguridade.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="usuarios" class="mb-4">
+            <div class="task-card">
+              <div class="task-header"><span class="task-number">5.3</span><div><h3 class="h5 fw-bold mb-0">Creación de contas de usuario</h3><p class="small mb-0">Nomenclatura xenérica e estruturada.</p></div></div>
+              <div class="task-body">
+                <p>Agora crearás contas de exemplo seguindo unha nomenclatura xenérica e estruturada.</p>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle decision-table">
+                    <thead><tr><th>OU destino</th><th>Nome</th><th>User logon name</th><th>UPN completo</th></tr></thead>
+                    <tbody>
+                      <tr><td><code>Alumnado/Curso1</code></td><td>Alumno Curso1 001</td><td><code>alu.curso1.001</code></td><td><code>alu.curso1.001@cifpsauce.local</code></td></tr>
+                      <tr><td><code>Alumnado/Curso1</code></td><td>Alumno Curso1 002</td><td><code>alu.curso1.002</code></td><td><code>alu.curso1.002@cifpsauce.local</code></td></tr>
+                      <tr><td><code>Alumnado/Curso2</code></td><td>Alumno Curso2 001</td><td><code>alu.curso2.001</code></td><td><code>alu.curso2.001@cifpsauce.local</code></td></tr>
+                      <tr><td><code>Profesorado</code></td><td>Profesor 001</td><td><code>prof.001</code></td><td><code>prof.001@cifpsauce.local</code></td></tr>
+                      <tr><td><code>Administracion</code></td><td>Administracion 001</td><td><code>adm.001</code></td><td><code>adm.001@cifpsauce.local</code></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <ol>
+                  <li>Clic dereito sobre a OU correspondente → <strong>New → User</strong>.</li>
+                  <li>Introduce o nome e o <strong>User logon name</strong>.</li>
+                  <li>Configura o contrasinal segundo as normas indicadas polo profesorado.</li>
+                  <li>Marca as opcións de contrasinal que se indiquen na práctica.</li>
+                </ol>
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+                  <div><strong>Nota sobre nomenclatura:</strong> usamos <code>prof.001</code> e non <code>prof.curso1.001</code> porque unha persoa docente pode impartir en varios cursos.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="grupos" class="mb-4">
+            <div class="task-card">
+              <div class="task-header"><span class="task-number">5.4</span><div><h3 class="h5 fw-bold mb-0">Creación de grupos globais de seguridade</h3><p class="small mb-0">Colectivos de usuarios para permisos e filtrados posteriores.</p></div></div>
+              <div class="task-body">
+                <p>Crea os grupos dentro de <code>OU=Grupos</code>.</p>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle decision-table">
+                    <thead><tr><th>Grupo</th><th>Scope</th><th>Type</th><th>Membros</th></tr></thead>
+                    <tbody>
+                      <tr><td><code>GG_Alumnado_Curso1</code></td><td>Global</td><td>Security</td><td><code>alu.curso1.001</code>, <code>alu.curso1.002</code></td></tr>
+                      <tr><td><code>GG_Alumnado_Curso2</code></td><td>Global</td><td>Security</td><td><code>alu.curso2.001</code></td></tr>
+                      <tr><td><code>GG_Profesorado</code></td><td>Global</td><td>Security</td><td><code>prof.001</code></td></tr>
+                      <tr><td><code>GG_Administracion</code></td><td>Global</td><td>Security</td><td><code>adm.001</code></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <h4 class="h6 fw-bold">Procedemento xeral</h4>
+                <ol>
+                  <li>Clic dereito sobre <code>OU=Grupos</code> → <strong>New → Group</strong>.</li>
+                  <li>Indica o nome do grupo.</li>
+                  <li>Selecciona <strong>Group scope: Global</strong>.</li>
+                  <li>Selecciona <strong>Group type: Security</strong>.</li>
+                  <li>Abre as propiedades do grupo → pestana <strong>Members</strong> → <strong>Add…</strong>.</li>
+                  <li>Engade os usuarios correspondentes.</li>
+                </ol>
+                <div class="notice success d-flex gap-2 align-items-start">
+                  <i class="bi bi-lightbulb-fill flex-shrink-0 mt-1"></i>
+                  <div><strong>Nota didáctica:</strong> estes grupos globais representan colectivos. Máis adiante, para permisos sobre carpetas compartidas, poderemos crear grupos de dominio local como <code>DL_Curso1_Modificar</code> ou <code>DL_Profesorado_ControlTotal</code>, seguindo AGDLP.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="equipos" class="mb-4">
+            <div class="task-card">
+              <div class="task-header"><span class="task-number">5.5</span><div><h3 class="h5 fw-bold mb-0">Organización inicial de equipos</h3><p class="small mb-0">Parte opcional ou preparatoria para clientes do dominio.</p></div></div>
+              <div class="task-body">
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <div class="concept-card success h-100 p-3">
+                      <span class="concept-icon"><i class="bi bi-check-circle"></i></span>
+                      <h4 class="h6 fw-bold mt-2">Opción recomendada</h4>
+                      <ol class="small mb-0">
+                        <li>Unir o equipo cliente ao dominio <code>cifpsauce.local</code>.</li>
+                        <li>Localizar a conta de equipo creada, normalmente no contedor <code>Computers</code>.</li>
+                        <li>Mover esa conta á OU <code>Equipos-Aulas</code>.</li>
+                      </ol>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="concept-card warning h-100 p-3">
+                      <span class="concept-icon"><i class="bi bi-exclamation-circle"></i></span>
+                      <h4 class="h6 fw-bold mt-2">Opción alternativa</h4>
+                      <p class="small mb-0">Crear unha conta de equipo manualmente só se o profesorado o indica.</p>
+                    </div>
+                  </div>
+                </div>
+                <p>Exemplo:</p>
+                <ul class="check-list mb-3">
+                  <li>Equipo: <code>PC-AULA01</code>.</li>
+                  <li>Localización final: <code>OU=Equipos-Aulas</code>.</li>
+                </ul>
+                <div class="notice warning d-flex gap-2 align-items-start">
+                  <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+                  <div><strong>Importante:</strong> non confundas usuarios con equipos. As contas de usuario representan persoas; as contas de equipo representan computadores unidos ao dominio.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- 6. Capturas obrigatorias -->
+        <section id="capturas" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-camera me-2 text-primary"></i>6. Capturas obrigatorias</h2>
+          <p>Inclúe na túa entrega as seguintes evidencias:</p>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="capture-card"><span class="capture-badge">1</span>Árbore de OU de <code>cifpsauce.local</code> coas OU expandidas.</div></div>
+            <div class="col-md-6"><div class="capture-card"><span class="capture-badge">2</span>Vista de <code>OU=Curso1</code> cos usuarios <code>alu.curso1.001</code> e <code>alu.curso1.002</code>.</div></div>
+            <div class="col-md-6"><div class="capture-card"><span class="capture-badge">3</span>Vista de <code>OU=Curso2</code> co usuario <code>alu.curso2.001</code>.</div></div>
+            <div class="col-md-6"><div class="capture-card"><span class="capture-badge">4</span>Vista de <code>OU=Profesorado</code> co usuario <code>prof.001</code>.</div></div>
+            <div class="col-md-6"><div class="capture-card"><span class="capture-badge">5</span>Vista de <code>OU=Administracion</code> co usuario <code>adm.001</code>.</div></div>
+            <div class="col-md-6"><div class="capture-card"><span class="capture-badge">6</span>Vista de <code>OU=Grupos</code> cos grupos globais creados.</div></div>
+            <div class="col-md-6"><div class="capture-card"><span class="capture-badge">7</span>Propiedades de <code>GG_Alumnado_Curso1</code>, pestana <strong>Members</strong>, coa lista visible.</div></div>
+            <div class="col-md-6"><div class="capture-card"><span class="capture-badge">8</span>Propiedades de <code>GG_Profesorado</code>, pestana <strong>Members</strong>, con <code>prof.001</code> visible.</div></div>
+            <div class="col-md-12"><div class="capture-card"><span class="capture-badge">9</span>Se se fai a parte opcional de equipos: conta <code>PC-AULA01</code> situada en <code>OU=Equipos-Aulas</code>.</div></div>
+          </div>
+        </section>
+
+        <!-- 7. Resultado esperado -->
+        <section id="resultado" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-check2-square"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">7. Resultado esperado</h2>
+                <p class="mb-0 small text-muted">Estrutura final mínima da práctica.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <pre class="code-tree"><code>cifpsauce.local
+├── OU=Alumnado
+│   ├── OU=Curso1
+│   │   ├── alu.curso1.001
+│   │   └── alu.curso1.002
+│   └── OU=Curso2
+│       └── alu.curso2.001
+├── OU=Profesorado
+│   └── prof.001
+├── OU=Administracion
+│   └── adm.001
+├── OU=Equipos-Aulas
+│   └── PC-AULA01   (se se realiza a parte opcional)
+└── OU=Grupos
+    ├── GG_Alumnado_Curso1
+    ├── GG_Alumnado_Curso2
+    ├── GG_Profesorado
+    └── GG_Administracion</code></pre>
+              <div class="table-responsive mt-3">
+                <table class="table table-sm table-striped align-middle decision-table">
+                  <thead><tr><th>Usuario</th><th>Grupo correspondente</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>alu.curso1.001</code></td><td><code>GG_Alumnado_Curso1</code></td></tr>
+                    <tr><td><code>alu.curso1.002</code></td><td><code>GG_Alumnado_Curso1</code></td></tr>
+                    <tr><td><code>alu.curso2.001</code></td><td><code>GG_Alumnado_Curso2</code></td></tr>
+                    <tr><td><code>prof.001</code></td><td><code>GG_Profesorado</code></td></tr>
+                    <tr><td><code>adm.001</code></td><td><code>GG_Administracion</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. Erros frecuentes -->
+        <section id="erros" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-bug me-2 text-danger"></i>8. Erros frecuentes</h2>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle error-table">
+              <thead><tr><th>Erro</th><th>Por que é un problema</th></tr></thead>
+              <tbody>
+                <tr><td>Crear usuarios no contedor <code>Users</code></td><td>Rompe a organización prevista e dificulta aplicar GPO por OU.</td></tr>
+                <tr><td>Crear grupos no contedor <code>Users</code></td><td>Os grupos deben quedar organizados en <code>OU=Grupos</code>.</td></tr>
+                <tr><td>Crear grupos como <strong>Distribution</strong></td><td>Non servirán para permisos de seguridade como se espera nesta práctica.</td></tr>
+                <tr><td>Escoller ámbito incorrecto</td><td>Nesta actividade os grupos de colectivo serán <strong>Global</strong>.</td></tr>
+                <tr><td>Escribir mal o UPN</td><td>Un erro en <code>@cifpsauce.local</code> pode causar confusión no inicio de sesión.</td></tr>
+                <tr><td>Esquecer engadir usuarios aos grupos</td><td>Crear o grupo non abonda; hai que asignar membros.</td></tr>
+                <tr><td>Mesturar alumnado e profesorado na mesma OU</td><td>Dificulta aplicar GPO ou delegacións diferenciadas.</td></tr>
+                <tr><td>Usar <code>prof.curso1.001</code></td><td>Acordouse usar nomes xenéricos como <code>prof.001</code>.</td></tr>
+                <tr><td>Deixar equipos en <code>Computers</code></td><td>Se se pide organización de equipos, deben moverse a <code>OU=Equipos-Aulas</code>.</td></tr>
+                <tr><td>Pensar que unha OU dá permisos</td><td>Os permisos xestiónanse con grupos e ACL, non simplemente movendo usuarios a OU.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 9. Reflexión final -->
+        <section id="reflexion" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-chat-square-text"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">9. Reflexión final</h2>
+                <p class="mb-0 small text-muted">Responde brevemente, en 2 ou 3 liñas por pregunta.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <ol class="mb-0">
+                <li class="mb-2">Que vantaxe ten usar grupos como <code>GG_Alumnado_Curso1</code> fronte a asignar permisos directamente a cada usuario?</li>
+                <li class="mb-2">Por que é útil separar alumnado en <code>Curso1</code> e <code>Curso2</code> desde o punto de vista de GPO e permisos?</li>
+                <li class="mb-2">Que problemas poderían aparecer se mesturas contas de alumnado e profesorado na mesma OU?</li>
+                <li>Que diferenza hai entre mover un usuario a unha OU e facelo membro dun grupo de seguridade?</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. Ideas clave -->
+        <section id="ideas-chave" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>10. Ideas clave da actividade</h2>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-folder2-open me-2 text-primary"></i>As <strong>OU</strong> organizan obxectos e permiten aplicar GPO ou delegar administración.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-people me-2 text-primary"></i>Os <strong>grupos de seguridade</strong> agrupan usuarios e facilitan permisos ou filtrados.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-person-check me-2 text-primary"></i>Unha conta debe estar ben situada nunha OU e pertencer aos grupos necesarios.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-shield-check me-2 text-primary"></i>Non se deben asignar permisos usuario por usuario se se pode facer mediante grupos.</div></div>
+            <div class="col-12"><div class="notice success d-flex gap-2 align-items-start"><i class="bi bi-check-circle-fill flex-shrink-0 mt-1"></i><div>Un dominio ben organizado facilita moito as prácticas posteriores de permisos, GPO, cartafoles persoais e administración delegada.</div></div></div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <svg class="smpp-sauce" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="2" y="8" width="32" height="24" rx="4" fill="#0f172a" stroke="#C9A84C" stroke-width="2"/>
+    <rect x="7" y="13" width="10" height="2" rx="1" fill="#C9A84C"/>
+    <rect x="7" y="18" width="22" height="2" rx="1" fill="#C9A84C" opacity="0.6"/>
+    <rect x="7" y="23" width="16" height="2" rx="1" fill="#C9A84C" opacity="0.4"/>
+    <circle cx="28" cy="13" r="3" fill="#C9A84C"/>
+  </svg>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

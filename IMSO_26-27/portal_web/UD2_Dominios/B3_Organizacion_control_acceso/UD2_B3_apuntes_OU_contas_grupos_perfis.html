@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B3 Organización do dominio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#punto-partida">1. Punto de partida</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#obxectos-ad">2. Obxectos do dominio</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ou">3. Unidades organizativas</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ou-grupos-gpo">4. OU, grupos, GPO e permisos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#contas">5. Contas de usuario e equipo</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#grupos">6. Grupos de seguridade</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#agdlp">7. Estratexia AGDLP</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#perfis">8. Perfís e cartafoles</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#exemplo">9. Exemplo práctico</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#boas-practicas">10. Boas prácticas</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#erros">11. Erros frecuentes</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#vocabulario">12. Vocabulario</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#ideas-chave">13. Ideas clave</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Contido principal ── -->
+    <main class="col-lg-9">
+      <article>
+
+        <!-- Cabeceira -->
+        <header class="mb-4">
+          <div class="theory-hero">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="hero-chip"><i class="bi bi-diagram-3"></i> UD2 · Bloque 3</span>
+              <span class="hero-chip"><i class="bi bi-people"></i> OU · contas · grupos · perfís</span>
+              <span class="hero-chip"><i class="bi bi-hdd-network"></i> cifpsauce.local</span>
+            </div>
+            <h1 class="h2 fw-bold mb-2">Organización do dominio: OU, contas, grupos e perfís</h1>
+            <p class="lead mb-0">Estrutura lóxica inicial do dominio, diferenza entre OU e grupos, estratexia AGDLP e primeira visión dos perfís e cartafoles persoais.</p>
+          </div>
+        </header>
+
+        <div class="notice info mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div>
+            <strong>Importante:</strong> neste bloque aínda non configuramos en detalle os permisos sobre carpetas compartidas nin os perfís móbiles paso a paso. Prepararemos a estrutura lóxica necesaria para traballar con todo iso nos bloques posteriores.
+          </div>
+        </div>
+
+        <!-- 1. Punto de partida -->
+        <section id="punto-partida" class="mb-5">
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-flag"></i></span>
+              <div>
+                <h2 class="h4 fw-bold mb-0">1. Punto de partida do bloque</h2>
+                <p class="mb-0 small text-muted">Infraestrutura xa creada nos bloques anteriores.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p>Ao comezar este bloque temos xa unha infraestrutura mínima:</p>
+              <div class="table-responsive">
+                <table class="table table-sm table-striped align-middle decision-table">
+                  <thead>
+                    <tr><th>Elemento</th><th>Valor no laboratorio</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Dominio</td><td><code>cifpsauce.local</code></td></tr>
+                    <tr><td>Primeiro controlador de dominio</td><td><code>dcbuho.cifpsauce.local</code></td></tr>
+                    <tr><td>IP do DC</td><td><code>192.168.50.10</code></td></tr>
+                    <tr><td>Nome NetBIOS do dominio</td><td><code>CIFPSAUCE</code></td></tr>
+                    <tr><td>Roles instalados</td><td>AD DS + DNS</td></tr>
+                    <tr><td>Zona DNS principal</td><td><code>cifpsauce.local</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="mb-0">A partir de aquí necesitamos crear unha estrutura ordenada para que o dominio sexa administrable: decidir <strong>onde se crean os obxectos</strong>, <strong>como se nomean</strong>, <strong>que grupos se usan</strong> e <strong>como se aplicarán políticas e permisos</strong>.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Obxectos -->
+        <section id="obxectos-ad" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-boxes me-2 text-primary"></i>2. Obxectos do dominio en Active Directory</h2>
+          <p>En Active Directory, un <strong>obxecto</strong> é unha entidade almacenada no directorio. Pode representar unha persoa, un equipo, un grupo, unha impresora, unha unidade organizativa ou outro elemento administrable.</p>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6 col-xl-4">
+              <div class="concept-card h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-person"></i></span>
+                  <div><h3 class="h6 fw-bold mb-1">Usuario</h3><p class="small mb-0">Persoa que inicia sesión no dominio. Ex.: <code>alu.curso1.001</code>, <code>prof.001</code>.</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="concept-card success h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-pc-display"></i></span>
+                  <div><h3 class="h6 fw-bold mb-1">Equipo</h3><p class="small mb-0">Computador unido ao dominio. Ex.: <code>PC-AULA01</code>.</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="concept-card info h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-people"></i></span>
+                  <div><h3 class="h6 fw-bold mb-1">Grupo</h3><p class="small mb-0">Conxunto de contas usado para permisos ou filtrados. Ex.: <code>GG_Alumnado_Curso1</code>.</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="concept-card warning h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-folder2-open"></i></span>
+                  <div><h3 class="h6 fw-bold mb-1">OU</h3><p class="small mb-0">Contedor lóxico para organizar obxectos. Ex.: <code>OU=Alumnado</code>.</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="concept-card h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-sliders"></i></span>
+                  <div><h3 class="h6 fw-bold mb-1">GPO</h3><p class="small mb-0">Obxecto de directiva de grupo que aplica configuracións. Ex.: política de escritorio para alumnado.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice success d-flex gap-2 align-items-start">
+            <i class="bi bi-lightbulb-fill flex-shrink-0 mt-1"></i>
+            <div>A idea principal é que Active Directory non é só unha lista de usuarios: é unha estrutura xerárquica que permite organizar, administrar e aplicar configuracións de maneira centralizada.</div>
+          </div>
+        </section>
+
+        <!-- 3. OU -->
+        <section id="ou" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-diagram-3 me-2 text-primary"></i>3. Unidades organizativas (OU)</h2>
+          <p>As <strong>unidades organizativas</strong> ou <strong>OU</strong> son contedores lóxicos dentro dun dominio. Serven para organizar obxectos e facilitar a administración.</p>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-4">
+              <div class="key-card">
+                <h3 class="h6 fw-bold"><i class="bi bi-grid-3x3-gap me-2 text-primary"></i>Organizar</h3>
+                <p class="small mb-0">Agrupar obxectos por curso, departamento, aula, sede ou función.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="key-card">
+                <h3 class="h6 fw-bold"><i class="bi bi-person-check me-2 text-primary"></i>Delegar</h3>
+                <p class="small mb-0">Permitir que unha persoa administre só unha parte do dominio.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="key-card">
+                <h3 class="h6 fw-bold"><i class="bi bi-link-45deg me-2 text-primary"></i>Vincular GPO</h3>
+                <p class="small mb-0">Aplicar configuracións a unha parte concreta da estrutura.</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 fw-semibold mb-2">Estrutura base proposta</h3>
+          <pre class="tree-block"><code>cifpsauce.local
+├── OU=Alumnado
+│   ├── OU=Curso1
+│   └── OU=Curso2
+├── OU=Profesorado
+├── OU=Administracion
+└── OU=Equipos-Aulas</code></pre>
+
+          <div class="content-card mt-3">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-exclamation-circle"></i></span>
+              <h3 class="h5 fw-bold mb-0">3.2. OU e GPO: matiz importante</h3>
+            </div>
+            <div class="content-card-body">
+              <p>As GPO non se aplican “a un grupo” como regra xeral. As GPO vincúlanse principalmente a <strong>sitios</strong>, <strong>dominios</strong> e <strong>unidades organizativas</strong>.</p>
+              <p>Despois, a GPO aplícase aos usuarios ou equipos que están nesa parte da estrutura, segundo a súa configuración e posibles filtrados.</p>
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered align-middle">
+                  <thead><tr><th>Se a OU contén...</th><th>Ten sentido aplicar principalmente...</th></tr></thead>
+                  <tbody>
+                    <tr><td>Usuarios</td><td>Configuracións de usuario</td></tr>
+                    <tr><td>Equipos</td><td>Configuracións de equipo</td></tr>
+                    <tr><td>Usuarios e equipos mesturados</td><td>Pode funcionar, pero é máis fácil confundirse</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <ul class="mb-0">
+                <li>Para unha política ao alumnado de <code>Curso1</code>, podemos vincular unha GPO á OU <code>Curso1</code>, sempre que alí estean as contas de usuario dese alumnado.</li>
+                <li>Para unha política aos equipos da aula, os equipos deben estar nunha OU de equipos, por exemplo <code>OU=Equipos-Aulas</code>.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. OU/grupos/GPO -->
+        <section id="ou-grupos-gpo" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-signpost-split me-2 text-primary"></i>4. OU, grupos, GPO e permisos: non son o mesmo</h2>
+          <p>Este é un dos puntos máis importantes do bloque. O alumnado adoita mesturar OU, grupos, GPO e permisos, pero cada elemento ten unha función diferente.</p>
+          <div class="table-responsive">
+            <table class="table table-striped align-middle">
+              <thead><tr><th>Elemento</th><th>Para que serve principalmente</th><th>Exemplo</th></tr></thead>
+              <tbody>
+                <tr><td><strong>OU</strong></td><td>Organizar obxectos, delegar administración e vincular GPO</td><td><code>OU=Curso1</code></td></tr>
+                <tr><td><strong>Grupo</strong></td><td>Agrupar contas para permisos, dereitos ou filtrados</td><td><code>GG_Alumnado_Curso1</code></td></tr>
+                <tr><td><strong>GPO</strong></td><td>Aplicar configuracións a usuarios ou equipos</td><td>Bloquear o panel de control</td></tr>
+                <tr><td><strong>Recurso compartido</strong></td><td>Carpeta, impresora ou outro recurso ao que se accede pola rede</td><td><code>\\dcbuho\curso1</code></td></tr>
+                <tr><td><strong>Permiso</strong></td><td>Autoriza ou limita accións sobre un recurso</td><td>Lectura, modificación, control total</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="notice warning d-flex gap-2 align-items-start">
+            <i class="bi bi-pin-angle-fill flex-shrink-0 mt-1"></i>
+            <div><strong>Idea clave:</strong> mover un usuario a unha OU non lle dá automaticamente permisos sobre unha carpeta. Para permisos empregaremos grupos de seguridade.</div>
+          </div>
+        </section>
+
+        <!-- 5. Contas -->
+        <section id="contas" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-person-vcard me-2 text-primary"></i>5. Contas de usuario e contas de equipo</h2>
+
+          <div class="content-card mb-3">
+            <div class="content-card-header"><span class="section-icon"><i class="bi bi-person"></i></span><h3 class="h5 fw-bold mb-0">5.1. Contas de usuario</h3></div>
+            <div class="content-card-body">
+              <p>Unha <strong>conta de usuario de dominio</strong> representa unha persoa que pode autenticarse contra Active Directory.</p>
+              <div class="row g-3">
+                <div class="col-lg-6">
+                  <h4 class="h6 fw-bold">Propiedades habituais</h4>
+                  <ul class="list-group list-group-flush key-list small">
+                    <li class="list-group-item">Nome de inicio de sesión</li>
+                    <li class="list-group-item">Contrasinal</li>
+                    <li class="list-group-item">Políticas de contrasinal e bloqueo</li>
+                    <li class="list-group-item">Pertenza a grupos</li>
+                    <li class="list-group-item">Datos persoais ou organizativos</li>
+                    <li class="list-group-item">Cartafol persoal e ruta de perfil, se se usan</li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <h4 class="h6 fw-bold">Nomenclatura xenérica da UD2</h4>
+                  <div class="table-responsive">
+                    <table class="table table-sm table-striped align-middle">
+                      <thead><tr><th>Colectivo</th><th>Exemplo de conta</th></tr></thead>
+                      <tbody>
+                        <tr><td>Alumnado de Curso1</td><td><code>alu.curso1.001</code></td></tr>
+                        <tr><td>Alumnado de Curso2</td><td><code>alu.curso2.001</code></td></tr>
+                        <tr><td>Profesorado</td><td><code>prof.001</code></td></tr>
+                        <tr><td>Profesorado</td><td><code>prof.002</code></td></tr>
+                        <tr><td>Administración</td><td><code>adm.001</code></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="small text-muted mb-0">Usamos nomes xenéricos porque son útiles en laboratorio e evitan empregar datos persoais reais.</p>
+                </div>
+              </div>
+
+              <h4 class="h6 fw-bold mt-4">Onde crear as contas de usuario</h4>
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered align-middle">
+                  <thead><tr><th>Conta</th><th>OU recomendada</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>alu.curso1.001</code></td><td><code>OU=Curso1,OU=Alumnado</code></td></tr>
+                    <tr><td><code>alu.curso2.001</code></td><td><code>OU=Curso2,OU=Alumnado</code></td></tr>
+                    <tr><td><code>prof.001</code></td><td><code>OU=Profesorado</code></td></tr>
+                    <tr><td><code>adm.001</code></td><td><code>OU=Administracion</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="notice warning mb-0"><strong>Boa práctica:</strong> non crear todas as contas directamente no contedor predeterminado <code>Users</code> se xa temos unha estrutura propia de OU.</div>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header"><span class="section-icon"><i class="bi bi-pc-display"></i></span><h3 class="h5 fw-bold mb-0">5.2. Contas de equipo</h3></div>
+            <div class="content-card-body">
+              <p>Unha <strong>conta de equipo</strong> representa un computador unido ao dominio.</p>
+              <p>Cando un equipo se une ao dominio <code>cifpsauce.local</code>, Active Directory crea ou utiliza unha conta de equipo. Habitualmente, estas contas aparecen con nomes como:</p>
+              <pre class="code-block"><code>PC-AULA01
+PC-AULA02
+PC-AULA03</code></pre>
+              <p>Internamente, as contas de equipo poden identificarse tamén co símbolo <code>$</code>, por exemplo <code>PC-AULA01$</code>.</p>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="key-card"><strong>Permiten:</strong><ul class="mb-0 small mt-2"><li>identificar equipos no dominio;</li><li>aplicar GPO de equipo;</li><li>controlar a pertenza ao dominio;</li><li>organizar PCs por aula, sede ou función.</li></ul></div>
+                </div>
+                <div class="col-md-6">
+                  <div class="key-card"><strong>Na UD2:</strong><p class="small mb-0 mt-2">Colocaremos os equipos de aula en <code>OU=Equipos-Aulas</code> para aplicar políticas específicas aos equipos, independentemente do usuario que inicie sesión neles.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Grupos -->
+        <section id="grupos" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-people-fill me-2 text-primary"></i>6. Grupos de seguridade</h2>
+          <p>Os <strong>grupos de seguridade</strong> serven para administrar permisos de forma eficiente. En lugar de dar permisos usuario por usuario, engadimos os usuarios a grupos e concedemos permisos aos grupos.</p>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <div class="notice danger h-100">
+                <h3 class="h6 fw-bold"><i class="bi bi-x-circle me-2"></i>Exemplo incorrecto</h3>
+                <pre class="code-block mb-0"><code>Dar permiso á carpeta Curso1 usuario por usuario.</code></pre>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="notice success h-100">
+                <h3 class="h6 fw-bold"><i class="bi bi-check-circle me-2"></i>Exemplo correcto</h3>
+                <pre class="code-block mb-0"><code>Crear o grupo GG_Alumnado_Curso1.
+Engadir nel o alumnado de Curso1.
+Asignar permisos ao grupo correspondente.</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-card mb-3">
+            <div class="content-card-header"><span class="section-icon"><i class="bi bi-tag"></i></span><h3 class="h5 fw-bold mb-0">6.1. Finalidade dos grupos</h3></div>
+            <div class="content-card-body">
+              <div class="table-responsive">
+                <table class="table table-sm table-striped align-middle">
+                  <thead><tr><th>Tipo</th><th>Uso principal</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Grupo de seguridade</strong></td><td>Permisos sobre recursos, dereitos e filtrados</td></tr>
+                    <tr><td><strong>Grupo de distribución</strong></td><td>Listas de correo; non se usa para permisos</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="mb-0">Na UD2 traballaremos principalmente con <strong>grupos de seguridade</strong>.</p>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header"><span class="section-icon"><i class="bi bi-layers"></i></span><h3 class="h5 fw-bold mb-0">6.2. Ámbitos de grupo</h3></div>
+            <div class="content-card-body">
+              <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                  <thead><tr><th>Ámbito</th><th>Uso habitual</th><th>Exemplo</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Global</strong></td><td>Agrupar contas do mesmo dominio segundo rol ou colectivo</td><td><code>GG_Alumnado_Curso1</code></td></tr>
+                    <tr><td><strong>Dominio local</strong></td><td>Asignar permisos sobre recursos dun dominio concreto</td><td><code>DL_Carpeta_Curso1_Lectura</code></td></tr>
+                    <tr><td><strong>Universal</strong></td><td>Agrupar obxectos en bosques con varios dominios</td><td>Pouco necesario na nosa UD</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="mb-0">Nun dominio sinxelo como <code>cifpsauce.local</code>, usaremos sobre todo <strong>grupos globais</strong> para colectivos de usuarios e <strong>grupos de dominio local</strong> para permisos sobre recursos concretos.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. AGDLP -->
+        <section id="agdlp" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-arrow-down-up me-2 text-primary"></i>7. Estratexia AGDLP para permisos</h2>
+          <p>Unha forma clásica e ordenada de traballar cos grupos en Active Directory é a estratexia <strong>AGDLP</strong>.</p>
+
+          <div class="row g-3 mb-4 text-center">
+            <div class="col-6 col-lg-3"><div class="agdlp-step"><span class="agdlp-letter mb-2">A</span><h3 class="h6 fw-bold">Accounts</h3><p class="small mb-0">Contas de usuario</p></div></div>
+            <div class="col-6 col-lg-3"><div class="agdlp-step"><span class="agdlp-letter mb-2">G</span><h3 class="h6 fw-bold">Global groups</h3><p class="small mb-0">Grupos globais</p></div></div>
+            <div class="col-6 col-lg-3"><div class="agdlp-step"><span class="agdlp-letter mb-2">DL</span><h3 class="h6 fw-bold">Domain local</h3><p class="small mb-0">Grupos de dominio local</p></div></div>
+            <div class="col-6 col-lg-3"><div class="agdlp-step"><span class="agdlp-letter mb-2">P</span><h3 class="h6 fw-bold">Permissions</h3><p class="small mb-0">Permisos</p></div></div>
+          </div>
+
+          <div class="notice info mb-4"><strong>En galego:</strong> Contas → Grupos globais → Grupos de dominio local → Permisos.</div>
+
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <div class="content-card h-100">
+                <div class="content-card-header"><span class="section-icon"><i class="bi bi-mortarboard"></i></span><h3 class="h5 fw-bold mb-0">7.1. Exemplo con alumnado</h3></div>
+                <div class="content-card-body">
+                  <pre class="tree-block"><code>alu.curso1.001
+   ↓
+GG_Alumnado_Curso1
+   ↓
+DL_Carpeta_Curso1_Lectura
+   ↓
+Permiso de lectura sobre \\dcbuho\curso1</code></pre>
+                  <ul class="small mb-0 mt-3">
+                    <li>a conta representa unha persoa;</li>
+                    <li>o grupo global representa un colectivo;</li>
+                    <li>o grupo de dominio local representa un permiso concreto;</li>
+                    <li>o permiso real concédese sobre a carpeta compartida.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="content-card h-100">
+                <div class="content-card-header"><span class="section-icon"><i class="bi bi-person-workspace"></i></span><h3 class="h5 fw-bold mb-0">7.2. Exemplo con profesorado</h3></div>
+                <div class="content-card-body">
+                  <pre class="tree-block"><code>prof.001
+   ↓
+GG_Profesorado
+   ↓
+DL_Carpeta_Profesorado_Modificacion
+   ↓
+Permiso de modificación sobre \\dcbuho\profesorado</code></pre>
+                  <p class="small mb-0 mt-3">Se entra unha nova profesora ou profesor, só teremos que engadir a súa conta ao grupo global correspondente. Non haberá que modificar directamente os permisos da carpeta.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="notice warning mt-3 mb-0"><strong>Nota didáctica:</strong> desenvolveremos os permisos NTFS e os permisos de compartición nun bloque posterior. Neste momento só interesa entender a lóxica de grupos.</div>
+        </section>
+
+        <!-- 8. Perfís -->
+        <section id="perfis" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-folder-symlink me-2 text-primary"></i>8. Perfís móbiles, cartafoles persoais e redirección</h2>
+          <p>Unha vez creados usuarios e grupos, podemos empezar a pensar en como se xestionarán os datos e a configuración persoal dos usuarios. Neste bloque só veremos unha visión xeral.</p>
+
+          <div class="row g-3 mb-3">
+            <div class="col-lg-4">
+              <div class="concept-card h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-laptop"></i></span>
+                  <div><h3 class="h6 fw-bold mb-1">Perfil local</h3><p class="small mb-0">Gárdase no disco do equipo onde inicia sesión o usuario. Se inicia sesión noutro equipo, non terá necesariamente o mesmo contorno.</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="concept-card info h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-cloud-arrow-down"></i></span>
+                  <div><h3 class="h6 fw-bold mb-1">Perfil móbil</h3><p class="small mb-0">Gárdase nun servidor de ficheiros. Descárgase ao iniciar sesión e sincronízase ao pechar sesión.</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="concept-card success h-100 p-3">
+                <div class="d-flex gap-3 align-items-start">
+                  <span class="concept-icon"><i class="bi bi-folder2"></i></span>
+                  <div><h3 class="h6 fw-bold mb-1">Cartafol persoal</h3><p class="small mb-0">Carpeta de rede asignada ao usuario, por exemplo <code>H:</code> → <code>\\dcbuho\usuarios\alu.curso1.001</code>.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice warning mb-3 d-flex gap-2 align-items-start">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+            <div><strong>Advertencia:</strong> un perfil móbil non debe entenderse como unha solución máxica. Se o perfil é grande ou a rede é lenta, pode facer máis lentos os inicios e peches de sesión. En moitos casos é preferible redirixir só carpetas concretas.</div>
+          </div>
+
+          <div class="content-card mb-3">
+            <div class="content-card-header"><span class="section-icon"><i class="bi bi-house-door"></i></span><h3 class="h5 fw-bold mb-0">8.3. Cartafol persoal</h3></div>
+            <div class="content-card-body">
+              <p>Un <strong>cartafol persoal</strong> ou <strong>home folder</strong> é unha carpeta asignada a cada usuario nun servidor.</p>
+              <p>Exemplo de laboratorio:</p>
+              <pre class="code-block"><code>\\dcbuho\usuarios\alu.curso1.001</code></pre>
+              <p>Pode montarse como unha unidade de rede, por exemplo:</p>
+              <pre class="code-block"><code>H:</code></pre>
+              <div class="notice info mb-0"><strong>Nota de boas prácticas:</strong> nesta UD poderemos usar <code>dcbuho</code> como servidor de ficheiros por simplicidade. Nun contorno real, adoita ser mellor separar o controlador de dominio e o servidor de ficheiros.</div>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header"><span class="section-icon"><i class="bi bi-arrow-left-right"></i></span><h3 class="h5 fw-bold mb-0">8.4–8.5. Redirección e diferenzas clave</h3></div>
+            <div class="content-card-body">
+              <p>A <strong>redirección de cartafoles</strong> permite que carpetas coñecidas do perfil do usuario apunten a unha localización de rede. Normalmente configúrase mediante GPO.</p>
+              <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                  <thead><tr><th>Concepto</th><th>Que fai</th><th>Exemplo</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Cartafol persoal</strong></td><td>Asigna ao usuario unha carpeta de rede propia</td><td><code>H:</code> → <code>\\dcbuho\usuarios\alu.curso1.001</code></td></tr>
+                    <tr><td><strong>Redirección de cartafoles</strong></td><td>Fai que carpetas coñecidas apunten ao servidor</td><td>Documentos → <code>\\dcbuho\usuarios\alu.curso1.001\Documentos</code></td></tr>
+                    <tr><td><strong>Perfil móbil</strong></td><td>Move/sincroniza parte do perfil do usuario</td><td>Perfil almacenado nun recurso compartido</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9. Exemplo -->
+        <section id="exemplo" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-building-gear me-2 text-primary"></i>9. Exemplo práctico: organización inicial de <code>cifpsauce.local</code></h2>
+
+          <div class="row g-3 mb-3">
+            <div class="col-lg-6">
+              <div class="content-card h-100">
+                <div class="content-card-header"><span class="section-icon"><i class="bi bi-diagram-3"></i></span><h3 class="h5 fw-bold mb-0">9.1. Estrutura de OU</h3></div>
+                <div class="content-card-body"><pre class="tree-block mb-3"><code>cifpsauce.local
+├── OU=Alumnado
+│   ├── OU=Curso1
+│   └── OU=Curso2
+├── OU=Profesorado
+├── OU=Administracion
+└── OU=Equipos-Aulas</code></pre><ul class="small mb-0"><li>GPO diferentes a alumnado de <code>Curso1</code> e <code>Curso2</code>.</li><li>Políticas específicas a profesorado e administración.</li><li>Xestión separada dos equipos de aula.</li><li>Delegación de administración se fose necesario.</li></ul></div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="content-card h-100">
+                <div class="content-card-header"><span class="section-icon"><i class="bi bi-person-lines-fill"></i></span><h3 class="h5 fw-bold mb-0">9.2. Exemplos de contas</h3></div>
+                <div class="content-card-body">
+                  <div class="table-responsive"><table class="table table-sm table-striped align-middle"><thead><tr><th>Obxecto</th><th>Nome</th><th>OU</th></tr></thead><tbody><tr><td>Alumnado Curso1</td><td><code>alu.curso1.001</code></td><td><code>OU=Curso1,OU=Alumnado</code></td></tr><tr><td>Alumnado Curso2</td><td><code>alu.curso2.001</code></td><td><code>OU=Curso2,OU=Alumnado</code></td></tr><tr><td>Profesorado</td><td><code>prof.001</code></td><td><code>OU=Profesorado</code></td></tr><tr><td>Administración</td><td><code>adm.001</code></td><td><code>OU=Administracion</code></td></tr><tr><td>Equipo de aula</td><td><code>PC-AULA01</code></td><td><code>OU=Equipos-Aulas</code></td></tr></tbody></table></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-card mb-3">
+            <div class="content-card-header"><span class="section-icon"><i class="bi bi-people"></i></span><h3 class="h5 fw-bold mb-0">9.3. Exemplos de grupos globais</h3></div>
+            <div class="content-card-body">
+              <div class="table-responsive"><table class="table table-sm table-striped align-middle"><thead><tr><th>Grupo global</th><th>Que representa</th></tr></thead><tbody><tr><td><code>GG_Alumnado_Curso1</code></td><td>Todo o alumnado de Curso1</td></tr><tr><td><code>GG_Alumnado_Curso2</code></td><td>Todo o alumnado de Curso2</td></tr><tr><td><code>GG_Profesorado</code></td><td>Todo o profesorado</td></tr><tr><td><code>GG_Administracion</code></td><td>Persoal de administración</td></tr></tbody></table></div>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header"><span class="section-icon"><i class="bi bi-folder-lock"></i></span><h3 class="h5 fw-bold mb-0">9.4. Grupos de dominio local para recursos</h3></div>
+            <div class="content-card-body">
+              <div class="table-responsive"><table class="table table-striped align-middle"><thead><tr><th>Grupo de dominio local</th><th>Recurso asociado</th><th>Permiso previsto</th></tr></thead><tbody><tr><td><code>DL_Carpeta_Curso1_Lectura</code></td><td><code>\\dcbuho\curso1</code></td><td>Lectura</td></tr><tr><td><code>DL_Carpeta_Curso1_Modificacion</code></td><td><code>\\dcbuho\curso1</code></td><td>Modificación</td></tr><tr><td><code>DL_Carpeta_Profesorado_Modificacion</code></td><td><code>\\dcbuho\profesorado</code></td><td>Modificación</td></tr><tr><td><code>DL_Carpeta_Administracion_Modificacion</code></td><td><code>\\dcbuho\administracion</code></td><td>Modificación</td></tr></tbody></table></div>
+              <p class="mb-0">Máis adiante, estes grupos permitirán asignar permisos de forma limpa, sen ter que modificar permisos usuario por usuario.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. Boas prácticas -->
+        <section id="boas-practicas" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-shield-check me-2 text-success"></i>10. Boas prácticas neste bloque</h2>
+          <div class="row g-3">
+            <div class="col-md-6"><ul class="list-group list-group-flush key-list small"><li class="list-group-item">Non crear usuarios directamente no contedor <code>Users</code> se xa temos OU propias.</li><li class="list-group-item">Non mesturar sen criterio usuarios e equipos na mesma OU.</li><li class="list-group-item">Non usar a conta <code>Administrador</code> para tarefas cotiás.</li><li class="list-group-item">Non asignar permisos usuario a usuario.</li><li class="list-group-item">Usar grupos globais para representar colectivos.</li></ul></div>
+            <div class="col-md-6"><ul class="list-group list-group-flush key-list small"><li class="list-group-item">Usar grupos de dominio local para permisos sobre recursos.</li><li class="list-group-item">Documentar onde se crean usuarios, equipos e grupos.</li><li class="list-group-item">Separar OU de usuarios e OU de equipos cando se queiran aplicar GPO diferentes.</li><li class="list-group-item">Non asumir que mover un usuario a unha OU equivale a darlle permisos sobre unha carpeta.</li><li class="list-group-item">Non usar perfís móbiles sen valorar tamaño do perfil, rede e necesidades reais.</li></ul></div>
+          </div>
+        </section>
+
+        <!-- 11. Erros -->
+        <section id="erros" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-exclamation-triangle me-2 text-warning"></i>11. Erros frecuentes</h2>
+          <div class="table-responsive">
+            <table class="table table-striped align-middle error-table">
+              <thead><tr><th>Erro</th><th>Por que é un problema</th></tr></thead>
+              <tbody>
+                <tr><td>Crear todos os usuarios en <code>Users</code></td><td>Dificulta a organización, a delegación e a aplicación de GPO.</td></tr>
+                <tr><td>Confundir OU con grupo</td><td>A OU organiza; o grupo serve para permisos ou filtrados.</td></tr>
+                <tr><td>Aplicar permisos directamente a usuarios</td><td>Complica moito o mantemento.</td></tr>
+                <tr><td>Poñer usuarios de profesorado con nomes ligados a un curso</td><td>Un docente pode impartir en varios cursos.</td></tr>
+                <tr><td>Mesturar usuarios e equipos sen criterio</td><td>Pode provocar que as GPO se apliquen de forma inesperada.</td></tr>
+                <tr><td>Usar só grupos globais para todo</td><td>Para permisos sobre recursos é mellor introducir grupos de dominio local.</td></tr>
+                <tr><td>Pensar que unha GPO se aplica “ao grupo” directamente</td><td>As GPO vincúlanse principalmente a OU, dominio ou sitio; os grupos poden usarse para filtrado.</td></tr>
+                <tr><td>Activar perfís móbiles sen planificación</td><td>Pode facer lentos os inicios e peches de sesión.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 12. Vocabulario -->
+        <section id="vocabulario" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-translate me-2 text-primary"></i>12. Vocabulario básico galego – inglés</h2>
+          <div class="table-responsive">
+            <table class="table table-striped align-middle vocab-table">
+              <thead><tr><th>Galego</th><th>Inglés</th></tr></thead>
+              <tbody>
+                <tr><td>Conta de usuario</td><td>User account</td></tr>
+                <tr><td>Conta de equipo</td><td>Computer account</td></tr>
+                <tr><td>Grupo de seguridade</td><td>Security group</td></tr>
+                <tr><td>Grupo de distribución</td><td>Distribution group</td></tr>
+                <tr><td>Grupo global</td><td>Global group</td></tr>
+                <tr><td>Grupo de dominio local</td><td>Domain local group</td></tr>
+                <tr><td>Grupo universal</td><td>Universal group</td></tr>
+                <tr><td>Aniñamento de grupos</td><td>Group nesting</td></tr>
+                <tr><td>Unidade organizativa</td><td>Organizational Unit (OU)</td></tr>
+                <tr><td>Perfil local</td><td>Local profile</td></tr>
+                <tr><td>Perfil móbil</td><td>Roaming profile</td></tr>
+                <tr><td>Cartafol persoal</td><td>Home folder</td></tr>
+                <tr><td>Redirección de cartafoles</td><td>Folder redirection</td></tr>
+                <tr><td>Recurso compartido</td><td>Shared resource / Shared folder</td></tr>
+                <tr><td>Bloqueo de conta</td><td>Account lockout</td></tr>
+                <tr><td>Contrasinal</td><td>Password</td></tr>
+                <tr><td>Data de caducidade da conta</td><td>Account expiration date</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 13. Ideas clave -->
+        <section id="ideas-chave" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-journal-check me-2 text-primary"></i>13. Ideas clave do bloque</h2>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-diagram-3 text-primary me-2"></i>As <strong>OU</strong> serven para organizar obxectos, delegar administración e vincular GPO.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-people text-primary me-2"></i>Os <strong>grupos</strong> serven para administrar permisos, dereitos e filtrados de forma ordenada.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-sliders text-primary me-2"></i>Unha <strong>GPO</strong> aplica configuracións a usuarios ou equipos, normalmente segundo a súa localización na estrutura de OU.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-person-vcard text-primary me-2"></i>As <strong>contas de usuario</strong> representan persoas; as <strong>contas de equipo</strong> representan computadores unidos ao dominio.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-arrow-down-up text-primary me-2"></i>A estratexia <strong>AGDLP</strong> axuda a manter permisos limpos e escalables.</div></div>
+            <div class="col-md-6"><div class="key-card h-100"><i class="bi bi-folder-symlink text-primary me-2"></i>Perfís móbiles, cartafoles persoais e redirección de cartafoles son formas distintas de xestionar datos e configuración dos usuarios.</div></div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <img src="../../assets/imax/sauce_clean.svg" alt="" class="smpp-sauce" onerror="this.style.display='none'">
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

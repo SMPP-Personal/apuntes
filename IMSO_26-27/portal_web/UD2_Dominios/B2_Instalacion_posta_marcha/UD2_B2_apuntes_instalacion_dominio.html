@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="gl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSO – UD2·B2 Instalación e posta en marcha do dominio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../../assets/imax/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/imso.css">
+
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       Estilos específicos UD2·B2 – Apuntes instalación dominio
+       ───────────────────────────────────────────────────────────── */
+    .theory-hero {
+      background: linear-gradient(135deg, rgba(13,110,253,0.13) 0%, rgba(14,165,233,0.08) 42%, rgba(100,116,139,0.06) 100%);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .theory-hero::after {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      right: -65px;
+      top: -75px;
+      background: radial-gradient(circle, rgba(13,110,253,.18), transparent 68%);
+      pointer-events: none;
+    }
+    [data-bs-theme="dark"] .theory-hero {
+      background: linear-gradient(135deg, rgba(13,110,253,0.22) 0%, rgba(14,165,233,0.10) 42%, rgba(255,255,255,0.03) 100%);
+      border-color: rgba(255,255,255,0.10);
+    }
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .35rem .7rem;
+      border-radius: 999px;
+      border: 1px solid var(--bs-border-color);
+      background: var(--bs-tertiary-bg);
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--bs-secondary-color);
+    }
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: .75rem;
+    }
+    .scenario-item {
+      border: 1px solid var(--bs-border-color);
+      border-radius: .85rem;
+      background: var(--bs-body-bg);
+      padding: .85rem;
+      box-shadow: 0 .10rem .45rem rgba(15,23,42,.04);
+    }
+    .scenario-label {
+      display: block;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--bs-secondary-color);
+      font-weight: 800;
+      margin-bottom: .2rem;
+    }
+    .content-card {
+      border: 1px solid var(--bs-border-color);
+      border-radius: 1rem;
+      background: var(--bs-body-bg);
+      box-shadow: 0 .15rem .75rem rgba(15,23,42,.05);
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .content-card .content-card-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: 1rem 1.15rem;
+      border-bottom: 1px solid var(--bs-border-color);
+      background: var(--bs-tertiary-bg);
+    }
+    .content-card .content-card-body {
+      padding: 1.15rem;
+    }
+    .section-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: .75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(13,110,253,.12);
+      color: var(--bs-primary);
+      font-size: 1.15rem;
+    }
+    [data-bs-theme="dark"] .section-icon { background: rgba(13,110,253,.22); }
+    .decision-table th {
+      white-space: nowrap;
+    }
+    .table td, .table th { vertical-align: middle; }
+    .warning-strong {
+      border-left: 4px solid #f59e0b;
+      background: linear-gradient(135deg, rgba(245,158,11,.12), rgba(245,158,11,.04));
+      border-radius: .8rem;
+      padding: .95rem 1rem;
+    }
+    .info-strong {
+      border-left: 4px solid #0ea5e9;
+      background: linear-gradient(135deg, rgba(14,165,233,.12), rgba(14,165,233,.04));
+      border-radius: .8rem;
+      padding: .95rem 1rem;
+    }
+    .success-strong {
+      border-left: 4px solid #22c55e;
+      background: linear-gradient(135deg, rgba(34,197,94,.12), rgba(34,197,94,.04));
+      border-radius: .8rem;
+      padding: .95rem 1rem;
+    }
+    .requirement-card {
+      height: 100%;
+      border: 1px solid var(--bs-border-color);
+      border-radius: 1rem;
+      background: var(--bs-body-bg);
+      padding: 1rem;
+    }
+    .requirement-card h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: .75rem;
+    }
+    .protocol-card {
+      height: 100%;
+      border: 1px solid var(--bs-border-color);
+      border-radius: .9rem;
+      padding: 1rem;
+      background: var(--bs-tertiary-bg);
+    }
+    .protocol-card .protocol-name {
+      font-weight: 800;
+      color: var(--bs-primary);
+      margin-bottom: .25rem;
+      display: block;
+    }
+    .process-step {
+      display: flex;
+      gap: .9rem;
+      padding: .9rem 0;
+      border-bottom: 1px solid var(--bs-border-color);
+    }
+    .process-step:last-child { border-bottom: 0; }
+    .process-num {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--bs-primary);
+      color: #fff;
+      font-weight: 800;
+    }
+    .error-table tbody tr td:first-child {
+      border-left: 4px solid #ef4444;
+      font-weight: 700;
+    }
+    .key-card {
+      border: 1px solid var(--bs-border-color);
+      border-radius: .9rem;
+      background: var(--bs-tertiary-bg);
+      height: 100%;
+      padding: 1rem;
+    }
+    .toc .nav-link.active, .sidebar .nav-link:hover { color: var(--bs-primary); }
+    @media print {
+      .theory-hero, .content-card, .requirement-card, .protocol-card, .key-card { box-shadow: none !important; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="smpp-navbar no-print">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+      <img src="../../assets/imax/buho_clean.svg" alt="SMPP" class="smpp-buho" onerror="this.style.display='none'">
+      <div class="smpp-brand-text">
+        <span class="smpp-title">SMPP</span>
+        <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+      </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="smpp-module">MP0369 · IMSO 26/27</span>
+      <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i id="theme-icon" class="bi bi-moon-stars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Layout ── -->
+<div class="container-xl py-4">
+  <div class="row g-4">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+      <div class="sidebar">
+        <div class="card shadow-sm sidebar-panel border">
+          <div class="card-body px-3 py-3">
+            <h6 class="text-uppercase fw-bold mb-1"><i class="bi bi-list-ul me-1"></i>Índice</h6>
+            <hr class="my-2">
+            <nav id="toc">
+              <ul class="nav flex-column gap-1 small">
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-que-facer">1. Que imos facer</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-decisions">2. Decisións previas</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-requisitos">3. Requisitos</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-adds">4. Rol AD DS</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-dns">5. Integración con DNS</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-bosque">6. Novo bosque</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-seguridade">7. Seguridade inicial</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-erros">8. Erros frecuentes</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-esquema">9. Esquema resumo</a></li>
+                <li class="nav-item"><a class="nav-link py-1" href="#sec-ideas">10. Ideas clave</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Contido principal ── -->
+    <main class="col-lg-9">
+      <article>
+
+        <!-- Cabeceira -->
+        <header class="mb-4">
+          <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle fw-semibold">UD2 · B2</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis border border-secondary-subtle">Apuntes</span>
+            <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle">Windows Server 2022</span>
+          </div>
+          <div class="theory-hero">
+            <h1 class="h2 fw-bold mb-2">Instalación e posta en marcha do dominio</h1>
+            <p class="lead mb-3">Preparación teórica para crear o dominio <code>cifpsauce.local</code> en Windows Server 2022: requisitos, AD DS, DNS, novo bosque, boas prácticas e erros frecuentes.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="meta-pill"><i class="bi bi-hdd-network"></i>Primeiro DC: <code>dcbuho</code></span>
+              <span class="meta-pill"><i class="bi bi-globe2"></i>Dominio: <code>cifpsauce.local</code></span>
+              <span class="meta-pill"><i class="bi bi-ethernet"></i>Rede: <code>192.168.50.0/24</code></span>
+            </div>
+          </div>
+        </header>
+
+        <section class="mb-4">
+          <div class="scenario-grid">
+            <div class="scenario-item"><span class="scenario-label">Dominio interno</span><code>cifpsauce.local</code></div>
+            <div class="scenario-item"><span class="scenario-label">Primeiro DC</span><code>dcbuho.cifpsauce.local</code></div>
+            <div class="scenario-item"><span class="scenario-label">IP fixa do servidor</span><code>192.168.50.10</code></div>
+            <div class="scenario-item"><span class="scenario-label">Rede de laboratorio</span><code>192.168.50.0/24</code></div>
+          </div>
+          <div class="warning-strong mt-3">
+            <strong><i class="bi bi-exclamation-triangle-fill me-1"></i>Nota sobre <code>.local</code>:</strong>
+            nesta UD usamos <code>cifpsauce.local</code> como dominio interno de laboratorio. Nun contorno real, a elección do nome DNS do dominio debe planificarse con coidado, preferiblemente a partir dun dominio rexistrado pola organización, para evitar conflitos de nomes e problemas de resolución.
+          </div>
+        </section>
+
+        <!-- 1 -->
+        <section id="sec-que-facer" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-diagram-3 me-2 text-primary"></i>1. Que imos facer neste bloque</h2>
+          <div class="content-card">
+            <div class="content-card-body">
+              <p>Neste bloque <strong>non imos crear aínda usuarios, grupos, OU nin políticas de grupo avanzadas</strong>. Iso farase en bloques posteriores.</p>
+              <p>O obxectivo agora é preparar a infraestrutura básica do dominio:</p>
+              <ol class="mb-0">
+                <li>Preparar a máquina virtual con Windows Server 2022.</li>
+                <li>Configurar o nome do servidor e a rede.</li>
+                <li>Instalar os roles necesarios.</li>
+                <li>Crear un novo bosque cuxo dominio raíz será <code>cifpsauce.local</code>.</li>
+                <li>Converter o servidor <code>dcbuho</code> no primeiro controlador de dominio.</li>
+                <li>Comprobar que AD DS e DNS funcionan correctamente.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2 -->
+        <section id="sec-decisions" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-clipboard-check me-2 text-primary"></i>2. Decisións previas da UD2</h2>
+          <p>Antes de instalar nada, convén ter claras as decisións básicas do escenario. Estas decisións deben manterse de forma coherente durante toda a unidade.</p>
+          <div class="table-responsive content-card">
+            <table class="table table-hover align-middle mb-0 decision-table">
+              <thead class="table-light">
+                <tr><th>Decisión</th><th>Valor na UD2</th><th>Motivo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Nome DNS do dominio</td><td><code>cifpsauce.local</code></td><td>Nome interno de laboratorio</td></tr>
+                <tr><td>Tipo de despregamento</td><td>Novo bosque</td><td>Non existe infraestrutura AD previa</td></tr>
+                <tr><td>Dominio raíz do bosque</td><td><code>cifpsauce.local</code></td><td>Será o primeiro dominio creado</td></tr>
+                <tr><td>Primeiro controlador de dominio</td><td><code>dcbuho.cifpsauce.local</code></td><td>Servidor que inicia o dominio</td></tr>
+                <tr><td>Nome curto do servidor</td><td><code>dcbuho</code></td><td>Nome identificable para o DC</td></tr>
+                <tr><td>IP do DC</td><td><code>192.168.50.10</code></td><td>IP fixa para AD DS e DNS</td></tr>
+                <tr><td>Máscara de subrede</td><td><code>255.255.255.0</code></td><td>Equivalente a prefixo <code>/24</code></td></tr>
+                <tr><td>Gateway de exemplo</td><td><code>192.168.50.1</code></td><td>Só se se precisa saída a outras redes</td></tr>
+                <tr><td>DNS do propio servidor</td><td><code>192.168.50.10</code></td><td>O DC debe resolver a zona do dominio</td></tr>
+                <tr><td>DNS dos clientes</td><td><code>192.168.50.10</code></td><td>Os clientes deben localizar o dominio</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 3 -->
+        <section id="sec-requisitos" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-cpu me-2 text-primary"></i>3. Requisitos para montar un dominio en laboratorio</h2>
+          <p>Antes de instalar <strong>Active Directory Domain Services (AD DS)</strong> nun servidor, é necesario comprobar requisitos de hardware, software e rede.</p>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-4">
+              <div class="requirement-card">
+                <h4><i class="bi bi-pc-display-horizontal text-primary"></i>Hardware e virtualización</h4>
+                <ul class="small mb-0">
+                  <li><strong>CPU:</strong> 2 vCPU ou máis.</li>
+                  <li><strong>RAM:</strong> 4 GB poden servir para unha práctica moi básica; 6–8 GB é máis recomendable.</li>
+                  <li><strong>Disco:</strong> 60–80 GB nun laboratorio.</li>
+                  <li><strong>Plataforma:</strong> VirtualBox, VMware, Hyper-V ou equivalente.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="requirement-card">
+                <h4><i class="bi bi-windows text-primary"></i>Software</h4>
+                <ul class="small mb-0">
+                  <li>Windows Server 2022.</li>
+                  <li>Rol <strong>AD DS</strong>.</li>
+                  <li>Rol <strong>DNS Server</strong>.</li>
+                  <li>Ferramentas: Server Manager, ADUC, DNS Manager, PowerShell e módulos de AD.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="requirement-card">
+                <h4><i class="bi bi-ethernet text-primary"></i>Rede</h4>
+                <ul class="small mb-0">
+                  <li>Enderezo IP estático.</li>
+                  <li>Nome definitivo antes da promoción.</li>
+                  <li>DNS correctamente configurado.</li>
+                  <li>Conectividade cos clientes que se unirán ao dominio.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-strong mb-3">
+            <strong><i class="bi bi-lightbulb-fill me-1"></i>Idea clave:</strong>
+            nun laboratorio non buscamos dimensionar un servidor real de produción, senón crear unha contorna estable para practicar AD DS, DNS, unión de clientes ao dominio e administración básica.
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-router"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">Configuración de rede do escenario</h3>
+                <p class="small text-secondary mb-0">Valores que empregaremos na práctica.</p>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped mb-0">
+                <thead><tr><th>Parámetro</th><th>Valor de exemplo</th></tr></thead>
+                <tbody>
+                  <tr><td>Nome do servidor</td><td><code>dcbuho</code></td></tr>
+                  <tr><td>FQDN</td><td><code>dcbuho.cifpsauce.local</code></td></tr>
+                  <tr><td>IP</td><td><code>192.168.50.10</code></td></tr>
+                  <tr><td>Máscara</td><td><code>255.255.255.0</code></td></tr>
+                  <tr><td>Gateway</td><td><code>192.168.50.1</code></td></tr>
+                  <tr><td>DNS preferido</td><td><code>192.168.50.10</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="warning-strong">
+            <strong><i class="bi bi-exclamation-triangle-fill me-1"></i>Erro frecuente:</strong>
+            configurar os clientes cun DNS externo, por exemplo <code>8.8.8.8</code>, impedirá que atopen correctamente o dominio <code>cifpsauce.local</code>.
+          </div>
+        </section>
+
+        <!-- 4 -->
+        <section id="sec-adds" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-hdd-network me-2 text-primary"></i>4. Rol Active Directory Domain Services en Windows Server 2022</h2>
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-diagram-2"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">4.1. Que é AD DS</h3>
+                <p class="small text-secondary mb-0">O compoñente que permite crear e administrar dominios de Active Directory.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p>AD DS permite:</p>
+              <ul>
+                <li>Almacenar información sobre <strong>usuarios, equipos, grupos, OU, políticas</strong> e outros obxectos.</li>
+                <li>Centralizar a <strong>autenticación</strong> dos usuarios do dominio.</li>
+                <li>Aplicar <strong>autorizacións</strong> e permisos a recursos de rede.</li>
+                <li>Organizar os obxectos do dominio de forma xerárquica.</li>
+                <li>Administrar configuracións de usuarios e equipos mediante <strong>directivas de grupo</strong>.</li>
+                <li>Integrarse con DNS para que os clientes localicen os servizos do dominio.</li>
+              </ul>
+              <div class="success-strong mb-0">
+                Instalar o rol AD DS é o primeiro paso para converter un servidor nun controlador de dominio, pero despois hai que executar a <strong>promoción a controlador de dominio</strong>.
+              </div>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-plug"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">4.2. AD DS, LDAP, Kerberos e DNS</h3>
+                <p class="small text-secondary mb-0">Active Directory non debe entenderse como “só LDAP”.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <div class="row g-3">
+                <div class="col-md-6 col-xl-4"><div class="protocol-card"><span class="protocol-name">LDAP</span>Permite consultar e modificar información do directorio.</div></div>
+                <div class="col-md-6 col-xl-4"><div class="protocol-card"><span class="protocol-name">Kerberos</span>Protocolo principal de autenticación no dominio.</div></div>
+                <div class="col-md-6 col-xl-4"><div class="protocol-card"><span class="protocol-name">DNS</span>Permite localizar controladores de dominio e servizos de AD.</div></div>
+                <div class="col-md-6 col-xl-4"><div class="protocol-card"><span class="protocol-name">SMB/RPC</span>Utilizados en operacións administrativas e de acceso a recursos.</div></div>
+                <div class="col-md-6 col-xl-4"><div class="protocol-card"><span class="protocol-name">Group Policy</span>Permite aplicar configuracións centralizadas a usuarios e equipos.</div></div>
+              </div>
+              <p class="mt-3 mb-0">Moitas ferramentas gráficas, como <strong>Active Directory Users and Computers</strong>, son interfaces de administración que traballan contra estes servizos de forma transparente para a persoa usuaria.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5 -->
+        <section id="sec-dns" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-globe2 me-2 text-primary"></i>5. Integración con DNS</h2>
+          <div class="info-strong mb-3">
+            <strong>DNS non é un complemento opcional en AD DS.</strong> Nun dominio Active Directory, DNS é unha peza central para localizar controladores de dominio e servizos.
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-search"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">5.1. Por que DNS é imprescindible nun dominio</h3>
+                <p class="small text-secondary mb-0">Os clientes consultan DNS para atopar os servizos do dominio.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p>Nun dominio como <code>cifpsauce.local</code>, os equipos necesitan resolver nomes e rexistros especiais asociados a Kerberos, LDAP e catálogo global.</p>
+              <p>AD DS crea rexistros especiais en DNS, especialmente <strong>rexistros SRV</strong>, para que os clientes poidan localizar:</p>
+              <div class="row g-2 mb-3">
+                <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>controladores de dominio dispoñibles;</div></div>
+                <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>servizos LDAP;</div></div>
+                <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>servizos Kerberos;</div></div>
+                <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>catálogo global, se procede;</div></div>
+              </div>
+              <p>Se DNS falla, poden fallar tamén a unión de clientes ao dominio, novos inicios de sesión, aplicación de GPO, localización de DC e acceso a recursos que dependen da autenticación de dominio.</p>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-database"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">5.2. Zona DNS do dominio</h3>
+                <p class="small text-secondary mb-0">Zona integrada en Active Directory para <code>cifpsauce.local</code>.</p>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped mb-0">
+                <thead><tr><th>Elemento</th><th>Exemplo</th></tr></thead>
+                <tbody>
+                  <tr><td>Zona DNS principal</td><td><code>cifpsauce.local</code></td></tr>
+                  <tr><td>Rexistro A do DC</td><td><code>dcbuho.cifpsauce.local</code> → <code>192.168.50.10</code></td></tr>
+                  <tr><td>Rexistros SRV</td><td>Localización de LDAP, Kerberos, catálogo global, etc.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="content-card-body">
+              <p class="mb-0">Nun laboratorio cun único DC, <code>dcbuho</code> actuará como controlador de dominio, servidor DNS e servidor que almacena a zona integrada en AD. Nun contorno con varios DC, pode haber varios servidores DNS capaces de resolver a zona do dominio.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6 -->
+        <section id="sec-bosque" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-tree me-2 text-primary"></i>6. Creación do primeiro dominio nun novo bosque</h2>
+          <p>Na UD2 imos crear un <strong>novo bosque</strong> cuxo dominio raíz será <code>cifpsauce.local</code>. Non imos engadir un controlador de dominio a un bosque xa existente nin crear un dominio adicional dentro dunha infraestrutura previa.</p>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-4"><div class="requirement-card"><h4><i class="bi bi-plus-circle text-primary"></i>Novo bosque</h4><p class="small mb-0">Úsase cando non existe ningunha infraestrutura AD previa. É a opción da UD2.</p></div></div>
+            <div class="col-md-4"><div class="requirement-card"><h4><i class="bi bi-diagram-3 text-primary"></i>Novo dominio</h4><p class="small mb-0">Úsase cando xa existe un bosque e se quere engadir outro dominio.</p></div></div>
+            <div class="col-md-4"><div class="requirement-card"><h4><i class="bi bi-server text-primary"></i>DC adicional</h4><p class="small mb-0">Úsase cando xa existe o dominio e se quere engadir outro controlador de dominio.</p></div></div>
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-ui-checks-grid"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">6.2. Información clave durante o asistente</h3>
+                <p class="small text-secondary mb-0">Decisións que aparecerán durante a promoción a controlador de dominio.</p>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead><tr><th>Decisión</th><th>Valor ou criterio na UD2</th></tr></thead>
+                <tbody>
+                  <tr><td>Tipo de despregamento</td><td>Crear un novo bosque</td></tr>
+                  <tr><td>Nome do dominio raíz</td><td><code>cifpsauce.local</code></td></tr>
+                  <tr><td>DNS</td><td>Instalar DNS no primeiro DC</td></tr>
+                  <tr><td>Catálogo global</td><td>Activado por defecto no primeiro DC</td></tr>
+                  <tr><td>DSRM</td><td>Definir un contrasinal seguro e gardalo con coidado</td></tr>
+                  <tr><td>Nivel funcional</td><td>Deixar o valor predeterminado ofrecido polo asistente</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="warning-strong mb-3">
+            <strong><i class="bi bi-exclamation-triangle-fill me-1"></i>Nivel funcional:</strong>
+            en Windows Server 2022 non existe un nivel funcional específico chamado “Windows Server 2022”. O nivel funcional máis recente dispoñible segue sendo normalmente <strong>Windows Server 2016</strong>. Na práctica deixaremos os valores predeterminados que ofrece o asistente.
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-key"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">6.3. Contrasinal DSRM</h3>
+                <p class="small text-secondary mb-0">Directory Services Restore Mode.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p>Durante a promoción, o asistente pedirá un contrasinal para o <strong>Directory Services Restore Mode (DSRM)</strong>.</p>
+              <p>Este contrasinal non é o contrasinal normal dunha conta de usuario do dominio. Utilízase en situacións de recuperación ou mantemento avanzado de Active Directory.</p>
+              <ul class="mb-0">
+                <li>Definir un contrasinal seguro.</li>
+                <li>Non deixalo en branco.</li>
+                <li>Non escribilo nunha folla de entrega do alumnado.</li>
+                <li>Gardalo no lugar que indique o profesorado.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7 -->
+        <section id="sec-seguridade" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-shield-lock me-2 text-primary"></i>7. Consideracións sobre seguridade e boas prácticas iniciais</h2>
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-person-lock"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">7.1. Contas e privilexios</h3>
+                <p class="small text-secondary mb-0">A conta Administrador non debe converterse nun hábito de traballo diario.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p>Nun laboratorio pode usarse a conta Administrador para simplificar a instalación inicial, pero non debe presentarse como hábito profesional.</p>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="success-strong h-100">
+                    <strong>Boas prácticas:</strong>
+                    <ul class="mb-0 mt-2">
+                      <li>Usar unha conta normal para tarefas cotiás.</li>
+                      <li>Reservar contas administrativas para tarefas de administración.</li>
+                      <li>Non navegar nin descargar ficheiros cunha conta con privilexios elevados.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info-strong h-100">
+                    <strong>Exemplos de contas e grupos:</strong>
+                    <ul class="mb-0 mt-2">
+                      <li><code>alu.curso1.001</code>, <code>alu.curso2.001</code></li>
+                      <li><code>prof.001</code>, <code>prof.002</code></li>
+                      <li><code>GG_Alumnado_Curso1</code>, <code>GG_Profesorado</code></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0"><strong>Idea clave:</strong> os permisos non deberían asignarse usuario por usuario. O habitual é organizar as contas en grupos e aplicar os permisos aos grupos.</p>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header">
+              <span class="section-icon"><i class="bi bi-journal-text"></i></span>
+              <div>
+                <h3 class="h5 fw-bold mb-0">7.2. Documentación mínima do dominio</h3>
+                <p class="small text-secondary mb-0">Información básica que debe quedar rexistrada tras a instalación.</p>
+              </div>
+            </div>
+            <div class="content-card-body">
+              <p>A documentación mínima debería incluír nome DNS do dominio, indicación de bosque novo, primeiro DC, IP fixa, roles instalados, zona DNS creada, OU previstas, data da instalación e persoa ou grupo que realizou a instalación.</p>
+              <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                  <thead><tr><th>Elemento</th><th>Valor</th></tr></thead>
+                  <tbody>
+                    <tr><td>Dominio</td><td><code>cifpsauce.local</code></td></tr>
+                    <tr><td>Bosque</td><td>Novo bosque co dominio raíz <code>cifpsauce.local</code></td></tr>
+                    <tr><td>Primeiro DC</td><td><code>dcbuho.cifpsauce.local</code></td></tr>
+                    <tr><td>IP do DC</td><td><code>192.168.50.10</code></td></tr>
+                    <tr><td>Roles</td><td>AD DS + DNS</td></tr>
+                    <tr><td>Zona DNS</td><td><code>cifpsauce.local</code></td></tr>
+                    <tr><td>OU previstas</td><td>Alumnado, Profesorado, Administracion, Equipos-Aulas</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="mt-3 mb-0">Esta documentación será reutilizada nas prácticas posteriores e permitirá localizar rapidamente erros de configuración.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8 -->
+        <section id="sec-erros" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-exclamation-octagon me-2 text-danger"></i>8. Erros frecuentes ao crear un dominio</h2>
+          <p>Antes de facer a práctica, convén coñecer algúns erros típicos.</p>
+          <div class="table-responsive content-card">
+            <table class="table table-hover mb-0 error-table">
+              <thead class="table-light"><tr><th>Erro frecuente</th><th>Consecuencia posible</th></tr></thead>
+              <tbody>
+                <tr><td>Deixar o servidor con IP por DHCP</td><td>O DC pode cambiar de IP e os clientes non localizarán o dominio.</td></tr>
+                <tr><td>Poñer como DNS principal un DNS externo</td><td>Os clientes non atoparán os rexistros internos de AD DS.</td></tr>
+                <tr><td>Cambiar o nome do servidor despois de promovelo</td><td>Pode provocar problemas complexos no dominio.</td></tr>
+                <tr><td>Non documentar o contrasinal DSRM</td><td>Complica tarefas de recuperación.</td></tr>
+                <tr><td>Confundir instalar AD DS con crear o dominio</td><td>Instalar o rol non equivale a promover o servidor.</td></tr>
+                <tr><td>Non comprobar a zona DNS</td><td>O dominio pode crearse pero non funcionar correctamente para os clientes.</td></tr>
+                <tr><td>Non usar snapshot antes da práctica</td><td>Se algo falla, hai que reinstalar ou desfacer manualmente.</td></tr>
+                <tr><td>Usar sempre a conta Administrador do dominio</td><td>Mala práctica de seguridade.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 9 -->
+        <section id="sec-esquema" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-list-ol me-2 text-primary"></i>9. Esquema resumo do proceso de posta en marcha</h2>
+          <div class="content-card">
+            <div class="content-card-body">
+              <div class="process-step">
+                <span class="process-num">1</span>
+                <div><h3 class="h6 fw-bold mb-1">Planificación previa</h3><p class="mb-0">Definir dominio, servidor, FQDN, IP fixa e estrutura inicial de OU.</p></div>
+              </div>
+              <div class="process-step">
+                <span class="process-num">2</span>
+                <div><h3 class="h6 fw-bold mb-1">Preparación do servidor</h3><p class="mb-0">Instalar Windows Server 2022, configurar nome <code>dcbuho</code>, IP estática, DNS propio e comprobar rede.</p></div>
+              </div>
+              <div class="process-step">
+                <span class="process-num">3</span>
+                <div><h3 class="h6 fw-bold mb-1">Instalación dos roles</h3><p class="mb-0">Instalar AD DS, DNS Server, ferramentas de administración e comprobar que non hai erros.</p></div>
+              </div>
+              <div class="process-step">
+                <span class="process-num">4</span>
+                <div><h3 class="h6 fw-bold mb-1">Promoción a controlador de dominio</h3><p class="mb-0">Crear novo bosque, indicar <code>cifpsauce.local</code>, activar DNS, manter catálogo global e definir DSRM.</p></div>
+              </div>
+              <div class="process-step">
+                <span class="process-num">5</span>
+                <div><h3 class="h6 fw-bold mb-1">Verificación básica</h3><p class="mb-0">Comprobar inicio de sesión no dominio, existencia da zona DNS, resolución de <code>dcbuho.cifpsauce.local</code> e documentación final.</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10 -->
+        <section id="sec-ideas" class="mb-5">
+          <h2 class="h4 fw-bold border-bottom pb-2 mb-3"><i class="bi bi-stars me-2 text-primary"></i>10. Ideas clave do bloque</h2>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>Instalar AD DS non é o mesmo que crear o dominio.</div></div>
+            <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>O servidor debe ter IP fixa antes de ser promovido a controlador de dominio.</div></div>
+            <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>O DNS é imprescindible en Active Directory.</div></div>
+            <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>Nun laboratorio cun único DC, o propio servidor actuará como DC e DNS.</div></div>
+            <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>En Windows Server 2022 o nivel funcional máis recente dispoñible segue sendo normalmente Windows Server 2016.</div></div>
+            <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>O primeiro dominio creado será o dominio raíz dun novo bosque.</div></div>
+            <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>O contrasinal DSRM debe tratarse como información sensible.</div></div>
+            <div class="col-md-6"><div class="key-card"><i class="bi bi-check2-circle text-success me-2"></i>A documentación inicial evita moitos problemas nas prácticas posteriores.</div></div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="smpp-footer no-print">
+  <div class="smpp-footer-spacer"></div>
+  <div class="smpp-footer-center">
+    <span>CIFP A Carballeira · Ourense</span>
+    Administración de sistemas informáticos · Curso 2026/27<br>
+    Material didáctico de uso interno
+  </div>
+  <svg class="smpp-sauce" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="2" y="8" width="32" height="24" rx="4" fill="#0f172a" stroke="#C9A84C" stroke-width="2"/>
+    <rect x="7" y="13" width="10" height="2" rx="1" fill="#C9A84C"/>
+    <rect x="7" y="18" width="22" height="2" rx="1" fill="#C9A84C" opacity="0.6"/>
+    <rect x="7" y="23" width="16" height="2" rx="1" fill="#C9A84C" opacity="0.4"/>
+    <circle cx="28" cy="13" r="3" fill="#C9A84C"/>
+  </svg>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const icon = document.getElementById('theme-icon');
+    const isDark = html.getAttribute('data-bs-theme') === 'dark';
+    html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
+    icon.className = isDark ? 'bi bi-moon-stars' : 'bi bi-sun-fill';
+  }
+</script>
+</body>
+</html>
