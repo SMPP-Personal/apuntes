@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>UD3 · B3 – Práctica guiada: mantemento, incidencias e asistencia técnica</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+  <!-- Estilos SMPP -->
+  <link href="../../assets/css/smpp.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="smpp-navbar no-print">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="smpp-brand" href="#">
+        <img src="../../assets/img/buho-clean.svg"
+             alt="SMPP"
+             class="smpp-buho"
+             onerror="this.style.display='none'">
+        <div class="smpp-brand-text">
+          <span class="smpp-title">SMPP</span>
+          <span class="smpp-subtitle">Sistemas &amp; Programación</span>
+        </div>
+      </a>
+
+      <div class="d-flex align-items-center gap-3">
+        <span class="smpp-module">
+          MP0369 · IMSO 26/27
+        </span>
+        <button class="btn btn-outline-light btn-sm"
+                type="button"
+                onclick="toggleTheme()"
+                aria-label="Cambiar tema"
+                title="Cambiar tema">
+          <i class="bi bi-moon-stars" id="theme-icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contido principal -->
+  <div class="container-xl py-4">
+    <div class="row g-4">
+
+      <!-- Índice lateral -->
+      <aside class="col-lg-3 d-none d-lg-block no-print">
+        <div class="sidebar">
+          <div class="card shadow-sm sidebar-panel border">
+            <div class="card-body px-3 py-3">
+              <h6 class="text-uppercase fw-bold mb-1">
+                <i class="bi bi-list-ul me-1"></i> Índice
+              </h6>
+              <hr class="my-2">
+              <nav id="toc" class="toc">
+                <ul class="nav flex-column gap-1 small">
+                  <li class="nav-item"><a class="nav-link py-1" href="#introducion">Introdución</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#recursos">Recursos necesarios</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#criterios">Criterios de avaliación</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#seguridade">Medidas de seguridade</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#parteA">Parte A · Disco Windows</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#parteB">Parte B · Servizo Windows</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#parteC">Parte C · Disco Ubuntu</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#parteD">Parte D · Servizo Ubuntu</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#parteE">Parte E · Actualizacións e parte</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#ficha">Ficha de rexistro</a></li>
+                  <li class="nav-item"><a class="nav-link py-1" href="#capturas">Capturas entregadas</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Columna principal -->
+      <main class="col-lg-9">
+        <article>
+
+          <!-- Hero -->
+          <header class="mb-4">
+            <div class="practice-hero hero-blue">
+              <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <span class="hero-chip">
+                  <i class="bi bi-joystick"></i>
+                  UD3 · B3 – Práctica guiada
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-gear"></i>
+                  Mantemento e incidencias
+                </span>
+                <span class="hero-chip">
+                  <i class="bi bi-life-preserver"></i>
+                  Asistencia técnica
+                </span>
+              </div>
+
+              <h1 class="h2 fw-bold mb-2">
+                UD3 · B3 – Práctica guiada: mantemento, incidencias e asistencia técnica
+              </h1>
+
+              <p class="lead mb-0">
+                Práctica paso a paso para provocar e resolver incidencias básicas
+                en Windows 11 e Ubuntu seguindo un protocolo profesional.
+              </p>
+            </div>
+          </header>
+
+          <!-- Introdución -->
+          <section class="mb-4 section-anchor" id="introducion">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-info-circle"></i></span>
+                <h2 class="h4 fw-bold mb-0">Introdución</h2>
+              </div>
+              <div class="content-card-body">
+                <p>
+                  Nesta práctica vas aprender a detectar, diagnosticar e resolver incidencias básicas
+                  nun sistema operativo, seguindo o protocolo de actuación estudado no bloque B3.
+                </p>
+                <p>
+                  A diferenza doutras prácticas, aquí primeiro crearás ti mesmo/a a incidencia
+                  e despois resolverala. Isto permíteche entender que está a pasar no sistema en cada momento.
+                </p>
+                <p>Traballarás nas túas dúas VMs habituais:</p>
+                <ul>
+                  <li><strong>VM Windows 11</strong>: máquina local da UD1, sen dominio.</li>
+                  <li><strong>VM Ubuntu</strong>: máquina local da UD1, con interface gráfica.</li>
+                </ul>
+                <div class="notice info d-flex gap-2 align-items-start">
+                  <i class="bi bi-exclamation-circle flex-shrink-0 mt-1"></i>
+                  <div>
+                    Traballa sempre nas túas propias VMs. Podes consultar a compañeiros/as,
+                    pero os pasos, capturas e ficha final deben corresponder ás túas máquinas.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Recursos -->
+          <section class="mb-4 section-anchor" id="recursos">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-box-seam"></i></span>
+                <h2 class="h4 fw-bold mb-0">Recursos necesarios</h2>
+              </div>
+              <div class="content-card-body">
+                <ul>
+                  <li>VM Windows 11, máquina local da UD1.</li>
+                  <li>VM Ubuntu, máquina local da UD1.</li>
+                  <li>Este documento impreso ou en pantalla.</li>
+                  <li>Ficha de rexistro incluída ao final.</li>
+                  <li>Modelo de parte de incidencia fornecido polo profesorado.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Criterios -->
+          <section class="mb-4 section-anchor" id="criterios">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-clipboard-check"></i></span>
+                <h2 class="h4 fw-bold mb-0">Criterios xerais de avaliación</h2>
+              </div>
+              <div class="content-card-body">
+                <p>Na corrección valorarase especialmente:</p>
+                <ul>
+                  <li>seguir o protocolo: recollida de información, diagnóstico, acción correctora, verificación, documentación;</li>
+                  <li>empregar correctamente as ferramentas de diagnóstico de Windows e Ubuntu;</li>
+                  <li>aportar evidencias claras (capturas ou saídas de comandos) e explicalas;</li>
+                  <li>cubrir correctamente ficha de rexistro e parte de incidencia;</li>
+                  <li>non realizar accións destrutivas nin cambios non indicados polo profesorado.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Seguridade -->
+          <section class="mb-5 section-anchor" id="seguridade">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-shield-lock"></i></span>
+                <h2 class="h4 fw-bold mb-0">Medidas de seguridade antes de comezar</h2>
+              </div>
+              <div class="content-card-body">
+                <ol>
+                  <li>Asegúrate de traballar nunha máquina virtual de prácticas, non no equipo anfitrión.</li>
+                  <li>Pecha documentos importantes que poidas ter abertos.</li>
+                  <li>Non modifiques ficheiros alleos á práctica.</li>
+                  <li>Se a VM ten pouco espazo libre, consulta antes de crear ficheiros grandes.</li>
+                  <li>Non instales nin elimines paquetes ou actualizacións salvo indicación expresa.</li>
+                </ol>
+              </div>
+            </div>
+          </section>
+
+          <!-- Parte A -->
+          <section class="mb-5 section-anchor" id="parteA">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-hdd"></i></span>
+      <h2 class="h4 fw-bold mb-0">Parte A – Windows 11: redución artificial do espazo libre</h2>
+    </div>
+    <div class="content-card-body">
+
+      <h3 class="h6 fw-bold mt-2">A1. Preparación da incidencia</h3>
+      <p>
+        Imos simular pouco espazo libre creando un ficheiro grande que ocupe disco.
+        O obxectivo é practicar diagnóstico e documentación, non romper a VM.
+      </p>
+
+      <div class="mb-2">
+        <p class="mb-1"><strong>Paso A1.1</strong> Inicia a VM Windows 11 e entra co usuario administrador.</p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso A1.2</strong> Abre o Explorador e comproba o espazo libre en <code>C:</code>
+          (Propiedades da unidade). Anota o valor inicial na ficha.
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1"><strong>Paso A1.3</strong> Abre PowerShell como administrador:</p>
+        <ul class="mb-1">
+          <li><kbd>Windows</kbd> + <kbd>X</kbd> → Terminal/Powershell (Administrador).</li>
+        </ul>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso A1.4</strong> Crea un ficheiro de 3 GB co seguinte comando:
+        </p>
+        <pre class="cmd-block"><code class="language-powershell">fsutil file createnew C:\ficheiro_grande.tmp 3221225472</code></pre>
+        <div class="notice info d-flex gap-2 align-items-start mt-2">
+          <i class="bi bi-exclamation-circle flex-shrink-0 mt-1"></i>
+          <div>
+            Se tes pouco espazo libre, consulta antes co profesorado. O ficheiro borrarase ao final da práctica.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso A1.5</strong> Volve comprobar o espazo en <code>C:</code>,
+          anota o valor tras crear o ficheiro e fai unha captura das propiedades da unidade.
+        </p>
+      </div>
+
+      <h3 class="h6 fw-bold mt-4">A2. Detección e diagnóstico</h3>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso A2.1</strong> Abre o Administrador de tarefas
+          (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Esc</kbd>) e vai a
+          <strong>Rendemento → Disco</strong>. Abre e pecha varias aplicacións
+          e observa a actividade do disco.
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso A2.2</strong> Abre o <strong>Liberador de espazo en disco</strong>
+          (Windows + S → “Liberador de espazo”), escolle <code>C:</code> e revisa as categorías
+          dispoñibles (temporais, papeleira, etc.).
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso A2.3</strong> Completa na ficha o diagnóstico:
+          síntoma observado, causa probable, recurso afectado e ferramentas usadas.
+        </p>
+      </div>
+
+      <h3 class="h6 fw-bold mt-4">A3. Resolución da incidencia</h3>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso A3.1</strong> Elimina o ficheiro creado co comando:
+        </p>
+        <pre class="cmd-block"><code class="language-powershell">Remove-Item C:\ficheiro_grande.tmp</code></pre>
+        <p class="mb-1">
+          Lembra: <code>Remove-Item</code> borra directamente, non pasa pola papeleira.
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso A3.2</strong> Baleira a papeleira (clic dereito na papeleira → <strong>Baleirar papeleira</strong>).
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso A3.3</strong> Executa de novo o <strong>Liberador de espazo en disco</strong>
+          e elimina ficheiros temporais, elementos da papeleira, etc.
+        </p>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso A3.4</strong> Revisa outra vez o espazo libre en <code>C:</code>,
+          compárao co valor inicial e fai unha captura final.
+        </p>
+      </div>
+
+      <h3 class="h6 fw-bold mt-4">A4. Revisión de eventos relacionados</h3>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso A4.1</strong> Abre o <strong>Visor de eventos</strong> co comando:
+        </p>
+        <pre class="cmd-block"><code class="language-text">eventvwr.msc</code></pre>
+        <p class="mb-1">Navega a <strong>Rexistros de Windows → Sistema</strong>.</p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso A4.2</strong> Filtra os eventos de tipo <strong>Aviso</strong> e
+          <strong>Erro</strong> das últimas 2 horas e busca entradas relacionadas con disco ou almacenamento.
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso A4.3</strong> Anota na ficha os eventos relevantes (ID, nivel, data/hora,
+          descrición) ou indica que non atopaches nada significativo.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+          <!-- Parte B -->
+          <section class="mb-5 section-anchor" id="parteB">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-printer"></i></span>
+                <h2 class="h4 fw-bold mb-0">Parte B – Windows 11: servizo parado</h2>
+              </div>
+              <div class="content-card-body">
+
+                <h3 class="h6 fw-bold mt-2">B1. Preparación da incidencia</h3>
+                <ol class="step-list">
+                  <li>
+                    Abre o Xestor de servizos:
+                    <pre class="cmd-block"><code class="language-text">services.msc</code></pre>
+                  </li>
+                  <li>
+                    Localiza o servizo <strong>Cola de impresión</strong> (Print Spooler)
+                    e comproba o seu estado actual.
+                  </li>
+                  <li>
+                    Deter o servizo (clic dereito → Deter) e anotar na ficha
+                    o estado antes e despois.
+                  </li>
+                </ol>
+
+                <h3 class="h6 fw-bold mt-4">B2. Detección e diagnóstico</h3>
+                <ol class="step-list">
+                  <li>
+                    No Visor de eventos (Sistema) busca eventos relacionados coa cola de impresión,
+                    co Print Spooler ou co Service Control Manager.
+                  </li>
+                  <li>
+                    Se localizas un evento relevante, anota ID, data/hora, orixe e descrición resumida.
+                  </li>
+                  <li>
+                    Completa na ficha o diagnóstico: síntoma, causa, recurso afectado,
+                    ferramenta usada e evidencias.
+                  </li>
+                </ol>
+
+                <h3 class="h6 fw-bold mt-4">B3. Resolución da incidencia</h3>
+                <ol class="step-list">
+                  <li>
+                    En <code>services.msc</code>, inicia de novo o servizo Cola de impresión
+                    (clic dereito → Iniciar) e comproba que queda en estado En execución.
+                  </li>
+                  <li>
+                    Revisa novamente o Visor de eventos para atopar o evento de inicio do servizo
+                    e anotalo na ficha.
+                  </li>
+                  <li>
+                    Fai unha captura do servizo en execución como evidencia.
+                  </li>
+                </ol>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Parte C -->
+          <section class="mb-5 section-anchor" id="parteC">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-hdd-network"></i></span>
+      <h2 class="h4 fw-bold mb-0">Parte C – Ubuntu: redución artificial do espazo libre</h2>
+    </div>
+    <div class="content-card-body">
+
+      <h3 class="h6 fw-bold mt-2">C1. Preparación da incidencia</h3>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso C1.1</strong> Inicia a VM Ubuntu e abre un terminal
+          (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>).
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso C1.2</strong> Comproba o espazo libre no sistema de ficheiros raíz:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">df -h /</code></pre>
+        <p class="mb-1">Anota na ficha o valor da columna <strong>Dispoñible</strong>.</p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso C1.3</strong> Crea un ficheiro de 1 GB en <code>/var/tmp</code>:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">dd if=/dev/zero of=/var/tmp/ficheiro_grande.tmp bs=1M count=1024 status=progress</code></pre>
+        <div class="notice info d-flex gap-2 align-items-start mt-2">
+          <i class="bi bi-exclamation-circle flex-shrink-0 mt-1"></i>
+          <div>
+            Se a túa VM ten pouco espazo libre, consulta co profesorado antes de executar o comando.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso C1.4</strong> Executa de novo:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">df -h /</code></pre>
+        <p class="mb-1">
+          Anota o novo espazo dispoñible e fai unha captura coas dúas execucións.
+        </p>
+      </div>
+
+      <h3 class="h6 fw-bold mt-4">C2. Detección e diagnóstico</h3>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso C2.1</strong> Revisa o espazo de todos os sistemas de ficheiros:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">df -h</code></pre>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso C2.2</strong> Mira canto ocupa cada elemento dentro de <code>/var/tmp</code>:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">du -sh /var/tmp/* 2>/dev/null</code></pre>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso C2.3</strong> (Opcional) Localiza ficheiros maiores de 100 MB
+          no sistema de ficheiros raíz:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">sudo find / -xdev -type f -size +100M 2>/dev/null | head -10</code></pre>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso C2.4</strong> Completa na ficha o diagnóstico: síntoma observado,
+          causa identificada (ficheiro grande en <code>/var/tmp</code>), ferramentas usadas
+          e recurso afectado.
+        </p>
+      </div>
+
+      <h3 class="h6 fw-bold mt-4">C3. Resolución da incidencia</h3>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso C3.1</strong> Elimina o ficheiro creado:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">rm /var/tmp/ficheiro_grande.tmp</code></pre>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso C3.2</strong> Como acción de mantemento opcional, revisa paquetes
+          innecesarios e limpa a caché de paquetes:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">sudo apt autoremove
+sudo apt autoclean</code></pre>
+        <div class="notice info d-flex gap-2 align-items-start mt-2">
+          <i class="bi bi-info-circle flex-shrink-0 mt-1"></i>
+          <div>
+            Revisa sempre a lista de paquetes antes de confirmar <code>apt autoremove</code>.
+            Se tes dúbidas, responde <strong>n</strong> e consulta.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso C3.3</strong> Volve comprobar o espazo libre:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">df -h /</code></pre>
+        <p class="mb-1">
+          Anota na ficha o espazo final e fai unha captura co resultado.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+          <!-- Parte D -->
+          <section class="mb-5 section-anchor" id="parteD">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-clock-history"></i></span>
+      <h2 class="h4 fw-bold mb-0">Parte D – Ubuntu: servizo parado</h2>
+    </div>
+    <div class="content-card-body">
+
+      <h3 class="h6 fw-bold mt-2">D1. Preparación da incidencia</h3>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso D1.1</strong> Comproba se o servizo <code>cron.service</code> existe:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">systemctl status cron.service</code></pre>
+        <p class="mb-1">
+          Se non existe, consulta co profesorado e emprega outro servizo seguro
+          (por exemplo <code>cups.service</code>).
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso D1.2</strong> Detén o servizo:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">sudo systemctl stop cron.service</code></pre>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso D1.3</strong> Comproba o estado actual:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">systemctl status cron.service</code></pre>
+        <p class="mb-1">
+          Anota na ficha se aparece como <code>inactive</code>, <code>dead</code>, etc.
+        </p>
+      </div>
+
+      <h3 class="h6 fw-bold mt-4">D2. Detección e diagnóstico</h3>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso D2.1</strong> Consulta o log do servizo:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">journalctl -u cron.service --since "today" | tail -20</code></pre>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso D2.2</strong> Localiza a liña que indica que o servizo se detivo
+          e copia esa liña na ficha como evidencia.
+        </p>
+      </div>
+
+      <h3 class="h6 fw-bold mt-4">D3. Resolución da incidencia</h3>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso D3.1</strong> Inicia de novo o servizo:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">sudo systemctl start cron.service</code></pre>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso D3.2</strong> Verifica que está en execución:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">systemctl status cron.service</code></pre>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso D3.3</strong> Comproba no log que o inicio quedou rexistrado:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">journalctl -u cron.service --since "today" | tail -20</code></pre>
+        <p class="mb-1">
+          Copia na ficha a liña correspondente ao inicio do servizo e fai unha captura do estado en execución.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+          <!-- Parte E -->
+      <section class="mb-5 section-anchor" id="parteE">
+  <div class="content-card">
+    <div class="content-card-header">
+      <span class="section-icon"><i class="bi bi-arrow-repeat"></i></span>
+      <h2 class="h4 fw-bold mb-0">Parte E – Actualizacións e parte de incidencia</h2>
+    </div>
+    <div class="content-card-body">
+
+      <h3 class="h6 fw-bold mt-2">E1. Comprobación de actualizacións</h3>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso E1.1</strong> Na VM Ubuntu, comproba se hai actualizacións pendentes co seguinte:
+        </p>
+        <pre class="cmd-block"><code class="language-bash">sudo apt update
+apt list --upgradable 2>/dev/null | head -20</code></pre>
+        <p class="mb-1">
+          Anota na ficha se aparecen paquetes pendentes de actualización ou se non hai conexión a Internet.
+        </p>
+        <div class="notice info d-flex gap-2 align-items-start mt-2">
+          <i class="bi bi-exclamation-circle flex-shrink-0 mt-1"></i>
+          <div>
+            Nesta práctica só se comproba o estado das actualizacións.
+            Non instales actualizacións salvo indicación expresa do profesorado.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1">
+          <strong>Paso E1.2</strong> Na VM Windows, abre <strong>Configuración → Windows Update</strong>
+          e comproba se hai actualizacións pendentes.
+        </p>
+        <p class="mb-1">
+          Anota na ficha que tipo de actualizacións aparecen (de calidade, características, controladores, etc.).
+        </p>
+      </div>
+
+      <h3 class="h6 fw-bold mt-4">E2. Elaboración do parte de incidencia</h3>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso E2.1</strong> Escolle unha das catro incidencias traballadas nesta práctica:
+        </p>
+        <ul class="mb-1">
+          <li>Redución artificial do espazo libre en Windows.</li>
+          <li>Servizo parado en Windows (Cola de impresión).</li>
+          <li>Redución artificial do espazo libre en Ubuntu.</li>
+          <li>Servizo parado en Ubuntu (<code>cron.service</code> ou servizo equivalente).</li>
+        </ul>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1">
+          <strong>Paso E2.2</strong> Cubre o modelo de parte de incidencia incluíndo
+          todos os apartados seguintes:
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1"><strong>1) Identificación</strong></p>
+        <ul class="mb-1">
+          <li>Data e hora da incidencia.</li>
+          <li>Equipo ou servidor afectado.</li>
+          <li>Sistema operativo.</li>
+          <li>Usuario afectado (se procede).</li>
+          <li>Técnico/a responsable.</li>
+        </ul>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1"><strong>2) Descrición do problema</strong></p>
+        <ul class="mb-1">
+          <li>Síntoma observado.</li>
+          <li>Desde cando ocorre.</li>
+          <li>Contexto e impacto para o usuario ou servizo.</li>
+        </ul>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1"><strong>3) Diagnóstico</strong></p>
+        <ul class="mb-1">
+          <li>Datos observados nas ferramentas de rendemento ou logs.</li>
+          <li>Ferramentas empregadas (Task Manager, <code>df</code>, <code>journalctl</code>, etc.).</li>
+          <li>Causa probable identificada.</li>
+        </ul>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1"><strong>4) Accións realizadas</strong></p>
+        <ul class="mb-1">
+          <li>Pasos executados en orde.</li>
+          <li>Comandos ou cambios de configuración aplicados.</li>
+        </ul>
+      </div>
+
+      <div class="mb-2">
+        <p class="mb-1"><strong>5) Resultado</strong></p>
+        <ul class="mb-1">
+          <li>Se a incidencia quedou resolta, parcialmente resolta ou pendente.</li>
+          <li>Como se verificou (proba co usuario, revisión de métricas, etc.).</li>
+        </ul>
+      </div>
+
+      <div class="mb-3">
+        <p class="mb-1"><strong>6) Recomendacións</strong></p>
+        <ul class="mb-1">
+          <li>Medidas para evitar que se repita a incidencia.</li>
+          <li>Propostas de mellora de mantemento ou configuración.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+          <!-- Ficha de rexistro -->
+          <section class="mb-5 section-anchor" id="ficha">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-clipboard"></i></span>
+                <h2 class="h4 fw-bold mb-0">Ficha de rexistro – Práctica guiada B3</h2>
+              </div>
+              <div class="content-card-body">
+
+                <p><strong>Nome:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Data:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>VM Windows usada:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>VM Ubuntu usada:</strong></p>
+                <div class="answer-lines mb-3"></div>
+
+                <!-- Parte A ficha -->
+                <h3 class="h6 fw-bold mt-3">Parte A – Disco Windows</h3>
+                <div class="table-responsive mb-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Momento</th>
+                        <th>Espazo libre en C:</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Inicial</td><td></td></tr>
+                      <tr><td>Tras crear o ficheiro</td><td></td></tr>
+                      <tr><td>Tras a resolución</td><td></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p class="mb-1"><strong>Ferramentas usadas para diagnosticar:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Diagnóstico (síntoma / causa / recurso afectado):</strong></p>
+                <div class="answer-lines mb-3"></div>
+
+                <p class="mb-1"><strong>Eventos de disco no Visor de eventos:</strong></p>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nivel</th>
+                        <th>Data/hora</th>
+                        <th>Descrición resumida</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td> <div class="answer-lines mb-2"></div>
+</td><td> <div class="answer-lines mb-2"></div>
+</td><td> <div class="answer-lines mb-2"></div>
+</td><td> <div class="answer-lines mb-2"></div>
+</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p class="mb-1"><strong>Se non atopaches eventos relevantes, indícao:</strong></p>
+                <div class="answer-lines mb-3"></div>
+
+                <!-- Parte B ficha -->
+                <h3 class="h6 fw-bold mt-3">Parte B – Servizo Windows</h3>
+                <p class="mb-1"><strong>Estado da Cola de impresión antes de deter:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Estado tras deter:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Estado tras reiniciar:</strong></p>
+                <div class="answer-lines mb-3"></div>
+
+                <p class="mb-1"><strong>Ferramentas usadas para diagnosticar:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Diagnóstico (síntoma / causa / recurso afectado):</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Evento ao deter o servizo:</strong></p>
+                <div class="table-responsive mb-3">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Orixe</th>
+                        <th>Data/hora</th>
+                        <th>Descrición resumida</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td><div class="answer-lines mb-2"></div>
+</td><td><div class="answer-lines mb-2"></div>
+</td><td><div class="answer-lines mb-2"></div>
+</td><td><div class="answer-lines mb-2"></div>
+</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p class="mb-1"><strong>Se non atopaches eventos relevantes, indícao:</strong></p>
+                <div class="answer-lines mb-3"></div>
+
+                <!-- Parte C ficha -->
+                <h3 class="h6 fw-bold mt-3">Parte C – Disco Ubuntu</h3>
+                <div class="table-responsive mb-2">
+                  <table class="table table-sm table-striped align-middle">
+                    <thead>
+                      <tr>
+                        <th>Momento</th>
+                        <th>Espazo libre en /</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Inicial</td><td></td></tr>
+                      <tr><td>Tras crear o ficheiro</td><td></td></tr>
+                      <tr><td>Tras a resolución</td><td></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p class="mb-1"><strong>Ferramentas/comandos usados para diagnosticar:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Diagnóstico (síntoma / causa / recurso afectado):</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Directorio/ficheiro que máis espazo ocupaba segundo <code>du</code>:</strong></p>
+                <div class="answer-lines mb-3"></div>
+
+                <!-- Parte D ficha -->
+                <h3 class="h6 fw-bold mt-3">Parte D – Servizo Ubuntu</h3>
+                <p class="mb-1"><strong>Estado de <code>cron.service</code> antes de deter:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Estado tras deter:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Estado tras reiniciar:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Ferramentas/comandos usados para diagnosticar:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Diagnóstico (síntoma / causa / recurso afectado):</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Liña do log correspondente á parada:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Liña do log correspondente ao inicio:</strong></p>
+                <div class="answer-lines mb-3"></div>
+
+                <!-- Parte E ficha -->
+                <h3 class="h6 fw-bold mt-3">Parte E – Actualizacións</h3>
+                <p class="mb-1"><strong>Paquetes pendentes en Ubuntu:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Actualizacións pendentes en Windows:</strong></p>
+                <div class="answer-lines mb-3"></div>
+
+                <!-- Parte de incidencia -->
+                <h3 class="h6 fw-bold mt-3">Parte de incidencia completo</h3>
+                <p class="mb-1"><strong>Incidencia escollida:</strong></p>
+                <div class="answer-lines mb-2"></div>
+
+                <p class="mb-1"><strong>Identificación:</strong></p>
+                <div class="response-space mb-1"></div>
+
+                <p class="mb-1"><strong>Descrición do problema:</strong></p>
+                <div class="response-space mb-1"></div>
+
+                <p class="mb-1"><strong>Diagnóstico:</strong></p>
+                <div class="response-space mb-1"></div>
+
+                <p class="mb-1"><strong>Accións realizadas:</strong></p>
+                <div class="response-space mb-1"></div>
+
+                <p class="mb-1"><strong>Resultado:</strong></p>
+                <div class="response-space mb-1"></div>
+
+                <p class="mb-1"><strong>Recomendacións:</strong></p>
+                <div class="response-space mb-3"></div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Capturas -->
+          <section class="mb-5 section-anchor" id="capturas">
+            <div class="content-card">
+              <div class="content-card-header">
+                <span class="section-icon"><i class="bi bi-camera"></i></span>
+                <h2 class="h4 fw-bold mb-0">Capturas entregadas</h2>
+              </div>
+              <div class="content-card-body">
+                <h3 class="h6 fw-bold mt-2">Capturas obrigatorias</h3>
+                <ul class="check-list list-group list-group-flush mb-3">
+                  <li class="list-group-item"><span class="check-box"></span>Propiedades de C: con espazo reducido en Windows.</li>
+                  <li class="list-group-item"><span class="check-box"></span>Liberador de espazo en disco en Windows.</li>
+                  <li class="list-group-item"><span class="check-box"></span>Propiedades de C: tras a limpeza.</li>
+                  <li class="list-group-item"><span class="check-box"></span>Servizo Cola de impresión en execución.</li>
+                  <li class="list-group-item"><span class="check-box"></span>Terminal con <code>df -h /</code> antes e despois en Ubuntu.</li>
+                  <li class="list-group-item"><span class="check-box"></span>Terminal con <code>du -sh /var/tmp/*</code>.</li>
+                  <li class="list-group-item"><span class="check-box"></span>Terminal con <code>df -h /</code> tras a resolución.</li>
+                  <li class="list-group-item"><span class="check-box"></span><code>journalctl -u cron.service</code> mostrando parada ou inicio.</li>
+                  <li class="list-group-item"><span class="check-box"></span>Estado de <code>cron.service</code> en execución.</li>
+                </ul>
+
+                <h3 class="h6 fw-bold mt-2">Capturas condicionadas ou opcionais</h3>
+                <ul class="check-list list-group list-group-flush mb-3">
+                  <li class="list-group-item"><span class="check-box"></span>Evento de disco no Visor de eventos (se aparece).</li>
+                  <li class="list-group-item"><span class="check-box"></span>Evento de parada/inicio da Cola de impresión (se aparece).</li>
+                  <li class="list-group-item"><span class="check-box"></span>Comprobación de actualizacións pendentes en Ubuntu.</li>
+                  <li class="list-group-item"><span class="check-box"></span>Comprobación de actualizacións pendentes en Windows Update.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <!-- Pé de páxina -->
+  <footer class="smpp-footer no-print">
+    <div class="smpp-footer-spacer"></div>
+    <div class="smpp-footer-center">
+      <span>CIFP A Carballeira · Ourense</span>
+      <span>Administración de Sistemas Informáticos · Curso 26/27</span>
+      <span>Material didáctico de uso interno</span>
+    </div>
+    <img src="../../assets/img/sauce-clean.svg"
+         alt=""
+         class="smpp-sauce"
+         onerror="this.style.display='none'">
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- JS SMPP -->
+  <script src="../../assets/js/smpp.js"></script>
+
+</body>
+</html>

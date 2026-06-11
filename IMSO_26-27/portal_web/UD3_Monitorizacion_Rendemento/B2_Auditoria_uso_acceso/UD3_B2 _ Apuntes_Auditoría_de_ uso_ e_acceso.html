@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="gl">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>UD3 &ndash; Bloque 2. Auditor&iacute;a de uso e acceso</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Fira+Code&amp;display=swap" rel="stylesheet"/>
+  <link href="../../assets/css/smpp.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <!-- NAVBAR -->
+  <nav class="smpp-navbar no-print">
+   <div class="container d-flex align-items-center justify-content-between">
+    <a class="smpp-brand" href="#">
+     <img alt="SMPP" class="smpp-buho" onerror="this.style.display='none'" src="../../assets/imax/buho_clean.svg"/>
+     <div class="smpp-brand-text">
+      <span class="smpp-title">SMPP</span>
+      <span class="smpp-subtitle">Sistemas &amp; Programaci&oacute;n</span>
+     </div>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+     <span class="smpp-module">MP0369 &middot; IMSO 26/27</span>
+     <button aria-label="Cambiar tema" class="btn btn-outline-light btn-sm" onclick="toggleTheme()">
+      <i class="bi bi-moon-stars" id="theme-icon"></i>
+     </button>
+    </div>
+   </div>
+  </nav>
+
+  <!-- LAYOUT -->
+  <div class="container-xl py-4">
+   <div class="row g-4">
+
+    <!-- SIDEBAR TOC -->
+    <aside class="col-lg-3 d-none d-lg-block no-print">
+     <div class="sidebar">
+      <div class="card shadow-sm sidebar-panel border">
+       <div class="card-body px-3 py-3">
+        <h6 class="text-uppercase fw-bold mb-1">
+         <i class="bi bi-list-ul me-1"></i>&Iacute;ndice
+        </h6>
+        <hr class="my-2"/>
+        <nav id="toc">
+         <ul class="nav flex-column gap-1 small">
+          <li class="nav-item"><a class="nav-link py-1" href="#1-claves">1. Claves do bloque</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#2-contextualizacion">2. Contextualizaci&oacute;n</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#3-obxectivos">3. Obxectivos de aprendizaxe</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-1-caso-inicial">4.1. Caso inicial</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-2-que-e-auditoria">4.2. Que &eacute; unha auditor&iacute;a?</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-3-auditoria-monitorizacion-logs">4.3. Auditor&iacute;a, monitorizaci&oacute;n e logs</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-4-vocabulario">4.4. Vocabulario b&aacute;sico</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-5-obxectos-sucesos">4.5. Obxectos e sucesos auditables</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-6-plan">4.6. Plan de auditor&iacute;a</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-7-windows">4.7. Auditor&iacute;a en Windows</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-8-ubuntu">4.8. Auditor&iacute;a en Ubuntu/Linux</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-9-auditd">4.9. Auditor&iacute;a avanzada con auditd</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-10-comparativa">4.10. Comparativa Windows / Ubuntu</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-11-rendemento">4.11. Repercusi&oacute;ns no rendemento</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-12-xestion">4.12. Xesti&oacute;n dos rexistros</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#4-13-documentacion">4.13. Documentaci&oacute;n da auditor&iacute;a</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#5-erros-tipicos">5. Erros t&iacute;picos</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#6-mini-practica">6. Mini pr&aacute;ctica guiada</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#7-cadro-resumo">7. Cadro resumo</a></li>
+          <li class="nav-item"><a class="nav-link py-1" href="#8-vocabulario-completo">8. Vocabulario completo</a></li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="col-lg-9">
+     <article>
+
+      <!-- HEADER HERO -->
+      <header class="mb-4">
+       <div class="theory-hero">
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+         <span class="hero-chip"><i class="bi bi-shield-lock"></i> UD3 &middot; Bloque 2</span>
+         <span class="hero-chip"><i class="bi bi-journal-check"></i> Auditor&iacute;a</span>
+         <span class="hero-chip"><i class="bi bi-file-earmark-text"></i> Rexistros</span>
+         <span class="hero-chip"><i class="bi bi-terminal"></i> Windows e Ubuntu</span>
+        </div>
+        <h1 class="h2 fw-bold mb-2">UD3 &ndash; Bloque 2. Auditor&iacute;a de uso e acceso</h1>
+        <p class="lead mb-0">
+         Auditor&iacute;a de uso, acceso a recursos, rexistros de seguridade, eventos, logs e documentaci&oacute;n de evidencias en Windows e Ubuntu/Linux.
+        </p>
+       </div>
+      </header>
+
+      <!-- NOTICE CENTRAL -->
+      <div class="notice info mb-4 d-flex gap-2 align-items-start">
+       <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+       <div>
+        <strong>Idea central:</strong> planificar antes de auditar. Sen configuraci&oacute;n previa, o sistema non garda evidencias das accions relevantes para a seguridade.
+       </div>
+      </div>
+
+      <!-- KEY CARDS -->
+      <div class="row g-3 mb-4" id="1-claves">
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-shield-check text-primary"></i>
+          <strong>Planificar</strong>
+         </div>
+         <p class="small mb-0">Definir obxectivo, &aacute;mbito, obxectos, eventos e periodicidade antes de activar.</p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-windows text-primary"></i>
+          <strong>Windows</strong>
+         </div>
+         <p class="small mb-0">Pol&iacute;tica de auditor&iacute;a + SACL do obxecto + Visor de eventos (rexistro de seguridade).</p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-ubuntu text-primary"></i>
+          <strong>Linux</strong>
+         </div>
+         <p class="small mb-0"><code>auth.log</code> e <code>journalctl</code> para autenticaci&oacute;n; <code>auditd</code> para accesos a obxectos.</p>
+        </div>
+       </div>
+       <div class="col-md-6 col-xl-3">
+        <div class="key-card h-100">
+         <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-file-earmark-check text-primary"></i>
+          <strong>Evidencias</strong>
+         </div>
+         <p class="small mb-0">O informe debe recoller sistema, obxectivo, m&eacute;todo, eventos relevantes, conclusi&oacute;ns e recomendaci&oacute;ns.</p>
+        </div>
+       </div>
+      </div>
+
+      <!-- SECTION 2: CONTEXTUALIZACIÓN -->
+      <section class="mb-5 section-anchor" id="2-contextualizacion">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-book"></i></span>
+         <h2 class="h4 fw-bold mb-0">2. Contextualizaci&oacute;n</h2>
+        </div>
+        <div class="content-card-body">
+         <p>Nun sistema inform&aacute;tico non abonda con configurar correctamente as contas de usuario, os grupos, os permisos e os recursos compartidos. Tambi&eacute;n &eacute; necesario <strong>rexistrar e revisar que est&aacute; a pasar</strong> no sistema:</p>
+         <ul class="mb-3">
+          <li>quen iniciou sesi&oacute;n;</li>
+          <li>quen intentou iniciar sesi&oacute;n e non puido;</li>
+          <li>quen accedeu a un ficheiro ou cartafol;</li>
+          <li>quen intentou acceder a un recurso sen permiso;</li>
+          <li>quen executou acci&oacute;ns con privilexios elevados;</li>
+          <li>quen modificou unha pol&iacute;tica, un permiso ou unha configuraci&oacute;n relevante.</li>
+         </ul>
+         <p>A <strong>auditor&iacute;a</strong> &eacute; o proceso polo cal o sistema rexistra determinados eventos relacionados co uso, a seguridade e o acceso aos seus recursos. Estes rexistros permiten reco&ntilde;struir o que pasou nun momento determinado e obter evidencias t&eacute;cnicas ante unha incidencia.</p>
+         <p>A auditor&iacute;a permite:</p>
+         <ul>
+          <li>detectar accesos non autorizados;</li>
+          <li>comprobar se se cumpren as pol&iacute;ticas de seguridade;</li>
+          <li>analizar incidencias pasadas;</li>
+          <li>identificar intentos de acceso fallidos ou sospeitosos;</li>
+          <li>documentar evidencias nun informe t&eacute;cnico;</li>
+          <li>demostrar que unha configuraci&oacute;n funciona como estaba previsto.</li>
+         </ul>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div>No bloque anterior traballouse a <strong>monitorizaci&oacute;n e o rendemento</strong>. Neste bloque centr&aacute;monos na parte de seguridade: <strong>quen fai que, cando e sobre que recurso</strong>.</div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 3: OBXECTIVOS -->
+      <section class="mb-5 section-anchor" id="3-obxectivos">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-check2-circle"></i></span>
+         <h2 class="h4 fw-bold mb-0">3. Obxectivos de aprendizaxe</h2>
+        </div>
+        <div class="content-card-body">
+         <p>Ao rematar este bloque, o alumnado deber&aacute; ser capaz de:</p>
+         <ul>
+          <li>Explicar que &eacute; unha auditor&iacute;a de sistema e para que serve.</li>
+          <li>Diferenciar entre monitorizaci&oacute;n, rexistros do sistema e auditor&iacute;a de seguridade.</li>
+          <li>Identificar obxectos e sucesos auditables nun sistema operativo.</li>
+          <li>Elaborar un plan de auditor&iacute;a sinxelo para un escenario concreto.</li>
+          <li>Activar e configurar unha auditor&iacute;a b&aacute;sica en Windows.</li>
+          <li>Comprender a relaci&oacute;n entre pol&iacute;tica de auditor&iacute;a e auditor&iacute;a dun obxecto concreto en Windows.</li>
+          <li>Localizar e interpretar eventos de auditor&iacute;a no Visor de eventos de Windows.</li>
+          <li>Revisar logs b&aacute;sicos de autenticaci&oacute;n en Ubuntu/Linux.</li>
+          <li>Comprender cando &eacute; necesario empregar <code>auditd</code> para auditar accesos a ficheiros ou cartafoles en Linux.</li>
+          <li>Identificar o impacto da auditor&iacute;a no rendemento e no almacenamento.</li>
+          <li>Documentar o proceso de auditor&iacute;a e os seus resultados nun parte ou informe t&eacute;cnico.</li>
+         </ul>
+         <hr/>
+        </div>
+       </div>
+      </section>
+ <!-- SECTION 4.1: CASO INICIAL -->
+      <section class="mb-5 section-anchor" id="4-1-caso-inicial">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-exclamation-triangle"></i></span>
+         <h2 class="h4 fw-bold mb-0">4.1. Caso inicial</h2>
+        </div>
+        <div class="content-card-body">
+         <blockquote class="blockquote-custom rounded p-3 mb-3">
+          Nun equipo compartido do departamento apareceu modificado un ficheiro chamado <code>notas_avaliacion.xlsx</code>. Varias persoas te&ntilde;en acceso ao cartafol, pero ningu&eacute;n reco&ntilde;ece ter feito o cambio. A direcci&oacute;n pide saber se &eacute; posible comprobar quen accedeu ao ficheiro, cando o fixo e se houbo intentos de acceso non autorizados.
+         </blockquote>
+         <p>Sen auditor&iacute;a, probablemente s&oacute; poderemos revisar a data de modificaci&oacute;n do ficheiro e pouco m&aacute;is. Con auditor&iacute;a correctamente configurada, poderemos obter:</p>
+         <ul>
+          <li>usuario implicado;</li>
+          <li>data e hora do evento;</li>
+          <li>equipo desde o que se realizou a acci&oacute;n;</li>
+          <li>tipo de acceso solicitado;</li>
+          <li>se o acceso foi correcto ou denegado;</li>
+          <li>recurso afectado.</li>
+         </ul>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div>Este exemplo mostra por que a auditor&iacute;a debe <strong>planificarse antes da incidencia</strong>. Se non estaba activada cando ocorreu o problema, o sistema non ter&aacute; gardadas as evidencias necesarias.</div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.2: QUE É AUDITORÍA -->
+      <section class="mb-5 section-anchor" id="4-2-que-e-auditoria">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-shield-lock"></i></span>
+         <h2 class="h4 fw-bold mb-0">4.2. Que &eacute; unha auditor&iacute;a de sistema?</h2>
+        </div>
+        <div class="content-card-body">
+         <p>Unha <strong>auditor&iacute;a de sistema</strong> &eacute; o proceso de rexistrar, revisar e analizar eventos producidos nun sistema operativo relacionados co uso dos seus recursos, a autenticaci&oacute;n dos usuarios e as acci&oacute;ns que afectan &aacute; seguridade.</p>
+         <p>O sistema operativo pode configurarse para gardar automaticamente rexistros de acci&oacute;ns como:</p>
+         <ul>
+          <li>inicios de sesi&oacute;n correctos;</li>
+          <li>inicios de sesi&oacute;n fallidos;</li>
+          <li>accesos a ficheiros e cartafoles;</li>
+          <li>intentos de acceso denegados;</li>
+          <li>cambios en permisos;</li>
+          <li>uso de privilexios administrativos;</li>
+          <li>modificaci&oacute;n de pol&iacute;ticas de seguridade;</li>
+          <li>arranques, apagados ou reinicios do sistema.</li>
+         </ul>
+         <p>Estes rexistros ch&aacute;manse <strong>rexistros de auditor&iacute;a</strong> ou <strong>logs de auditor&iacute;a</strong>. Son a base sobre a que traballa un t&eacute;cnico ou administrador para revisar a seguridade, investigar incidencias e documentar evidencias.</p>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+          <div><strong>Exemplo sinxelo:</strong> se nun servidor desaparece un documento importante, sen auditor&iacute;a &eacute; moi dif&iacute;cil saber quen o borrou. Con auditor&iacute;a activada previamente, o sistema pode rexistrar que usuario accedeu ao ficheiro, cando o fixo e que operaci&oacute;n realizou.</div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.3: AUDITORÍA vs MONITORIZACIÓN vs LOGS -->
+      <section class="mb-5 section-anchor" id="4-3-auditoria-monitorizacion-logs">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-diagram-3"></i></span>
+         <h2 class="h4 fw-bold mb-0">4.3. Auditor&iacute;a, monitorizaci&oacute;n e logs: non son exactamente o mesmo</h2>
+        </div>
+        <div class="content-card-body">
+         <p>&Eacute; habitual mesturar estes tres conceptos, pero non significan exactamente o mesmo.</p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr><th>Concepto</th><th>Que observa</th><th>Exemplo</th></tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td><strong>Monitorizaci&oacute;n</strong></td>
+             <td>Estado e rendemento do sistema</td>
+             <td>Uso de CPU, memoria, disco, procesos activos</td>
+            </tr>
+            <tr>
+             <td><strong>Logs do sistema</strong></td>
+             <td>Mensaxes xerais xeradas por servizos e polo sistema</td>
+             <td>Erros dun servizo, inicio de SSH, avisos do kernel</td>
+            </tr>
+            <tr>
+             <td><strong>Auditor&iacute;a</strong></td>
+             <td>Eventos relevantes para seguridade e acceso</td>
+             <td>Inicio de sesi&oacute;n fallido, acceso a un ficheiro, uso de privilexios</td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <p>A auditor&iacute;a adoita apoiarse nos logs, pero ten un obxectivo m&aacute;is concreto: <strong>obter evidencias sobre acci&oacute;ns relevantes para a seguridade e o uso dos recursos</strong>.</p>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.4: VOCABULARIO BÁSICO -->
+      <section class="mb-5 section-anchor" id="4-4-vocabulario">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-translate"></i></span>
+         <h2 class="h4 fw-bold mb-0">4.4. Vocabulario b&aacute;sico</h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead>
+            <tr><th>Galego</th><th>Ingl&eacute;s</th></tr>
+           </thead>
+           <tbody>
+            <tr><td>Auditor&iacute;a</td><td>Audit</td></tr>
+            <tr><td>Rexistro de auditor&iacute;a</td><td>Audit log</td></tr>
+            <tr><td>Evento / suceso</td><td>Event</td></tr>
+            <tr><td>Obxecto auditable</td><td>Auditable object</td></tr>
+            <tr><td>Pol&iacute;tica de auditor&iacute;a</td><td>Audit policy</td></tr>
+            <tr><td>Dereito de usuario</td><td>User right</td></tr>
+            <tr><td>Inicio de sesi&oacute;n</td><td>Logon</td></tr>
+            <tr><td>Peche de sesi&oacute;n</td><td>Logoff</td></tr>
+            <tr><td>Acceso denegado</td><td>Access denied</td></tr>
+            <tr><td>Evidencia</td><td>Evidence</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.5: OBXECTOS E SUCESOS AUDITABLES -->
+      <section class="mb-5 section-anchor" id="4-5-obxectos-sucesos">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-list-check"></i></span>
+         <h2 class="h4 fw-bold mb-0">4.5. Obxectos e sucesos auditables</h2>
+        </div>
+        <div class="content-card-body">
+         <p>Non todo o que ocorre nun sistema se pode auditar nin todo o que se pode auditar debe auditarse. Unha boa auditor&iacute;a require escoller correctamente <strong>que obxectos</strong> e <strong>que sucesos</strong> interesa rexistrar.</p>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.5.1. Obxectos auditables</h3>
+         <p>Un <strong>obxecto auditable</strong> &eacute; calquera elemento do sistema sobre o que se pode rexistrar actividade.</p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Obxecto</th><th>Exemplos</th></tr></thead>
+           <tbody>
+            <tr><td>Contas de usuario</td><td><code>administrador</code>, <code>ana</code>, <code>root</code>, <code>prof.001</code></td></tr>
+            <tr><td>Grupos</td><td><code>alumnado</code>, <code>profesorado</code>, <code>administradores</code></td></tr>
+            <tr><td>Ficheiros e cartafoles</td><td>Documentos, cartafoles compartidos, ficheiros de configuraci&oacute;n</td></tr>
+            <tr><td>Impresoras e dispositivos</td><td>Impresora de rede, unidades USB, discos externos</td></tr>
+            <tr><td>Servizos e procesos</td><td>Servizo SSH, servizo web, servizo de impresi&oacute;n</td></tr>
+            <tr><td>Claves do rexistro de Windows</td><td>Configuraci&oacute;n do sistema en <code>HKLM</code></td></tr>
+            <tr><td>Pol&iacute;ticas de seguridade</td><td>Pol&iacute;tica de contrasinais, auditor&iacute;a, bloqueo de contas</td></tr>
+           </tbody>
+          </table>
+         </div>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.5.2. Tipos de sucesos auditables</h3>
+         <p>Un <strong>suceso auditable</strong> &eacute; unha acci&oacute;n concreta que o sistema pode rexistrar.</p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Tipo de suceso</th><th>Descrici&oacute;n</th><th>Exemplo</th></tr></thead>
+           <tbody>
+            <tr><td>Inicio de sesi&oacute;n correcto</td><td>Un usuario accedeu ao sistema con &eacute;xito</td><td>A usuaria <code>ana</code> iniciou sesi&oacute;n &aacute;s 08:32</td></tr>
+            <tr><td>Inicio de sesi&oacute;n fallido</td><td>Algu&eacute;n intentou acceder e non puido</td><td>Tres intentos fallidos co usuario <code>admin</code></td></tr>
+            <tr><td>Peche de sesi&oacute;n</td><td>Un usuario pechou a s&uacute;a sesi&oacute;n</td><td><code>pedro</code> pechou sesi&oacute;n &aacute;s 14:10</td></tr>
+            <tr><td>Acceso a un obxecto</td><td>Un usuario leu, modificou ou borrou un ficheiro/cartafol</td><td><code>laura</code> modificou <code>informe.docx</code></td></tr>
+            <tr><td>Acceso denegado</td><td>Un usuario intentou acceder sen permiso</td><td><code>invitado</code> intentou abrir <code>Contabilidade</code></td></tr>
+            <tr><td>Uso de privilexios</td><td>Un usuario empregou permisos administrativos</td><td>Uso de <code>sudo</code> en Linux</td></tr>
+            <tr><td>Cambio de pol&iacute;tica</td><td>Modificaci&oacute;n dunha pol&iacute;tica de seguridade</td><td>Cambio na pol&iacute;tica de contrasinais</td></tr>
+            <tr><td>Cambio de permisos</td><td>Modificaci&oacute;n dos permisos dun obxecto</td><td>Engadiuse un usuario con permisos de escritura</td></tr>
+            <tr><td>Apagado ou arranque</td><td>O sistema apagouse, arrancou ou reiniciouse</td><td>Reinicio inesperado dun servidor</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+          <div><strong>Importante:</strong> non &eacute; recomendable auditar todos os sucesos sobre todos os obxectos. Isto xerar&iacute;a tantos rexistros que ser&iacute;a dif&iacute;cil localizar o importante e poder&iacute;a afectar ao rendemento. A auditor&iacute;a debe estar <strong>planificada</strong>.</div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.6: PLAN DE AUDITORÍA -->
+      <section class="mb-5 section-anchor" id="4-6-plan">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-clipboard-check"></i></span>
+         <h2 class="h4 fw-bold mb-0">4.6. Plan de auditor&iacute;a</h2>
+        </div>
+        <div class="content-card-body">
+         <p>Antes de activar unha auditor&iacute;a nun sistema, &eacute; recomendable elaborar un <strong>plan de auditor&iacute;a</strong>: un documento sinxelo no que se define que se vai auditar, por que, como e durante canto tempo.</p>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.6.1. Elementos dun plan de auditor&iacute;a</h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Elemento</th><th>Descrici&oacute;n</th><th>Exemplo</th></tr></thead>
+           <tbody>
+            <tr><td>Obxectivo</td><td>Para que se fai a auditor&iacute;a</td><td>Detectar accesos non autorizados ao cartafol <code>Persoal</code></td></tr>
+            <tr><td>&Aacute;mbito</td><td>Que sistemas ou recursos se auditan</td><td>Servidor de ficheiros do departamento</td></tr>
+            <tr><td>Obxectos auditados</td><td>Que elementos concretos se van revisar</td><td>Cartafol <code>D:\Datos\Persoal</code> ou <code>/srv/documentos</code></td></tr>
+            <tr><td>Sucesos auditados</td><td>Que tipos de eventos se rexistrar&aacute;n</td><td>Acceso correcto, acceso denegado, modificaci&oacute;n, eliminaci&oacute;n</td></tr>
+            <tr><td>Usuarios ou grupos afectados</td><td>Sobre quen se aplicar&aacute; a auditor&iacute;a</td><td>Grupo <code>alumnado</code>, grupo <code>profesorado</code></td></tr>
+            <tr><td>Ferramentas</td><td>Con que se far&aacute; a auditor&iacute;a</td><td>Visor de eventos, <code>journalctl</code>, <code>auditd</code>, <code>ausearch</code></td></tr>
+            <tr><td>Impacto previsto</td><td>Que efecto pode ter no sistema</td><td>Aumento de logs e escrituras en disco</td></tr>
+            <tr><td>Tempo de revisi&oacute;n</td><td>Durante canto tempo se revisaran os eventos</td><td>Unha semana, un mes, per&iacute;odo dunha pr&aacute;ctica</td></tr>
+            <tr><td>Periodicidade da revisi&oacute;n</td><td>Cada canto se revisaran os rexistros</td><td>Diariamente, semanalmente, tras unha incidencia</td></tr>
+            <tr><td>Responsable</td><td>Quen revisa e documenta a auditor&iacute;a</td><td>T&eacute;cnico/a responsable do sistema</td></tr>
+           </tbody>
+          </table>
+         </div>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.6.2. Exemplo de plan simplificado</h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Elemento</th><th>Exemplo</th></tr></thead>
+           <tbody>
+            <tr><td>Obxectivo</td><td>Saber se algu&eacute;n accede ao cartafol <code>Proxectos</code> f&oacute;ra do horario laboral</td></tr>
+            <tr><td>&Aacute;mbito</td><td>Servidor Windows do departamento</td></tr>
+            <tr><td>Obxecto</td><td>Cartafol <code>D:\Proxectos</code></td></tr>
+            <tr><td>Sucesos</td><td>Acceso correcto, acceso denegado e eliminaci&oacute;n</td></tr>
+            <tr><td>Usuarios/grupos</td><td>Grupo <code>usuarios_departamento</code></td></tr>
+            <tr><td>Ferramenta</td><td>Pol&iacute;tica de auditor&iacute;a + auditor&iacute;a do cartafol + Visor de eventos</td></tr>
+            <tr><td>Revisi&oacute;n</td><td>Cada luns pola ma&ntilde;&aacute;</td></tr>
+            <tr><td>Evidencia esperada</td><td>Eventos no rexistro de seguridade con usuario, data/hora e tipo de acceso</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.7: AUDITORÍA EN WINDOWS -->
+      <section class="mb-5 section-anchor" id="4-7-windows">
+       <div class="content-card section-platform platform-windows">
+        <div class="card-header d-flex align-items-center gap-2">
+         <i class="bi bi-windows"></i>
+         <h2 class="h4 fw-bold mb-0">4.7. Auditor&iacute;a en Windows</h2>
+        </div>
+        <div class="content-card-body">
+         <p>En Windows, a auditor&iacute;a x&eacute;stiase mediante <strong>pol&iacute;ticas de auditor&iacute;a</strong>. Estas pol&iacute;ticas determinan que tipos de sucesos se rexistran no <strong>rexistro de seguridade</strong> do Visor de eventos.</p>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+          <div><strong>Idea clave:</strong> para auditar un ficheiro ou cartafol non chega con activar unha pol&iacute;tica xeral de auditor&iacute;a. Tam&eacute;n hai que configurar a auditor&iacute;a no propio obxecto, &eacute; dicir, na s&uacute;a <strong>SACL</strong>.</div>
+         </div>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.7.1. Pol&iacute;ticas b&aacute;sicas de auditor&iacute;a</h3>
+         <p>Ruta habitual:</p>
+         <pre class="cmd-block"><code class="language-bash">secpol.msc
+→ Configuración de seguridade
+→ Políticas locais
+→ Política de auditoría</code></pre>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Categor&iacute;a</th><th>Que audita</th></tr></thead>
+           <tbody>
+            <tr><td>Auditar eventos de inicio de sesi&oacute;n</td><td>Inicios e peches de sesi&oacute;n no equipo</td></tr>
+            <tr><td>Auditar o acceso a obxectos</td><td>Acceso a ficheiros, cartafoles e outros obxectos</td></tr>
+            <tr><td>Auditar o uso de privilexios</td><td>Uso de dereitos especiais ou administrativos</td></tr>
+            <tr><td>Auditar cambios de pol&iacute;ticas</td><td>Modificaci&oacute;ns nas pol&iacute;ticas de seguridade</td></tr>
+            <tr><td>Auditar eventos do sistema</td><td>Arranque, apagado e outros eventos do sistema</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <p>Cada categor&iacute;a pódese configurar para rexistrar: <strong>Correcto</strong>, <strong>Erro</strong> ou <strong>Ambos</strong>.</p>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.7.2. Auditor&iacute;a avanzada en Windows</h3>
+         <p>Windows tamén dispón dunha configuración máis detallada:</p>
+         <pre class="cmd-block"><code class="language-bash">Configuración de seguridade
+└── Configuración avanzada de directivas de auditoría
+    └── Directivas de auditoría do sistema</code></pre>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.7.3. Auditor&iacute;a de ficheiros e cartafoles</h3>
+         <p>Para auditar accesos a un cartafol fan falta <strong>dous pasos</strong>:</p>
+         <ol>
+          <li>Activar a pol&iacute;tica de auditor&iacute;a de acceso a obxectos (<code>secpol.msc</code>).</li>
+          <li>Configurar a auditor&iacute;a no propio ficheiro ou cartafol (Propiedades &rarr; Seguridade &rarr; Opci&oacute;ns avanzadas &rarr; Auditor&iacute;a).</li>
+         </ol>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div><strong>SACL</strong> significa <em>System Access Control List</em>. &Eacute; a lista que indica que accesos deben ser auditados nun ficheiro, cartafol ou outro obxecto do sistema.</div>
+         </div>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.7.4. Rexistro de seguridade de Windows</h3>
+         <p>Os eventos de auditor&iacute;a cons&uacute;ltanse no <strong>Visor de eventos</strong>:</p>
+         <pre class="cmd-block"><code class="language-bash">eventvwr.msc
+→ Rexistros de Windows
+   └── Seguridade</code></pre>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.7.5. IDs de evento &uacute;tiles en Windows</h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>ID de evento</th><th>Significado xeral</th></tr></thead>
+           <tbody>
+            <tr><td><strong>4624</strong></td><td>Inicio de sesi&oacute;n correcto</td></tr>
+            <tr><td><strong>4625</strong></td><td>Inicio de sesi&oacute;n fallido</td></tr>
+            <tr><td><strong>4634</strong></td><td>Peche de sesi&oacute;n</td></tr>
+            <tr><td><strong>4648</strong></td><td>Inicio de sesi&oacute;n usando credenciais expl&iacute;citas</td></tr>
+            <tr><td><strong>4656</strong></td><td>Solicitouse acceso a un obxecto</td></tr>
+            <tr><td><strong>4663</strong></td><td>Intentouse acceder a un obxecto</td></tr>
+            <tr><td><strong>4670</strong></td><td>Cambi&aacute;ronse permisos dun obxecto</td></tr>
+            <tr><td><strong>4672</strong></td><td>Asign&aacute;ronse privilexios especiais a unha nova sesi&oacute;n</td></tr>
+            <tr><td><strong>4719</strong></td><td>Cambiouse a pol&iacute;tica de auditor&iacute;a do sistema</td></tr>
+            <tr><td><strong>1102</strong></td><td>Limpouse o rexistro de auditor&iacute;a</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+          <div><strong>Exemplo:</strong> o evento <strong>4625</strong> indica un intento fallido de inicio de sesi&oacute;n. Se aparecen moitos eventos 4625 seguidos para a mesma conta, podería indicar que alguén está probando contrasinais incorrectos.</div>
+         </div>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.7.6. Erros frecuentes en Windows</h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Erro</th><th>Consecuencia</th></tr></thead>
+           <tbody>
+            <tr><td>Activar a pol&iacute;tica pero non configurar a auditor&iacute;a no cartafol</td><td>Non aparecer&aacute;n eventos de acceso ao ficheiro/cartafol</td></tr>
+            <tr><td>Buscar no rexistro equivocado</td><td>Os eventos de auditor&iacute;a est&aacute;n no rexistro de seguridade</td></tr>
+            <tr><td>Auditar demasiados usuarios e permisos</td><td>X&eacute;ranse demasiados eventos e &eacute; dif&iacute;cil localizar o importante</td></tr>
+            <tr><td>Non filtrar por ID de evento</td><td>A revisi&oacute;n f&aacute;cese lenta e confusa</td></tr>
+            <tr><td>Non comprobar data e hora do sistema</td><td>As evidencias poden quedar mal interpretadas</td></tr>
+            <tr><td>Borrar o rexistro sen exportalo antes</td><td>P&eacute;rdense evidencias importantes</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.8: AUDITORÍA EN UBUNTU -->
+      <section class="mb-5 section-anchor" id="4-8-ubuntu">
+       <div class="content-card section-platform platform-linux">
+        <div class="card-header d-flex align-items-center gap-2">
+         <i class="bi bi-ubuntu"></i>
+         <h2 class="h4 fw-bold mb-0">4.8. Auditor&iacute;a en Ubuntu e Linux</h2>
+        </div>
+        <div class="content-card-body">
+         <p>En Ubuntu e noutros sistemas Linux hai que diferenciar dous niveis:</p>
+         <ol>
+          <li><strong>Revisi&oacute;n de logs b&aacute;sicos</strong>, &uacute;til para autenticaci&oacute;n, uso de <code>sudo</code>, servizos e sesi&oacute;ns.</li>
+          <li><strong>Auditor&iacute;a avanzada con <code>auditd</code></strong>, necesaria se queremos rexistrar con precisi&oacute;n accesos a ficheiros, cartafoles ou acci&oacute;ns concretas do sistema.</li>
+         </ol>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.8.1. Logs b&aacute;sicos de autenticaci&oacute;n e sistema</h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Ficheiro / comando</th><th>Contido principal</th></tr></thead>
+           <tbody>
+            <tr><td><code>/var/log/auth.log</code></td><td>Inicios de sesi&oacute;n, fallos de autenticaci&oacute;n, uso de <code>sudo</code></td></tr>
+            <tr><td><code>journalctl</code></td><td>Rexistro xeral do sistema xestionado por <code>systemd</code></td></tr>
+            <tr><td><code>journalctl -u ssh</code></td><td>Eventos espec&iacute;ficos do servizo SSH en Ubuntu</td></tr>
+            <tr><td><code>last</code></td><td>Historial de inicios de sesi&oacute;n recentes</td></tr>
+            <tr><td><code>lastb</code></td><td>Intentos fallidos de inicio de sesi&oacute;n</td></tr>
+            <tr><td><code>who</code></td><td>Usuarios conectados nese momento</td></tr>
+            <tr><td><code>w</code></td><td>Usuarios conectados e actividade actual</td></tr>
+           </tbody>
+          </table>
+         </div>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.8.2. Estrutura b&aacute;sica dunha entrada de log</h3>
+         <p>Unha li&ntilde;a t&iacute;pica dun log de autenticaci&oacute;n ten a seguinte estrutura:</p>
+         <pre class="cmd-block"><code class="language-bash">data hora equipo servizo[PID]: mensaxe</code></pre>
+         <p>Exemplos:</p>
+         <pre class="cmd-block"><code class="language-bash"># Inicio de sesión correcto por SSH
+Jun 7 10:15:02 ubuntu sshd[1234]: Accepted password for ana from 192.168.1.10 port 52341 ssh2
+
+# Inicio de sesión fallido
+Jun 7 10:16:45 ubuntu sshd[1235]: Failed password for root from 192.168.1.20 port 44210 ssh2
+# Uso de sudo
+Jun 7 10:20:11 ubuntu sudo: ana : TTY=pts/0 ; PWD=/home/ana ; USER=root ; COMMAND=/bin/apt update</code></pre>
+
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Campo</th><th>Significado</th></tr></thead>
+           <tbody>
+            <tr><td><code>ana</code></td><td>Usuario que executa <code>sudo</code></td></tr>
+            <tr><td><code>TTY=pts/0</code></td><td>Terminal desde a que se executou</td></tr>
+            <tr><td><code>PWD=/home/ana</code></td><td>Directorio no que estaba o usuario</td></tr>
+            <tr><td><code>USER=root</code></td><td>Usuario de destino da acci&oacute;n</td></tr>
+            <tr><td><code>COMMAND=/bin/apt update</code></td><td>Comando executado con privilexios</td></tr>
+           </tbody>
+          </table>
+         </div>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.8.3. Comandos &uacute;tiles para revisar logs en Ubuntu</h3>
+         <pre class="cmd-block"><code class="language-bash"># Abrir o ficheiro de autenticación
+sudo less /var/log/auth.log
+
+# Buscar intentos fallidos de inicio de sesión por SSH
+sudo grep "Failed password" /var/log/auth.log
+
+# Buscar usos de sudo
+sudo grep "sudo" /var/log/auth.log
+
+# Eventos recentes do sistema
+journalctl -xe
+
+# Eventos do servizo SSH
+journalctl -u ssh
+
+# Inicios de sesión recentes
+last
+
+# Intentos fallidos (pode requirir sudo)
+sudo lastb</code></pre>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.9: AUDITD -->
+      <section class="mb-5 section-anchor" id="4-9-auditd">
+       <div class="content-card section-platform platform-linux">
+        <div class="card-header d-flex align-items-center gap-2">
+         <i class="bi bi-ubuntu"></i>
+         <h2 class="h4 fw-bold mb-0">4.9. Auditor&iacute;a avanzada en Ubuntu con auditd</h2>
+        </div>
+        <div class="content-card-body">
+         <p>Se queremos auditar accesos a ficheiros ou cartafoles concretos en Linux, &eacute; recomendable empregar o <strong>Linux Audit System</strong>, habitualmente mediante o servizo <code>auditd</code>.</p>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.9.1. Instalaci&oacute;n e comprobaci&oacute;n do servizo</h3>
+         <pre class="cmd-block"><code class="language-bash"># Instalar o servizo
+sudo apt update
+sudo apt install auditd audispd-plugins
+
+# Comprobar o estado
+sudo systemctl status auditd
+
+# Comprobar o estado da configuración
+sudo auditctl -s</code></pre>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.9.2. Crear unha regra de auditor&iacute;a temporal</h3>
+         <p>Exemplo: auditar o cartafol <code>/srv/documentos</code></p>
+         <pre class="cmd-block"><code class="language-bash">sudo auditctl -w /srv/documentos -p rwxa -k auditoria_documentos</code></pre>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Elemento</th><th>Significado</th></tr></thead>
+           <tbody>
+            <tr><td><code>-w /srv/documentos</code></td><td>Ruta que se vai vixiar</td></tr>
+            <tr><td><code>-p rwxa</code></td><td>Permisos ou acci&oacute;ns que se van auditar</td></tr>
+            <tr><td><code>r</code></td><td>lectura</td></tr>
+            <tr><td><code>w</code></td><td>escritura ou modificaci&oacute;n</td></tr>
+            <tr><td><code>x</code></td><td>execuci&oacute;n</td></tr>
+            <tr><td><code>a</code></td><td>cambio de atributos ou permisos</td></tr>
+            <tr><td><code>-k auditoria_documentos</code></td><td>Chave ou etiqueta para localizar eventos despois</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+          <div><strong>Importante:</strong> esta regra creada con <code>auditctl</code> pode ser temporal. Se o sistema se reinicia, pode perderse se non se gardou como regra persistente.</div>
+         </div>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.9.3. Consultar eventos xerados por unha regra</h3>
+         <pre class="cmd-block"><code class="language-bash"># Buscar eventos pola chave creada
+sudo ausearch -k auditoria_documentos
+
+# Informe resumido
+sudo aureport
+
+# Informe de autenticación
+sudo aureport -au
+
+# Informe de ficheiros
+sudo aureport -f</code></pre>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.9.4. Gardar unha regra persistente</h3>
+         <pre class="cmd-block"><code class="language-bash"># Gardar en /etc/audit/rules.d/auditoria-documentos.rules
+-w /srv/documentos -p rwxa -k auditoria_documentos
+
+# Cargar as regras
+sudo augenrules --load
+
+# Comprobar que están activas
+sudo auditctl -l</code></pre>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2">4.9.5. Cando usar logs b&aacute;sicos e cando usar auditd</h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Necesidade</th><th>Ferramenta axeitada</th></tr></thead>
+           <tbody>
+            <tr><td>Ver quen iniciou sesi&oacute;n</td><td><code>last</code>, <code>journalctl</code>, <code>/var/log/auth.log</code></td></tr>
+            <tr><td>Ver intentos fallidos de acceso SSH</td><td><code>/var/log/auth.log</code>, <code>journalctl -u ssh</code>, <code>lastb</code></td></tr>
+            <tr><td>Ver quen usou <code>sudo</code></td><td><code>/var/log/auth.log</code>, <code>journalctl</code></td></tr>
+            <tr><td>Auditar acceso a un ficheiro concreto</td><td><code>auditd</code> + <code>auditctl</code> + <code>ausearch</code></td></tr>
+            <tr><td>Auditar cambios de permisos nun cartafol</td><td><code>auditd</code></td></tr>
+            <tr><td>Crear informes resumidos de auditor&iacute;a</td><td><code>aureport</code></td></tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.10: COMPARATIVA -->
+      <section class="mb-5 section-anchor" id="4-10-comparativa">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-table"></i></span>
+         <h2 class="h4 fw-bold mb-0">4.10. Comparativa r&aacute;pida Windows / Ubuntu</h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Quero comprobar&hellip;</th><th><i class="bi bi-windows me-1"></i>Windows</th><th><i class="bi bi-ubuntu me-1"></i>Ubuntu / Linux</th></tr></thead>
+           <tbody>
+            <tr><td>Inicios de sesi&oacute;n correctos</td><td>Evento 4624</td><td><code>last</code>, <code>journalctl</code>, <code>/var/log/auth.log</code></td></tr>
+            <tr><td>Inicios de sesi&oacute;n fallidos</td><td>Evento 4625</td><td><code>lastb</code>, <code>journalctl</code>, <code>/var/log/auth.log</code></td></tr>
+            <tr><td>Uso de privilexios</td><td>Eventos de uso de privilexios</td><td><code>/var/log/auth.log</code>, <code>journalctl</code>, rexistros de <code>sudo</code></td></tr>
+            <tr><td>Acceso a ficheiros/cartafoles</td><td>Pol&iacute;tica de auditor&iacute;a + SACL + eventos 4656/4663</td><td><code>auditd</code>, <code>auditctl</code>, <code>ausearch</code></td></tr>
+            <tr><td>Cambio de permisos</td><td>Evento 4670</td><td><code>auditd</code></td></tr>
+            <tr><td>Cambio de pol&iacute;tica de auditor&iacute;a</td><td>Evento 4719</td><td>Cambios nas regras de <code>auditd</code></td></tr>
+            <tr><td>Borrado do rexistro de auditor&iacute;a</td><td>Evento 1102</td><td>Revisi&oacute;n de logs e permisos administrativos</td></tr>
+            <tr><td>Tama&ntilde;o dos logs</td><td>Propiedades do rexistro no Visor de eventos</td><td><code>journalctl --disk-usage</code>, <code>logrotate</code>, configuraci&oacute;n de <code>journald</code></td></tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.11: RENDEMENTO -->
+      <section class="mb-5 section-anchor" id="4-11-rendemento">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-speedometer2"></i></span>
+         <h2 class="h4 fw-bold mb-0">4.11. Repercusi&oacute;ns da auditor&iacute;a no rendemento</h2>
+        </div>
+        <div class="content-card-body">
+         <p>Activar auditor&iacute;a nun sistema <strong>non &eacute; gra&iacute;to</strong>. Cada evento auditado pode xerar unha escritura nun ficheiro de log ou nun rexistro de eventos.</p>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Repercusi&oacute;n</th><th>Causa</th><th>Como minimizala</th></tr></thead>
+           <tbody>
+            <tr><td>Aumento de escrituras en disco</td><td>Cada evento auditado xera unha entrada no log</td><td>Auditar s&oacute; o necesario</td></tr>
+            <tr><td>Crecemento dos logs</td><td>Moitos eventos acumulan moito espazo</td><td>Configurar l&iacute;mites, rotaci&oacute;n e arquivado</td></tr>
+            <tr><td>Posible ralentizaci&oacute;n</td><td>Auditor&iacute;a excesiva nun sistema con moita actividade</td><td>Evitar auditar todos os eventos e todos os usuarios</td></tr>
+            <tr><td>Dificultade de revisi&oacute;n</td><td>Demasiados eventos fan dif&iacute;cil atopar o importante</td><td>Filtrar por usuario, ID, chave ou per&iacute;odo</td></tr>
+            <tr><td>Perda de evidencias</td><td>O log sobreescr&iacute;bese ou b&oacute;rrase</td><td>Exportar, arquivar ou centralizar rexistros</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-lightbulb flex-shrink-0 mt-1"></i>
+          <div><strong>Regra pr&aacute;ctica:</strong> audita o <strong>m&iacute;nimo necesario</strong> para cumprir o obxectivo de seguridade. M&aacute;is auditor&iacute;a non sempre significa mellor auditor&iacute;a.</div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.12: XESTIÓN DOS REXISTROS -->
+      <section class="mb-5 section-anchor" id="4-12-xestion">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-archive"></i></span>
+         <h2 class="h4 fw-bold mb-0">4.12. Xesti&oacute;n dos rexistros de auditor&iacute;a</h2>
+        </div>
+        <div class="content-card-body">
+         <p>Os rexistros de auditor&iacute;a acumulan informaci&oacute;n co paso do tempo. Se non se xestionan correctamente, poden ocupar demasiado espazo ou perder evidencias importantes.</p>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2"><i class="bi bi-windows me-1"></i>4.12.1. En Windows</h3>
+         <p>Desde o Visor de eventos p&oacute;dese configurar:</p>
+         <ul>
+          <li>tama&ntilde;o m&aacute;ximo do rexistro;</li>
+          <li>sobreescribir eventos antigos cando sexa necesario;</li>
+          <li>arquivar o rexistro cando se encha;</li>
+          <li>non sobreescribir eventos.</li>
+         </ul>
+         <p>Formatos de exportaci&oacute;n dispon&iacute;beis: <code>.evtx</code>, <code>.xml</code>, <code>.txt</code>, <code>.csv</code>.</p>
+
+         <h3 class="h5 fw-semibold mt-4 mb-2"><i class="bi bi-ubuntu me-1"></i>4.12.2. En Ubuntu / Linux</h3>
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Mecanismo</th><th>Funci&oacute;n</th></tr></thead>
+           <tbody>
+            <tr><td><code>logrotate</code></td><td>Xira, comprime e arquiva logs antigos</td></tr>
+            <tr><td><code>journald</code></td><td>Xestiona o journal de <code>systemd</code></td></tr>
+            <tr><td><code>journalctl --disk-usage</code></td><td>Amosa canto espazo ocupa o journal</td></tr>
+            <tr><td>Configuraci&oacute;n de <code>auditd</code></td><td>Controla como se almacenan os logs de auditor&iacute;a</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <pre class="cmd-block"><code class="language-bash"># Comprobar espazo do journal
+journalctl --disk-usage
+
+# Consultar configuración de rotación de logs
+cat /etc/logrotate.conf
+
+# Consultar configuracións específicas
+ls /etc/logrotate.d/</code></pre>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 4.13: DOCUMENTACIÓN -->
+      <section class="mb-5 section-anchor" id="4-13-documentacion">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-file-earmark-text"></i></span>
+         <h2 class="h4 fw-bold mb-0">4.13. Documentaci&oacute;n da auditor&iacute;a</h2>
+        </div>
+        <div class="content-card-body">
+         <p>O resultado dunha auditor&iacute;a non &eacute; s&oacute; o conxunto de logs xerados. &Eacute; necesario <strong>documentar o proceso e as conclusi&oacute;ns</strong> para que sexan &uacute;tiles.</p>
+         <p>Un informe de auditor&iacute;a sinxelo debe recoller:</p>
+         <ol>
+          <li><strong>Identificaci&oacute;n:</strong> data, sistema auditado, persoa responsable e contexto da auditor&iacute;a.</li>
+          <li><strong>Obxectivo:</strong> que se quer&iacute;a comprobar.</li>
+          <li><strong>&Aacute;mbito:</strong> que equipo, usuario, grupo, cartafol, servizo ou per&iacute;odo foi auditado.</li>
+          <li><strong>M&eacute;todo:</strong> que pol&iacute;ticas se activaron, que regras se configuraron e que logs se revisaron.</li>
+          <li><strong>Evidencias:</strong> eventos relevantes atopados, con datos concretos: ID, usuario, data/hora, equipo, recurso afectado e descrici&oacute;n.</li>
+          <li><strong>Interpretaci&oacute;n:</strong> que demostran esas evidencias.</li>
+          <li><strong>Conclusi&oacute;n:</strong> funcionamento normal, acceso non autorizado, erro de configuraci&oacute;n, intento fallido, uso indebido, etc.</li>
+          <li><strong>Recomendaci&oacute;ns:</strong> cambiar permisos, revisar contas, mellorar contrasinais, activar m&aacute;is auditor&iacute;a, arquivar logs, etc.</li>
+         </ol>
+         <div class="notice info my-3 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div>Este modelo de documentaci&oacute;n &eacute; o mesmo que se pode empregar nun parte ou informe t&eacute;cnico da UD3.</div>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 5: ERROS TÍPICOS -->
+      <section class="mb-5 section-anchor" id="5-erros-tipicos">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-exclamation-triangle"></i></span>
+         <h2 class="h4 fw-bold mb-0">5. Erros t&iacute;picos ao traballar con auditor&iacute;a</h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Erro t&iacute;pico</th><th>Por que &eacute; un problema</th><th>Como evitalo</th></tr></thead>
+           <tbody>
+            <tr><td>Activar auditor&iacute;a despois da incidencia</td><td>Non haber&aacute; rexistros do que xa pasou</td><td>Planificar a auditor&iacute;a antes</td></tr>
+            <tr><td>Auditar todo</td><td>X&eacute;ranse demasiados eventos</td><td>Definir obxectivos concretos</td></tr>
+            <tr><td>Non anotar data e hora exactas</td><td>Dificulta localizar eventos</td><td>Rexistrar sempre o per&iacute;odo revisado</td></tr>
+            <tr><td>Confundir permiso con auditor&iacute;a</td><td>Ter permisos non significa que se rexistren eventos</td><td>Configurar permisos e auditor&iacute;a por separado</td></tr>
+            <tr><td>En Windows, non configurar a SACL</td><td>Non aparecer&aacute;n eventos de acceso ao obxecto</td><td>Configurar auditor&iacute;a no cartafol/ficheiro</td></tr>
+            <tr><td>En Linux, pensar que <code>auth.log</code> audita todo</td><td><code>auth.log</code> non rexistra todos os accesos a ficheiros</td><td>Usar <code>auditd</code> cando sexa necesario</td></tr>
+            <tr><td>Non executar comandos con permisos suficientes</td><td>Non se ven todos os eventos</td><td>Usar <code>sudo</code> cando proceda</td></tr>
+            <tr><td>Non exportar evidencias</td><td>P&oacute;dense perder logs importantes</td><td>Gardar capturas, exportaci&oacute;ns ou fragmentos relevantes</td></tr>
+            <tr><td>Non interpretar os eventos</td><td>Un log sen explicaci&oacute;n non demostra nada</td><td>Explicar que indica cada evidencia</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 6: MINI PRÁCTICA GUIADA -->
+      <section class="mb-5 section-anchor" id="6-mini-practica">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-tools"></i></span>
+         <h2 class="h4 fw-bold mb-0">6. Mini pr&aacute;ctica guiada de aula</h2>
+        </div>
+        <div class="content-card-body">
+         <div class="notice info mb-4 d-flex gap-2 align-items-start">
+          <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+          <div><strong>Escenario:</strong> queremos comprobar se hai intentos de acceso non autorizados a un cartafol chamado <code>Privado</code>.</div>
+         </div>
+
+         <div class="row g-3">
+          <div class="col-md-6">
+           <div class="card h-100 section-platform platform-windows">
+            <div class="card-header d-flex align-items-center gap-2">
+             <i class="bi bi-windows"></i> En Windows
+            </div>
+            <div class="card-body">
+             <ol class="mb-0">
+              <li>Crear o cartafol <code>C:\Auditoria\Privado</code>.</li>
+              <li>Crear ou empregar dous usuarios: <code>usuario_autorizado</code> e <code>usuario_sen_permiso</code>.</li>
+              <li>Configurar permisos para que s&oacute; <code>usuario_autorizado</code> poida acceder.</li>
+              <li>Activar a auditor&iacute;a de acceso a obxectos.</li>
+              <li>Configurar a auditor&iacute;a no cartafol <code>Privado</code>.</li>
+              <li>Intentar acceder co usuario sen permiso.</li>
+              <li>Abrir o Visor de eventos e buscar eventos no rexistro de seguridade.</li>
+              <li>Anotar: ID do evento, usuario, data e hora, recurso afectado, resultado.</li>
+             </ol>
+            </div>
+           </div>
+          </div>
+          <div class="col-md-6">
+           <div class="card h-100 section-platform platform-linux">
+            <div class="card-header d-flex align-items-center gap-2">
+             <i class="bi bi-ubuntu"></i> En Ubuntu/Linux
+            </div>
+            <div class="card-body">
+             <ol>
+              <li>Crear o cartafol:</li>
+             </ol>
+             <pre class="cmd-block"><code class="language-bash">sudo mkdir -p /srv/auditoria/privado</code></pre>
+             <ol start="2">
+              <li>Crear dous usuarios:</li>
+             </ol>
+             <pre class="cmd-block"><code class="language-bash">sudo adduser usuario_autorizado
+sudo adduser usuario_sen_permiso</code></pre>
+             <ol start="3">
+              <li>Configurar permisos b&aacute;sicos do cartafol.</li>
+              <li>Instalar <code>auditd</code> se non est&aacute; instalado.</li>
+              <li>Crear unha regra de auditor&iacute;a:</li>
+             </ol>
+             <pre class="cmd-block"><code class="language-bash">sudo auditctl -w /srv/auditoria/privado -p rwxa -k auditoria_privado</code></pre>
+             <ol start="6">
+              <li>Realizar accesos permitidos e denegados.</li>
+              <li>Consultar os eventos:</li>
+             </ol>
+             <pre class="cmd-block mb-0"><code class="language-bash">sudo ausearch -k auditoria_privado</code></pre>
+            </div>
+           </div>
+          </div>
+         </div>
+         <hr class="mt-4"/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 7: CADRO RESUMO -->
+      <section class="mb-5 section-anchor" id="7-cadro-resumo">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-table"></i></span>
+         <h2 class="h4 fw-bold mb-0">7. Cadro resumo</h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Bloque</th><th>Ideas principais</th></tr></thead>
+           <tbody>
+            <tr><td>Que &eacute; a auditor&iacute;a</td><td>Proceso de rexistrar e revisar eventos de uso e acceso ao sistema</td></tr>
+            <tr><td>Para que serve</td><td>Detectar accesos indebidos, revisar incidencias e obter evidencias</td></tr>
+            <tr><td>Obxectos auditables</td><td>Usuarios, grupos, ficheiros, cartafoles, dispositivos, servizos, pol&iacute;ticas</td></tr>
+            <tr><td>Sucesos auditables</td><td>Login correcto/fallido, acceso correcto/denegado, uso de privilexios, cambios de permisos</td></tr>
+            <tr><td>Plan de auditor&iacute;a</td><td>Define obxectivo, &aacute;mbito, obxectos, sucesos, ferramentas, impacto e revisi&oacute;n</td></tr>
+            <tr><td>Windows</td><td>Pol&iacute;ticas de auditor&iacute;a, SACL, Visor de eventos, rexistro de seguridade</td></tr>
+            <tr><td>Ubuntu b&aacute;sico</td><td><code>/var/log/auth.log</code>, <code>journalctl</code>, <code>last</code>, <code>lastb</code>, rexistros de <code>sudo</code></td></tr>
+            <tr><td>Ubuntu avanzado</td><td><code>auditd</code>, <code>auditctl</code>, <code>ausearch</code>, <code>aureport</code></td></tr>
+            <tr><td>Rendemento</td><td>A auditor&iacute;a xera escrituras, ocupa espazo e pode dificultar a revisi&oacute;n se &eacute; excesiva</td></tr>
+            <tr><td>Xesti&oacute;n de rexistros</td><td>Windows: tama&ntilde;o e exportaci&oacute;n; Linux
+            <tr><td>Xesti&oacute;n de rexistros</td><td>Windows: tama&ntilde;o e exportaci&oacute;n; Linux: <code>logrotate</code>, <code>journald</code>, configuraci&oacute;n de <code>auditd</code></td></tr>
+            <tr><td>Informe t&eacute;cnico</td><td>Debe inclu&iacute;r obxectivo, m&eacute;todo, evidencias, interpretaci&oacute;n, conclusi&oacute;n e recomendaci&oacute;ns</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+      <!-- SECTION 8: VOCABULARIO COMPLETO -->
+      <section class="mb-5 section-anchor" id="8-vocabulario-completo">
+       <div class="content-card">
+        <div class="content-card-header">
+         <span class="section-icon"><i class="bi bi-translate"></i></span>
+         <h2 class="h4 fw-bold mb-0">8. Vocabulario completo</h2>
+        </div>
+        <div class="content-card-body">
+         <div class="table-responsive my-3">
+          <table class="table table-sm table-striped align-middle">
+           <thead><tr><th>Galego</th><th>Ingl&eacute;s</th></tr></thead>
+           <tbody>
+            <tr><td>Auditor&iacute;a</td><td>Audit</td></tr>
+            <tr><td>Rexistro de auditor&iacute;a</td><td>Audit log</td></tr>
+            <tr><td>Evento / suceso</td><td>Event</td></tr>
+            <tr><td>Suceso correcto</td><td>Success event</td></tr>
+            <tr><td>Suceso de erro / fallido</td><td>Failure event</td></tr>
+            <tr><td>Obxecto auditable</td><td>Auditable object</td></tr>
+            <tr><td>Pol&iacute;tica de auditor&iacute;a</td><td>Audit policy</td></tr>
+            <tr><td>Pol&iacute;tica avanzada de auditor&iacute;a</td><td>Advanced audit policy</td></tr>
+            <tr><td>Dereito de usuario</td><td>User right</td></tr>
+            <tr><td>Visor de eventos</td><td>Event Viewer</td></tr>
+            <tr><td>Rexistro de seguridade</td><td>Security log</td></tr>
+            <tr><td>ID de evento</td><td>Event ID</td></tr>
+            <tr><td>Inicio de sesi&oacute;n</td><td>Logon</td></tr>
+            <tr><td>Peche de sesi&oacute;n</td><td>Logoff</td></tr>
+            <tr><td>Acceso denegado</td><td>Access denied</td></tr>
+            <tr><td>Uso de privilexios</td><td>Privilege use</td></tr>
+            <tr><td>Cambio de permisos</td><td>Permission change</td></tr>
+            <tr><td>Lista de control de acceso</td><td>Access Control List / ACL</td></tr>
+            <tr><td>Lista de control de acceso do sistema</td><td>System Access Control List / SACL</td></tr>
+            <tr><td>Rotaci&oacute;n de logs</td><td>Log rotation</td></tr>
+            <tr><td>Informe de auditor&iacute;a</td><td>Audit report</td></tr>
+            <tr><td>Evidencia</td><td>Evidence</td></tr>
+            <tr><td>Sistema de auditor&iacute;a de Linux</td><td>Linux Audit System</td></tr>
+            <tr><td>Demo&ntilde;o de auditor&iacute;a</td><td>Audit daemon</td></tr>
+            <tr><td>Regra de auditor&iacute;a</td><td>Audit rule</td></tr>
+            <tr><td>Busca en rexistros de auditor&iacute;a</td><td>Audit search</td></tr>
+            <tr><td>Informe resumido de auditor&iacute;a</td><td>Audit report summary</td></tr>
+           </tbody>
+          </table>
+         </div>
+         <hr/>
+        </div>
+       </div>
+      </section>
+
+     </article>
+    </main>
+   </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="smpp-footer no-print">
+   <div class="smpp-footer-spacer"></div>
+   <div class="smpp-footer-center">
+    <span>CIFP A Carballeira &middot; Ourense</span>
+    Administraci&oacute;n de sistemas inform&aacute;ticos &middot; Curso 2026/27
+    <br/>
+    Material did&aacute;ctico de uso interno
+   </div>
+   <img alt="" class="smpp-sauce" onerror="this.style.display='none'" src="../../assets/imax/sauce_clean.svg"/>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/smpp.js"></script>
+ </body>
+</html>
