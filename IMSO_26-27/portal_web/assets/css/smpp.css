@@ -985,3 +985,51 @@ article .lead {
   .response-lines,
   .answer-lines { min-height: 8rem; }
 }
+
+/* =============================================================
+ UD1 – Tarxetas índice horizontais
+ Mantén layout vertical en móbil, horizontal dende 768px
+============================================================= */
+
+/* Estilo base: móbil (columna) */
+.ud1-card-index {
+  display: flex;
+  flex-direction: column;   /* icono arriba, texto abaixo en pantallas pequenas */
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* Icona / número */
+.ud1-card-index .ud1-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background-color: var(--bs-tertiary-bg);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+/* Corpo textual */
+.ud1-card-index .ud1-card-body {
+  padding: 0.85rem 1rem 1rem;
+}
+
+/* A partir de 768px: tarxeta horizontal */
+@media (min-width: 768px) {
+  .ud1-card-index {
+    flex-direction: row;      /* icono á esquerda, texto á dereita */
+    align-items: stretch;
+    height: auto;             /* que creza co contido, sen cortar texto */
+  }
+
+  .ud1-card-index .ud1-card-icon {
+    flex: 0 0 120px;          /* ancho fixo para a columna da icona */
+    border-bottom: none;
+    border-right: 1px solid var(--bs-border-color);
+  }
+
+  .ud1-card-index .ud1-card-body {
+    flex: 1 1 auto;
+    overflow: visible;
+  }
+}

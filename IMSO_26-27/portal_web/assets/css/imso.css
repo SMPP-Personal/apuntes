@@ -388,3 +388,38 @@ article .lead {
     flex-shrink: 0;
     opacity: 0.85;
 }
+
+
+/* =============================================================
+ UD1 – Tarxetas índice horizontais en pantallas medias/grandes
+ Mantén layout vertical en móbil, horizontal desde 768px
+============================================================= */
+
+@media (min-width: 768px) {
+  /* Contedor da tarxeta */
+  .ud1-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: auto;              /* evita corte de texto */
+  }
+
+  /* Columna esquerda: icona/número */
+  .ud1-card-icon {
+    flex: 0 0 120px;           /* ancho fixo, axusta ó gusto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Columna dereita: contido textual */
+  .ud1-card-body {
+    flex: 1 1 auto;
+    overflow: visible;         /* por se acaso había hidden */
+  }
+}
+
+/* Opcional: se agora mesmo tiñas alturas fixas, mellor min-height */
+.ud1-card {
+  min-height: 180px;           /* opcional, quita ou axusta */
+}
