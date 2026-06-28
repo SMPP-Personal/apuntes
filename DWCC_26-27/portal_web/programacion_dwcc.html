@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Programación MP0612 · Desenvolvemento web en contorno cliente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <style>
+    :root{
+      --bg:#020617;--bg2:#0b1120;--card:rgba(15,23,42,0.97);--border:rgba(148,163,184,0.45);
+      --text:#e5e7eb;--muted:#9ca3af;--dim:#6b7280;
+      --green:#22c55e;--green-light:#4ade80;--green-soft:rgba(34,197,94,0.15);
+      --blue:#38bdf8;--blue-soft:rgba(56,189,248,0.15);
+      --purple:#a78bfa;--purple-soft:rgba(167,139,250,0.15);
+      --orange:#fb923c;--orange-soft:rgba(251,146,60,0.15);
+      --red:#f87171;--red-soft:rgba(248,113,113,0.15);
+      --yellow:#fbbf24;--yellow-soft:rgba(251,191,36,0.15);
+      --r-xl:24px;--r-lg:18px;--r-md:13px;--r-sm:8px;--r-pill:999px;
+      --shadow:0 20px 60px rgba(2,6,23,0.9);
+      --container:1180px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:"Inter",system-ui,sans-serif;color:var(--text);min-height:100vh;
+      background:
+        radial-gradient(circle at 5% 5%,rgba(56,189,248,0.18),transparent 50%),
+        radial-gradient(circle at 95% 5%,rgba(34,197,94,0.18),transparent 55%),
+        radial-gradient(circle at 80% 85%,rgba(167,139,250,0.14),transparent 55%),
+        linear-gradient(160deg,var(--bg),#030a1a 50%,var(--bg2));
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none;}
+
+    /* ── Layout ── */
+    .layout{
+      position:relative;z-index:1;
+      display:grid;grid-template-columns:268px minmax(0,1fr);gap:22px;
+      width:min(var(--container),100% - 32px);margin:0 auto;padding:22px 0 52px;
+    }
+    .shell{display:flex;flex-direction:column;gap:20px;}
+
+    /* ── Sidebar ── */
+    .sidebar{
+      position:sticky;top:18px;align-self:flex-start;
+      padding:16px 14px;border-radius:var(--r-xl);
+      border:1px solid var(--border);
+      background:linear-gradient(160deg,#030a1a,#0d1526);
+      box-shadow:var(--shadow);
+    }
+    .sidebar-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+    .sidebar-head .icon-wrap{
+      width:34px;height:34px;border-radius:var(--r-pill);display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--blue-soft),var(--green-soft));
+      color:var(--blue);font-size:1.1rem;
+    }
+    .sidebar-head h2{font-size:.82rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);}
+    .nav-list{list-style:none;display:flex;flex-direction:column;gap:4px;}
+    .nav-list a{
+      display:flex;align-items:center;gap:8px;padding:7px 10px;
+      border-radius:var(--r-pill);font-size:.84rem;color:var(--muted);
+      border:1px solid transparent;
+      transition:all .2s ease;
+    }
+    .nav-list a i{font-size:.88rem;color:var(--blue);}
+    .nav-list a:hover{
+      background:rgba(15,23,42,.96);border-color:rgba(56,189,248,.32);
+      color:var(--text);transform:translateX(3px);
+    }
+
+    /* ── Header ── */
+    .header-card{
+      padding:22px 24px 18px;border-radius:var(--r-xl);
+      border:1px solid var(--border);
+      background:
+        radial-gradient(circle at 8% 0%,rgba(56,189,248,.26),transparent 55%),
+        radial-gradient(circle at 94% 0%,rgba(34,197,94,.28),transparent 60%),
+        linear-gradient(135deg,#020617,#0f172a);
+      box-shadow:var(--shadow);
+    }
+    .header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px;}
+    .header-top h1{font-size:clamp(1.7rem,3vw,2.3rem);letter-spacing:-.04em;line-height:1.1;}
+    .header-top h1 span{
+      background:linear-gradient(135deg,#e5e7eb,var(--blue),var(--green-light));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .header-top p{margin-top:6px;color:var(--muted);font-size:.93rem;max-width:50ch;line-height:1.6;}
+    .badge{
+      display:inline-flex;align-items:center;gap:7px;padding:7px 13px;
+      border-radius:var(--r-pill);border:1px solid rgba(56,189,248,.32);
+      background:rgba(15,23,42,.9);color:#e0f2fe;font-size:.8rem;white-space:nowrap;flex-shrink:0;
+    }
+    .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .meta-card{
+      padding:12px 14px 10px;border-radius:var(--r-lg);
+      background:rgba(15,23,42,.94);border:1px solid rgba(148,163,184,.5);
+    }
+    .meta-card h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;}
+    .pills{display:flex;flex-wrap:wrap;gap:7px;}
+    .pill{
+      display:inline-flex;align-items:center;gap:5px;padding:3px 8px;
+      border-radius:var(--r-pill);background:rgba(31,41,55,.96);
+      border:1px solid rgba(55,65,81,.9);font-size:.78rem;color:var(--muted);
+    }
+    .pill i{font-size:.82rem;color:var(--blue);}
+
+    /* ── Section card ── */
+    .section-card{
+      padding:20px 22px 22px;border-radius:var(--r-xl);
+      background:var(--card);border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+    .section-header{
+      display:flex;align-items:center;gap:12px;padding-bottom:14px;
+      border-bottom:1px solid rgba(55,65,81,.7);margin-bottom:16px;
+    }
+    .section-icon{
+      width:42px;height:42px;border-radius:var(--r-md);display:grid;place-items:center;
+      font-size:1.15rem;flex-shrink:0;
+    }
+    .section-header h2{font-size:1.2rem;letter-spacing:-.02em;}
+    .section-header .tag{
+      margin-left:auto;display:inline-flex;align-items:center;gap:5px;
+      padding:3px 9px;border-radius:var(--r-pill);font-size:.75rem;
+    }
+
+    /* ── Colours ── */
+    .c-green{color:var(--green);}
+    .c-blue{color:var(--blue);}
+    .c-purple{color:var(--purple);}
+    .c-orange{color:var(--orange);}
+    .c-red{color:var(--red);}
+    .c-yellow{color:var(--yellow);}
+    .bg-green{background:var(--green-soft);border:1px solid rgba(34,197,94,.35);}
+    .bg-blue{background:var(--blue-soft);border:1px solid rgba(56,189,248,.35);}
+    .bg-purple{background:var(--purple-soft);border:1px solid rgba(167,139,250,.35);}
+    .bg-orange{background:var(--orange-soft);border:1px solid rgba(251,146,60,.35);}
+    .bg-red{background:var(--red-soft);border:1px solid rgba(248,113,113,.35);}
+    .bg-yellow{background:var(--yellow-soft);border:1px solid rgba(251,191,36,.35);}
+
+    /* ── Index grid (Contido) ── */
+    .index-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:14px;}
+    .index-item{
+      padding:10px 12px;border-radius:var(--r-md);
+      background:rgba(15,23,42,.9);border:1px solid rgba(55,65,81,.8);
+      display:flex;align-items:flex-start;gap:8px;font-size:.88rem;
+      transition:border-color .2s,transform .2s;
+    }
+    .index-item:hover{border-color:rgba(56,189,248,.4);transform:translateY(-1px);}
+    .index-item i{color:var(--blue);margin-top:2px;flex-shrink:0;}
+    .index-item a{color:var(--text);}
+    .index-item a:hover{color:var(--blue);}
+
+    /* ── UD cards ── */
+    .ud-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px;}
+    .ud-card{
+      padding:16px 18px;border-radius:var(--r-lg);
+      background:linear-gradient(135deg,rgba(15,23,42,.98),rgba(11,17,38,.98));
+      position:relative;overflow:hidden;
+    }
+    .ud-card::before{
+      content:"";position:absolute;inset:auto -12% -24% auto;
+      width:120px;height:120px;border-radius:50%;pointer-events:none;opacity:.6;
+    }
+    .ud-card.ud1::before{background:radial-gradient(circle,rgba(56,189,248,.28),transparent 70%);}
+    .ud-card.ud2::before{background:radial-gradient(circle,rgba(34,197,94,.28),transparent 70%);}
+    .ud-num{
+      display:inline-flex;align-items:center;gap:7px;
+      padding:3px 10px;border-radius:var(--r-pill);font-size:.78rem;font-weight:600;
+      margin-bottom:8px;
+    }
+    .ud-card h3{font-size:1.05rem;margin-bottom:5px;}
+    .ud-card p{font-size:.9rem;color:var(--muted);line-height:1.65;margin-bottom:10px;}
+    .ud-stats{display:flex;gap:10px;flex-wrap:wrap;}
+    .ud-stat{
+      display:inline-flex;align-items:center;gap:5px;padding:4px 9px;
+      border-radius:var(--r-pill);background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.07);font-size:.8rem;color:var(--muted);
+    }
+
+    /* ── RA/BC blocks ── */
+    .ud-section-label{
+      display:flex;align-items:center;gap:10px;margin:18px 0 10px;
+      padding:8px 14px;border-radius:var(--r-md);font-size:.9rem;font-weight:600;
+    }
+    .ra-block{
+      padding:13px 15px;border-radius:var(--r-lg);margin-bottom:12px;
+      background:rgba(15,23,42,.9);border-left:3px solid;
+    }
+    .ra-block.ra-green{border-left-color:var(--green);}
+    .ra-block.ra-blue{border-left-color:var(--blue);}
+    .ra-block.ra-purple{border-left-color:var(--purple);}
+    .ra-block.ra-orange{border-left-color:var(--orange);}
+    .ra-block.ra-red{border-left-color:var(--red);}
+    .ra-title{
+      display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;
+    }
+    .ra-chip{
+      display:inline-flex;align-items:center;gap:5px;padding:3px 9px;
+      border-radius:var(--r-pill);font-size:.76rem;font-weight:700;
+      white-space:nowrap;flex-shrink:0;margin-top:1px;
+    }
+    .ra-title p{font-size:.92rem;color:var(--text);font-weight:500;line-height:1.5;}
+    .ca-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+    .ca-list li{
+      display:flex;align-items:flex-start;gap:8px;
+      font-size:.88rem;color:var(--muted);line-height:1.6;
+      padding:4px 6px;border-radius:var(--r-sm);
+      background:rgba(255,255,255,.025);
+    }
+    .ca-list li::before{
+      content:"›";flex-shrink:0;margin-top:1px;font-size:1rem;
+      color:var(--blue);font-weight:700;
+    }
+    .bc-block{
+      padding:10px 13px;border-radius:var(--r-md);margin-bottom:10px;
+      background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);
+    }
+    .bc-chip{
+      display:inline-flex;align-items:center;gap:5px;padding:3px 9px;
+      border-radius:var(--r-pill);font-size:.76rem;font-weight:700;
+      background:var(--blue-soft);border:1px solid rgba(56,189,248,.5);
+      color:var(--blue);margin-bottom:7px;
+    }
+    .bc-list{list-style:none;display:flex;flex-direction:column;gap:4px;}
+    .bc-list li{
+      display:flex;align-items:center;gap:7px;font-size:.88rem;color:var(--muted);padding:3px 4px;
+    }
+    .bc-list li::before{content:"◆";color:var(--blue);font-size:.55rem;flex-shrink:0;}
+
+    /* ── Tables ── */
+    .table-wrap{border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(55,65,81,.8);margin:12px 0;}
+    .table-wrap table{width:100%;border-collapse:collapse;font-size:.9rem;}
+    .table-wrap th{
+      padding:9px 12px;text-align:left;font-weight:600;font-size:.82rem;
+      text-transform:uppercase;letter-spacing:.06em;
+      background:linear-gradient(135deg,rgba(15,23,42,.98),rgba(20,30,55,.98));
+      color:var(--muted);border-bottom:1px solid rgba(55,65,81,.8);
+    }
+    .table-wrap td{
+      padding:9px 12px;border-bottom:1px solid rgba(55,65,81,.5);color:var(--text);font-size:.9rem;
+      line-height:1.55;
+    }
+    .table-wrap tr:last-child td{border-bottom:none;}
+    .table-wrap tr:hover td{background:rgba(255,255,255,.025);}
+
+    /* ── Prose ── */
+    .prose p{color:var(--muted);font-size:.94rem;line-height:1.75;margin-bottom:10px;}
+    .prose ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+    .prose ul li{
+      display:flex;align-items:flex-start;gap:9px;font-size:.92rem;
+      color:var(--muted);line-height:1.65;padding:6px 10px;
+      background:rgba(255,255,255,.025);border-radius:var(--r-sm);
+      border-left:2px solid rgba(56,189,248,.35);
+    }
+    .prose ul li i{flex-shrink:0;color:var(--blue);margin-top:2px;}
+    .prose ol{counter-reset:ol-counter;list-style:none;padding:0;margin-bottom:12px;}
+    .prose ol li{
+      display:flex;align-items:flex-start;gap:10px;counter-increment:ol-counter;
+      font-size:.92rem;color:var(--muted);line-height:1.65;
+      padding:7px 10px;border-radius:var(--r-sm);margin-bottom:6px;
+      background:rgba(255,255,255,.025);
+    }
+    .prose ol li::before{
+      content:counter(ol-counter);flex-shrink:0;
+      width:22px;height:22px;border-radius:var(--r-pill);display:grid;place-items:center;
+      background:var(--blue-soft);border:1px solid rgba(56,189,248,.4);
+      color:var(--blue);font-size:.76rem;font-weight:700;
+    }
+    .prose h3{font-size:1.02rem;color:var(--text);margin:14px 0 8px;display:flex;align-items:center;gap:8px;}
+    .prose h3 i{color:var(--green);}
+    .prose h4{font-size:.95rem;color:var(--text);margin:10px 0 6px;font-weight:600;}
+    .prose strong{color:var(--text);font-weight:600;}
+    .note-box{
+      padding:10px 13px;border-radius:var(--r-md);margin:10px 0;
+      background:var(--yellow-soft);border:1px solid rgba(251,191,36,.35);
+      font-size:.88rem;color:#fef3c7;line-height:1.65;
+    }
+    .note-box i{color:var(--yellow);margin-right:5px;}
+    .info-box{
+      padding:10px 13px;border-radius:var(--r-md);margin:10px 0;
+      background:var(--blue-soft);border:1px solid rgba(56,189,248,.35);
+      font-size:.88rem;color:#e0f2fe;line-height:1.65;
+    }
+    .info-box i{color:var(--blue);margin-right:5px;}
+
+    /* ── Activity cards ── */
+    .act-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;}
+    .act-card{
+      padding:13px 15px;border-radius:var(--r-lg);
+      background:rgba(15,23,42,.9);border:1px solid rgba(55,65,81,.7);
+      display:flex;align-items:flex-start;gap:11px;
+    }
+    .act-icon{
+      width:40px;height:40px;border-radius:var(--r-md);display:grid;place-items:center;
+      font-size:1.1rem;flex-shrink:0;
+    }
+    .act-card strong{display:block;font-size:.93rem;margin-bottom:3px;}
+    .act-card p{font-size:.86rem;color:var(--muted);line-height:1.6;margin:0;}
+
+    /* ── Otros apartados ── */
+    .other-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px;}
+    .other-card{
+      padding:14px 16px;border-radius:var(--r-lg);
+      background:rgba(15,23,42,.9);border:1px solid rgba(55,65,81,.7);
+    }
+    .other-card .oc-head{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+    .other-card .oc-head i{color:var(--green);font-size:1.1rem;}
+    .other-card h3{font-size:.93rem;}
+    .other-card ul{list-style:none;display:flex;flex-direction:column;gap:4px;}
+    .other-card li{font-size:.86rem;color:var(--muted);display:flex;gap:6px;align-items:flex-start;}
+    .other-card li::before{content:"–";color:var(--blue);flex-shrink:0;}
+
+    /* ── Responsive ── */
+    @media(max-width:1000px){
+      .layout{grid-template-columns:1fr;width:min(100% - 24px,var(--container));padding-top:16px;}
+      .sidebar{position:static;order:-1;}
+      .nav-list{flex-direction:row;flex-wrap:wrap;}
+      .nav-list a{font-size:.8rem;padding:5px 8px;}
+    }
+    @media(max-width:680px){
+      .ud-grid,.meta-grid,.act-grid,.other-grid{grid-template-columns:1fr;}
+      .index-grid{grid-template-columns:1fr 1fr;}
+      .table-wrap table{display:block;overflow-x:auto;}
+      .header-top{flex-direction:column;}
+    }
+    @media(max-width:480px){
+      .index-grid{grid-template-columns:1fr;}
+    }
+
+    /* ── Collapsible RA/BC ── */
+    details.ra-block, details.bc-block { margin-bottom:12px; border-radius:var(--r-lg); }
+    details.ra-block > summary, details.bc-block > summary {
+      display:flex; align-items:center; gap:8px;
+      cursor:pointer; list-style:none; user-select:none;
+      padding:11px 14px; border-radius:var(--r-lg);
+      transition:background .2s, border-color .2s;
+    }
+    details.ra-block > summary::-webkit-details-marker { display:none; }
+    details.bc-block > summary::-webkit-details-marker { display:none; }
+    details.ra-block { border-left:3px solid; }
+    details.ra-block.ra-green{border-left-color:var(--green);}
+    details.ra-block.ra-blue{border-left-color:var(--blue);}
+    details.ra-block.ra-purple{border-left-color:var(--purple);}
+    details.ra-block.ra-orange{border-left-color:var(--orange);}
+    details.ra-block.ra-red{border-left-color:var(--red);}
+    details.ra-block > summary { background:rgba(15,23,42,.9); }
+    details.ra-block > summary:hover { background:rgba(20,32,60,.96); }
+    details.ra-block[open] > summary { border-radius:var(--r-lg) var(--r-lg) 0 0; }
+    .ra-sum-text { flex:1; font-size:.92rem; color:var(--text); font-weight:500; line-height:1.4; }
+    .ra-chevron { margin-left:auto; color:var(--muted); font-size:.85rem; transition:transform .25s; }
+    details.ra-block[open] .ra-chevron { transform:rotate(180deg); }
+    .ra-body { padding:12px 14px 14px; background:rgba(15,23,42,.9); border-radius:0 0 var(--r-lg) var(--r-lg); }
+    details.bc-block { background:rgba(56,189,248,.06); border:1px solid rgba(56,189,248,.2); border-radius:var(--r-md); }
+    details.bc-block > summary { background:transparent; padding:9px 13px; }
+    details.bc-block > summary:hover { background:rgba(56,189,248,.08); }
+    details.bc-block[open] > summary { border-radius:var(--r-md) var(--r-md) 0 0; border-bottom:1px solid rgba(56,189,248,.15); }
+    .bc-sum-text { flex:1; font-size:.88rem; color:var(--blue); font-weight:600; }
+    .bc-chevron { margin-left:auto; color:var(--blue); font-size:.82rem; transition:transform .25s; }
+    details.bc-block[open] .bc-chevron { transform:rotate(180deg); }
+    .bc-body { padding:10px 13px 12px; }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-label="Índice da programación">
+    <div class="sidebar-head">
+      <div class="icon-wrap"><i class="bi bi-diagram-3"></i></div>
+      <h2>Contido da programación</h2>
+    </div>
+    <ul class="nav-list">
+      <li><a href="#sec-contido"><i class="bi bi-list-check"></i>Contido</a></li>
+      <li><a href="#sec-1"><i class="bi bi-cpu"></i>1. Concreción do currículo</a></li>
+      <li><a href="#sec-2"><i class="bi bi-list-ol"></i>2. Unidades didácticas</a></li>
+      <li><a href="#sec-3"><i class="bi bi-diagram-3"></i>3. Elementos curriculares</a></li>
+      <li><a href="#sec-4"><i class="bi bi-search"></i>4. Avaliación inicial</a></li>
+      <li><a href="#sec-5"><i class="bi bi-clipboard-check"></i>5. Cualificación e recuperación</a></li>
+      <li><a href="#sec-6"><i class="bi bi-arrow-repeat"></i>6. Materias pendentes</a></li>
+      <li><a href="#sec-7"><i class="bi bi-stars"></i>7. Proba extraordinaria</a></li>
+      <li><a href="#sec-8"><i class="bi bi-life-preserver"></i>8. Medidas de reforzo</a></li>
+      <li><a href="#sec-9"><i class="bi bi-heart-pulse"></i>9. Educación en valores</a></li>
+      <li><a href="#sec-10"><i class="bi bi-geo-alt"></i>10. Actividades complementarias</a></li>
+      <li><a href="#sec-11"><i class="bi bi-bar-chart"></i>11. Seguimento programación</a></li>
+      <li><a href="#sec-12"><i class="bi bi-people"></i>12. Outros apartados</a></li>
+    </ul>
+  </aside>
+
+  <div class="shell">
+
+    <!-- HEADER -->
+    <header class="header-card">
+      <div class="header-top">
+        <div>
+          <h1>Programación <span>MP0612 · Desenvolvemento web en contorno cliente</span></h1>
+          <p>Versión alumnado · Ciclo D3IFC000300 - Desenvolvemento de aplicacións web · Curso 2025/2026</p>
+        </div>
+        <div class="badge"><i class="bi bi-braces"></i> DAW · Programación en contorno cliente</div>
+      </div>
+      <div class="meta-grid">
+        <div class="meta-card">
+          <h3>Centro educativo</h3>
+          <div class="pills">
+            <span class="pill"><i class="bi bi-hash"></i>32008902</span>
+            <span class="pill"><i class="bi bi-building"></i>CIFP A Carballeira-Marcos Valcárcel</span>
+            <span class="pill"><i class="bi bi-geo-alt"></i>Ourense</span>
+            <span class="pill"><i class="bi bi-calendar3"></i>2025/2026</span>
+          </div>
+        </div>
+        <div class="meta-card">
+          <h3>Módulo e organización</h3>
+          <div class="pills">
+            <span class="pill"><i class="bi bi-code-slash"></i>MP0612 · Contorno cliente (2º)</span>
+            <span class="pill"><i class="bi bi-people"></i>Grupo A · Presencial</span>
+            <span class="pill"><i class="bi bi-clock-history"></i>6 sesións/semana · 219h anuais</span>
+            <span class="pill"><i class="bi bi-person-badge"></i>Peña Pérez, Silvia María</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTIDO -->
+    <section class="section-card" id="sec-contido">
+      <div class="section-header">
+        <div class="section-icon bg-blue c-blue"><i class="bi bi-list-check"></i></div>
+        <h2>Contido da programación</h2>
+        <span class="tag bg-blue c-blue"><i class="bi bi-hash"></i>12 apartados</span>
+      </div>
+      <p style="color:var(--muted);font-size:.92rem;margin-bottom:14px;">A programación estrutúrase nos seguintes apartados. Podes navegar a calquera deles desde o índice lateral ou directamente desde estas tarxetas.</p>
+      <div class="index-grid">
+        <div class="index-item"><i class="bi bi-cpu"></i><a href="#sec-1">1. Concreción do currículo en relación co ámbito produtivo TIC</a></div>
+        <div class="index-item"><i class="bi bi-list-ol"></i><a href="#sec-2">2. Relación e secuencia de unidades didácticas</a></div>
+        <div class="index-item"><i class="bi bi-diagram-3"></i><a href="#sec-3">3. Asignación de elementos curriculares ás unidades didácticas</a></div>
+        <div class="index-item"><i class="bi bi-search"></i><a href="#sec-4">4. Procedemento de avaliación inicial</a></div>
+        <div class="index-item"><i class="bi bi-clipboard-check"></i><a href="#sec-5">5. Criterios de cualificación e recuperación</a></div>
+        <div class="index-item"><i class="bi bi-arrow-repeat"></i><a href="#sec-6">6. Procedemento de seguimento de materias pendentes</a></div>
+        <div class="index-item"><i class="bi bi-stars"></i><a href="#sec-7">7. Proba de avaliación extraordinaria</a></div>
+        <div class="index-item"><i class="bi bi-life-preserver"></i><a href="#sec-8">8. Medidas de reforzo educativo</a></div>
+        <div class="index-item"><i class="bi bi-heart-pulse"></i><a href="#sec-9">9. Programación da educación en valores</a></div>
+        <div class="index-item"><i class="bi bi-geo-alt"></i><a href="#sec-10">10. Actividades complementarias e extraescolares</a></div>
+        <div class="index-item"><i class="bi bi-bar-chart"></i><a href="#sec-11">11. Seguimento da programación e avaliación da práctica docente</a></div>
+        <div class="index-item"><i class="bi bi-people"></i><a href="#sec-12">12. Outros apartados: coordinación, aula virtual e accesibilidade</a></div>
+      </div>
+    </section>
+
+    <!-- SEC 1 -->
+    <section class="section-card" id="sec-1">
+      <div class="section-header">
+        <div class="section-icon bg-blue c-blue"><i class="bi bi-cpu"></i></div>
+        <h2>1. Concreción do currículo</h2>
+        <span class="tag bg-blue c-blue"><i class="bi bi-briefcase"></i>Ámbito produtivo</span>
+      </div>
+      <div class="prose">
+        <p>O currículo do módulo MP0612 – Desenvolvemento web en contorno cliente (DWCC) adecúase de maneira directa ás necesidades do ámbito produtivo TIC e do desenvolvemento de aplicacións web, tanto a nivel galego como estatal. As empresas do sector demandan profesionais capaces de deseñar e implementar interfaces web interactivas, accesibles e mantibles, empregando JavaScript moderno no cliente, APIs web estándar e técnicas actuais de desenvolvemento frontend.</p>
+        <p>Os resultados de aprendizaxe e contidos básicos establecidos no currículo permiten acadar estas competencias: desde o manexo da sintaxe do linguaxe, estruturas de control, arrays e obxectos, ata o uso de obxectos predefinidos, o modelo de obxectos do documento (DOM), a xestión de eventos e formularios e a comunicación asíncrona cliente/servidor para a actualización dinámica do contido. Estes elementos son imprescindibles no traballo diario de desenvolvedores/as frontend e fullstack que empregan JavaScript en navegadores actuais.</p>
+        <p>A programación concrétase en dúas unidades didácticas: UD1 JavaScript básico en contorno cliente e UD2 JavaScript avanzado en contorno cliente, que organizan e agrupan os resultados de aprendizaxe e contidos do módulo de forma progresiva. A UD1 garante unha base sólida en JavaScript (sintaxe, tipos, estruturas de control, funcións e arrays básicos), mentres que a UD2 se centra no desenvolvemento de aplicacións web interactivas con JavaScript empregando obxectos predefinidos, manipulación do DOM, xestión de eventos e formularios, validación e comunicación asíncrona cliente/servidor.</p>
+        <p>Deste xeito, o módulo DWCC contribúe a que o alumnado adquira a competencia xeral do título de Desenvolvemento de aplicacións web, favorecendo a súa inserción en perfís profesionais relacionados co desenvolvemento frontend, a integración en equipos de traballo áxiles e a adaptación continua ás tecnoloxías emerxentes de programación web en contorno cliente.</p>
+      </div>
+    </section>
+
+    <!-- SEC 2 -->
+    <section class="section-card" id="sec-2">
+      <div class="section-header">
+        <div class="section-icon bg-green c-green"><i class="bi bi-list-ol"></i></div>
+        <h2>2. Relación e secuencia de unidades didácticas</h2>
+        <span class="tag bg-green c-green"><i class="bi bi-layers"></i>2 unidades</span>
+      </div>
+      <div class="ud-grid">
+        <div class="ud-card ud1" style="border:1px solid rgba(56,189,248,.35);">
+          <div class="ud-num bg-blue c-blue"><i class="bi bi-1-circle"></i>UD 1</div>
+          <h3>JavaScript básico en contorno cliente</h3>
+          <p>Fundamentos do linguaxe JavaScript: sintaxe, tipos de datos, operadores, estruturas de control, funcións e arrays básicos, como base para o desenvolvemento web en contorno cliente.</p>
+          <div class="ud-stats">
+            <span class="ud-stat"><i class="bi bi-percent"></i>25% do peso</span>
+            <span class="ud-stat"><i class="bi bi-clock"></i>30 sesións</span>
+          </div>
+        </div>
+        <div class="ud-card ud2" style="border:1px solid rgba(34,197,94,.35);">
+          <div class="ud-num bg-green c-green"><i class="bi bi-2-circle"></i>UD 2</div>
+          <h3>JavaScript avanzado en contorno cliente</h3>
+          <p>Desenvolvemento de aplicacións web en contorno cliente: obxectos predefinidos, arrays e funcións avanzadas, manipulación do DOM, xestión de eventos e formularios, validación e comunicación asíncrona cliente/servidor.</p>
+          <div class="ud-stats">
+            <span class="ud-stat"><i class="bi bi-percent"></i>75% do peso</span>
+            <span class="ud-stat"><i class="bi bi-clock"></i>84 sesións</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEC 3 -->
+    <section class="section-card" id="sec-3">
+      <div class="section-header">
+        <div class="section-icon bg-purple c-purple"><i class="bi bi-diagram-3"></i></div>
+        <h2>3. Asignación de elementos curriculares</h2>
+        <span class="tag bg-purple c-purple"><i class="bi bi-bullseye"></i>RA · CA · BC</span>
+      </div>
+
+      <!-- UD1 -->
+      <div class="ud-section-label bg-blue" style="color:var(--blue);">
+        <i class="bi bi-1-circle-fill"></i>UD 1 — JavaScript básico en contorno cliente
+        <span style="margin-left:auto;font-size:.82rem;font-weight:400;color:var(--muted);">Duración: 30 sesións</span>
+      </div>
+
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;">Criterios de avaliación</p>
+
+      <details class="ra-block ra-blue"><summary class="ra-summary"><span class="ra-chip bg-blue" style="color:var(--blue);">RA1</span><span class="ra-sum-text">Selecciona as arquitecturas e as tecnoloxías de programación sobre clientes web, identificando e analizando as capacidades e as características de cada unha.</span><i class="bi bi-chevron-down ra-chevron"></i></summary><div class="ra-body">
+        
+        <ul class="ca-list">
+          <li>CA1.1 — Caracterizáronse e diferenciáronse os modelos de execución de código no servidor e no cliente web.</li>
+          <li>CA1.2 — Identificáronse as capacidades e os mecanismos de execución de código dos navegadores web.</li>
+          <li>CA1.3 — Identificáronse e caracterizáronse as principais linguaxes relacionadas coa programación de clientes web.</li>
+          <li>CA1.4 — Recoñecéronse as particularidades da programación de guións, así como as súas vantaxes e as súas desvantaxes sobre a programación tradicional.</li>
+          <li>CA1.5 — Verificáronse os mecanismos de integración das linguaxes de marcas coas linguaxes de programación de clientes web.</li>
+          <li>CA1.6 — Recoñecéronse e avaliáronse as ferramentas de programación e proba sobre clientes web.</li>
+        </ul>
+      </div></details><details class="ra-block ra-green"><summary class="ra-summary"><span class="ra-chip bg-green" style="color:var(--green);">RA2</span><span class="ra-sum-text">Escribe sentenzas simples, aplicando a sintaxe da linguaxe e verificando a súa execución sobre navegadores web.</span><i class="bi bi-chevron-down ra-chevron"></i></summary><div class="ra-body">
+        
+        <ul class="ca-list">
+          <li>CA2.1 — Seleccionouse unha linguaxe de programación de clientes web en función das súas posibilidades.</li>
+          <li>CA2.2 — Utilizáronse os distintos tipos de variables e operadores dispoñibles na linguaxe.</li>
+          <li>CA2.3 — Identificáronse os ámbitos de utilización das variables.</li>
+          <li>CA2.4 — Recoñecéronse e comprobáronse as peculiaridades da linguaxe respecto ás conversións entre tipos de datos.</li>
+          <li>CA2.5 — Utilizáronse mecanismos de decisión na creación de bloques de sentenzas.</li>
+          <li>CA2.6 — Utilizáronse bucles e verificouse o seu funcionamento.</li>
+          <li>CA2.7 — Engadíronse comentarios ao código.</li>
+          <li>CA2.8 — Utilizáronse ferramentas e contornas para facilitar a programación, a proba e a documentación do código.</li>
+        </ul>
+      </div></details><div class="note-box"><i class="bi bi-info-circle"></i><strong>Lenda:</strong> IA: Instrumento de Avaliación · %: Peso orientativo · PE: Proba escrita · LC: Lista de cotexo · TO: Táboa de observación · OU: outro</div>
+
+      <p style="font-size:.88rem;color:var(--muted);margin:14px 0 10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;">Contidos</p>
+
+      <details class="bc-block"><summary class="bc-summary"><i class="bi bi-collection c-blue" style="margin-right:6px;"></i><span class="bc-sum-text">BC1 — Selección de arquitecturas e ferramentas de programación</span><i class="bi bi-chevron-down bc-chevron"></i></summary><div class="bc-body">
+        
+        <ul class="bc-list">
+          <li>Mecanismos de execución de código nun navegador web.</li>
+          <li>Capacidades e limitacións de execución.</li>
+          <li>Linguaxes de programación en contorna cliente.</li>
+          <li>Tecnoloxías e linguaxes asociadas.</li>
+          <li>Integración do código coas etiquetas HTML.</li>
+          <li>Ferramentas de programación e proba sobre clientes web. Librarías e frameworks.</li>
+        </ul>
+      </div></details><details class="bc-block"><summary class="bc-summary"><i class="bi bi-collection c-blue" style="margin-right:6px;"></i><span class="bc-sum-text">BC2 — Manexo da sintaxe da linguaxe</span><i class="bi bi-chevron-down bc-chevron"></i></summary><div class="bc-body">
+        
+        <ul class="bc-list">
+          <li>Variables.</li>
+          <li>Tipos de datos. Conversións.</li>
+          <li>Asignacións.</li>
+          <li>Operadores.</li>
+          <li>Comentarios ao código.</li>
+          <li>Sentenzas.</li>
+          <li>Decisións.</li>
+          <li>Bucles.</li>
+          <li>Proba e documentación do código.</li>
+        </ul>
+      </div>
+      </details>
+
+      <!-- UD2 -->
+      <div class="ud-section-label bg-green" style="color:var(--green);margin-top:22px;">
+        <i class="bi bi-2-circle-fill"></i>UD 2 — JavaScript avanzado en contorno cliente
+        <span style="margin-left:auto;font-size:.82rem;font-weight:400;color:var(--muted);">Duración: 84 sesións</span>
+      </div>
+
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;">Criterios de avaliación</p>
+
+      <details class="ra-block ra-blue"><summary class="ra-summary"><span class="ra-chip bg-blue" style="color:var(--blue);">RA3</span><span class="ra-sum-text">Escribe código, identificando e aplicando as funcionalidades achegadas polos obxectos predefinidos da linguaxe.</span><i class="bi bi-chevron-down ra-chevron"></i></summary><div class="ra-body">
+        
+        <ul class="ca-list">
+          <li>CA3.1 — Identificáronse os obxectos predefinidos da linguaxe.</li>
+          <li>CA3.2 — Analizáronse os obxectos referentes ás fiestras do navegador e os documentos web que conteñen.</li>
+          <li>CA3.3 — Escribíronse sentenzas que utilicen os obxectos predefinidos da linguaxe para cambiar o aspecto do navegador e o documento que contén.</li>
+          <li>CA3.4 — Xeráronse textos e etiquetas como resultado da execución de código no navegador.</li>
+          <li>CA3.5 — Escribíronse sentenzas que utilicen os obxectos predefinidos da linguaxe para interactuar co/coa usuario/a.</li>
+          <li>CA3.6 — Utilizáronse as características propias da linguaxe en documentos compostos por varias fiestras.</li>
+          <li>CA3.7 — Utilizáronse mecanismos do navegador web para almacenar información e recuperar o seu contido.</li>
+          <li>CA3.8 — Depurouse e documentouse o código.</li>
+        </ul>
+      </div></details><details class="ra-block ra-purple"><summary class="ra-summary"><span class="ra-chip bg-purple" style="color:var(--purple);">RA4</span><span class="ra-sum-text">Programa código para clientes web analizando e utilizando estruturas definidas polo/pola usuario/a.</span><i class="bi bi-chevron-down ra-chevron"></i></summary><div class="ra-body">
+        
+        <ul class="ca-list">
+          <li>CA4.1 — Clasificáronse e utilizáronse as funcións predefinidas da linguaxe.</li>
+          <li>CA4.2 — Creáronse e utilizáronse funcións definidas polo/pola usuario/a.</li>
+          <li>CA4.3 — Recoñecéronse as características da linguaxe relativas á creación e ao uso de matrices (arrays).</li>
+          <li>CA4.4 — Creáronse e utilizáronse matrices (arrays).</li>
+          <li>CA4.5 — Utilizáronse operacións agregadas para o manexo de información almacenada en coleccións.</li>
+          <li>CA4.6 — Recoñecéronse as características de orientación a obxectos da linguaxe.</li>
+          <li>CA4.7 — Creouse código para definir a estrutura de obxectos.</li>
+          <li>CA4.8 — Creáronse métodos e propiedades.</li>
+          <li>CA4.9 — Creouse código que faga uso de obxectos definidos polo/pola usuario/a.</li>
+          <li>CA4.10 — Utilizáronse padróns de deseño de software.</li>
+          <li>CA4.11 — Depurouse e documentouse o código.</li>
+        </ul>
+      </div></details><details class="ra-block ra-orange"><summary class="ra-summary"><span class="ra-chip bg-orange" style="color:var(--orange);">RA5</span><span class="ra-sum-text">Desenvolve aplicacións web interactivas integrando mecanismos de manexo de eventos.</span><i class="bi bi-chevron-down ra-chevron"></i></summary><div class="ra-body">
+        
+        <ul class="ca-list">
+          <li>CA5.1 — Recoñecéronse as posibilidades da linguaxe de marcas relativas á captura dos eventos producidos.</li>
+          <li>CA5.2 — Identificáronse as características da linguaxe de programación relativas á xestión dos eventos.</li>
+          <li>CA5.3 — Diferenciáronse os tipos de eventos que se poden manexar.</li>
+          <li>CA5.4 — Creouse un código que capture e utilice eventos.</li>
+          <li>CA5.5 — Recoñecéronse as capacidades da linguaxe relativas á xestión de formularios web.</li>
+          <li>CA5.6 — Validáronse formularios web utilizando eventos.</li>
+          <li>CA5.7 — Utilizáronse expresións regulares para facilitar os procedementos de validación.</li>
+          <li>CA5.8 — Probouse e documentouse o código.</li>
+        </ul>
+      </div></details><details class="ra-block ra-green"><summary class="ra-summary"><span class="ra-chip bg-green" style="color:var(--green);">RA6</span><span class="ra-sum-text">Desenvolve aplicacións web analizando e aplicando as características do modelo de obxectos do documento.</span><i class="bi bi-chevron-down ra-chevron"></i></summary><div class="ra-body">
+        
+        <ul class="ca-list">
+          <li>CA6.1 — Recoñeceuse o modelo de obxectos do documento dunha páxina web.</li>
+          <li>CA6.2 — Identificáronse os obxectos do modelo, as súas propiedades e os seus métodos.</li>
+          <li>CA6.3 — Creouse e verificouse un código que acceda á estrutura do documento.</li>
+          <li>CA6.4 — Creáronse novos elementos da estrutura e modificáronse elementos xa existentes.</li>
+          <li>CA6.5 — Asociáronse accións aos eventos do modelo.</li>
+          <li>CA6.6 — Identificáronse as diferenzas que presenta o modelo en diferentes navegadores.</li>
+          <li>CA6.7 — Programáronse aplicacións web de forma que funcionen en navegadores con diferentes implementacións do modelo.</li>
+          <li>CA6.8 — Independizáronse as tres capas de implementación (contido, aspecto e comportamento), en aplicacións web.</li>
+        </ul>
+      </div></details><details class="ra-block ra-red"><summary class="ra-summary"><span class="ra-chip bg-red" style="color:var(--red);">RA7</span><span class="ra-sum-text">Desenvolve aplicacións web dinámicas, recoñecendo e aplicando mecanismos de comunicación asíncrona entre cliente e servidor.</span><i class="bi bi-chevron-down ra-chevron"></i></summary><div class="ra-body">
+        
+        <ul class="ca-list">
+          <li>CA7.1 — Avaliáronse as vantaxes e os inconvenientes de utilizar mecanismos de comunicación asíncrona entre cliente e servidor web.</li>
+          <li>CA7.2 — Analizáronse os mecanismos dispoñibles para o establecemento da comunicación asíncrona.</li>
+          <li>CA7.3 — Utilizáronse os obxectos relacionados.</li>
+          <li>CA7.4 — Identificáronse as súas propiedades e os seus métodos.</li>
+          <li>CA7.5 — Utilizouse comunicación asíncrona na actualización dinámica do documento web.</li>
+          <li>CA7.6 — Utilizáronse distintos formatos no envío e na recepción de información.</li>
+          <li>CA7.7 — Programáronse aplicacións web asíncronas de xeito que funcionen en diferentes navegadores.</li>
+          <li>CA7.8 — Clasificáronse, analizáronse e utilizáronse librarías e frameworks que faciliten a incorporación das tecnoloxías de actualización dinámica á programación de páxinas web.</li>
+          <li>CA7.9 — Creáronse, probáronse e documentáronse aplicacións web que utilicen estas librarías e frameworks.</li>
+        </ul>
+      </div></details><div class="note-box"><i class="bi bi-info-circle"></i><strong>Lenda:</strong> IA: Instrumento de Avaliación · %: Peso orientativo · PE: Proba escrita · LC: Lista de cotexo · TO: Táboa de observación · OU: outro</div>
+
+      <p style="font-size:.88rem;color:var(--muted);margin:14px 0 10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;">Contidos</p>
+
+      <details class="bc-block"><summary class="bc-summary"><i class="bi bi-collection c-blue" style="margin-right:6px;"></i><span class="bc-sum-text">BC3 — Uso dos obxectos predefinidos da linguaxe</span><i class="bi bi-chevron-down bc-chevron"></i></summary><div class="bc-body">
+        
+        <ul class="bc-list">
+          <li>Utilización de obxectos. Obxectos nativos da linguaxe.</li>
+          <li>Interacción co navegador. Obxectos predefinidos asociados.</li>
+          <li>Xeración de texto e elementos HTML desde código.</li>
+          <li>Xestión da aparencia da fiestra.</li>
+          <li>Creación de novas fiestras. Comunicación entre fiestras.</li>
+          <li>Interacción co/coa usuario/a.</li>
+          <li>Mecanismos do navegador para o almacenamento e recuperación de información.</li>
+          <li>Depuración e documentación do código.</li>
+        </ul>
+      </div></details><details class="bc-block"><summary class="bc-summary"><i class="bi bi-collection c-blue" style="margin-right:6px;"></i><span class="bc-sum-text">BC4 — Programación con arrays: funcións e obxectos definidos polo usuario</span><i class="bi bi-chevron-down bc-chevron"></i></summary><div class="bc-body">
+        
+        <ul class="bc-list">
+          <li>Funcións predefinidas da linguaxe.</li>
+          <li>Chamadas a funcións. Definición de funcións.</li>
+          <li>Matrices (arrays).</li>
+          <li>Operacións agregadas: filtraxe, redución e recolección.</li>
+          <li>Creación de obxectos.</li>
+          <li>Definición de métodos e propiedades.</li>
+          <li>Padróns de deseño.</li>
+          <li>Depuración e documentación do código.</li>
+        </ul>
+      </div></details><details class="bc-block"><summary class="bc-summary"><i class="bi bi-collection c-blue" style="margin-right:6px;"></i><span class="bc-sum-text">BC5 — Interacción co usuario: eventos e formularios</span><i class="bi bi-chevron-down bc-chevron"></i></summary><div class="bc-body">
+        
+        <ul class="bc-list">
+          <li>Xestión de eventos. Tipos.</li>
+          <li>Utilización de formularios desde código.</li>
+          <li>Modificación de aparencia e comportamento.</li>
+          <li>Validación e envío.</li>
+          <li>Expresións regulares.</li>
+          <li>Proba e documentación do código.</li>
+        </ul>
+      </div></details><details class="bc-block"><summary class="bc-summary"><i class="bi bi-collection c-blue" style="margin-right:6px;"></i><span class="bc-sum-text">BC6 — Uso do modelo de obxectos do documento</span><i class="bi bi-chevron-down bc-chevron"></i></summary><div class="bc-body">
+        
+        <ul class="bc-list">
+          <li>Modelo de obxectos do documento (DOM).</li>
+          <li>Obxectos do modelo. Propiedades e métodos.</li>
+          <li>Acceso ao documento desde código.</li>
+          <li>Programación de eventos.</li>
+          <li>Diferenzas nas implementacións do modelo.</li>
+          <li>Independencia das capas de implementación de aplicacións web.</li>
+        </ul>
+      </div></details><details class="bc-block">
+        <summary class="bc-summary"><i class="bi bi-collection c-blue" style="margin-right:6px;"></i><span class="bc-sum-text">BC7 — Uso de mecanismos de comunicación asíncrona</span><i class="bi bi-chevron-down bc-chevron"></i></summary>
+        <div class="bc-body"><ul class="bc-list">
+          <li>Mecanismos de comunicación asíncrona.</li>
+          <li>Modificación dinámica do documento utilizando comunicación asíncrona.</li>
+          <li>Formatos para o envío e a recepción de información.</li>
+          <li>Librarías e frameworks de actualización dinámica.</li>
+          <li>Integración en diferentes navegadores.</li>
+          <li>Proba e documentación do código.</li>
+        </ul></div>
+      </details>
+    </section>
+
+    <!-- SEC 4 -->
+    <section class="section-card" id="sec-4">
+      <div class="section-header">
+        <div class="section-icon bg-orange c-orange"><i class="bi bi-search"></i></div>
+        <h2>4. Procedemento de avaliación inicial</h2>
+        <span class="tag bg-orange c-orange"><i class="bi bi-calendar-event"></i>Inicio de curso</span>
+      </div>
+      <div class="prose">
+        <p>A avaliación inicial realizarase nas primeiras sesións do curso, antes de entrar na UD1, e terá como finalidade coñecer o nivel de partida do alumnado en relación cos contidos previos necesarios para seguir o módulo Desenvolvemento web en contorno cliente.</p>
+        <h3><i class="bi bi-tools"></i>Instrumentos</h3>
+        <ul>
+          <li><i class="bi bi-file-earmark-text"></i><strong>Cuestionario inicial escrito ou en liña</strong> (tipo test + preguntas curtas) sobre coñecementos previos de HTML e CSS básicos, nocións xerais de programación (variables, condicións, bucles) en calquera linguaxe, e experiencia previa con JavaScript ou outras tecnoloxías web.</li>
+          <li><i class="bi bi-laptop"></i><strong>Pequena tarefa práctica inicial no equipo:</strong> edición dunha páxina HTML sinxela e uso da consola do navegador; resolución dun exercicio moi básico de JavaScript (mostrar mensaxes en consola, manexar unha variable e unha condición simple).</li>
+          <li><i class="bi bi-person-check"></i><strong>Autoavaliación e enquisa breve sobre:</strong> intereses e expectativas respecto ao módulo; grao de autonomía no uso de ordenador, navegador e editor de código.</li>
+        </ul>
+        <h3><i class="bi bi-arrow-right-circle"></i>Procedemento</h3>
+        <ol>
+          <li>Na primeira sesión explícase ao alumnado a finalidade da avaliación inicial (non cualificable, só diagnóstica) e aplícase o cuestionario inicial.</li>
+          <li>Nas seguintes sesións realízase a tarefa práctica inicial guiada, observando dificultades no manexo básico do contorno de traballo e erros frecuentes en conceptos de programación elementais.</li>
+          <li>O profesorado revisa os resultados e elabora unha breve síntese co nivel xeral do grupo, identificando alumnado que require reforzo e alumnado con nivel avanzado.</li>
+          <li>A información obtida utilizarase para axustar a planificación das primeiras unidades (ritmo, tempo dedicado a recordatorios, selección de exemplos e tarefas de reforzo/ampliación).</li>
+        </ol>
+        <h3><i class="bi bi-graph-up"></i>Uso dos resultados</h3>
+        <div class="info-box"><i class="bi bi-info-circle"></i>A avaliación inicial <strong>non terá efectos directos na cualificación</strong>, pero quedará rexistrada a través dos cuestionarios/tarefas gardados na aula virtual e das anotacións do profesorado. Servirá de base para decidir medidas de reforzo e posibles actividades de ampliación.</div>
+      </div>
+    </section>
+
+    <!-- SEC 5 -->
+    <section class="section-card" id="sec-5">
+      <div class="section-header">
+        <div class="section-icon bg-green c-green"><i class="bi bi-clipboard-check"></i></div>
+        <h2>5. Criterios de cualificación e recuperación</h2>
+        <span class="tag bg-green c-green"><i class="bi bi-award"></i>Avaliación continua</span>
+      </div>
+      <div class="prose">
+        <h3><i class="bi bi-patch-check"></i>Criterios de cualificación</h3>
+        <ul>
+          <li><i class="bi bi-check-circle"></i>A avaliación do módulo será <strong>continua, formativa e integradora</strong>, tomando como referencia os resultados de aprendizaxe e criterios de avaliación recollidos no currículo oficial de DAW.</li>
+          <li><i class="bi bi-check-circle"></i>A cualificación de cada período avaliador determinarase a partir das actividades planificadas nas unidades didácticas, incluíndo probas escritas/prácticas individuais (cuestionarios, exercicios con código, probas de UD).</li>
+          <li><i class="bi bi-check-circle"></i>Para considerar superado un período avaliador será preciso obter cualificación igual ou superior a <strong>5,0 sobre 10</strong> na media ponderada do período, e demostrar un nivel aceptable nos resultados de aprendizaxe esenciais (sintaxe básica, DOM, formularios e comunicación asíncrona).</li>
+          <li><i class="bi bi-check-circle"></i>A cualificación final do módulo obterase a partir da <strong>media ponderada das avaliacións parciais</strong>.</li>
+          <li><i class="bi bi-check-circle"></i>O alumnado poderá recuperar resultados de aprendizaxe non superados mediante repetición ou mellora de tarefas e prácticas, ou realización de actividades específicas de recuperación centradas nos resultados de aprendizaxe non acadados.</li>
+        </ul>
+        <div class="info-box"><i class="bi bi-exclamation-circle"></i>No caso de non superar o módulo na avaliación final ordinaria, o alumnado terá dereito a unha <strong>proba de avaliación extraordinaria</strong> (ver apartado 7).</div>
+
+        <h3><i class="bi bi-arrow-counterclockwise"></i>Procedemento de recuperación ao longo do curso</h3>
+        <ul>
+          <li><i class="bi bi-dot"></i>Cando un/unha estudante non acade os obxectivos dunha avaliación parcial, o profesorado informará explicitamente que RA/criterios non están superados e proporá tarefas específicas de recuperación centradas neses aspectos.</li>
+          <li><i class="bi bi-dot"></i>As actividades de recuperación poderán realizarse en sesións ordinarias de aula ou mediante actividades adicionais na aula virtual con prazo de entrega.</li>
+          <li><i class="bi bi-dot"></i>Considérase recuperado un resultado de aprendizaxe cando o alumnado obtén unha cualificación igual ou superior a <strong>5,0 sobre 10</strong> nas tarefas de recuperación propostas.</li>
+          <li><i class="bi bi-dot"></i>A recuperación non se limitará a repetir un exame: valorarase o conxunto de novas evidencias (tarefas, prácticas, probas específicas) relacionadas cos criterios non superados.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEC 6 -->
+    <section class="section-card" id="sec-6">
+      <div class="section-header">
+        <div class="section-icon bg-yellow c-yellow"><i class="bi bi-arrow-repeat"></i></div>
+        <h2>6. Seguimento de materias pendentes</h2>
+      </div>
+      <div class="info-box"><i class="bi bi-info-circle"></i>Por ser este un módulo de segundo curso do ciclo formativo, <strong>non procede</strong> o procedemento de seguimento, recuperación e avaliación das materias pendentes.</div>
+    </section>
+
+    <!-- SEC 7 -->
+    <section class="section-card" id="sec-7">
+      <div class="section-header">
+        <div class="section-icon bg-red c-red"><i class="bi bi-stars"></i></div>
+        <h2>7. Proba de avaliación extraordinaria</h2>
+        <span class="tag bg-red c-red"><i class="bi bi-exclamation-triangle"></i>Perda de avaliación continua</span>
+      </div>
+      <div class="prose">
+        <p>O alumnado que perda o dereito á avaliación continua segundo o que establece a normativa do centro será avaliado mediante unha proba de avaliación extraordinaria de carácter global, referida ao conxunto dos resultados de aprendizaxe do módulo.</p>
+
+        <h3><i class="bi bi-ui-checks"></i>Características da proba extraordinaria</h3>
+        <div class="ud-grid" style="margin-top:8px;">
+          <div class="ud-card" style="border:1px solid rgba(248,113,113,.35);">
+            <div class="ud-num bg-red" style="color:var(--red);"><i class="bi bi-file-earmark-text"></i>Bloque 1</div>
+            <h3>Teórico-práctico curto</h3>
+            <p>Cuestións de resposta breve, tipo test e/ou corrección/completado de código. Centrado en obxectos predefinidos, arrays avanzados, funcións, DOM, eventos, formularios, validación, CRUD e comunicación asíncrona básica (fetch + JSON).</p>
+          </div>
+          <div class="ud-card" style="border:1px solid rgba(251,146,60,.35);">
+            <div class="ud-num bg-orange" style="color:var(--orange);"><i class="bi bi-code-slash"></i>Bloque 2</div>
+            <h3>Práctico de código</h3>
+            <p>Resolución dun ou varios exercicios de programación en contorno cliente (HTML+CSS+JS): manipulación de DOM, uso de eventos, tratamento de datos en arrays, validación básica de formularios; preferentemente un pequeno exercicio integrado tipo miniaplicación.</p>
+          </div>
+        </div>
+
+        <h3><i class="bi bi-gear"></i>Procedemento</h3>
+        <ul>
+          <li><i class="bi bi-check-circle"></i>A proba cobre todos os resultados de aprendizaxe do módulo e mantén un nivel de esixencia similar ao das probas en avaliación continua.</li>
+          <li><i class="bi bi-check-circle"></i>A convocatoria, data, hora e condicións comunicaranse a través dos canles oficiais do centro cunha antelación mínima establecida pola normativa interna.</li>
+          <li><i class="bi bi-check-circle"></i>A corrección seguirá criterios obxectivos e previamente definidos, baseados nos criterios de avaliación do currículo.</li>
+        </ul>
+        <div class="note-box"><i class="bi bi-award"></i>A cualificación mínima para superar o módulo por esta vía é de <strong>5 sobre 10</strong>. Deberá quedar acreditado un nivel suficiente nos RA clave: programación en contorno cliente, DOM e eventos, formularios con validación, acceso e tratamento de datos.</div>
+      </div>
+    </section>
+
+    <!-- SEC 8 -->
+    <section class="section-card" id="sec-8">
+      <div class="section-header">
+        <div class="section-icon bg-blue c-blue"><i class="bi bi-life-preserver"></i></div>
+        <h2>8. Medidas de reforzo educativo</h2>
+      </div>
+      <div class="prose">
+        <p>Aplicaranse medidas de reforzo para o alumnado que non acade globalmente os obxectivos programados, mantendo sempre os mesmos resultados de aprendizaxe e criterios de avaliación do currículo oficial.</p>
+        <ul>
+          <li><i class="bi bi-person-lines-fill"></i>Reexplicación de contidos clave en sesión presencial ou mediante material complementario.</li>
+          <li><i class="bi bi-bar-chart-steps"></i>Exercicios graduados e guiados adaptados ao ritmo individual.</li>
+          <li><i class="bi bi-diagram-2"></i>Adaptación de tarefas complexas en pasos máis sinxelos e progresivos.</li>
+          <li><i class="bi bi-person-workspace"></i>Apoio individualizado nas sesións prácticas de aula.</li>
+          <li><i class="bi bi-journal-text"></i>Uso de materiais complementarios: guías, exemplos paso a paso, exercicios extra na aula virtual.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEC 9 -->
+    <section class="section-card" id="sec-9">
+      <div class="section-header">
+        <div class="section-icon bg-purple c-purple"><i class="bi bi-heart-pulse"></i></div>
+        <h2>9. Programación da educación en valores</h2>
+      </div>
+      <div class="prose">
+        <p>Traballaranse de forma transversal ao longo do módulo os seguintes valores:</p>
+        <ul>
+          <li><i class="bi bi-shield-check"></i><strong>Responsabilidade e ética profesional no uso das TIC:</strong> uso lícito de software e contidos, coidado da privacidade e dos datos.</li>
+          <li><i class="bi bi-people"></i><strong>Igualdade de oportunidades e respecto á diversidade</strong> dentro e fóra da aula.</li>
+          <li><i class="bi bi-universal-access"></i><strong>Accesibilidade e usabilidade nas interfaces web</strong> como criterio de calidade no traballo diario.</li>
+          <li><i class="bi bi-puzzle"></i><strong>Traballo en equipo, cooperación e esforzo persoal</strong>, integrados nas normas de aula e na organización dos proxectos de programación.</li>
+        </ul>
+        <p>Estes valores intégranse nas normas de aula, na organización dos proxectos de programación e nos criterios de valoración das actividades.</p>
+      </div>
+    </section>
+
+    <!-- SEC 10 -->
+    <section class="section-card" id="sec-10">
+      <div class="section-header">
+        <div class="section-icon bg-orange c-orange"><i class="bi bi-geo-alt"></i></div>
+        <h2>10. Actividades complementarias e extraescolares</h2>
+      </div>
+      <div class="prose">
+        <p>Ao longo do curso poderanse desenvolver as seguintes actividades complementarias e extraescolares relacionadas co módulo MP0612, sempre que a organización do centro e a dispoñibilidade horaria o permitan:</p>
+      </div>
+      <div class="act-grid">
+        <div class="act-card">
+          <div class="act-icon bg-blue c-blue"><i class="bi bi-mic"></i></div>
+          <div>
+            <strong>Charlas ou talleres con profesionais</strong>
+            <p>Presenciais ou en liña, centradas en boas prácticas de programación en contorno cliente, accesibilidade web, seguridade básica no navegador e saídas profesionais do sector.</p>
+          </div>
+        </div>
+        <div class="act-card">
+          <div class="act-icon bg-green c-green"><i class="bi bi-building"></i></div>
+          <div>
+            <strong>Visitas a empresas ou entidades TIC</strong>
+            <p>Para coñecer contornos reais de traballo, fluxos de desenvolvemento front-end e metodoloxías de equipo (scrum, integración continua básica, etc.).</p>
+          </div>
+        </div>
+        <div class="act-card">
+          <div class="act-icon bg-purple c-purple"><i class="bi bi-lightning-charge"></i></div>
+          <div>
+            <strong>Xornadas, hackatóns ou eventos tecnolóxicos locais</strong>
+            <p>Encontros de desenvolvedores, WordCamp, conferencias ou obradoiros sobre tecnoloxías web, fomentando o contacto co tecido profesional.</p>
+          </div>
+        </div>
+        <div class="act-card">
+          <div class="act-icon bg-orange c-orange"><i class="bi bi-trophy"></i></div>
+          <div>
+            <strong>Actividades internas de centro</strong>
+            <p>Maratóns de programación, concursos de proxectos web ou exposicións de traballos do alumnado, orientadas a mellorar a motivación, a creatividade e a presentación profesional.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEC 11 -->
+    <section class="section-card" id="sec-11">
+      <div class="section-header">
+        <div class="section-icon bg-green c-green"><i class="bi bi-bar-chart"></i></div>
+        <h2>11. Seguimento da programación e avaliación da práctica docente</h2>
+      </div>
+      <div class="prose">
+        <p>Realizarase un seguimento continuo da programación, revisando ao final de cada avaliación o grao de cumprimento da temporalización, das unidades didácticas e dos resultados de aprendizaxe, e introducindo os axustes necesarios en actividades, metodoloxía ou tempos.</p>
+        <ul>
+          <li><i class="bi bi-calendar-check"></i>Revisión da temporalización ao remate de cada avaliación parcial.</li>
+          <li><i class="bi bi-person-check"></i>Autoavaliación periódica da práctica docente, apoiándose nos resultados do alumnado.</li>
+          <li><i class="bi bi-card-checklist"></i>Uso de grellas ou fichas de autoanálise e, se procede, enquisas ao alumnado.</li>
+          <li><i class="bi bi-arrow-up-circle"></i>Formulación de propostas de mellora que se recollerán na memoria final e na programación do seguinte curso.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEC 12 -->
+    <section class="section-card" id="sec-12">
+      <div class="section-header">
+        <div class="section-icon bg-blue c-blue"><i class="bi bi-people"></i></div>
+        <h2>12. Outros apartados</h2>
+      </div>
+      <div class="other-grid">
+        <div class="other-card">
+          <div class="oc-head"><i class="bi bi-people-fill"></i><h3>Coordinación co equipo docente</h3></div>
+          <ul>
+            <li>Reunións periódicas de departamento e equipos docentes do ciclo DAW.</li>
+            <li>Aliñamento de carga de traballo, proxectos comúns e calendarios de probas.</li>
+            <li>Acordo de medidas conxuntas de reforzo ou ampliación segundo o progreso do alumnado.</li>
+          </ul>
+        </div>
+        <div class="other-card">
+          <div class="oc-head"><i class="bi bi-laptop"></i><h3>Uso da aula virtual</h3></div>
+          <ul>
+            <li>Publicación de materiais, enunciados, rúbricas e avisos.</li>
+            <li>Entrega de tarefas, devolución de correccións e feedback.</li>
+            <li>Realización de cuestionarios ou probas en liña (Moodle, Teams, etc.).</li>
+          </ul>
+        </div>
+        <div class="other-card">
+          <div class="oc-head"><i class="bi bi-universal-access"></i><h3>Accesibilidade e adaptacións</h3></div>
+          <ul>
+            <li>Recomendacións básicas de accesibilidade en materiais (fontes lexibles, cores, navegación clara).</li>
+            <li>Uso habitual do galego como lingua de docencia, con apoio en castelán/inglés cando mellore a comprensión técnica.</li>
+            <li>Pequenas adaptacións non significativas para alumnado con necesidades específicas, coordinadas co centro.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.shell -->
+</div><!-- /.layout -->
+</body>
+</html>
