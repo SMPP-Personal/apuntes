@@ -235,27 +235,32 @@
     .table-wrap{border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(55,65,81,.8);margin:12px 0;}
     .table-wrap table{width:100%;border-collapse:collapse;font-size:.9rem;}
     .table-wrap th{
-      padding:9px 12px;text-align:left;font-weight:600;font-size:.82rem;
+      padding:11px 16px;text-align:left;font-weight:600;font-size:.82rem;
       text-transform:uppercase;letter-spacing:.06em;
       background:linear-gradient(135deg,rgba(15,23,42,.98),rgba(20,30,55,.98));
-      color:var(--muted);border-bottom:1px solid rgba(55,65,81,.8);
+      color:var(--muted);border-bottom:2px solid rgba(56,189,248,.3);
     }
     .table-wrap td{
-      padding:9px 12px;border-bottom:1px solid rgba(55,65,81,.5);color:var(--text);font-size:.9rem;
-      line-height:1.55;
+      padding:11px 16px;border-bottom:1px solid rgba(55,65,81,.4);color:var(--text);font-size:.91rem;
+      line-height:1.7;vertical-align:top;
     }
     .table-wrap tr:last-child td{border-bottom:none;}
-    .table-wrap tr:hover td{background:rgba(255,255,255,.025);}
+    .table-wrap tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+    .table-wrap tr:hover td{background:rgba(56,189,248,.05);}
 
     /* ── Prose ── */
     .prose p{color:var(--muted);font-size:.94rem;line-height:1.75;margin-bottom:10px;}
     .prose ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
     .prose ul li{
-      display:flex;align-items:flex-start;gap:9px;font-size:.92rem;
-      color:var(--muted);line-height:1.65;padding:6px 10px;
+      display:block;font-size:.92rem;
+      color:var(--muted);line-height:1.7;padding:7px 10px 7px 34px;
       background:rgba(255,255,255,.025);border-radius:var(--r-sm);
-      border-left:2px solid rgba(56,189,248,.35);
+      border-left:2px solid rgba(56,189,248,.35);position:relative;
     }
+    .prose ul li i.bi{
+      position:absolute;left:10px;top:5px;color:var(--blue);font-size:.9rem;
+    }
+    .prose ul li strong{color:var(--text);}
     .prose ul li i{flex-shrink:0;color:var(--blue);margin-top:2px;}
     .prose ol{counter-reset:ol-counter;list-style:none;padding:0;margin-bottom:12px;}
     .prose ol li{
@@ -362,6 +367,84 @@
     .bc-chevron { margin-left:auto; color:var(--blue); font-size:.82rem; transition:transform .25s; }
     details.bc-block[open] .bc-chevron { transform:rotate(180deg); }
     .bc-body { padding:10px 13px 12px; }
+
+
+
+    /* ── Light mode ── */
+    body.light {
+      --bg:#f0f4f8;--bg2:#e2e8f0;--card:rgba(255,255,255,0.97);--border:rgba(100,116,139,0.3);
+      --text:#0f172a;--muted:#475569;--dim:#64748b;
+      --green:#16a34a;--green-light:#15803d;--green-soft:rgba(22,163,74,0.12);
+      --blue:#0284c7;--blue-soft:rgba(2,132,199,0.12);
+      --purple:#7c3aed;--purple-soft:rgba(124,58,237,0.12);
+      --orange:#c2410c;--orange-soft:rgba(194,65,12,0.12);
+      --red:#dc2626;--red-soft:rgba(220,38,38,0.12);
+      --yellow:#b45309;--yellow-soft:rgba(180,83,9,0.12);
+      --shadow:0 4px 24px rgba(15,23,42,0.12);
+      background:
+        radial-gradient(circle at 5% 5%,rgba(2,132,199,0.08),transparent 50%),
+        radial-gradient(circle at 95% 5%,rgba(22,163,74,0.08),transparent 55%),
+        radial-gradient(circle at 80% 85%,rgba(124,58,237,0.06),transparent 55%),
+        linear-gradient(160deg,#f0f4f8,#e2e8f0 50%,#dde3ec);
+    }
+    body.light .header-card {
+      background:
+        radial-gradient(circle at 8% 0%,rgba(2,132,199,.12),transparent 55%),
+        radial-gradient(circle at 94% 0%,rgba(22,163,74,.14),transparent 60%),
+        linear-gradient(135deg,#ffffff,#f1f5f9);
+    }
+    body.light .sidebar {
+      background:linear-gradient(160deg,#ffffff,#f1f5f9);
+    }
+    body.light .section-card {
+      background:rgba(255,255,255,0.97);
+    }
+    body.light .meta-card,
+    body.light .info-card,
+    body.light .ud-card,
+    body.light .act-card,
+    body.light .other-card {
+      background:rgba(241,245,249,0.97);border-color:rgba(100,116,139,0.25);
+    }
+    body.light .pill { background:rgba(226,232,240,0.96); border-color:rgba(100,116,139,0.3); color:var(--muted); }
+    body.light .index-item { background:rgba(241,245,249,.9); border-color:rgba(100,116,139,.25); }
+    body.light .index-item a { color:var(--text); }
+    body.light .nav-list a:hover { background:rgba(241,245,249,.96); }
+    body.light .ca-list li { background:rgba(241,245,249,0.7); }
+    body.light details.ra-block > summary { background:rgba(241,245,249,.9); }
+    body.light details.ra-block > summary:hover { background:rgba(226,232,240,.96); }
+    body.light .ra-body { background:rgba(241,245,249,.9); }
+    body.light details.bc-block { background:rgba(2,132,199,.06); }
+    body.light details.bc-block > summary:hover { background:rgba(2,132,199,.1); }
+    body.light .bc-list li { color:var(--muted); }
+    body.light .table-wrap th { background:linear-gradient(135deg,#f1f5f9,#e2e8f0); }
+    body.light .table-wrap tr:nth-child(even) td { background:rgba(0,0,0,.025); }
+    body.light .table-wrap tr:hover td { background:rgba(2,132,199,.06); }
+    body.light .table-wrap td { border-color:rgba(100,116,139,.25); }
+    body.light .table-wrap tr:hover td { background:rgba(241,245,249,.7); }
+    body.light .note-box { background:rgba(180,83,9,.08); border-color:rgba(180,83,9,.25); color:#92400e; }
+    body.light .info-box { background:rgba(2,132,199,.08); border-color:rgba(2,132,199,.25); color:#0c4a6e; }
+    body.light .badge { background:rgba(241,245,249,.9); color:#0c4a6e; }
+    body.light .ud-stat { background:rgba(226,232,240,.8); border-color:rgba(100,116,139,.2); }
+
+    /* ── Toggle button ── */
+    .theme-toggle {
+      position:fixed;bottom:22px;right:22px;z-index:999;
+      width:48px;height:48px;border-radius:50%;
+      border:1px solid var(--border);
+      background:var(--card);
+      color:var(--text);
+      font-size:1.25rem;
+      display:grid;place-items:center;
+      cursor:pointer;
+      box-shadow:0 4px 20px rgba(0,0,0,0.25);
+      transition:background .25s,border-color .25s,transform .2s,box-shadow .25s;
+    }
+    .theme-toggle:hover { transform:scale(1.1); box-shadow:0 6px 28px rgba(0,0,0,0.35); }
+    .theme-toggle .icon-dark { display:block; }
+    .theme-toggle .icon-light { display:none; }
+    body.light .theme-toggle .icon-dark { display:none; }
+    body.light .theme-toggle .icon-light { display:block; }
   </style>
 </head>
 <body>
@@ -920,5 +1003,21 @@
 
   </div><!-- /.shell -->
 </div><!-- /.layout -->
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro/oscuro" title="Cambiar modo claro/oscuro">
+    <i class="bi bi-sun-fill icon-light"></i>
+    <i class="bi bi-moon-stars-fill icon-dark"></i>
+  </button>
+  <script>
+    (function(){
+      var btn = document.getElementById('themeToggle');
+      var saved = localStorage.getItem('theme');
+      if(saved === 'light') document.body.classList.add('light');
+      btn.addEventListener('click', function(){
+        document.body.classList.toggle('light');
+        localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      });
+    })();
+  </script>
 </body>
 </html>
