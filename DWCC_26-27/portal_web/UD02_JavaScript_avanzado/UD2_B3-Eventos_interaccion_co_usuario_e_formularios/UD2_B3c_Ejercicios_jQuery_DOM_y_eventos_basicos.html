@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UD2_B3c · Boletín de ejercicios: jQuery, DOM y eventos básicos</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar exercises-page">
+<div class="content-layout">
+<aside aria-label="Índice del documento" class="section-sidebar">
+<nav aria-label="Secciones del documento" class="section-nav">
+<p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-ul"></i> Índice del documento</p>
+<ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-objetivo-y-preparacion-del-proyecto"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo y preparación del proyecto</a></li><li><a class="section-nav-link badge-link" href="#2-html-y-css-de-partida"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-code-square"></i></span> 2. HTML y CSS de partida</a></li><li><a class="section-nav-link badge-link" href="#3-selectores-objetos-jquery-y-selecciones-vacias"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-cursor"></i></span> 3. Selectores, objetos jQuery y selecciones vacías</a></li><li><a class="section-nav-link badge-link" href="#4-texto-html-y-valores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-input-cursor-text"></i></span> 4. Texto, HTML y valores</a></li><li><a class="section-nav-link badge-link" href="#5-atributos-y-propiedades"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-toggles"></i></span> 5. Atributos y propiedades</a></li><li><a class="section-nav-link badge-link" href="#6-clases-y-estilos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-palette"></i></span> 6. Clases y estilos</a></li><li><a class="section-nav-link badge-link" href="#7-crear-vaciar-e-insertar-elementos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-node-plus"></i></span> 7. Crear, vaciar e insertar elementos</a></li><li><a class="section-nav-link badge-link" href="#8-eventos-directos-y-uso-de-this"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-lightning-charge"></i></span> 8. Eventos directos y uso de this</a></li><li><a class="section-nav-link badge-link" href="#9-delegacion-de-eventos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-diagram-3"></i></span> 9. Delegación de eventos</a></li><li><a class="section-nav-link badge-link" href="#10-comparar-javascript-estandar-y-jquery"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-columns-gap"></i></span> 10. Comparar JavaScript estándar y jQuery</a></li><li><a class="section-nav-link badge-link" href="#11-corrige-los-errores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> 11. Corrige los errores</a></li><li><a class="section-nav-link badge-link" href="#12-mini-entrega-comprobacion-y-evaluacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-box-arrow-up"></i></span> 12. Mini-entrega, comprobación y evaluación</a></li></ol>
+</nav>
+</aside>
+<div class="content-wrapper">
+<header class="content-header">
+<h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-pencil-square"></i></span> UD2_B3c. Boletín de ejercicios: jQuery, DOM y eventos básicos</h1>
+</header>
+<hr class="content-separator"/>
+<section class="content-section" id="1-objetivo-y-preparacion-del-proyecto"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo y preparación del proyecto</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.1. Objetivo del boletín</h3><p>Este boletín sirve para practicar el uso básico de <strong>jQuery</strong> como biblioteca de apoyo para manipular el DOM y gestionar eventos.</p><p>jQuery no sustituye al aprendizaje del DOM nativo ni de JavaScript moderno. En este bloque se utiliza como complemento para:</p><ul class="custom-list">
+<li>reconocer código existente en proyectos heredados;</li>
+<li>comparar soluciones hechas con JavaScript estándar y con jQuery;</li>
+<li>simplificar operaciones frecuentes sobre elementos HTML;</li>
+<li>reforzar selectores, eventos y manipulación del DOM;</li>
+<li>comprender la diferencia entre un elemento DOM y un objeto jQuery;</li>
+<li>practicar eventos directos y delegados;</li>
+<li>utilizar correctamente <code>.attr()</code>, <code>.prop()</code>, <code>.text()</code>, <code>.html()</code> y <code>.val()</code>.</li>
+</ul><p>En estos ejercicios <strong>no trabajaremos AJAX de jQuery como contenido principal</strong>. Para la comunicación asíncrona seguiremos priorizando <code>fetch()</code>, promesas y <code>async</code>/<code>await</code>.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.2. Estructura de archivos</h3><p>Crea una carpeta llamada:</p><div class="example-block"><pre class="code-bash"><code>UD2_B3c_Ejercicios_jQuery
+</code></pre></div><p>Dentro de ella crea:</p><div class="example-block"><pre class="code-bash"><code>UD2_B3c_Ejercicios_jQuery/
+├── index.html
+├── styles.css
+└── script.js
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.3. Cargar jQuery</h3><p>En <code>index.html</code>, carga primero jQuery y después tu archivo:</p><div class="example-block"><pre class="code-html"><code>&lt;script src="https://code.jquery.com/jquery-4.0.0.min.js"&gt;&lt;/script&gt;
+&lt;script src="script.js"&gt;&lt;/script&gt;
+</code></pre></div><blockquote class="note-box">
+<p>En proyectos heredados puedes encontrar jQuery 3.7.1 o versiones anteriores. No actualices automáticamente una aplicación existente sin revisar su compatibilidad.</p>
+</blockquote><p>Si trabajas sin conexión, usa una copia local:</p><div class="example-block"><pre class="code-html"><code>&lt;script src="js/jquery-4.0.0.min.js"&gt;&lt;/script&gt;
+&lt;script src="js/script.js"&gt;&lt;/script&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.4. Comprobar la versión cargada</h3><p>En la consola:</p><div class="example-block"><pre class="code-js"><code>console.log($.fn.jquery);
+</code></pre></div><p>Resultado esperado:</p><div class="example-block"><pre class="code-bash"><code>4.0.0
+</code></pre></div><p>Si aparece <code>$ is not defined</code>, revisa el orden de los scripts.</p><hr/></section><section class="content-section" id="2-html-y-css-de-partida"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-code-square"></i></span> 2. HTML y CSS de partida</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.1. HTML base</h3><div class="example-block"><pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  &gt;
+
+  &lt;title&gt;Ejercicios jQuery&lt;/title&gt;
+
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id="titulo"&gt;Ejercicios con jQuery&lt;/h1&gt;
+
+  &lt;section class="bloque" id="bloque-mensaje"&gt;
+    &lt;h2&gt;Panel de usuario&lt;/h2&gt;
+
+    &lt;p id="mensaje"&gt;
+      Texto inicial del mensaje.
+    &lt;/p&gt;
+
+    &lt;button
+      type="button"
+      id="btn-cambiar-mensaje"
+    &gt;
+      Cambiar mensaje
+    &lt;/button&gt;
+  &lt;/section&gt;
+
+  &lt;section class="bloque"&gt;
+    &lt;h2&gt;Formulario básico&lt;/h2&gt;
+
+    &lt;form id="formulario-usuario" novalidate&gt;
+      &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+
+      &lt;input
+        type="text"
+        id="nombre"
+        name="nombre"
+      &gt;
+
+      &lt;label for="curso"&gt;Curso:&lt;/label&gt;
+
+      &lt;select id="curso" name="curso"&gt;
+        &lt;option value=""&gt;
+          Selecciona un curso
+        &lt;/option&gt;
+        &lt;option value="DWCC"&gt;DWCC&lt;/option&gt;
+        &lt;option value="DWES"&gt;DWES&lt;/option&gt;
+        &lt;option value="DIW"&gt;DIW&lt;/option&gt;
+      &lt;/select&gt;
+
+      &lt;button type="submit"&gt;
+        Enviar
+      &lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;p
+      id="resultado-formulario"
+      aria-live="polite"
+    &gt;&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section class="bloque"&gt;
+    &lt;h2&gt;Condiciones&lt;/h2&gt;
+
+    &lt;label&gt;
+      &lt;input
+        type="checkbox"
+        id="acepta-condiciones"
+      &gt;
+      Acepto las condiciones
+    &lt;/label&gt;
+
+    &lt;button
+      type="button"
+      id="btn-continuar"
+      disabled
+    &gt;
+      Continuar
+    &lt;/button&gt;
+  &lt;/section&gt;
+
+  &lt;section class="bloque"&gt;
+    &lt;h2&gt;Lista de tareas&lt;/h2&gt;
+
+    &lt;input
+      type="text"
+      id="nueva-tarea"
+      name="nueva-tarea"
+      placeholder="Nueva tarea"
+    &gt;
+
+    &lt;button
+      type="button"
+      id="btn-agregar-tarea"
+    &gt;
+      Agregar tarea
+    &lt;/button&gt;
+
+    &lt;p
+      id="mensaje-tarea"
+      aria-live="polite"
+    &gt;&lt;/p&gt;
+
+    &lt;ul id="lista-tareas"&gt;
+      &lt;li&gt;Repasar selectores&lt;/li&gt;
+      &lt;li&gt;Practicar eventos&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/section&gt;
+
+  &lt;section class="bloque"&gt;
+    &lt;h2&gt;Tarjetas&lt;/h2&gt;
+
+    &lt;div id="contenedor-tarjetas"&gt;&lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section class="bloque"&gt;
+    &lt;h2&gt;Opciones&lt;/h2&gt;
+
+    &lt;button
+      type="button"
+      class="boton-opcion"
+    &gt;
+      Opción A
+    &lt;/button&gt;
+
+    &lt;button
+      type="button"
+      class="boton-opcion"
+    &gt;
+      Opción B
+    &lt;/button&gt;
+
+    &lt;button
+      type="button"
+      class="boton-opcion"
+    &gt;
+      Opción C
+    &lt;/button&gt;
+  &lt;/section&gt;
+
+  &lt;script src="https://code.jquery.com/jquery-4.0.0.min.js"&gt;&lt;/script&gt;
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.2. CSS mínimo</h3><div class="example-block"><pre class="code-css"><code>body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  margin: 2rem;
+}
+
+.bloque {
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.destacado {
+  background-color: #fff3cd;
+  border-color: #f0ad4e;
+}
+
+.correcto {
+  color: green;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.tarjeta {
+  border: 1px solid #999999;
+  border-radius: 8px;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+input:focus,
+select:focus {
+  outline: 3px solid #80bfff;
+  outline-offset: 2px;
+}
+</code></pre></div><hr/></section><section class="content-section" id="3-selectores-objetos-jquery-y-selecciones-vacias"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cursor"></i></span> 3. Selectores, objetos jQuery y selecciones vacías</h2><div class="exercise-block"><h3>Ejercicio 1. Comprobar que jQuery funciona</h3><p>En <code>script.js</code>:</p><div class="example-block"><pre class="code-js"><code>$(function () {
+  console.log("jQuery está funcionando");
+  console.log($.fn.jquery);
+});
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Para qué sirve <code>$(function () { ... })</code>?</li>
+<li>¿Qué versión de jQuery aparece?</li>
+<li>¿Qué ocurriría si el script se ejecutase antes de cargar jQuery?</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 2. Seleccionar elementos</h3><p>Selecciona y muestra en consola:</p><ol class="custom-ordered-list">
+<li><code>#titulo</code>;</li>
+<li>todos los elementos <code>.bloque</code>;</li>
+<li>todos los botones;</li>
+<li>el primer <code>li</code> de <code>#lista-tareas</code>.</li>
+</ol><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>console.log($("#titulo"));
+</code></pre></div><p>Escribe también el equivalente con JavaScript estándar:</p><div class="example-block"><pre class="code-js"><code>document.querySelector("#titulo");
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 3. Objeto jQuery y elemento DOM</h3><p>Completa:</p><div class="example-block"><pre class="code-js"><code>const tituloJQuery =
+  $("#titulo");
+
+const tituloDOM =
+  tituloJQuery[0];
+
+console.log(tituloJQuery);
+console.log(tituloDOM);
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Cuál es el objeto jQuery?</li>
+<li>¿Cuál es el elemento DOM?</li>
+<li>¿Por qué esto es incorrecto?</li>
+</ol><div class="example-block"><pre class="code-js"><code>$("#titulo").textContent =
+  "Título cambiado";
+</code></pre></div><ol class="custom-ordered-list" start="4">
+<li>Escribe la versión correcta con jQuery.</li>
+<li>Escribe la versión correcta accediendo al DOM.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 4. Comprobar una selección vacía</h3><p>Prueba:</p><div class="example-block"><pre class="code-js"><code>const resultado =
+  $("#elemento-inexistente");
+
+console.log(resultado.length);
+</code></pre></div><p>Después:</p><div class="example-block"><pre class="code-js"><code>if ($("#titulo").length &gt; 0) {
+  console.log("El título existe");
+}
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué valor tiene <code>.length</code> cuando no hay coincidencias?</li>
+<li>¿Qué devolvería <code>querySelector()</code> en ese caso?</li>
+<li>¿Por qué una selección vacía puede ocultar un selector incorrecto?</li>
+</ol><hr/></div><hr/></section><section class="content-section" id="4-texto-html-y-valores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-input-cursor-text"></i></span> 4. Texto, HTML y valores</h2><div class="exercise-block"><h3>Ejercicio 5. Cambiar texto con <code>.text()</code></h3><ol class="custom-ordered-list">
+<li>Cambia <code>#mensaje</code> por <code>Mensaje modificado con jQuery</code>.</li>
+<li>Cambia el título por <code>Practicando DOM con jQuery</code>.</li>
+<li>Muestra en consola el texto actual de <code>#mensaje</code>.</li>
+</ol><p>Pista:</p><div class="example-block"><pre class="code-js"><code>$("#mensaje").text("Nuevo texto");
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 6. Diferencia entre <code>.text()</code> y <code>.html()</code></h3><p>Prueba por separado:</p><div class="example-block"><pre class="code-js"><code>$("#mensaje").text(
+  "&lt;strong&gt;Texto importante&lt;/strong&gt;"
+);
+</code></pre></div><div class="example-block"><pre class="code-js"><code>$("#mensaje").html(
+  "&lt;strong&gt;Texto importante&lt;/strong&gt;"
+);
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué diferencia observas?</li>
+<li>¿Cuál interpreta etiquetas?</li>
+<li>¿Por qué no debe usarse <code>.html()</code> con datos introducidos por el usuario?</li>
+<li>¿Por qué validar un texto no garantiza que sea HTML seguro?</li>
+</ol><p>Prueba insegura:</p><div class="example-block"><pre class="code-js"><code>const nombre =
+  $("#nombre").val();
+
+$("#resultado-formulario").html(nombre);
+</code></pre></div><p>Sustitúyela por una versión segura.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 7. Leer un valor con <code>.val()</code></h3><p>Cuando el usuario escriba en <code>#nombre</code>:</p><ol class="custom-ordered-list">
+<li>lee el valor;</li>
+<li>muéstralo en consola;</li>
+<li>muéstralo también en <code>#resultado-formulario</code>.</li>
+</ol><p>Punto de partida:</p><div class="example-block"><pre class="code-js"><code>$("#nombre").on(
+  "input",
+  function () {
+    const nombre =
+      $(this).val();
+
+    console.log(nombre);
+  }
+);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 8. Leer un <code>select</code></h3><p>Cuando cambie <code>#curso</code>:</p><ul class="custom-list">
+<li>si hay curso, muestra <code>Curso seleccionado: DWCC</code>;</li>
+<li>si no lo hay, muestra <code>Debes seleccionar un curso</code>.</li>
+</ul><p>Usa:</p><div class="example-block"><pre class="code-js"><code>.val()
+.text()
+</code></pre></div><hr/></div><hr/></section><section class="content-section" id="5-atributos-y-propiedades"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-toggles"></i></span> 5. Atributos y propiedades</h2><div class="exercise-block"><h3>Ejercicio 9. Modificar atributos con <code>.attr()</code></h3><ol class="custom-ordered-list">
+<li>Añade a <code>#nombre</code> un <code>placeholder</code>.</li>
+<li>Añade a <code>#btn-agregar-tarea</code> un <code>title</code>.</li>
+<li>Muestra en consola el <code>placeholder</code>.</li>
+</ol><p>Pista:</p><div class="example-block"><pre class="code-js"><code>$("#nombre").attr(
+  "placeholder",
+  "Escribe aquí"
+);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 10. Trabajar con <code>.prop()</code></h3><p>Programa <code>#acepta-condiciones</code> para que:</p><ul class="custom-list">
+<li>al marcarse, active <code>#btn-continuar</code>;</li>
+<li>al desmarcarse, lo desactive.</li>
+</ul><p>Punto de partida:</p><div class="example-block"><pre class="code-js"><code>$("#acepta-condiciones").on(
+  "change",
+  function () {
+    const aceptado =
+      $(this).prop("checked");
+
+    $("#btn-continuar").prop(
+      "disabled",
+      !aceptado
+    );
+  }
+);
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Por qué usamos <code>.prop("checked")</code>?</li>
+<li>¿Por qué <code>.attr("checked")</code> no representa necesariamente el estado actual?</li>
+<li>¿Qué tipo de valores maneja <code>.prop("disabled")</code>?</li>
+</ol><hr/></div><hr/></section><section class="content-section" id="6-clases-y-estilos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-palette"></i></span> 6. Clases y estilos</h2><div class="exercise-block"><h3>Ejercicio 11. Añadir y quitar clases</h3><p>Al pulsar <code>#btn-cambiar-mensaje</code>:</p><ol class="custom-ordered-list">
+<li>localiza el bloque más cercano con <code>.closest(".bloque")</code>;</li>
+<li>añade <code>destacado</code>;</li>
+<li>cambia el mensaje.</li>
+</ol><p>Pista:</p><div class="example-block"><pre class="code-js"><code>$("#mensaje")
+  .closest(".bloque")
+  .addClass("destacado");
+</code></pre></div><p>Añade al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;button
+  type="button"
+  id="btn-quitar-destacado"
+&gt;
+  Quitar destacado
+&lt;/button&gt;
+</code></pre></div><p>Programa la eliminación de la clase.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 12. Alternar clases</h3><p>Añade:</p><div class="example-block"><pre class="code-html"><code>&lt;button
+  type="button"
+  id="btn-alternar"
+&gt;
+  Alternar destacado
+&lt;/button&gt;
+</code></pre></div><p>Al pulsarlo:</p><div class="example-block"><pre class="code-js"><code>$(".bloque")
+  .first()
+  .toggleClass("destacado");
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué hace <code>.first()</code>?</li>
+<li>¿Qué devuelve <code>$(".bloque").length</code>?</li>
+<li>¿Qué ocurre si no existe ningún <code>.bloque</code>?</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 13. Cambiar estilos con <code>.css()</code></h3><p>Con <code>.css()</code>:</p><ol class="custom-ordered-list">
+<li>cambia el color de <code>#titulo</code>;</li>
+<li>cambia el tamaño de <code>#mensaje</code>;</li>
+<li>cambia el borde del bloque de tareas.</li>
+</ol><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Conviene abusar de <code>.css()</code>?</li>
+<li>¿Qué suele ser mejor: estilos directos o clases CSS?</li>
+<li>¿Qué ventajas tiene mantener la presentación en <code>styles.css</code>?</li>
+</ol><hr/></div><hr/></section><section class="content-section" id="7-crear-vaciar-e-insertar-elementos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-node-plus"></i></span> 7. Crear, vaciar e insertar elementos</h2><div class="exercise-block"><h3>Ejercicio 14. Añadir tareas a una lista</h3><p>Programa <code>#btn-agregar-tarea</code>:</p><ol class="custom-ordered-list">
+<li>lee <code>#nueva-tarea</code>;</li>
+<li>elimina espacios exteriores;</li>
+<li>si está vacío, usa <code>#mensaje-tarea</code>;</li>
+<li>si es válido, crea un <code>&lt;li&gt;</code>;</li>
+<li>añade un texto y un botón <code>Eliminar</code>;</li>
+<li>inserta el elemento;</li>
+<li>limpia el campo;</li>
+<li>devuelve el foco.</li>
+</ol><p>Pista:</p><div class="example-block"><pre class="code-js"><code>const tarea =
+  $("#nueva-tarea").val().trim();
+
+const nuevoLi =
+  $("&lt;li&gt;&lt;/li&gt;");
+
+const texto =
+  $("&lt;span&gt;&lt;/span&gt;").text(tarea);
+
+const botonEliminar =
+  $("&lt;button&gt;&lt;/button&gt;")
+    .attr("type", "button")
+    .addClass("boton-eliminar")
+    .text("Eliminar");
+
+nuevoLi.append(
+  texto,
+  botonEliminar
+);
+
+$("#lista-tareas").append(nuevoLi);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 15. Crear tarjetas desde un array</h3><div class="example-block"><pre class="code-js"><code>const productos = [
+  { nombre: "Teclado", precio: 25 },
+  { nombre: "Ratón", precio: 12 },
+  { nombre: "Monitor", precio: 150 }
+];
+</code></pre></div><p>Crea <code>renderizarProductos()</code>:</p><ol class="custom-ordered-list">
+<li>vacía <code>#contenedor-tarjetas</code> con <code>.empty()</code>;</li>
+<li>recorre con <code>forEach()</code>;</li>
+<li>crea una tarjeta por producto;</li>
+<li>muestra nombre y precio;</li>
+<li>inserta las tarjetas.</li>
+</ol><p>Pista:</p><div class="example-block"><pre class="code-js"><code>$("#contenedor-tarjetas").empty();
+</code></pre></div><p>Pregunta:</p><ol class="custom-ordered-list">
+<li>¿Qué diferencia hay entre <code>.empty()</code> y <code>.remove()</code>?</li>
+</ol><hr/></div><hr/></section><section class="content-section" id="8-eventos-directos-y-uso-de-this"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-lightning-charge"></i></span> 8. Eventos directos y uso de <code>this</code></h2><div class="exercise-block"><h3>Ejercicio 16. Evento directo con <code>.on()</code></h3><p>Programa todos los botones existentes para que muestren en consola:</p><div class="example-block"><pre class="code-bash"><code>Has pulsado un botón
+</code></pre></div><p>Después muestra el texto del botón:</p><div class="example-block"><pre class="code-js"><code>$("button").on(
+  "click",
+  function () {
+    console.log(
+      $(this).text()
+    );
+  }
+);
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Este listener alcanza botones creados después?</li>
+<li>¿Puede ejecutarse además de un listener específico del botón?</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 17. Usar <code>this</code> correctamente</h3><p>Con los botones <code>.boton-opcion</code>:</p><ol class="custom-ordered-list">
+<li>elimina <code>destacado</code> de todos;</li>
+<li>añádelo solo al botón pulsado;</li>
+<li>muestra su texto.</li>
+</ol><div class="example-block"><pre class="code-js"><code>$(".boton-opcion").on(
+  "click",
+  function (event) {
+    console.log(this);
+    console.log(event.currentTarget);
+    console.log(event.target);
+  }
+);
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué representa <code>this</code>?</li>
+<li>¿Cuándo coincide con <code>event.currentTarget</code>?</li>
+<li>¿Qué podría ser <code>event.target</code> si el botón tuviese un <code>&lt;span&gt;</code>?</li>
+<li>¿Por qué no usamos una función flecha?</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 18. Evento <code>submit</code></h3><p>Programa <code>#formulario-usuario</code>:</p><ol class="custom-ordered-list">
+<li>captura <code>submit</code>;</li>
+<li>usa <code>preventDefault()</code>;</li>
+<li>lee nombre y curso;</li>
+<li>limpia las clases anteriores;</li>
+<li>muestra <code>error</code> si falta un dato;</li>
+<li>muestra <code>correcto</code> si todo es válido;</li>
+<li>usa <code>.text()</code>, no <code>.html()</code>.</li>
+</ol><p>Ejemplo:</p><div class="example-block"><pre class="code-bash"><code>Ana se ha inscrito en DWCC.
+</code></pre></div><p>Pista:</p><div class="example-block"><pre class="code-js"><code>$("#resultado-formulario")
+  .removeClass("correcto error");
+</code></pre></div><hr/></div><hr/></section><section class="content-section" id="9-delegacion-de-eventos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 9. Delegación de eventos</h2><div class="exercise-block"><h3>Ejercicio 19. Eliminar tareas creadas dinámicamente</h3><p>Asocia el listener a <code>#lista-tareas</code>:</p><div class="example-block"><pre class="code-js"><code>$("#lista-tareas").on(
+  "click",
+  ".boton-eliminar",
+  function () {
+    $(this)
+      .closest("li")
+      .remove();
+  }
+);
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Dónde se asocia realmente el listener?</li>
+<li>¿Qué selector identifica el botón?</li>
+<li>¿Por qué funciona con botones creados después?</li>
+<li>¿Por qué un listener directo podría no funcionar?</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 20. Comparar evento directo y delegado</h3><p>Prueba:</p><div class="example-block"><pre class="code-js"><code>$(".boton-eliminar").on(
+  "click",
+  function () {
+    console.log("Directo");
+  }
+);
+</code></pre></div><p>Después crea una tarea nueva.</p><p>Compara con:</p><div class="example-block"><pre class="code-js"><code>$("#lista-tareas").on(
+  "click",
+  ".boton-eliminar",
+  function () {
+    console.log("Delegado");
+  }
+);
+</code></pre></div><p>Explica qué ocurre en cada caso.</p><hr/></div><hr/></section><section class="content-section" id="10-comparar-javascript-estandar-y-jquery"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-columns-gap"></i></span> 10. Comparar JavaScript estándar y jQuery</h2><div class="exercise-block"><h3>Ejercicio 21. Traducción a jQuery</h3><p>Traduce:</p><div class="example-block"><pre class="code-js"><code>const mensaje =
+  document.querySelector("#mensaje");
+
+mensaje.textContent =
+  "Mensaje cambiado";
+
+mensaje.classList.add(
+  "correcto"
+);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 22. Traducción a JavaScript estándar</h3><p>Traduce:</p><div class="example-block"><pre class="code-js"><code>$("#titulo").text(
+  "Título nuevo"
+);
+
+$("#titulo").addClass(
+  "destacado"
+);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 23. Elegir herramienta</h3><p>Indica qué usarías y justifica:</p><ol class="custom-ordered-list">
+<li>proyecto nuevo con JavaScript moderno;</li>
+<li>proyecto antiguo con jQuery;</li>
+<li>aprendizaje inicial del DOM;</li>
+<li>mantenimiento de una plantilla antigua;</li>
+<li>aplicación moderna con <code>fetch</code>, módulos y componentes.</li>
+</ol><hr/></div><hr/></section><section class="content-section" id="11-corrige-los-errores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 11. Corrige los errores</h2><div class="exercise-block"><h3>Ejercicio 24. Método mal utilizado</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code>$("#mensaje").text =
+  "Hola";
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 25. Evento mal escrito y API desaconsejada</h3><p>Corrige usando <code>.on()</code>:</p><div class="example-block"><pre class="code-js"><code>$("#btn-cambiar-mensaje").click(function {
+  $("#mensaje").text("Cambiado");
+});
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 26. Problema con <code>this</code></h3><div class="example-block"><pre class="code-js"><code>$(".boton-opcion").on(
+  "click",
+  () =&gt; {
+    console.log(
+      $(this).text()
+    );
+  }
+);
+</code></pre></div><ol class="custom-ordered-list">
+<li>Explica el problema.</li>
+<li>Corrígelo.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 27. Orden incorrecto de scripts</h3><p>Explica qué error aparece si <code>script.js</code> se carga antes de jQuery.</p><p>Escribe el orden correcto.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 28. Confundir <code>.attr()</code> y <code>.prop()</code></h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code>const marcado =
+  $("#acepta-condiciones")
+    .attr("checked");
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 29. Mezclar objeto jQuery y DOM</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code>$("#mensaje").textContent =
+  "Hola";
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 30. Evento directo sobre elementos inexistentes</h3><p>Corrige mediante delegación:</p><div class="example-block"><pre class="code-js"><code>$(".boton-eliminar").on(
+  "click",
+  function () {
+    $(this).closest("li").remove();
+  }
+);
+</code></pre></div><p>Supón que los botones se crean después.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 31. Datos del usuario con <code>.html()</code></h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code>$("#resultado-formulario").html(
+  $("#nombre").val()
+);
+</code></pre></div><p>Explica por qué la alternativa es más segura.</p><hr/></div><hr/></section><section class="content-section delivery-section" id="12-mini-entrega-comprobacion-y-evaluacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> 12. Mini-entrega, comprobación y evaluación</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.1. Mini-entrega final</h3><p>Crea:</p><div class="example-block"><pre class="code-bash"><code>Mini panel con jQuery
+</code></pre></div><p>Debe incluir:</p><ol class="custom-ordered-list">
+<li>título modificable;</li>
+<li>formulario con nombre y curso;</li>
+<li>validación con <code>preventDefault()</code>;</li>
+<li>lista de tareas;</li>
+<li>añadir y eliminar tareas;</li>
+<li>evento delegado para eliminar;</li>
+<li>array de productos renderizado como tarjetas;</li>
+<li>uso de <code>.text()</code>, <code>.val()</code>, <code>.attr()</code> y <code>.prop()</code>;</li>
+<li>uso de clases;</li>
+<li>comprobación de una selección mediante <code>.length</code>;</li>
+<li>uso correcto de <code>this</code>;</li>
+<li>al menos tres eventos con <code>.on()</code>;</li>
+<li>una comparación comentada entre DOM nativo y jQuery;</li>
+<li>jQuery 4.0.0;</li>
+<li>ninguna API desaconsejada como <code>.click(handler)</code>.</li>
+</ol><p>No se pide utilizar:</p><ul class="custom-list">
+<li><code>fetch</code>;</li>
+<li>AJAX;</li>
+<li><code>localStorage</code>;</li>
+<li>módulos;</li>
+<li>frameworks.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.2. Entrega</h3><p>Entrega:</p><div class="example-block"><pre class="code-bash"><code>UD2_B3c_Mini_panel_jQuery_Nombre_Apellidos.zip
+├── index.html
+├── styles.css
+└── script.js
+</code></pre></div><p>Incluye capturas de:</p><ol class="custom-ordered-list">
+<li>versión 4.0.0 en consola;</li>
+<li>formulario validado;</li>
+<li>tarea añadida;</li>
+<li>tarea eliminada;</li>
+<li>tarjetas renderizadas;</li>
+<li>checkbox activando el botón;</li>
+<li>consola sin errores.</li>
+</ol><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.3. Lista de comprobación</h3><ul class="custom-list checklist-list">
+<li><span class="check-marker">[ ]</span> jQuery se carga antes de <code>script.js</code>.</li>
+<li><span class="check-marker">[ ]</span> La versión mostrada es 4.0.0.</li>
+<li><span class="check-marker">[ ]</span> No aparece <code>$ is not defined</code>.</li>
+<li><span class="check-marker">[ ]</span> Los selectores funcionan.</li>
+<li><span class="check-marker">[ ]</span> Se diferencia objeto jQuery y DOM.</li>
+<li><span class="check-marker">[ ]</span> Se comprueban selecciones con <code>.length</code>.</li>
+<li><span class="check-marker">[ ]</span> <code>.text()</code> se usa para texto.</li>
+<li><span class="check-marker">[ ]</span> <code>.html()</code> solo se usa con HTML controlado.</li>
+<li><span class="check-marker">[ ]</span> <code>.val()</code> se usa con formularios.</li>
+<li><span class="check-marker">[ ]</span> <code>.attr()</code> se usa con atributos.</li>
+<li><span class="check-marker">[ ]</span> <code>.prop()</code> se usa con estados booleanos.</li>
+<li><span class="check-marker">[ ]</span> Los eventos usan <code>.on()</code>.</li>
+<li><span class="check-marker">[ ]</span> Se utiliza delegación para botones dinámicos.</li>
+<li><span class="check-marker">[ ]</span> <code>this</code> se usa con función tradicional.</li>
+<li><span class="check-marker">[ ]</span> El formulario usa <code>preventDefault()</code>.</li>
+<li><span class="check-marker">[ ]</span> Las tareas se añaden y eliminan.</li>
+<li><span class="check-marker">[ ]</span> Las tarjetas se renderizan desde un array.</li>
+<li><span class="check-marker">[ ]</span> El código está ordenado y comentado.</li>
+<li><span class="check-marker">[ ]</span> No hay errores en consola.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.4. Rúbrica orientativa</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Carga correcta de jQuery y estructura del proyecto</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Selectores y comprensión de objetos jQuery</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td><code>.text()</code>, <code>.html()</code> y <code>.val()</code></td>
+<td>10 %</td>
+</tr>
+<tr>
+<td><code>.attr()</code>, <code>.prop()</code>, clases y estilos</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Creación y manipulación de elementos</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Eventos directos, delegados y uso de <code>this</code></td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>Formulario y mini-entrega final</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Claridad y ausencia de errores</td>
+<td>5 %</td>
+</tr>
+</tbody>
+</table></div><p>Total: <strong>100 %</strong>.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.5. Contenidos aplazados</h3><p>Quedan fuera:</p><ul class="custom-list">
+<li>AJAX de jQuery como contenido principal;</li>
+<li><code>fetch</code>;</li>
+<li>promesas;</li>
+<li><code>async</code>/<code>await</code>;</li>
+<li>APIs externas;</li>
+<li>almacenamiento local;</li>
+<li>módulos;</li>
+<li>frameworks modernos;</li>
+<li>jQuery UI;</li>
+<li>plugins externos;</li>
+<li>migración avanzada entre versiones.</li>
+</ul></section></div>
+</div>
+</main>
+</div>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloque 8 · Práctica final integradora</title>
+<style>
+
+:root {
+  --color-fondo: #f4f7fb;
+  --color-slide: #ffffff;
+  --color-texto: #1f2937;
+  --color-secundario: #4b5563;
+  --color-principal: #2563eb;
+  --color-principal-oscuro: #1e3a8a;
+  --color-acento: #f59e0b;
+  --color-error: #dc2626;
+  --color-ok: #16a34a;
+  --color-borde: #dbeafe;
+
+  --radio-grande: 24px;
+  --radio-medio: 16px;
+
+  --sombra-suave: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+  --ancho-contenido: 1180px;
+  --alto-minimo-slide: 100vh;
+}
+
+/* Base */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+/* Diapositivas */
+
+.slide {
+  min-height: var(--alto-minimo-slide);
+  padding: 48px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  page-break-after: always;
+}
+
+.slide-inner {
+  width: min(100%, var(--ancho-contenido));
+  min-height: calc(100vh - 96px);
+  background: var(--color-slide);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra-suave);
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Tipografía */
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  color: var(--color-principal-oscuro);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  color: var(--color-principal-oscuro);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: var(--color-principal);
+}
+
+p,
+li {
+  font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+}
+
+small {
+  color: var(--color-secundario);
+}
+
+/* Portadas */
+
+.slide.portada .slide-inner {
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 55%, #fef3c7 100%);
+}
+
+.etiqueta-bloque {
+  display: inline-block;
+  width: fit-content;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: var(--color-principal-oscuro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Layouts */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-medio);
+  padding: 24px;
+  background: #f8fafc;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+}
+
+/* Bloques didácticos */
+
+.idea-clave {
+  border-left: 8px solid var(--color-principal);
+  background: #eff6ff;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.aviso {
+  border-left: 8px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.error-tipico {
+  border-left: 8px solid var(--color-error);
+  background: #fef2f2;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.correcto {
+  border-left: 8px solid var(--color-ok);
+  background: #f0fdf4;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.ejercicio {
+  border: 3px dashed var(--color-principal);
+  background: #f8fafc;
+  padding: 28px;
+  border-radius: var(--radio-medio);
+}
+
+.reto {
+  border: 3px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 32px;
+  border-radius: var(--radio-medio);
+}
+
+/* Código */
+
+pre {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 24px;
+  border-radius: var(--radio-medio);
+  overflow-x: auto;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+}
+
+code {
+  font-family: "Consolas", "Cascadia Code", monospace;
+}
+
+p code,
+li code {
+  background: #e0f2fe;
+  color: #075985;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+/* Listas */
+
+ul,
+ol {
+  padding-left: 1.4em;
+}
+
+li + li {
+  margin-top: 0.4em;
+}
+
+/* Barra inferior opcional */
+
+.slide-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  font-size: 0.95rem;
+  color: var(--color-secundario);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Navegación simple */
+
+.nav-indice {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+.nav-indice a {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--color-principal);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Impresión / exportación a PDF */
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .nav-indice {
+    display: none;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 0;
+    page-break-after: always;
+  }
+
+  .slide-inner {
+    box-shadow: none;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Pantallas pequeñas */
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 24px;
+  }
+
+  .slide-inner {
+    padding: 32px;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+/* Estilos específicos Bloque 8 */
+.kicker{font-size:1.25rem;color:var(--color-secundario);max-width:980px}.final-flow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:32px}.final-flow span{background:#eff6ff;border:2px solid #bfdbfe;color:#1e3a8a;padding:12px 16px;border-radius:999px;font-weight:900;font-size:1.08rem}.final-flow b{color:#2563eb;font-size:1.55rem}.repo-tree{background:#f8fafc;border:2px solid #dbeafe;border-radius:18px;padding:24px;font-family:Consolas,"Cascadia Code",monospace;font-size:1.22rem;white-space:pre-wrap}.terminal-window{border-radius:18px;overflow:hidden;border:2px solid #334155;background:#0f172a;color:#e5e7eb;box-shadow:0 14px 30px rgba(15,23,42,.18)}.terminal-window .title{background:#1e293b;padding:12px 16px;color:#cbd5e1;font-weight:800;font-family:Consolas,monospace}.terminal-window pre{margin:0;border-radius:0;box-shadow:none}.browser-card{border:2px solid #cbd5e1;border-radius:18px;overflow:hidden;background:white;box-shadow:0 12px 24px rgba(15,23,42,.10)}.browser-bar{background:#f1f5f9;padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #cbd5e1}.url-box{flex:1;border-radius:999px;background:white;border:1px solid #cbd5e1;padding:8px 14px;font-family:Consolas,monospace;color:#334155;font-size:1rem}.browser-body{padding:28px;min-height:220px}.dot{width:12px;height:12px;border-radius:50%;background:#ef4444;display:inline-block}.dot:nth-child(2){background:#f59e0b}.dot:nth-child(3){background:#22c55e}.console-box{background:#0f172a;color:#e5e7eb;border-radius:18px;padding:22px 24px;font-family:Consolas,"Cascadia Code",monospace;font-size:1.15rem;border:2px solid #334155}.console-box.ok{border-color:#22c55e}.console-box.err{border-color:#ef4444;background:#450a0a;color:#fee2e2}.step-list{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:24px 0}.step-list.compact{grid-template-columns:repeat(3,1fr)}.step-list div{background:#f8fafc;border:1px solid #dbeafe;border-radius:16px;padding:14px 16px;font-size:1.15rem}.step-list span{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#2563eb;color:white;font-weight:900;margin-right:10px}.checklist{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}.checklist div{background:#f8fafc;border:1px solid #dbeafe;border-radius:14px;padding:12px 16px;font-size:1.12rem}.rubrica{width:100%;border-collapse:collapse;font-size:1.12rem;overflow:hidden;border-radius:16px}.rubrica th{background:#1e3a8a;color:white;padding:14px;text-align:left}.rubrica td{border:1px solid #dbeafe;padding:14px;vertical-align:top;background:white}.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.9rem;font-weight:900;background:#dbeafe;color:#1e3a8a}.badge.ok{background:#dcfce7;color:#166534}.badge.warn{background:#fef3c7;color:#92400e}.badge.err{background:#fee2e2;color:#991b1b}.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}.timeline div{background:#f8fafc;border:2px solid #dbeafe;border-radius:18px;padding:18px;text-align:center;font-weight:800;color:#1e3a8a}.timeline div strong{display:block;font-size:2rem;color:#2563eb}.registro{background:#f8fafc;border:2px dashed #93c5fd;border-radius:18px;padding:26px;font-size:1.16rem}.registro p{margin:.55em 0}.deliver-card{border-radius:18px;padding:24px;border:2px solid #dbeafe;background:#f8fafc;min-height:170px}.deliver-card.structure{border-left:8px solid #2563eb}.deliver-card.run{border-left:8px solid #16a34a}.deliver-card.git{border-left:8px solid #f59e0b}.deliver-card.defense{border-left:8px solid #7c3aed}.idea-clave.big{font-size:1.55rem}.frase-final{border-left:8px solid #f59e0b;margin:28px 0 0;padding:24px 28px;background:#fffbeb;border-radius:16px;font-size:1.5rem;font-weight:700;color:#78350f}.mini-window{background:#f8fafc;border:2px solid #dbeafe;border-radius:18px;padding:22px}.code-compare{display:grid;grid-template-columns:1fr 1fr;gap:22px}.mark-ok{color:#166534;font-weight:900}.mark-err{color:#991b1b;font-weight:900}@media(max-width:900px){.step-list,.step-list.compact,.checklist,.timeline,.code-compare{grid-template-columns:1fr}.final-flow b{transform:rotate(90deg)}}
+
+</style>
+</head>
+<body>
+<nav class="nav-indice"><a href="#indice">Índice</a></nav>
+<section class="slide portada"><div class="slide-inner">
+<span class="etiqueta-bloque">Bloque 8 · Entorno JavaScript</span>
+<h1>Práctica final integradora</h1>
+<p class="kicker">Crear un proyecto web básico aplicando todo el flujo de trabajo aprendido: VS Code, HTML, CSS, JavaScript, Live Server, DevTools, Node.js, formateo y Git.</p>
+<div class="final-flow"><span>crear</span><b>→</b><span>probar</span><b>→</b><span>diagnosticar</span><b>→</b><span>corregir</span><b>→</b><span>versionar</span></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>1/48</span></div>
+</div></section>
+<section class="slide " id="indice"><div class="slide-inner">
+<h2>Qué vamos a demostrar</h2>
+<div class="grid-2">
+  <div class="deliver-card structure"><h3>Autonomía técnica</h3><p>Crear una estructura de proyecto, separar archivos y trabajar desde una carpeta clara.</p></div>
+  <div class="deliver-card run"><h3>Comprobación real</h3><p>Probar con Live Server, revisar Console, ejecutar Node.js y corregir errores preparados.</p></div>
+</div>
+<div class="idea-clave">La práctica no mide una web espectacular. Mide autonomía técnica básica.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>2/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Reglas de la práctica</h2>
+<div class="checklist"><div>□ Trabaja dentro de la carpeta del proyecto</div><div>□ No uses archivos sueltos</div><div>□ Guarda antes de probar</div><div>□ Comprueba en Chrome</div><div>□ Abre Console</div><div>□ Corrige errores uno a uno</div><div>□ Haz commits con mensajes claros</div><div>□ No copies sin entender</div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>3/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Nombre y estructura del proyecto</h2>
+<p>Crea una carpeta llamada:</p>
+<pre><code>practica-final-entorno</code></pre>
+<div class="repo-tree">practica-final-entorno/
+├── index.html
+├── css/
+│   └── estilos.css
+├── js/
+│   └── script.js
+├── node/
+│   └── prueba-node.js
+└── README.md</div>
+<div class="idea-clave">La estructura debe coincidir exactamente con la indicada.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>4/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Paso 1 · Abrir carpeta en VS Code</h2>
+<div class="step-list compact"><div><span>1</span> Crear carpeta</div><div><span>2</span> Abrir VS Code</div><div><span>3</span> Archivo → Abrir carpeta</div><div><span>4</span> Seleccionar proyecto</div><div><span>5</span> Ver panel izquierdo</div><div><span>6</span> No abrir archivo suelto</div></div>
+<div class="error-tipico"><strong>Error que debes evitar:</strong> abrir solo <code>index.html</code>. En este bloque se abre la carpeta completa.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>5/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Paso 2 · Crear archivos y carpetas</h2>
+<div class="checklist"><div>□ index.html</div><div>□ carpeta css</div><div>□ css/estilos.css</div><div>□ carpeta js</div><div>□ js/script.js</div><div>□ carpeta node</div><div>□ node/prueba-node.js</div><div>□ README.md</div></div>
+<div class="idea-clave">Antes de escribir código, hay que tener la estructura ordenada.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>6/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Parte 1 · HTML</h2>
+<div class="checklist"><div>□ Título principal</div><div>□ Breve presentación</div><div>□ Lista de tres aprendizajes</div><div>□ Botón interactivo</div><div>□ Zona para resultado</div><div>□ Enlaces correctos a CSS y JS</div></div>
+<div class="aviso">Tema sugerido: <strong>Mi entorno de trabajo para JavaScript</strong></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>7/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Código base de <code>index.html</code></h2>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Práctica final de entorno&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;css/estilos.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main class=&quot;contenedor&quot;&gt;
+    &lt;h1&gt;Mi entorno de trabajo para JavaScript&lt;/h1&gt;
+    &lt;p&gt;Esta página resume lo aprendido antes de empezar a programar.&lt;/p&gt;
+    &lt;section class=&quot;tarjeta&quot;&gt;
+      &lt;h2&gt;Herramientas utilizadas&lt;/h2&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Visual Studio Code&lt;/li&gt;
+        &lt;li&gt;Google Chrome y DevTools&lt;/li&gt;
+        &lt;li&gt;Node.js&lt;/li&gt;
+        &lt;li&gt;Git y GitHub&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+    &lt;section class=&quot;tarjeta&quot;&gt;
+      &lt;h2&gt;Comprobación con JavaScript&lt;/h2&gt;
+      &lt;button id=&quot;botonComprobar&quot;&gt;Comprobar proyecto&lt;/button&gt;
+      &lt;p id=&quot;resultado&quot;&gt;Pulsa el botón para comprobar JavaScript.&lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+  &lt;script src=&quot;js/script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>8/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Comprobación del HTML</h2>
+<div class="checklist"><div>□ <code>index.html</code> está en la raíz</div><div>□ El título se ve en Chrome</div><div>□ Hay una lista</div><div>□ Hay un botón</div><div>□ Hay un párrafo para resultado</div><div>□ CSS apunta a <code>css/estilos.css</code></div><div>□ JS apunta a <code>js/script.js</code></div><div>□ No hay código mezclado sin criterio</div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>9/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Parte 2 · CSS</h2>
+<div class="grid-2"><div class="card"><h3>Debe demostrar</h3><ul><li>CSS conectado correctamente.</li><li>Estilos básicos aplicados.</li><li>Proyecto visualmente ordenado.</li><li>Código CSS en su archivo.</li></ul></div><div class="error-tipico"><h3>Condición</h3><p>No escribas CSS dentro del HTML.</p></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>10/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Código base de <code>css/estilos.css</code></h2>
+<pre><code>body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fb;
+  color: #1f2937;
+}
+
+.contenedor {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 32px;
+  background-color: white;
+  border-radius: 16px;
+}
+
+h1 { color: #2563eb; }
+
+.tarjeta {
+  margin-top: 24px;
+  padding: 20px;
+  background-color: #e0f2fe;
+  border-left: 6px solid #2563eb;
+  border-radius: 12px;
+}</code></pre>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>11/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>CSS del botón y resultado</h2>
+<pre><code>button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1e40af;
+}
+
+#resultado {
+  margin-top: 16px;
+  font-weight: bold;
+}</code></pre>
+<div class="idea-clave">El CSS debe mejorar la lectura sin convertir la página en una feria de colores.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>12/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Actividad CSS</h2>
+<div class="ejercicio"><p>Personaliza al menos tres aspectos:</p><div class="checklist"><div>□ color de fondo</div><div>□ color del título</div><div>□ borde o fondo de tarjetas</div><div>□ separación entre elementos</div><div>□ estilo del botón</div><div>□ tamaño máximo del contenedor</div></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>13/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Comprobación del CSS</h2>
+<div class="grid-2"><div class="correcto"><h3>Si funciona</h3><ul><li>cambia el fondo;</li><li>cambia el título;</li><li>las tarjetas tienen estilo;</li><li>el botón está personalizado.</li></ul></div><div class="error-tipico"><h3>Si no funciona</h3><ul><li>¿guardaste?</li><li>¿la ruta es correcta?</li><li>¿está dentro de <code>css/</code>?</li><li>¿Network muestra 404?</li></ul></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>14/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Parte 3 · JavaScript en navegador</h2>
+<div class="card"><p>El JavaScript debe demostrar que el archivo <code>script.js</code> está conectado, Console muestra mensajes, el botón responde al click y se modifica un texto de la página.</p></div>
+<div class="aviso">Condición: no escribas JavaScript dentro del HTML.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>15/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Código base de <code>js/script.js</code></h2>
+<pre><code>console.log(&quot;Archivo script.js conectado correctamente&quot;);
+
+const boton = document.querySelector(&quot;#botonComprobar&quot;);
+const resultado = document.querySelector(&quot;#resultado&quot;);
+
+console.log(&quot;Botón encontrado:&quot;, boton);
+console.log(&quot;Zona de resultado encontrada:&quot;, resultado);
+
+boton.addEventListener(&quot;click&quot;, function () {
+  console.log(&quot;Botón pulsado&quot;);
+  resultado.textContent = &quot;El proyecto está conectado correctamente.&quot;;
+});</code></pre>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>16/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Comprobación en Console</h2>
+<div class="console-box ok">&gt; Archivo script.js conectado correctamente<br>&gt; Botón encontrado: &lt;button id="botonComprobar"&gt;<br>&gt; Zona de resultado encontrada: &lt;p id="resultado"&gt;<br>&gt; Botón pulsado</div>
+<div class="idea-clave">Si estos mensajes aparecen y no hay errores en rojo, la conexión básica funciona.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>17/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Actividad JavaScript</h2>
+<div class="ejercicio"><ol><li>Cambia el mensaje que aparece en pantalla.</li><li>Añade otro <code>console.log()</code>.</li><li>Cambia el texto del botón en el HTML.</li><li>Comprueba que el evento sigue funcionando.</li></ol></div>
+<div class="aviso">Opcional: crea una variable <code>nombre</code> y úsala en el mensaje final.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>18/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Parte 4 · Live Server</h2>
+<div class="step-list compact"><div><span>1</span> Abrir <code>index.html</code></div><div><span>2</span> Pulsar Go Live</div><div><span>3</span> Ver Chrome</div><div><span>4</span> Mirar la URL</div><div><span>5</span> Guardar cambios</div><div><span>6</span> Comprobar recarga</div></div>
+<div class="idea-clave">Para esta práctica se debe usar Live Server, no abrir el archivo con doble clic.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>19/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>URL correcta</h2>
+<div class="grid-2"><div class="correcto"><h3>Correcto</h3><p><code>http://127.0.0.1:5500/</code></p><p><code>http://localhost:5500/</code></p></div><div class="error-tipico"><h3>Evitar</h3><p><code>file:///C:/Users/.../index.html</code></p><p>No estás usando servidor local.</p></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>20/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Comprobación visual</h2>
+<div class="browser-card"><div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="url-box">http://127.0.0.1:5500/</div></div><div class="browser-body"><h3>Mi entorno de trabajo para JavaScript</h3><p>La página carga estilos y el botón responde con JavaScript.</p><button style="padding:10px 14px;border:0;border-radius:8px;background:#2563eb;color:white">Comprobar proyecto</button></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>21/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Parte 5 · Node.js</h2>
+<p>Crea el archivo:</p>
+<div class="repo-tree">node/prueba-node.js</div>
+<div class="idea-clave">El objetivo es ejecutar JavaScript desde la terminal, fuera del navegador.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>22/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Código de <code>node/prueba-node.js</code></h2>
+<pre><code>console.log(&quot;Prueba de JavaScript con Node.js&quot;);
+
+const herramienta1 = &quot;VS Code&quot;;
+const herramienta2 = &quot;Chrome DevTools&quot;;
+const herramienta3 = &quot;Git&quot;;
+
+console.log(&quot;Herramientas utilizadas:&quot;);
+console.log(herramienta1);
+console.log(herramienta2);
+console.log(herramienta3);
+
+const bloquesCompletados = 8;
+console.log(&quot;Bloques completados:&quot;, bloquesCompletados);</code></pre>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>23/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Ejecutar con Node.js</h2>
+<div class="terminal-window"><div class="title">Terminal</div><pre><code>node node/prueba-node.js
+
+Prueba de JavaScript con Node.js
+Herramientas utilizadas:
+VS Code
+Chrome DevTools
+Git
+Bloques completados: 8</code></pre></div>
+<div class="idea-clave">Si aparece el resultado en la terminal, Node.js funciona.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>24/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Error preparado de Node.js</h2>
+<div class="code-compare"><div class="error-tipico"><h3>Error</h3><pre><code>console.log(herramienta4);</code></pre><p><span class="mark-err">ReferenceError:</span> herramienta4 is not defined</p></div><div class="correcto"><h3>Corrección</h3><pre><code>const herramienta4 = &quot;Live Server&quot;;
+console.log(herramienta4);</code></pre><p>Leer, localizar, corregir y ejecutar de nuevo.</p></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>25/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Parte 6 · Errores preparados</h2>
+<div class="grid-2"><div class="error-tipico"><h3>CSS mal enlazado</h3><p><code>href="estilos.css"</code></p><p>La página pierde estilos.</p></div><div class="correcto"><h3>Corrección</h3><p><code>href="css/estilos.css"</code></p><p>Usa Network para comprobarlo.</p></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>26/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Error preparado · JS mal enlazado</h2>
+<div class="grid-2"><div class="error-tipico"><h3>Error</h3><p><code>&lt;script src="script.js"&gt;&lt;/script&gt;</code></p><p>No aparecen mensajes en Console. El botón no funciona.</p></div><div class="correcto"><h3>Corrección</h3><p><code>&lt;script src="js/script.js"&gt;&lt;/script&gt;</code></p><p>Usa Console y Network.</p></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>27/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Error preparado · Selector incorrecto</h2>
+<div class="code-compare"><div class="error-tipico"><h3>HTML</h3><p><code>&lt;button id="botonComprobar"&gt;</code></p><h3>JS incorrecto</h3><p><code>document.querySelector("#boton")</code></p></div><div class="correcto"><h3>Corrección</h3><p><code>document.querySelector("#botonComprobar")</code></p><p>Si el selector falla, puede devolver <code>null</code>.</p></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>28/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Error preparado · Variable no definida</h2>
+<div class="console-box err">ReferenceError: nombreAlumno is not defined</div>
+<div class="grid-2" style="margin-top:24px"><div class="error-tipico"><h3>Error</h3><p><code>console.log(nombreAlumno);</code></p></div><div class="correcto"><h3>Corrección</h3><p><code>const nombreAlumno = "Ana";</code><br><code>console.log(nombreAlumno);</code></p></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>29/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Error preparado · Código sin formatear</h2>
+<div class="error-tipico"><p>Código en una sola línea, difícil de leer y revisar.</p></div>
+<pre><code>const boton=document.querySelector(&quot;#botonComprobar&quot;);const resultado=document.querySelector(&quot;#resultado&quot;);boton.addEventListener(&quot;click&quot;,function(){resultado.textContent=&quot;Proyecto comprobado&quot;;});</code></pre>
+<div class="idea-clave">Formatear mejora la lectura. No sustituye probar.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>30/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Parte 7 · Git</h2>
+<div class="terminal-window"><div class="title">Terminal</div><pre><code>git init
+git status</code></pre></div>
+<div class="idea-clave">El objetivo es comprobar que Git detecta los archivos del proyecto.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>31/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Commits obligatorios</h2>
+<div class="timeline"><div><strong>1</strong>Crear estructura inicial</div><div><strong>2</strong>Añadir HTML principal</div><div><strong>3</strong>Añadir CSS y JS</div><div><strong>4</strong>Añadir Node y README</div></div>
+<div class="aviso">Opcionales: corregir errores preparados y mejorar diseño final.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>32/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Comandos de Git</h2>
+<div class="terminal-window"><div class="title">Terminal</div><pre><code>git status
+git add .
+git commit -m "Crear estructura inicial del proyecto"
+git log --oneline</code></pre></div>
+<div class="idea-clave">Debe haber varios commits con mensajes claros.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>33/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>GitHub opcional</h2>
+<div class="step-list compact"><div><span>1</span> Crear repo vacío</div><div><span>2</span> Conectar remoto</div><div><span>3</span> Hacer push</div><div><span>4</span> Revisar archivos</div><div><span>5</span> Ver commits</div><div><span>6</span> Entregar enlace si procede</div></div>
+<div class="terminal-window"><div class="title">Comandos habituales</div><pre><code>git remote add origin URL_DEL_REPOSITORIO
+git branch -M main
+git push -u origin main</code></pre></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>34/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Parte 8 · README.md</h2>
+<div class="card"><p><code>README.md</code> sirve para explicar qué contiene el proyecto, qué herramientas se han usado, cómo se prueba, qué errores se corrigieron y qué se ha aprendido.</p></div>
+<div class="idea-clave">No hace falta que sea largo. Debe ser claro.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>35/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Plantilla de README.md</h2>
+<pre><code># Práctica final de entorno
+
+## Descripción
+Proyecto creado para practicar el entorno básico de desarrollo web antes de empezar JavaScript.
+
+## Herramientas utilizadas
+- Visual Studio Code
+- Google Chrome y DevTools
+- Live Server
+- Node.js
+- Git
+
+## Comprobaciones realizadas
+- Página abierta con Live Server.
+- CSS y JavaScript enlazados correctamente.
+- Mensajes visibles en Console.
+- Archivo ejecutado con Node.js.
+- Commits realizados con Git.</code></pre>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>36/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Checklist de proyecto</h2>
+<div class="checklist"><div>□ <code>index.html</code> está en la raíz</div><div>□ <code>css/estilos.css</code> existe</div><div>□ <code>js/script.js</code> existe</div><div>□ <code>node/prueba-node.js</code> existe</div><div>□ <code>README.md</code> existe</div><div>□ No hay archivos sueltos innecesarios</div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>37/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Checklist de funcionamiento</h2>
+<div class="checklist"><div>□ La página se abre con Live Server</div><div>□ La URL empieza por http://</div><div>□ El CSS se aplica</div><div>□ El botón funciona</div><div>□ Console muestra mensajes</div><div>□ No hay errores en rojo</div><div>□ Node.js ejecuta prueba-node.js</div><div>□ El código está formateado</div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>38/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Checklist de Git</h2>
+<div class="checklist"><div>□ Repositorio iniciado</div><div>□ <code>git status</code> limpio al final</div><div>□ Al menos cuatro commits</div><div>□ Mensajes claros</div><div>□ <code>git log --oneline</code> muestra historial</div><div>□ GitHub contiene archivos, si se usa</div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>39/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Qué entregar o conservar</h2>
+<div class="grid-2"><div class="deliver-card structure"><h3>Opción A</h3><p>Carpeta comprimida del proyecto.</p></div><div class="deliver-card git"><h3>Opción B</h3><p>Enlace al repositorio de GitHub.</p></div><div class="deliver-card run"><h3>Opción C</h3><p>Capturas de comprobación.</p></div><div class="deliver-card defense"><h3>Opción D</h3><p>Proyecto + README + historial de commits.</p></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>40/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Capturas recomendadas</h2>
+<div class="checklist"><div>□ VS Code con estructura del proyecto</div><div>□ Chrome con Live Server</div><div>□ Console con mensajes correctos</div><div>□ Terminal ejecutando Node.js</div><div>□ Git log con varios commits</div><div>□ GitHub con archivos, si se usa</div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>41/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Registro de errores corregidos</h2>
+<div class="registro"><p><strong>Error 1:</strong> ____________________________________</p><p><strong>Herramienta usada:</strong> □ Console □ Network □ Terminal □ VS Code □ Git</p><p><strong>Corrección aplicada:</strong> ____________________________________</p><p><strong>Comprobación final:</strong> ____________________________________</p></div>
+<div class="aviso" style="margin-top:24px">Repetir para 2 o 3 errores.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>42/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Mini defensa oral</h2>
+<div class="checklist"><div>□ ¿Dónde está <code>index.html</code>?</div><div>□ ¿Dónde está el CSS?</div><div>□ ¿Dónde está el JS del navegador?</div><div>□ ¿Dónde está el JS para Node.js?</div><div>□ ¿Cómo sabes que CSS está conectado?</div><div>□ ¿Cómo sabes que JS está conectado?</div><div>□ ¿Cómo ejecutaste Node.js?</div><div>□ ¿Qué commits hiciste?</div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>43/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Preguntas rápidas</h2>
+<div class="grid-2"><div class="card"><ul><li>¿Qué diferencia hay entre <code>file:///</code> y Live Server?</li><li>¿Qué diferencia hay entre guardar y commit?</li><li>¿Qué diferencia hay entre commit y push?</li><li>¿Qué pestaña usarías si el CSS no carga?</li></ul></div><div class="card"><ul><li>¿Qué pestaña usarías si aparece un error JS?</li><li>¿Por qué <code>document</code> funciona en Chrome pero no en Node.js?</li><li>¿Qué significa que <code>querySelector</code> devuelva <code>null</code>?</li><li>¿Qué hace <code>Ctrl + C</code>?</li></ul></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>44/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Criterios de revisión</h2>
+<table class="rubrica"><tr><th>Criterio</th><th>Qué se observa</th></tr><tr><td>Estructura</td><td>Carpetas y archivos correctos.</td></tr><tr><td>Funcionamiento</td><td>HTML, CSS y JS conectados.</td></tr><tr><td>DevTools</td><td>Uso de Console, Network o Elements.</td></tr><tr><td>Node.js</td><td>Ejecución correcta de un archivo .js en terminal.</td></tr><tr><td>Git</td><td>Commits claros y trazabilidad mínima.</td></tr></table>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>45/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Rúbrica simple sobre 100</h2>
+<table class="rubrica"><tr><th>Apartado</th><th>Puntos</th></tr><tr><td>Estructura correcta del proyecto</td><td>15</td></tr><tr><td>HTML/CSS/JS conectados y funcionando</td><td>20</td></tr><tr><td>Live Server y Chrome DevTools</td><td>15</td></tr><tr><td>Ejecución con Node.js</td><td>10</td></tr><tr><td>Corrección de errores preparados</td><td>15</td></tr><tr><td>Código formateado</td><td>10</td></tr><tr><td>Git con commits claros</td><td>10</td></tr><tr><td>README básico</td><td>5</td></tr></table>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>46/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Niveles de logro</h2>
+<div class="grid-2"><div class="correcto"><h3>Nivel mínimo</h3><p>El proyecto abre, carga CSS y JS, y tiene estructura correcta.</p></div><div class="correcto"><h3>Nivel correcto</h3><p>Además usa Console, Node.js, formato y varios commits.</p></div><div class="aviso"><h3>Nivel avanzado</h3><p>Además corrige errores preparados, explica diagnóstico y sube a GitHub.</p></div><div class="error-tipico"><h3>Insuficiente</h3><p>Archivos sueltos, rutas mal conectadas, sin comprobación o sin historial.</p></div></div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>47/48</span></div>
+</div></section>
+<section class="slide "><div class="slide-inner">
+<h2>Cierre del minicurso</h2>
+<div class="idea-clave big">Has aprendido a preparar el entorno para JavaScript: organizar proyectos, separar HTML/CSS/JS, probar en Chrome, usar DevTools, leer errores, usar terminal, ejecutar Node.js, formatear y guardar versiones con Git.</div>
+<div class="frase-final">Antes de aprender mucha sintaxis, hay que aprender a trabajar con método.</div>
+<div class="slide-footer"><span>Bloque 8 · Práctica final integradora</span><span>48/48</span></div>
+</div></section>
+</body>
+</html>

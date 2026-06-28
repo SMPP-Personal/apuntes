@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UD2_B1. Ejercicios: objetos y JavaScript avanzado sin DOM</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+  <script src="../../assets/js/smpp.js" defer></script>
+</head>
+<body>
+  <div class="smpp-scope">
+    <main class="main-content has-sidebar exercises-page">
+      <div class="content-layout">
+        <aside class="section-sidebar">
+          <nav class="section-nav" aria-label="Índice del documento">
+            <p class="section-nav-title"><i class="bi bi-list-check" aria-hidden="true"></i> Índice</p>
+            <ul class="section-nav-list"><li><a class="section-nav-link" href="#1-objetivo-de-la-hoja"><i class="bi bi-bullseye" aria-hidden="true"></i><span>1. Objetivo de la hoja</span></a></li><li><a class="section-nav-link" href="#2-instrucciones-generales"><i class="bi bi-list-check" aria-hidden="true"></i><span>2. Instrucciones generales</span></a></li><li><a class="section-nav-link" href="#parte-1-objetos-literales"><i class="bi bi-braces" aria-hidden="true"></i><span>Parte 1. Objetos literales</span></a></li><li><a class="section-nav-link" href="#parte-2-acceder-modificar-anadir-y-eliminar-propiedades"><i class="bi bi-pencil-square" aria-hidden="true"></i><span>Parte 2. Acceder, modificar, añadir y eliminar propiedades</span></a></li><li><a class="section-nav-link" href="#parte-3-metodos-dentro-de-objetos-y-uso-de-this"><i class="bi bi-gear" aria-hidden="true"></i><span>Parte 3. Métodos dentro de objetos y uso de this</span></a></li><li><a class="section-nav-link" href="#parte-4-funciones-flecha-dentro-de-objetos-detectar-el-problema"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i><span>Parte 4. Funciones flecha dentro de objetos: detectar el problema</span></a></li><li><a class="section-nav-link" href="#parte-5-arrays-de-objetos"><i class="bi bi-collection" aria-hidden="true"></i><span>Parte 5. Arrays de objetos</span></a></li><li><a class="section-nav-link" href="#parte-6-map-filter-y-reduce-con-arrays-de-objetos"><i class="bi bi-diagram-3" aria-hidden="true"></i><span>Parte 6. map , filter y reduce con arrays de objetos</span></a></li><li><a class="section-nav-link" href="#parte-7-find-some-y-every"><i class="bi bi-search" aria-hidden="true"></i><span>Parte 7. find , some y every</span></a></li><li><a class="section-nav-link" href="#parte-8-ordenacion-con-sort-avanzado"><i class="bi bi-sort-numeric-down" aria-hidden="true"></i><span>Parte 8. Ordenación con sort() avanzado</span></a></li><li><a class="section-nav-link" href="#parte-9-destructuring"><i class="bi bi-boxes" aria-hidden="true"></i><span>Parte 9. Destructuring</span></a></li><li><a class="section-nav-link" href="#parte-10-spread-y-rest"><i class="bi bi-arrows-expand" aria-hidden="true"></i><span>Parte 10. Spread y rest</span></a></li><li><a class="section-nav-link" href="#parte-11-json-con-estructuras-de-datos"><i class="bi bi-filetype-json" aria-hidden="true"></i><span>Parte 11. JSON con estructuras de datos</span></a></li><li><a class="section-nav-link" href="#parte-12-map-como-ampliacion"><i class="bi bi-map" aria-hidden="true"></i><span>Parte 12. Map como ampliación</span></a></li><li><a class="section-nav-link" href="#parte-13-ampliaciones-controladas"><i class="bi bi-stars" aria-hidden="true"></i><span>Parte 13. Ampliaciones controladas</span></a></li><li><a class="section-nav-link" href="#parte-14-corrige-los-errores"><i class="bi bi-bug" aria-hidden="true"></i><span>Parte 14. Corrige los errores</span></a></li><li><a class="section-nav-link" href="#parte-15-mini-entrega-final"><i class="bi bi-trophy" aria-hidden="true"></i><span>Parte 15. Mini-entrega final</span></a></li><li><a class="section-nav-link" href="#16-criterios-orientativos-de-correccion"><i class="bi bi-clipboard-check" aria-hidden="true"></i><span>16. Criterios orientativos de corrección</span></a></li><li><a class="section-nav-link" href="#17-contenidos-que-no-forman-parte-de-esta-hoja"><i class="bi bi-slash-circle" aria-hidden="true"></i><span>17. Contenidos que no forman parte de esta hoja</span></a></li><li><a class="section-nav-link" href="#18-resumen-final"><i class="bi bi-check2-circle" aria-hidden="true"></i><span>18. Resumen final</span></a></li></ul>
+          </nav>
+        </aside>
+
+        <div class="content-wrapper">
+          <div class="document-toolbar">
+            <a class="document-home-link" href="../../index.html">
+              <i class="bi bi-house-door" aria-hidden="true"></i>
+              Índice del curso
+            </a>
+            <button id="theme-toggle" class="document-theme-toggle" type="button">
+              <i class="bi bi-moon-stars" aria-hidden="true"></i>
+              Modo oscuro
+            </button>
+          </div>
+
+          <header class="content-header">
+            <h1><span class="document-title-icon" aria-hidden="true"><i class="bi bi-boxes"></i></span> UD2_B1. Ejercicios: objetos y JavaScript avanzado sin DOM</h1>
+          </header>
+
+          <section class="content-section learning-objectives-section" id="1-objetivo-de-la-hoja"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</h2>
+<p>Esta hoja de ejercicios acompaña a los apuntes <strong>UD2_B1. Objetos y JavaScript avanzado sin DOM</strong>.</p>
+<p>El objetivo es practicar cómo organizar información más compleja en JavaScript usando objetos, arrays de objetos y métodos avanzados de arrays, sin manipular todavía elementos HTML desde JavaScript.</p>
+<p>Al terminar esta hoja deberías ser capaz de:</p>
+<ul class="custom-list">
+<li>crear objetos literales;</li>
+<li>acceder, modificar, añadir y eliminar propiedades;</li>
+<li>crear métodos dentro de objetos;</li>
+<li>entender el uso básico de <code>this</code>;</li>
+<li>detectar errores al usar funciones flecha dentro de objetos;</li>
+<li>trabajar con arrays de objetos;</li>
+<li>aplicar <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code>, <code>some</code>, <code>every</code> y <code>sort</code> sobre arrays de objetos;</li>
+<li>usar <code>destructuring</code>, spread y rest de forma básica;</li>
+<li>convertir estructuras de datos a JSON y recuperarlas;</li>
+<li>elegir la estructura adecuada para representar información.</li>
+</ul>
+<blockquote class="warning-box">
+<p>En esta hoja <strong>no se trabaja DOM</strong>, <strong>no se usan eventos</strong>, <strong>no se trabaja asincronía</strong> y <strong>no se consume ninguna API externa</strong>. Eso se verá en bloques posteriores.</p>
+</blockquote>
+<hr/>
+</section><section class="content-section flow-section" id="2-instrucciones-generales"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-list-check"></i></span> 2. Instrucciones generales</h2>
+<ol class="question-list">
+<li>Crea una carpeta llamada <code>UD2_B1_ejercicios</code>.</li>
+<li>Dentro de ella crea un archivo llamado <code>objetos_js_avanzado.js</code>.</li>
+<li>Resuelve los ejercicios en orden.</li>
+<li>Separa cada ejercicio con un comentario claro:</li>
+</ol>
+<div class="example-block"><pre class="code-js"><code class="">// Ejercicio 1
+</code></pre></div>
+<ol class="question-list" start="5">
+<li>Comprueba el resultado en la consola del navegador o con Node.js, según indique la profesora.</li>
+<li>Usa nombres de variables descriptivos.</li>
+<li>Añade comentarios breves cuando el ejercicio lo pida.</li>
+<li>No copies soluciones completas sin entenderlas: modifica los datos y comprueba qué ocurre.</li>
+</ol>
+<blockquote class="warning-box">
+<p><strong>Importante sobre las variables repetidas</strong></p>
+<p>Todos los ejercicios se realizan en un mismo archivo. No puedes declarar varias veces una constante con el mismo nombre en el mismo ámbito.</p>
+<p>Para evitar conflictos:</p>
+<ul class="custom-list">
+<li>reutiliza el mismo array <code>alumnos</code> en los ejercicios que dependen de él;</li>
+<li>usa nombres distintos en ejercicios independientes, como <code>productoEj2</code>, <code>productoDestructuring</code> o <code>productoOferta</code>;</li>
+<li>en ejercicios aislados también puedes encerrar el código dentro de un bloque:</li>
+</ul>
+<div class="example-block"><pre class="code-js"><code class="">{
+  // Ejercicio independiente
+  const ejemplo = {
+    nombre: "Ana"
+  };
+
+  console.log(ejemplo);
+}
+</code></pre></div>
+<p>En esta hoja algunos ejemplos ya utilizan nombres diferentes para evitar redeclaraciones accidentales.</p>
+</blockquote>
+<hr/>
+</section><section class="content-section guided-exercises-section" id="parte-1-objetos-literales"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-braces"></i></span> Parte 1. Objetos literales</h2>
+<div class="exercise-block"><h3>Ejercicio 1. Crear un objeto alumno</h3>
+<p>Crea un objeto llamado <code>alumnoEj1</code> con estas propiedades:</p>
+<ul class="custom-list">
+<li><code>nombre</code>: un texto;</li>
+<li><code>edad</code>: un número;</li>
+<li><code>curso</code>: un texto;</li>
+<li><code>notaMedia</code>: un número;</li>
+<li><code>aprobado</code>: un booleano.</li>
+</ul>
+<p>Después muestra por consola:</p>
+<ol class="question-list">
+<li>El objeto completo.</li>
+<li>El nombre del alumno.</li>
+<li>La nota media.</li>
+<li>Un mensaje con este formato:</li>
+</ol>
+<div class="example-block"><pre class="code-text"><code class="">Ana tiene una nota media de 7.5
+</code></pre></div>
+<p>Ejemplo de estructura inicial:</p>
+<div class="example-block"><pre class="code-js"><code class="">const alumnoEj1 = {
+  nombre: "Ana",
+  edad: 20,
+  curso: "DWCC",
+  notaMedia: 7.5,
+  aprobado: true
+};
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 2. Crear un objeto producto</h3>
+<p>Crea un objeto llamado <code>productoEj2</code> con estas propiedades:</p>
+<ul class="custom-list">
+<li><code>nombre</code>;</li>
+<li><code>precio</code>;</li>
+<li><code>stock</code>;</li>
+<li><code>categoria</code>;</li>
+<li><code>disponible</code>.</li>
+</ul>
+<p>Después muestra por consola mensajes como estos:</p>
+<div class="example-block"><pre class="code-text"><code class="">Producto: Teclado
+Precio: 29.99 €
+Stock disponible: 15 unidades
+</code></pre></div>
+<p>Añade al final una condición:</p>
+<ul class="custom-list">
+<li>si <code>disponible</code> es <code>true</code>, muestra <code>Producto disponible</code>;</li>
+<li>si <code>disponible</code> es <code>false</code>, muestra <code>Producto no disponible</code>.</li>
+</ul>
+<hr/>
+</div></section><section class="content-section guided-exercises-section" id="parte-2-acceder-modificar-anadir-y-eliminar-propiedades"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-pencil-square"></i></span> Parte 2. Acceder, modificar, añadir y eliminar propiedades</h2>
+<div class="exercise-block"><h3>Ejercicio 3. Acceso con punto y con corchetes</h3>
+<p>Dado el siguiente objeto:</p>
+<div class="example-block"><pre class="code-js"><code class="">const libro = {
+  titulo: "El nombre del viento",
+  autor: "Patrick Rothfuss",
+  paginas: 662,
+  genero: "fantasía"
+};
+</code></pre></div>
+<p>Realiza lo siguiente:</p>
+<ol class="question-list">
+<li>Muestra el título usando notación con punto.</li>
+<li>Muestra el autor usando notación con corchetes.</li>
+<li>Crea una variable llamada <code>propiedad</code> con el valor <code>"genero"</code>.</li>
+<li>Usa esa variable para mostrar el género del libro.</li>
+</ol>
+<p>Resultado esperado:</p>
+<div class="example-block"><pre class="code-text"><code class="">fantasía
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 4. Modificar propiedades</h3>
+<p>Dado el siguiente objeto:</p>
+<div class="example-block"><pre class="code-js"><code class="">const cuenta = {
+  titular: "Luis",
+  saldo: 100,
+  activa: true
+};
+</code></pre></div>
+<p>Haz lo siguiente:</p>
+<ol class="question-list">
+<li>Muestra el objeto completo.</li>
+<li>Cambia el saldo a <code>150</code>.</li>
+<li>Cambia <code>activa</code> a <code>false</code>.</li>
+<li>Muestra de nuevo el objeto completo.</li>
+<li>Explica con un comentario por qué se pueden modificar las propiedades aunque el objeto esté declarado con <code>const</code>.</li>
+</ol>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 5. Añadir y eliminar propiedades</h3>
+<p>Dado el siguiente objeto:</p>
+<div class="example-block"><pre class="code-js"><code class="">const usuario = {
+  nombre: "María",
+  email: "maria@example.com"
+};
+</code></pre></div>
+<p>Haz lo siguiente:</p>
+<ol class="question-list">
+<li>Añade la propiedad <code>rol</code> con el valor <code>"administradora"</code>.</li>
+<li>Añade la propiedad <code>ultimoAcceso</code> con el valor <code>"2026-05-23"</code>.</li>
+<li>Muestra el objeto completo.</li>
+<li>Elimina la propiedad <code>ultimoAcceso</code> usando <code>delete</code>.</li>
+<li>Muestra el objeto de nuevo.</li>
+</ol>
+<hr/>
+</div></section><section class="content-section guided-exercises-section" id="parte-3-metodos-dentro-de-objetos-y-uso-de-this"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-gear"></i></span> Parte 3. Métodos dentro de objetos y uso de <code>this</code></h2>
+<div class="exercise-block"><h3>Ejercicio 6. Método que muestra información</h3>
+<p>Crea un objeto llamado <code>persona</code> con estas propiedades:</p>
+<ul class="custom-list">
+<li><code>nombre</code>;</li>
+<li><code>edad</code>;</li>
+<li><code>ciudad</code>.</li>
+</ul>
+<p>Añade un método llamado <code>presentarse</code> que muestre un mensaje como este:</p>
+<div class="example-block"><pre class="code-text"><code class="">Hola, soy Ana, tengo 20 años y vivo en Ourense.
+</code></pre></div>
+<p>El método debe usar <code>this.nombre</code>, <code>this.edad</code> y <code>this.ciudad</code>.</p>
+<p>Ejemplo de estructura:</p>
+<div class="example-block"><pre class="code-js"><code class="">const persona = {
+  nombre: "Ana",
+  edad: 20,
+  ciudad: "Ourense",
+
+  presentarse: function () {
+    // código aquí
+  }
+};
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 7. Método que devuelve un valor</h3>
+<p>Crea un objeto llamado <code>rectangulo</code> con estas propiedades:</p>
+<ul class="custom-list">
+<li><code>base</code>;</li>
+<li><code>altura</code>.</li>
+</ul>
+<p>Añade dos métodos:</p>
+<ol class="question-list">
+<li><code>calcularArea</code>, que devuelva <code>base * altura</code>.</li>
+<li><code>calcularPerimetro</code>, que devuelva <code>2 * base + 2 * altura</code>.</li>
+</ol>
+<p>Después muestra por consola:</p>
+<div class="example-block"><pre class="code-text"><code class="">Área: 50
+Perímetro: 30
+</code></pre></div>
+<p>Usa <code>return</code> dentro de los métodos.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 8. Método con condición</h3>
+<p>Crea un objeto llamado <code>notaAlumno</code> con estas propiedades:</p>
+<ul class="custom-list">
+<li><code>nombre</code>;</li>
+<li><code>nota</code>.</li>
+</ul>
+<p>Añade un método llamado <code>obtenerResultado</code> que devuelva:</p>
+<ul class="custom-list">
+<li><code>"Aprobado"</code> si la nota es mayor o igual que 5;</li>
+<li><code>"Suspenso"</code> si la nota es menor que 5.</li>
+</ul>
+<p>Después muestra un mensaje como este:</p>
+<div class="example-block"><pre class="code-text"><code class="">Ana: Aprobado
+</code></pre></div>
+<hr/>
+</div></section><section class="content-section logic-section" id="parte-4-funciones-flecha-dentro-de-objetos-detectar-el-problema"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-arrow-right-circle"></i></span> Parte 4. Funciones flecha dentro de objetos: detectar el problema</h2>
+<div class="exercise-block"><h3>Ejercicio 9. Analizar un error con <code>this</code></h3>
+<p>Lee este código:</p>
+<div class="example-block"><pre class="code-js"><code class="">const alumnoConFlecha = {
+  nombre: "Ana",
+
+  saludar: () =&gt; {
+    console.log("Hola, soy " + this.nombre);
+  }
+};
+
+alumnoConFlecha.saludar();
+</code></pre></div>
+<p>Responde en comentarios dentro del archivo:</p>
+<ol class="question-list">
+<li>¿Qué intenta hacer el código?</li>
+<li>¿Por qué <code>this</code> no hace referencia al objeto <code>alumnoConFlecha</code> dentro de esa función flecha?</li>
+<li>Reescribe el método usando una función tradicional para que funcione correctamente.</li>
+</ol>
+<blockquote class="note-box">
+<p>Las funciones flecha no crean su propio <code>this</code>. En este ejemplo, <code>this.nombre</code> no apunta a la propiedad <code>nombre</code> del objeto <code>alumnoConFlecha</code>.</p>
+</blockquote>
+<p>Solución esperada de la estructura corregida:</p>
+<div class="example-block"><pre class="code-js"><code class="">const alumnoCorregido = {
+  nombre: "Ana",
+
+  saludar: function () {
+    console.log("Hola, soy " + this.nombre);
+  }
+};
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 10. Elegir la sintaxis adecuada</h3>
+<p>Crea un objeto llamado <code>contador</code> con estas propiedades:</p>
+<ul class="custom-list">
+<li><code>valor</code>: empieza en <code>0</code>;</li>
+<li><code>incrementar</code>: método que suma 1 a <code>valor</code>;</li>
+<li><code>decrementar</code>: método que resta 1 a <code>valor</code>;</li>
+<li><code>mostrar</code>: método que muestra el valor actual.</li>
+</ul>
+<p>Usa funciones tradicionales para los métodos.</p>
+<p>Ejemplo de uso:</p>
+<div class="example-block"><pre class="code-js"><code class="">contador.incrementar();
+contador.incrementar();
+contador.decrementar();
+contador.mostrar(); // Valor actual: 1
+</code></pre></div>
+<hr/>
+</div></section><section class="content-section guided-exercises-section" id="parte-5-arrays-de-objetos"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-collection"></i></span> Parte 5. Arrays de objetos</h2>
+<div class="exercise-block"><h3>Ejercicio 11. Crear un array de alumnos</h3>
+<p>Crea un array llamado <code>alumnos</code> con al menos 5 objetos. Cada objeto debe tener:</p>
+<ul class="custom-list">
+<li><code>nombre</code>;</li>
+<li><code>edad</code>;</li>
+<li><code>nota</code>;</li>
+<li><code>curso</code>.</li>
+</ul>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code class="">const alumnos = [
+  { nombre: "Ana", edad: 20, nota: 8, curso: "DWCC" },
+  { nombre: "Luis", edad: 22, nota: 4, curso: "DWCC" }
+];
+</code></pre></div>
+<p>Después muestra por consola:</p>
+<ol class="question-list">
+<li>El array completo.</li>
+<li>El nombre del primer alumno.</li>
+<li>La nota del último alumno usando <code>alumnos.length - 1</code>.</li>
+</ol>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 12. Recorrer un array de objetos con <code>forEach</code></h3>
+<p>Usando el array <code>alumnos</code> del ejercicio anterior, muestra un mensaje por cada alumno:</p>
+<div class="example-block"><pre class="code-text"><code class="">Ana tiene una nota de 8
+Luis tiene una nota de 4
+</code></pre></div>
+<p>Usa <code>forEach</code>.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 13. Mostrar solo algunos datos</h3>
+<p>Usando <code>forEach</code>, muestra solo los alumnos aprobados.</p>
+<p>Un alumno está aprobado si su nota es mayor o igual que 5.</p>
+<p>Formato esperado:</p>
+<div class="example-block"><pre class="code-text"><code class="">Ana ha aprobado con un 8
+</code></pre></div>
+<blockquote class="note-box">
+<p>En este ejercicio puedes usar <code>if</code> dentro del <code>forEach</code>.</p>
+</blockquote>
+<hr/>
+</div></section><section class="content-section operators-section" id="parte-6-map-filter-y-reduce-con-arrays-de-objetos"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-diagram-3"></i></span> Parte 6. <code>map</code>, <code>filter</code> y <code>reduce</code> con arrays de objetos</h2>
+<div class="exercise-block"><h3>Ejercicio 14. Crear un array de nombres con <code>map</code></h3>
+<p>A partir del array <code>alumnos</code>, crea un nuevo array llamado <code>nombresAlumnos</code> que contenga solo los nombres.</p>
+<p>Ejemplo de resultado:</p>
+<div class="example-block"><pre class="code-js"><code class="">["Ana", "Luis", "María", "Noa", "Iago"]
+</code></pre></div>
+<p>Usa <code>map</code>.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 15. Crear mensajes con <code>map</code></h3>
+<p>A partir del array <code>alumnos</code>, crea un nuevo array llamado <code>mensajes</code> con textos como estos:</p>
+<div class="example-block"><pre class="code-text"><code class="">Ana tiene una nota de 8
+Luis tiene una nota de 4
+</code></pre></div>
+<p>Usa <code>map</code>.</p>
+<p>Después muestra el array completo de mensajes.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 16. Filtrar aprobados con <code>filter</code></h3>
+<p>Crea un nuevo array llamado <code>alumnosAprobados</code> que contenga solo los alumnos con nota mayor o igual que 5.</p>
+<p>Después muestra:</p>
+<ol class="question-list">
+<li>El array completo de aprobados.</li>
+<li>Cuántos alumnos han aprobado usando <code>.length</code>.</li>
+</ol>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 17. Filtrar alumnos con nota alta</h3>
+<p>Crea un nuevo array llamado <code>alumnosDestacados</code> que contenga solo los alumnos con nota mayor o igual que 8.</p>
+<p>Después muestra sus nombres por consola.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 18. Calcular la suma de notas con <code>reduce</code></h3>
+<p>Usa <code>reduce</code> para calcular la suma de todas las notas del array <code>alumnos</code>.</p>
+<p>Estructura orientativa:</p>
+<div class="example-block"><pre class="code-js"><code class="">const sumaNotas = alumnos.reduce((acumulador, alumno) =&gt; {
+  return acumulador + alumno.nota;
+}, 0);
+</code></pre></div>
+<p>Después muestra:</p>
+<div class="example-block"><pre class="code-text"><code class="">Suma de notas: X
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 19. Calcular la media de notas</h3>
+<p>Usa la suma calculada en el ejercicio anterior para calcular la media.</p>
+<p>Después muestra un mensaje como:</p>
+<div class="example-block"><pre class="code-text"><code class="">La nota media del grupo es 6.4
+</code></pre></div>
+<p>Puedes usar <code>.toFixed(2)</code> si quieres mostrar dos decimales.</p>
+<hr/>
+</div></section><section class="content-section logic-section" id="parte-7-find-some-y-every"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-search"></i></span> Parte 7. <code>find</code>, <code>some</code> y <code>every</code></h2>
+<div class="exercise-block"><h3>Ejercicio 20. Buscar un alumno con <code>find</code></h3>
+<p>Usa <code>find</code> para buscar al alumno llamado <code>"Ana"</code>.</p>
+<ol class="question-list">
+<li>Si existe, muestra el objeto completo.</li>
+<li>Si no existe, muestra:</li>
+</ol>
+<div class="example-block"><pre class="code-text"><code class="">No se ha encontrado el alumno
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 21. Buscar el primer suspenso</h3>
+<p>Usa <code>find</code> para localizar el primer alumno con nota inferior a 5.</p>
+<p>Muestra por consola:</p>
+<div class="example-block"><pre class="code-text"><code class="">Primer alumno suspenso: Luis
+</code></pre></div>
+<p>Si no hay ningún suspenso, muestra:</p>
+<div class="example-block"><pre class="code-text"><code class="">No hay alumnos suspensos
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 22. Comprobar si hay sobresalientes con <code>some</code></h3>
+<p>Usa <code>some</code> para comprobar si hay algún alumno con nota mayor o igual que 9.</p>
+<p>Después muestra:</p>
+<ul class="custom-list">
+<li><code>Hay al menos un sobresaliente</code>, si el resultado es <code>true</code>;</li>
+<li><code>No hay sobresalientes</code>, si el resultado es <code>false</code>.</li>
+</ul>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 23. Comprobar si todos han aprobado con <code>every</code></h3>
+<p>Usa <code>every</code> para comprobar si todos los alumnos han aprobado.</p>
+<p>Después muestra:</p>
+<ul class="custom-list">
+<li><code>Todo el grupo ha aprobado</code>, si todos tienen nota mayor o igual que 5;</li>
+<li><code>Hay alumnado suspenso</code>, si al menos una nota es menor que 5.</li>
+</ul>
+<hr/>
+</div></section><section class="content-section operators-section" id="parte-8-ordenacion-con-sort-avanzado"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-sort-numeric-down"></i></span> Parte 8. Ordenación con <code>sort()</code> avanzado</h2>
+<div class="exercise-block"><h3>Ejercicio 24. Ordenar alumnos por nota ascendente</h3>
+<p>Crea una copia del array <code>alumnos</code> y ordénala de menor a mayor nota.</p>
+<blockquote class="note-box">
+<p>Recuerda: <code>sort()</code> modifica el array sobre el que se aplica. Para no modificar el original, crea primero una copia.</p>
+</blockquote>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code class="">const alumnosPorNota = alumnos.slice();
+
+alumnosPorNota.sort((a, b) =&gt; a.nota - b.nota);
+</code></pre></div>
+<p>En la Parte 10 verás que spread permite crear la misma copia con <code>const alumnosPorNota = [...alumnos];</code>.</p>
+<p>Después muestra el resultado.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 25. Ordenar alumnos por nota descendente</h3>
+<p>Crea otra copia del array <code>alumnos</code> con <code>slice()</code> y ordénala de mayor a menor nota.</p>
+<p>Pista:</p>
+<div class="example-block"><pre class="code-js"><code class="">b.nota - a.nota
+</code></pre></div>
+<p>Muestra los nombres y notas en orden descendente.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 26. Ordenar por nombre</h3>
+<p>Crea una copia del array <code>alumnos</code> con <code>slice()</code> y ordénala alfabéticamente por nombre.</p>
+<p>Pista:</p>
+<div class="example-block"><pre class="code-js"><code class="">alumnosPorNombre.sort((a, b) =&gt; a.nombre.localeCompare(b.nombre));
+</code></pre></div>
+<p>Después muestra los nombres en orden.</p>
+<hr/>
+</div></section><section class="content-section guided-exercises-section" id="parte-9-destructuring"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-boxes"></i></span> Parte 9. Destructuring</h2>
+<div class="exercise-block"><h3>Ejercicio 27. Destructuring de objetos</h3>
+<p>Dado este objeto:</p>
+<div class="example-block"><pre class="code-js"><code class="">const productoDestructuring = {
+  nombre: "Ratón",
+  precio: 12.99,
+  stock: 25
+};
+</code></pre></div>
+<p>Usa destructuring sobre <code>productoDestructuring</code> para crear las constantes:</p>
+<ul class="custom-list">
+<li><code>nombre</code>;</li>
+<li><code>precio</code>;</li>
+<li><code>stock</code>.</li>
+</ul>
+<p>Después muestra:</p>
+<div class="example-block"><pre class="code-text"><code class="">Ratón cuesta 12.99 € y hay 25 unidades.
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 28. Destructuring en parámetros de función</h3>
+<p>Crea una función llamada <code>mostrarProducto</code> que reciba un objeto producto y use destructuring directamente en los parámetros.</p>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code class="">function mostrarProducto({ nombre, precio, stock }) {
+  console.log(nombre + " cuesta " + precio + " € y hay " + stock + " unidades.");
+}
+</code></pre></div>
+<p>Pruébala con dos productos distintos.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 29. Destructuring de arrays</h3>
+<p>Dado el siguiente array:</p>
+<div class="example-block"><pre class="code-js"><code class="">const coordenadas = [10, 20];
+</code></pre></div>
+<p>Usa destructuring para crear dos constantes:</p>
+<ul class="custom-list">
+<li><code>x</code>;</li>
+<li><code>y</code>.</li>
+</ul>
+<p>Después muestra:</p>
+<div class="example-block"><pre class="code-text"><code class="">Coordenada X: 10
+Coordenada Y: 20
+</code></pre></div>
+<hr/>
+</div></section><section class="content-section guided-exercises-section" id="parte-10-spread-y-rest"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-arrows-expand"></i></span> Parte 10. Spread y rest</h2>
+<blockquote class="note-box">
+<p><strong>Ojo:</strong> spread y rest utilizan el mismo símbolo <code>...</code>, pero no hacen lo mismo:</p>
+<ul class="custom-list">
+<li><strong>spread</strong> expande valores para copiar, combinar o crear nuevas estructuras;</li>
+<li><strong>rest</strong> recoge varios argumentos en un array.</li>
+</ul>
+</blockquote>
+<div class="exercise-block"><h3>Ejercicio 30. Copiar un objeto con spread</h3>
+<p>Dado el objeto:</p>
+<div class="example-block"><pre class="code-js"><code class="">const configuracion = {
+  tema: "claro",
+  idioma: "es",
+  notificaciones: true
+};
+</code></pre></div>
+<p>Crea una copia llamada <code>configuracionCopia</code> usando spread.</p>
+<p>Después modifica en la copia:</p>
+<ul class="custom-list">
+<li><code>tema</code> a <code>"oscuro"</code>.</li>
+</ul>
+<p>Muestra los dos objetos y comprueba que el original no ha cambiado.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 31. Crear un objeto actualizado con spread</h3>
+<p>Dado este producto:</p>
+<div class="example-block"><pre class="code-js"><code class="">const productoOferta = {
+  nombre: "Teclado",
+  precio: 29.99,
+  stock: 10
+};
+</code></pre></div>
+<p>Crea un nuevo objeto llamado <code>productoActualizado</code> a partir de <code>productoOferta</code> que tenga las mismas propiedades, pero con:</p>
+<ul class="custom-list">
+<li><code>precio</code>: <code>24.99</code>;</li>
+<li><code>enOferta</code>: <code>true</code>.</li>
+</ul>
+<p>Usa spread.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 32. Unir arrays con spread</h3>
+<p>Dado:</p>
+<div class="example-block"><pre class="code-js"><code class="">const grupoA = ["Ana", "Luis"];
+const grupoB = ["María", "Noa"];
+</code></pre></div>
+<p>Crea un nuevo array llamado <code>grupoCompleto</code> usando spread.</p>
+<p>Resultado esperado:</p>
+<div class="example-block"><pre class="code-js"><code class="">["Ana", "Luis", "María", "Noa"]
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 33. Parámetros rest</h3>
+<p>Crea una función llamada <code>sumarNumeros</code> que pueda recibir cualquier cantidad de números y devuelva la suma total.</p>
+<p>Ejemplo de uso:</p>
+<div class="example-block"><pre class="code-js"><code class="">console.log(sumarNumeros(1, 2, 3));       // 6
+console.log(sumarNumeros(10, 20, 30, 5)); // 65
+</code></pre></div>
+<p>Pista:</p>
+<div class="example-block"><pre class="code-js"><code class="">function sumarNumeros(...numeros) {
+  // aquí numeros es un array
+}
+</code></pre></div>
+<p>Puedes resolverlo con <code>for</code> o con <code>reduce</code>.</p>
+<hr/>
+</div></section><section class="content-section guided-exercises-section" id="parte-11-json-con-estructuras-de-datos"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-filetype-json"></i></span> Parte 11. JSON con estructuras de datos</h2>
+<div class="exercise-block"><h3>Ejercicio 34. Convertir un objeto a JSON</h3>
+<p>Crea un objeto llamado <code>curso</code> con estas propiedades:</p>
+<ul class="custom-list">
+<li><code>nombre</code>;</li>
+<li><code>modulo</code>;</li>
+<li><code>horas</code>;</li>
+<li><code>activo</code>.</li>
+</ul>
+<p>Convierte el objeto a texto JSON usando <code>JSON.stringify()</code>.</p>
+<p>Muestra:</p>
+<ol class="question-list">
+<li>El objeto original.</li>
+<li>El texto JSON.</li>
+<li>El tipo de dato del texto JSON usando <code>typeof</code>.</li>
+</ol>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 35. Convertir JSON a objeto</h3>
+<p>Dado este texto JSON:</p>
+<div class="example-block"><pre class="code-js"><code class="">const textoJSON = '{"nombre":"DWCC","horas":219,"activo":true}';
+</code></pre></div>
+<p>Convierte el texto a objeto usando <code>JSON.parse()</code>.</p>
+<p>Después muestra:</p>
+<ol class="question-list">
+<li>El objeto completo.</li>
+<li>El nombre.</li>
+<li>Las horas.</li>
+</ol>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 36. JSON con arrays de objetos</h3>
+<p>Usa el array <code>alumnos</code> de ejercicios anteriores.</p>
+<ol class="question-list">
+<li>Convierte el array completo a texto JSON.</li>
+<li>Muestra el texto JSON.</li>
+<li>Vuelve a convertir ese texto JSON en un array de objetos.</li>
+<li>Comprueba que puedes acceder al nombre del primer alumno recuperado.</li>
+</ol>
+<hr/>
+</div></section><section class="content-section extension-section" id="parte-12-map-como-ampliacion"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-map"></i></span> Parte 12. <code>Map</code> como ampliación</h2>
+<blockquote class="note-box">
+<p>Esta parte es de ampliación. Sirve para conocer una estructura clave-valor más específica que los objetos normales.</p>
+<p>Estos ejercicios son voluntarios y no forman parte de los requisitos mínimos de la hoja ni de la mini-entrega final.</p>
+</blockquote>
+<div class="exercise-block"><h3>Ejercicio 37. Crear y consultar un <code>Map</code></h3>
+<p>Crea un <code>Map</code> llamado <code>telefonos</code>.</p>
+<p>Añade estos datos:</p>
+<ul class="custom-list">
+<li><code>"Ana"</code> → <code>"111111111"</code>;</li>
+<li><code>"Luis"</code> → <code>"222222222"</code>;</li>
+<li><code>"María"</code> → <code>"333333333"</code>.</li>
+</ul>
+<p>Después:</p>
+<ol class="question-list">
+<li>Muestra el teléfono de Ana usando <code>.get()</code>.</li>
+<li>Comprueba si existe Luis usando <code>.has()</code>.</li>
+<li>Elimina a Luis usando <code>.delete()</code>.</li>
+<li>Muestra el tamaño del <code>Map</code> con <code>.size</code>.</li>
+</ol>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 38. Recorrer un <code>Map</code></h3>
+<p>Recorre el <code>Map</code> <code>telefonos</code> con <code>for...of</code> y muestra mensajes como:</p>
+<div class="example-block"><pre class="code-text"><code class="">Ana: 111111111
+María: 333333333
+</code></pre></div>
+<hr/>
+</div></section><section class="content-section extension-section" id="parte-13-ampliaciones-controladas"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-stars"></i></span> Parte 13. Ampliaciones controladas</h2>
+<blockquote class="note-box">
+<p>Estos ejercicios son voluntarios y no forman parte de los requisitos mínimos de la hoja ni de la mini-entrega final. Sirven como primera aproximación a contenidos que se retomarán cuando sea necesario.</p>
+</blockquote>
+<div class="exercise-block"><h3>Ejercicio 39. Array multidimensional sencillo</h3>
+<p>Crea una matriz llamada <code>tablero</code> con esta estructura:</p>
+<div class="example-block"><pre class="code-js"><code class="">const tablero = [
+  ["X", "O", "X"],
+  ["O", "X", "O"],
+  ["X", "O", "X"]
+];
+</code></pre></div>
+<p>Muestra:</p>
+<ol class="question-list">
+<li>La primera fila completa.</li>
+<li>El elemento central.</li>
+<li>El último elemento de la última fila.</li>
+</ol>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 40. Closure sencillo</h3>
+<p>Lee este código:</p>
+<div class="example-block"><pre class="code-js"><code class="">function crearContador() {
+  let valor = 0;
+
+  return function () {
+    valor++;
+    return valor;
+  };
+}
+
+const contador = crearContador();
+
+console.log(contador());
+console.log(contador());
+console.log(contador());
+</code></pre></div>
+<p>Responde en comentarios:</p>
+<ol class="question-list">
+<li>¿Qué devuelve cada llamada?</li>
+<li>¿Por qué la variable <code>valor</code> no vuelve a empezar en 0 en cada llamada?</li>
+<li>¿Qué idea general representa este ejemplo?</li>
+</ol>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 41. Recursividad sencilla</h3>
+<p>Crea una función llamada <code>cuentaAtras</code> que reciba un número y muestre una cuenta atrás hasta 0.</p>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code class="">cuentaAtras(3);
+</code></pre></div>
+<p>Salida esperada:</p>
+<div class="example-block"><pre class="code-text"><code class="">3
+2
+1
+0
+Fin
+</code></pre></div>
+<blockquote class="note-box">
+<p>Este ejercicio es de ampliación. Si te resulta difícil, puedes resolver primero la cuenta atrás con un bucle <code>for</code> y después comparar ambas soluciones.</p>
+<p>Pista: muestra primero el número recibido. Si el número es <code>0</code>, muestra <code>"Fin"</code> y termina la función. En caso contrario, llama de nuevo a la función con <code>numero - 1</code>.</p>
+</blockquote>
+<hr/>
+</div></section><section class="content-section frequent-errors-section" id="parte-14-corrige-los-errores"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-bug"></i></span> Parte 14. Corrige los errores</h2>
+<div class="exercise-block"><h3>Ejercicio 42. Error al acceder a una propiedad</h3>
+<p>Corrige el siguiente código:</p>
+<div class="example-block"><pre class="code-js"><code class="">const alumnoError = {
+  nombre: "Ana",
+  nota: 8
+};
+
+console.log(alumnoError.Nombre);
+</code></pre></div>
+<p>Explica con un comentario cuál era el error.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 43. Error con <code>this</code></h3>
+<p>Corrige el siguiente código:</p>
+<div class="example-block"><pre class="code-js"><code class="">const producto = {
+  nombre: "Monitor",
+  precio: 150,
+
+  mostrar: () =&gt; {
+    console.log(this.nombre + " cuesta " + this.precio + " €");
+  }
+};
+
+producto.mostrar();
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 44. Error con <code>map</code></h3>
+<p>Corrige el siguiente código:</p>
+<div class="example-block"><pre class="code-js"><code class="">const numeros = [1, 2, 3];
+
+const dobles = numeros.map((numero) =&gt; {
+  numero * 2;
+});
+
+console.log(dobles);
+</code></pre></div>
+<p>Explica por qué el resultado no era el esperado.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 45. Error con <code>filter</code></h3>
+<p>Corrige el siguiente código:</p>
+<div class="example-block"><pre class="code-js"><code class="">const alumnosFiltroError = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 }
+];
+
+const aprobados = alumnosFiltroError.filter((alumno) =&gt; {
+  alumno.nota &gt;= 5;
+});
+
+console.log(aprobados);
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 46. Error con <code>sort</code></h3>
+<p>Corrige el siguiente código para ordenar correctamente por nota de menor a mayor:</p>
+<div class="example-block"><pre class="code-js"><code class="">const alumnosOrdenError = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 },
+  { nombre: "María", nota: 9 }
+];
+
+alumnosOrdenError.sort();
+
+console.log(alumnosOrdenError);
+</code></pre></div>
+<hr/>
+</div></section><section class="content-section delivery-section" id="parte-15-mini-entrega-final"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-trophy"></i></span> Parte 15. Mini-entrega final</h2>
+<div class="exercise-block"><h3>Ejercicio 47. Gestión de productos sin DOM</h3>
+<p>Crea un pequeño programa de consola para gestionar una lista de productos.</p>
+<p>Debes crear un array llamado <code>productos</code> con al menos 6 objetos. Cada producto debe tener:</p>
+<ul class="custom-list">
+<li><code>id</code>;</li>
+<li><code>nombre</code>;</li>
+<li><code>precio</code>;</li>
+<li><code>stock</code>;</li>
+<li><code>categoria</code>;</li>
+<li><code>activo</code>.</li>
+</ul>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code class="">const productos = [
+  { id: 1, nombre: "Teclado", precio: 29.99, stock: 10, categoria: "periféricos", activo: true },
+  { id: 2, nombre: "Ratón", precio: 12.5, stock: 0, categoria: "periféricos", activo: false }
+];
+</code></pre></div>
+<p>El programa debe realizar estas tareas:</p>
+<ol class="question-list">
+<li>Mostrar todos los productos con <code>forEach</code>.</li>
+<li>Crear un array con solo los nombres usando <code>map</code>.</li>
+<li>Crear un array con los productos activos usando <code>filter</code>.</li>
+<li>Calcular el valor total del inventario usando <code>reduce</code>:</li>
+</ol>
+<div class="example-block"><pre class="code-text"><code class="">precio * stock
+</code></pre></div>
+<ol class="question-list" start="5">
+<li>Buscar un producto por <code>id</code> usando <code>find</code>.</li>
+<li>Comprobar si hay algún producto sin stock usando <code>some</code>.</li>
+<li>Comprobar si todos los productos tienen precio mayor que 0 usando <code>every</code>.</li>
+<li>Crear una copia ordenada por precio de menor a mayor usando <code>sort</code>.</li>
+<li>Crear un nuevo producto actualizado usando spread.</li>
+<li>Convertir el array de productos a JSON con <code>JSON.stringify()</code>.</li>
+<li>Recuperar el array usando <code>JSON.parse()</code>.</li>
+</ol>
+<p>Al final del archivo, escribe en comentarios una respuesta breve a estas preguntas:</p>
+<ol class="question-list">
+<li>¿Qué método te resultó más útil: <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code>, <code>some</code> o <code>every</code>? ¿Por qué?</li>
+<li>¿Qué diferencia hay entre un objeto y un array de objetos?</li>
+<li>¿Por qué conviene hacer una copia antes de ordenar con <code>sort()</code>?</li>
+<li>¿Para qué puede servir convertir datos a JSON?</li>
+</ol>
+<hr/>
+</div></section><section class="content-section review-section" id="16-criterios-orientativos-de-correccion"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-clipboard-check"></i></span> 16. Criterios orientativos de corrección</h2>
+<div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Qué se valora</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Objetos</td>
+<td>Crea objetos correctos, accede a propiedades y modifica datos sin errores.</td>
+</tr>
+<tr>
+<td>Métodos y <code>this</code></td>
+<td>Usa métodos tradicionales cuando necesita acceder a <code>this</code>.</td>
+</tr>
+<tr>
+<td>Arrays de objetos</td>
+<td>Representa listas de datos complejos mediante arrays de objetos.</td>
+</tr>
+<tr>
+<td>Métodos avanzados</td>
+<td>Usa correctamente <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code>, <code>some</code>, <code>every</code> y <code>sort</code>.</td>
+</tr>
+<tr>
+<td>Copias y spread</td>
+<td>Comprende cuándo conviene copiar antes de modificar u ordenar.</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>Convierte datos a JSON y los recupera correctamente.</td>
+</tr>
+<tr>
+<td>Código</td>
+<td>Usa nombres claros, sangrado correcto y comentarios útiles.</td>
+</tr>
+<tr>
+<td>Razonamiento</td>
+<td>Explica errores y justifica decisiones básicas.</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+</section><section class="content-section restrictions-section" id="17-contenidos-que-no-forman-parte-de-esta-hoja"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-slash-circle"></i></span> 17. Contenidos que no forman parte de esta hoja</h2>
+<p>Estos contenidos se trabajarán en documentos posteriores:</p>
+<ul class="custom-list">
+<li>DOM;</li>
+<li>selección y modificación de elementos HTML;</li>
+<li>eventos;</li>
+<li>formularios;</li>
+<li>validación avanzada;</li>
+<li>asincronía real;</li>
+<li>promesas;</li>
+<li><code>fetch</code>;</li>
+<li><code>async</code> / <code>await</code>;</li>
+<li>consumo de APIs externas;</li>
+<li>renderizado dinámico en una página web.</li>
+</ul>
+<hr/>
+</section><section class="content-section summary-section" id="18-resumen-final"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-check2-circle"></i></span> 18. Resumen final</h2>
+<p>En esta hoja has practicado cómo JavaScript permite representar datos complejos sin necesidad de usar todavía el DOM.</p>
+<p>Los conceptos clave son:</p>
+<ul class="custom-list">
+<li>un <strong>objeto</strong> agrupa propiedades y métodos;</li>
+<li>un <strong>array de objetos</strong> permite trabajar con listas de entidades complejas;</li>
+<li><code>map</code> transforma;</li>
+<li><code>filter</code> selecciona;</li>
+<li><code>reduce</code> acumula;</li>
+<li><code>find</code> busca un elemento;</li>
+<li><code>some</code> comprueba si alguno cumple una condición;</li>
+<li><code>every</code> comprueba si todos cumplen una condición;</li>
+<li><code>sort</code> ordena, pero modifica el array;</li>
+<li><code>destructuring</code>, spread y rest ayudan a escribir código más claro;</li>
+<li>JSON permite convertir datos de JavaScript en texto y recuperarlos después.</li>
+</ul>
+</section>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

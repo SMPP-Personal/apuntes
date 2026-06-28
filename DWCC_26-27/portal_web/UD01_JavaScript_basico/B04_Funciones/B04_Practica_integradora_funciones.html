@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>B04. Práctica integradora: funciones en JavaScript</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../assets/css/smpp.css" rel="stylesheet" />
+    <script defer src="../../assets/js/smpp.js"></script>
+  </head>
+  <body>
+    <div class="smpp-scope">
+      <main
+        class="main-content has-sidebar practice-document practice-page practice-global milestone-practice"
+      >
+        <div class="content-layout">
+          <aside aria-label="Índice del documento" class="section-sidebar">
+            <nav aria-label="Secciones del documento" class="section-nav">
+              <p class="section-nav-title">
+                <i aria-hidden="true" class="bi bi-list-task"></i> Índice de la
+                práctica
+              </p>
+              <ol class="section-nav-list">
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#1-objetivo-de-la-practica"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-bullseye"></i></span
+                    ><span>1. Objetivo de la práctica</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#2-contenidos-que-se-repasan"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-list-check"></i></span
+                    ><span>2. Contenidos que se repasan</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#3-normas-de-la-practica"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-shield-check"
+                      ></i></span
+                    ><span>3. Normas de la práctica</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#4-estructura-recomendada-del-fichero"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-folder2-open"
+                      ></i></span
+                    ><span>4. Estructura recomendada del fichero</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#5-parte-1-funciones-de-calculo"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-calculator"></i></span
+                    ><span>5. Parte 1: funciones de cálculo</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#6-parte-2-funciones-con-condicionales"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-question-diamond"
+                      ></i></span
+                    ><span>6. Parte 2: funciones con condicionales</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#7-parte-3-funciones-con-bucles"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-arrow-repeat"
+                      ></i></span
+                    ><span>7. Parte 3: funciones con bucles</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#8-parte-4-miniaplicacion-final"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-window-stack"
+                      ></i></span
+                    ><span>8. Parte 4: miniaplicación final</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#9-parte-5-revision-de-errores-frecuentes"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-bug"></i></span
+                    ><span>9. Parte 5: revisión de errores frecuentes</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link badge-link" href="#10-entrega"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-box-arrow-up"
+                      ></i></span
+                    ><span>10. Entrega</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#11-criterios-de-correccion-orientativos"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-table"></i></span
+                    ><span>11. Criterios de corrección orientativos</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#12-contenidos-no-incluidos-todavia"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-slash-circle"
+                      ></i></span
+                    ><span>12. Contenidos no incluidos todavía</span></a
+                  >
+                </li>
+              </ol>
+            </nav>
+          </aside>
+          <div class="content-wrapper">
+            <div class="document-toolbar">
+              <a class="document-home-link" href="../../index.html"
+                ><i aria-hidden="true" class="bi bi-house-door"></i> Índice del
+                curso</a
+              >
+ <button id="theme-toggle" class="document-theme-toggle" type="button">
+    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+    Modo oscuro
+  </button>
+
+            </div>
+            <header
+              class="content-header practice-header practice-hero header-celebration"
+            >
+              <p class="document-kicker">
+                <i aria-hidden="true" class="bi bi-stars"></i> Práctica
+                integradora · Ecuador de la unidad
+              </p>
+              <h1>
+                <span aria-hidden="true" class="document-title-icon"
+                  ><i aria-hidden="true" class="bi bi-trophy"></i
+                ></span>
+                B04. Práctica integradora: funciones en JavaScript
+              </h1>
+              <p class="section-lead">
+                Un alto en el camino para consolidar funciones antes de avanzar
+                hacia nuevos bloques de JavaScript.
+              </p>
+            </header>
+            <hr class="festival-divider" />
+            <section
+              class="content-section requirements-section"
+              id="1-objetivo-de-la-practica"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bullseye"></i></span
+                >1. Objetivo de la práctica
+              </h2>
+              <p class="section-lead">
+                En esta práctica vas a construir un pequeño conjunto de
+                funciones en JavaScript para resolver problemas sencillos. El
+                objetivo no es hacer una aplicación grande, sino demostrar que
+                sabes:
+              </p>
+              <ul class="feature-list">
+                <li>declarar funciones con <code>function</code>;</li>
+                <li>llamar funciones correctamente;</li>
+                <li>usar parámetros y argumentos;</li>
+                <li>devolver valores con <code>return</code>;</li>
+                <li>
+                  diferenciar <code>console.log()</code> de <code>return</code>;
+                </li>
+                <li>usar variables locales;</li>
+                <li>combinar funciones con condicionales y bucles;</li>
+                <li>
+                  probar el código desde un fichero <code>.js</code> enlazado a
+                  una página HTML o desde la consola del navegador.
+                </li>
+              </ul>
+              <p>
+                Esta práctica sirve para cerrar el bloque de funciones antes de
+                empezar con arrays y objetos predefinidos.
+              </p>
+              <hr />
+            </section>
+            <section
+              class="content-section tests-section"
+              id="2-contenidos-que-se-repasan"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-list-check"></i></span
+                >2. Contenidos que se repasan
+              </h2>
+              <ul class="tests-list">
+                <li>Variables y constantes.</li>
+                <li>Tipos básicos.</li>
+                <li>Conversión a número con <code>Number()</code>.</li>
+                <li>
+                  Condicionales <code>if</code>, <code>else if</code>,
+                  <code>else</code>.
+                </li>
+                <li>Operadores de comparación y operadores lógicos.</li>
+                <li>Bucles <code>while</code> y <code>for</code>.</li>
+                <li>Funciones básicas.</li>
+                <li>Parámetros, argumentos y <code>return</code>.</li>
+                <li>Ámbito local de las variables.</li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section restrictions-section"
+              id="3-normas-de-la-practica"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-shield-check"></i></span
+                >3. Normas de la práctica
+              </h2>
+              <ol class="restrictions-list">
+                <li>
+                  Usa un fichero llamado <code>B04_practica_funciones.js</code>.
+                </li>
+                <li>
+                  Puedes usar una página HTML mínima para enlazar el fichero
+                  JavaScript.
+                </li>
+                <li>No uses arrays todavía.</li>
+                <li>No uses objetos propios todavía.</li>
+                <li>
+                  En la parte obligatoria usa funciones declaradas con
+                  <code>function</code>.
+                </li>
+                <li>
+                  Usa <code>console.log()</code> para mostrar los resultados de
+                  las pruebas.
+                </li>
+                <li>Cada función debe hacer una tarea concreta.</li>
+                <li>
+                  Evita meter todo el programa dentro de una sola función.
+                </li>
+              </ol>
+              <hr />
+            </section>
+            <section
+              class="content-section practice-section"
+              id="4-estructura-recomendada-del-fichero"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-folder2-open"></i></span
+                >4. Estructura recomendada del fichero
+              </h2>
+              <p class="section-lead">Puedes organizar tu fichero así:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>// B04_practica_funciones.js
+
+// 1. Funciones de cálculo
+
+// 2. Funciones con condicionales
+
+// 3. Funciones con bucles
+
+// 4. Pruebas de las funciones
+</code></pre>
+              </div>
+              <p>
+                La parte de pruebas debe ir al final del fichero, después de
+                declarar las funciones.
+              </p>
+              <hr />
+            </section>
+            <section
+              class="content-section phase-section"
+              id="5-parte-1-funciones-de-calculo"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-calculator"></i></span
+                >5. Parte 1: funciones de cálculo
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 1. Calcular el precio con IVA</h3>
+                <p>
+                  Crea una función llamada <code>calcularPrecioConIVA</code> que
+                  reciba:
+                </p>
+                <ul class="custom-list">
+                  <li><code>precioSinIVA</code></li>
+                  <li><code>tipoIVA</code></li>
+                </ul>
+                <p>
+                  La función debe devolver el precio final con IVA incluido.
+                </p>
+                <p>Ejemplo de uso:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const total = calcularPrecioConIVA(100, 21);
+console.log(total); // 121
+</code></pre>
+                </div>
+                <p>Pistas:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const iva = precioSinIVA * (tipoIVA / 100);
+const total = precioSinIVA + iva;
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 2. Aplicar un descuento</h3>
+                <p>
+                  Crea una función llamada <code>aplicarDescuento</code> que
+                  reciba:
+                </p>
+                <ul class="custom-list">
+                  <li><code>precio</code></li>
+                  <li><code>porcentajeDescuento</code></li>
+                </ul>
+                <p>
+                  La función debe devolver el precio después de aplicar el
+                  descuento.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(aplicarDescuento(100, 10)); // 90
+console.log(aplicarDescuento(50, 20));  // 40
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 3. Calcular precio final con descuento e IVA</h3>
+                <p>
+                  Crea una función llamada <code>calcularPrecioFinal</code> que
+                  reciba:
+                </p>
+                <ul class="custom-list">
+                  <li><code>precioBase</code></li>
+                  <li><code>descuento</code></li>
+                  <li><code>iva</code></li>
+                </ul>
+                <p>La función debe:</p>
+                <ol class="custom-ordered-list">
+                  <li>aplicar primero el descuento;</li>
+                  <li>aplicar después el IVA;</li>
+                  <li>devolver el precio final.</li>
+                </ol>
+                <p>Debes reutilizar las funciones anteriores:</p>
+                <ul class="custom-list">
+                  <li><code>aplicarDescuento</code></li>
+                  <li><code>calcularPrecioConIVA</code></li>
+                </ul>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const precioFinal = calcularPrecioFinal(100, 10, 21);
+console.log(precioFinal); // 108.9
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section phase-section"
+              id="6-parte-2-funciones-con-condicionales"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-question-diamond"
+                  ></i></span
+                >6. Parte 2: funciones con condicionales
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 4. Saber si una nota está aprobada</h3>
+                <p>
+                  Crea una función llamada <code>estaAprobado</code> que reciba
+                  una nota y devuelva:
+                </p>
+                <ul class="custom-list">
+                  <li><code>true</code> si la nota es mayor o igual que 5;</li>
+                  <li><code>false</code> en caso contrario.</li>
+                </ul>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(estaAprobado(7)); // true
+console.log(estaAprobado(3)); // false
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 5. Obtener el texto de una calificación</h3>
+                <p>
+                  Crea una función llamada <code>obtenerTextoNota</code> que
+                  reciba una nota de 0 a 10 y devuelva:
+                </p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Sobresaliente"</code> si la nota es mayor o igual que
+                    9;
+                  </li>
+                  <li>
+                    <code>"Notable"</code> si la nota es mayor o igual que 7 y
+                    menor que 9;
+                  </li>
+                  <li>
+                    <code>"Aprobado"</code> si la nota es mayor o igual que 5 y
+                    menor que 7;
+                  </li>
+                  <li><code>"Suspenso"</code> si la nota es menor que 5.</li>
+                </ul>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(obtenerTextoNota(9));   // Sobresaliente
+console.log(obtenerTextoNota(7.5)); // Notable
+console.log(obtenerTextoNota(5));   // Aprobado
+console.log(obtenerTextoNota(3));   // Suspenso
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 6. Validar una nota</h3>
+                <p>
+                  Crea una función llamada <code>esNotaValida</code> que reciba
+                  un valor y devuelva:
+                </p>
+                <ul class="custom-list">
+                  <li>
+                    <code>true</code> si el valor es un número entre 0 y 10;
+                  </li>
+                  <li><code>false</code> si no lo es.</li>
+                </ul>
+                <p>Debe controlar estos casos:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(esNotaValida(7));       // true
+console.log(esNotaValida(0));       // true
+console.log(esNotaValida(10));      // true
+console.log(esNotaValida(-1));      // false
+console.log(esNotaValida(12));      // false
+console.log(esNotaValida(NaN));     // false
+</code></pre>
+                </div>
+                <p>Pista:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>Number.isNaN(valor)
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 7. Texto completo de una nota</h3>
+                <p>
+                  Crea una función llamada <code>generarMensajeNota</code> que
+                  reciba una nota.
+                </p>
+                <ul class="custom-list">
+                  <li>
+                    Si la nota no es válida, debe devolver
+                    <code>"Nota no válida"</code>.
+                  </li>
+                  <li>
+                    Si la nota es válida, debe devolver un texto como
+                    <code>"Nota: 7. Resultado: Notable"</code>.
+                  </li>
+                </ul>
+                <p>Debes reutilizar:</p>
+                <ul class="custom-list">
+                  <li><code>esNotaValida</code></li>
+                  <li><code>obtenerTextoNota</code></li>
+                </ul>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(generarMensajeNota(7));  // Nota: 7. Resultado: Notable
+console.log(generarMensajeNota(12)); // Nota no válida
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section phase-section"
+              id="7-parte-3-funciones-con-bucles"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-arrow-repeat"></i></span
+                >7. Parte 3: funciones con bucles
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 8. Imprimir una tabla de multiplicar</h3>
+                <p>
+                  Crea una función llamada
+                  <code>imprimirTablaMultiplicar</code> que reciba un número y
+                  muestre su tabla de multiplicar del 1 al 10.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>imprimirTablaMultiplicar(5);
+</code></pre>
+                </div>
+                <p>Salida esperada aproximada:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>5 x 1 = 5
+5 x 2 = 10
+5 x 3 = 15
+...
+5 x 10 = 50
+</code></pre>
+                </div>
+                <p>
+                  Esta función no necesita devolver un valor. Su tarea es
+                  mostrar información por consola.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 9. Sumar desde 1 hasta n</h3>
+                <p>
+                  Crea una función llamada <code>sumarHasta</code> que reciba un
+                  número <code>n</code> y devuelva la suma desde 1 hasta
+                  <code>n</code>.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(sumarHasta(5));  // 15, porque 1 + 2 + 3 + 4 + 5 = 15
+console.log(sumarHasta(10)); // 55
+</code></pre>
+                </div>
+                <p>
+                  Esta función sí debe usar <code>return</code>, porque
+                  necesitamos reutilizar el resultado.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 10. Contar números pares hasta n</h3>
+                <p>
+                  Crea una función llamada <code>contarParesHasta</code> que
+                  reciba un número <code>n</code> y devuelva cuántos números
+                  pares hay desde 1 hasta <code>n</code>.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(contarParesHasta(10)); // 5, porque son 2, 4, 6, 8, 10
+console.log(contarParesHasta(7));  // 3, porque son 2, 4, 6
+</code></pre>
+                </div>
+                <p>Pista:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>if (i % 2 === 0) {
+  // es par
+}
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section phase-section practice-section"
+              id="8-parte-4-miniaplicacion-final"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-window-stack"></i></span
+                >8. Parte 4: miniaplicación final
+              </h2>
+              <p class="section-lead">
+                Crea una función llamada <code>mostrarResumenAlumno</code> que
+                reciba:
+              </p>
+              <ul class="custom-list">
+                <li><code>nombre</code></li>
+                <li><code>nota</code></li>
+              </ul>
+              <p>
+                La función debe mostrar en consola un resumen con este formato:
+              </p>
+              <div class="example-block">
+                <pre class="code-text"><code>Alumno/a: Ana
+Nota: 7
+Resultado: Notable
+Estado: Aprobado
+</code></pre>
+              </div>
+              <p>Condiciones:</p>
+              <ol class="custom-ordered-list">
+                <li>
+                  Debe usar <code>esNotaValida</code> para comprobar la nota.
+                </li>
+                <li>Si la nota no es válida, debe mostrar:</li>
+              </ol>
+              <div class="example-block">
+                <pre class="code-text"><code>Alumno/a: Ana
+Nota no válida
+</code></pre>
+              </div>
+              <ol class="custom-ordered-list" start="3">
+                <li>
+                  Si la nota es válida, debe usar:
+                  <ul class="custom-list">
+                    <li><code>obtenerTextoNota</code></li>
+                    <li><code>estaAprobado</code></li>
+                  </ul>
+                </li>
+              </ol>
+              <p>Ejemplos de prueba:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>mostrarResumenAlumno("Ana", 7);
+mostrarResumenAlumno("Luis", 3);
+mostrarResumenAlumno("Marta", 12);
+</code></pre>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section phase-section frequent-errors-section"
+              id="9-parte-5-revision-de-errores-frecuentes"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bug"></i></span
+                >9. Parte 5: revisión de errores frecuentes
+              </h2>
+              <p class="section-lead">
+                Corrige los errores de los siguientes fragmentos.
+              </p>
+              <div class="error-card">
+                <h3>Error 1. Falta llamar a la función</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  console.log("Hola");
+}
+
+saludar;
+</code></pre>
+                </div>
+                <p>Pregunta: ¿por qué no se ejecuta la función?</p>
+                <hr />
+              </div>
+              <div class="error-card">
+                <h3>Error 2. Usar una variable local fuera de la función</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function calcularDoble(n) {
+  const doble = n * 2;
+  return doble;
+}
+
+console.log(doble);
+</code></pre>
+                </div>
+                <p>Pregunta: ¿por qué falla <code>console.log(doble)</code>?</p>
+                <hr />
+              </div>
+              <div class="error-card">
+                <h3>
+                  Error 3. Confundir <code>console.log()</code> con
+                  <code>return</code>
+                </h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function sumar(a, b) {
+  console.log(a + b);
+}
+
+const resultado = sumar(3, 4);
+console.log(resultado);
+</code></pre>
+                </div>
+                <p>
+                  Pregunta: ¿qué valor tiene <code>resultado</code>? ¿Por qué?
+                </p>
+                <hr />
+              </div>
+              <div class="error-card">
+                <h3>Error 4. Código después de <code>return</code></h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function ejemplo() {
+  return "Fin";
+  console.log("Esto se ejecuta");
+}
+
+console.log(ejemplo());
+</code></pre>
+                </div>
+                <p>
+                  Pregunta: ¿se ejecuta el segundo <code>console.log</code>?
+                  Explica por qué.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section class="content-section delivery-section" id="10-entrega">
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-box-arrow-up"></i></span
+                >10. Entrega
+              </h2>
+              <p class="section-lead">Entrega en la plataforma:</p>
+              <ol class="delivery-list">
+                <li>El fichero <code>B04_practica_funciones.js</code>.</li>
+                <li>
+                  Una captura de la consola donde se vean las pruebas de varias
+                  funciones.
+                </li>
+                <li>
+                  Un breve comentario, en el propio fichero o en la entrega,
+                  indicando:
+                  <ul class="custom-list">
+                    <li>
+                      una función que devuelve un valor con <code>return</code>;
+                    </li>
+                    <li>
+                      una función que solo muestra información con
+                      <code>console.log()</code>;
+                    </li>
+                    <li>un error que hayas corregido durante la práctica.</li>
+                  </ul>
+                </li>
+              </ol>
+              <hr />
+            </section>
+            <section
+              class="content-section rubric-section"
+              id="11-criterios-de-correccion-orientativos"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-table"></i></span
+                >11. Criterios de corrección orientativos
+              </h2>
+              <div class="compact-table-container">
+                <table class="comparison-table">
+                  <thead>
+                    <tr>
+                      <th>Criterio</th>
+                      <th>Peso orientativo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Declara y llama funciones correctamente</td>
+                      <td>20 %</td>
+                    </tr>
+                    <tr>
+                      <td>Usa parámetros y argumentos de forma adecuada</td>
+                      <td>15 %</td>
+                    </tr>
+                    <tr>
+                      <td>Usa <code>return</code> cuando corresponde</td>
+                      <td>20 %</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Diferencia <code>console.log()</code> de
+                        <code>return</code>
+                      </td>
+                      <td>15 %</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Integra condicionales y bucles dentro de funciones
+                      </td>
+                      <td>20 %</td>
+                    </tr>
+                    <tr>
+                      <td>Código ordenado, probado y legible</td>
+                      <td>10 %</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section restrictions-section"
+              id="12-contenidos-no-incluidos-todavia"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-slash-circle"></i></span
+                >12. Contenidos no incluidos todavía
+              </h2>
+              <p class="section-lead">
+                En esta práctica no se trabajan como contenido principal:
+              </p>
+              <ul class="restrictions-list">
+                <li>arrays;</li>
+                <li>objetos propios;</li>
+                <li>objetos predefinidos;</li>
+                <li>métodos de array;</li>
+                <li>eventos del DOM;</li>
+                <li>asincronía real;</li>
+                <li>promesas;</li>
+                <li><code>async/await</code>;</li>
+                <li>closures;</li>
+                <li>recursividad.</li>
+              </ul>
+              <p>Estos contenidos se abordarán en bloques posteriores.</p>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

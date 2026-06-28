@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloque 4 · Terminal integrada y Node.js</title>
+  <style>
+
+:root {
+  --color-fondo: #f4f7fb;
+  --color-slide: #ffffff;
+  --color-texto: #1f2937;
+  --color-secundario: #4b5563;
+  --color-principal: #2563eb;
+  --color-principal-oscuro: #1e3a8a;
+  --color-acento: #f59e0b;
+  --color-error: #dc2626;
+  --color-ok: #16a34a;
+  --color-borde: #dbeafe;
+
+  --radio-grande: 24px;
+  --radio-medio: 16px;
+
+  --sombra-suave: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+  --ancho-contenido: 1180px;
+  --alto-minimo-slide: 100vh;
+}
+
+/* Base */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+/* Diapositivas */
+
+.slide {
+  min-height: var(--alto-minimo-slide);
+  padding: 48px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  page-break-after: always;
+}
+
+.slide-inner {
+  width: min(100%, var(--ancho-contenido));
+  min-height: calc(100vh - 96px);
+  background: var(--color-slide);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra-suave);
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Tipografía */
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  color: var(--color-principal-oscuro);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  color: var(--color-principal-oscuro);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: var(--color-principal);
+}
+
+p,
+li {
+  font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+}
+
+small {
+  color: var(--color-secundario);
+}
+
+/* Portadas */
+
+.slide.portada .slide-inner {
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 55%, #fef3c7 100%);
+}
+
+.etiqueta-bloque {
+  display: inline-block;
+  width: fit-content;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: var(--color-principal-oscuro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Layouts */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-medio);
+  padding: 24px;
+  background: #f8fafc;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+}
+
+/* Bloques didácticos */
+
+.idea-clave {
+  border-left: 8px solid var(--color-principal);
+  background: #eff6ff;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.aviso {
+  border-left: 8px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.error-tipico {
+  border-left: 8px solid var(--color-error);
+  background: #fef2f2;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.correcto {
+  border-left: 8px solid var(--color-ok);
+  background: #f0fdf4;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.ejercicio {
+  border: 3px dashed var(--color-principal);
+  background: #f8fafc;
+  padding: 28px;
+  border-radius: var(--radio-medio);
+}
+
+.reto {
+  border: 3px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 32px;
+  border-radius: var(--radio-medio);
+}
+
+/* Código */
+
+pre {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 24px;
+  border-radius: var(--radio-medio);
+  overflow-x: auto;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+}
+
+code {
+  font-family: "Consolas", "Cascadia Code", monospace;
+}
+
+p code,
+li code {
+  background: #e0f2fe;
+  color: #075985;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+/* Listas */
+
+ul,
+ol {
+  padding-left: 1.4em;
+}
+
+li + li {
+  margin-top: 0.4em;
+}
+
+/* Barra inferior opcional */
+
+.slide-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  font-size: 0.95rem;
+  color: var(--color-secundario);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Navegación simple */
+
+.nav-indice {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+.nav-indice a {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--color-principal);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Impresión / exportación a PDF */
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .nav-indice {
+    display: none;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 0;
+    page-break-after: always;
+  }
+
+  .slide-inner {
+    box-shadow: none;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Pantallas pequeñas */
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 24px;
+  }
+
+  .slide-inner {
+    padding: 32px;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ajustes específicos Bloque 3 · Chrome DevTools */
+.slide-inner.compact { justify-content: flex-start; }
+.kicker { color: var(--color-principal); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+.big-flow { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; margin: 28px 0; }
+.flow-node { padding: 18px 24px; border-radius: 18px; border: 2px solid var(--color-borde); background: #f8fafc; font-size: clamp(1.1rem, 1.5vw, 1.4rem); font-weight: 800; color: var(--color-principal-oscuro); text-align: center; min-width: 150px; }
+.flow-arrow { font-size: 2rem; color: var(--color-principal); font-weight: 900; }
+.tool-card { border: 2px solid var(--color-borde); border-radius: 20px; padding: 26px; background: #f8fafc; position: relative; overflow: hidden; }
+.tool-card::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 8px; background: var(--tool-color, var(--color-principal)); }
+.tool-card h3 { margin-left: 4px; color: var(--tool-color, var(--color-principal)); }
+.tool-card.console { --tool-color: #2563eb; }
+.tool-card.elements { --tool-color: #f59e0b; }
+.tool-card.network { --tool-color: #16a34a; }
+.browser-mock { border: 2px solid #cbd5e1; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 10px 28px rgba(15, 23, 42, .12); }
+.browser-top { display:flex; gap:8px; align-items:center; padding: 12px 16px; background: #e2e8f0; }
+.dot { width: 13px; height: 13px; border-radius: 50%; background: #94a3b8; display:inline-block; }
+.url { margin-left: 10px; flex:1; background: white; border-radius: 999px; padding: 7px 14px; font-size: .95rem; color:#64748b; font-family: Consolas, monospace; }
+.devtools { display:grid; grid-template-columns: 1fr 1fr; min-height: 320px; }
+.web-pane { padding: 26px; background:#fff; }
+.dev-pane { border-left: 2px solid #cbd5e1; background:#0f172a; color:#e5e7eb; font-family: Consolas, 'Cascadia Code', monospace; padding: 0; }
+.dev-tabs { display:flex; border-bottom:1px solid #334155; background:#111827; }
+.dev-tab { padding:10px 14px; border-right:1px solid #334155; color:#cbd5e1; font-size:.95rem; }
+.dev-tab.active-console { color:#93c5fd; border-bottom:3px solid #3b82f6; }
+.dev-tab.active-elements { color:#fcd34d; border-bottom:3px solid #f59e0b; }
+.dev-tab.active-network { color:#86efac; border-bottom:3px solid #22c55e; }
+.dev-content { padding: 18px; font-size: 1rem; line-height: 1.55; }
+.console-line { display:block; border-bottom:1px solid #1f2937; padding: 8px 0; }
+.console-ok { color:#86efac; }
+.console-error { color:#fca5a5; }
+.console-warn { color:#fde68a; }
+.file-link { color:#93c5fd; }
+.network-table { width:100%; border-collapse:collapse; font-family: Consolas, monospace; font-size: .98rem; }
+.network-table th, .network-table td { border-bottom:1px solid #334155; padding:8px 10px; text-align:left; }
+.status-ok { color:#86efac; font-weight:700; }
+.status-bad { color:#fca5a5; font-weight:700; }
+.dom-node { color:#93c5fd; }
+.css-prop { color:#fcd34d; }
+.badge-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+.badge { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; background:#e0f2fe; color:#075985; font-weight:800; }
+.badge.error { background:#fee2e2; color:#991b1b; }
+.badge.ok { background:#dcfce7; color:#166534; }
+.badge.warn { background:#fef3c7; color:#92400e; }
+.checklist { list-style: none; padding-left:0; }
+.checklist li { padding-left: 2.1em; position: relative; margin: .55em 0; }
+.checklist li::before { content:'□'; position:absolute; left:0; color: var(--color-principal); font-weight: 900; }
+.two-code { display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start; }
+.mini-title { font-weight:800; color:var(--color-principal-oscuro); margin-bottom:8px; font-size:1.2rem; }
+.question-box { border: 3px solid var(--color-acento); background:#fffbeb; border-radius:22px; padding:28px; font-size:clamp(1.15rem,1.6vw,1.45rem); font-weight:700; }
+.answer-box { border-left:8px solid var(--color-ok); background:#f0fdf4; border-radius:16px; padding:22px; }
+.err-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:18px; }
+.err-item { border:2px solid #fecaca; background:#fef2f2; border-radius:18px; padding:18px; }
+.err-item strong { color:#991b1b; }
+@media (max-width: 900px) {
+  .devtools, .two-code, .err-grid { grid-template-columns: 1fr; }
+  .dev-pane { border-left:0; border-top:2px solid #cbd5e1; }
+  .flow-arrow { transform: rotate(90deg); }
+}
+
+  
+
+/* Estilos específicos Bloque 4: Terminal y Node.js */
+.terminal-window {
+  background: #0f172a;
+  color: #dbeafe;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.22);
+  border: 1px solid #1e293b;
+  margin: 18px 0;
+}
+.terminal-bar {
+  background: #1e293b;
+  padding: 12px 18px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #94a3b8;
+  font-weight: 700;
+}
+.dot { width: 13px; height: 13px; border-radius: 50%; display: inline-block; }
+.dot.red { background:#ef4444; } .dot.yellow { background:#f59e0b; } .dot.green { background:#22c55e; }
+.terminal-body { padding: 22px 24px; font-family: Consolas, "Courier New", monospace; font-size: clamp(1rem,1.25vw,1.25rem); line-height: 1.65; }
+.prompt { color:#38bdf8; font-weight:900; }
+.cmd { color:#f8fafc; }
+.output { color:#a7f3d0; }
+.term-error { color:#fecaca; }
+.term-muted { color:#94a3b8; }
+.command-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
+.command-card { border:2px solid #dbeafe; border-radius:18px; padding:20px; background:#f8fafc; }
+.command-card code { display:block; width:fit-content; margin-bottom:10px; font-size:1.45rem; color:#1e3a8a; font-weight:900; }
+.compare-panel { display:grid; grid-template-columns: 1fr 1fr; gap:28px; align-items:stretch; }
+.compare-box { border-radius:20px; padding:24px; border:2px solid #dbeafe; background:#f8fafc; }
+.compare-box.chrome { border-color:#bbf7d0; background:#f0fdf4; }
+.compare-box.node { border-color:#bae6fd; background:#eff6ff; }
+.route-map { font-family: Consolas,"Courier New",monospace; background:#f8fafc; border:2px dashed #93c5fd; border-radius:18px; padding:22px; font-size:clamp(1.05rem,1.4vw,1.35rem); }
+.big-question { font-size: clamp(2rem,3vw,3.1rem); color:#1e3a8a; font-weight:900; text-align:center; padding:40px; border-radius:24px; background:linear-gradient(135deg,#eff6ff,#fffbeb); border:3px solid #bfdbfe; }
+.ctrl-key { display:inline-block; padding:8px 14px; border-radius:12px; background:#0f172a; color:white; font-weight:900; box-shadow: inset 0 -3px 0 rgba(255,255,255,.14); margin:0 4px; }
+.process-card { border:3px solid #fed7aa; background:#fff7ed; border-radius:22px; padding:28px; }
+.mini-terminal-row { display:grid; grid-template-columns: 1fr 1fr; gap:20px; align-items:start; }
+@media (max-width: 900px) {
+  .command-grid, .compare-panel, .mini-terminal-row { grid-template-columns: 1fr; }
+}
+
+  </style>
+</head>
+<body>
+  <section class="slide portada" id="s1">
+    <div class="slide-inner">
+      <span class="etiqueta-bloque">Bloque 4</span>
+      <h1>Terminal integrada y Node.js</h1>
+      <p class="subtitulo">Usar la terminal de VS Code para moverse por carpetas, ejecutar JavaScript y leer errores básicos.</p>
+      <div class="terminal-window">
+        <div class="terminal-bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:10px;">VS Code Terminal</span></div>
+        <div class="terminal-body"><span class="prompt">PS C:\proyecto-terminal-node&gt;</span> <span class="cmd">node pruebas/saludo.js</span><br><span class="output">Hola desde Node.js</span></div>
+      </div>
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>1</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s2">
+    <div class="slide-inner">
+      <h2>El problema habitual</h2>
+      
+<div class="big-question">“La terminal me da error”</div>
+<div class="grid-2" style="margin-top:28px;">
+  <div class="card"><h3>Antes de corregir</h3><ul><li>¿Dónde estoy?</li><li>¿Qué comando he escrito?</li><li>¿Qué archivo intento ejecutar?</li><li>¿Existe ese archivo?</li></ul></div>
+  <div class="idea-clave">Muchos errores de terminal no son errores de programación: son errores de ubicación.</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>2</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s3">
+    <div class="slide-inner">
+      <h2>Qué vamos a conseguir hoy</h2>
+      
+<ul class="checklist">
+  <li>Abrir la terminal integrada de VS Code.</li>
+  <li>Saber en qué carpeta estamos.</li>
+  <li>Usar comandos mínimos: <code>dir</code>, <code>cd</code>, <code>mkdir</code>, <code>cls</code>.</li>
+  <li>Comprobar Node.js y npm.</li>
+  <li>Ejecutar archivos <code>.js</code> con <code>node</code>.</li>
+  <li>Distinguir JavaScript en Chrome y en Node.js.</li>
+  <li>Detener procesos con <code>Ctrl + C</code>.</li>
+  <li>Leer errores básicos de terminal.</li>
+</ul>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>3</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s4">
+    <div class="slide-inner">
+      <h2>Qué es la terminal</h2>
+      
+<div class="idea-clave">La terminal es una forma de dar instrucciones al ordenador escribiendo comandos.</div>
+<div class="grid-2" style="margin-top:28px;">
+  <div class="card"><h3>La usaremos para</h3><ul><li>Movernos por carpetas.</li><li>Comprobar herramientas instaladas.</li><li>Ejecutar archivos JavaScript.</li><li>Arrancar servidores más adelante.</li><li>Usar Git más adelante.</li></ul></div>
+  <div class="aviso"><strong>No necesitamos cientos de comandos.</strong><br>Solo los necesarios para trabajar con proyectos.</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>4</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s5">
+    <div class="slide-inner">
+      <h2>Abrir la terminal integrada</h2>
+      
+<div class="grid-2">
+  <div class="card"><h3>Opción segura</h3><p><strong>Terminal → Nueva terminal</strong></p></div>
+  <div class="card"><h3>Atajo habitual</h3><p><span class="ctrl-key">Ctrl</span> + <span class="ctrl-key">ñ</span></p><small>Puede cambiar según teclado, idioma o configuración.</small></div>
+</div>
+<div class="idea-clave" style="margin-top:28px;">La terminal debe abrirse dentro del proyecto, no en cualquier carpeta.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>5</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s6">
+    <div class="slide-inner">
+      <h2>La pregunta más importante</h2>
+      
+<div class="big-question">¿En qué carpeta estoy?</div>
+<div class="idea-clave" style="margin-top:30px;">La terminal ejecuta los comandos desde la carpeta actual. Si estás en la carpeta equivocada, puede no encontrar tus archivos.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>6</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s7">
+    <div class="slide-inner">
+      <h2>Ver archivos y carpetas: dir</h2>
+      
+<div class="grid-2">
+  <div><pre><code>dir</code></pre></div>
+  <div class="card"><h3>Uso</h3><p><code>dir</code> muestra el contenido de la carpeta actual.</p><p>Antes de ejecutar un archivo, comprueba si realmente está ahí.</p></div>
+</div>
+<div class="terminal-window"><div class="terminal-bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:10px;">Terminal integrada</span></div><div class="terminal-body"><span class="prompt">PS C:\proyecto-terminal-node&gt;</span><br><span class="cmd">dir</span><br><span class="output">pruebas    ejercicios    navegador</span></div></div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>7</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s8">
+    <div class="slide-inner">
+      <h2>Moverse entre carpetas: cd</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">Entrar en una carpeta</div><pre><code>cd pruebas</code></pre></div>
+  <div><div class="mini-title">Volver atrás</div><pre><code>cd ..</code></pre></div>
+</div>
+<div class="idea-clave" style="margin-top:24px;"><code>cd</code> cambia la carpeta desde la que trabaja la terminal.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>8</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s9">
+    <div class="slide-inner">
+      <h2>Limpiar la pantalla: cls</h2>
+      
+<div class="grid-2">
+  <div><pre><code>cls</code></pre></div>
+  <div class="aviso"><strong>Importante:</strong><br><code>cls</code> limpia la terminal para verla mejor. No borra archivos. No corrige errores. Solo limpia la pantalla.</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>9</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s10">
+    <div class="slide-inner">
+      <h2>Crear una carpeta: mkdir</h2>
+      
+<div class="grid-2">
+  <div><pre><code>mkdir pruebas-terminal</code></pre></div>
+  <div class="card"><h3>Actividad rápida</h3><ol><li>Crea una carpeta llamada <code>pruebas-terminal</code>.</li><li>Comprueba después con <code>dir</code>.</li></ol></div>
+</div>
+<div class="aviso" style="margin-top:22px;">Si ya existe una carpeta con ese nombre, Windows avisará.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>10</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s11">
+    <div class="slide-inner">
+      <h2>Comandos mínimos para sobrevivir</h2>
+      
+<div class="command-grid">
+  <div class="command-card"><code>dir</code>Ver archivos y carpetas.</div>
+  <div class="command-card"><code>cd</code>Entrar en una carpeta.</div>
+  <div class="command-card"><code>cd ..</code>Volver atrás.</div>
+  <div class="command-card"><code>mkdir</code>Crear carpeta.</div>
+  <div class="command-card"><code>cls</code>Limpiar pantalla.</div>
+  <div class="command-card"><code>Ctrl + C</code>Detener proceso.</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>11</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s12">
+    <div class="slide-inner">
+      <h2>Proyecto base del bloque</h2>
+      
+<div class="route-map">proyecto-terminal-node/<br>├── pruebas/<br>│&nbsp;&nbsp;&nbsp;└── saludo.js<br>├── navegador/<br>│&nbsp;&nbsp;&nbsp;├── index.html<br>│&nbsp;&nbsp;&nbsp;└── script.js<br>└── ejercicios/<br>&nbsp;&nbsp;&nbsp;&nbsp;└── calculos.js</div>
+<div class="grid-2" style="margin-top:24px;"><div class="card"><h3>Idea 1</h3>JavaScript ejecutado con Node.js en terminal.</div><div class="card"><h3>Idea 2</h3>JavaScript ejecutado por Chrome dentro de una página web.</div></div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>12</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s13">
+    <div class="slide-inner">
+      <h2>Qué es Node.js</h2>
+      
+<div class="idea-clave">Node.js permite ejecutar JavaScript desde la terminal.</div>
+<div class="aviso" style="margin-top:26px;"><strong>Pero Node.js no es Chrome:</strong><br>No muestra HTML, no aplica CSS, no tiene <code>document</code> ni <code>window</code> como el navegador.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>13</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s14">
+    <div class="slide-inner">
+      <h2>Comprobar Node.js</h2>
+      
+<div class="grid-2">
+  <div><pre><code>node --version</code></pre></div>
+  <div class="card"><h3>Resultado esperado</h3><p>Aparece un número de versión.</p><p>No importa aquí la versión exacta, sino que responda.</p></div>
+</div>
+<div class="terminal-window"><div class="terminal-bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:10px;">Terminal integrada</span></div><div class="terminal-body"><span class="prompt">PS C:\proyecto-terminal-node&gt;</span><br><span class="cmd">node --version</span><br><span class="output">v22.12.0</span></div></div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>14</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s15">
+    <div class="slide-inner">
+      <h2>Comprobar npm</h2>
+      
+<div class="grid-2">
+  <div><pre><code>npm --version</code></pre></div>
+  <div class="card"><h3>Para qué lo miramos</h3><p>npm viene normalmente con Node.js.</p><p>Ahora solo comprobamos que existe. Más adelante se usará con React.</p></div>
+</div>
+<div class="terminal-window"><div class="terminal-bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:10px;">Terminal integrada</span></div><div class="terminal-body"><span class="prompt">PS C:\proyecto-terminal-node&gt;</span><br><span class="cmd">npm --version</span><br><span class="output">10.9.0</span></div></div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>15</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s16">
+    <div class="slide-inner">
+      <h2>Error preparado: Node no reconocido</h2>
+      
+<div class="terminal-window"><div class="terminal-bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:10px;">Terminal integrada</span></div><div class="terminal-body"><span class="prompt">PS C:\proyecto-terminal-node&gt;</span><br><span class="cmd">node --version</span><br><span class="term-error">&quot;node&quot; no se reconoce como un comando interno o externo</span></div></div>
+<div class="grid-2">
+  <div class="error-tipico"><strong>Interpretación</strong><br>La terminal no encuentra Node.js.</div>
+  <div class="correcto"><strong>Primeras soluciones</strong><ol><li>Cerrar VS Code.</li><li>Abrirlo de nuevo.</li><li>Abrir terminal nueva.</li><li>Probar otra vez.</li></ol></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>16</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s17">
+    <div class="slide-inner">
+      <h2>Crear un archivo para Node.js</h2>
+      
+<div class="grid-2">
+  <div class="card"><h3>Archivo</h3><p><code>pruebas/saludo.js</code></p></div>
+  <div><pre><code>console.log(&quot;Hola desde Node.js&quot;);
+console.log(&quot;Estoy ejecutando JavaScript desde la terminal&quot;);</code></pre></div>
+</div>
+<div class="idea-clave" style="margin-top:24px;">Objetivo: comprobar que Node.js puede ejecutar un archivo JavaScript.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>17</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s18">
+    <div class="slide-inner">
+      <h2>Ejecutar el archivo</h2>
+      
+<div class="grid-2">
+  <div><pre><code>node pruebas/saludo.js</code></pre></div>
+  <div class="card"><h3>Resultado esperado</h3><p>La salida aparece en la terminal.</p></div>
+</div>
+<div class="terminal-window"><div class="terminal-bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:10px;">Terminal integrada</span></div><div class="terminal-body"><span class="prompt">PS C:\proyecto-terminal-node&gt;</span><br><span class="cmd">node pruebas/saludo.js</span><br><span class="output">Hola desde Node.js</span><br><span class="output">Estoy ejecutando JavaScript desde la terminal</span></div></div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>18</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s19">
+    <div class="slide-inner">
+      <h2>Ahora lo haces tú</h2>
+      
+<div class="actividad"><h3>Actividad 1</h3><ol><li>Crea <code>pruebas/saludo.js</code>.</li><li>Escribe dos mensajes con <code>console.log()</code>.</li><li>Ejecuta el archivo desde la raíz del proyecto.</li></ol></div>
+<pre><code>node pruebas/saludo.js</code></pre>
+<div class="correcto"><strong>Comprobación:</strong> si ves los mensajes en la terminal, está funcionando.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>19</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s20">
+    <div class="slide-inner">
+      <h2>Error preparado: archivo no encontrado</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">Comando incorrecto</div><pre><code>node saludo.js</code></pre></div>
+  <div><div class="mini-title">Ubicación real</div><div class="route-map">pruebas/<br>└── saludo.js</div></div>
+</div>
+<div class="question-box" style="margin-top:24px;">¿Por qué falla?</div>
+<div class="answer-box" style="margin-top:18px;">Porque la terminal está buscando <code>saludo.js</code> en la carpeta actual, pero el archivo está dentro de <code>pruebas/</code>.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>20</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s21">
+    <div class="slide-inner">
+      <h2>Dos formas correctas de ejecutar</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">Desde la raíz del proyecto</div><pre><code>node pruebas/saludo.js</code></pre></div>
+  <div><div class="mini-title">Entrando primero en la carpeta</div><pre><code>cd pruebas
+node saludo.js</code></pre></div>
+</div>
+<div class="idea-clave" style="margin-top:24px;">No hay una única forma correcta. Lo importante es que la ruta coincida con tu ubicación actual.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>21</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s22">
+    <div class="slide-inner">
+      <h2>Actividad de rutas en terminal</h2>
+      
+<div class="actividad">
+  <h3>Actividad 2</h3>
+  <ol>
+    <li>Desde la raíz: <code>node pruebas/saludo.js</code></li>
+    <li>Entra en la carpeta: <code>cd pruebas</code></li>
+    <li>Ejecuta: <code>node saludo.js</code></li>
+    <li>Vuelve atrás: <code>cd ..</code></li>
+    <li>Comprueba dónde estás con <code>dir</code></li>
+  </ol>
+</div>
+<div class="idea-clave">El mismo archivo se puede ejecutar usando rutas distintas según dónde esté la terminal.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>22</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s23">
+    <div class="slide-inner">
+      <h2>Chrome y Node.js no son lo mismo</h2>
+      
+<div class="compare-panel">
+  <div class="compare-box chrome"><h3>Chrome</h3><ul><li>Ejecuta JS dentro de una página web.</li><li>Tiene HTML y CSS.</li><li>Tiene <code>document</code> y <code>window</code>.</li><li>Los errores se ven en Console.</li></ul></div>
+  <div class="compare-box node"><h3>Node.js</h3><ul><li>Ejecuta JS desde terminal.</li><li>No carga una página HTML.</li><li>No tiene <code>document</code> ni <code>window</code> como Chrome.</li><li>Los errores se ven en la terminal.</li></ul></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>23</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s24">
+    <div class="slide-inner">
+      <h2>JavaScript en Chrome</h2>
+      
+<div class="card"><h3>En navegador, JavaScript puede trabajar con la página</h3></div>
+<pre><code>console.log(&quot;JavaScript en Chrome&quot;);
+
+const titulo = document.querySelector(&quot;h1&quot;);
+console.log(titulo);</code></pre>
+<div class="idea-clave">Chrome tiene <code>document</code>, <code>window</code>, HTML cargado, CSS aplicado y eventos de la página.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>24</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s25">
+    <div class="slide-inner">
+      <h2>JavaScript en Node.js</h2>
+      
+<div class="card"><h3>En Node.js, JavaScript se ejecuta en terminal</h3></div>
+<pre><code>console.log(&quot;JavaScript en Node.js&quot;);</code></pre>
+<div class="aviso" style="margin-top:20px;">Pero si escribimos <code>document.querySelector("h1")</code>, aparecerá un error.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>25</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s26">
+    <div class="slide-inner">
+      <h2>Error preparado: document is not defined</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">Archivo: pruebas/documento.js</div><pre><code>console.log(&quot;Probando document en Node.js&quot;);
+
+const titulo = document.querySelector(&quot;h1&quot;);
+
+console.log(titulo);</code></pre></div>
+  <div><div class="mini-title">Ejecución</div><pre><code>node pruebas/documento.js</code></pre><div class="terminal-window"><div class="terminal-bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:10px;">Terminal integrada</span></div><div class="terminal-body"><span class="term-error">ReferenceError: document is not defined</span></div></div></div>
+</div>
+<div class="idea-clave">Node.js no está ejecutando una página web. Por eso no existe <code>document</code>.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>26</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s27">
+    <div class="slide-inner">
+      <h2>Qué sí probar con Node.js al principio</h2>
+      
+<div class="grid-2">
+  <div class="correcto"><h3>Sí</h3><ul><li><code>console.log()</code></li><li>operaciones matemáticas</li><li>variables</li><li>condiciones</li><li>bucles</li><li>funciones</li><li>arrays</li><li>objetos sencillos</li></ul></div>
+  <div class="error-tipico"><h3>No todavía</h3><ul><li><code>document.querySelector()</code></li><li>cambios en HTML</li><li>eventos de botones</li><li>estilos CSS</li><li>manipulación del DOM</li></ul></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>27</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s28">
+    <div class="slide-inner">
+      <h2>Archivo de cálculos</h2>
+      
+<div class="card"><h3>Crear archivo</h3><p><code>ejercicios/calculos.js</code></p></div>
+<pre><code>const numero1 = 10;
+const numero2 = 5;
+
+console.log(&quot;Suma:&quot;);
+console.log(numero1 + numero2);
+
+console.log(&quot;Resta:&quot;);
+console.log(numero1 - numero2);
+
+console.log(&quot;Multiplicación:&quot;);
+console.log(numero1 * numero2);
+
+console.log(&quot;División:&quot;);
+console.log(numero1 / numero2);</code></pre>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>28</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s29">
+    <div class="slide-inner">
+      <h2>Ejecutar cálculos</h2>
+      
+<div class="grid-2">
+  <div><pre><code>node ejercicios/calculos.js</code></pre></div>
+  <div class="actividad"><h3>Actividad 3</h3><p>Crea <code>ejercicios/calculos.js</code> y muestra suma, resta, multiplicación y división con mensajes explicativos.</p></div>
+</div>
+<div class="idea-clave">Cada resultado debe aparecer con <code>console.log()</code>.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>29</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s30">
+    <div class="slide-inner">
+      <h2>Error preparado: mayúsculas y nombres</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">Archivo real</div><pre><code>calculos.js</code></pre></div>
+  <div><div class="mini-title">Comando incorrecto</div><pre><code>node ejercicios/Calculos.js</code></pre></div>
+</div>
+<div class="question-box" style="margin-top:24px;">¿Qué está mal?</div>
+<div class="answer-box" style="margin-top:18px;">El nombre del archivo no coincide exactamente. Debemos acostumbrarnos a escribir nombres iguales, también en mayúsculas y minúsculas.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>30</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s31">
+    <div class="slide-inner">
+      <h2>Leer errores de terminal</h2>
+      
+<div class="card"><h3>Cuando aparece un error, busca:</h3><ol><li>Qué comando he escrito.</li><li>Qué archivo intenta abrir.</li><li>Qué mensaje aparece.</li><li>En qué línea falla si el archivo se ejecutó.</li><li>Si estoy en la carpeta correcta.</li></ol></div>
+<div class="terminal-window"><div class="terminal-bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:10px;">Error típico</span></div><div class="terminal-body"><span class="term-error">Cannot find module</span><br><span class="term-muted">Node.js no encuentra el archivo o módulo que intentas ejecutar.</span></div></div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>31</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s32">
+    <div class="slide-inner">
+      <h2>Detener procesos: Ctrl + C</h2>
+      
+<div class="process-card">
+  <h3>Ctrl + C sirve para detener un proceso que está ejecutándose en la terminal.</h3>
+  <p>Lo usaremos para detener servidores, cancelar comandos, salir de procesos abiertos y parar ejecuciones cuando sea necesario.</p>
+</div>
+<div style="text-align:center; margin-top:28px; font-size:2rem;"><span class="ctrl-key">Ctrl</span> + <span class="ctrl-key">C</span></div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>32</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s33">
+    <div class="slide-inner">
+      <h2>Práctica controlada de Ctrl + C</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">Archivo: pruebas/reloj.js</div><pre><code>setInterval(function () {
+  console.log(&quot;Proceso en ejecución...&quot;);
+}, 1000);</code></pre></div>
+  <div><div class="mini-title">Ejecutar y detener</div><pre><code>node pruebas/reloj.js</code></pre><div class="aviso"><strong>Después:</strong> <span class="ctrl-key">Ctrl</span> + <span class="ctrl-key">C</span></div></div>
+</div>
+<div class="idea-clave">Este archivo no termina solo. Está preparado para practicar cómo detener un proceso.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>33</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s34">
+    <div class="slide-inner">
+      <h2>Diagnóstico guiado 1</h2>
+      
+<div class="question-box">node --version funciona, pero node saludo.js falla.</div>
+<div class="grid-2" style="margin-top:24px;"><div class="card"><h3>Preguntas</h3><ul><li>¿Node.js está instalado?</li><li>¿El archivo existe?</li><li>¿Estoy en la carpeta correcta?</li><li>¿Necesito escribir una ruta?</li></ul></div><div class="answer-box"><strong>Respuesta esperada:</strong><br>Node.js sí funciona. El problema probablemente está en la ruta o ubicación del archivo.</div></div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>34</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s35">
+    <div class="slide-inner">
+      <h2>Diagnóstico guiado 2</h2>
+      
+<div class="question-box">En Chrome funciona, en Node falla.</div>
+<pre><code>const titulo = document.querySelector(&quot;h1&quot;);
+console.log(titulo);</code></pre>
+<div class="answer-box"><strong>Respuesta:</strong> porque <code>document</code> existe en el navegador, pero no existe en Node.js.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>35</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s36">
+    <div class="slide-inner">
+      <h2>Diagnóstico guiado 3</h2>
+      
+<div class="question-box">No veo nada en pantalla al ejecutar el archivo.</div>
+<pre><code>const resultado = 2 + 2;</code></pre>
+<div class="answer-box"><strong>No necesariamente está mal la suma.</strong><br>Si quiero ver algo en terminal, debo mostrarlo con <code>console.log()</code>.</div>
+<pre><code>const resultado = 2 + 2;
+console.log(resultado);</code></pre>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>36</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s37">
+    <div class="slide-inner">
+      <h2>Mini práctica final</h2>
+      
+<div class="route-map">practica-terminal-node/<br>├── pruebas/<br>│&nbsp;&nbsp;&nbsp;├── saludo.js<br>│&nbsp;&nbsp;&nbsp;└── reloj.js<br>└── ejercicios/<br>&nbsp;&nbsp;&nbsp;&nbsp;└── calculos.js</div>
+<div class="actividad" style="margin-top:22px;"><h3>Debe cumplir</h3><ol><li><code>saludo.js</code> muestra tres mensajes.</li><li><code>calculos.js</code> realiza cuatro operaciones.</li><li><code>reloj.js</code> muestra un mensaje cada segundo.</li><li>Ejecutas cada archivo desde terminal.</li><li>Detienes <code>reloj.js</code> con Ctrl + C.</li><li>Provocas un error de ruta y lo corriges.</li></ol></div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>37</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s38">
+    <div class="slide-inner">
+      <h2>Plantilla de registro de comandos</h2>
+      
+<div class="card">
+  <p><strong>Comando utilizado:</strong> ____________________________________</p>
+  <p><strong>¿Desde qué carpeta lo ejecuté?</strong> ____________________________________</p>
+  <p><strong>¿Qué esperaba que pasara?</strong> ____________________________________</p>
+  <p><strong>¿Qué ocurrió realmente?</strong> ____________________________________</p>
+  <p><strong>Si hubo error, ¿qué mensaje apareció?</strong> ____________________________________</p>
+  <p><strong>¿Cómo lo corregí?</strong> ____________________________________</p>
+</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>38</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s39">
+    <div class="slide-inner">
+      <h2>Checklist final</h2>
+      
+<ul class="checklist">
+  <li>Sé abrir la terminal integrada.</li>
+  <li>Sé usar <code>dir</code>.</li>
+  <li>Sé usar <code>cd</code>.</li>
+  <li>Sé usar <code>cd ..</code>.</li>
+  <li>Sé usar <code>mkdir</code>.</li>
+  <li>Sé usar <code>cls</code>.</li>
+  <li>Sé comprobar <code>node --version</code>.</li>
+  <li>Sé comprobar <code>npm --version</code>.</li>
+  <li>Sé ejecutar un archivo con <code>node</code>.</li>
+  <li>Sé explicar la diferencia entre Chrome y Node.js.</li>
+  <li>Sé detener un proceso con <code>Ctrl + C</code>.</li>
+</ul>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>39</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s40">
+    <div class="slide-inner">
+      <h2>Cierre del bloque</h2>
+      
+<div class="idea-clave">
+  Hoy no hemos aprendido muchos comandos.<br><br>
+  Hemos aprendido algo más importante: saber dónde estamos, qué archivo ejecutamos, leer la respuesta de la terminal y distinguir Node.js del navegador.
+</div>
+<div class="correcto" style="margin-top:28px;"><strong>Frase final:</strong><br>La terminal no es para memorizar comandos. Es para hablar con el proyecto desde la carpeta correcta.</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>40</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s41">
+    <div class="slide-inner">
+      <h2>Errores preparados recomendados</h2>
+      
+<div class="err-grid">
+  <div class="err-item"><strong>Archivo en otra carpeta</strong><br><code>node saludo.js</code> estando en la raíz.</div>
+  <div class="err-item"><strong>Nombre mal escrito</strong><br><code>saludos.js</code> / <code>saludo.js</code>.</div>
+  <div class="err-item"><strong>Mayúsculas</strong><br><code>Calculos.js</code> / <code>calculos.js</code>.</div>
+  <div class="err-item"><strong>document en Node</strong><br><code>document.querySelector()</code>.</div>
+  <div class="err-item"><strong>Variable sin mostrar</strong><br>Crear resultado pero no usar <code>console.log()</code>.</div>
+  <div class="err-item"><strong>Proceso abierto</strong><br>No saber detener <code>reloj.js</code>.</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 4 · Terminal integrada y Node.js</span><span>41</span></div>
+    </div>
+  </section>
+</body>
+</html>

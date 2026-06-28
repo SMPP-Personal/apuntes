@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B02 – Sintaxis, variables y tipos en JavaScript | DWCC</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+  <script src="../../assets/js/smpp.js" defer></script>
+</head>
+<body>
+<div class="smpp-scope">
+  <main class="main-content has-sidebar notes-page">
+    <div class="content-layout">
+
+      <aside class="section-sidebar">
+        <nav class="section-nav" aria-label="Índice del documento">
+          <p class="section-nav-title">
+            <i class="bi bi-list-ul" aria-hidden="true"></i>
+            Índice del documento
+          </p>
+
+          <ol class="section-nav-list">
+            <li><a class="section-nav-link badge-link" href="#que-vas-a-aprender"><i class="bi bi-journal-text" aria-hidden="true"></i> 1. Qué vas a aprender</a></li>
+            <li><a class="section-nav-link badge-link" href="#relacion-modulo-dwcc"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i> 2. Relación con el módulo</a></li>
+            <li><a class="section-nav-link badge-link" href="#como-ejecutar-javascript"><i class="bi bi-terminal" aria-hidden="true"></i> 3. Cómo ejecutar JavaScript</a></li>
+            <li><a class="section-nav-link badge-link" href="#sintaxis-basica"><i class="bi bi-code-square" aria-hidden="true"></i> 4. Sintaxis básica</a></li>
+            <li><a class="section-nav-link badge-link" href="#identificadores-y-nombres"><i class="bi bi-input-cursor-text" aria-hidden="true"></i> 5. Identificadores y nombres</a></li>
+            <li><a class="section-nav-link badge-link" href="#variables-y-constantes"><i class="bi bi-braces" aria-hidden="true"></i> 6. Variables y constantes</a></li>
+            <li><a class="section-nav-link badge-link" href="#ambito-variables"><i class="bi bi-diagram-3" aria-hidden="true"></i> 7. Ámbito de las variables</a></li>
+            <li><a class="section-nav-link badge-link" href="#tipado-dinamico"><i class="bi bi-shuffle" aria-hidden="true"></i> 8. Tipado dinámico</a></li>
+            <li><a class="section-nav-link badge-link" href="#tipos-de-datos"><i class="bi bi-list-columns" aria-hidden="true"></i> 9. Tipos de datos</a></li>
+            <li><a class="section-nav-link badge-link" href="#number-nan-infinity"><i class="bi bi-hash" aria-hidden="true"></i> 10. <code>number</code>, NaN, Infinity</a></li>
+            <li><a class="section-nav-link badge-link" href="#string-cadenas"><i class="bi bi-fonts" aria-hidden="true"></i> 11. <code>string</code></a></li>
+            <li><a class="section-nav-link badge-link" href="#boolean"><i class="bi bi-toggle2-on" aria-hidden="true"></i> 12. <code>boolean</code></a></li>
+            <li><a class="section-nav-link badge-link" href="#undefined-null"><i class="bi bi-question-circle" aria-hidden="true"></i> 13. <code>undefined</code> y <code>null</code></a></li>
+            <li><a class="section-nav-link badge-link" href="#objetos-arrays"><i class="bi bi-braces-asterisk" aria-hidden="true"></i> 14. Objetos y arrays</a></li>
+            <li><a class="section-nav-link badge-link" href="#typeof"><i class="bi bi-search" aria-hidden="true"></i> 15. <code>typeof</code></a></li>
+            <li><a class="section-nav-link badge-link" href="#conversion-tipos"><i class="bi bi-arrow-left-right" aria-hidden="true"></i> 16. Conversión de tipos</a></li>
+            <li><a class="section-nav-link badge-link" href="#asignaciones-operadores"><i class="bi bi-calculator" aria-hidden="true"></i> 17. Asignaciones y operadores</a></li>
+            <li><a class="section-nav-link badge-link" href="#comparacion-estricta"><i class="bi bi-shield-check" aria-hidden="true"></i> 18. Comparación <code>==</code> vs <code>===</code></a></li>
+            <li><a class="section-nav-link badge-link" href="#errores-frecuentes"><i class="bi bi-bug" aria-hidden="true"></i> 19. Errores frecuentes</a></li>
+            <li><a class="section-nav-link badge-link" href="#ejemplos-guiados"><i class="bi bi-code-slash" aria-hidden="true"></i> 20. Ejemplos guiados</a></li>
+            <li><a class="section-nav-link badge-link" href="#mini-ejercicios"><i class="bi bi-pencil-square" aria-hidden="true"></i> 21. Mini-ejercicios</a></li>
+            <li><a class="section-nav-link badge-link" href="#preguntas-examen"><i class="bi bi-clipboard2-check" aria-hidden="true"></i> 22. Preguntas tipo examen</a></li>
+            <li><a class="section-nav-link badge-link" href="#glosario"><i class="bi bi-book" aria-hidden="true"></i> 23. Glosario mínimo</a></li>
+            <li><a class="section-nav-link badge-link" href="#resumen-final"><i class="bi bi-flag" aria-hidden="true"></i> 24. Resumen final</a></li>
+            <li><a class="section-nav-link badge-link" href="#bloques-posteriores"><i class="bi bi-signpost-split" aria-hidden="true"></i> 25. Para bloques posteriores</a></li>
+            <li><a class="section-nav-link badge-link" href="#fuentes-consulta"><i class="bi bi-link-45deg" aria-hidden="true"></i> 26. Fuentes de consulta</a></li>
+          </ol>
+        </nav>
+      </aside>
+
+      <div class="content-wrapper">
+      <div class="document-toolbar">
+        <a href="../index.html" class="document-home-link">
+          <i class="bi bi-house-fill"></i>
+          Plan de estudio
+        </a>
+         <button id="theme-toggle" class="document-theme-toggle" type="button">
+    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+    Modo oscuro
+  </button>
+      </div>
+
+        <header class="content-header">
+          <h1>
+            <span class="document-title-icon" aria-hidden="true"><i class="bi bi-journal-text"></i></span>
+            Bloque 2. Sintaxis, variables y tipos en JavaScript
+          </h1>
+          <div class="note-box">
+            <i class="bi bi-info-circle box-icon" aria-hidden="true"></i>
+            <p><strong>Módulo:</strong> DWCC — Desenvolvemento web en contorno cliente &nbsp;|&nbsp;
+            <strong>Unidad:</strong> UD1 — JavaScript básico en contorno cliente &nbsp;|&nbsp;
+            <strong>Nivel:</strong> iniciación a JavaScript en navegador &nbsp;|&nbsp;
+            <strong>Enfoque:</strong> material de aula + guía de estudio + práctica con consola y ficheros <code>.js</code></p>
+          </div>
+        </header>
+
+        <!-- S1: Qué vas a aprender -->
+        <section id="que-vas-a-aprender" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-journal-text"></i></span>1. Qué vas a aprender en este bloque</h2>
+          <p>En este bloque se trabajan los fundamentos mínimos para empezar a escribir código JavaScript de forma correcta:</p>
+          <ul class="custom-list">
+            <li>cómo se escriben instrucciones, bloques y comentarios;</li>
+            <li>cómo se nombran variables, constantes y otros identificadores;</li>
+            <li>cómo declarar variables con <code>let</code> y constantes con <code>const</code>;</li>
+            <li>por qué no se recomienda usar <code>var</code> en código nuevo;</li>
+            <li>qué significa que JavaScript tenga tipado dinámico;</li>
+            <li>qué tipos de datos básicos existen;</li>
+            <li>qué son <code>undefined</code>, <code>null</code>, <code>NaN</code> e <code>Infinity</code>;</li>
+            <li>cómo usar <code>typeof</code> para inspeccionar valores;</li>
+            <li>cómo convertir valores entre tipos;</li>
+            <li>por qué es preferible usar comparaciones estrictas con <code>===</code> y <code>!==</code>.</li>
+          </ul>
+          <p>Este bloque es la base para poder estudiar después operadores, condicionales, bucles, funciones, arrays, objetos, DOM y eventos.</p>
+        </section>
+
+        <!-- S2: Relación con el módulo -->
+        <section id="relacion-modulo-dwcc" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-ui-checks-grid"></i></span>2. Relación con la programación del módulo DWCC</h2>
+          <p>Este material se corresponde principalmente con la <strong>UD1: JavaScript básico en contorno cliente</strong>, en la parte dedicada a <strong>sintaxis básica, variables y tipos de datos</strong>.</p>
+          <h3>Resultados de aprendizaje y criterios trabajados</h3>
+          <div class="compact-table-container">
+            <table>
+              <thead><tr><th>Elemento</th><th>Relación con este bloque</th></tr></thead>
+              <tbody>
+                <tr><td><strong>RA1</strong></td><td>Selección de tecnologías de programación sobre clientes web.</td></tr>
+                <tr><td><strong>CA1.5</strong></td><td>Integración del código JavaScript con documentos HTML mediante etiquetas <code>&lt;script&gt;</code>.</td></tr>
+                <tr><td><strong>RA2</strong></td><td>Escritura de sentencias simples aplicando la sintaxis de JavaScript y verificando la ejecución en navegadores web.</td></tr>
+                <tr><td><strong>CA2.2</strong></td><td>Uso de variables, constantes, tipos y operadores básicos.</td></tr>
+                <tr><td><strong>CA2.3</strong></td><td>Identificación de ámbitos de utilización de variables.</td></tr>
+                <tr><td><strong>CA2.4</strong></td><td>Reconocimiento de conversiones entre tipos de datos.</td></tr>
+                <tr><td><strong>CA2.7</strong></td><td>Inclusión de comentarios en el código.</td></tr>
+                <tr><td><strong>CA2.8</strong></td><td>Uso de navegador, consola y editor para probar y documentar el código.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- S3: Cómo ejecutar -->
+        <section id="como-ejecutar-javascript" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-terminal"></i></span>3. Cómo ejecutar JavaScript en este bloque</h2>
+          <p>Durante este bloque se recomienda trabajar de dos formas.</p>
+          <h3>3.1. Consola del navegador</h3>
+          <p>La consola permite probar instrucciones rápidas sin crear un proyecto completo.</p>
+          <p>Ejemplo:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let mensaje = "Hola desde la consola";
+console.log(mensaje);</code></pre>
+          </div>
+          <p>La consola es útil para:</p>
+          <ul class="custom-list">
+            <li>probar expresiones;</li>
+            <li>ver el resultado de <code>typeof</code>;</li>
+            <li>comprobar errores de sintaxis;</li>
+            <li>entender conversiones entre tipos.</li>
+          </ul>
+          <h3>3.2. Fichero <code>.js</code> enlazado desde HTML</h3>
+          <p>Para trabajar de forma más ordenada, se usará un fichero <code>.js</code> enlazado desde una página HTML.</p>
+          <p><strong>Estructura recomendada:</strong></p>
+          <div class="example-block">
+            <pre class="code-bash"><code>mi-proyecto/
+├── index.html
+└── js/
+    └── bloque02.js</code></pre>
+          </div>
+          <p><strong>Ejemplo de <code>index.html</code>:</strong></p>
+          <div class="example-block">
+            <pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Bloque 2 - JavaScript&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Pruebas de JavaScript&lt;/h1&gt;
+
+  &lt;script src="js/bloque02.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+          <p><strong>Ejemplo de <code>js/bloque02.js</code>:</strong></p>
+          <div class="example-block">
+            <pre class="code-js"><code>const nombre = "Ana";
+let edad = 20;
+
+console.log("Nombre:", nombre);
+console.log("Edad:", edad);</code></pre>
+          </div>
+          <div class="concept-box">
+            <i class="bi bi-lightbulb box-icon" aria-hidden="true"></i>
+            <p><strong>Idea clave:</strong> en este bloque no necesitamos modificar todavía el DOM. Lo importante es saber escribir código básico y comprobar resultados en la consola.</p>
+          </div>
+        </section>
+
+        <!-- S4: Sintaxis básica -->
+        <section id="sintaxis-basica" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-code-square"></i></span>4. Sintaxis básica de JavaScript</h2>
+          <p>La <strong>sintaxis</strong> es el conjunto de reglas que indican cómo debe escribirse el código para que el navegador pueda interpretarlo correctamente.</p>
+          <h3>4.1. Sentencias o instrucciones</h3>
+          <p>Una <strong>sentencia</strong> es una orden completa.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let saludo = "Hola";
+console.log(saludo);</code></pre>
+          </div>
+          <p>JavaScript puede inferir algunos puntos y coma automáticamente, pero en este nivel es recomendable escribir <code>;</code> al final de las instrucciones simples para evitar ambiguëdades.</p>
+          <h3>4.2. Bloques de código</h3>
+          <p>Un <strong>bloque</strong> agrupa instrucciones entre llaves <code>{ }</code>.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>{
+  let x = 3;
+  console.log(x);
+}</code></pre>
+          </div>
+          <p>Los bloques se usan en funciones, condicionales, bucles y otros elementos del lenguaje. En este bloque inicial nos interesan sobre todo porque afectan al ámbito de las variables declaradas con <code>let</code> y <code>const</code>.</p>
+          <h3>4.3. Comentarios</h3>
+          <p>Los comentarios sirven para explicar el código. El navegador los ignora al ejecutar el programa.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>// Comentario de una línea
+let precio = 25;
+
+/*
+  Comentario de varias líneas.
+  Puede ocupar más de una línea.
+*/
+const IVA = 0.21;</code></pre>
+          </div>
+          <p>Un buen comentario no repite lo evidente. Debe ayudar a entender la intención del código.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>// Mal comentario: no aporta información útil
+let edad = 18; // edad vale 18
+
+// Mejor comentario: explica el criterio usado
+let edadMinima = 18; // mayoría de edad legal para este ejemplo</code></pre>
+          </div>
+        </section>
+
+        <!-- S5: Identificadores -->
+        <section id="identificadores-y-nombres" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-input-cursor-text"></i></span>5. Identificadores y reglas de nombres</h2>
+          <p>Un <strong>identificador</strong> es el nombre que usamos para una variable, constante, función, parámetro u otro elemento del programa.</p>
+          <p>Ejemplos de identificadores:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let nombreUsuario = "Ana";
+const MAX_INTENTOS = 3;
+let precioFinal = 19.99;</code></pre>
+          </div>
+          <h3>5.1. Reglas obligatorias</h3>
+          <p>En JavaScript, un identificador:</p>
+          <ul class="custom-list">
+            <li>puede empezar por una letra, <code>_</code> o <code>$</code>;</li>
+            <li>no puede empezar por un número;</li>
+            <li>puede contener letras, números, <code>_</code> y <code>$</code> después del primer carácter;</li>
+            <li>no puede ser una palabra reservada del lenguaje;</li>
+            <li>distingue entre mayúsculas y minúsculas.</li>
+          </ul>
+          <p>Ejemplos válidos:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let nombre = "Ana";
+let _contador = 0;
+let $elemento = "boton";
+let precio2 = 15;</code></pre>
+          </div>
+          <p>Ejemplos no válidos:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let 2precio = 15;     // Error: empieza por número
+let let = "texto";    // Error: let es palabra reservada
+let nombre usuario;   // Error: contiene un espacio</code></pre>
+          </div>
+          <h3>5.2. Convenciones recomendadas</h3>
+          <div class="compact-table-container">
+            <table>
+              <thead><tr><th>Elemento</th><th>Convención habitual</th><th>Ejemplo</th></tr></thead>
+              <tbody>
+                <tr><td>Variables</td><td><code>camelCase</code></td><td><code>totalFactura</code>, <code>numeroClientes</code></td></tr>
+                <tr><td>Funciones</td><td><code>camelCase</code></td><td><code>calcularTotal</code>, <code>mostrarMensaje</code></td></tr>
+                <tr><td>Constantes de configuración</td><td><code>SNAKE_UPPER_CASE</code></td><td><code>MAX_INTENTOS</code>, <code>TIEMPO_ESPERA_MS</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="good-practice-box">
+            <i class="bi bi-check2-circle box-icon" aria-hidden="true"></i>
+            <p><strong>Recomendación de aula:</strong> usar nombres claros aunque sean algo más largos. <code>precioFinal</code> es mejor que <code>pf</code>.</p>
+          </div>
+        </section>
+
+        <!-- S6: Variables y constantes -->
+        <section id="variables-y-constantes" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-braces"></i></span>6. Variables y constantes</h2>
+          <p>Una <strong>variable</strong> es un nombre que referencia un valor. En JavaScript no se declara el tipo de la variable: se declara el nombre y se le asigna un valor.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let edad = 20;
+let nombre = "Lucía";</code></pre>
+          </div>
+          <p>El tipo pertenece al <strong>valor</strong>, no al nombre de la variable.</p>
+
+          <h3>6.1. Declarar e inicializar</h3>
+          <p><strong>Declarar</strong> una variable significa crearla.</p>
+          <div class="example-block"><pre class="code-js"><code>let edad;</code></pre></div>
+          <p><strong>Inicializar</strong> una variable significa darle un valor por primera vez.</p>
+          <div class="example-block"><pre class="code-js"><code>edad = 20;</code></pre></div>
+          <p>También se puede declarar e inicializar en una sola línea:</p>
+          <div class="example-block"><pre class="code-js"><code>let edad = 20;</code></pre></div>
+          <p>Si una variable declarada con <code>let</code> no recibe valor inicial, su valor será <code>undefined</code>.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let dato;
+console.log(dato);        // undefined
+console.log(typeof dato); // "undefined"</code></pre>
+          </div>
+
+          <h3>6.2. <code>let</code></h3>
+          <p><code>let</code> se usa para declarar variables cuyo valor puede cambiar.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let contador = 0;
+contador = 1;
+contador = contador + 1;
+
+console.log(contador); // 2</code></pre>
+          </div>
+          <p>Características principales:</p>
+          <ul class="custom-list">
+            <li>permite reasignar valores;</li>
+            <li>no permite redeclarar el mismo nombre dentro del mismo bloque;</li>
+            <li>tiene ámbito de bloque.</li>
+          </ul>
+          <div class="example-block">
+            <pre class="code-js"><code>let edad = 20;
+edad = 21; // Correcto
+
+// let edad = 22; // Error si está en el mismo bloque</code></pre>
+          </div>
+
+          <h3>6.3. <code>const</code></h3>
+          <p><code>const</code> se usa para declarar constantes. Una constante debe inicializarse en el momento de declararse y no puede reasignarse después.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>const PI = 3.14159;
+console.log(PI);
+
+// PI = 3; // Error: no se puede reasignar una constante</code></pre>
+          </div>
+          <p>Esto es incorrecto:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>// const x; // Error: una constante debe inicializarse</code></pre>
+          </div>
+          <h4><code>const</code> no significa inmutable</h4>
+          <p>Si una constante guarda un objeto o un array, no se puede cambiar la referencia, pero sí pueden modificarse sus propiedades o elementos.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>const config = {
+  apiUrl: "https://ejemplo.com",
+  intentosMaximos: 3
+};
+
+config.intentosMaximos = 5; // Permitido: cambia una propiedad
+
+// config = {}; // Error: intenta reasignar la constante</code></pre>
+          </div>
+          <div class="concept-box">
+            <i class="bi bi-lightbulb box-icon" aria-hidden="true"></i>
+            <p><code>const</code> impide reasignar la variable. <code>const</code> no convierte automáticamente un objeto en inmutable.</p>
+          </div>
+
+          <h3>6.4. ¿Cuándo usar <code>let</code> y cuándo usar <code>const</code>?</h3>
+          <div class="compact-table-container">
+            <table>
+              <thead><tr><th>Situación</th><th>Forma recomendada</th><th>Ejemplo</th></tr></thead>
+              <tbody>
+                <tr><td>El valor no debe reasignarse</td><td><code>const</code></td><td><code>const IVA = 0.21;</code></td></tr>
+                <tr><td>El valor cambiará durante la ejecución</td><td><code>let</code></td><td><code>let contador = 0;</code></td></tr>
+                <tr><td>Código antiguo que ya existe</td><td><code>var</code> puede aparecer</td><td><code>var nombre = "Ana";</code></td></tr>
+                <tr><td>Código nuevo</td><td>evitar <code>var</code></td><td>usar <code>let</code> o <code>const</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="good-practice-box">
+            <i class="bi bi-check2-circle box-icon" aria-hidden="true"></i>
+            <p><strong>Regla práctica:</strong> usar <code>const</code> por defecto y cambiar a <code>let</code> solo cuando realmente sea necesario reasignar.</p>
+          </div>
+        </section>
+
+        <!-- S7: Ámbito -->
+        <section id="ambito-variables" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-diagram-3"></i></span>7. Ámbito de las variables</h2>
+          <p>El <strong>ámbito</strong> o <em>scope</em> es la zona del código donde una variable existe y puede usarse.</p>
+          <h3>7.1. Ámbito de bloque con <code>let</code> y <code>const</code></h3>
+          <p>Las variables declaradas con <code>let</code> y <code>const</code> solo existen dentro del bloque <code>{ }</code> donde se han declarado.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>if (true) {
+  let mensaje = "Dentro del bloque";
+  console.log(mensaje); // Correcto
+}
+
+// console.log(mensaje); // Error: mensaje no existe fuera del bloque</code></pre>
+          </div>
+          <p>Aunque todavía no hayamos estudiado <code>if</code>, este ejemplo permite ver que las llaves <code>{ }</code> delimitan un bloque.</p>
+          <h3>7.2. <code>var</code> y ámbito de función</h3>
+          <p><code>var</code> es la forma clásica de declarar variables en JavaScript. No se recomienda usarla en código nuevo porque tiene un comportamiento menos intuitivo.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>if (true) {
+  let a = 1;
+  var b = 2;
+}
+
+// console.log(a); // Error: a no existe fuera del bloque
+console.log(b);    // 2: b sí queda accesible fuera del bloque</code></pre>
+          </div>
+          <p><code>var</code> tiene ámbito de función, no de bloque, y además está afectada por el <em>hoisting</em>. Para este nivel basta con recordar:</p>
+          <div class="note-box">
+            <i class="bi bi-info-circle box-icon" aria-hidden="true"></i>
+            <p>En código nuevo, usa <code>let</code> y <code>const</code>. Debes reconocer <code>var</code> porque aparecerá en ejemplos antiguos.</p>
+          </div>
+        </section>
+
+        <!-- S8: Tipado dinámico -->
+        <section id="tipado-dinamico" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-shuffle"></i></span>8. Tipado dinámico y tipado débil</h2>
+          <p>JavaScript es un lenguaje con <strong>tipado dinámico</strong> y se suele describir como <strong>débilmente tipado</strong>.</p>
+          <h3>8.1. Tipado dinámico</h3>
+          <p>Significa que no se indica el tipo al declarar la variable. El tipo se determina en tiempo de ejecución según el valor que tenga en ese momento.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let dato = 10;       // number
+dato = "diez";      // string
+dato = false;       // boolean
+
+console.log(typeof dato); // "boolean"</code></pre>
+          </div>
+          <div class="concept-box">
+            <i class="bi bi-lightbulb box-icon" aria-hidden="true"></i>
+            <p><strong>Idea clave:</strong> en JavaScript, el tipo pertenece al valor, no a la variable.</p>
+          </div>
+          <h3>8.2. Tipado débil y coerción</h3>
+          <p>JavaScript permite operar con valores de tipos diferentes y, en algunas operaciones, intenta convertirlos automáticamente. A esto se le llama <strong>coerción de tipos</strong>.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log("3" * 2); // 6: convierte "3" a número
+console.log("3" + 2); // "32": concatena como texto
+console.log(true + 1); // 2: true se convierte a 1</code></pre>
+          </div>
+          <p>Este comportamiento puede ser cómodo, pero también puede producir errores difíciles de detectar. Por eso es importante aprender a convertir datos de forma explícita y a comparar con igualdad estricta.</p>
+        </section>
+
+        <!-- S9: Tipos de datos -->
+        <section id="tipos-de-datos" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-list-columns"></i></span>9. Tipos de datos en JavaScript</h2>
+          <p>En JavaScript hay <strong>tipos primitivos</strong> y <strong>objetos</strong>.</p>
+          <h3>9.1. Tipos primitivos principales</h3>
+          <p>Los tipos primitivos que más se usarán al inicio son:</p>
+          <div class="compact-table-container">
+            <table>
+              <thead><tr><th>Tipo</th><th>Ejemplo</th><th>Uso habitual</th></tr></thead>
+              <tbody>
+                <tr><td><code>number</code></td><td><code>3</code>, <code>3.14</code>, <code>-2</code></td><td>Números enteros y decimales.</td></tr>
+                <tr><td><code>string</code></td><td><code>"Hola"</code>, <code>'Adiós'</code></td><td>Cadenas de texto.</td></tr>
+                <tr><td><code>boolean</code></td><td><code>true</code>, <code>false</code></td><td>Valores lógicos.</td></tr>
+                <tr><td><code>undefined</code></td><td><code>undefined</code></td><td>Valor no asignado.</td></tr>
+                <tr><td><code>null</code></td><td><code>null</code></td><td>Ausencia intencionada de valor.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Ejemplo:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let edad = 20;              // number
+let nombre = "Ana";         // string
+let activo = true;          // boolean
+let usuarioActual = null;   // null
+let datoPendiente;          // undefined</code></pre>
+          </div>
+          <h3>9.2. Tipos primitivos que conviene conocer, pero no priorizar ahora</h3>
+          <p>JavaScript también incluye:</p>
+          <div class="compact-table-container">
+            <table>
+              <thead><tr><th>Tipo</th><th>Ejemplo</th><th>Comentario</th></tr></thead>
+              <tbody>
+                <tr><td><code>bigint</code></td><td><code>123n</code></td><td>Enteros muy grandes.</td></tr>
+                <tr><td><code>symbol</code></td><td><code>Symbol("id")</code></td><td>Identificadores únicos, uso más avanzado.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>En este bloque basta con saber que existen. No son prioritarios para las primeras prácticas de DWCC.</p>
+        </section>
+
+        <!-- S10: number, NaN, Infinity -->
+        <section id="number-nan-infinity" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-hash"></i></span>10. <code>number</code>: números, <code>NaN</code> e <code>Infinity</code></h2>
+          <p>En JavaScript, el tipo <code>number</code> se usa tanto para enteros como para decimales.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let unidades = 5;
+let precio = 19.99;
+let temperatura = -3;</code></pre>
+          </div>
+          <h3>10.1. <code>NaN</code></h3>
+          <p><code>NaN</code> significa <em>Not a Number</em>. Aparece cuando el resultado de una operación numérica no es un número válido.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(Number("hola")); // NaN
+console.log(0 / 0);          // NaN
+console.log(typeof NaN);     // "number"</code></pre>
+          </div>
+          <p>Aunque resulte extraño, <code>typeof NaN</code> devuelve <code>"number"</code> porque <code>NaN</code> es un valor especial dentro del tipo numérico.</p>
+          <p>Si se opera con <code>NaN</code>, normalmente el resultado sigue siendo <code>NaN</code>.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(NaN + 5);  // NaN
+console.log(NaN * 10); // NaN</code></pre>
+          </div>
+          <p>Para comprobar si un valor es <code>NaN</code>, es preferible usar <code>Number.isNaN()</code>.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(Number.isNaN(NaN));       // true
+console.log(Number.isNaN("hola"));    // false
+console.log(Number.isNaN(Number("hola"))); // true</code></pre>
+          </div>
+          <h3>10.2. <code>Infinity</code> y <code>-Infinity</code></h3>
+          <p><code>Infinity</code> y <code>-Infinity</code> representan valores numéricos infinitos.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(10 / 0);   // Infinity
+console.log(-10 / 0);  // -Infinity</code></pre>
+          </div>
+          <p>En código real, la aparición de <code>Infinity</code> suele indicar que conviene revisar la operación, por ejemplo una división entre cero.</p>
+        </section>
+
+        <!-- S11: string -->
+        <section id="string-cadenas" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-fonts"></i></span>11. <code>string</code>: cadenas de texto</h2>
+          <p>Un <code>string</code> es una cadena de texto. Puede escribirse con comillas dobles, comillas simples o acentos graves (<em>backticks</em>).</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let nombre = "Ana";
+let ciudad = 'Ourense';
+let mensaje = `Hola, Ana`;</code></pre>
+          </div>
+          <h3>11.1. Concatenación</h3>
+          <p>El operador <code>+</code> permite unir textos.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let nombre = "Ana";
+let saludo = "Hola, " + nombre;
+
+console.log(saludo); // "Hola, Ana"</code></pre>
+          </div>
+          <p>Cuando se usa <code>+</code> con un texto y un número, JavaScript puede convertir el número a texto.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let x = "5";
+let y = 2;
+
+console.log(x + y); // "52"</code></pre>
+          </div>
+          <p>Para sumar numéricamente, hay que convertir primero.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let x = "5";
+let y = 2;
+
+console.log(Number(x) + y); // 7</code></pre>
+          </div>
+        </section>
+
+        <!-- S12: boolean -->
+        <section id="boolean" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-toggle2-on"></i></span>12. <code>boolean</code>: verdadero o falso</h2>
+          <p>Un valor booleano solo puede ser <code>true</code> o <code>false</code>.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let esMayorEdad = true;
+let usuarioActivo = false;</code></pre>
+          </div>
+          <p>Los booleanos se usarán mucho en condiciones, validaciones, formularios y control del flujo del programa.</p>
+          <p>En este bloque solo se introducen como tipo de dato. Los operadores lógicos y las estructuras condicionales se trabajarán con más detalle en un bloque posterior.</p>
+        </section>
+
+        <!-- S13: undefined y null -->
+        <section id="undefined-null" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-question-circle"></i></span>13. <code>undefined</code> y <code>null</code></h2>
+          <p><code>undefined</code> y <code>null</code> representan ausencia de valor, pero no significan exactamente lo mismo.</p>
+          <h3>13.1. <code>undefined</code></h3>
+          <p><code>undefined</code> suele indicar que una variable existe, pero todavía no tiene un valor asignado.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let x;
+
+console.log(x);        // undefined
+console.log(typeof x); // "undefined"</code></pre>
+          </div>
+          <p>También puede aparecer cuando se accede a una propiedad inexistente de un objeto o cuando una función no devuelve nada explícitamente.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>const persona = {
+  nombre: "Ana"
+};
+
+console.log(persona.edad); // undefined</code></pre>
+          </div>
+          <div class="note-box">
+            <i class="bi bi-info-circle box-icon" aria-hidden="true"></i>
+            <p>Aunque una persona podría asignar <code>undefined</code> manualmente, no es lo recomendable en código inicial. Normalmente se deja que JavaScript lo use para indicar ausencia de valor asignado.</p>
+          </div>
+          <h3>13.2. <code>null</code></h3>
+          <p><code>null</code> representa una ausencia intencionada de valor.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let usuarioActual = null;
+console.log(usuarioActual); // null</code></pre>
+          </div>
+          <p>Se usa cuando queremos indicar de forma explícita que en una variable no hay ningún valor útil en ese momento.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let seleccion = null; // de momento no se ha seleccionado nada
+
+seleccion = "producto-123";
+console.log(seleccion);</code></pre>
+          </div>
+          <h3>13.3. Comparación rápida</h3>
+          <div class="compact-table-container">
+            <table>
+              <thead><tr><th>Valor</th><th>Idea básica</th><th>Ejemplo</th></tr></thead>
+              <tbody>
+                <tr><td><code>undefined</code></td><td>No hay valor asignado todavía.</td><td><code>let x;</code></td></tr>
+                <tr><td><code>null</code></td><td>Se ha decidido guardar &#8220;ningún valor&#8221;.</td><td><code>let usuario = null;</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="concept-box">
+            <i class="bi bi-lightbulb box-icon" aria-hidden="true"></i>
+            <p><code>undefined</code> suele significar &#8220;aún no hay valor&#8221;; <code>null</code> significa &#8220;he puesto explícitamente que no hay valor&#8221;.</p>
+          </div>
+          <h3>13.4. El caso especial de <code>typeof null</code></h3>
+          <p>Hay un detalle histórico muy importante:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(typeof null); // "object"</code></pre>
+          </div>
+          <p>Esto no significa que <code>null</code> sea un objeto normal. Es un comportamiento histórico del lenguaje que se mantiene por compatibilidad.</p>
+          <p>Para comprobar si un valor es exactamente <code>null</code>, usa comparación estricta:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let usuario = null;
+
+console.log(usuario === null); // true</code></pre>
+          </div>
+        </section>
+
+        <!-- S14: Objetos y arrays -->
+        <section id="objetos-arrays" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-braces-asterisk"></i></span>14. Objetos y arrays: tipos de referencia</h2>
+          <p>Todo lo que no es un tipo primitivo se trata como objeto o está relacionado con objetos.</p>
+          <p>Ejemplos:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>const persona = {
+  nombre: "Ana",
+  edad: 20
+};
+
+const numeros = [1, 2, 3];</code></pre>
+          </div>
+          <p>En este bloque no se estudian todavía objetos y arrays en profundidad, pero conviene entender una idea básica: cuando asignamos un objeto o un array a otra variable, ambas variables pueden apuntar al mismo contenido.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>const persona1 = {
+  nombre: "Ana"
+};
+
+const persona2 = persona1;
+persona2.nombre = "Luis";
+
+console.log(persona1.nombre); // "Luis"</code></pre>
+          </div>
+          <p>No se ha copiado una persona independiente. Se ha copiado la referencia al mismo objeto.</p>
+        </section>
+
+        <!-- S15: typeof -->
+        <section id="typeof" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-search"></i></span>15. <code>typeof</code>: comprobar el tipo de un valor</h2>
+          <p>El operador <code>typeof</code> devuelve una cadena de texto con el tipo de un valor.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(typeof 5);        // "number"
+console.log(typeof "hola");   // "string"
+console.log(typeof true);     // "boolean"
+console.log(typeof undefined);// "undefined"
+console.log(typeof NaN);      // "number"
+console.log(typeof null);     // "object"</code></pre>
+          </div>
+          <p>Tabla de referencia:</p>
+          <div class="compact-table-container">
+            <table>
+              <thead><tr><th>Expresión</th><th>Resultado</th></tr></thead>
+              <tbody>
+                <tr><td><code>typeof 5</code></td><td><code>"number"</code></td></tr>
+                <tr><td><code>typeof "hola"</code></td><td><code>"string"</code></td></tr>
+                <tr><td><code>typeof true</code></td><td><code>"boolean"</code></td></tr>
+                <tr><td><code>typeof undefined</code></td><td><code>"undefined"</code></td></tr>
+                <tr><td><code>typeof NaN</code></td><td><code>"number"</code></td></tr>
+                <tr><td><code>typeof null</code></td><td><code>"object"</code></td></tr>
+                <tr><td><code>typeof {}</code></td><td><code>"object"</code></td></tr>
+                <tr><td><code>typeof []</code></td><td><code>"object"</code></td></tr>
+                <tr><td><code>typeof function() {}</code></td><td><code>"function"</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="warning-box">
+            <i class="bi bi-shield-exclamation box-icon" aria-hidden="true"></i>
+            <p><strong>Cuidado:</strong> <code>typeof []</code> devuelve <code>"object"</code>, no <code>"array"</code>. Los arrays se estudiarán más adelante.</p>
+          </div>
+        </section>
+
+        <!-- S16: Conversión de tipos -->
+        <section id="conversion-tipos" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-arrow-left-right"></i></span>16. Conversión de tipos</h2>
+          <p>La conversión de tipos consiste en transformar un valor de un tipo a otro.</p>
+          <p>Hay dos tipos de conversión:</p>
+          <ul class="custom-list">
+            <li><strong>conversión explícita:</strong> la hace la persona que programa;</li>
+            <li><strong>conversión implícita o coerción:</strong> la hace JavaScript automáticamente.</li>
+          </ul>
+          <h3>16.1. Conversión explícita con <code>Number()</code></h3>
+          <p><code>Number()</code> intenta convertir un valor a número.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(Number("3"));     // 3
+console.log(Number("3.14"));  // 3.14
+console.log(Number("hola"));  // NaN
+console.log(Number(true));    // 1
+console.log(Number(false));   // 0
+console.log(Number(null));    // 0</code></pre>
+          </div>
+          <p>Ejemplo habitual en DWCC:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let edadTexto = "20";
+let edadNumero = Number(edadTexto);
+
+console.log(edadNumero + 1); // 21</code></pre>
+          </div>
+          <h3>16.2. Conversión explícita con <code>String()</code></h3>
+          <p><code>String()</code> convierte un valor a texto.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(String(42));      // "42"
+console.log(String(true));    // "true"
+console.log(String(null));    // "null"
+console.log(String(undefined)); // "undefined"</code></pre>
+          </div>
+          <p>Ejemplo:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let edad = 20;
+let mensaje = "Edad: " + String(edad);
+
+console.log(mensaje); // "Edad: 20"</code></pre>
+          </div>
+          <h3>16.3. Conversión explícita con <code>Boolean()</code></h3>
+          <p><code>Boolean()</code> convierte un valor a <code>true</code> o <code>false</code>.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(Boolean(1));         // true
+console.log(Boolean(0));         // false
+console.log(Boolean("hola"));    // true
+console.log(Boolean(""));        // false
+console.log(Boolean(null));      // false
+console.log(Boolean(undefined)); // false
+console.log(Boolean(NaN));       // false</code></pre>
+          </div>
+          <p>Los valores que se comportan como <code>false</code> en contextos booleanos se llaman <strong>falsy</strong>. Los demás se llaman <strong>truthy</strong>.</p>
+          <p>Valores falsy principales:</p>
+          <div class="example-block">
+            <pre class="code-bash"><code>false, 0, "", null, undefined, NaN</code></pre>
+          </div>
+          <div class="note-box">
+            <i class="bi bi-info-circle box-icon" aria-hidden="true"></i>
+            <p>En este bloque se introduce la idea. Se retomará con más detalle al estudiar condiciones y operadores lógicos.</p>
+          </div>
+          <h3>16.4. Conversión implícita o coerción</h3>
+          <p>La conversión implícita aparece cuando JavaScript convierte tipos automáticamente para intentar resolver una operación.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log("3" * 2); // 6
+console.log("3" + 2); // "32"
+console.log(true + 1); // 2</code></pre>
+          </div>
+          <p>El caso más peligroso al inicio suele ser el operador <code>+</code>, porque puede sumar números o concatenar textos.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(5 + 2);     // 7
+console.log("5" + 2);   // "52"
+console.log(5 + "2");   // "52"</code></pre>
+          </div>
+          <div class="good-practice-box">
+            <i class="bi bi-check2-circle box-icon" aria-hidden="true"></i>
+            <p>Cuando un dato venga como texto y se necesite hacer cálculos, conviene convertirlo explícitamente con <code>Number()</code> antes de operar.</p>
+          </div>
+        </section>
+
+        <!-- S17: Asignaciones y operadores -->
+        <section id="asignaciones-operadores" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-calculator"></i></span>17. Asignaciones y operadores básicos vinculados a variables</h2>
+          <p>Este bloque no desarrolla todavía todos los operadores del lenguaje. Solo se incluyen los imprescindibles para trabajar con variables, tipos y conversiones.</p>
+          <h3>17.1. Asignación</h3>
+          <p>El operador <code>=</code> asigna un valor a una variable.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let edad = 20;
+edad = 21;
+
+console.log(edad); // 21</code></pre>
+          </div>
+          <p>No debe confundirse asignación con comparación.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let edad = 20;
+
+// edad = 18 asigna un valor
+// edad === 18 compara un valor</code></pre>
+          </div>
+          <h3>17.2. Operadores aritméticos básicos</h3>
+          <div class="compact-table-container">
+            <table>
+              <thead><tr><th>Operador</th><th>Significado</th><th>Ejemplo</th><th>Resultado</th></tr></thead>
+              <tbody>
+                <tr><td><code>+</code></td><td>suma o concatenación</td><td><code>5 + 2</code></td><td><code>7</code></td></tr>
+                <tr><td><code>-</code></td><td>resta</td><td><code>5 - 2</code></td><td><code>3</code></td></tr>
+                <tr><td><code>*</code></td><td>multiplicación</td><td><code>5 * 2</code></td><td><code>10</code></td></tr>
+                <tr><td><code>/</code></td><td>división</td><td><code>5 / 2</code></td><td><code>2.5</code></td></tr>
+                <tr><td><code>%</code></td><td>resto</td><td><code>5 % 2</code></td><td><code>1</code></td></tr>
+                <tr><td><code>**</code></td><td>potencia</td><td><code>2 ** 3</code></td><td><code>8</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Ejemplo:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let x = 5;
+let y = 2;
+
+console.log(x + y);  // 7
+console.log(x % y);  // 1
+console.log(x ** y); // 25</code></pre>
+          </div>
+          <h3>17.3. Operadores de asignación compuesta</h3>
+          <div class="example-block">
+            <pre class="code-js"><code>let x = 5;
+
+x += 2; // equivale a x = x + 2
+x *= 3; // equivale a x = x * 3
+
+console.log(x); // 21</code></pre>
+          </div>
+        </section>
+
+        <!-- S18: Comparación -->
+        <section id="comparacion-estricta" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-shield-check"></i></span>18. Comparación: <code>==</code> frente a <code>===</code></h2>
+          <p>JavaScript tiene dos formas habituales de comparar igualdad.</p>
+          <h3>18.1. Igualdad no estricta: <code>==</code></h3>
+          <p><code>==</code> compara después de permitir conversiones implícitas.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(0 == "0"); // true
+console.log(false == 0); // true</code></pre>
+          </div>
+          <p>Puede producir resultados poco intuitivos.</p>
+          <h3>18.2. Igualdad estricta: <code>===</code></h3>
+          <p><code>===</code> compara valor y tipo, sin hacer conversión implícita.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(0 === "0"); // false
+console.log(0 === 0);   // true</code></pre>
+          </div>
+          <p>También existe la desigualdad estricta:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(0 !== "0"); // true</code></pre>
+          </div>
+          <div class="good-practice-box">
+            <i class="bi bi-check2-circle box-icon" aria-hidden="true"></i>
+            <p>Usar <code>===</code> y <code>!==</code> por defecto. Evitar <code>==</code> y <code>!=</code> salvo que se explique expresamente por qué se usan.</p>
+          </div>
+        </section>
+
+        <!-- S19: Errores frecuentes -->
+        <section id="errores-frecuentes" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-bug"></i></span>19. Errores frecuentes en este bloque</h2>
+
+          <div class="error-card">
+            <i class="bi bi-x-circle box-icon" aria-hidden="true"></i>
+            <h3>Error 1. Copiar mal el bloque de código</h3>
+            <p>Incorrecto:</p>
+            <pre class="code-js"><code>js let edad = 20;</code></pre>
+            <p>Correcto:</p>
+            <pre class="code-js"><code>let edad = 20;</code></pre>
+            <p>La palabra <code>js</code> no forma parte del código. Solo se usa en Markdown para indicar que el bloque contiene JavaScript.</p>
+          </div>
+
+          <div class="error-card">
+            <i class="bi bi-x-circle box-icon" aria-hidden="true"></i>
+            <h3>Error 2. Usar una variable antes de declararla correctamente</h3>
+            <pre class="code-js"><code>console.log(nombre);
+let nombre = "Ana";</code></pre>
+            <p>Este ejemplo produce error porque <code>nombre</code> se usa antes de inicializarse.</p>
+          </div>
+
+          <div class="error-card">
+            <i class="bi bi-x-circle box-icon" aria-hidden="true"></i>
+            <h3>Error 3. Confundir <code>=</code> con <code>===</code></h3>
+            <pre class="code-js"><code>let edad = 18;
+
+console.log(edad = 20);   // Asigna 20
+console.log(edad === 20); // Compara con 20</code></pre>
+          </div>
+
+          <div class="error-card">
+            <i class="bi bi-x-circle box-icon" aria-hidden="true"></i>
+            <h3>Error 4. Pensar que <code>const</code> hace inmutable un objeto</h3>
+            <pre class="code-js"><code>const usuario = {
+  nombre: "Ana"
+};
+
+usuario.nombre = "Luis"; // Permitido</code></pre>
+            <p><code>const</code> impide reasignar <code>usuario</code>, pero no bloquea sus propiedades.</p>
+          </div>
+
+          <div class="error-card">
+            <i class="bi bi-x-circle box-icon" aria-hidden="true"></i>
+            <h3>Error 5. No tener en cuenta la conversión implícita</h3>
+            <pre class="code-js"><code>let cantidad = "5";
+
+console.log(cantidad + 1);         // "51"
+console.log(Number(cantidad) + 1); // 6</code></pre>
+          </div>
+
+          <div class="error-card">
+            <i class="bi bi-x-circle box-icon" aria-hidden="true"></i>
+            <h3>Error 6. Comparar <code>NaN</code> directamente</h3>
+            <pre class="code-js"><code>console.log(NaN === NaN); // false</code></pre>
+            <p>Para comprobar <code>NaN</code>, usa:</p>
+            <pre class="code-js"><code>console.log(Number.isNaN(NaN)); // true</code></pre>
+          </div>
+
+          <div class="error-card">
+            <i class="bi bi-x-circle box-icon" aria-hidden="true"></i>
+            <h3>Error 7. Olvidar el caso especial de <code>typeof null</code></h3>
+            <pre class="code-js"><code>console.log(typeof null); // "object"</code></pre>
+            <p>Es un comportamiento histórico. Para comprobar <code>null</code>, usa:</p>
+            <pre class="code-js"><code>let dato = null;
+console.log(dato === null); // true</code></pre>
+          </div>
+        </section>
+
+        <!-- S20: Ejemplos guiados -->
+        <section id="ejemplos-guiados" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-code-slash"></i></span>20. Ejemplos guiados para clase</h2>
+
+          <h3>20.1. Variables y tipos mezclados</h3>
+          <div class="example-block">
+            <pre class="code-js"><code>let dato = 5;
+console.log(dato, typeof dato);
+
+dato = "cinco";
+console.log(dato, typeof dato);
+
+dato = true;
+console.log(dato, typeof dato);</code></pre>
+          </div>
+          <p><strong>Qué se debe observar:</strong></p>
+          <ul class="custom-list">
+            <li>la variable se llama igual todo el tiempo;</li>
+            <li>el valor cambia;</li>
+            <li>el tipo cambia porque depende del valor actual.</li>
+          </ul>
+
+          <h3>20.2. <code>undefined</code>, <code>null</code> y <code>typeof</code></h3>
+          <div class="example-block">
+            <pre class="code-js"><code>let a;
+const b = null;
+
+console.log(a);        // undefined
+console.log(b);        // null
+console.log(typeof a); // "undefined"
+console.log(typeof b); // "object"</code></pre>
+          </div>
+          <p><strong>Qué se debe observar:</strong></p>
+          <ul class="custom-list">
+            <li><code>a</code> existe, pero no tiene valor asignado;</li>
+            <li><code>b</code> contiene intencionadamente <code>null</code>;</li>
+            <li><code>typeof null</code> devuelve <code>"object"</code>.</li>
+          </ul>
+
+          <h3>20.3. Conversión de texto a número</h3>
+          <div class="example-block">
+            <pre class="code-js"><code>let precioTexto = "19.99";
+let unidadesTexto = "3";
+
+let precio = Number(precioTexto);
+let unidades = Number(unidadesTexto);
+let total = precio * unidades;
+
+console.log(total); // 59.97</code></pre>
+          </div>
+          <p><strong>Qué se debe observar:</strong></p>
+          <ul class="custom-list">
+            <li>los datos pueden llegar como texto;</li>
+            <li>si necesitamos operar matemáticamente, conviene convertirlos antes.</li>
+          </ul>
+
+          <h3>20.4. Conversión incorrecta</h3>
+          <div class="example-block">
+            <pre class="code-js"><code>let valor = "hola";
+let numero = Number(valor);
+
+console.log(numero);              // NaN
+console.log(typeof numero);       // "number"
+console.log(Number.isNaN(numero)); // true</code></pre>
+          </div>
+          <p><strong>Qué se debe observar:</strong></p>
+          <ul class="custom-list">
+            <li><code>Number("hola")</code> no puede producir un número válido;</li>
+            <li>el resultado es <code>NaN</code>;</li>
+            <li><code>NaN</code> pertenece al tipo <code>number</code>.</li>
+          </ul>
+
+          <h3>20.5. Igualdad estricta</h3>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log(0 == "0");   // true
+console.log(0 === "0");  // false
+
+console.log(false == 0);  // true
+console.log(false === 0); // false</code></pre>
+          </div>
+          <p><strong>Qué se debe observar:</strong></p>
+          <ul class="custom-list">
+            <li><code>==</code> permite conversiones implícitas;</li>
+            <li><code>===</code> compara valor y tipo;</li>
+            <li>para evitar sorpresas, en este módulo usaremos <code>===</code>.</li>
+          </ul>
+        </section>
+
+        <!-- S21: Mini-ejercicios -->
+        <section id="mini-ejercicios" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-pencil-square"></i></span>21. Mini-ejercicios guiados</h2>
+
+          <div class="exercise-block">
+            <h3>Ejercicio 1. Declaración e inicialización</h3>
+            <p>Indica qué se mostrará por consola.</p>
+            <pre class="code-js"><code>let x;
+console.log(x);
+
+x = 10;
+console.log(x);
+
+x = "diez";
+console.log(x);</code></pre>
+            <p>Después ejecuta el código y comprueba tu respuesta.</p>
+          </div>
+
+          <div class="exercise-block">
+            <h3>Ejercicio 2. Tipos con <code>typeof</code></h3>
+            <p>Completa el resultado esperado antes de ejecutar.</p>
+            <pre class="code-js"><code>console.log(typeof 25);          // ?
+console.log(typeof "25");        // ?
+console.log(typeof true);        // ?
+console.log(typeof undefined);   // ?
+console.log(typeof null);        // ?
+console.log(typeof NaN);         // ?</code></pre>
+          </div>
+
+          <div class="exercise-block">
+            <h3>Ejercicio 3. <code>null</code> y <code>undefined</code></h3>
+            <p>Explica la diferencia entre estos dos casos:</p>
+            <pre class="code-js"><code>let usuario1;
+let usuario2 = null;
+
+console.log(usuario1);
+console.log(usuario2);</code></pre>
+            <p>La explicación debe incluir las palabras <code>undefined</code>, <code>null</code>, &#8220;sin inicializar&#8221; e &#8220;intencionado&#8221;.</p>
+          </div>
+
+          <div class="exercise-block">
+            <h3>Ejercicio 4. Conversión con <code>Number()</code></h3>
+            <p>Indica si el resultado será un número normal, <code>NaN</code>, <code>Infinity</code> o <code>-Infinity</code>.</p>
+            <pre class="code-js"><code>console.log(Number("123"));
+console.log(Number("hola"));
+console.log(8 / 0);
+console.log(-8 / 0);
+console.log(0 / 0);</code></pre>
+          </div>
+
+          <div class="exercise-block">
+            <h3>Ejercicio 5. Concatenación o suma</h3>
+            <p>Antes de ejecutar, indica qué imprimirá cada línea.</p>
+            <pre class="code-js"><code>let x = "5";
+let y = 2;
+
+console.log(x + y);
+console.log(Number(x) + y);
+console.log(x * y);</code></pre>
+            <p>Después explica por qué <code>+</code> se comporta de forma diferente a <code>*</code> en este ejemplo.</p>
+          </div>
+
+          <div class="exercise-block">
+            <h3>Ejercicio 6. Comparación estricta</h3>
+            <p>Indica si cada expresión devuelve <code>true</code> o <code>false</code> y justifica la respuesta.</p>
+            <pre class="code-js"><code>console.log(0 == "0");
+console.log(0 === "0");
+console.log(5 === 5);
+console.log(5 === "5");
+console.log(null === undefined);
+console.log(null == undefined);</code></pre>
+            <div class="note-box" style="">
+              <i class="bi bi-info-circle box-icon" aria-hidden="true"></i>
+              <p>En este ejercicio aparece <code>==</code> solo para entender la diferencia. En el código habitual usaremos <code>===</code>.</p>
+            </div>
+          </div>
+
+          <div class="exercise-block">
+            <h3>Ejercicio 7. Corrección de errores</h3>
+            <p>Corrige el siguiente código.</p>
+            <pre class="code-js"><code>let 2precio = "10";
+const IVA;
+let total = 2precio + IVA;
+console.log(total);</code></pre>
+            <p>Una posible solución debe:</p>
+            <ul class="custom-list">
+              <li>usar identificadores válidos;</li>
+              <li>inicializar correctamente la constante;</li>
+              <li>convertir el precio a número si se quiere hacer un cálculo numérico.</li>
+            </ul>
+          </div>
+
+          <div class="exercise-block">
+            <h3>Ejercicio 8. Pequeña práctica entregable</h3>
+            <p>Crea un fichero llamado <code>bloque02_practica.js</code> y enlázalo desde <code>index.html</code>.</p>
+            <p>El script debe:</p>
+            <ol class="custom-ordered-list">
+              <li>declarar una constante <code>NOMBRE_ALUMNO</code> con tu nombre;</li>
+              <li>declarar una variable <code>edad</code> con un número;</li>
+              <li>mostrar por consola el nombre, la edad y sus tipos;</li>
+              <li>crear una variable <code>notaTexto</code> con el valor <code>"7.5"</code>;</li>
+              <li>convertir <code>notaTexto</code> a número y guardarlo en <code>notaNumero</code>;</li>
+              <li>mostrar por consola <code>notaNumero + 1</code>;</li>
+              <li>provocar un caso controlado de <code>NaN</code> y comprobarlo con <code>Number.isNaN()</code>;</li>
+              <li>incluir al menos tres comentarios útiles en el código.</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- S22: Preguntas tipo examen -->
+        <section id="preguntas-examen" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-clipboard2-check"></i></span>22. Preguntas tipo examen</h2>
+          <ol class="custom-ordered-list">
+            <li>Explica la diferencia entre declarar e inicializar una variable.</li>
+            <li>¿Qué valor tiene una variable declarada con <code>let</code> pero no inicializada?</li>
+            <li>¿Qué diferencia hay entre <code>let</code> y <code>const</code>?</li>
+            <li>¿Por qué no se recomienda usar <code>var</code> en código nuevo?</li>
+            <li>¿Qué significa que JavaScript tenga tipado dinámico?</li>
+            <li>¿Qué significa que JavaScript permita coerción de tipos?</li>
+            <li>Indica el resultado de <code>typeof null</code> y explica por qué puede confundir.</li>
+            <li>Explica la diferencia entre <code>undefined</code> y <code>null</code> con un ejemplo de cada caso.</li>
+            <li>¿Qué devuelve <code>Number("hola")</code>?</li>
+            <li>¿Por qué <code>typeof NaN</code> devuelve <code>"number"</code>?</li>
+            <li>¿Qué diferencia hay entre <code>==</code> y <code>===</code>?</li>
+            <li>¿Por qué se recomienda usar <code>===</code> y <code>!==</code>?</li>
+            <li>¿Qué imprimen estas líneas?
+              <div class="example-block">
+                <pre class="code-js"><code>let x = "5";
+let y = 2;
+
+console.log(x + y);
+console.log(Number(x) + y);</code></pre>
+              </div>
+            </li>
+            <li>Explica con un ejemplo qué significa que el tipo pertenece al valor y no a la variable.</li>
+            <li>Explica por qué <code>const</code> no convierte un objeto en inmutable.</li>
+          </ol>
+        </section>
+
+        <!-- S23: Glosario -->
+        <section id="glosario" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-book"></i></span>23. Glosario mínimo</h2>
+          <div class="compact-table-container">
+            <table>
+              <thead><tr><th>Término</th><th>Definición</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Sintaxis</strong></td><td>Reglas que indican cómo debe escribirse el código.</td></tr>
+                <tr><td><strong>Sentencia</strong></td><td>Orden completa que ejecuta el programa.</td></tr>
+                <tr><td><strong>Bloque</strong></td><td>Grupo de instrucciones entre llaves <code>{ }</code>.</td></tr>
+                <tr><td><strong>Comentario</strong></td><td>Texto ignorado por el motor de JavaScript y usado para explicar el código.</td></tr>
+                <tr><td><strong>Identificador</strong></td><td>Nombre de una variable, constante, función u otro elemento.</td></tr>
+                <tr><td><strong>Variable</strong></td><td>Nombre que referencia un valor que puede cambiar.</td></tr>
+                <tr><td><strong>Constante</strong></td><td>Nombre que referencia un valor que no puede reasignarse.</td></tr>
+                <tr><td><strong>Declarar</strong></td><td>Crear una variable o constante.</td></tr>
+                <tr><td><strong>Inicializar</strong></td><td>Asignar un valor por primera vez.</td></tr>
+                <tr><td><strong>Ámbito</strong></td><td>Zona del código donde una variable existe y puede usarse.</td></tr>
+                <tr><td><strong>Tipo de dato</strong></td><td>Categoría de un valor: <code>number</code>, <code>string</code>, <code>boolean</code>, etc.</td></tr>
+                <tr><td><strong>Tipo primitivo</strong></td><td>Tipo básico que no es un objeto.</td></tr>
+                <tr><td><strong>Tipado dinámico</strong></td><td>El tipo se determina en tiempo de ejecución según el valor.</td></tr>
+                <tr><td><strong>Coerción</strong></td><td>Conversión automática de tipos realizada por JavaScript.</td></tr>
+                <tr><td><code>undefined</code></td><td>Valor que suele indicar que algo no tiene valor asignado.</td></tr>
+                <tr><td><code>null</code></td><td>Valor usado para indicar ausencia intencionada de valor.</td></tr>
+                <tr><td><code>NaN</code></td><td>Valor numérico especial que representa un resultado no numérico válido.</td></tr>
+                <tr><td><code>Infinity</code></td><td>Valor numérico especial que representa infinito.</td></tr>
+                <tr><td><code>typeof</code></td><td>Operador que devuelve el tipo de un valor como cadena de texto.</td></tr>
+                <tr><td><strong>Truthy</strong></td><td>Valor que se comporta como <code>true</code> en un contexto booleano.</td></tr>
+                <tr><td><strong>Falsy</strong></td><td>Valor que se comporta como <code>false</code> en un contexto booleano.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- S24: Resumen final -->
+        <section id="resumen-final" class="content-section summary-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-flag"></i></span>24. Resumen final</h2>
+          <p>Para repasar este bloque, debes dominar estas ideas:</p>
+          <ol class="custom-ordered-list">
+            <li>JavaScript se puede ejecutar en la consola del navegador o desde un fichero <code>.js</code> enlazado con HTML.</li>
+            <li>Las instrucciones se escriben siguiendo reglas de sintaxis.</li>
+            <li>Los comentarios ayudan a documentar el código.</li>
+            <li>Los identificadores deben tener nombres válidos y claros.</li>
+            <li>En código moderno se usan <code>let</code> y <code>const</code>; <code>var</code> se reserva para entender código antiguo.</li>
+            <li><code>let</code> permite reasignar; <code>const</code> no permite reasignar.</li>
+            <li><code>const</code> no hace inmutables los objetos.</li>
+            <li><code>let</code> y <code>const</code> tienen ámbito de bloque.</li>
+            <li>JavaScript tiene tipado dinámico: el tipo pertenece al valor.</li>
+            <li>La coerción de tipos puede producir resultados inesperados.</li>
+            <li><code>undefined</code> suele indicar falta de valor asignado.</li>
+            <li><code>null</code> indica ausencia intencionada de valor.</li>
+            <li><code>typeof null</code> devuelve <code>"object"</code>, aunque <code>null</code> no sea un objeto normal.</li>
+            <li><code>NaN</code> es un valor especial del tipo <code>number</code>.</li>
+            <li>Para comparar, se recomienda usar <code>===</code> y <code>!==</code>.</li>
+            <li>Para convertir tipos de forma clara, se usan <code>Number()</code>, <code>String()</code> y <code>Boolean()</code>.</li>
+          </ol>
+        </section>
+
+        <!-- S25: Para bloques posteriores -->
+        <section id="bloques-posteriores" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-signpost-split"></i></span>25. Para bloques posteriores</h2>
+          <p>Este documento no desarrolla en profundidad algunos contenidos porque encajan mejor en el bloque siguiente de <strong>operadores y estructuras de control</strong>.</p>
+          <p>Dejar para el bloque posterior:</p>
+          <ul class="custom-list">
+            <li>operadores de comparación completos: <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>!=</code>, <code>!==</code>;</li>
+            <li>operadores lógicos: <code>&amp;&amp;</code>, <code>||</code>, <code>!</code>;</li>
+            <li>tablas de verdad;</li>
+            <li>valores <em>truthy</em> y <em>falsy</em> aplicados a condiciones reales;</li>
+            <li>cortocircuito en <code>&amp;&amp;</code> y <code>||</code>;</li>
+            <li>estructuras condicionales: <code>if</code>, <code>else if</code>, <code>else</code>;</li>
+            <li>operador ternario: <code>condicion ? valorSiTrue : valorSiFalse</code>;</li>
+            <li>uso del ternario solo en casos sencillos y legibles;</li>
+            <li>bucles: <code>for</code>, <code>while</code>, <code>do...while</code>;</li>
+            <li>patrones habituales: contadores, acumuladores y recorridos;</li>
+            <li>errores frecuentes en condiciones y bucles.</li>
+          </ul>
+          <div class="note-box">
+            <i class="bi bi-info-circle box-icon" aria-hidden="true"></i>
+            <p><strong>Nota docente:</strong> el operador ternario queda expresamente reservado para el bloque de operadores y estructuras de control, no para este bloque de sintaxis, variables y tipos.</p>
+          </div>
+        </section>
+
+        <!-- S26: Fuentes de consulta -->
+        <section id="fuentes-consulta" class="content-section">
+          <h2><span class="section-icon" aria-hidden="true"><i class="bi bi-link-45deg"></i></span>26. Fuentes de consulta recomendadas</h2>
+          <ul class="custom-list">
+            <li>MDN Web Docs — JavaScript Guide: Grammar and types.</li>
+            <li>MDN Web Docs — JavaScript data types and data structures.</li>
+            <li>MDN Web Docs — Equality comparisons and sameness.</li>
+            <li>MDN Web Docs — Number, NaN, Infinity y <code>Number.isNaN()</code>.</li>
+            <li>MDN Web Docs — JavaScript Guide: Expressions and operators.</li>
+          </ul>
+        </section>
+
+      </div><!-- /content-wrapper -->
+    </div><!-- /content-layout -->
+  </main>
+</div><!-- /smpp-scope -->
+</body>
+</html>

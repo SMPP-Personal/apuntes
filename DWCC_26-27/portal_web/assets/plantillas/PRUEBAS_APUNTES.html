@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UD2_B4b · localStorage y persistencia básica</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="../../assets/css/smpp.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar">
+<div class="content-layout">
+<aside aria-label="Índice del documento" class="section-sidebar">
+<nav aria-label="Secciones del documento" class="section-nav">
+<p class="section-nav-title">Índice del documento</p>
+<ol class="section-nav-list">
+<li><a class="section-nav-link badge-link" href="#1-que-vamos-a-aprender-en-este-documento"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Qué vamos a aprender en este documento</a></li>
+<li><a class="section-nav-link badge-link" href="#2-datos-temporales-y-datos-persistentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-clock-history"></i></span> 2. Datos temporales y datos persistentes</a></li>
+<li><a class="section-nav-link badge-link" href="#3-que-es-localstorage"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-database"></i></span> 3. Qué es <code>localStorage</code></a></li>
+<li><a class="section-nav-link badge-link" href="#4-guardar-datos-con-setitem"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-save"></i></span> 4. Guardar datos con <code>setItem</code></a></li>
+<li><a class="section-nav-link badge-link" href="#5-recuperar-datos-con-getitem"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-box-arrow-in-down"></i></span> 5. Recuperar datos con <code>getItem</code></a></li>
+<li><a class="section-nav-link badge-link" href="#6-borrar-datos-con-removeitem"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-trash3"></i></span> 6. Borrar datos con <code>removeItem</code></a></li>
+<li><a class="section-nav-link badge-link" href="#7-borrar-todo-con-clear"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-exclamation-triangle"></i></span> 7. Borrar todo con <code>clear</code></a></li>
+<li><a class="section-nav-link badge-link" href="#8-localstorage-siempre-guarda-texto"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-type"></i></span> 8. localStorage siempre guarda texto</a></li>
+<li><a class="section-nav-link badge-link" href="#9-guardar-booleanos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-toggle-on"></i></span> 9. Guardar booleanos</a></li>
+<li><a class="section-nav-link badge-link" href="#10-guardar-objetos-con-json"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-braces"></i></span> 10. Guardar objetos con JSON</a></li>
+<li><a class="section-nav-link badge-link" href="#11-guardar-arrays-con-json"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-list-ul"></i></span> 11. Guardar arrays con JSON</a></li>
+<li><a class="section-nav-link badge-link" href="#12-recuperar-arrays-de-forma-segura"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-check"></i></span> 12. Recuperar arrays de forma segura</a></li>
+<li><a class="section-nav-link badge-link" href="#13-ejemplo-completo-guardar-preferencia-de-tema"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-moon-stars"></i></span> 13. Ejemplo completo: guardar preferencia de tema</a></li>
+<li><a class="section-nav-link badge-link" href="#14-ejemplo-completo-lista-de-tareas-persistente"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-square"></i></span> 14. Ejemplo completo: lista de tareas persistente</a></li>
+<li><a class="section-nav-link badge-link" href="#15-diferencia-entre-localstorage-y-sessionstorage"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-layout-split"></i></span> 15. Diferencia entre <code>localStorage</code> y <code>sessionStorage</code></a></li>
+<li><a class="section-nav-link badge-link" href="#16-que-no-debemos-guardar-en-localstorage"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-exclamation"></i></span> 16. Qué NO debemos guardar en localStorage</a></li>
+<li><a class="section-nav-link badge-link" href="#17-errores-frecuentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> 17. Errores frecuentes</a></li>
+<li><a class="section-nav-link badge-link" href="#18-preguntas-tipo-examen"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-question-circle"></i></span> 18. Preguntas tipo examen</a></li>
+<li><a class="section-nav-link badge-link" href="#19-resumen-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-circle"></i></span> 19. Resumen final</a></li>
+</ol>
+</nav>
+</aside>
+<div class="content-wrapper">
+<header class="content-header">
+<h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-journal-code"></i></span> UD2_B4b. Apuntes: localStorage y persistencia básica en JavaScript</h1>
+</header>
+<hr class="content-separator"/>
+<section class="content-section" id="1-que-vamos-a-aprender-en-este-documento">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Qué vamos a aprender en este documento</h2>
+<p>En los documentos anteriores hemos trabajado datos en variables, arrays, objetos y JSON. El problema es que, cuando se recarga la página, esos datos se pierden.</p>
+<p>En este documento vamos a estudiar <strong>almacenamiento local básico</strong> con <code>localStorage</code>.</p>
+<p>Al finalizar, deberías ser capaz de:</p>
+<ul class="custom-list">
+<li>entender qué significa persistir datos en el navegador;</li>
+<li>guardar datos con <code>localStorage.setItem()</code>;</li>
+<li>recuperar datos con <code>localStorage.getItem()</code>;</li>
+<li>borrar datos con <code>removeItem()</code> y <code>clear()</code>;</li>
+<li>guardar arrays y objetos usando <code>JSON.stringify()</code>;</li>
+<li>recuperar arrays y objetos usando <code>JSON.parse()</code>;</li>
+<li>aplicar <code>localStorage</code> a preferencias, formularios sencillos o pequeñas listas;</li>
+<li>identificar errores frecuentes y riesgos básicos.</li>
+</ul>
+</section>
+<section class="content-section" id="2-datos-temporales-y-datos-persistentes">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clock-history"></i></span> 2. Datos temporales y datos persistentes</h2>
+<p>Una variable guarda información mientras la página está cargada.</p>
+<div class="example-block">
+<pre class="code-js"><code>let nombre = "Ana";
+console.log(nombre);</code></pre>
+</div>
+<p>Pero si recargamos la página, esa variable vuelve a crearse desde cero.</p>
+<p>En cambio, <code>localStorage</code> permite guardar información en el navegador para que siga disponible aunque:</p>
+<ul class="custom-list">
+<li>se recargue la página;</li>
+<li>se cierre y se vuelva a abrir el navegador;</li>
+<li>el usuario vuelva más tarde a la misma aplicación.</li>
+</ul>
+<p>Ejemplos de uso:</p>
+<ul class="custom-list">
+<li>guardar el nombre de usuario en una práctica;</li>
+<li>recordar un tema claro/oscuro;</li>
+<li>guardar una lista de tareas;</li>
+<li>conservar el borrador de un formulario;</li>
+<li>guardar preferencias de visualización.</li>
+</ul>
+</section>
+<section class="content-section" id="3-que-es-localstorage">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-database"></i></span> 3. Qué es <code>localStorage</code></h2>
+<div class="definition-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-pin-angle"></i></span>
+
+<p><code>localStorage</code> es una API del navegador que permite almacenar pares <strong>clave-valor</strong>.</p>
+<p>La clave es un nombre.</p>
+<p>El valor se guarda como texto.</p>
+</div>
+<p>Ejemplo:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem("usuario", "Ana");</code></pre>
+</div>
+<p>Aquí:</p>
+<ul class="custom-list">
+<li><code>"usuario"</code> es la clave;</li>
+<li><code>"Ana"</code> es el valor.</li>
+</ul>
+<p>Para recuperar el dato:</p>
+<div class="example-block">
+<pre class="code-js"><code>const usuario = localStorage.getItem("usuario");
+console.log(usuario); // "Ana"</code></pre>
+</div>
+</section>
+<section class="content-section" id="4-guardar-datos-con-setitem">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-save"></i></span> 4. Guardar datos con <code>setItem</code></h2>
+<p>La sintaxis básica es:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem(clave, valor);</code></pre>
+</div>
+<p>Ejemplo:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem("curso", "DWCC");
+localStorage.setItem("idioma", "es");</code></pre>
+</div>
+<p>Podemos comprobarlo desde las herramientas de desarrollo del navegador, normalmente en:</p>
+<div class="example-block">
+<pre class="code-bash"><code>Application / Storage / Local Storage</code></pre>
+</div>
+<p>El nombre exacto puede variar según el navegador.</p>
+</section>
+<section class="content-section" id="5-recuperar-datos-con-getitem">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-in-down"></i></span> 5. Recuperar datos con <code>getItem</code></h2>
+<p>La sintaxis básica es:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.getItem(clave);</code></pre>
+</div>
+<p>Ejemplo:</p>
+<div class="example-block">
+<pre class="code-js"><code>const curso = localStorage.getItem("curso");
+console.log(curso);</code></pre>
+</div>
+<p>Si la clave no existe, devuelve <code>null</code>.</p>
+<div class="example-block">
+<pre class="code-js"><code>const valor = localStorage.getItem("noExiste");
+console.log(valor); // null</code></pre>
+</div>
+<p>Por eso es habitual comprobar si el dato existe antes de usarlo:</p>
+<div class="example-block">
+<pre class="code-js"><code>const nombre = localStorage.getItem("nombre");
+
+if (nombre !== null) {
+  console.log("Hola, " + nombre);
+} else {
+  console.log("No hay nombre guardado");
+}</code></pre>
+</div>
+</section>
+<section class="content-section" id="6-borrar-datos-con-removeitem">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-trash3"></i></span> 6. Borrar datos con <code>removeItem</code></h2>
+<p>Para borrar una clave concreta:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.removeItem("usuario");</code></pre>
+</div>
+<p>Ejemplo:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem("usuario", "Ana");
+localStorage.removeItem("usuario");
+
+console.log(localStorage.getItem("usuario")); // null</code></pre>
+</div>
+</section>
+<section class="content-section" id="7-borrar-todo-con-clear">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-exclamation-triangle"></i></span> 7. Borrar todo con <code>clear</code></h2>
+<p><code>clear()</code> borra todo el almacenamiento local del sitio actual.</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.clear();</code></pre>
+</div>
+<div class="warning-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-shield-exclamation"></i></span>
+
+<p>Hay que tener cuidado: elimina todas las claves de <code>localStorage</code> asociadas a esa página o dominio.</p>
+<p>En prácticas de aula es mejor borrar claves concretas con <code>removeItem()</code>.</p>
+</div>
+</section>
+<section class="content-section" id="8-localstorage-siempre-guarda-texto">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-type"></i></span> 8. localStorage siempre guarda texto</h2>
+<p>Aunque guardemos un número, <code>localStorage</code> lo almacena como texto.</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem("edad", 20);
+
+const edad = localStorage.getItem("edad");
+
+console.log(edad);        // "20"
+console.log(typeof edad); // "string"</code></pre>
+</div>
+<p>Si queremos usarlo como número:</p>
+<div class="example-block">
+<pre class="code-js"><code>const edadNumero = Number(localStorage.getItem("edad"));
+console.log(edadNumero + 1);</code></pre>
+</div>
+</section>
+<section class="content-section" id="9-guardar-booleanos">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-toggle-on"></i></span> 9. Guardar booleanos</h2>
+<p>Los booleanos también se guardan como texto.</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem("acepta", true);
+
+const acepta = localStorage.getItem("acepta");
+console.log(acepta);        // "true"
+console.log(typeof acepta); // "string"</code></pre>
+</div>
+<p>Para convertirlo de nuevo:</p>
+<div class="example-block">
+<pre class="code-js"><code>const aceptaBooleano = localStorage.getItem("acepta") === "true";</code></pre>
+</div>
+</section>
+<section class="content-section" id="10-guardar-objetos-con-json">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces"></i></span> 10. Guardar objetos con JSON</h2>
+<p>No podemos guardar directamente un objeto como objeto real en <code>localStorage</code>.</p>
+<p>Incorrecto:</p>
+<div class="example-block">
+<pre class="code-js"><code>const usuario = {
+  nombre: "Ana",
+  edad: 20
+};
+
+localStorage.setItem("usuario", usuario);</code></pre>
+</div>
+<p>Eso guardaría algo poco útil como:</p>
+<div class="example-block">
+<pre class="code-bash"><code>[object Object]</code></pre>
+</div>
+<p>La forma correcta es convertirlo a JSON:</p>
+<div class="example-block">
+<pre class="code-js"><code>const usuario = {
+  nombre: "Ana",
+  edad: 20
+};
+
+const usuarioJSON = JSON.stringify(usuario);
+
+localStorage.setItem("usuario", usuarioJSON);</code></pre>
+</div>
+<p>Para recuperarlo:</p>
+<div class="example-block">
+<pre class="code-js"><code>const textoGuardado = localStorage.getItem("usuario");
+const usuarioRecuperado = JSON.parse(textoGuardado);
+
+console.log(usuarioRecuperado.nombre);
+console.log(usuarioRecuperado.edad);</code></pre>
+</div>
+</section>
+<section class="content-section" id="11-guardar-arrays-con-json">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-list-ul"></i></span> 11. Guardar arrays con JSON</h2>
+<p>También podemos guardar arrays.</p>
+<div class="example-block">
+<pre class="code-js"><code>const tareas = ["estudiar", "practicar JS", "repasar DOM"];
+
+localStorage.setItem("tareas", JSON.stringify(tareas));</code></pre>
+</div>
+<p>Para recuperarlo:</p>
+<div class="example-block">
+<pre class="code-js"><code>const tareasGuardadas = localStorage.getItem("tareas");
+const tareas = JSON.parse(tareasGuardadas);
+
+console.log(tareas);</code></pre>
+</div>
+</section>
+<section class="content-section" id="12-recuperar-arrays-de-forma-segura">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-check"></i></span> 12. Recuperar arrays de forma segura</h2>
+<p>Si la clave no existe, <code>getItem()</code> devuelve <code>null</code>.<br/>
+Si intentamos hacer <code>JSON.parse(null)</code>, puede generar resultados no deseados o dificultar la lógica.</p>
+<p>Una forma sencilla:</p>
+<div class="example-block">
+<pre class="code-js"><code>const tareasGuardadas = localStorage.getItem("tareas");
+
+let tareas;
+
+if (tareasGuardadas !== null) {
+  tareas = JSON.parse(tareasGuardadas);
+} else {
+  tareas = [];
+}</code></pre>
+</div>
+<p>Forma abreviada habitual:</p>
+<div class="example-block">
+<pre class="code-js"><code>const tareas = JSON.parse(localStorage.getItem("tareas")) || [];</code></pre>
+</div>
+<p>Esta segunda forma es práctica, pero conviene entender primero la versión larga.</p>
+</section>
+<section class="content-section" id="13-ejemplo-completo-guardar-preferencia-de-tema">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-moon-stars"></i></span> 13. Ejemplo completo: guardar preferencia de tema</h2>
+<p>HTML:</p>
+<div class="example-block">
+<pre class="code-html"><code>&lt;button id="tema-claro"&gt;Tema claro&lt;/button&gt;
+&lt;button id="tema-oscuro"&gt;Tema oscuro&lt;/button&gt;</code></pre>
+</div>
+<p>JavaScript:</p>
+<div class="example-block">
+<pre class="code-js"><code>const botonClaro = document.querySelector("#tema-claro");
+const botonOscuro = document.querySelector("#tema-oscuro");
+
+const temaGuardado = localStorage.getItem("tema");
+
+if (temaGuardado !== null) {
+  document.body.className = temaGuardado;
+}
+
+botonClaro.addEventListener("click", () =&gt; {
+  document.body.className = "claro";
+  localStorage.setItem("tema", "claro");
+});
+
+botonOscuro.addEventListener("click", () =&gt; {
+  document.body.className = "oscuro";
+  localStorage.setItem("tema", "oscuro");
+});</code></pre>
+</div>
+<p>La próxima vez que se cargue la página, se recuperará el tema guardado.</p>
+</section>
+<section class="content-section" id="14-ejemplo-completo-lista-de-tareas-persistente">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> 14. Ejemplo completo: lista de tareas persistente</h2>
+<div class="example-block">
+<pre class="code-js"><code>let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+
+function guardarTareas() {
+  localStorage.setItem("tareas", JSON.stringify(tareas));
+}
+
+function agregarTarea(texto) {
+  tareas.push(texto);
+  guardarTareas();
+}
+
+agregarTarea("Estudiar localStorage");
+agregarTarea("Practicar JSON");
+
+console.log(tareas);</code></pre>
+</div>
+<p>Cada vez que se añade una tarea, se actualiza el almacenamiento local.</p>
+</section>
+<section class="content-section" id="15-diferencia-entre-localstorage-y-sessionstorage">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-layout-split"></i></span> 15. Diferencia entre <code>localStorage</code> y <code>sessionStorage</code></h2>
+<p>Existe otra API parecida: <code>sessionStorage</code>.</p>
+<div class="compact-table-container">
+<table>
+<thead>
+<tr><th>API</th><th>Duración aproximada</th></tr>
+</thead>
+<tbody>
+<tr><td><code>localStorage</code></td><td>Persiste aunque se cierre el navegador</td></tr>
+<tr><td><code>sessionStorage</code></td><td>Persiste solo durante la sesión/pestaña</td></tr>
+</tbody>
+</table>
+</div>
+<p>En este documento trabajaremos principalmente con <code>localStorage</code>.</p>
+</section>
+<section class="content-section" id="16-que-no-debemos-guardar-en-localstorage">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-exclamation"></i></span> 16. Qué NO debemos guardar en localStorage</h2>
+<div class="warning-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-shield-exclamation"></i></span>
+
+<p>No se deben guardar datos sensibles, como:</p>
+<ul class="custom-list">
+<li>contraseñas;</li>
+<li>tokens secretos;</li>
+<li>datos personales delicados;</li>
+<li>información privada que no debería quedar en el navegador.</li>
+</ul>
+<p><code>localStorage</code> es útil para prácticas, preferencias y datos sencillos, pero no es una base de datos segura.</p>
+</div>
+</section>
+<section class="content-section" id="17-errores-frecuentes">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 17. Errores frecuentes</h2>
+<div class="error-card"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-bug"></i></span>
+
+<h3>Error 1. Olvidar que todo se guarda como texto</h3>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem("contador", 5);
+
+const contador = localStorage.getItem("contador");
+console.log(contador + 1); // "51"</code></pre>
+</div>
+<p>Corrección:</p>
+<div class="example-block">
+<pre class="code-js"><code>const contador = Number(localStorage.getItem("contador"));
+console.log(contador + 1); // 6</code></pre>
+</div>
+</div>
+<div class="error-card"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-bug"></i></span>
+
+<h3>Error 2. Guardar objetos sin <code>JSON.stringify</code></h3>
+<p>Incorrecto:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem("usuario", { nombre: "Ana" });</code></pre>
+</div>
+<p>Correcto:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem("usuario", JSON.stringify({ nombre: "Ana" }));</code></pre>
+</div>
+</div>
+<div class="error-card"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-bug"></i></span>
+
+<h3>Error 3. Recuperar JSON sin comprobar si existe</h3>
+<div class="example-block">
+<pre class="code-js"><code>const usuario = JSON.parse(localStorage.getItem("usuario"));
+console.log(usuario.nombre);</code></pre>
+</div>
+<p>Si no hay usuario guardado, puede provocar errores en la lógica posterior.</p>
+<p>Mejor:</p>
+<div class="example-block">
+<pre class="code-js"><code>const usuarioGuardado = localStorage.getItem("usuario");
+
+if (usuarioGuardado !== null) {
+  const usuario = JSON.parse(usuarioGuardado);
+  console.log(usuario.nombre);
+}</code></pre>
+</div>
+</div>
+<div class="error-card"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-bug"></i></span>
+
+<h3>Error 4. Usar <code>clear()</code> sin pensar</h3>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.clear();</code></pre>
+</div>
+<p>Puede borrar más datos de los que queríamos. Es más seguro borrar claves concretas:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.removeItem("tareas");</code></pre>
+</div>
+</div>
+</section>
+<section class="content-section" id="18-preguntas-tipo-examen">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-question-circle"></i></span> 18. Preguntas tipo examen</h2>
+<ol class="custom-ordered-list">
+<li>¿Para qué sirve <code>localStorage</code>?</li>
+<li>¿Qué diferencia hay entre una variable y un dato guardado en <code>localStorage</code>?</li>
+<li>¿Qué método se usa para guardar un dato?</li>
+<li>¿Qué método se usa para recuperar un dato?</li>
+<li>¿Qué devuelve <code>getItem()</code> si la clave no existe?</li>
+<li>¿Por qué necesitamos <code>JSON.stringify()</code>?</li>
+<li>¿Por qué necesitamos <code>JSON.parse()</code>?</li>
+<li>¿Qué diferencia hay entre <code>removeItem()</code> y <code>clear()</code>?</li>
+<li>¿Por qué no debemos guardar contraseñas en <code>localStorage</code>?</li>
+<li>¿Qué diferencia básica hay entre <code>localStorage</code> y <code>sessionStorage</code>?</li>
+</ol>
+</section>
+<section class="content-section" id="19-resumen-final">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-circle"></i></span> 19. Resumen final</h2>
+<p><code>localStorage</code> permite guardar información sencilla en el navegador.</p>
+<p>Las operaciones básicas son:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem("clave", "valor");
+localStorage.getItem("clave");
+localStorage.removeItem("clave");
+localStorage.clear();</code></pre>
+</div>
+<p>Para guardar arrays y objetos usamos JSON:</p>
+<div class="example-block">
+<pre class="code-js"><code>localStorage.setItem("datos", JSON.stringify(datos));
+const datos = JSON.parse(localStorage.getItem("datos"));</code></pre>
+</div>
+<p>Es una herramienta muy útil para pequeñas aplicaciones interactivas, especialmente cuando queremos conservar datos entre recargas.</p>
+</section>
+</div>
+</div>
+</main>
+</div>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

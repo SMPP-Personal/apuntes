@@ -1,0 +1,1558 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>
+      Hoja de ejercicios – Bloque 3: operadores, condicionales y bucles en
+      JavaScript
+    </title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../assets/css/smpp.css" rel="stylesheet" />
+    <script defer src="../../assets/js/smpp.js"></script>
+  </head>
+  <body>
+    <div class="smpp-scope">
+      <main class="main-content has-sidebar exercises-page">
+        <div class="content-layout">
+          <aside aria-label="Índice del documento" class="section-sidebar">
+            <nav aria-label="Secciones del documento" class="section-nav">
+              <p class="section-nav-title">
+                <i
+                  aria-hidden="true"
+                  class="bi bi-list-task section-nav-icon"
+                ></i>
+                Índice de ejercicios
+              </p>
+              <ol class="section-nav-list">
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#indicaciones-generales"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-info-circle"></i></span
+                    ><span>Indicaciones generales</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-1-operadores-de-comparacion-y-expresiones-booleanas"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-toggle-on"></i></span
+                    ><span
+                      >Parte 1. Operadores de comparación y expresiones
+                      booleanas</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-2-operadores-logicos-and-or-not"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-diagram-2"></i></span
+                    ><span
+                      >Parte 2. Operadores lógicos: &amp;&amp; , || , !</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-3-valores-truthy-falsy-cortocircuito-y-valores-por-defecto"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-lightbulb"></i></span
+                    ><span
+                      >Parte 3. Valores truthy/falsy, cortocircuito y valores
+                      por defecto</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-4-condicionales-if-if-else-else-if"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-question-diamond"></i></span
+                    ><span
+                      >Parte 4. Condicionales: if , if/else , else if</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-5-operador-ternario"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-code-slash"></i></span
+                    ><span>Parte 5. Operador ternario</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link badge-link" href="#parte-6-switch"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-toggles"></i></span
+                    ><span>Parte 6. switch</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-7-bucles-while-y-do-while"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-arrow-repeat"></i></span
+                    ><span>Parte 7. Bucles while y do...while</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-8-bucle-for"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-repeat"></i></span
+                    ><span>Parte 8. Bucle for</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-9-ejercicios-integrados"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-puzzle"></i></span
+                    ><span>Parte 9. Ejercicios integrados</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-10-ampliacion-bucles-con-arrays"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-box-seam"></i></span
+                    ><span>Parte 10. Ampliación: bucles con arrays</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#preguntas-finales-de-repaso"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-question-circle"></i></span
+                    ><span>Preguntas finales de repaso</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#entrega-recomendada"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-send-check"></i></span
+                    ><span>Entrega recomendada</span></a
+                  >
+                </li>
+              </ol>
+            </nav>
+          </aside>
+          <div class="content-wrapper">
+            <div class="document-toolbar">
+              <a class="document-home-link" href="../../index.html"
+                ><i aria-hidden="true" class="bi bi-house-door"></i> Índice del
+                curso</a
+              >
+               <button id="theme-toggle" class="document-theme-toggle" type="button">
+    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+    Modo oscuro
+  </button>
+            </div>
+            <header class="content-header">
+              <h1>
+                <span aria-hidden="true" class="document-title-icon"
+                  ><i class="bi bi-pencil-square"></i
+                ></span>
+                Hoja de ejercicios – Bloque 3: operadores, condicionales y
+                bucles en JavaScript
+              </h1>
+              <blockquote class="note-box">
+                <p>
+                  <strong>Módulo:</strong> DWCC<br />
+                  <strong>Bloque:</strong> B03 – Operadores, condicionales y
+                  bucles<br />
+                  <strong>Objetivo de la hoja:</strong> practicar expresiones
+                  booleanas, operadores de comparación, operadores lógicos,
+                  condicionales, operador ternario, <code>switch</code> y bucles
+                  básicos en JavaScript.
+                </p>
+              </blockquote>
+            </header>
+            <hr />
+            <section
+              class="content-section featured-section requirements-section"
+              id="indicaciones-generales"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-info-circle"></i></span
+                >Indicaciones generales
+              </h2>
+              <ul class="custom-list">
+                <li>
+                  Realiza los ejercicios en un fichero JavaScript, por ejemplo
+                  <code>b03_ejercicios.js</code>.
+                </li>
+                <li>
+                  Puedes ejecutar el código desde la consola del navegador o
+                  enlazando el fichero <code>.js</code> desde una página HTML.
+                </li>
+                <li>
+                  Comprueba los resultados con <code>console.log()</code>.
+                </li>
+                <li>
+                  Cuando un ejercicio pida “explica”, escribe una frase breve en
+                  un comentario de código o en tu cuaderno.
+                </li>
+                <li>
+                  Recuerda usar preferentemente <code>===</code> y
+                  <code>!==</code> en las comparaciones.
+                </li>
+              </ul>
+              <p>Ejemplo de comentario de respuesta:</p>
+              <div class="example-block">
+                <pre
+                  class="code-js"
+                ><code>// La expresión devuelve false porque 5 es un number y "5" es un string.
+</code></pre>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section featured-section operators-section"
+              id="parte-1-operadores-de-comparacion-y-expresiones-booleanas"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-toggle-on"></i></span
+                >Parte 1. Operadores de comparación y expresiones booleanas
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 1. Comparaciones básicas</h3>
+                <p>
+                  Indica qué devuelve cada expresión: <code>true</code> o
+                  <code>false</code>.
+                </p>
+                <p>Después compruébalo en la consola.</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>console.log(5 &gt; 3);
+console.log(5 &lt; 3);
+console.log(5 &gt;= 5);
+console.log(4 &lt;= 2);
+console.log(10 === 10);
+console.log(10 !== 8);
+</code></pre>
+                </div>
+                <p>
+                  Añade debajo una frase explicando qué significa que una
+                  expresión sea <strong>booleana</strong>.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 2. Igualdad estricta frente a igualdad débil</h3>
+                <p>
+                  Predice el resultado de cada expresión y después compruébalo.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>console.log(5 == "5");
+console.log(5 === "5");
+
+console.log(0 == false);
+console.log(0 === false);
+
+console.log("1" == 1);
+console.log("1" === 1);
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Qué operador realiza conversión automática de tipos?</li>
+                  <li>¿Cuál se recomienda usar normalmente en JavaScript?</li>
+                  <li>
+                    Explica por qué <code>5 == "5"</code> y
+                    <code>5 === "5"</code> no dan el mismo resultado.
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 3. Comparar cadenas de texto</h3>
+                <p>
+                  Crea una constante <code>respuesta</code> y comprueba si vale
+                  exactamente <code>"si"</code>.
+                </p>
+                <p>Prueba al menos con estos valores:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const respuesta = "si";
+// const respuesta = "Si";
+// const respuesta = "SI";
+// const respuesta = "no";
+</code></pre>
+                </div>
+                <p>El programa debe mostrar:</p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Has contestado que sí"</code> si la respuesta es
+                    exactamente <code>"si"</code>.
+                  </li>
+                  <li>
+                    <code>"No has respondido 'si'"</code> en cualquier otro
+                    caso.
+                  </li>
+                </ul>
+                <p>Pregunta final:</p>
+                <ul class="custom-list">
+                  <li>
+                    ¿Importan las mayúsculas y minúsculas en esta comparación?
+                  </li>
+                </ul>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 4. Condiciones con rangos</h3>
+                <p>
+                  Crea una variable <code>temperatura</code> y escribe
+                  expresiones booleanas para comprobar:
+                </p>
+                <ol class="custom-ordered-list">
+                  <li>Si la temperatura es menor que 0.</li>
+                  <li>Si la temperatura está entre 0 y 25, ambos incluidos.</li>
+                  <li>Si la temperatura es mayor que 25.</li>
+                </ol>
+                <p>
+                  De momento no uses <code>if</code>; solo muestra el resultado
+                  de las expresiones con <code>console.log()</code>.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const temperatura = 18;
+
+console.log(temperatura &lt; 0);
+console.log(temperatura &gt;= 0 &amp;&amp; temperatura &lt;= 25);
+console.log(temperatura &gt; 25);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section logic-section"
+              id="parte-2-operadores-logicos-and-or-not"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-diagram-2"></i></span
+                >Parte 2. Operadores lógicos: <code>&amp;&amp;</code>,
+                <code>||</code>, <code>!</code>
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 5. AND lógico <code>&amp;&amp;</code></h3>
+                <p>Observa el código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 20;
+const tieneCarnet = false;
+
+const puedeConducir = edad &gt;= 18 &amp;&amp; tieneCarnet;
+
+console.log(puedeConducir);
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Qué valor muestra por consola?</li>
+                  <li>¿Por qué?</li>
+                  <li>
+                    Cambia <code>tieneCarnet</code> a <code>true</code>. ¿Qué
+                    cambia?
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 6. OR lógico <code>||</code></h3>
+                <p>Observa el código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const esAdmin = false;
+const esEditor = true;
+
+const puedeEditar = esAdmin || esEditor;
+
+console.log(puedeEditar);
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Qué valor muestra por consola?</li>
+                  <li>¿Por qué?</li>
+                  <li>
+                    Cambia <code>esEditor</code> a <code>false</code>. ¿Qué
+                    ocurre?
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 7. NOT lógico <code>!</code></h3>
+                <p>Predice el resultado y compruébalo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const logueado = false;
+
+console.log(logueado);
+console.log(!logueado);
+</code></pre>
+                </div>
+                <p>Después prueba con:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const logueado = true;
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ul class="custom-list">
+                  <li>¿Qué hace el operador <code>!</code>?</li>
+                </ul>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 8. Completar condiciones compuestas</h3>
+                <p>Completa las condiciones para que el programa funcione.</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 17;
+const acompañado = true;
+
+// Puede entrar si es mayor de edad O si va acompañado.
+const puedeEntrar = /* COMPLETAR */;
+
+console.log(puedeEntrar);
+</code></pre>
+                </div>
+                <p>Ahora completa este segundo caso:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const usuario = "admin";
+const password = "1234";
+
+// El acceso solo es válido si usuario es "admin" Y password es "1234".
+const accesoValido = /* COMPLETAR */;
+
+console.log(accesoValido);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 9. Tabla lógica sencilla</h3>
+                <p>Completa mentalmente y después comprueba con JavaScript.</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>console.log(true &amp;&amp; true);
+console.log(true &amp;&amp; false);
+console.log(false &amp;&amp; true);
+console.log(false &amp;&amp; false);
+
+console.log(true || true);
+console.log(true || false);
+console.log(false || true);
+console.log(false || false);
+
+console.log(!true);
+console.log(!false);
+</code></pre>
+                </div>
+                <p>Añade un comentario resumen:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>// &amp;&amp; devuelve true cuando...
+// || devuelve true cuando...
+// ! sirve para...
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section logic-section"
+              id="parte-3-valores-truthy-falsy-cortocircuito-y-valores-por-defecto"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-lightbulb"></i></span
+                >Parte 3. Valores truthy/falsy, cortocircuito y valores por
+                defecto
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 10. Valores falsy</h3>
+                <p>
+                  En JavaScript, algunos valores se comportan como
+                  <code>false</code> cuando se evalúan en una condición.
+                </p>
+                <p>Ejecuta este código y observa qué mensajes aparecen:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>if (false) {
+  console.log("false es truthy");
+}
+
+if (0) {
+  console.log("0 es truthy");
+}
+
+if ("") {
+  console.log("cadena vacía es truthy");
+}
+
+if (null) {
+  console.log("null es truthy");
+}
+
+if (undefined) {
+  console.log("undefined es truthy");
+}
+
+if (NaN) {
+  console.log("NaN es truthy");
+}
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Se muestra algún mensaje?</li>
+                  <li>¿Qué tienen en común esos valores?</li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 11. Valores truthy</h3>
+                <p>Ejecuta este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>if ("hola") {
+  console.log('"hola" es truthy');
+}
+
+if ("0") {
+  console.log('"0" es truthy');
+}
+
+if ("false") {
+  console.log('"false" es truthy');
+}
+
+if (1) {
+  console.log("1 es truthy");
+}
+
+if ([]) {
+  console.log("[] es truthy");
+}
+
+if ({}) {
+  console.log("{} es truthy");
+}
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Qué mensajes aparecen?</li>
+                  <li>
+                    ¿Por qué <code>"false"</code> no se comporta como
+                    <code>false</code>?
+                  </li>
+                  <li>
+                    ¿Por qué <code>"0"</code> no se comporta como
+                    <code>0</code>?
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 12. Validar texto introducido</h3>
+                <p>
+                  Crea una variable <code>nombre</code> y comprueba si tiene
+                  contenido.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nombre = "";
+
+if (nombre) {
+  console.log("Nombre introducido");
+} else {
+  console.log("No se ha introducido nombre");
+}
+</code></pre>
+                </div>
+                <p>Prueba con:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nombre = "Ana";
+const nombre = "";
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ul class="custom-list">
+                  <li>
+                    ¿Por qué una cadena vacía puede usarse directamente como
+                    condición?
+                  </li>
+                </ul>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 13. Valor por defecto con <code>||</code></h3>
+                <p>
+                  Queremos mostrar un nombre de usuario. Si no hay nombre,
+                  mostraremos <code>"Invitado"</code>.
+                </p>
+                <p>Completa el código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let nombreUsuario = null;
+
+const nombreMostrado = /* COMPLETAR usando || */;
+
+console.log(nombreMostrado);
+</code></pre>
+                </div>
+                <p>Prueba también con:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let nombreUsuario = "Ana";
+let nombreUsuario = "";
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>
+                    ¿Qué ocurre cuando <code>nombreUsuario</code> es
+                    <code>null</code>?
+                  </li>
+                  <li>¿Qué ocurre cuando es <code>"Ana"</code>?</li>
+                  <li>¿Qué ocurre cuando es <code>""</code>?</li>
+                  <li>
+                    ¿Por qué hay que tener cuidado con <code>||</code> si la
+                    cadena vacía fuese un valor válido?
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 14. Cortocircuito con <code>&amp;&amp;</code></h3>
+                <p>Observa este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  console.log("Hola desde la función");
+  return true;
+}
+
+false &amp;&amp; saludar();
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Se ejecuta <code>saludar()</code>?</li>
+                  <li>
+                    ¿Aparece el mensaje <code>"Hola desde la función"</code>?
+                  </li>
+                  <li>Explica en una frase qué ha ocurrido.</li>
+                </ol>
+                <p>
+                  Después cambia <code>false</code> por <code>true</code> y
+                  comprueba la diferencia.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 15. Cortocircuito con <code>||</code></h3>
+                <p>Observa este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  console.log("Hola desde la función");
+  return true;
+}
+
+true || saludar();
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Se ejecuta <code>saludar()</code>?</li>
+                  <li>¿Aparece el mensaje?</li>
+                  <li>¿Por qué?</li>
+                </ol>
+                <p>
+                  Después cambia <code>true</code> por <code>false</code> y
+                  comprueba la diferencia.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section conditionals-section"
+              id="parte-4-condicionales-if-if-else-else-if"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-question-diamond"></i></span
+                >Parte 4. Condicionales: <code>if</code>, <code>if/else</code>,
+                <code>else if</code>
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 16. <code>if</code> simple</h3>
+                <p>
+                  Escribe un programa que guarde en una variable
+                  <code>edad</code> un número y:
+                </p>
+                <ul class="custom-list">
+                  <li>
+                    Si <code>edad</code> es mayor o igual que 18, muestre en
+                    consola <code>"Eres mayor de edad"</code>.
+                  </li>
+                </ul>
+                <p>No hace falta contemplar otros casos todavía.</p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 17. <code>if/else</code></h3>
+                <p>Modifica el ejercicio anterior para que:</p>
+                <ul class="custom-list">
+                  <li>
+                    Si <code>edad &gt;= 18</code>, muestre
+                    <code>"Eres mayor de edad"</code>.
+                  </li>
+                  <li>
+                    En caso contrario, muestre
+                    <code>"Eres menor de edad"</code>.
+                  </li>
+                </ul>
+                <p>
+                  Prueba con varios valores de <code>edad</code>, por ejemplo:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 15;
+const edad = 18;
+const edad = 25;
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 18. <code>if / else if / else</code> con notas
+                </h3>
+                <p>
+                  Crea un programa con una variable <code>nota</code> de 0 a 10
+                  y muestra:
+                </p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Sobresaliente"</code> si <code>nota &gt;= 9</code>.
+                  </li>
+                  <li>
+                    <code>"Notable"</code> si <code>nota &gt;= 7</code> y menor
+                    que 9.
+                  </li>
+                  <li>
+                    <code>"Aprobado"</code> si <code>nota &gt;= 5</code> y menor
+                    que 7.
+                  </li>
+                  <li><code>"Suspenso"</code> si <code>nota &lt; 5</code>.</li>
+                </ul>
+                <p>
+                  Usa <code>if</code>, <code>else if</code> y <code>else</code>.
+                </p>
+                <p>Después prueba con:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nota = 10;
+const nota = 8;
+const nota = 6;
+const nota = 3;
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 19. Nota válida o no válida</h3>
+                <p>
+                  Mejora el ejercicio anterior para controlar valores
+                  incorrectos.
+                </p>
+                <p>El programa debe mostrar:</p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Nota no válida"</code> si <code>nota</code> es menor
+                    que 0 o mayor que 10.
+                  </li>
+                  <li><code>"Sobresaliente"</code> si está entre 9 y 10.</li>
+                  <li><code>"Notable"</code> si está entre 7 y 8.99.</li>
+                  <li><code>"Aprobado"</code> si está entre 5 y 6.99.</li>
+                  <li><code>"Suspenso"</code> si está entre 0 y 4.99.</li>
+                </ul>
+                <p>Pista: comprueba primero si la nota es inválida.</p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 20. Descuento según importe</h3>
+                <p>Crea una variable <code>importeCompra</code>.</p>
+                <p>El programa debe mostrar:</p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Sin descuento"</code> si el importe es menor que 50.
+                  </li>
+                  <li>
+                    <code>"Descuento del 5%"</code> si el importe está entre 50
+                    y 99.99.
+                  </li>
+                  <li>
+                    <code>"Descuento del 10%"</code> si el importe es 100 o más.
+                  </li>
+                </ul>
+                <p>Después calcula y muestra el precio final.</p>
+                <p>Pista:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const precioFinal = importeCompra * 0.90;
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 21. Acceso con usuario y contraseña</h3>
+                <p>Crea dos constantes:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const usuario = "admin";
+const password = "1234";
+</code></pre>
+                </div>
+                <p>El programa debe mostrar:</p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Acceso permitido"</code> si el usuario es
+                    <code>"admin"</code> y la contraseña es <code>"1234"</code>.
+                  </li>
+                  <li>
+                    <code>"Acceso denegado"</code> en cualquier otro caso.
+                  </li>
+                </ul>
+                <p>Debes usar <code>&amp;&amp;</code>.</p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section conditionals-section"
+              id="parte-5-operador-ternario"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-code-slash"></i></span
+                >Parte 5. Operador ternario
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 22. Mayoría de edad con ternario</h3>
+                <p>Completa el código usando el operador ternario:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 17;
+
+const mensaje = /* COMPLETAR */;
+
+console.log(mensaje);
+</code></pre>
+                </div>
+                <p>El resultado debe ser:</p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Eres mayor de edad"</code> si
+                    <code>edad &gt;= 18</code>.
+                  </li>
+                  <li><code>"Eres menor de edad"</code> en caso contrario.</li>
+                </ul>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 23. Transformar <code>if/else</code> en ternario
+                </h3>
+                <p>Transforma este código a operador ternario:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const logueado = false;
+let textoBoton;
+
+if (logueado) {
+  textoBoton = "Cerrar sesión";
+} else {
+  textoBoton = "Iniciar sesión";
+}
+
+console.log(textoBoton);
+</code></pre>
+                </div>
+                <p>Debe quedar en una sola asignación:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const textoBoton = /* COMPLETAR */;
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 24. Ternario o <code>if/else</code></h3>
+                <p>
+                  Indica si usarías operador ternario o <code>if/else</code> en
+                  cada caso. Justifica brevemente.
+                </p>
+                <ol class="custom-ordered-list">
+                  <li>
+                    Elegir entre <code>"Aprobado"</code> y
+                    <code>"Suspenso"</code> según una nota.
+                  </li>
+                  <li>
+                    Ejecutar 8 líneas distintas de código si un usuario es
+                    administrador.
+                  </li>
+                  <li>
+                    Asignar <code>"mañana"</code> o <code>"tarde"</code> según
+                    la hora.
+                  </li>
+                  <li>Validar un formulario completo con muchos campos.</li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 25. Evitar ternarios difíciles</h3>
+                <p>Observa este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nota = 8;
+
+const resultado = nota &gt;= 9
+  ? "Sobresaliente"
+  : nota &gt;= 7
+    ? "Notable"
+    : nota &gt;= 5
+      ? "Aprobado"
+      : "Suspenso";
+
+console.log(resultado);
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Funciona?</li>
+                  <li>¿Es fácil de leer?</li>
+                  <li>
+                    ¿Qué estructura sería más recomendable para este caso en un
+                    nivel inicial?
+                  </li>
+                </ol>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section conditionals-section"
+              id="parte-6-switch"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-toggles"></i></span
+                >Parte 6. <code>switch</code>
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 26. Días de la semana</h3>
+                <p>
+                  Crea un programa con una variable <code>dia</code> numérica
+                  del 1 al 7.
+                </p>
+                <p>Usando <code>switch</code>, muestra:</p>
+                <ul class="custom-list">
+                  <li><code>1</code> → <code>"Lunes"</code></li>
+                  <li><code>2</code> → <code>"Martes"</code></li>
+                  <li><code>3</code> → <code>"Miércoles"</code></li>
+                  <li><code>4</code> → <code>"Jueves"</code></li>
+                  <li><code>5</code> → <code>"Viernes"</code></li>
+                  <li>
+                    <code>6</code> o <code>7</code> →
+                    <code>"Fin de semana"</code>
+                  </li>
+                  <li>cualquier otro número → <code>"Día no válido"</code></li>
+                </ul>
+                <p>Recuerda:</p>
+                <ul class="custom-list">
+                  <li>usar <code>break</code>;</li>
+                  <li>usar <code>default</code>;</li>
+                  <li>
+                    agrupar <code>case 6</code> y <code>case 7</code> si quieres
+                    que produzcan el mismo resultado.
+                  </li>
+                </ul>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 27. Menú simple con <code>switch</code></h3>
+                <p>Crea una variable <code>opcion</code>.</p>
+                <p>El programa debe mostrar:</p>
+                <ul class="custom-list">
+                  <li>
+                    <code>1</code> → <code>"Mostrar lista de usuarios"</code>
+                  </li>
+                  <li><code>2</code> → <code>"Crear nuevo usuario"</code></li>
+                  <li><code>3</code> → <code>"Borrar usuario"</code></li>
+                  <li>otro valor → <code>"Opción no válida"</code></li>
+                </ul>
+                <p>Prueba primero con números:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const opcion = 1;
+</code></pre>
+                </div>
+                <p>Después prueba con texto:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const opcion = "1";
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ul class="custom-list">
+                  <li>
+                    ¿Funciona igual si el <code>case</code> es
+                    <code>1</code> que si el valor es <code>"1"</code>?
+                  </li>
+                  <li>¿Qué tipo de comparación utiliza <code>switch</code>?</li>
+                </ul>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 28. <code>switch</code> con texto</h3>
+                <p>Crea una variable <code>rol</code> que pueda valer:</p>
+                <ul class="custom-list">
+                  <li><code>"admin"</code></li>
+                  <li><code>"editor"</code></li>
+                  <li><code>"invitado"</code></li>
+                </ul>
+                <p>Con <code>switch</code>, muestra:</p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Acceso total"</code> para <code>"admin"</code>.
+                  </li>
+                  <li>
+                    <code>"Puede editar contenido"</code> para
+                    <code>"editor"</code>.
+                  </li>
+                  <li>
+                    <code>"Solo lectura"</code> para <code>"invitado"</code>.
+                  </li>
+                  <li>
+                    <code>"Rol no reconocido"</code> para cualquier otro valor.
+                  </li>
+                </ul>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 29. Detectar un error por falta de
+                  <code>break</code>
+                </h3>
+                <p>Observa este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const opcion = 1;
+
+switch (opcion) {
+  case 1:
+    console.log("Opción 1");
+  case 2:
+    console.log("Opción 2");
+  case 3:
+    console.log("Opción 3");
+  default:
+    console.log("Opción no válida");
+}
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Qué mensajes se muestran?</li>
+                  <li>¿Por qué ocurre?</li>
+                  <li>Corrige el código usando <code>break</code>.</li>
+                </ol>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section loops-section"
+              id="parte-7-bucles-while-y-do-while"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-arrow-repeat"></i></span
+                >Parte 7. Bucles <code>while</code> y <code>do...while</code>
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 30. Contar de 1 a 5 con <code>while</code></h3>
+                <p>
+                  Escribe un bucle <code>while</code> que muestre por consola
+                  los números del 1 al 5, uno por línea.
+                </p>
+                <p>Pistas:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let numero = 1;
+
+while (/* condición */) {
+  console.log(numero);
+  /* actualización */
+}
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 31. Cuenta atrás</h3>
+                <p>
+                  Usa un <code>while</code> para mostrar una cuenta atrás desde
+                  10 hasta 1.
+                </p>
+                <p>Resultado esperado:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>10
+9
+8
+...
+1
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 32. Suma de 1 a 10</h3>
+                <p>
+                  Utilizando un <code>while</code>, calcula la suma de los
+                  números del 1 al 10.
+                </p>
+                <p>Al final, muestra:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>La suma de 1 a 10 es 55
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 33. Evitar un bucle infinito</h3>
+                <p>Observa este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let x = 1;
+
+while (x &lt;= 5) {
+  console.log(x);
+}
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Qué problema tiene?</li>
+                  <li>¿Por qué se produce un bucle infinito?</li>
+                  <li>Corrige el código.</li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 34. <code>do...while</code> con validación numérica
+                </h3>
+                <p>
+                  Usa un bucle <code>do...while</code> para pedir al usuario un
+                  número mayor que 0.
+                </p>
+                <p>Debe cumplir:</p>
+                <ul class="custom-list">
+                  <li>usar <code>prompt()</code>;</li>
+                  <li>convertir el dato con <code>Number()</code>;</li>
+                  <li>
+                    repetir mientras el valor sea <code>NaN</code> o menor o
+                    igual que 0;
+                  </li>
+                  <li>mostrar al final <code>"Número correcto: X"</code>.</li>
+                </ul>
+                <p>Estructura orientativa:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let numero;
+
+do {
+  numero = Number(prompt("Introduce un número mayor que 0"));
+} while (/* condición */);
+
+console.log("Número correcto:", numero);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 35. Pedir una contraseña hasta acertar</h3>
+                <p>
+                  Crea un programa que pida una contraseña con
+                  <code>prompt()</code> hasta que el usuario escriba
+                  <code>"dwcc"</code>.
+                </p>
+                <p>Cuando acierte, muestra:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>Contraseña correcta
+</code></pre>
+                </div>
+                <p>Pista:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let password;
+
+do {
+  password = prompt("Introduce la contraseña");
+} while (password !== "dwcc");
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section loops-section"
+              id="parte-8-bucle-for"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-repeat"></i></span
+                >Parte 8. Bucle <code>for</code>
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 36. Contar de 1 a 10 con <code>for</code></h3>
+                <p>
+                  Escribe un bucle <code>for</code> que muestre los números del
+                  1 al 10.
+                </p>
+                <p>Pista:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>for (let i = 1; i &lt;= 10; i++) {
+  console.log(i);
+}
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 37. Números pares</h3>
+                <p>
+                  Usando un <code>for</code>, muestra por consola todos los
+                  números pares entre 1 y 20 incluidos.
+                </p>
+                <p>Pista:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>i % 2 === 0
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 38. Números impares</h3>
+                <p>
+                  Usando un <code>for</code>, muestra por consola todos los
+                  números impares entre 1 y 20 incluidos.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 39. Tabla de multiplicar</h3>
+                <p>Fija un número en una constante <code>n</code>.</p>
+                <p>
+                  Usa un <code>for</code> para mostrar su tabla de multiplicar
+                  del 1 al 10.
+                </p>
+                <p>Ejemplo si <code>n = 5</code>:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>5 x 1 = 5
+5 x 2 = 10
+5 x 3 = 15
+...
+5 x 10 = 50
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 40. Acumulador con <code>for</code></h3>
+                <p>Calcula la suma de todos los números pares entre 1 y 100.</p>
+                <p>Pistas:</p>
+                <ul class="custom-list">
+                  <li>usa una variable <code>sumaPares</code>;</li>
+                  <li>recorre del 1 al 100;</li>
+                  <li>suma solo si el número es par.</li>
+                </ul>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section guided-exercises-section"
+              id="parte-9-ejercicios-integrados"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-puzzle"></i></span
+                >Parte 9. Ejercicios integrados
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 41. Clasificar números de un rango</h3>
+                <p>Recorre con un <code>for</code> los números del 1 al 30.</p>
+                <p>Para cada número muestra:</p>
+                <ul class="custom-list">
+                  <li><code>"Múltiplo de 3"</code> si es divisible entre 3.</li>
+                  <li><code>"Múltiplo de 5"</code> si es divisible entre 5.</li>
+                  <li>
+                    <code>"Múltiplo de 3 y de 5"</code> si cumple ambas
+                    condiciones.
+                  </li>
+                  <li>el número sin más si no cumple ninguna.</li>
+                </ul>
+                <p>Importante: piensa bien el orden de los <code>if</code>.</p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 42. Menú simple con <code>while + switch</code>
+                </h3>
+                <p>
+                  Simula un menú que se repite hasta que el usuario elige salir.
+                </p>
+                <p>Debe cumplir:</p>
+                <ol class="custom-ordered-list">
+                  <li>
+                    Usa una variable <code>opcion</code> inicializada a
+                    <code>""</code>.
+                  </li>
+                  <li>
+                    Usa un <code>while</code> que continúe mientras
+                    <code>opcion !== "3"</code>.
+                  </li>
+                  <li>
+                    Dentro del bucle, pide la opción con <code>prompt()</code>.
+                  </li>
+                  <li>
+                    Usa <code>switch</code> para gestionar las opciones:
+                    <ul class="custom-list">
+                      <li>
+                        <code>"1"</code> →
+                        <code>"Opción 1: Mostrar datos"</code>
+                      </li>
+                      <li>
+                        <code>"2"</code> → <code>"Opción 2: Añadir dato"</code>
+                      </li>
+                      <li>
+                        <code>"3"</code> → <code>"Saliendo del menú"</code>
+                      </li>
+                      <li>cualquier otra → <code>"Opción no válida"</code></li>
+                    </ul>
+                  </li>
+                </ol>
+                <p>Estructura orientativa:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let opcion = "";
+
+while (opcion !== "3") {
+  opcion = prompt("Elige una opción: 1, 2 o 3");
+
+  switch (opcion) {
+    // COMPLETAR
+  }
+}
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 43. Adivinar un número</h3>
+                <p>Fija un número secreto en el código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const secreto = 7;
+</code></pre>
+                </div>
+                <p>
+                  Usa un <code>while</code> para pedir al usuario que adivine el
+                  número.
+                </p>
+                <p>Requisitos:</p>
+                <ul class="custom-list">
+                  <li>usa <code>prompt()</code>;</li>
+                  <li>convierte la entrada con <code>Number()</code>;</li>
+                  <li>
+                    mientras el intento sea distinto de <code>secreto</code>,
+                    repite;
+                  </li>
+                  <li>
+                    si el usuario introduce algo que no es número, muestra
+                    <code>"Debes introducir un número"</code>;
+                  </li>
+                  <li>
+                    cuando acierte, muestra
+                    <code>"Correcto, el número era 7"</code>.
+                  </li>
+                </ul>
+                <p>Pista:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>Number.isNaN(intento)
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 44. Intentos limitados</h3>
+                <p>
+                  Modifica el ejercicio anterior para que el usuario tenga como
+                  máximo 3 intentos.
+                </p>
+                <p>El programa debe mostrar:</p>
+                <ul class="custom-list">
+                  <li><code>"Correcto"</code> si acierta.</li>
+                  <li>
+                    <code>"Has agotado los intentos"</code> si falla 3 veces.
+                  </li>
+                </ul>
+                <p>Necesitarás:</p>
+                <ul class="custom-list">
+                  <li>una variable para el número de intentos;</li>
+                  <li>un <code>while</code>;</li>
+                  <li>una condición compuesta.</li>
+                </ul>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section optional-section"
+              id="parte-10-ampliacion-bucles-con-arrays"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-box-seam"></i></span
+                >Parte 10. Ampliación: bucles con arrays
+              </h2>
+              <blockquote class="note-box">
+                <p>
+                  Estos ejercicios anticipan un bloque posterior. Se incluyen
+                  solo como avance, porque los arrays se estudiarán con más
+                  detalle en el bloque siguiente.
+                </p>
+              </blockquote>
+              <div class="exercise-block">
+                <h3>Ejercicio 45. Contar aprobados y suspensos</h3>
+                <p>Imagina que tienes estas notas:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+</code></pre>
+                </div>
+                <p>Usa un <code>for</code> para recorrer el array y cuenta:</p>
+                <ul class="custom-list">
+                  <li>
+                    cuántas notas son aprobadas (<code>nota &gt;= 5</code>);
+                  </li>
+                  <li>
+                    cuántas notas son suspensas (<code>nota &lt; 5</code>).
+                  </li>
+                </ul>
+                <p>Al final muestra:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>Aprobados: 3, Suspensos: 2
+</code></pre>
+                </div>
+                <p>Pista para acceder a cada nota:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>for (let i = 0; i &lt; notas.length; i++) {
+  const nota = notas[i];
+}
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 46. Buscar el mayor valor</h3>
+                <p>Dado este array:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numeros = [8, 3, 15, 2, 10];
+</code></pre>
+                </div>
+                <p>
+                  Recórrelo con un <code>for</code> y muestra el número mayor.
+                </p>
+                <p>Pista:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let mayor = numeros[0];
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section review-section exam-questions-section"
+              id="preguntas-finales-de-repaso"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-question-circle"></i></span
+                >Preguntas finales de repaso
+              </h2>
+              <ol class="question-list">
+                <li>
+                  ¿Qué diferencia hay entre <code>if</code>,
+                  <code>if/else</code> e <code>if/else if/else</code>?
+                </li>
+                <li>
+                  ¿Cuándo usarías <code>switch</code> en lugar de varios
+                  <code>else if</code>?
+                </li>
+                <li>
+                  ¿Qué diferencia hay entre <code>&amp;&amp;</code> y
+                  <code>||</code>?
+                </li>
+                <li>¿Qué hace el operador <code>!</code>?</li>
+                <li>Escribe tres valores falsy en JavaScript.</li>
+                <li>¿Por qué <code>"false"</code> es truthy?</li>
+                <li>¿Qué es el cortocircuito?</li>
+                <li>
+                  ¿Para qué puede usarse <code>||</code> como valor por defecto?
+                </li>
+                <li>¿Cuándo es adecuado usar el operador ternario?</li>
+                <li>
+                  ¿Qué problema puede provocar olvidar actualizar la variable de
+                  control en un <code>while</code>?
+                </li>
+                <li>
+                  ¿Qué diferencia principal hay entre <code>while</code> y
+                  <code>do...while</code>?
+                </li>
+                <li>¿Cuándo suele ser más cómodo usar <code>for</code>?</li>
+              </ol>
+              <hr />
+            </section>
+            <section
+              class="content-section featured-section delivery-section"
+              id="entrega-recomendada"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-send-check"></i></span
+                >Entrega recomendada
+              </h2>
+              <p class="section-lead">
+                Entrega un único fichero <code>.js</code> con los ejercicios
+                indicados por la profesora.
+              </p>
+              <p>Para cada ejercicio, separa el código con comentarios:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>// Ejercicio 1
+// código...
+
+// Ejercicio 2
+// código...
+</code></pre>
+              </div>
+              <p>
+                Cuando un ejercicio tenga preguntas teóricas, puedes
+                responderlas con comentarios dentro del propio fichero.
+              </p>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

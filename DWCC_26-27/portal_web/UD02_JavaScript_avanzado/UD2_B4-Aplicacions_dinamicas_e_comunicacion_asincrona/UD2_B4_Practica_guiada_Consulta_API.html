@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UD2_B4 · Práctica guiada: consulta de API</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+<script defer="" src="../../assets/js/smpp.js"></script>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar practice-page guided-practice-page">
+<div class="content-layout">
+<aside aria-label="Índice del documento" class="section-sidebar">
+<nav aria-label="Secciones del documento" class="section-nav">
+<p class="section-nav-title">
+<i aria-hidden="true" class="bi bi-list-ul"></i>
+              Índice del documento
+            </p>
+<ol class="section-nav-list">
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#1-objetivo-de-la-practica"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la práctica</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#2-que-contenidos-se-trabajan"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-journal-code"></i></span> 2. Qué contenidos se trabajan</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#3-api-que-se-utilizara"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-cloud-arrow-down"></i></span> 3. API que se utilizará</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#4-estructura-del-proyecto"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-folder2-open"></i></span> 4. Estructura del proyecto</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#5-codigo-html-inicial"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-filetype-html"></i></span> 5. Código HTML inicial</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#6-css-inicial"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-filetype-css"></i></span> 6. CSS inicial</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#7-primer-paso-en-javascript-seleccionar-elementos-del-dom"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-filetype-js"></i></span> 7. Primer paso en JavaScript: seleccionar elementos del DOM</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#8-funcion-para-mostrar-mensajes-de-estado"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-chat-square-text"></i></span> 8. Función para mostrar mensajes de estado</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#9-funcion-para-limpiar-la-pantalla"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-eraser"></i></span> 9. Función para limpiar la pantalla</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#10-funcion-para-crear-una-tarjeta"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-window-stack"></i></span> 10. Función para crear una tarjeta</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#11-funcion-para-renderizar-publicaciones"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-layout-three-columns"></i></span> 11. Función para renderizar publicaciones</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#12-funcion-para-mostrar-un-resumen"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-card-checklist"></i></span> 12. Función para mostrar un resumen</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#13-funcion-principal-consultar-la-api"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-cloud-download"></i></span> 13. Función principal: consultar la API</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#14-conectar-los-botones"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-toggle-on"></i></span> 14. Conectar los botones</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#15-anadir-filtrado-por-texto"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-funnel"></i></span> 15. Añadir filtrado por texto</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#16-probar-un-error-de-api"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> 16. Probar un error de API</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#17-codigo-completo-orientativo-de-script-js"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-code-square"></i></span> 17. Código completo orientativo de <code>script.js</code></a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#18-mejora-guiada-consultar-usuarios"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-people"></i></span> 18. Mejora guiada: consultar usuarios</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#19-preguntas-de-reflexion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-question-circle"></i></span> 19. Preguntas de reflexión</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#20-errores-frecuentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-exclamation-triangle"></i></span> 20. Errores frecuentes</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#21-entrega"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-send-check"></i></span> 21. Entrega</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#22-lista-de-comprobacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-square"></i></span> 22. Lista de comprobación</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#23-rubrica-orientativa"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-clipboard-check"></i></span> 23. Rúbrica orientativa</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#24-ampliaciones-opcionales"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-stars"></i></span> 24. Ampliaciones opcionales</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#25-contenidos-que-dejamos-para-otros-documentos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-arrow-right-circle"></i></span> 25. Contenidos que dejamos para otros documentos</a></li>
+</ol>
+</nav>
+</aside>
+<div class="content-wrapper">
+<nav aria-label="Acciones del documento" class="main-header">
+<a class="nav-link" href="../../index.html"><i aria-hidden="true" class="bi bi-house-door"></i> Volver al índice</a>
+<button aria-label="Cambiar a modo oscuro" aria-pressed="false" data-update-text="true" id="theme-toggle" type="button">🌙 Modo oscuro</button>
+</nav>
+<header class="content-header">
+<h1><i aria-hidden="true" class="bi bi-cloud-arrow-down"></i> UD2_B4. Práctica guiada: consulta de una API con <code>fetch</code>, JSON y renderizado en el DOM</h1>
+</header>
+<section class="content-section practice-step-section" id="1-objetivo-de-la-practica">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la práctica</h2>
+<p>En esta práctica vas a construir una pequeña página web que consulta datos de una API externa, recibe información en formato JSON y la muestra dinámicamente en el navegador.</p>
+<p>El objetivo no es memorizar una API concreta, sino entender el flujo general que se usa en muchas aplicaciones web reales:</p>
+<ol class="custom-ordered-list">
+<li>La página carga.</li>
+<li>JavaScript solicita datos a una URL externa.</li>
+<li>Se recibe una respuesta HTTP.</li>
+<li>Se comprueba si la respuesta es correcta con <code>response.ok</code>.</li>
+<li>Si la respuesta es correcta, se lee el cuerpo de la respuesta con <code>response.json()</code>.</li>
+<li>Se procesan los datos recibidos.</li>
+<li>Se generan elementos HTML desde JavaScript.</li>
+<li>Se muestran estados de carga, error y resultado.</li>
+</ol>
+<blockquote class="note-box">
+<p>En esta práctica trabajaremos con una API pública de pruebas. No se envían datos privados ni se necesita clave de acceso.</p>
+</blockquote>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="2-que-contenidos-se-trabajan">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-journal-code"></i></span> 2. Qué contenidos se trabajan</h2>
+<p>En esta práctica se integran contenidos del bloque <strong>UD2_B4</strong>:</p>
+<ul class="custom-list">
+<li>código asíncrono;</li>
+<li><code>fetch()</code>;</li>
+<li>promesas;</li>
+<li><code>async</code> / <code>await</code>;</li>
+<li><code>try...catch</code>;</li>
+<li>comprobación de <code>response.ok</code>;</li>
+<li>lectura del cuerpo de una respuesta con <code>.json()</code>;</li>
+<li>tratamiento de errores;</li>
+<li>renderizado dinámico en el DOM;</li>
+<li>estados de carga, error y éxito;</li>
+<li>uso de métodos de array sobre datos recibidos;</li>
+<li>separación entre HTML, CSS y JavaScript.</li>
+</ul>
+<p>También se repasan contenidos de bloques anteriores:</p>
+<ul class="custom-list">
+<li>objetos;</li>
+<li>arrays de objetos;</li>
+<li>funciones;</li>
+<li><code>forEach</code>, <code>map</code>, <code>filter</code> y <code>reduce</code>;</li>
+<li>DOM básico;</li>
+<li>eventos básicos.</li>
+</ul>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="3-api-que-se-utilizara">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cloud-arrow-down"></i></span> 3. API que se utilizará</h2>
+<p>Usaremos <strong>JSONPlaceholder</strong>, una API pública de prueba que devuelve datos ficticios en formato JSON.</p>
+<p>En esta práctica consultaremos principalmente estos recursos:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-txt">https://jsonplaceholder.typicode.com/posts
+https://jsonplaceholder.typicode.com/users
+</code></pre></div>
+<p>Los datos no son reales. Se usan para practicar consultas desde JavaScript.</p>
+<blockquote class="note-box">
+<p>Esta práctica necesita conexión a Internet. Si la API no responde, revisa primero la conexión del equipo, el proxy del centro o posibles restricciones de red antes de modificar el código.</p>
+</blockquote>
+<h3 class="subsection-title">Organización recomendada</h3>
+<p>La práctica puede dividirse en dos sesiones:</p>
+<ul class="custom-list">
+<li><strong>Sesión 1:</strong> estructura del proyecto, consulta de publicaciones, renderizado y estados.</li>
+<li><strong>Sesión 2:</strong> filtro, consulta de usuarios, prueba de errores, entrega y ampliaciones.</li>
+</ul>
+<p>Si no da tiempo a completar todo en clase, prioriza hasta el apartado 17. Los apartados 18 y 24 pueden quedar como mejora guiada.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="4-estructura-del-proyecto">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-folder2-open"></i></span> 4. Estructura del proyecto</h2>
+<p>Crea una carpeta llamada:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-txt">UD2_B4_practica_consulta_api
+</code></pre></div>
+<p>Dentro crea estos tres archivos:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-txt">UD2_B4_practica_consulta_api/
+├── index.html
+├── styles.css
+└── script.js
+</code></pre></div>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="5-codigo-html-inicial">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-html"></i></span> 5. Código HTML inicial</h2>
+<p>Crea el archivo <code>index.html</code> con esta estructura:</p>
+<div class="example-block"><pre class="code-html"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Consulta de API con JavaScript&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main class="contenedor"&gt;
+    &lt;h1&gt;Consulta de publicaciones&lt;/h1&gt;
+
+    &lt;section class="panel-controles"&gt;
+      &lt;button id="btnCargar"&gt;Cargar publicaciones&lt;/button&gt;
+      &lt;button id="btnLimpiar"&gt;Limpiar resultados&lt;/button&gt;
+    &lt;/section&gt;
+
+    &lt;section class="panel-filtro"&gt;
+      &lt;label for="busqueda"&gt;Filtrar por texto:&lt;/label&gt;
+      &lt;input type="text" id="busqueda" placeholder="Escribe una palabra..."&gt;
+    &lt;/section&gt;
+
+    &lt;section id="estado" class="estado"&gt;
+      Pulsa el botón para cargar los datos.
+    &lt;/section&gt;
+
+    &lt;section id="resumen" class="resumen"&gt;&lt;/section&gt;
+
+    &lt;section id="resultados" class="resultados"&gt;&lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<h3 class="subsection-title">Comprobación</h3>
+<p>Abre el archivo en el navegador y verifica que aparecen:</p>
+<ul class="custom-list">
+<li>título principal;</li>
+<li>botón para cargar publicaciones;</li>
+<li>botón para limpiar;</li>
+<li>campo de búsqueda;</li>
+<li>zona de estado;</li>
+<li>zona de resultados vacía.</li>
+</ul>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="6-css-inicial">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-css"></i></span> 6. CSS inicial</h2>
+<p>Crea el archivo <code>styles.css</code> con este código:</p>
+<div class="example-block"><pre class="code-css"><code class="language-css">* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #222;
+}
+
+.contenedor {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+.panel-controles,
+.panel-filtro {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+button {
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #2454a6;
+  color: white;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #183f80;
+}
+
+input {
+  padding: 0.7rem;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  min-width: 260px;
+}
+
+.estado,
+.resumen {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  background: white;
+  border-left: 5px solid #2454a6;
+}
+
+.estado.error {
+  border-left-color: #b00020;
+  background: #fff0f2;
+}
+
+.estado.cargando {
+  border-left-color: #f2a900;
+  background: #fff8e1;
+}
+
+.resultados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.tarjeta {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta h2 {
+  font-size: 1.1rem;
+  margin-top: 0;
+  color: #2454a6;
+}
+
+.tarjeta p {
+  line-height: 1.4;
+}
+
+.etiqueta {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: #e8eefb;
+  color: #2454a6;
+  font-size: 0.85rem;
+}
+</code></pre></div>
+<h3 class="subsection-title">Comprobación</h3>
+<p>Recarga la página y verifica que se aplican los estilos.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="7-primer-paso-en-javascript-seleccionar-elementos-del-dom">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-js"></i></span> 7. Primer paso en JavaScript: seleccionar elementos del DOM</h2>
+<p>Crea el archivo <code>script.js</code> y empieza seleccionando los elementos necesarios:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const btnCargar = document.querySelector("#btnCargar");
+const btnLimpiar = document.querySelector("#btnLimpiar");
+const inputBusqueda = document.querySelector("#busqueda");
+const estado = document.querySelector("#estado");
+const resumen = document.querySelector("#resumen");
+const resultados = document.querySelector("#resultados");
+</code></pre></div>
+<p>Añade también una variable global para guardar los datos cargados:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">let publicaciones = [];
+</code></pre></div>
+<p>Esta variable permitirá conservar los datos después de recibirlos desde la API, para poder filtrarlos sin tener que volver a pedirlos cada vez.</p>
+<blockquote class="note-box">
+<p>Si algún botón o campo no funciona, revisa primero que los <code>id</code> del HTML coinciden exactamente con los usados en <code>querySelector()</code>. Por ejemplo, <code>id="btnCargar"</code> debe coincidir con <code>document.querySelector("#btnCargar")</code>.</p>
+</blockquote>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="8-funcion-para-mostrar-mensajes-de-estado">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-chat-square-text"></i></span> 8. Función para mostrar mensajes de estado</h2>
+<p>Añade esta función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function mostrarEstado(mensaje, tipo = "normal") {
+  estado.textContent = mensaje;
+  estado.className = "estado";
+
+  if (tipo === "error") {
+    estado.classList.add("error");
+  }
+
+  if (tipo === "cargando") {
+    estado.classList.add("cargando");
+  }
+}
+</code></pre></div>
+<h3 class="subsection-title">Explicación</h3>
+<p>Esta función centraliza los mensajes que se muestran al usuario:</p>
+<ul class="custom-list">
+<li>cuando la página está esperando datos;</li>
+<li>cuando hay un error;</li>
+<li>cuando todo ha ido bien.</li>
+</ul>
+<p>Así evitamos repetir varias veces instrucciones como:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">estado.textContent = "...";
+</code></pre></div>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="9-funcion-para-limpiar-la-pantalla">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-eraser"></i></span> 9. Función para limpiar la pantalla</h2>
+<p>Añade esta función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function limpiarResultados() {
+  resultados.innerHTML = "";
+  resumen.innerHTML = "";
+}
+</code></pre></div>
+<p>En este caso usamos <code>innerHTML = ""</code> para vaciar rápidamente dos contenedores.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="10-funcion-para-crear-una-tarjeta">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window-stack"></i></span> 10. Función para crear una tarjeta</h2>
+<p>Cada publicación se mostrará como una tarjeta. Añade esta función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function crearTarjetaPublicacion(publicacion) {
+  const tarjeta = document.createElement("article");
+  tarjeta.classList.add("tarjeta");
+
+  const titulo = document.createElement("h2");
+  titulo.textContent = publicacion.title;
+
+  const cuerpo = document.createElement("p");
+  cuerpo.textContent = publicacion.body;
+
+  const usuario = document.createElement("span");
+  usuario.classList.add("etiqueta");
+  usuario.textContent = `Usuario ${publicacion.userId}`;
+
+  tarjeta.append(titulo, cuerpo, usuario);
+
+  return tarjeta;
+}
+</code></pre></div>
+<h3 class="subsection-title">Fíjate en esto</h3>
+<p>La función recibe un objeto <code>publicacion</code> y devuelve un elemento HTML completo.</p>
+<p>No añade directamente la tarjeta al DOM. Solo la crea y la devuelve. Esto hace que la función sea más reutilizable.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="11-funcion-para-renderizar-publicaciones">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-layout-three-columns"></i></span> 11. Función para renderizar publicaciones</h2>
+<p>Añade esta función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarPublicaciones(lista) {
+  resultados.innerHTML = "";
+
+  if (lista.length === 0) {
+    resultados.textContent = "No hay publicaciones que mostrar.";
+    return;
+  }
+
+  lista.forEach((publicacion) =&gt; {
+    const tarjeta = crearTarjetaPublicacion(publicacion);
+    resultados.append(tarjeta);
+  });
+}
+</code></pre></div>
+<h3 class="subsection-title">Explicación</h3>
+<p>Esta función:</p>
+<ol class="custom-ordered-list">
+<li>Limpia los resultados anteriores.</li>
+<li>Comprueba si la lista está vacía.</li>
+<li>Recorre la lista con <code>forEach</code>.</li>
+<li>Crea una tarjeta por cada publicación.</li>
+<li>Añade cada tarjeta al contenedor.</li>
+</ol>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="12-funcion-para-mostrar-un-resumen">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-card-checklist"></i></span> 12. Función para mostrar un resumen</h2>
+<p>Añade esta función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function mostrarResumen(lista) {
+  const total = lista.length;
+
+  const idsUsuarios = lista.map((publicacion) =&gt; publicacion.userId);
+  const sumaUsuarios = idsUsuarios.reduce((acumulador, id) =&gt; acumulador + id, 0);
+
+  resumen.innerHTML = `
+    &lt;strong&gt;Resumen:&lt;/strong&gt;
+    &lt;p&gt;Total de publicaciones mostradas: ${total}&lt;/p&gt;
+    &lt;p&gt;Suma de identificadores de usuario: ${sumaUsuarios}&lt;/p&gt;
+  `;
+}
+</code></pre></div>
+<h3 class="subsection-title">Importante</h3>
+<p>Este resumen no tiene gran utilidad real, pero sirve para practicar:</p>
+<ul class="custom-list">
+<li><code>map</code>;</li>
+<li><code>reduce</code>;</li>
+<li>plantillas de texto;</li>
+<li>actualización del DOM.</li>
+</ul>
+<p>En este caso usamos <code>innerHTML</code> con valores controlados por nuestro propio código. Cuando se insertan textos escritos por usuarios o datos externos sin controlar, es más seguro crear nodos con <code>createElement()</code> y asignar textos con <code>textContent</code>.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="13-funcion-principal-consultar-la-api">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cloud-download"></i></span> 13. Función principal: consultar la API</h2>
+<p>Ahora añade la función principal de la práctica:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function cargarPublicaciones() {
+  limpiarResultados();
+  mostrarEstado("Cargando publicaciones...", "cargando");
+
+  try {
+    const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts");
+
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP: ${respuesta.status}`);
+    }
+
+    const datos = await respuesta.json();
+
+    publicaciones = datos.slice(0, 12);
+
+    renderizarPublicaciones(publicaciones);
+    mostrarResumen(publicaciones);
+    mostrarEstado("Publicaciones cargadas correctamente.");
+  } catch (error) {
+    mostrarEstado("No se pudieron cargar las publicaciones.", "error");
+    console.error("Error al consultar la API:", error);
+  }
+}
+</code></pre></div>
+<h3 class="subsection-title">Explicación paso a paso</h3>
+<div class="example-block"><pre class="code-js"><code class="language-js">const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts");
+</code></pre></div>
+<p>Solicita datos a la URL indicada.</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">if (!respuesta.ok) {
+  throw new Error(`Error HTTP: ${respuesta.status}`);
+}
+</code></pre></div>
+<p>Comprueba si la respuesta HTTP es correcta. Si no lo es, genera un error.</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const datos = await respuesta.json();
+</code></pre></div>
+<p>Lee el cuerpo de la respuesta y devuelve una promesa que se resuelve con los datos JavaScript obtenidos a partir del JSON.</p>
+<p>Por eso se escribe <code>await respuesta.json()</code> y no solo <code>respuesta.json()</code>.</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">publicaciones = datos.slice(0, 12);
+</code></pre></div>
+<p>Guarda solo las 12 primeras publicaciones para no llenar demasiado la página.</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">renderizarPublicaciones(publicaciones);
+</code></pre></div>
+<p>Muestra los datos en el DOM.</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">mostrarResumen(publicaciones);
+</code></pre></div>
+<p>Muestra un resumen básico.</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">catch (error) {
+  ...
+}
+</code></pre></div>
+<p>Captura errores de red, errores HTTP lanzados manualmente u otros problemas.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="14-conectar-los-botones">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-toggle-on"></i></span> 14. Conectar los botones</h2>
+<p>Añade los eventos:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">btnCargar.addEventListener("click", () =&gt; {
+  cargarPublicaciones();
+});
+
+btnLimpiar.addEventListener("click", () =&gt; {
+  publicaciones = [];
+  inputBusqueda.value = "";
+  limpiarResultados();
+  mostrarEstado("Resultados limpiados.");
+});
+</code></pre></div>
+<h3 class="subsection-title">Comprobación</h3>
+<p>Pulsa el botón <strong>Cargar publicaciones</strong>.</p>
+<p>Deberías ver:</p>
+<ul class="custom-list">
+<li>mensaje de carga;</li>
+<li>tarjetas con publicaciones;</li>
+<li>resumen;</li>
+<li>mensaje de éxito.</li>
+</ul>
+<p>Pulsa <strong>Limpiar resultados</strong>.</p>
+<p>Deberían desaparecer las tarjetas y el resumen.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="15-anadir-filtrado-por-texto">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-funnel"></i></span> 15. Añadir filtrado por texto</h2>
+<p>Añade este evento para filtrar las publicaciones ya cargadas:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">inputBusqueda.addEventListener("input", () =&gt; {
+  const texto = inputBusqueda.value.trim().toLowerCase();
+
+  if (publicaciones.length === 0) {
+    limpiarResultados();
+
+    if (texto === "") {
+      mostrarEstado("Pulsa el botón para cargar los datos.");
+    } else {
+      mostrarEstado("Carga primero las publicaciones para poder filtrarlas.");
+    }
+
+    return;
+  }
+
+  const filtradas = publicaciones.filter((publicacion) =&gt; {
+    return (
+      publicacion.title.toLowerCase().includes(texto) ||
+      publicacion.body.toLowerCase().includes(texto)
+    );
+  });
+
+  renderizarPublicaciones(filtradas);
+  mostrarResumen(filtradas);
+
+  if (texto === "") {
+    mostrarEstado("Mostrando todas las publicaciones cargadas.");
+  } else {
+    mostrarEstado(`Filtro aplicado: ${texto}`);
+  }
+});
+</code></pre></div>
+<h3 class="subsection-title">Qué se está practicando aquí</h3>
+<ul class="custom-list">
+<li>Evento <code>input</code>.</li>
+<li>Lectura de <code>.value</code>.</li>
+<li>Limpieza de texto con <code>trim()</code>.</li>
+<li>Conversión a minúsculas con <code>toLowerCase()</code>.</li>
+<li>Comprobación de que hay publicaciones cargadas antes de filtrar.</li>
+<li>Filtrado con <code>filter()</code>.</li>
+<li>Búsqueda con <code>includes()</code>.</li>
+<li>Renderizado dinámico después de filtrar.</li>
+</ul>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="16-probar-un-error-de-api">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 16. Probar un error de API</h2>
+<p>Para comprobar que el tratamiento de errores funciona, cambia temporalmente la URL:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const respuesta = await fetch("https://jsonplaceholder.typicode.com/ruta-inexistente");
+</code></pre></div>
+<p>Ejecuta de nuevo la página y pulsa el botón de carga.</p>
+<p>Debe aparecer un mensaje de error.</p>
+<p>Después, vuelve a dejar la URL correcta:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts");
+</code></pre></div>
+<h3 class="subsection-title">Recuerda</h3>
+<p>El objetivo de esta prueba no es dejar la aplicación rota. Es comprobar que el <code>catch</code> muestra un mensaje de error controlado y que no aparece una promesa rechazada sin tratar.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section full-code-section" id="17-codigo-completo-orientativo-de-script-js">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-code-square"></i></span> 17. Código completo orientativo de <code>script.js</code></h2>
+<p>Al terminar, el archivo <code>script.js</code> debería tener una estructura parecida a esta:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const btnCargar = document.querySelector("#btnCargar");
+const btnLimpiar = document.querySelector("#btnLimpiar");
+const inputBusqueda = document.querySelector("#busqueda");
+const estado = document.querySelector("#estado");
+const resumen = document.querySelector("#resumen");
+const resultados = document.querySelector("#resultados");
+
+let publicaciones = [];
+
+function mostrarEstado(mensaje, tipo = "normal") {
+  estado.textContent = mensaje;
+  estado.className = "estado";
+
+  if (tipo === "error") {
+    estado.classList.add("error");
+  }
+
+  if (tipo === "cargando") {
+    estado.classList.add("cargando");
+  }
+}
+
+function limpiarResultados() {
+  resultados.innerHTML = "";
+  resumen.innerHTML = "";
+}
+
+function crearTarjetaPublicacion(publicacion) {
+  const tarjeta = document.createElement("article");
+  tarjeta.classList.add("tarjeta");
+
+  const titulo = document.createElement("h2");
+  titulo.textContent = publicacion.title;
+
+  const cuerpo = document.createElement("p");
+  cuerpo.textContent = publicacion.body;
+
+  const usuario = document.createElement("span");
+  usuario.classList.add("etiqueta");
+  usuario.textContent = `Usuario ${publicacion.userId}`;
+
+  tarjeta.append(titulo, cuerpo, usuario);
+
+  return tarjeta;
+}
+
+function renderizarPublicaciones(lista) {
+  resultados.innerHTML = "";
+
+  if (lista.length === 0) {
+    resultados.textContent = "No hay publicaciones que mostrar.";
+    return;
+  }
+
+  lista.forEach((publicacion) =&gt; {
+    const tarjeta = crearTarjetaPublicacion(publicacion);
+    resultados.append(tarjeta);
+  });
+}
+
+function mostrarResumen(lista) {
+  const total = lista.length;
+
+  const idsUsuarios = lista.map((publicacion) =&gt; publicacion.userId);
+  const sumaUsuarios = idsUsuarios.reduce((acumulador, id) =&gt; acumulador + id, 0);
+
+  resumen.innerHTML = `
+    &lt;strong&gt;Resumen:&lt;/strong&gt;
+    &lt;p&gt;Total de publicaciones mostradas: ${total}&lt;/p&gt;
+    &lt;p&gt;Suma de identificadores de usuario: ${sumaUsuarios}&lt;/p&gt;
+  `;
+}
+
+async function cargarPublicaciones() {
+  limpiarResultados();
+  mostrarEstado("Cargando publicaciones...", "cargando");
+
+  try {
+    const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts");
+
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP: ${respuesta.status}`);
+    }
+
+    const datos = await respuesta.json();
+
+    publicaciones = datos.slice(0, 12);
+
+    renderizarPublicaciones(publicaciones);
+    mostrarResumen(publicaciones);
+    mostrarEstado("Publicaciones cargadas correctamente.");
+  } catch (error) {
+    mostrarEstado("No se pudieron cargar las publicaciones.", "error");
+    console.error("Error al consultar la API:", error);
+  }
+}
+
+btnCargar.addEventListener("click", () =&gt; {
+  cargarPublicaciones();
+});
+
+btnLimpiar.addEventListener("click", () =&gt; {
+  publicaciones = [];
+  inputBusqueda.value = "";
+  limpiarResultados();
+  mostrarEstado("Resultados limpiados.");
+});
+
+inputBusqueda.addEventListener("input", () =&gt; {
+  const texto = inputBusqueda.value.trim().toLowerCase();
+
+  if (publicaciones.length === 0) {
+    limpiarResultados();
+
+    if (texto === "") {
+      mostrarEstado("Pulsa el botón para cargar los datos.");
+    } else {
+      mostrarEstado("Carga primero las publicaciones para poder filtrarlas.");
+    }
+
+    return;
+  }
+
+  const filtradas = publicaciones.filter((publicacion) =&gt; {
+    return (
+      publicacion.title.toLowerCase().includes(texto) ||
+      publicacion.body.toLowerCase().includes(texto)
+    );
+  });
+
+  renderizarPublicaciones(filtradas);
+  mostrarResumen(filtradas);
+
+  if (texto === "") {
+    mostrarEstado("Mostrando todas las publicaciones cargadas.");
+  } else {
+    mostrarEstado(`Filtro aplicado: ${texto}`);
+  }
+});
+</code></pre></div>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="18-mejora-guiada-consultar-usuarios">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-people"></i></span> 18. Mejora guiada: consultar usuarios</h2>
+<p>Ahora vas a ampliar la práctica para consultar también usuarios.</p>
+<p>Añade en el HTML un nuevo botón dentro de <code>panel-controles</code>:</p>
+<div class="example-block"><pre class="code-html"><code class="language-html">&lt;button id="btnUsuarios"&gt;Cargar usuarios&lt;/button&gt;
+</code></pre></div>
+<p>Selecciona el botón en JavaScript:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const btnUsuarios = document.querySelector("#btnUsuarios");
+</code></pre></div>
+<p>Crea una función para tarjetas de usuario:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function crearTarjetaUsuario(usuario) {
+  const tarjeta = document.createElement("article");
+  tarjeta.classList.add("tarjeta");
+
+  const nombre = document.createElement("h2");
+  nombre.textContent = usuario.name;
+
+  const email = document.createElement("p");
+  email.textContent = `Email: ${usuario.email}`;
+
+  const ciudad = document.createElement("p");
+  ciudad.textContent = `Ciudad: ${usuario.address.city}`;
+
+  tarjeta.append(nombre, email, ciudad);
+
+  return tarjeta;
+}
+</code></pre></div>
+<p>Crea una función para renderizar usuarios:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarUsuarios(lista) {
+  resultados.innerHTML = "";
+
+  lista.forEach((usuario) =&gt; {
+    const tarjeta = crearTarjetaUsuario(usuario);
+    resultados.append(tarjeta);
+  });
+}
+</code></pre></div>
+<p>Crea la función asíncrona:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function cargarUsuarios() {
+  publicaciones = [];
+  inputBusqueda.value = "";
+  limpiarResultados();
+  mostrarEstado("Cargando usuarios...", "cargando");
+
+  try {
+    const respuesta = await fetch("https://jsonplaceholder.typicode.com/users");
+
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP: ${respuesta.status}`);
+    }
+
+    const usuarios = await respuesta.json();
+
+    renderizarUsuarios(usuarios);
+    resumen.innerHTML = `&lt;strong&gt;Usuarios cargados:&lt;/strong&gt; ${usuarios.length}`;
+    mostrarEstado("Usuarios cargados correctamente.");
+  } catch (error) {
+    mostrarEstado("No se pudieron cargar los usuarios.", "error");
+    console.error("Error al consultar usuarios:", error);
+  }
+}
+</code></pre></div>
+<p>Conecta el botón:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">btnUsuarios.addEventListener("click", () =&gt; {
+  cargarUsuarios();
+});
+</code></pre></div>
+<h3 class="subsection-title">Importante sobre el filtro</h3>
+<p>El campo de búsqueda de esta práctica filtra <strong>publicaciones</strong>, no usuarios. Por eso, al cargar usuarios se vacía la variable <code>publicaciones</code> y se limpia el campo de búsqueda. Así evitamos que el filtro intente trabajar sobre datos que no corresponden a la vista actual.</p>
+<h3 class="subsection-title">Comprobación</h3>
+<p>Pulsa el botón <strong>Cargar usuarios</strong> y verifica que aparecen tarjetas con:</p>
+<ul class="custom-list">
+<li>nombre;</li>
+<li>email;</li>
+<li>ciudad.</li>
+</ul>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="19-preguntas-de-reflexion">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-question-circle"></i></span> 19. Preguntas de reflexión</h2>
+<p>Responde en un comentario al final de tu archivo <code>script.js</code> o en un documento aparte:</p>
+<ol class="custom-ordered-list">
+<li>¿Qué hace <code>fetch()</code>?</li>
+<li>¿Por qué usamos <code>await</code> delante de <code>fetch()</code>?</li>
+<li>¿Qué devuelve <code>respuesta.json()</code> y por qué se usa con <code>await</code>?</li>
+<li>¿Por qué comprobamos <code>response.ok</code>?</li>
+<li>¿Qué ocurre si la API no responde?</li>
+<li>¿Para qué usamos <code>try...catch</code>?</li>
+<li>¿Qué diferencia hay entre los datos recibidos en JSON y los elementos HTML creados en el DOM?</li>
+<li>¿Por qué es útil separar el código en funciones?</li>
+</ol>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section frequent-errors-section" id="20-errores-frecuentes">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-exclamation-triangle"></i></span> 20. Errores frecuentes</h2>
+<h3 class="subsection-title">Error 1: olvidar <code>await</code></h3>
+<p>Incorrecto:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const respuesta = fetch("https://jsonplaceholder.typicode.com/posts");
+const datos = respuesta.json();
+</code></pre></div>
+<p>Correcto:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts");
+const datos = await respuesta.json();
+</code></pre></div>
+<p><code>respuesta.json()</code> también es una operación asíncrona. Por eso necesita <code>await</code>.</p>
+<hr class="section-divider"/>
+<h3 class="subsection-title">Error 2: usar <code>.json()</code> sin comprobar la respuesta</h3>
+<p>Mejor no hacer directamente:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const datos = await respuesta.json();
+</code></pre></div>
+<p>Sin antes comprobar:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">if (!respuesta.ok) {
+  throw new Error(`Error HTTP: ${respuesta.status}`);
+}
+</code></pre></div>
+<hr class="section-divider"/>
+<h3 class="subsection-title">Error 3: intentar usar datos fuera de una función asíncrona antes de que existan</h3>
+<p>Incorrecto:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">let publicaciones = [];
+
+fetch("https://jsonplaceholder.typicode.com/posts");
+
+console.log(publicaciones); // probablemente seguirá vacío
+</code></pre></div>
+<p>La carga de datos tarda un tiempo. Hay que trabajar con los datos cuando ya se han recibido.</p>
+<hr class="section-divider"/>
+<h3 class="subsection-title">Error 4: no limpiar resultados anteriores</h3>
+<p>Si no limpias el contenedor antes de volver a renderizar, las tarjetas se duplican.</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">resultados.innerHTML = "";
+</code></pre></div>
+<hr class="section-divider"/>
+<h3 class="subsection-title">Error 5: escribir mal una propiedad del objeto recibido</h3>
+<p>Incorrecto:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">titulo.textContent = publicacion.titulo;
+</code></pre></div>
+<p>Correcto:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">titulo.textContent = publicacion.title;
+</code></pre></div>
+<p>Hay que fijarse en los nombres reales de las propiedades que devuelve la API.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section delivery-section" id="21-entrega">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-send-check"></i></span> 21. Entrega</h2>
+<p>Entrega una carpeta comprimida con:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-txt">UD2_B4_practica_consulta_api/
+├── index.html
+├── styles.css
+└── script.js
+</code></pre></div>
+<p>Además, incluye capturas donde se vea:</p>
+<ol class="custom-ordered-list">
+<li>La página antes de cargar datos.</li>
+<li>Las publicaciones cargadas.</li>
+<li>El filtro funcionando.</li>
+<li>Los usuarios cargados.</li>
+<li>Un error provocado con una URL incorrecta.</li>
+<li>La consola mostrando que el error provocado ha sido controlado por el <code>catch</code>, sin promesas rechazadas sin capturar.</li>
+</ol>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section final-checklist-section" id="22-lista-de-comprobacion">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> 22. Lista de comprobación</h2>
+<p>Antes de entregar, revisa:</p>
+<ul class="custom-list checklist-list">
+<li class="checklist-item"><span class="check-marker">[ ] </span>El proyecto tiene los tres archivos pedidos.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>El HTML enlaza correctamente el CSS.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>El HTML enlaza correctamente el JavaScript.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>El botón carga publicaciones desde la API.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Se usa <code>fetch()</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Se usa <code>async</code> / <code>await</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Se comprueba <code>response.ok</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Se usa <code>try...catch</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Se muestra un estado de carga.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Se muestra un mensaje de error si falla la consulta.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Se renderizan tarjetas en el DOM.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>El filtro de texto funciona con publicaciones cargadas.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Si escribo en el filtro antes de cargar publicaciones, aparece un mensaje claro.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Se pueden cargar usuarios.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Al cargar usuarios, el filtro de publicaciones no provoca comportamientos incoherentes.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>El código está organizado en funciones.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>El código está indentado y comentado cuando sea necesario.</li>
+</ul>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section assessment-section" id="23-rubrica-orientativa">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard-check"></i></span> 23. Rúbrica orientativa</h2>
+<div class="compact-table-container"><table class="compact-table comparison-table">
+<thead>
+<tr>
+<th>Criterio</th>
+<th class="numeric-cell">Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estructura correcta del proyecto</td>
+<td class="numeric-cell">10%</td>
+</tr>
+<tr>
+<td>Consulta correcta de publicaciones con <code>fetch</code></td>
+<td class="numeric-cell">20%</td>
+</tr>
+<tr>
+<td>Uso correcto de <code>async</code> / <code>await</code>, <code>response.ok</code> y <code>try...catch</code></td>
+<td class="numeric-cell">20%</td>
+</tr>
+<tr>
+<td>Renderizado dinámico en el DOM</td>
+<td class="numeric-cell">20%</td>
+</tr>
+<tr>
+<td>Filtro por texto</td>
+<td class="numeric-cell">10%</td>
+</tr>
+<tr>
+<td>Consulta y renderizado de usuarios</td>
+<td class="numeric-cell">10%</td>
+</tr>
+<tr>
+<td>Control del filtro al cambiar entre publicaciones y usuarios</td>
+<td class="numeric-cell">5%</td>
+</tr>
+<tr>
+<td>Claridad, orden y comentarios del código</td>
+<td class="numeric-cell">5%</td>
+</tr>
+</tbody>
+</table></div>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section extension-section" id="24-ampliaciones-opcionales">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-stars"></i></span> 24. Ampliaciones opcionales</h2>
+<p>Estas tareas son opcionales y solo deben hacerse si la práctica base funciona correctamente.</p>
+<h3 class="subsection-title">Ampliación 0: desactivar el botón mientras carga</h3>
+<p>Para evitar que se lancen varias peticiones si se pulsa muchas veces el botón, puedes desactivar temporalmente el botón dentro de <code>cargarPublicaciones()</code>:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function cargarPublicaciones() {
+  limpiarResultados();
+  mostrarEstado("Cargando publicaciones...", "cargando");
+  btnCargar.disabled = true;
+
+  try {
+    const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts");
+
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP: ${respuesta.status}`);
+    }
+
+    const datos = await respuesta.json();
+
+    publicaciones = datos.slice(0, 12);
+
+    renderizarPublicaciones(publicaciones);
+    mostrarResumen(publicaciones);
+    mostrarEstado("Publicaciones cargadas correctamente.");
+  } catch (error) {
+    mostrarEstado("No se pudieron cargar las publicaciones.", "error");
+    console.error("Error al consultar la API:", error);
+  } finally {
+    btnCargar.disabled = false;
+  }
+}
+</code></pre></div>
+<p>Si haces esta ampliación, añade también un estilo para botones desactivados:</p>
+<div class="example-block"><pre class="code-css"><code class="language-css">button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+</code></pre></div>
+<h3 class="subsection-title">Ampliación 1: limitar publicaciones por usuario</h3>
+<p>Añade un campo numérico para indicar un <code>userId</code> y mostrar solo las publicaciones de ese usuario.</p>
+<h3 class="subsection-title">Ampliación 2: ordenar publicaciones</h3>
+<p>Ordena las publicaciones alfabéticamente por título antes de mostrarlas.</p>
+<h3 class="subsection-title">Ampliación 3: mostrar más información de usuarios</h3>
+<p>Añade teléfono, web o nombre de empresa en las tarjetas de usuario.</p>
+<h3 class="subsection-title">Ampliación 4: crear una función reutilizable para consultar APIs</h3>
+<p>Crea una función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function obtenerDatos(url) {
+  const respuesta = await fetch(url);
+
+  if (!respuesta.ok) {
+    throw new Error(`Error HTTP: ${respuesta.status}`);
+  }
+
+  return await respuesta.json();
+}
+</code></pre></div>
+<p>Después reutilízala para cargar publicaciones y usuarios.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section" id="25-contenidos-que-dejamos-para-otros-documentos">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-right-circle"></i></span> 25. Contenidos que dejamos para otros documentos</h2>
+<p>Esta práctica no trabaja todavía:</p>
+<ul class="custom-list">
+<li>autenticación;</li>
+<li>cabeceras HTTP avanzadas;</li>
+<li><code>POST</code>, <code>PUT</code>, <code>PATCH</code> y <code>DELETE</code> en profundidad;</li>
+<li>subida de archivos;</li>
+<li><code>AbortController</code>;</li>
+<li>concurrencia avanzada con <code>Promise.all</code>;</li>
+<li>paginación real;</li>
+<li>CORS en profundidad;</li>
+<li>uso avanzado de APIs reales con clave;</li>
+<li>frameworks.</li>
+</ul>
+<p>Estos contenidos se tratarán en ampliaciones o documentos posteriores si procede.</p>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body>
+</html>

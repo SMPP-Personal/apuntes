@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Bloque 4. Hoja de ejercicios: funciones básicas en JavaScript</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../assets/css/smpp.css" rel="stylesheet" />
+    <script defer src="../../assets/js/smpp.js"></script>
+  </head>
+  <body>
+    <div class="smpp-scope">
+      <main class="main-content has-sidebar exercises-page">
+        <div class="content-layout">
+          <aside aria-label="Índice del documento" class="section-sidebar">
+            <nav aria-label="Secciones del documento" class="section-nav">
+              <p class="section-nav-title">
+                <i
+                  aria-hidden="true"
+                  class="bi bi-list-task section-nav-icon"
+                ></i>
+                Índice de ejercicios
+              </p>
+              <ol class="section-nav-list">
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#1-objetivo-de-la-hoja"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-bullseye"></i></span
+                    ><span>1. Objetivo de la hoja</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#2-instrucciones-generales"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-list-check"></i></span
+                    ><span>2. Instrucciones generales</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-1-declarar-y-llamar-funciones"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-play-circle"
+                      ></i></span
+                    ><span>Parte 1. Declarar y llamar funciones</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-2-parametros-y-argumentos"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-input-cursor-text"
+                      ></i></span
+                    ><span>Parte 2. Parámetros y argumentos</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-3-funciones-con-return"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-arrow-return-left"
+                      ></i></span
+                    ><span>Parte 3. Funciones con return</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-4-console-log-frente-a-return"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-box-arrow-in-right"
+                      ></i></span
+                    ><span>Parte 4. console.log() frente a return</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-5-variables-locales-y-ambito"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-diagram-3"></i></span
+                    ><span>Parte 5. Variables locales y ámbito</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-6-funciones-con-condicionales"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-question-diamond"
+                      ></i></span
+                    ><span>Parte 6. Funciones con condicionales</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-7-funciones-con-bucles"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-arrow-repeat"
+                      ></i></span
+                    ><span>Parte 7. Funciones con bucles</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-8-errores-frecuentes"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-bug"></i></span
+                    ><span>Parte 8. Errores frecuentes</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-9-mini-entrega-final"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-send-check"></i></span
+                    ><span>Parte 9. Mini-entrega final</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#contenidos-que-se-dejan-para-otros-documentos"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-slash-circle"
+                      ></i></span
+                    ><span
+                      >Contenidos que se dejan para otros documentos</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#resumen-de-repaso"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-flag"></i></span
+                    ><span>Resumen de repaso</span></a
+                  >
+                </li>
+              </ol>
+            </nav>
+          </aside>
+          <div class="content-wrapper">
+            <div class="document-toolbar">
+              <a class="document-home-link" href="../../index.html"
+                ><i aria-hidden="true" class="bi bi-house-door"></i> Índice del
+                curso</a
+              >
+
+               <button id="theme-toggle" class="document-theme-toggle" type="button">
+    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+    Modo oscuro
+  </button>
+            </div>
+            <header class="content-header">
+              <h1>
+                <span aria-hidden="true" class="document-title-icon"
+                  ><i aria-hidden="true" class="bi bi-braces"></i
+                ></span>
+                Bloque 4. Hoja de ejercicios: funciones básicas en JavaScript
+              </h1>
+            </header>
+            <section
+              class="content-section featured-section learning-objectives-section"
+              id="1-objetivo-de-la-hoja"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bullseye"></i></span
+                >1. Objetivo de la hoja
+              </h2>
+              <p class="section-lead">
+                Esta hoja sirve para practicar las
+                <strong>funciones básicas en JavaScript</strong> usando la forma
+                clásica:
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>function nombreFuncion(parametros) {
+  // instrucciones
+}
+</code></pre>
+              </div>
+              <p>En estos ejercicios se trabajará:</p>
+              <ul class="custom-list">
+                <li>declaración de funciones;</li>
+                <li>llamada a funciones;</li>
+                <li>parámetros y argumentos;</li>
+                <li><code>return</code>;</li>
+                <li>
+                  diferencia entre <code>console.log()</code> y
+                  <code>return</code>;
+                </li>
+                <li>variables locales y ámbito de función;</li>
+                <li>funciones con condicionales;</li>
+                <li>funciones con bucles;</li>
+                <li>errores frecuentes.</li>
+              </ul>
+              <blockquote class="warning-box">
+                <p>
+                  En esta hoja <strong>no</strong> se trabajan todavía funciones
+                  flecha, funciones anónimas ni callbacks. Esos contenidos
+                  corresponden al bloque B04b.
+                </p>
+              </blockquote>
+              <hr />
+            </section>
+            <section
+              class="content-section featured-section requirements-section"
+              id="2-instrucciones-generales"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-list-check"></i></span
+                >2. Instrucciones generales
+              </h2>
+              <ol class="custom-ordered-list">
+                <li>
+                  Crea un archivo llamado <code>b04_funciones_basicas.js</code>.
+                </li>
+                <li>Resuelve los ejercicios en orden.</li>
+                <li>
+                  Prueba cada ejercicio en la consola del navegador o enlazando
+                  el archivo desde un HTML básico.
+                </li>
+                <li>
+                  Añade comentarios breves en el código cuando sea necesario.
+                </li>
+                <li>
+                  No uses funciones flecha (<code>=&gt;</code>) en esta hoja.
+                </li>
+                <li>
+                  No uses arrays todavía, salvo que el profesorado lo indique
+                  expresamente.
+                </li>
+              </ol>
+              <hr />
+            </section>
+            <section
+              class="content-section featured-section guided-exercises-section"
+              id="parte-1-declarar-y-llamar-funciones"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-play-circle"></i></span
+                >Parte 1. Declarar y llamar funciones
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 1. Primera función</h3>
+                <p>
+                  Declara una función llamada <code>saludar</code> que muestre
+                  por consola el texto:
+                </p>
+                <div class="example-block">
+                  <pre class="code-text"><code>Hola desde DWCC
+</code></pre>
+                </div>
+                <p>Después, llama a la función dos veces.</p>
+                <p>Estructura esperada:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  // código
+}
+
+saludar();
+saludar();
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 2. Función con mensaje personalizado</h3>
+                <p>
+                  Declara una función llamada <code>mostrarBienvenida</code> que
+                  muestre por consola:
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-text"
+                  ><code>Bienvenido/a al bloque de funciones
+</code></pre>
+                </div>
+                <p>Después, llama a la función.</p>
+                <p>Responde en un comentario dentro del código:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>// ¿La función se ejecuta cuando se declara o cuando se llama?
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 3. Detectar el error</h3>
+                <p>Observa este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function despedir() {
+  console.log("Hasta luego");
+}
+
+// Falta algo aquí
+</code></pre>
+                </div>
+                <p>
+                  La función está declarada, pero no se muestra nada por
+                  consola.
+                </p>
+                <ol class="custom-ordered-list">
+                  <li>Explica por qué.</li>
+                  <li>Añade la línea necesaria para ejecutar la función.</li>
+                </ol>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section operators-section"
+              id="parte-2-parametros-y-argumentos"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-input-cursor-text"
+                  ></i></span
+                >Parte 2. Parámetros y argumentos
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 4. Saludo con parámetro</h3>
+                <p>
+                  Declara una función llamada <code>saludarPersona</code> que
+                  reciba un parámetro <code>nombre</code> y muestre:
+                </p>
+                <div class="example-block">
+                  <pre class="code-text"><code>Hola, Ana
+</code></pre>
+                </div>
+                <p>si se llama así:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>saludarPersona("Ana");
+</code></pre>
+                </div>
+                <p>Prueba también con otros nombres.</p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 5. Mensaje con dos parámetros</h3>
+                <p>
+                  Declara una función llamada
+                  <code>mostrarAlumnoModulo</code> que reciba dos parámetros:
+                </p>
+                <ul class="custom-list">
+                  <li><code>nombre</code>;</li>
+                  <li><code>modulo</code>.</li>
+                </ul>
+                <p>Debe mostrar una frase como:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>Ana está estudiando DWCC
+</code></pre>
+                </div>
+                <p>Ejemplo de llamada:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>mostrarAlumnoModulo("Ana", "DWCC");
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 6. Parámetros y argumentos</h3>
+                <p>Dado este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function multiplicar(a, b) {
+  console.log(a * b);
+}
+
+multiplicar(4, 5);
+</code></pre>
+                </div>
+                <p>Responde en comentarios dentro del archivo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>// ¿Cuáles son los parámetros?
+// ¿Cuáles son los argumentos?
+// ¿Qué muestra la consola?
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 7. Argumento omitido</h3>
+                <p>Copia y ejecuta este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function sumar(a, b) {
+  console.log(a + b);
+}
+
+sumar(3);
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>
+                    ¿Qué valor tiene <code>b</code> cuando no se pasa el segundo
+                    argumento?
+                  </li>
+                  <li>¿Qué resultado se muestra por consola?</li>
+                  <li>¿Por qué ocurre?</li>
+                </ol>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section operators-section"
+              id="parte-3-funciones-con-return"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-arrow-return-left"
+                  ></i></span
+                >Parte 3. Funciones con <code>return</code>
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 8. Sumar y devolver</h3>
+                <p>
+                  Declara una función llamada <code>sumar</code> que reciba dos
+                  números y <strong>devuelva</strong> la suma.
+                </p>
+                <p>
+                  Después, guarda el resultado en una constante y muéstralo por
+                  consola.
+                </p>
+                <p>Ejemplo de uso:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const resultado = sumar(3, 4);
+console.log(resultado); // 7
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 9. Calcular el doble</h3>
+                <p>
+                  Declara una función llamada <code>calcularDoble</code> que
+                  reciba un número y devuelva su doble.
+                </p>
+                <p>Pruebas esperadas:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(calcularDoble(4));  // 8
+console.log(calcularDoble(10)); // 20
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 10. Precio con IVA</h3>
+                <p>
+                  Declara una función llamada <code>precioConIVA</code> que
+                  reciba:
+                </p>
+                <ul class="custom-list">
+                  <li><code>precioSinIVA</code>;</li>
+                  <li><code>tipoIVA</code>.</li>
+                </ul>
+                <p>Debe devolver el precio final con IVA incluido.</p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const total = precioConIVA(100, 21);
+console.log(total); // 121
+</code></pre>
+                </div>
+                <p>Prueba también con:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>precioConIVA(50, 10);
+precioConIVA(20, 4);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section operators-section"
+              id="parte-4-console-log-frente-a-return"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-box-arrow-in-right"
+                  ></i></span
+                >Parte 4. <code>console.log()</code> frente a
+                <code>return</code>
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 11. Comparar dos funciones</h3>
+                <p>Copia este código y ejecútalo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function sumarYMostrar(a, b) {
+  console.log(a + b);
+}
+
+function sumarYDevolver(a, b) {
+  return a + b;
+}
+
+const resultado1 = sumarYMostrar(3, 4);
+const resultado2 = sumarYDevolver(3, 4);
+
+console.log("resultado1:", resultado1);
+console.log("resultado2:", resultado2);
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Qué muestra <code>sumarYMostrar(3, 4)</code>?</li>
+                  <li>¿Qué valor queda guardado en <code>resultado1</code>?</li>
+                  <li>¿Qué valor queda guardado en <code>resultado2</code>?</li>
+                  <li>
+                    ¿Cuál es la diferencia entre mostrar un valor y devolver un
+                    valor?
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 12. Corregir una función que no devuelve nada</h3>
+                <p>Este código tiene un problema:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function calcularCuadrado(n) {
+  const cuadrado = n * n;
+  console.log(cuadrado);
+}
+
+const resultado = calcularCuadrado(5);
+console.log("Resultado:", resultado);
+</code></pre>
+                </div>
+                <p>
+                  La función muestra el cuadrado, pero
+                  <code>resultado</code> vale <code>undefined</code>.
+                </p>
+                <p>
+                  Corrige la función para que <strong>devuelva</strong> el
+                  cuadrado usando <code>return</code>.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 13. Código después de <code>return</code></h3>
+                <p>Observa este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function ejemploReturn() {
+  return "Primer mensaje";
+  console.log("Segundo mensaje");
+}
+
+console.log(ejemploReturn());
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>
+                    ¿Se ejecuta el <code>console.log("Segundo mensaje")</code>?
+                  </li>
+                  <li>¿Por qué?</li>
+                  <li>
+                    ¿Qué regla importante sobre <code>return</code> se comprueba
+                    aquí?
+                  </li>
+                </ol>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section flow-section"
+              id="parte-5-variables-locales-y-ambito"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-diagram-3"></i></span
+                >Parte 5. Variables locales y ámbito
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 14. Variable local</h3>
+                <p>Copia y ejecuta este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function crearMensaje() {
+  const mensaje = "Hola";
+  console.log(mensaje);
+}
+
+crearMensaje();
+console.log(mensaje);
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Qué línea produce error?</li>
+                  <li>
+                    ¿Por qué <code>mensaje</code> no se puede usar fuera de la
+                    función?
+                  </li>
+                  <li>¿Cómo se llama este concepto?</li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 15. Evitar variables globales innecesarias</h3>
+                <p>Este código funciona, pero no es una buena solución:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let resultado;
+
+function calcularTriple(n) {
+  resultado = n * 3;
+}
+
+calcularTriple(5);
+console.log(resultado);
+</code></pre>
+                </div>
+                <p>
+                  Reescríbelo para que la función <code>calcularTriple</code>
+                  <strong>devuelva</strong> el resultado con
+                  <code>return</code>, sin usar una variable global llamada
+                  <code>resultado</code>.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 16. Variable local con el mismo nombre</h3>
+                <p>Analiza este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numero = 10;
+
+function mostrarNumero() {
+  const numero = 5;
+  console.log("Dentro:", numero);
+}
+
+mostrarNumero();
+console.log("Fuera:", numero);
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Qué muestra la consola?</li>
+                  <li>
+                    ¿Por qué hay dos valores distintos para <code>numero</code>?
+                  </li>
+                  <li>
+                    ¿Es recomendable repetir nombres de variables aunque estén
+                    en ámbitos distintos? Justifica la respuesta.
+                  </li>
+                </ol>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section conditionals-section"
+              id="parte-6-funciones-con-condicionales"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-question-diamond"
+                  ></i></span
+                >Parte 6. Funciones con condicionales
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 17. Mayor de edad</h3>
+                <p>
+                  Declara una función llamada <code>esMayorDeEdad</code> que
+                  reciba una edad y devuelva:
+                </p>
+                <ul class="custom-list">
+                  <li><code>true</code> si la edad es mayor o igual que 18;</li>
+                  <li><code>false</code> en caso contrario.</li>
+                </ul>
+                <p>Pruebas:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(esMayorDeEdad(17)); // false
+console.log(esMayorDeEdad(18)); // true
+console.log(esMayorDeEdad(25)); // true
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 18. Clasificar nota</h3>
+                <p>
+                  Declara una función llamada <code>clasificarNota</code> que
+                  reciba una nota numérica y devuelva:
+                </p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Sobresaliente"</code> si la nota es mayor o igual que
+                    9;
+                  </li>
+                  <li>
+                    <code>"Notable"</code> si la nota es mayor o igual que 7;
+                  </li>
+                  <li>
+                    <code>"Aprobado"</code> si la nota es mayor o igual que 5;
+                  </li>
+                  <li><code>"Suspenso"</code> si la nota es menor que 5.</li>
+                </ul>
+                <p>Pruebas:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(clasificarNota(10)); // Sobresaliente
+console.log(clasificarNota(8));  // Notable
+console.log(clasificarNota(6));  // Aprobado
+console.log(clasificarNota(3));  // Suspenso
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 19. Validar rango</h3>
+                <p>
+                  Declara una función llamada <code>estaEnRango</code> que
+                  reciba tres parámetros:
+                </p>
+                <ul class="custom-list">
+                  <li><code>numero</code>;</li>
+                  <li><code>minimo</code>;</li>
+                  <li><code>maximo</code>.</li>
+                </ul>
+                <p>
+                  Debe devolver <code>true</code> si <code>numero</code> está
+                  entre <code>minimo</code> y <code>maximo</code>, ambos
+                  incluidos. En caso contrario debe devolver <code>false</code>.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(estaEnRango(5, 1, 10));  // true
+console.log(estaEnRango(15, 1, 10)); // false
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 20. Devolver un mensaje, no mostrarlo directamente
+                </h3>
+                <p>
+                  Declara una función llamada <code>mensajeAcceso</code> que
+                  reciba dos parámetros:
+                </p>
+                <ul class="custom-list">
+                  <li><code>edad</code>;</li>
+                  <li><code>tienePermiso</code>.</li>
+                </ul>
+                <p>Debe devolver:</p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Acceso permitido"</code> si la persona tiene 18 años
+                    o más <strong>o</strong> si tiene permiso;
+                  </li>
+                  <li><code>"Acceso denegado"</code> en caso contrario.</li>
+                </ul>
+                <p>
+                  Después, muestra el resultado por consola desde fuera de la
+                  función.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const mensaje = mensajeAcceso(16, true);
+console.log(mensaje); // Acceso permitido
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section loops-section"
+              id="parte-7-funciones-con-bucles"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-arrow-repeat"></i></span
+                >Parte 7. Funciones con bucles
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 21. Imprimir números hasta N</h3>
+                <p>
+                  Declara una función llamada <code>imprimirHasta</code> que
+                  reciba un número <code>n</code> y muestre por consola los
+                  números del 1 al <code>n</code>.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>imprimirHasta(5);
+</code></pre>
+                </div>
+                <p>Salida esperada:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>1
+2
+3
+4
+5
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 22. Sumar de 1 a N</h3>
+                <p>
+                  Declara una función llamada <code>sumarHasta</code> que reciba
+                  un número <code>n</code> y devuelva la suma desde 1 hasta
+                  <code>n</code>.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(sumarHasta(5)); // 15, porque 1 + 2 + 3 + 4 + 5 = 15
+</code></pre>
+                </div>
+                <p>La función debe usar un bucle.</p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 23. Tabla de multiplicar</h3>
+                <p>
+                  Declara una función llamada <code>mostrarTabla</code> que
+                  reciba un número <code>n</code> y muestre su tabla de
+                  multiplicar del 1 al 10.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>mostrarTabla(5);
+</code></pre>
+                </div>
+                <p>Salida esperada:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>5 x 1 = 5
+5 x 2 = 10
+...
+5 x 10 = 50
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 24. Contar pares hasta N</h3>
+                <p>
+                  Declara una función llamada <code>contarParesHasta</code> que
+                  reciba un número <code>n</code> y devuelva cuántos números
+                  pares hay entre 1 y <code>n</code>, ambos incluidos si
+                  corresponde.
+                </p>
+                <p>Ejemplos:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(contarParesHasta(10)); // 5, porque son 2, 4, 6, 8, 10
+console.log(contarParesHasta(7));  // 3, porque son 2, 4, 6
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section frequent-errors-section"
+              id="parte-8-errores-frecuentes"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bug"></i></span
+                >Parte 8. Errores frecuentes
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 25. Falta llamar a la función</h3>
+                <p>
+                  Corrige este código para que muestre el mensaje por consola:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function mostrarCurso() {
+  console.log("DWCC");
+}
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 26. <code>return</code> mal situado</h3>
+                <p>Este código no funciona como se espera:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function sumarHastaCinco() {
+  let suma = 0;
+
+  for (let i = 1; i &lt;= 5; i++) {
+    return suma + i;
+  }
+}
+
+console.log(sumarHastaCinco());
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Por qué el bucle no llega hasta 5?</li>
+                  <li>
+                    Corrige la función para que devuelva la suma total de 1 a 5.
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 27. Confundir parámetro con variable externa</h3>
+                <p>Analiza este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const precio = 100;
+
+function aplicarDescuento() {
+  return precio * 0.9;
+}
+
+console.log(aplicarDescuento());
+</code></pre>
+                </div>
+                <p>Funciona, pero depende de una variable externa.</p>
+                <p>
+                  Reescribe la función para que reciba <code>precio</code> como
+                  parámetro:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function aplicarDescuento(precio) {
+  // código
+}
+</code></pre>
+                </div>
+                <p>Después prueba:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>console.log(aplicarDescuento(100));
+console.log(aplicarDescuento(50));
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 28. Nombre poco claro</h3>
+                <p>
+                  Este código funciona, pero el nombre de la función es poco
+                  descriptivo:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function hacer(a, b) {
+  return a * b;
+}
+</code></pre>
+                </div>
+                <ol class="custom-ordered-list">
+                  <li>Propón un nombre más adecuado para la función.</li>
+                  <li>
+                    Renombra también los parámetros para que el código se
+                    entienda mejor.
+                  </li>
+                  <li>Explica por qué tu versión es más legible.</li>
+                </ol>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section delivery-section"
+              id="parte-9-mini-entrega-final"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-send-check"></i></span
+                >Parte 9. Mini-entrega final
+              </h2>
+              <p class="section-lead">
+                Crea un archivo llamado
+                <code>b04_mini_entrega_funciones.js</code> con las siguientes
+                funciones:
+              </p>
+              <ol class="custom-ordered-list">
+                <li>
+                  <p>
+                    <code>calcularIVA(precio, tipoIVA)</code><br />
+                    Devuelve el importe del IVA, no el precio final.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <code>calcularPrecioFinal(precio, tipoIVA)</code><br />
+                    Devuelve el precio con IVA incluido.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <code>esAprobado(nota)</code><br />
+                    Devuelve <code>true</code> si la nota es mayor o igual que 5
+                    y <code>false</code> en caso contrario.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <code>obtenerMensajeNota(nota)</code><br />
+                    Devuelve <code>"Aprobado"</code> o
+                    <code>"Suspenso"</code> usando la función
+                    <code>esAprobado</code>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <code>mostrarCuentaAtras(n)</code><br />
+                    Muestra por consola los números desde <code>n</code> hasta
+                    1.
+                  </p>
+                </li>
+              </ol>
+              <p>Después, añade pruebas al final del archivo:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>console.log(calcularIVA(100, 21));
+console.log(calcularPrecioFinal(100, 21));
+console.log(esAprobado(7));
+console.log(obtenerMensajeNota(4));
+mostrarCuentaAtras(5);
+</code></pre>
+              </div>
+              <p>Entrega:</p>
+              <ul class="delivery-list">
+                <li>archivo <code>.js</code>;</li>
+                <li>captura de consola con las pruebas ejecutadas;</li>
+                <li>
+                  breve comentario indicando qué función te resultó más difícil
+                  y por qué.
+                </li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section featured-section restrictions-section"
+              id="contenidos-que-se-dejan-para-otros-documentos"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-slash-circle"></i></span
+                >Contenidos que se dejan para otros documentos
+              </h2>
+              <p class="section-lead">
+                Esta hoja se centra solo en funciones básicas con
+                <code>function</code>.
+              </p>
+              <p>Quedan para documentos posteriores:</p>
+              <ul class="custom-list">
+                <li>funciones anónimas;</li>
+                <li>funciones flecha;</li>
+                <li>callbacks;</li>
+                <li>funciones como valores;</li>
+                <li>métodos de array con callbacks;</li>
+                <li>eventos del DOM;</li>
+                <li>asincronía;</li>
+                <li>promesas;</li>
+                <li><code>async/await</code>;</li>
+                <li>closures;</li>
+                <li>recursividad.</li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section featured-section summary-section review-section"
+              id="resumen-de-repaso"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-flag"></i></span
+                >Resumen de repaso
+              </h2>
+              <p class="section-lead">
+                Antes de dar por terminada la hoja, asegúrate de poder
+                responder:
+              </p>
+              <ol class="question-list">
+                <li>
+                  ¿Qué diferencia hay entre declarar una función y llamarla?
+                </li>
+                <li>¿Qué diferencia hay entre parámetro y argumento?</li>
+                <li>¿Qué hace <code>return</code>?</li>
+                <li>
+                  ¿Qué devuelve una función que no tiene
+                  <code>return</code> explícito?
+                </li>
+                <li>
+                  ¿Qué diferencia hay entre <code>console.log()</code> y
+                  <code>return</code>?
+                </li>
+                <li>¿Qué es una variable local?</li>
+                <li>
+                  ¿Por qué conviene que una función tenga un nombre claro?
+                </li>
+                <li>
+                  ¿Por qué no es buena idea depender siempre de variables
+                  globales?
+                </li>
+              </ol>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

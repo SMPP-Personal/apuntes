@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UD2_B4 · Ejercicios: fetch y JSON</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar">
+<div class="content-layout">
+<aside aria-label="Índice del documento" class="section-sidebar">
+<nav aria-label="Secciones del documento" class="section-nav">
+<p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-ul"></i> Índice del documento</p>
+<ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-objetivos-y-preparacion-del-proyecto"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span><span> 1. Objetivos y preparación del proyecto</span></a></li><li><a class="section-nav-link badge-link" href="#2-html-css-y-datos-de-partida"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-code-square"></i></span><span> 2. HTML, CSS y datos de partida</span></a></li><li><a class="section-nav-link badge-link" href="#3-primer-fetch-y-promesas"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-cloud-download"></i></span><span> 3. Primer <code>fetch()</code> y promesas</span></a></li><li><a class="section-nav-link badge-link" href="#4-response-response-ok-y-errores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-check"></i></span><span> 4. <code>Response</code>, <code>response.ok</code> y errores</span></a></li><li><a class="section-nav-link badge-link" href="#5-renderizado-seguro-de-productos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-card-list"></i></span><span> 5. Renderizado seguro de productos</span></a></li><li><a class="section-nav-link badge-link" href="#6-validacion-de-datos-y-estado-vacio"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-database-check"></i></span><span> 6. Validación de datos y estado vacío</span></a></li><li><a class="section-nav-link badge-link" href="#7-resumen-con-metodos-de-array"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-calculator"></i></span><span> 7. Resumen con métodos de array</span></a></li><li><a class="section-nav-link badge-link" href="#8-async-await-finally-y-eventos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-hourglass-split"></i></span><span> 8. <code>async</code>/<code>await</code>, <code>finally</code> y eventos</span></a></li><li><a class="section-nav-link badge-link" href="#9-carga-de-cursos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-mortarboard"></i></span><span> 9. Carga de cursos</span></a></li><li><a class="section-nav-link badge-link" href="#10-diagnostico-y-correccion-de-errores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span><span> 10. Diagnóstico y corrección de errores</span></a></li><li><a class="section-nav-link badge-link" href="#11-mini-entrega-y-lista-de-comprobacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-box-arrow-up"></i></span><span> 11. Mini-entrega y lista de comprobación</span></a></li><li><a class="section-nav-link badge-link" href="#12-rubrica-y-contenidos-posteriores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-table"></i></span><span> 12. Rúbrica y contenidos posteriores</span></a></li></ol>
+</nav>
+</aside>
+<div class="content-wrapper">
+<header class="content-header">
+<h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-pencil-square"></i></span> UD2_B4. Ejercicios: <code>fetch</code> y JSON</h1>
+</header>
+<hr class="content-separator"/>
+<section class="content-section" id="1-objetivos-y-preparacion-del-proyecto"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivos y preparación del proyecto</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.1. Objetivo de la hoja</h3><p>En esta hoja vas a practicar el flujo completo de trabajo con datos JSON mediante <code>fetch()</code>:</p><ol class="custom-ordered-list">
+<li>iniciar la carga desde un evento;</li>
+<li>mostrar un estado de carga;</li>
+<li>realizar la petición;</li>
+<li>comprobar <code>response.ok</code>;</li>
+<li>interpretar la respuesta con <code>.json()</code>;</li>
+<li>validar la estructura recibida;</li>
+<li>procesar los datos;</li>
+<li>renderizarlos de forma segura;</li>
+<li>tratar estados sin resultados;</li>
+<li>gestionar errores;</li>
+<li>restaurar la interfaz mediante <code>finally</code>.</li>
+</ol><p>El objetivo no es memorizar una plantilla, sino comprender qué responsabilidad tiene cada parte del proceso.</p><blockquote class="note-box">
+<p>En esta hoja trabajaremos principalmente con archivos JSON locales para no depender de una API externa. Aun así, aprenderemos a reconocer errores de red, HTTP, JSON, formato y CORS.</p>
+</blockquote><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.2. Estructura de archivos</h3><p>Crea:</p><div class="example-block project-structure-block"><pre class="code-bash"><code class="language-text">UD2_B4_fetch_JSON/
+├── index.html
+├── styles.css
+├── script.js
+└── datos/
+    ├── productos.json
+    ├── productos-vacios.json
+    ├── productos-formato-incorrecto.json
+    └── cursos.json
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.3. Utilizar un servidor web</h3><p>Abre el proyecto mediante Live Server o un servidor local equivalente.</p><p>Dirección correcta:</p><div class="example-block"><pre class="code-bash"><code class="language-text">http://127.0.0.1:5500/index.html
+</code></pre></div><p>Dirección que debes evitar:</p><div class="example-block"><pre class="code-bash"><code class="language-text">file:///C:/proyecto/index.html
+</code></pre></div><p>Antes de comenzar:</p><ol class="custom-ordered-list">
+<li>comprueba que el servidor está activo;</li>
+<li>abre <code>productos.json</code> desde el navegador;</li>
+<li>verifica que la ruta respeta carpetas, mayúsculas y minúsculas;</li>
+<li>revisa que la consola no muestra errores.</li>
+</ol><hr/></section><section class="content-section" id="2-html-css-y-datos-de-partida"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-code-square"></i></span> 2. HTML, CSS y datos de partida</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.1. <code>index.html</code></h3><div class="example-block"><pre class="code-html"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  &gt;
+
+  &lt;title&gt;Ejercicios fetch y JSON&lt;/title&gt;
+
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Ejercicios fetch y JSON&lt;/h1&gt;
+    &lt;p&gt;
+      Carga y tratamiento de datos locales.
+    &lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section aria-labelledby="titulo-productos"&gt;
+      &lt;h2 id="titulo-productos"&gt;
+        Productos
+      &lt;/h2&gt;
+
+      &lt;button
+        type="button"
+        id="boton-cargar-productos"
+      &gt;
+        Cargar productos
+      &lt;/button&gt;
+
+      &lt;p
+        id="estado-productos"
+        aria-live="polite"
+      &gt;
+        Productos pendientes de carga.
+      &lt;/p&gt;
+
+      &lt;p
+        id="error-productos"
+        class="mensaje-error"
+        aria-live="polite"
+      &gt;&lt;/p&gt;
+
+      &lt;div id="resumen-productos"&gt;&lt;/div&gt;
+
+      &lt;div
+        id="lista-productos"
+        aria-busy="false"
+      &gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section aria-labelledby="titulo-cursos"&gt;
+      &lt;h2 id="titulo-cursos"&gt;
+        Cursos
+      &lt;/h2&gt;
+
+      &lt;button
+        type="button"
+        id="boton-cargar-cursos"
+      &gt;
+        Cargar cursos
+      &lt;/button&gt;
+
+      &lt;p
+        id="estado-cursos"
+        aria-live="polite"
+      &gt;
+        Cursos pendientes de carga.
+      &lt;/p&gt;
+
+      &lt;p
+        id="error-cursos"
+        class="mensaje-error"
+        aria-live="polite"
+      &gt;&lt;/p&gt;
+
+      &lt;div
+        id="lista-cursos"
+        aria-busy="false"
+      &gt;&lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.2. <code>styles.css</code></h3><div class="example-block"><pre class="code-css"><code class="language-css">body {
+  font-family: Arial, sans-serif;
+  margin: 2rem;
+  line-height: 1.5;
+}
+
+section {
+  margin-top: 2rem;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.tarjeta {
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.con-stock {
+  border-color: #2f7d32;
+  background-color: #f0fff0;
+}
+
+.sin-stock {
+  border-color: #b00020;
+  background-color: #fff0f0;
+}
+
+.mensaje-error {
+  color: #b00020;
+  font-weight: bold;
+}
+
+.cargando {
+  color: #555555;
+  font-style: italic;
+}
+
+.resumen {
+  border-left: 4px solid #2f7d32;
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.3. <code>datos/productos.json</code></h3><div class="example-block"><pre class="code-json"><code class="language-json">[
+  {
+    "id": 1,
+    "nombre": "Teclado mecánico",
+    "categoria": "periféricos",
+    "precio": 59.99,
+    "stock": 12
+  },
+  {
+    "id": 2,
+    "nombre": "Ratón inalámbrico",
+    "categoria": "periféricos",
+    "precio": 24.5,
+    "stock": 0
+  },
+  {
+    "id": 3,
+    "nombre": "Monitor 24 pulgadas",
+    "categoria": "pantallas",
+    "precio": 149.99,
+    "stock": 4
+  },
+  {
+    "id": 4,
+    "nombre": "Cable HDMI",
+    "categoria": "cables",
+    "precio": 8.95,
+    "stock": 30
+  }
+]
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.4. <code>datos/productos-vacios.json</code></h3><div class="example-block"><pre class="code-json"><code class="language-json">[]
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.5. <code>datos/productos-formato-incorrecto.json</code></h3><div class="example-block"><pre class="code-json"><code class="language-json">{
+  "productos": []
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.6. <code>datos/cursos.json</code></h3><div class="example-block"><pre class="code-json"><code class="language-json">[
+  {
+    "codigo": "DWCC",
+    "nombre": "Desenvolvemento web en contorno cliente",
+    "horas": 219,
+    "activo": true
+  },
+  {
+    "codigo": "DWES",
+    "nombre": "Desenvolvemento web en contorno servidor",
+    "horas": 240,
+    "activo": true
+  },
+  {
+    "codigo": "DIW",
+    "nombre": "Deseño de interfaces web",
+    "horas": 157,
+    "activo": false
+  }
+]
+</code></pre></div><blockquote class="note-box">
+<p>Los nombres de los módulos se mantienen en gallego porque corresponden a denominaciones oficiales.</p>
+</blockquote><hr/></section><section class="content-section" id="3-primer-fetch-y-promesas"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cloud-download"></i></span> 3. Primer <code>fetch()</code> y promesas</h2><div class="exercise-block"><h3>Ejercicio 1. Primer <code>fetch()</code> simplificado</h3><p>Realiza una petición a:</p><div class="example-block"><pre class="code-bash"><code class="language-text">datos/productos.json
+</code></pre></div><p>Utiliza:</p><div class="example-block"><pre class="code-js"><code class="language-js">fetch("datos/productos.json")
+  .then((respuesta) =&gt; {
+    return respuesta.json();
+  })
+  .then((productos) =&gt; {
+    console.log(productos);
+  });
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué devuelve <code>fetch()</code>?</li>
+<li>¿Qué recibe el primer <code>.then()</code>?</li>
+<li>¿Qué devuelve <code>respuesta.json()</code>?</li>
+<li>¿Por qué este ejemplo todavía está incompleto?</li>
+</ol><blockquote class="note-box">
+<p>Este primer ejemplo está simplificado para observar la cadena de promesas. Todavía no comprueba el estado HTTP ni trata errores.</p>
+</blockquote><hr/></div><div class="exercise-block"><h3>Ejercicio 2. Estado de carga inicial</h3><p>Selecciona:</p><div class="example-block"><pre class="code-js"><code class="language-js">const estadoProductos =
+  document.querySelector(
+    "#estado-productos"
+  );
+</code></pre></div><p>Antes de iniciar la petición:</p><ul class="custom-list">
+<li>muestra <code>Cargando productos...</code>;</li>
+<li>añade la clase <code>cargando</code>.</li>
+</ul><p>Cuando los datos lleguen correctamente:</p><ul class="custom-list">
+<li>muestra <code>Productos cargados correctamente.</code>;</li>
+<li>elimina la clase <code>cargando</code>.</li>
+</ul><hr/></div><div class="exercise-block"><h3>Ejercicio 3. Añadir <code>.catch()</code></h3><p>Añade un <code>.catch()</code>.</p><p>En caso de error:</p><ul class="custom-list">
+<li>muestra el error técnico en consola;</li>
+<li>muestra al usuario <code>No se pudieron cargar los productos.</code>;</li>
+<li>elimina la clase <code>cargando</code>.</li>
+</ul><p>Después prueba:</p><div class="example-block"><pre class="code-js"><code class="language-js">fetch("datos/productos-no-existe.json")
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué nombre tiene el error?</li>
+<li>¿El error corresponde siempre directamente a un <code>404</code>?</li>
+<li>¿Puede fallar también la conversión con <code>.json()</code>?</li>
+</ol><hr/></div></section><section class="content-section" id="4-response-response-ok-y-errores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-check"></i></span> 4. <code>Response</code>, <code>response.ok</code> y errores</h2><div class="exercise-block"><h3>Ejercicio 4. Comprobar <code>response.ok</code></h3><p>Modifica la cadena:</p><div class="example-block"><pre class="code-js"><code class="language-js">fetch("datos/productos.json")
+  .then((respuesta) =&gt; {
+    if (!respuesta.ok) {
+      throw new Error(
+        `Error HTTP: ${respuesta.status}`
+      );
+    }
+
+    return respuesta.json();
+  })
+  .then((productos) =&gt; {
+    console.log(productos);
+  })
+  .catch((error) =&gt; {
+    console.error(error);
+  });
+</code></pre></div><p>Prueba una ruta incorrecta.</p><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué valor tiene <code>response.ok</code>?</li>
+<li>¿Qué código aparece en <code>response.status</code>?</li>
+<li>¿Por qué se lanza manualmente un error?</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 5. Mostrar el error en el DOM</h3><p>Selecciona:</p><div class="example-block"><pre class="code-js"><code class="language-js">const errorProductos =
+  document.querySelector(
+    "#error-productos"
+  );
+</code></pre></div><p>Al iniciar una carga:</p><div class="example-block"><pre class="code-js"><code class="language-js">errorProductos.textContent = "";
+errorProductos.classList.remove(
+  "mensaje-error"
+);
+</code></pre></div><p>En el <code>catch</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">errorProductos.textContent =
+  "No se pudieron cargar los productos.";
+
+errorProductos.classList.add(
+  "mensaje-error"
+);
+</code></pre></div><p>Mantén los detalles técnicos en la consola:</p><div class="example-block"><pre class="code-js"><code class="language-js">console.error(error);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 6. Diferenciar tipos de error</h3><p>Completa esta tabla:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Situación</th>
+<th>Tipo de error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No existe conexión</td>
+<td></td>
+</tr>
+<tr>
+<td>El servidor responde con 404</td>
+<td></td>
+</tr>
+<tr>
+<td>El cuerpo no contiene JSON válido</td>
+<td></td>
+</tr>
+<tr>
+<td>El JSON es válido, pero contiene un objeto en lugar de un array</td>
+<td></td>
+</tr>
+<tr>
+<td>El navegador bloquea una respuesta de otro origen</td>
+<td></td>
+</tr>
+</tbody>
+</table></div><p>Después responde:</p><ol class="custom-ordered-list">
+<li>¿Qué errores pueden llegar al <code>catch</code>?</li>
+<li>¿Qué error requiere comprobar <code>response.ok</code>?</li>
+<li>¿Qué significa CORS a nivel básico?</li>
+</ol><hr/></div></section><section class="content-section" id="5-renderizado-seguro-de-productos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-card-list"></i></span> 5. Renderizado seguro de productos</h2><div class="exercise-block"><h3>Ejercicio 7. Crear una tarjeta sin <code>innerHTML</code></h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">function crearTarjetaProducto(
+  producto
+) {
+  // Debe devolver un &lt;article&gt;.
+}
+</code></pre></div><p>La tarjeta debe incluir:</p><ul class="custom-list">
+<li>nombre;</li>
+<li>categoría;</li>
+<li>precio;</li>
+<li>stock;</li>
+<li>texto <code>Sin stock</code> cuando corresponda.</li>
+</ul><p>Utiliza:</p><ul class="custom-list">
+<li><code>document.createElement()</code>;</li>
+<li><code>textContent</code>;</li>
+<li><code>append()</code>.</li>
+</ul><p>No utilices:</p><div class="example-block"><pre class="code-js"><code class="language-js">tarjeta.innerHTML = `...`;
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 8. Renderizar la lista</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">function renderizarProductos(
+  productos
+) {
+  const lista =
+    document.querySelector(
+      "#lista-productos"
+    );
+
+  lista.replaceChildren();
+
+  // Recorre productos.
+  // Crea una tarjeta.
+  // Inserta la tarjeta.
+}
+</code></pre></div><p>Reglas:</p><ul class="custom-list">
+<li>clase <code>con-stock</code> si <code>stock &gt; 0</code>;</li>
+<li>clase <code>sin-stock</code> si <code>stock === 0</code>;</li>
+<li>no depender únicamente del color;</li>
+<li>mostrar también un texto que indique el estado del stock.</li>
+</ul><hr/></div><div class="exercise-block"><h3>Ejercicio 9. Explicar la seguridad</h3><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Por qué <code>textContent</code> es preferible para mostrar datos externos?</li>
+<li>¿Qué riesgo tiene construir HTML con valores recibidos?</li>
+<li>¿Por qué <code>replaceChildren()</code> es más coherente que <code>innerHTML = ""</code> en este contexto?</li>
+</ol><hr/></div></section><section class="content-section" id="6-validacion-de-datos-y-estado-vacio"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-database-check"></i></span> 6. Validación de datos y estado vacío</h2><div class="exercise-block"><h3>Ejercicio 10. Validar que la respuesta sea un array</h3><p>Después de:</p><div class="example-block"><pre class="code-js"><code class="language-js">const productos =
+  await respuesta.json();
+</code></pre></div><p>comprueba:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (!Array.isArray(productos)) {
+  throw new Error(
+    "El formato recibido no es una lista de productos."
+  );
+}
+</code></pre></div><p>Prueba el archivo:</p><div class="example-block"><pre class="code-bash"><code class="language-text">datos/productos-formato-incorrecto.json
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Es JSON válido?</li>
+<li>¿Por qué el formato no es el esperado?</li>
+<li>¿Qué diferencia hay entre JSON inválido y estructura incorrecta?</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 11. Validar propiedades básicas</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">function esProductoValido(
+  producto
+) {
+  // Debe comprobar:
+  // - objeto no nulo;
+  // - nombre de tipo string;
+  // - precio numérico;
+  // - stock numérico.
+}
+</code></pre></div><p>Utiliza:</p><div class="example-block"><pre class="code-js"><code class="language-js">typeof
+Number.isFinite()
+Number()
+</code></pre></div><p>Decide qué hacer con productos inválidos:</p><ul class="custom-list">
+<li>descartarlos con <code>filter()</code>;</li>
+<li>o lanzar un error.</li>
+</ul><p>Justifica tu decisión.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 12. Estado sin resultados</h3><p>Prueba:</p><div class="example-block"><pre class="code-bash"><code class="language-text">datos/productos-vacios.json
+</code></pre></div><p>Si el array está vacío:</p><ul class="custom-list">
+<li>no calcules el precio medio;</li>
+<li>vacía lista y resumen;</li>
+<li>muestra <code>No hay productos disponibles.</code>;</li>
+<li>no lo trates como error.</li>
+</ul><p>Estructura:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (productos.length === 0) {
+  mostrarSinProductos();
+  return;
+}
+</code></pre></div><hr/></div></section><section class="content-section" id="7-resumen-con-metodos-de-array"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-calculator"></i></span> 7. Resumen con métodos de array</h2><div class="exercise-block"><h3>Ejercicio 13. Calcular un resumen</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">function calcularResumen(
+  productos
+) {
+  // Devuelve un objeto resumen.
+}
+</code></pre></div><p>Debe incluir:</p><ul class="custom-list">
+<li>total de productos;</li>
+<li>productos con stock;</li>
+<li>precio medio;</li>
+<li>valor total del inventario;</li>
+<li>producto más barato;</li>
+<li>producto más caro.</li>
+</ul><p>Utiliza al menos dos métodos entre:</p><ul class="custom-list">
+<li><code>filter()</code>;</li>
+<li><code>map()</code>;</li>
+<li><code>reduce()</code>.</li>
+</ul><p>No calcules el resumen si el array está vacío.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 14. Renderizar el resumen sin <code>innerHTML</code></h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">function renderizarResumen(
+  resumen
+) {
+  // Usa createElement(),
+  // textContent,
+  // append(),
+  // replaceChildren().
+}
+</code></pre></div><p>Añade la clase:</p><div class="example-block"><pre class="code-bash"><code class="language-text">resumen
+</code></pre></div><p>al contenedor.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 15. Formatear números</h3><p>Muestra:</p><ul class="custom-list">
+<li>precios con dos decimales;</li>
+<li>valor del inventario con dos decimales;</li>
+<li>textos legibles.</li>
+</ul><p>Puedes utilizar:</p><div class="example-block"><pre class="code-js"><code class="language-js">numero.toFixed(2)
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué devuelve <code>toFixed()</code>?</li>
+<li>¿Es un número o una cadena?</li>
+<li>¿Cuándo conviene convertir de nuevo a número?</li>
+</ol><hr/></div></section><section class="content-section" id="8-async-await-finally-y-eventos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-hourglass-split"></i></span> 8. <code>async</code>/<code>await</code>, <code>finally</code> y eventos</h2><div class="exercise-block"><h3>Ejercicio 16. Crear <code>obtenerProductos()</code></h3><p>Crea una función que:</p><ol class="custom-ordered-list">
+<li>realice <code>fetch()</code>;</li>
+<li>compruebe <code>response.ok</code>;</li>
+<li>interprete JSON;</li>
+<li>compruebe <code>Array.isArray()</code>;</li>
+<li>devuelva el array.</li>
+</ol><p>Firma:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function obtenerProductos(
+  ruta
+) {
+  // ...
+}
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 17. Crear estados de interfaz</h3><p>Implementa:</p><div class="example-block"><pre class="code-js"><code class="language-js">function mostrarCargaProductos() {
+  // Estado de carga.
+  // Botón desactivado.
+  // aria-busy="true".
+  // Limpieza del error anterior.
+}
+
+function finalizarCargaProductos() {
+  // Botón activado.
+  // aria-busy="false".
+  // Quitar clase cargando.
+}
+
+function mostrarErrorProductos() {
+  // Mensaje para el usuario.
+}
+
+function mostrarSinProductos() {
+  // Estado vacío.
+}
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 18. Crear <code>cargarProductos()</code></h3><p>Estructura obligatoria:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarProductos() {
+  mostrarCargaProductos();
+
+  try {
+    const productos =
+      await obtenerProductos(
+        "datos/productos.json"
+      );
+
+    if (productos.length === 0) {
+      mostrarSinProductos();
+      return;
+    }
+
+    const productosValidos =
+      productos.filter(
+        esProductoValido
+      );
+
+    renderizarProductos(
+      productosValidos
+    );
+
+    const resumen =
+      calcularResumen(
+        productosValidos
+      );
+
+    renderizarResumen(resumen);
+
+    estadoProductos.textContent =
+      "Productos cargados correctamente.";
+  } catch (error) {
+    mostrarErrorProductos();
+    console.error(error);
+  } finally {
+    finalizarCargaProductos();
+  }
+}
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 19. Asociar el evento</h3><p>Selecciona:</p><div class="example-block"><pre class="code-js"><code class="language-js">const botonCargarProductos =
+  document.querySelector(
+    "#boton-cargar-productos"
+  );
+</code></pre></div><p>Asocia:</p><div class="example-block"><pre class="code-js"><code class="language-js">botonCargarProductos.addEventListener(
+  "click",
+  cargarProductos
+);
+</code></pre></div><p>Prueba varias pulsaciones rápidas.</p><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Por qué se desactiva el botón?</li>
+<li>¿Por qué se reactiva en <code>finally</code>?</li>
+<li>¿Qué ocurriría si solo se reactivase en el bloque <code>try</code>?</li>
+</ol><hr/></div></section><section class="content-section" id="9-carga-de-cursos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-mortarboard"></i></span> 9. Carga de cursos</h2><div class="exercise-block"><h3>Ejercicio 20. Crear <code>obtenerCursos()</code></h3><p>Debe:</p><ul class="custom-list">
+<li>cargar <code>datos/cursos.json</code>;</li>
+<li>comprobar <code>response.ok</code>;</li>
+<li>convertir con <code>.json()</code>;</li>
+<li>comprobar <code>Array.isArray()</code>;</li>
+<li>devolver el array.</li>
+</ul><hr/></div><div class="exercise-block"><h3>Ejercicio 21. Renderizar los cursos</h3><p>Crea tarjetas con:</p><ul class="custom-list">
+<li>código;</li>
+<li>nombre oficial;</li>
+<li>horas;</li>
+<li>estado activo o inactivo.</li>
+</ul><p>Mantén en gallego:</p><div class="example-block"><pre class="code-bash"><code class="language-text">Desenvolvemento web en contorno cliente
+Desenvolvemento web en contorno servidor
+Deseño de interfaces web
+</code></pre></div><p>El resto de la interfaz permanece en castellano.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 22. Filtrar y transformar</h3><p>A partir de los cursos:</p><ol class="custom-ordered-list">
+<li>crea <code>cursosActivos</code> con <code>filter()</code>;</li>
+<li>crea un array de mensajes con <code>map()</code>;</li>
+<li>muestra los mensajes en consola.</li>
+</ol><p>Formato:</p><div class="example-block"><pre class="code-bash"><code class="language-text">DWCC - Desenvolvemento web en contorno cliente (219 horas)
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 23. Flujo completo de cursos</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarCursos() {
+  // Debe tener su propio:
+  // - estado;
+  // - error;
+  // - botón;
+  // - aria-busy;
+  // - try;
+  // - catch;
+  // - finally.
+}
+</code></pre></div><p>No reutilices el estado visual de productos.</p><hr/></div></section><section class="content-section" id="10-diagnostico-y-correccion-de-errores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 10. Diagnóstico y corrección de errores</h2><div class="exercise-block"><h3>Ejercicio 24. Falta <code>return</code></h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">fetch("datos/productos.json")
+  .then((respuesta) =&gt; {
+    respuesta.json();
+  })
+  .then((productos) =&gt; {
+    console.log(productos);
+  });
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 25. Falta <code>await</code></h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  const respuesta =
+    fetch("datos/productos.json");
+
+  const datos =
+    await respuesta.json();
+}
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 26. Orden incorrecto de comprobación</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  const respuesta =
+    await fetch(
+      "datos/productos.json"
+    );
+
+  const datos =
+    await respuesta.json();
+
+  if (!respuesta.ok) {
+    throw new Error(
+      "Error en la respuesta"
+    );
+  }
+}
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 27. Formato no comprobado</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">const datos =
+  await respuesta.json();
+
+datos.forEach((dato) =&gt; {
+  console.log(dato);
+});
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 28. Uso inseguro de <code>innerHTML</code></h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">tarjeta.innerHTML =
+  `&lt;h3&gt;${producto.nombre}&lt;/h3&gt;`;
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 29. División por cero</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">const precioMedio =
+  sumaPrecios / productos.length;
+</code></pre></div><p>Ten en cuenta un array vacío.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 30. Error antiguo no limpiado</h3><p>Corrige un flujo en el que:</p><div class="example-block"><pre class="code-js"><code class="language-js">errorProductos.classList.add(
+  "mensaje-error"
+);
+</code></pre></div><p>pero nunca se elimina antes de una nueva carga.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 31. Botón que no se reactiva</h3><p>Corrige una función que desactiva el botón al comenzar, pero solo lo activa dentro de <code>try</code>.</p><p>Utiliza <code>finally</code>.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 32. Diagnóstico de CORS</h3><p>Situación:</p><blockquote class="note-box">
+<p>La URL se abre correctamente en una pestaña, pero <code>fetch()</code> muestra un bloqueo por política de origen cruzado.</p>
+</blockquote><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Es necesariamente un error de sintaxis?</li>
+<li>¿Quién debe autorizar el acceso?</li>
+<li>¿Puede resolverse simplemente cambiando <code>fetch()</code>?</li>
+<li>¿Qué información buscarías en la consola?</li>
+</ol><hr/></div></section><section class="content-section delivery-section" id="11-mini-entrega-y-lista-de-comprobacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> 11. Mini-entrega y lista de comprobación</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.1. Mini panel de productos</h3><p>Crea una aplicación que:</p><ol class="custom-ordered-list">
+<li>muestre un estado inicial;</li>
+<li>cargue productos al pulsar un botón;</li>
+<li>desactive el botón durante la carga;</li>
+<li>utilice <code>try...catch...finally</code>;</li>
+<li>compruebe <code>response.ok</code>;</li>
+<li>use <code>.json()</code>;</li>
+<li>valide <code>Array.isArray()</code>;</li>
+<li>valide propiedades básicas;</li>
+<li>trate el array vacío;</li>
+<li>renderice tarjetas mediante nodos DOM;</li>
+<li>identifique productos sin stock mediante texto y clase;</li>
+<li>muestre un resumen;</li>
+<li>utilice al menos dos métodos de array;</li>
+<li>muestre errores comprensibles;</li>
+<li>utilice <code>aria-live</code> y <code>aria-busy</code>;</li>
+<li>no inserte datos externos con <code>innerHTML</code>.</li>
+</ol><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.2. Entrega</h3><p>Entrega:</p><div class="example-block project-structure-block"><pre class="code-bash"><code class="language-text">UD2_B4_Panel_productos_JSON_Nombre_Apellidos.zip
+├── index.html
+├── styles.css
+├── script.js
+└── datos/
+    └── productos.json
+</code></pre></div><p>Incluye capturas de:</p><ol class="custom-ordered-list">
+<li>estado inicial;</li>
+<li>estado de carga;</li>
+<li>productos mostrados;</li>
+<li>producto sin stock;</li>
+<li>resumen;</li>
+<li>estado sin resultados;</li>
+<li>error provocado con una ruta incorrecta;</li>
+<li>consola sin errores durante el funcionamiento normal.</li>
+</ol><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.3. Lista de comprobación</h3><ul class="custom-list checklist-list">
+<li><span class="check-marker">[ ]</span> El proyecto se abre mediante servidor local.</li>
+<li><span class="check-marker">[ ]</span> La ruta de <code>fetch()</code> es correcta.</li>
+<li><span class="check-marker">[ ]</span> La carga comienza mediante un evento.</li>
+<li><span class="check-marker">[ ]</span> El botón se desactiva durante la petición.</li>
+<li><span class="check-marker">[ ]</span> Se comprueba <code>response.ok</code>.</li>
+<li><span class="check-marker">[ ]</span> Se utiliza <code>await response.json()</code>.</li>
+<li><span class="check-marker">[ ]</span> Se comprueba <code>Array.isArray()</code>.</li>
+<li><span class="check-marker">[ ]</span> Se validan propiedades básicas.</li>
+<li><span class="check-marker">[ ]</span> Se utiliza <code>try...catch...finally</code>.</li>
+<li><span class="check-marker">[ ]</span> Se limpia el error anterior.</li>
+<li><span class="check-marker">[ ]</span> Se diferencia carga, éxito, vacío y error.</li>
+<li><span class="check-marker">[ ]</span> Se utiliza <code>aria-live</code>.</li>
+<li><span class="check-marker">[ ]</span> Se utiliza <code>aria-busy</code>.</li>
+<li><span class="check-marker">[ ]</span> Los datos se renderizan con nodos DOM.</li>
+<li><span class="check-marker">[ ]</span> No se usa <code>innerHTML</code> con datos externos.</li>
+<li><span class="check-marker">[ ]</span> Se utiliza <code>replaceChildren()</code>.</li>
+<li><span class="check-marker">[ ]</span> Se aplican métodos de array.</li>
+<li><span class="check-marker">[ ]</span> El resumen evita divisiones por cero.</li>
+<li><span class="check-marker">[ ]</span> La consola no muestra errores en el uso normal.</li>
+</ul><hr/></section><section class="content-section summary-section" id="12-rubrica-y-contenidos-posteriores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-table"></i></span> 12. Rúbrica y contenidos posteriores</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.1. Rúbrica orientativa</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estructura del proyecto y servidor local</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Uso correcto de <code>fetch()</code> y <code>response.ok</code></td>
+<td>15 %</td>
+</tr>
+<tr>
+<td><code>async</code>/<code>await</code> y tratamiento de errores</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Validación de los datos recibidos</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Renderizado seguro en el DOM</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Estados de carga, vacío, éxito y error</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Métodos de array y resumen</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Claridad, accesibilidad y ausencia de errores</td>
+<td>5 %</td>
+</tr>
+</tbody>
+</table></div><p>Total: <strong>100 %</strong>.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.2. Contenidos que quedan para prácticas posteriores</h3><p>No se trabajan como contenido principal:</p><ul class="custom-list">
+<li>APIs externas reales;</li>
+<li>envío real a un servidor propio;</li>
+<li>autenticación;</li>
+<li>cabeceras HTTP avanzadas;</li>
+<li>CORS en profundidad;</li>
+<li><code>AbortController</code>;</li>
+<li><code>Promise.all()</code> y concurrencia avanzada;</li>
+<li><code>localStorage</code>;</li>
+<li>módulos JavaScript;</li>
+<li>frameworks.</li>
+</ul></section></div>
+</div>
+</main>
+</div>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

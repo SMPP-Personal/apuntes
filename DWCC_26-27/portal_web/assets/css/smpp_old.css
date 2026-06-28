@@ -1,0 +1,951 @@
+/* ========================================================================== 
+   SMPP / DWCC - HOJA DE ESTILOS BASE
+   --------------------------------------------------------------------------
+   Versión reorganizada, revisada y corregida.
+
+   Criterio aplicado:
+   - Se mantienen las clases existentes para no romper los HTML ya generados.
+   - Se consolidan reglas repetidas en una única definición por componente.
+   - Se unifica el sistema de variables y el modo oscuro.
+   - Se corrige el problema de contraste de cajas claras.
+   - Se corrige el uso de variables, contraste y cierre estructural del CSS.
+   ========================================================================== */
+
+
+/* ========================================================================== 
+   01. VARIABLES GLOBALES Y TEMAS
+   ========================================================================== */
+
+:root {
+  /* Fondos y texto */
+  --bg-main: #ffffff;
+  --bg-surface: #f8fafc;
+  --bg-surface-dark: #1e1e1e;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+
+  /* Colores principales */
+  --primary-blue: #2563eb;
+  --accent-blue: #3b82f6;
+  --light-blue: #e0f2fe;
+  --dark-blue: #0f172a;
+
+  /* Estados y cajas didácticas */
+  --note-color: #2454a6;
+  --note-bg: #eef5ff;
+  --note-text: #1e293b;
+
+  --success-color: #198754;
+  --success-bg: #f0fff4;
+  --success-text: #14532d;
+
+  --warning-color: #f2a900;
+  --warning-bg: #fffaf0;
+  --warning-text: #1e293b;
+
+  --danger-color: #dc3545;
+  --danger-bg: #fff5f5;
+  --danger-text: #7f1d1d;
+
+  --concept-color: #10b981;
+  --concept-bg: #f0fdf4;
+  --concept-text: #064e3b;
+
+  --example-color: #94a3b8;
+  --example-bg: #f8fafc;
+  --example-text: #1e293b;
+
+  --exercise-color: #2563eb;
+  --exercise-bg: #ffffff;
+  --exercise-text: #1e293b;
+  --exercise-important-color: #dc2626;
+  --exercise-important-bg: #fff1f2;
+
+  /* Código */
+  --code-bg: #e2e8f0;
+  --code-text: #1e293b;
+  --code-border: #334155;
+
+  /* Gradientes específicos */
+  --exercise-bg-end: #f0f6ff;
+
+  /* Bordes y transiciones */
+  --border-color: #d1d5db;
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 6px 14px rgba(0, 0, 0, 0.08);
+  --transition-speed: 0.3s;
+}
+
+/* Compatibilidad: se admiten los dos nombres de clase que aparecían en el CSS original. */
+body.dark-theme,
+body.dark-mode {
+  --bg-main: #121212;
+  --bg-surface: #1e1e1e;
+  --bg-surface-dark: #1e1e1e;
+  --text-main: #f8f9fa;
+  --text-muted: #a0aec0;
+
+  --primary-blue: #3b82f6;
+  --accent-blue: #60a5fa;
+  --light-blue: #1e293b;
+  --dark-blue: #0f172a;
+
+  --border-color: #333333;
+
+  --note-bg: #111827;
+  --note-color: #60a5fa;
+  --note-text: #e5e7eb;
+
+  --success-bg: #064e3b;
+  --success-color: #34d399;
+  --success-text: #d1fae5;
+
+  --warning-bg: #78350f;
+  --warning-color: #fbbf24;
+  --warning-text: #fef3c7;
+
+  --danger-bg: #7f1d1d;
+  --danger-color: #f87171;
+  --danger-text: #fee2e2;
+
+  --concept-bg: #052e26;
+  --concept-color: #34d399;
+  --concept-text: #d1fae5;
+
+  --example-bg: #1e293b;
+  --example-color: #94a3b8;
+  --example-text: #e2e8f0;
+
+  --exercise-bg: #1e293b;
+  --exercise-color: #60a5fa;
+  --exercise-text: #e2e8f0;
+  --exercise-important-bg: #450a0a;
+  --exercise-important-color: #f87171;
+  --exercise-bg-end: #1e3a5f;
+
+  --code-bg: #0f172a;
+  --code-text: #e2e8f0;
+  --code-border: #334155;
+}
+
+
+/* ========================================================================== 
+   02. RESET Y BASE TIPOGRÁFICA
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+p {
+  margin-bottom: 1.2rem;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: var(--border-color);
+  margin: 2rem 0;
+}
+
+
+/* ========================================================================== 
+   03. CABECERA Y NAVEGACIÓN MULTINIVEL
+   ========================================================================== */
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--dark-blue);
+  color: #ffffff;
+  padding: 0.5rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo img {
+  height: 45px;
+  display: block;
+}
+
+.main-nav .nav-menu {
+  display: flex;
+  list-style: none;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: block;
+  padding: 1rem 1.2rem;
+  color: #e2e8f0;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-speed);
+}
+
+.nav-link:hover {
+  color: var(--accent-blue);
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  background-color: var(--bg-surface-dark);
+  list-style: none;
+  min-width: 240px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border: 1px solid #333;
+}
+
+.submenu a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background var(--transition-speed), color var(--transition-speed);
+}
+
+.submenu a:hover {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+}
+
+.nav-item:hover > .submenu {
+  display: block;
+  top: 100%;
+  left: 0;
+}
+
+.submenu .submenu-item {
+  position: relative;
+}
+
+.submenu .submenu-item:hover > .submenu.level-2 {
+  display: block;
+  top: 0;
+  left: 100%;
+}
+
+#theme-toggle {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  color: #ffffff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+#theme-toggle:hover {
+  background-color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+
+/* ========================================================================== 
+   04. ESTRUCTURA GENERAL DE PÁGINA
+   ========================================================================== */
+
+.main-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.content-wrapper {
+  max-width: 900px;
+}
+
+.content-header h1 {
+  font-size: 2.2rem;
+  color: var(--primary-blue);
+  margin-bottom: 1.5rem;
+}
+
+.content-section {
+  margin-bottom: 2.5rem;
+  scroll-margin-top: 80px; /* Evita que el header tape el título al hacer ancla. */
+}
+
+.content-section h2 {
+  font-size: 1.6rem;
+  color: var(--text-main);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--primary-blue);
+}
+
+.content-section h3 {
+  font-size: 1.25rem;
+  margin: 1.5rem 0 0.5rem 0;
+  color: var(--primary-blue);
+}
+
+.content-section h4 {
+  font-size: 1.1rem;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.content-section > p + .example-block,
+.content-section > p + .exercise-block {
+  margin-top: 1rem;
+}
+
+
+
+/* ========================================================================== 
+   05. BADGES DE NAVEGACIÓN RÁPIDA
+   ========================================================================== */
+
+.section-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.badge-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #dbeafe;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.badge-link:hover,
+.badge-link.active {
+  background: var(--primary-blue);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+
+
+.section-badges a:hover {
+  background: var(--primary-blue);
+  color: #ffffff;
+}
+
+
+/* ========================================================================== 
+   06. LISTAS Y TEXTO DE APOYO
+   ========================================================================== */
+
+.custom-list,
+.custom-ordered-list,
+.good-practices-list {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.custom-list li,
+.custom-ordered-list li,
+.good-practices-list li {
+  margin-bottom: 0.4rem;
+}
+
+.inline-code-highlight {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+body.dark-theme .inline-code-highlight,
+body.dark-mode .inline-code-highlight {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.question-badge {
+  display: inline-block;
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+
+/* ========================================================================== 
+   07. BLOQUES DE CÓDIGO
+   ========================================================================== */
+
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.95rem;
+}
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+
+pre code {
+  color: inherit;
+  background: transparent;
+}
+
+pre.code-js,
+pre.code-html,
+pre.code-bash {
+  padding: 1.2rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+.code-js {
+  border-left: 4px solid #f7df1e;
+}
+
+.code-html {
+  border-left: 4px solid #e34c26;
+}
+
+.code-bash {
+  border-left: 4px solid #4caf50;
+}
+
+.content-section pre,
+.exercise-card pre {
+  padding: 1.2rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.example-block pre {
+  margin-top: 0.5rem;
+}
+
+
+/* ========================================================================== 
+   08. CAJAS DIDÁCTICAS Y BLOQUES SEMÁNTICOS
+   ========================================================================== */
+
+.note-box,
+.warning-box,
+.good-practice-box,
+.error-card,
+.concept-box,
+.example-block,
+.exercise-block,
+.flow-box {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+}
+
+.note-box,
+.warning-box,
+.good-practice-box,
+.error-card,
+.concept-box,
+.example-block,
+.exercise-block {
+  padding: 1rem 1.2rem;
+}
+
+/* Cabeceras automáticas de las cajas. */
+.note-box::before,
+.warning-box::before,
+.example-block::before,
+.exercise-block::before,
+.concept-box::before {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  opacity: 0.8;
+}
+
+.note-box::before { content: "📘 Nota"; }
+.warning-box::before { content: "⚠️ Atención"; }
+.example-block::before { content: "💻 Ejemplo"; }
+.exercise-block::before { content: "🧩 Ejercicio"; }
+.concept-box::before { content: "🧠 Concepto"; }
+
+/* Nota: se aplica a cualquier .note-box, no solo a blockquote.note-box. */
+.note-box,
+blockquote.note-box {
+  background-color: var(--note-bg);
+  color: var(--note-text);
+  border-left: 5px solid var(--note-color);
+}
+
+.note-box p,
+.note-box li,
+.note-box strong,
+.note-box em,
+.note-box code {
+  color: inherit;
+}
+
+.warning-box {
+  background-color: var(--warning-bg);
+  color: var(--warning-text);
+  border-left: 5px solid var(--warning-color);
+}
+
+.warning-box p,
+.warning-box li,
+.warning-box strong,
+.warning-box em,
+.warning-box code {
+  color: inherit;
+}
+
+.good-practice-box p,
+.good-practice-box li,
+.good-practice-box strong,
+.good-practice-box em,
+.good-practice-box code,
+.error-card p,
+.error-card li,
+.error-card strong,
+.error-card em,
+.error-card code,
+.concept-box p,
+.concept-box li,
+.concept-box strong,
+.concept-box em,
+.concept-box code,
+.example-block p,
+.example-block li,
+.example-block strong,
+.example-block em,
+.example-block code,
+.exercise-block p,
+.exercise-block li,
+.exercise-block strong,
+.exercise-block em,
+.exercise-block code {
+  color: inherit;
+}
+
+.good-practice-box,
+.good-practices-list {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+  border-left: 5px solid var(--success-color);
+}
+
+.good-practices-list {
+  padding: 1rem 1.2rem;
+}
+
+.error-card {
+  background-color: var(--danger-bg);
+  color: var(--danger-text);
+  border-left: 5px solid var(--danger-color);
+}
+
+.concept-box {
+  background-color: var(--concept-bg);
+  color: var(--concept-text);
+  border-left: 4px solid var(--concept-color);
+}
+
+.example-block {
+  background: var(--example-bg);
+  color: var(--example-text);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--example-color);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.exercise-block {
+  background: linear-gradient(180deg, var(--exercise-bg), var(--exercise-bg-end));
+  color: var(--exercise-text);
+  border: 1px solid var(--border-color);
+  border-left: 6px solid var(--exercise-color);
+  border-radius: 8px;
+  padding: 1.3rem 1.4rem;
+  margin: 2.2rem 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+  position: relative;
+}
+
+
+/* Indicador visual tipo CTA. */
+.exercise-block::after {
+  content: "→ Resuelve este ejercicio";
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+  opacity: 0.8;
+}
+
+
+.example-block:hover,
+.exercise-block:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.exercise-block::before {
+  color: #1e3a8a;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+
+body.dark-theme .exercise-block::before,
+body.dark-mode .exercise-block::before {
+  color: #93c5fd;
+  content: "🧩 Ejercicio";
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+
+/* El gradiente del ejercicio cambia mediante variables en modo oscuro. */
+
+
+.exercise-block h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  color: var(--exercise-color);
+}
+
+
+.exercise-block p {
+  margin-bottom: 0.6rem;
+}
+
+.exercise-block ul {
+  margin-top: 0.4rem;
+}
+
+.exercise-block.important {
+  background: var(--exercise-important-bg);
+  border-left-color: var(--exercise-important-color);
+}
+
+
+.example-block,
+.note-box,
+.concept-box {
+  border-left-width: 3px;
+}
+
+.exercise-block {
+  border-left-width: 6px;
+}
+
+
+.flow-box {
+  border: 2px dashed var(--primary-blue);
+  padding: 1rem;
+}
+
+/* El código dentro de cajas mantiene su propio contraste. */
+.note-box pre,
+.warning-box pre,
+.example-block pre,
+.exercise-block pre,
+.note-box pre code,
+.warning-box pre code,
+.example-block pre code,
+.exercise-block pre code {
+  background-color: var(--code-bg);
+  color: var(--code-text);
+}
+
+
+/* ========================================================================== 
+   09. TABLAS Y CONTENEDORES COMPACTOS
+   ========================================================================== */
+
+.comparison-table {
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.compact-table-container {
+  max-width: 600px;
+  margin: 1.5rem auto;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: var(--bg-surface);
+}
+
+.compact-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.compact-table-container th,
+.compact-table-container td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.compact-table-container th {
+  background-color: var(--light-blue);
+  color: var(--dark-blue);
+}
+
+body.dark-theme .compact-table-container th,
+body.dark-mode .compact-table-container th {
+  background-color: var(--bg-surface-dark);
+  color: var(--text-main);
+}
+
+
+/* ========================================================================== 
+   10. FOOTER
+   ========================================================================== */
+
+.main-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  padding: 1.5rem 2rem;
+  margin-top: 4rem;
+}
+
+.footer-text p {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.footer-img {
+  height: 50px;
+  opacity: 0.8;
+}
+
+
+/* ========================================================================== 
+   11. COMPONENTES ESPECIALES PARA PRÁCTICAS GLOBALIZADORAS
+   ========================================================================== */
+
+.header-celebration {
+  background: linear-gradient(-45deg, #0f172a, #1e3a8a, #3b0764, #1d4ed8);
+  background-size: 400% 400%;
+  animation: gradientFestival 15s ease infinite;
+  border: 2px solid #fbbf24;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 0 15px rgba(251, 191, 36, 0.2);
+  position: relative;
+  overflow: hidden;
+  padding: 3.5rem 2.5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.header-celebration div {
+  margin-bottom: 1.5rem;
+}
+
+.header-celebration h1 {
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  font-size: 2.2rem;
+  line-height: 1.3;
+}
+
+.header-celebration .lead-text {
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  line-height: 1.6;
+}
+
+@keyframes gradientFestival {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.badge-finish {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.4);
+}
+
+.phase-card {
+  border-left: 6px solid transparent;
+  border-image: linear-gradient(to bottom, #3b82f6, #8b5cf6, #ec4899) 1;
+  background: rgba(30, 41, 59, 0.03);
+  padding-left: 2rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.dark-theme .phase-card,
+body.dark-mode .phase-card {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.phase-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.phase-card ol,
+.phase-card ul {
+  padding-left: 1.5rem;
+  margin-left: 0;
+}
+
+.phase-card li {
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.premium-reflection-box {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border: 2px dashed #d97706;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 15px rgba(217, 119, 6, 0.1);
+}
+
+body.dark-theme .premium-reflection-box,
+body.dark-mode .premium-reflection-box {
+  background: linear-gradient(135deg, #1e1b4b, #120d2c);
+  border: 2px dashed #818cf8;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+}
+
+.premium-reflection-box h4 {
+  color: #b45309;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+body.dark-theme .premium-reflection-box h4,
+body.dark-mode .premium-reflection-box h4 {
+  color: #a5b4fc;
+}
+
+.premium-reflection-box ol {
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.premium-reflection-box li {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.festival-divider {
+  border: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #fbbf24, #f59e0b, #fbbf24, transparent);
+  margin: 3rem 0;
+}
+
+
+
+/* ========================================================================== 
+   12. ACCESIBILIDAD BÁSICA
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    scroll-behavior: auto;
+    transition-duration: 0.01ms;
+  }
+}
+
+
+/* ========================================================================== 
+   13. AJUSTES RESPONSIVE BÁSICOS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .main-header {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .main-nav .nav-menu {
+    flex-wrap: wrap;
+  }
+
+  .submenu,
+  .submenu .submenu-item:hover > .submenu.level-2 {
+    position: static;
+    min-width: 100%;
+  }
+
+  .content-header h1,
+  .header-celebration h1 {
+    font-size: 1.7rem;
+  }
+
+  .header-celebration {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .exercise-block::before {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 0.3rem;
+  }
+
+  body.dark-theme .exercise-block::before,
+  body.dark-mode .exercise-block::before {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}

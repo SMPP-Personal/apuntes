@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UD2_B1. Práctica guiada: arrays de objetos en JavaScript</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+  <script src="../../assets/js/smpp.js" defer></script>
+</head>
+<body>
+  <div class="smpp-scope">
+    <main class="main-content has-sidebar guided-practice-page">
+      <div class="content-layout">
+        <aside class="section-sidebar">
+          <nav class="section-nav" aria-label="Índice del documento">
+            <p class="section-nav-title"><i class="bi bi-signpost-split" aria-hidden="true"></i> Guía de la práctica</p>
+            <ul class="section-nav-list"><li><a class="section-nav-link" href="#1-objetivo-de-la-practica"><i class="bi bi-bullseye" aria-hidden="true"></i><span>1. Objetivo de la práctica</span></a></li><li><a class="section-nav-link" href="#2-escenario-de-trabajo"><i class="bi bi-shop" aria-hidden="true"></i><span>2. Escenario de trabajo</span></a></li><li><a class="section-nav-link" href="#3-archivos-de-trabajo"><i class="bi bi-folder2-open" aria-hidden="true"></i><span>3. Archivos de trabajo</span></a></li><li><a class="section-nav-link" href="#4-datos-iniciales"><i class="bi bi-database" aria-hidden="true"></i><span>4. Datos iniciales</span></a></li><li><a class="section-nav-link" href="#5-parte-1-explorar-el-array-de-objetos"><i class="bi bi-search" aria-hidden="true"></i><span>5. Parte 1: explorar el array de objetos</span></a></li><li><a class="section-nav-link" href="#6-parte-2-transformar-datos-con-map"><i class="bi bi-arrow-repeat" aria-hidden="true"></i><span>6. Parte 2: transformar datos con map</span></a></li><li><a class="section-nav-link" href="#7-parte-3-seleccionar-datos-con-filter"><i class="bi bi-funnel" aria-hidden="true"></i><span>7. Parte 3: seleccionar datos con filter</span></a></li><li><a class="section-nav-link" href="#8-parte-4-acumular-datos-con-reduce"><i class="bi bi-calculator" aria-hidden="true"></i><span>8. Parte 4: acumular datos con reduce</span></a></li><li><a class="section-nav-link" href="#9-parte-5-buscar-datos-con-find-some-y-every"><i class="bi bi-search-heart" aria-hidden="true"></i><span>9. Parte 5: buscar datos con find , some y every</span></a></li><li><a class="section-nav-link" href="#10-parte-6-ordenar-con-sort"><i class="bi bi-sort-numeric-down" aria-hidden="true"></i><span>10. Parte 6: ordenar con sort</span></a></li><li><a class="section-nav-link" href="#11-parte-7-destructuring-y-spread"><i class="bi bi-boxes" aria-hidden="true"></i><span>11. Parte 7: destructuring y spread</span></a></li><li><a class="section-nav-link" href="#12-parte-8-json"><i class="bi bi-filetype-json" aria-hidden="true"></i><span>12. Parte 8: JSON</span></a></li><li><a class="section-nav-link" href="#13-parte-9-funcion-integradora"><i class="bi bi-diagram-3" aria-hidden="true"></i><span>13. Parte 9: función integradora</span></a></li><li><a class="section-nav-link" href="#14-parte-10-corrige-errores-frecuentes"><i class="bi bi-bug" aria-hidden="true"></i><span>14. Parte 10: corrige errores frecuentes</span></a></li><li><a class="section-nav-link" href="#15-entrega"><i class="bi bi-box-arrow-up" aria-hidden="true"></i><span>15. Entrega</span></a></li><li><a class="section-nav-link" href="#16-lista-de-comprobacion-antes-de-entregar"><i class="bi bi-check2-square" aria-hidden="true"></i><span>16. Lista de comprobación antes de entregar</span></a></li><li><a class="section-nav-link" href="#17-rubrica-orientativa"><i class="bi bi-clipboard-data" aria-hidden="true"></i><span>17. Rúbrica orientativa</span></a></li><li><a class="section-nav-link" href="#18-contenidos-que-no-forman-parte-de-esta-practica"><i class="bi bi-slash-circle" aria-hidden="true"></i><span>18. Contenidos que no forman parte de esta práctica</span></a></li><li><a class="section-nav-link" href="#19-resumen-final"><i class="bi bi-check2-circle" aria-hidden="true"></i><span>19. Resumen final</span></a></li></ul>
+          </nav>
+        </aside>
+
+        <div class="content-wrapper">
+          <div class="document-toolbar">
+            <a class="document-home-link" href="../../index.html">
+              <i class="bi bi-house-door" aria-hidden="true"></i>
+              Índice del curso
+            </a>
+            <button id="theme-toggle" class="document-theme-toggle" type="button">
+              <i class="bi bi-moon-stars" aria-hidden="true"></i>
+              Modo oscuro
+            </button>
+          </div>
+
+          <header class="content-header">
+            <span class="document-kicker"><i class="bi bi-signpost-2" aria-hidden="true"></i> Práctica guiada · UD2 B1</span>
+            <h1><span class="document-title-icon" aria-hidden="true"><i class="bi bi-boxes"></i></span> UD2_B1. Práctica guiada: arrays de objetos en JavaScript</h1>
+            <p class="lead-text">Procesamiento de una colección de productos mediante arrays de objetos, funciones y métodos avanzados, sin utilizar todavía el DOM.</p>
+          </header>
+
+<section class="content-section learning-objectives-section" id="1-objetivo-de-la-practica"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la práctica</h2><p>En esta práctica vas a trabajar con una colección de datos representada mediante un <strong>array de objetos</strong>.</p><p>El objetivo no es crear una página web ni manipular el DOM todavía. En este bloque seguimos trabajando con JavaScript avanzado <strong>sin DOM</strong>, usando la consola para comprobar los resultados.</p><p>Al finalizar la práctica deberías ser capaz de:</p><ul class="custom-list">
+<li>crear objetos literales;</li>
+<li>guardar varios objetos dentro de un array;</li>
+<li>acceder a propiedades de objetos;</li>
+<li>recorrer arrays de objetos;</li>
+<li>usar <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code>, <code>some</code> y <code>every</code> sobre arrays de objetos;</li>
+<li>ordenar arrays con <code>sort()</code> y función de comparación;</li>
+<li>usar destructuring y spread en ejemplos sencillos;</li>
+<li>convertir datos a JSON con <code>JSON.stringify()</code> y recuperarlos con <code>JSON.parse()</code>;</li>
+<li>organizar el código en funciones reutilizables.</li>
+</ul><hr/></section>
+<section class="content-section concept-section" id="2-escenario-de-trabajo"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shop"></i></span> 2. Escenario de trabajo</h2><p>Vas a crear un pequeño sistema de análisis de productos de una tienda.</p><p>Cada producto tendrá esta información:</p><ul class="custom-list">
+<li><code>id</code>: identificador numérico;</li>
+<li><code>nombre</code>: nombre del producto;</li>
+<li><code>categoria</code>: categoría del producto;</li>
+<li><code>precio</code>: precio en euros;</li>
+<li><code>stock</code>: unidades disponibles;</li>
+<li><code>activo</code>: indica si el producto está disponible para la venta.</li>
+</ul><p>Ejemplo de producto:</p><div class="example-block"><pre class="code-js"><code>const producto = {
+  id: 1,
+  nombre: "Teclado",
+  categoria: "periféricos",
+  precio: 29.99,
+  stock: 12,
+  activo: true
+};
+</code></pre></div><hr/></section>
+<section class="content-section flow-section" id="3-archivos-de-trabajo"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-folder2-open"></i></span> 3. Archivos de trabajo</h2><p>Crea una carpeta llamada:</p><div class="example-block"><pre class="code-text"><code>UD2_B1_practica_arrays_objetos
+</code></pre></div><p>Dentro de ella crea un archivo:</p><div class="example-block"><pre class="code-text"><code>practica_arrays_objetos.js
+</code></pre></div><p>Puedes ejecutar el código de dos formas:</p><ul class="custom-list">
+<li>desde la consola del navegador, enlazando el <code>.js</code> a un HTML sencillo;</li>
+<li>o desde Node.js, si ya lo tienes configurado.</li>
+</ul><p>Si usas HTML, puedes crear este archivo mínimo:</p><div class="example-block"><pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Práctica arrays de objetos&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Práctica arrays de objetos&lt;/h1&gt;
+  &lt;script src="practica_arrays_objetos.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><hr/></section>
+<section class="content-section flow-section" id="4-datos-iniciales"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-database"></i></span> 4. Datos iniciales</h2><p>Copia este array al inicio de tu archivo JavaScript:</p><div class="example-block"><pre class="code-js"><code>const productos = [
+  {
+    id: 1,
+    nombre: "Teclado",
+    categoria: "periféricos",
+    precio: 29.99,
+    stock: 12,
+    activo: true
+  },
+  {
+    id: 2,
+    nombre: "Ratón",
+    categoria: "periféricos",
+    precio: 14.5,
+    stock: 0,
+    activo: true
+  },
+  {
+    id: 3,
+    nombre: "Monitor 24 pulgadas",
+    categoria: "pantallas",
+    precio: 159.99,
+    stock: 5,
+    activo: true
+  },
+  {
+    id: 4,
+    nombre: "Cable HDMI",
+    categoria: "cables",
+    precio: 7.99,
+    stock: 30,
+    activo: true
+  },
+  {
+    id: 5,
+    nombre: "Webcam",
+    categoria: "periféricos",
+    precio: 49.99,
+    stock: 3,
+    activo: false
+  },
+  {
+    id: 6,
+    nombre: "Portátil básico",
+    categoria: "ordenadores",
+    precio: 499.99,
+    stock: 2,
+    activo: true
+  }
+];
+</code></pre></div><hr/></section>
+<section class="content-section guided-exercises-section" id="5-parte-1-explorar-el-array-de-objetos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-search"></i></span> 5. Parte 1: explorar el array de objetos</h2><div class="exercise-block"><h3>Ejercicio 1. Mostrar todos los productos</h3><p>Muestra por consola el array completo:</p><div class="example-block"><pre class="code-js"><code>console.log(productos);
+</code></pre></div><p>Después responde en un comentario del código:</p><div class="example-block"><pre class="code-js"><code>// ¿Cuántos productos hay en el array?
+// ¿Qué propiedades tiene cada producto?
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 2. Acceder a propiedades concretas</h3><p>Muestra por consola:</p><ol class="custom-ordered-list">
+<li>El nombre del primer producto.</li>
+<li>El precio del segundo producto.</li>
+<li>La categoría del último producto usando <code>productos.length - 1</code>.</li>
+</ol><p>Ejemplo de acceso:</p><div class="example-block"><pre class="code-js"><code>console.log(productos[0].nombre);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 3. Recorrer con <code>forEach</code></h3><p>Usa <code>forEach</code> para mostrar una línea por cada producto con este formato:</p><div class="example-block"><pre class="code-text"><code>Teclado - 29.99 €
+Ratón - 14.5 €
+Monitor 24 pulgadas - 159.99 €
+</code></pre></div><p>Pista:</p><div class="example-block"><pre class="code-js"><code>productos.forEach((producto) =&gt; {
+  console.log(producto.nombre + " - " + producto.precio + " €");
+});
+</code></pre></div><hr/></div></section>
+<section class="content-section guided-exercises-section" id="6-parte-2-transformar-datos-con-map"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-repeat"></i></span> 6. Parte 2: transformar datos con <code>map</code></h2><div class="exercise-block"><h3>Ejercicio 4. Obtener solo los nombres</h3><p>Crea un nuevo array llamado <code>nombresProductos</code> que contenga únicamente los nombres de los productos.</p><p>Resultado esperado aproximado:</p><div class="example-block"><pre class="code-js"><code>["Teclado", "Ratón", "Monitor 24 pulgadas", "Cable HDMI", "Webcam", "Portátil básico"]
+</code></pre></div><p>Pista:</p><div class="example-block"><pre class="code-js"><code>const nombresProductos = productos.map((producto) =&gt; {
+  return producto.nombre;
+});
+
+console.log(nombresProductos);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 5. Crear mensajes descriptivos</h3><p>Crea un nuevo array llamado <code>mensajesProductos</code> con textos del tipo:</p><div class="example-block"><pre class="code-text"><code>El producto Teclado cuesta 29.99 €.
+</code></pre></div><p>Usa <code>map</code>.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 6. Crear productos con IVA</h3><p>Crea un nuevo array llamado <code>productosConIVA</code>.</p><p>Cada elemento debe ser un objeto nuevo que mantenga los datos del producto original y añada una nueva propiedad:</p><div class="example-block"><pre class="code-js"><code>precioConIVA
+</code></pre></div><p>El IVA será del 21%.</p><p>Pista con spread:</p><div class="example-block"><pre class="code-js"><code>const productosConIVA = productos.map((producto) =&gt; {
+  return {
+    ...producto,
+    precioConIVA: producto.precio * 1.21
+  };
+});
+
+console.log(productosConIVA);
+</code></pre></div><blockquote class="warning-box">
+<p><strong>Importante:</strong> para conservar <code>precioConIVA</code> como número, guarda el cálculo sin aplicar <code>.toFixed()</code>. Usa <code>.toFixed(2)</code> únicamente cuando muestres el precio por consola, ya que este método devuelve una cadena de texto.</p>
+</blockquote><hr/></div></section>
+<section class="content-section guided-exercises-section" id="7-parte-3-seleccionar-datos-con-filter"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-funnel"></i></span> 7. Parte 3: seleccionar datos con <code>filter</code></h2><div class="exercise-block"><h3>Ejercicio 7. Productos con stock</h3><p>Crea un array llamado <code>productosConStock</code> con los productos cuyo <code>stock</code> sea mayor que 0.</p><div class="example-block"><pre class="code-js"><code>const productosConStock = productos.filter((producto) =&gt; {
+  return producto.stock &gt; 0;
+});
+
+console.log(productosConStock);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 8. Productos activos</h3><p>Crea un array llamado <code>productosActivos</code> con los productos que tengan <code>activo</code> igual a <code>true</code>.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 9. Productos caros</h3><p>Crea un array llamado <code>productosCaros</code> con los productos cuyo precio sea mayor o igual que 100.</p><p>Después muestra cuántos productos caros hay usando <code>.length</code>.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 10. Productos por categoría</h3><p>Crea una función llamada <code>filtrarPorCategoria</code> que reciba un array de productos y una categoría. La función debe devolver los productos de esa categoría.</p><div class="example-block"><pre class="code-js"><code>function filtrarPorCategoria(listaProductos, categoria) {
+  return listaProductos.filter((producto) =&gt; {
+    return producto.categoria === categoria;
+  });
+}
+
+console.log(filtrarPorCategoria(productos, "periféricos"));
+</code></pre></div><p>Prueba la función con varias categorías. Al recibir el array como parámetro, la función se puede reutilizar con otras listas de productos.</p><hr/></div></section>
+<section class="content-section guided-exercises-section" id="8-parte-4-acumular-datos-con-reduce"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-calculator"></i></span> 8. Parte 4: acumular datos con <code>reduce</code></h2><div class="exercise-block"><h3>Ejercicio 11. Calcular el valor total del inventario</h3><p>El valor de inventario de un producto se calcula así:</p><div class="example-block"><pre class="code-text"><code>precio * stock
+</code></pre></div><p>Crea una constante <code>valorInventario</code> que sume el valor total de todos los productos.</p><p>Pista:</p><div class="example-block"><pre class="code-js"><code>const valorInventario = productos.reduce((acumulador, producto) =&gt; {
+  return acumulador + producto.precio * producto.stock;
+}, 0);
+
+console.log(valorInventario);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 12. Calcular el stock total</h3><p>Usa <code>reduce</code> para calcular cuántas unidades hay en total entre todos los productos.</p><p>Resultado esperado:</p><div class="example-block"><pre class="code-text"><code>Total de unidades en stock: X
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 13. Precio medio de los productos</h3><p>Calcula el precio medio de todos los productos.</p><p>Pasos recomendados:</p><ol class="custom-ordered-list">
+<li>Usa <code>reduce</code> para sumar todos los precios.</li>
+<li>Divide la suma entre <code>productos.length</code>.</li>
+<li>Muestra el resultado con dos decimales.</li>
+</ol><hr/></div></section>
+<section class="content-section guided-exercises-section" id="9-parte-5-buscar-datos-con-find-some-y-every"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-search-heart"></i></span> 9. Parte 5: buscar datos con <code>find</code>, <code>some</code> y <code>every</code></h2><div class="exercise-block"><h3>Ejercicio 14. Buscar un producto por identificador</h3><p>Crea una función llamada <code>buscarPorId</code> que reciba un array de productos y un <code>id</code>. La función debe devolver el producto correspondiente.</p><div class="example-block"><pre class="code-js"><code>function buscarPorId(listaProductos, id) {
+  return listaProductos.find((producto) =&gt; {
+    return producto.id === id;
+  });
+}
+
+const productoEncontrado = buscarPorId(productos, 3);
+
+if (productoEncontrado !== undefined) {
+  console.log(productoEncontrado);
+} else {
+  console.log("Producto no encontrado");
+}
+</code></pre></div><p>Prueba también con un <code>id</code> que no exista y comprueba que se muestra el mensaje correspondiente.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 15. Comprobar si hay productos sin stock</h3><p>Usa <code>some</code> para comprobar si existe al menos un producto con <code>stock</code> igual a 0.</p><div class="example-block"><pre class="code-js"><code>const hayProductosSinStock = productos.some((producto) =&gt; {
+  return producto.stock === 0;
+});
+
+console.log(hayProductosSinStock);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 16. Comprobar si todos los productos tienen precio válido</h3><p>Usa <code>every</code> para comprobar que todos los productos tienen un precio mayor que 0.</p><hr/></div></section>
+<section class="content-section guided-exercises-section" id="10-parte-6-ordenar-con-sort"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-sort-numeric-down"></i></span> 10. Parte 6: ordenar con <code>sort</code></h2><div class="exercise-block"><h3>Ejercicio 17. Ordenar productos por precio ascendente</h3><p>Crea una copia del array antes de ordenar, para no modificar directamente el array original.</p><div class="example-block"><pre class="code-js"><code>const productosOrdenadosPorPrecio = [...productos].sort((a, b) =&gt; {
+  return a.precio - b.precio;
+});
+
+console.log(productosOrdenadosPorPrecio);
+</code></pre></div><p>Comprueba después que <code>productos</code> sigue existiendo como array original.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 18. Ordenar productos por stock descendente</h3><p>Crea un nuevo array con los productos ordenados de mayor a menor stock.</p><p>Pista:</p><div class="example-block"><pre class="code-js"><code>return b.stock - a.stock;
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 19. Ordenar productos por nombre</h3><p>Crea una copia del array y ordénala alfabéticamente por nombre usando <code>localeCompare</code>.</p><p>Pista:</p><div class="example-block"><pre class="code-js"><code>const productosOrdenadosPorNombre = [...productos].sort((a, b) =&gt; {
+  return a.nombre.localeCompare(b.nombre);
+});
+</code></pre></div><hr/></div></section>
+<section class="content-section guided-exercises-section" id="11-parte-7-destructuring-y-spread"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-boxes"></i></span> 11. Parte 7: destructuring y spread</h2><div class="exercise-block"><h3>Ejercicio 20. Destructuring de un objeto</h3><p>Toma el primer producto y extrae sus propiedades <code>nombre</code>, <code>precio</code> y <code>stock</code> mediante destructuring.</p><div class="example-block"><pre class="code-js"><code>const { nombre, precio, stock } = productos[0];
+
+console.log(nombre);
+console.log(precio);
+console.log(stock);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 21. Renombrar variables con destructuring</h3><p>Extrae el nombre y el precio del segundo producto, pero renombra las variables así:</p><div class="example-block"><pre class="code-js"><code>const { nombre: nombreProducto, precio: precioProducto } = productos[1];
+</code></pre></div><p>Muestra ambas variables por consola.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 22. Crear una copia modificada de un producto</h3><p>Crea una copia del primer producto, pero con el precio actualizado a <code>34.99</code>.</p><div class="example-block"><pre class="code-js"><code>const productoActualizado = {
+  ...productos[0],
+  precio: 34.99
+};
+
+console.log(productos[0]);
+console.log(productoActualizado);
+</code></pre></div><p>Comprueba que el producto original no se ha modificado.</p><hr/></div></section>
+<section class="content-section guided-exercises-section" id="12-parte-8-json"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-json"></i></span> 12. Parte 8: JSON</h2><div class="exercise-block"><h3>Ejercicio 23. Convertir el array a texto JSON</h3><p>Convierte el array <code>productos</code> a texto JSON usando <code>JSON.stringify()</code>.</p><div class="example-block"><pre class="code-js"><code>const productosJSON = JSON.stringify(productos);
+console.log(productosJSON);
+</code></pre></div><p>Responde en un comentario:</p><div class="example-block"><pre class="code-js"><code>// ¿Qué diferencia ves entre el array original y el texto JSON?
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 24. Recuperar datos desde JSON</h3><p>Convierte el texto JSON anterior de nuevo a un array de objetos usando <code>JSON.parse()</code>.</p><div class="example-block"><pre class="code-js"><code>const productosRecuperados = JSON.parse(productosJSON);
+console.log(productosRecuperados);
+</code></pre></div><p>Comprueba que puedes acceder al nombre del primer producto recuperado.</p><hr/></div></section>
+<section class="content-section guided-exercises-section" id="13-parte-9-funcion-integradora"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 13. Parte 9: función integradora</h2><div class="exercise-block"><h3>Ejercicio 25. Informe de productos</h3><p>Crea una función llamada <code>generarInformeProductos</code> que reciba un array de productos y devuelva un objeto con esta información:</p><p>Con los datos iniciales de esta práctica, el resultado debe ser aproximadamente:</p><div class="example-block"><pre class="code-js"><code>{
+  totalProductos: 6,
+  productosActivos: 5,
+  productosSinStock: 1,
+  valorInventario: 2549.48,
+  precioMedio: 127.075
+}
+</code></pre></div><p>Al mostrar el precio medio por consola, puedes formatearlo con dos decimales para obtener <code>127.08</code>. Dentro del objeto conviene conservar el valor como número.</p><p>Requisitos:</p><ul class="custom-list">
+<li>usa <code>.length</code> para el total;</li>
+<li>usa <code>filter</code> para contar productos activos;</li>
+<li>usa <code>filter</code> para contar productos sin stock;</li>
+<li>usa <code>reduce</code> para calcular el valor del inventario;</li>
+<li>usa <code>reduce</code> para calcular el precio medio;</li>
+<li>devuelve un objeto con los resultados.</li>
+</ul><p>Estructura orientativa:</p><div class="example-block"><pre class="code-js"><code>function generarInformeProductos(listaProductos) {
+  const totalProductos = listaProductos.length;
+
+  const productosActivos = listaProductos.filter((producto) =&gt; {
+    return producto.activo;
+  }).length;
+
+  const productosSinStock = listaProductos.filter((producto) =&gt; {
+    return producto.stock === 0;
+  }).length;
+
+  const valorInventario = listaProductos.reduce((acumulador, producto) =&gt; {
+    return acumulador + producto.precio * producto.stock;
+  }, 0);
+
+  const sumaPrecios = listaProductos.reduce((acumulador, producto) =&gt; {
+    return acumulador + producto.precio;
+  }, 0);
+
+  const precioMedio =
+    totalProductos === 0
+      ? null
+      : sumaPrecios / totalProductos;
+
+  return {
+    totalProductos,
+    productosActivos,
+    productosSinStock,
+    valorInventario,
+    precioMedio
+  };
+}
+
+const informe = generarInformeProductos(productos);
+console.log(informe);
+
+const informeVacio = generarInformeProductos([]);
+console.log(informeVacio);
+</code></pre></div><p>La comprobación con un array vacío evita dividir entre cero. En ese caso, <code>precioMedio</code> debe ser <code>null</code>.</p><hr/></div></section>
+<section class="content-section frequent-errors-section" id="14-parte-10-corrige-errores-frecuentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 14. Parte 10: corrige errores frecuentes</h2><div class="exercise-block important"><h3>Ejercicio 26. <code>map</code> sin <code>return</code></h3><p>El siguiente código no devuelve el resultado esperado:</p><div class="example-block"><pre class="code-js"><code>const precios = productos.map((producto) =&gt; {
+  producto.precio;
+});
+
+console.log(precios);
+</code></pre></div><p>Corrígelo.</p><hr/></div><div class="exercise-block important"><h3>Ejercicio 27. <code>filter</code> con condición incompleta</h3><p>El siguiente código no filtra correctamente:</p><div class="example-block"><pre class="code-js"><code>const disponibles = productos.filter((producto) =&gt; {
+  producto.stock &gt; 0;
+});
+
+console.log(disponibles);
+</code></pre></div><p>Corrígelo.</p><hr/></div><div class="exercise-block important"><h3>Ejercicio 28. <code>sort</code> modificando el array original</h3><p>Este código modifica el array original:</p><div class="example-block"><pre class="code-js"><code>const ordenados = productos.sort((a, b) =&gt; {
+  return a.precio - b.precio;
+});
+</code></pre></div><p>Cámbialo para que primero cree una copia del array y ordene la copia.</p><hr/></div><div class="exercise-block important"><h3>Ejercicio 29. Uso incorrecto de <code>this</code> con función flecha</h3><p>Observa este objeto:</p><div class="example-block"><pre class="code-js"><code>const alumno = {
+  nombre: "Ana",
+  nota: 8,
+  mostrarInfo: () =&gt; {
+    return this.nombre + " tiene un " + this.nota;
+  }
+};
+
+console.log(alumno.mostrarInfo());
+</code></pre></div><p>Corrige el método para que use una función tradicional.</p><hr/></div></section>
+<section class="content-section delivery-section" id="15-entrega"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> 15. Entrega</h2><p>Entrega el archivo:</p><div class="example-block"><pre class="code-text"><code>practica_arrays_objetos.js
+</code></pre></div><p>El archivo debe incluir:</p><ul class="custom-list">
+<li>los datos iniciales;</li>
+<li>todos los ejercicios resueltos;</li>
+<li>comentarios breves explicando las partes más importantes;</li>
+<li>las respuestas conceptuales pedidas en comentarios;</li>
+<li>ausencia de errores de sintaxis en consola.</li>
+</ul><hr/></section>
+<section class="content-section review-section checklist-section" id="16-lista-de-comprobacion-antes-de-entregar"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> 16. Lista de comprobación antes de entregar</h2><p>Antes de entregar, revisa:</p><ul class="checklist-list">
+<li class="task-list-item"><span class="check-marker">[ ]</span>El archivo se ejecuta sin errores de sintaxis.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He usado objetos literales correctamente.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He accedido a propiedades con la notación de punto.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He recorrido arrays de objetos con <code>forEach</code>.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He creado nuevos arrays con <code>map</code>.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He filtrado datos con <code>filter</code>.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He acumulado resultados con <code>reduce</code>.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He buscado elementos con <code>find</code>.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He usado <code>some</code> y <code>every</code> en comprobaciones.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He ordenado copias del array con <code>sort</code>.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He usado destructuring y spread en ejercicios sencillos.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He convertido datos con <code>JSON.stringify()</code> y <code>JSON.parse()</code>.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>He corregido los errores frecuentes propuestos.</li>
+</ul><hr/></section>
+<section class="content-section rubric-section" id="17-rubrica-orientativa"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard-data"></i></span> 17. Rúbrica orientativa</h2><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Criterio</th>
+<th class="numeric-cell">Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Creación y uso correcto de objetos y arrays de objetos</td>
+<td class="numeric-cell">20%</td>
+</tr>
+<tr>
+<td>Uso correcto de <code>forEach</code>, <code>map</code>, <code>filter</code> y <code>reduce</code></td>
+<td class="numeric-cell">25%</td>
+</tr>
+<tr>
+<td>Uso correcto de <code>find</code>, <code>some</code>, <code>every</code> y <code>sort</code></td>
+<td class="numeric-cell">15%</td>
+</tr>
+<tr>
+<td>Uso correcto de destructuring, spread y JSON básico</td>
+<td class="numeric-cell">15%</td>
+</tr>
+<tr>
+<td>Función integradora bien organizada</td>
+<td class="numeric-cell">15%</td>
+</tr>
+<tr>
+<td>Claridad, comentarios, nombres de variables y ausencia de errores</td>
+<td class="numeric-cell">10%</td>
+</tr>
+</tbody>
+</table></div><hr/></section>
+<section class="content-section restrictions-section" id="18-contenidos-que-no-forman-parte-de-esta-practica"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-slash-circle"></i></span> 18. Contenidos que no forman parte de esta práctica</h2><p>Estos contenidos se trabajarán más adelante o en otros bloques de la UD2:</p><ul class="custom-list">
+<li>manipulación del DOM;</li>
+<li>eventos;</li>
+<li>formularios;</li>
+<li>validación con eventos;</li>
+<li><code>fetch</code>;</li>
+<li>promesas;</li>
+<li><code>async/await</code>;</li>
+<li>comunicación asíncrona;</li>
+<li>renderizado de datos en una página web;</li>
+<li>aplicaciones dinámicas completas.</li>
+</ul><hr/></section>
+<section class="content-section summary-section" id="19-resumen-final"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-circle"></i></span> 19. Resumen final</h2><p>En esta práctica has usado arrays de objetos para representar información más parecida a la que aparece en una aplicación real.</p><p>La idea importante es que, cuando los datos empiezan a tener varias propiedades, ya no basta con arrays simples de números o cadenas. En esos casos usamos <strong>objetos</strong> y, cuando tenemos muchos elementos del mismo tipo, usamos <strong>arrays de objetos</strong>.</p><p>Este patrón será fundamental en los siguientes bloques, especialmente cuando trabajemos con DOM, eventos, formularios y datos recibidos desde APIs.</p></section>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

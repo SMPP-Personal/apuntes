@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UD1 · JavaScript Básico – Índice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/[email protected]/font/bootstrap-icons.css"
+    />
+
+    <style>
+      /* Reset básico */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --accent1: #ff9f1c; /* naranja vivo */
+        --accent2: #ff4b5c; /* rojo coral */
+        --accent3: #2ec4b6; /* turquesa suave (para burbujas) */
+        --bg-dark: #050816; /* lo puedes dejar igual */
+        --text-main: #ffffff;
+        --glass-bg: rgba(255, 255, 255, 0.12);
+        --glass-border: rgba(255, 255, 255, 0.35);
+      }
+
+      body {
+        font-family:
+          "Poppins",
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--text-main);
+        min-height: 100vh;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        background:
+          radial-gradient(circle at 0% 0%, #342f73 0, transparent 50%),
+          radial-gradient(circle at 100% 0%, #ff6bcb 0, transparent 55%),
+          radial-gradient(circle at 0% 100%, #2cb67d 0, transparent 50%),
+          radial-gradient(circle at 100% 100%, #16161a 0, #050816 60%);
+        overflow-x: hidden;
+      }
+
+      /* Fondo animado con partículas/“burbujas” */
+      .bg-orbits {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .orbit {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(20px);
+        opacity: 0.6;
+        animation: float 18s infinite ease-in-out alternate;
+        mix-blend-mode: screen;
+      }
+
+      .orbit:nth-child(1) {
+        width: 260px;
+        height: 260px;
+        background: var(--accent1);
+        top: 5%;
+        left: -5%;
+      }
+
+      .orbit:nth-child(2) {
+        width: 320px;
+        height: 320px;
+        background: var(--accent2);
+        bottom: -10%;
+        left: 15%;
+        animation-delay: 3s;
+      }
+
+      .orbit:nth-child(3) {
+        width: 280px;
+        height: 280px;
+        background: var(--accent3);
+        top: 40%;
+        right: -8%;
+        animation-delay: 6s;
+      }
+
+      .orbit:nth-child(4) {
+        width: 220px;
+        height: 220px;
+        background: #ffd56b;
+        bottom: 0;
+        right: 25%;
+        animation-delay: 9s;
+      }
+
+      @keyframes float {
+        from {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        to {
+          transform: translate3d(40px, -40px, 0) scale(1.15);
+        }
+      }
+
+      /* Layout principal */
+      .page {
+        width: 100%;
+        max-width: 1200px;
+        padding: 32px 20px 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .brand-logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--accent1), var(--accent2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      }
+
+      .brand-logo i {
+        font-size: 22px;
+      }
+
+      .brand-text h1 {
+        font-size: 1.3rem;
+        letter-spacing: 0.03em;
+      }
+
+      .brand-text p {
+        font-size: 0.8rem;
+        opacity: 0.76;
+      }
+
+      .header-badge {
+        padding: 6px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: rgba(0, 0, 0, 0.25);
+        font-size: 0.78rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        backdrop-filter: blur(12px);
+      }
+
+      .header-badge span.tag {
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: linear-gradient(120deg, var(--accent1), var(--accent2));
+      }
+
+      /* Hero */
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr);
+        gap: 24px;
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      .hero-main {
+        padding: 24px 22px;
+        border-radius: 24px;
+        background:
+          radial-gradient(
+            circle at 20% 0,
+            rgba(255, 255, 255, 0.15) 0,
+            transparent 55%
+          ),
+          rgba(5, 8, 22, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.65);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-main::before {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background: conic-gradient(
+          from 180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.1),
+          transparent 40%,
+          transparent 100%
+        );
+        mix-blend-mode: screen;
+        animation: spin 26s linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 0.78rem;
+        margin-bottom: 14px;
+      }
+
+      .hero-pill i {
+        color: var(--accent1);
+      }
+
+      .hero-title {
+        font-size: clamp(1.9rem, 3vw, 2.3rem);
+        line-height: 1.2;
+        margin-bottom: 10px;
+      }
+
+      .hero-title span.highlight {
+        background: linear-gradient(120deg, var(--accent1), var(--accent2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero-subtitle {
+        font-size: 0.98rem;
+        max-width: 32rem;
+        opacity: 0.88;
+        margin-bottom: 18px;
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+        font-size: 0.78rem;
+      }
+
+      .hero-meta span {
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .hero-actions a {
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 0.88rem;
+      }
+
+      .btn-primary {
+        padding: 9px 18px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent1), var(--accent2));
+        color: #050816;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: none;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          filter 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px) scale(1.02);
+        filter: brightness(1.05);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      }
+
+      .btn-ghost {
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: var(--text-main);
+        background: rgba(15, 23, 42, 0.4);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .btn-ghost:hover {
+        background: rgba(15, 23, 42, 0.7);
+        transform: translateY(-1px);
+      }
+
+      /* Hero aside: lista de bloques */
+      .hero-aside {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .hero-aside-title {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        opacity: 0.82;
+      }
+
+      .unit-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .unit-card {
+        position: relative;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        overflow: hidden;
+        text-decoration: none;
+        color: var(--text-main);
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease,
+          border-color 0.18s ease,
+          background 0.2s ease;
+      }
+
+      .unit-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          rgba(255, 255, 255, 0.15),
+          transparent 40%,
+          transparent 60%,
+          rgba(255, 255, 255, 0.1)
+        );
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+      }
+
+      .unit-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+        border-color: rgba(255, 255, 255, 0.6);
+        background: rgba(14, 21, 40, 0.9);
+      }
+
+      .unit-card:hover::before {
+        opacity: 1;
+      }
+
+      .unit-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          radial-gradient(
+            circle at 0 0,
+            rgba(255, 255, 255, 0.6),
+            transparent 70%
+          ),
+          rgba(15, 23, 42, 0.88);
+        font-size: 1.2rem;
+      }
+
+      .unit-content {
+        flex: 1;
+      }
+
+      .unit-title {
+        font-size: 0.92rem;
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+
+      .unit-description {
+        font-size: 0.8rem;
+        opacity: 0.8;
+      }
+
+      .unit-meta {
+        font-size: 0.78rem;
+        opacity: 0.78;
+      }
+
+      .unit-chevron {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+
+      /* Grid inferior de “tarjetas de acceso rápido” */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 16px;
+      }
+
+      .tile {
+        position: relative;
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: rgba(8, 12, 30, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .tile-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        opacity: 0.8;
+      }
+
+      .tile-main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .tile h3 {
+        font-size: 1rem;
+      }
+
+      .tile-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          radial-gradient(
+            circle at 0% 0%,
+            rgba(255, 255, 255, 0.7),
+            transparent 70%
+          ),
+          linear-gradient(135deg, var(--accent2), var(--accent1));
+        font-size: 1.4rem;
+      }
+
+      .tile-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 6px;
+      }
+
+      .chip-link {
+        font-size: 0.8rem;
+        text-decoration: none;
+        color: var(--text-main);
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(15, 23, 42, 0.9);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition:
+          background 0.18s ease,
+          transform 0.18s ease,
+          border-color 0.18s ease;
+      }
+
+      .chip-link:hover {
+        background: rgba(30, 64, 175, 0.9);
+        border-color: rgba(255, 255, 255, 0.7);
+        transform: translateY(-1px);
+      }
+
+      footer {
+        margin-top: 8px;
+        font-size: 0.7rem;
+        opacity: 0.7;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-orbits">
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+    </div>
+
+    <main class="page">
+      <header>
+        <div class="brand">
+          <div class="brand-logo">
+            <i class="bi bi-braces-asterisk"></i>
+          </div>
+          <div class="brand-text">
+            <h1>DWCC · JavaScript Básico</h1>
+            <p>CIFP A Carballeira · UD1 · Entorno cliente</p>
+          </div>
+        </div>
+        <div class="header-badge">
+          <span class="tag">2026</span>
+          <span
+            ><i class="bi bi-lightning-charge-fill"></i> Índice interactivo de
+            la unidad</span
+          >
+        </div>
+      </header>
+
+      <section class="hero">
+        <article class="hero-main">
+          <div class="hero-content">
+            <div class="hero-pill">
+              <i class="bi bi-magic"></i>
+              <span>Bienvenida a la unidad · <strong>JS básico</strong></span>
+            </div>
+
+            <h2 class="hero-title">
+              Explora los bloques de la UD1 y empieza a
+              <span class="highlight">programar en JavaScript</span>.
+            </h2>
+
+            <p class="hero-subtitle">
+              Aquí tienes todos los apuntes, ejercicios y prácticas integradoras
+              organizados por bloques. Elige un bloque, abre los recursos y
+              sigue el ritmo propuesto en clase.
+            </p>
+
+            <div class="hero-meta">
+              <span
+                ><i class="bi bi-terminal-fill"></i> Sintaxis, variables,
+                control, funciones y arrays</span
+              >
+              <span
+                ><i class="bi bi-moon-stars-fill"></i> Modo oscuro · Efectos y
+                animaciones</span
+              >
+            </div>
+
+            <div class="hero-actions">
+              <a
+                href="B01_Entorno_de_trabajo/B01_Apuntes_Introduccion_y_entorno.html"
+                class="btn-primary"
+              >
+                <i class="bi bi-play-fill"></i>
+                Empezar por el bloque 1
+              </a>
+              <a href="#bloques" class="btn-ghost">
+                <i class="bi bi-grid-3x3-gap-fill"></i>
+                Ver todos los bloques
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <aside class="hero-aside" id="bloques">
+          <h3 class="hero-aside-title">Bloques de la unidad</h3>
+          <nav class="unit-list">
+            <a
+              class="unit-card"
+              href="B01_Entorno_de_trabajo/B01_Apuntes_Introduccion_y_entorno.html"
+            >
+              <div class="unit-icon">
+                <i class="bi bi-compass"></i>
+              </div>
+              <div class="unit-content">
+                <div class="unit-title">B01 · Entorno de trabajo</div>
+                <div class="unit-description">
+                  Introducción, herramientas, consola y primer contacto con JS.
+                </div>
+                <div class="unit-meta">Apuntes + ejercicios iniciales</div>
+              </div>
+              <div class="unit-chevron">
+                <i class="bi bi-chevron-right"></i>
+              </div>
+            </a>
+
+            <a
+              class="unit-card"
+              href="B02_Sintaxis_variables_y_tipos/B02_Apuntes_Sintaxis_variables_y_tipos.html"
+            >
+              <div class="unit-icon">
+                <i class="bi bi-braces"></i>
+              </div>
+              <div class="unit-content">
+                <div class="unit-title">B02 · Sintaxis, variables y tipos</div>
+                <div class="unit-description">
+                  Sintaxis básica, declaración de variables y tipos primitivos.
+                </div>
+                <div class="unit-meta">Apuntes + ejercicios guiados</div>
+              </div>
+              <div class="unit-chevron">
+                <i class="bi bi-chevron-right"></i>
+              </div>
+            </a>
+
+            <a
+              class="unit-card"
+              href="B03_Estructuras_de_control/B03_Apuntes_Operadores_condicionales_y_bucles.html"
+            >
+              <div class="unit-icon">
+                <i class="bi bi-diagram-3-fill"></i>
+              </div>
+              <div class="unit-content">
+                <div class="unit-title">B03 · Estructuras de control</div>
+                <div class="unit-description">
+                  Condicionales, bucles y operadores para controlar el flujo.
+                </div>
+                <div class="unit-meta">Apuntes + ejercicios de práctica</div>
+              </div>
+              <div class="unit-chevron">
+                <i class="bi bi-chevron-right"></i>
+              </div>
+            </a>
+
+            <a
+              class="unit-card"
+              href="B04_Funciones/B04_Apuntes_Funciones_basicas.html"
+            >
+              <div class="unit-icon">
+                <i class="bi bi-cpu-fill"></i>
+              </div>
+              <div class="unit-content">
+                <div class="unit-title">B04 · Funciones</div>
+                <div class="unit-description">
+                  Declaración, parámetros, retorno y tipos de funciones.
+                </div>
+                <div class="unit-meta">
+                  Apuntes básicos + avanzados + práctica integradora
+                </div>
+              </div>
+              <div class="unit-chevron">
+                <i class="bi bi-chevron-right"></i>
+              </div>
+            </a>
+
+            <a
+              class="unit-card"
+              href="B05_Arrays_y_objetos_predefinidos/B05A_Apuntes_Arrays_basicos.html"
+            >
+              <div class="unit-icon">
+                <i class="bi bi-collection-play-fill"></i>
+              </div>
+              <div class="unit-content">
+                <div class="unit-title">
+                  B05 · Arrays y objetos predefinidos
+                </div>
+                <div class="unit-description">
+                  Arrays básicos y avanzados, objetos nativos de JS.
+                </div>
+                <div class="unit-meta">Apuntes + ejercicios por subbloque</div>
+              </div>
+              <div class="unit-chevron">
+                <i class="bi bi-chevron-right"></i>
+              </div>
+            </a>
+
+            <a
+              class="unit-card"
+              href="Practica_global_ final_da_UD1/UD01_Practica_global_JavaScript_basico.html"
+            >
+              <div class="unit-icon">
+                <i class="bi bi-trophy-fill"></i>
+              </div>
+              <div class="unit-content">
+                <div class="unit-title">Práctica global UD1</div>
+                <div class="unit-description">
+                  Reto final para poner en juego todo lo aprendido en la unidad.
+                </div>
+                <div class="unit-meta">
+                  Recomendado tras completar los bloques anteriores
+                </div>
+              </div>
+              <div class="unit-chevron">
+                <i class="bi bi-chevron-right"></i>
+              </div>
+            </a>
+          </nav>
+        </aside>
+      </section>
+
+      <section class="grid" aria-label="Accesos rápidos">
+        <article class="tile">
+          <div class="tile-label">Bloque 01</div>
+          <div class="tile-main">
+            <h3>Entorno de trabajo</h3>
+            <div class="tile-icon">
+              <i class="bi bi-display-fill"></i>
+            </div>
+          </div>
+          <div class="tile-links">
+            <a
+              class="chip-link"
+              href="B01_Entorno_de_trabajo/B01_Apuntes_Introduccion_y_entorno.html"
+            >
+              <i class="bi bi-journal-text"></i> Apuntes
+            </a>
+            <a
+              class="chip-link"
+              href="B01_Entorno_de_trabajo/B01_Ejercicios.html"
+            >
+              <i class="bi bi-pencil-square"></i> Ejercicios
+            </a>
+          </div>
+        </article>
+
+        <article class="tile">
+          <div class="tile-label">Bloque 02</div>
+          <div class="tile-main">
+            <h3>Sintaxis, variables y tipos</h3>
+            <div class="tile-icon">
+              <i class="bi bi-braces"></i>
+            </div>
+          </div>
+          <div class="tile-links">
+            <a
+              class="chip-link"
+              href="B02_Sintaxis_variables_y_tipos/B02_Apuntes_Sintaxis_variables_y_tipos.html"
+            >
+              <i class="bi bi-journal-text"></i> Apuntes
+            </a>
+            <a
+              class="chip-link"
+              href="B02_Sintaxis_variables_y_tipos/B02_Ejercicios_v2.html"
+            >
+              <i class="bi bi-pencil-square"></i> Ejercicios
+            </a>
+          </div>
+        </article>
+
+        <article class="tile">
+          <div class="tile-label">Bloque 03</div>
+          <div class="tile-main">
+            <h3>Estructuras de control</h3>
+            <div class="tile-icon">
+              <i class="bi bi-diagram-3-fill"></i>
+            </div>
+          </div>
+          <div class="tile-links">
+            <a
+              class="chip-link"
+              href="B03_Estructuras_de_control/B03_Apuntes_Operadores_condicionales_y_bucles.html"
+            >
+              <i class="bi bi-journal-text"></i> Apuntes
+            </a>
+            <a
+              class="chip-link"
+              href="B03_Estructuras_de_control/B03_Ejercicios_Condicionales_y_bucles.html"
+            >
+              <i class="bi bi-pencil-square"></i> Ejercicios
+            </a>
+          </div>
+        </article>
+
+        <article class="tile">
+          <div class="tile-label">Bloque 04</div>
+          <div class="tile-main">
+            <h3>Funciones</h3>
+            <div class="tile-icon">
+              <i class="bi bi-cpu-fill"></i>
+            </div>
+          </div>
+          <div class="tile-links">
+            <a
+              class="chip-link"
+              href="B04_Funciones/B04_Apuntes_Funciones_basicas.html"
+            >
+              <i class="bi bi-journal-text"></i> Básicas
+            </a>
+            <a
+              class="chip-link"
+              href="B04_Funciones/B04b_Apuntes_Tipos_de_funciones.html"
+            >
+              <i class="bi bi-journal-text"></i> Tipos
+            </a>
+            <a
+              class="chip-link"
+              href="B04_Funciones/B04_Ejercicios_Funciones_basicas.html"
+            >
+              <i class="bi bi-pencil-square"></i> Ejercicios básicos
+            </a>
+            <a
+              class="chip-link"
+              href="B04_Funciones/B04b_Ejercicios_Tipos_de_funciones.html"
+            >
+              <i class="bi bi-pencil-square"></i> Ejercicios tipos
+            </a>
+            <a
+              class="chip-link"
+              href="B04_Funciones/B04_Practica_integradora_funciones.html"
+            >
+              <i class="bi bi-trophy"></i> Práctica integradora
+            </a>
+          </div>
+        </article>
+
+        <article class="tile">
+          <div class="tile-label">Bloque 05</div>
+          <div class="tile-main">
+            <h3>Arrays y objetos predefinidos</h3>
+            <div class="tile-icon">
+              <i class="bi bi-collection"></i>
+            </div>
+          </div>
+          <div class="tile-links">
+            <a
+              class="chip-link"
+              href="B05_Arrays_y_objetos_predefinidos/B05A_Apuntes_Arrays_basicos.html"
+            >
+              <i class="bi bi-journal-text"></i> Arrays básicos
+            </a>
+            <a
+              class="chip-link"
+              href="B05_Arrays_y_objetos_predefinidos/B05A_Ejercicios_Arrays_basicos.html"
+            >
+              <i class="bi bi-pencil-square"></i> Ejercicios básicos
+            </a>
+            <a
+              class="chip-link"
+              href="B05_Arrays_y_objetos_predefinidos/B05B_Apuntes_Arrays_avanzados.html"
+            >
+              <i class="bi bi-journal-text"></i> Arrays avanzados
+            </a>
+            <a
+              class="chip-link"
+              href="B05_Arrays_y_objetos_predefinidos/B05B_Ejercicios_Arrays_avanzados.html"
+            >
+              <i class="bi bi-pencil-square"></i> Ejercicios avanzados
+            </a>
+            <a
+              class="chip-link"
+              href="B05_Arrays_y_objetos_predefinidos/B05C_Apuntes_Objetos_predefinidos.html"
+            >
+              <i class="bi bi-journal-text"></i> Objetos predefinidos
+            </a>
+            <a
+              class="chip-link"
+              href="B05_Arrays_y_objetos_predefinidos/B05C_Ejercicios_Objetos_predefinidos.html"
+            >
+              <i class="bi bi-pencil-square"></i> Ejercicios objetos
+            </a>
+          </div>
+        </article>
+
+        <article class="tile">
+          <div class="tile-label">Cierre de la unidad</div>
+          <div class="tile-main">
+            <h3>Práctica global UD1</h3>
+            <div class="tile-icon">
+              <i class="bi bi-trophy-fill"></i>
+            </div>
+          </div>
+          <div class="tile-links">
+            <a
+              class="chip-link"
+              href="Practica_global_ final_da_UD1/UD01_Practica_global_JavaScript_basico.html"
+            >
+              <i class="bi bi-flag-fill"></i> Entrar a la práctica global
+            </a>
+          </div>
+        </article>
+      </section>
+
+      <footer>
+        <span
+          >Creado para el módulo de Desenvolvemento Web en Contorno
+          Cliente.</span
+        >
+        <span
+          >Docente: Silvia M. Peña Pérez · CIFP A Carballeira · Ourense</span
+        >
+      </footer>
+    </main>
+  </body>
+</html>

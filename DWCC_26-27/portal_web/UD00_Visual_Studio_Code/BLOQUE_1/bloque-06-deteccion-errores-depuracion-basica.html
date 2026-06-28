@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloque 6 · Detección de errores y depuración básica</title>
+  <style>
+:root {
+  --color-fondo: #f4f7fb;
+  --color-slide: #ffffff;
+  --color-texto: #1f2937;
+  --color-secundario: #4b5563;
+  --color-principal: #2563eb;
+  --color-principal-oscuro: #1e3a8a;
+  --color-acento: #f59e0b;
+  --color-error: #dc2626;
+  --color-ok: #16a34a;
+  --color-borde: #dbeafe;
+
+  --radio-grande: 24px;
+  --radio-medio: 16px;
+
+  --sombra-suave: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+  --ancho-contenido: 1180px;
+  --alto-minimo-slide: 100vh;
+}
+
+/* Base */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+/* Diapositivas */
+
+.slide {
+  min-height: var(--alto-minimo-slide);
+  padding: 48px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  page-break-after: always;
+}
+
+.slide-inner {
+  width: min(100%, var(--ancho-contenido));
+  min-height: calc(100vh - 96px);
+  background: var(--color-slide);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra-suave);
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Tipografía */
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  color: var(--color-principal-oscuro);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  color: var(--color-principal-oscuro);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: var(--color-principal);
+}
+
+p,
+li {
+  font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+}
+
+small {
+  color: var(--color-secundario);
+}
+
+/* Portadas */
+
+.slide.portada .slide-inner {
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 55%, #fef3c7 100%);
+}
+
+.etiqueta-bloque {
+  display: inline-block;
+  width: fit-content;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: var(--color-principal-oscuro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Layouts */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-medio);
+  padding: 24px;
+  background: #f8fafc;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+}
+
+/* Bloques didácticos */
+
+.idea-clave {
+  border-left: 8px solid var(--color-principal);
+  background: #eff6ff;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.aviso {
+  border-left: 8px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.error-tipico {
+  border-left: 8px solid var(--color-error);
+  background: #fef2f2;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.correcto {
+  border-left: 8px solid var(--color-ok);
+  background: #f0fdf4;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.ejercicio {
+  border: 3px dashed var(--color-principal);
+  background: #f8fafc;
+  padding: 28px;
+  border-radius: var(--radio-medio);
+}
+
+.reto {
+  border: 3px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 32px;
+  border-radius: var(--radio-medio);
+}
+
+/* Código */
+
+pre {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 24px;
+  border-radius: var(--radio-medio);
+  overflow-x: auto;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+}
+
+code {
+  font-family: "Consolas", "Cascadia Code", monospace;
+}
+
+p code,
+li code {
+  background: #e0f2fe;
+  color: #075985;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+/* Listas */
+
+ul,
+ol {
+  padding-left: 1.4em;
+}
+
+li + li {
+  margin-top: 0.4em;
+}
+
+/* Barra inferior opcional */
+
+.slide-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  font-size: 0.95rem;
+  color: var(--color-secundario);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Navegación simple */
+
+.nav-indice {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+.nav-indice a {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--color-principal);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Impresión / exportación a PDF */
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .nav-indice {
+    display: none;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 0;
+    page-break-after: always;
+  }
+
+  .slide-inner {
+    box-shadow: none;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Pantallas pequeñas */
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 24px;
+  }
+
+  .slide-inner {
+    padding: 32px;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+/* Estilos específicos Bloque 6 */
+.kicker { font-size: 1.25rem; color: var(--color-secundario); max-width: 920px; }
+.debug-flow { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:32px; }
+.debug-flow span { background:#eff6ff; border:2px solid #bfdbfe; color:#1e3a8a; padding:12px 16px; border-radius:999px; font-weight:900; font-size:1.15rem; }
+.debug-flow b { color:#2563eb; font-size:1.6rem; }
+.console-card { border-radius:18px; padding:22px 24px; margin-top:20px; font-family:Consolas, "Cascadia Code", monospace; font-size:1.22rem; border:2px solid #334155; background:#0f172a; color:#e5e7eb; }
+.console-card.error { border-color:#fecaca; background:#450a0a; color:#fee2e2; }
+.console-card.warning { border-color:#facc15; background:#422006; color:#fef3c7; }
+.terminal-window { border-radius:18px; overflow:hidden; border:2px solid #334155; background:#0f172a; color:#e5e7eb; box-shadow:0 14px 30px rgba(15,23,42,.18); }
+.terminal-window .terminal-title { background:#1e293b; padding:12px 16px; color:#cbd5e1; font-weight:800; font-family:Consolas, monospace; }
+.terminal-window pre { margin:0; box-shadow:none; border-radius:0; }
+.browser-card { border: 2px solid #cbd5e1; border-radius: 18px; overflow: hidden; background: white; box-shadow: 0 12px 24px rgba(15,23,42,.10); }
+.browser-bar { background:#f1f5f9; padding:12px 16px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #cbd5e1; }
+.url-box { flex:1; border-radius:999px; background:white; border:1px solid #cbd5e1; padding:8px 14px; font-family:Consolas, monospace; color:#334155; font-size:1rem; }
+.browser-body { padding:28px; min-height:210px; }
+.dot { width:12px; height:12px; border-radius:50%; background:#ef4444; display:inline-block; }
+.dot:nth-child(2){ background:#f59e0b; } .dot:nth-child(3){ background:#22c55e; }
+.error-card { border-radius:18px; padding:24px; border:2px solid #e5e7eb; background:#f8fafc; min-height:170px; }
+.error-card.syntax { border-left:8px solid #dc2626; }
+.error-card.runtime { border-left:8px solid #f59e0b; }
+.error-card.logic { border-left:8px solid #2563eb; }
+.step-list { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin:24px 0; }
+.step-list.compact { grid-template-columns:repeat(3,1fr); }
+.step-list div { background:#f8fafc; border:1px solid #dbeafe; border-radius:16px; padding:14px 16px; font-size:1.2rem; }
+.step-list span { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; background:#2563eb; color:white; font-weight:900; margin-right:10px; }
+.debug-panel { background:#eff6ff; border:2px solid #bfdbfe; border-radius:18px; padding:24px; }
+.debug-panel h3 { margin-bottom:10px; }
+.diagnostico { background:#f8fafc; border:2px dashed #93c5fd; border-radius:18px; padding:22px; margin-top:24px; font-size:1.25rem; }
+.comparison-table { width:100%; border-collapse:collapse; font-size:1.25rem; overflow:hidden; border-radius:16px; }
+.comparison-table th { background:#1e3a8a; color:white; padding:16px; text-align:left; }
+.comparison-table td { border:1px solid #dbeafe; padding:18px; vertical-align:top; background:white; }
+.checklist { display:grid; grid-template-columns:1fr 1fr; gap:14px 24px; }
+.checklist div { background:#f8fafc; border:1px solid #dbeafe; border-radius:14px; padding:12px 16px; font-size:1.18rem; }
+.registro { background:#f8fafc; border:2px dashed #93c5fd; border-radius:18px; padding:26px; font-size:1.2rem; }
+.registro p { margin:.55em 0; }
+.good-code { border-left:8px solid #22c55e; }
+.bad-code { border-left:8px solid #ef4444; }
+.idea-clave.big { font-size:1.55rem; }
+.frase-final { border-left:8px solid #f59e0b; margin:28px 0 0; padding:24px 28px; background:#fffbeb; border-radius:16px; font-size:1.5rem; font-weight:700; color:#78350f; }
+@media (max-width: 900px) { .step-list, .step-list.compact, .checklist { grid-template-columns:1fr; } }
+
+  </style>
+</head>
+<body>
+
+  <nav class="nav-indice">
+    <a href="#indice">Índice</a>
+  </nav>
+
+  <section class="slide portada">
+    <div class="slide-inner">
+      
+<span class="etiqueta-bloque">Bloque 6 · Entorno JavaScript</span>
+<h1>Detección de errores y depuración básica</h1>
+<p class="kicker">Leer errores, localizar fallos y corregir con método antes de empezar a programar en serio.</p>
+<div class="debug-flow"><span>guardar</span><b>→</b><span>probar</span><b>→</b><span>leer</span><b>→</b><span>localizar</span><b>→</b><span>corregir</span></div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>1/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide" id="indice">
+    <div class="slide-inner">
+      
+<h2>“Profe, no funciona” no es suficiente</h2>
+<div class="grid-2">
+  <div class="error-tipico"><h3>Frase poco útil</h3><p>“No va.”<br>“No me funciona.”<br>“No sé qué pasa.”</p></div>
+  <div class="correcto"><h3>Frase útil</h3><p>“Aparece un <strong>ReferenceError</strong> en <code>script.js:4</code> porque uso una variable que no existe.”</p></div>
+</div>
+<div class="idea-clave">Depurar empieza por describir bien el fallo.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>2/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Objetivos prácticos</h2>
+<div class="checklist">
+  <div>□ Leer errores en Console</div><div>□ Leer errores en terminal</div>
+  <div>□ Distinguir sintaxis, ejecución y lógica</div><div>□ Usar <code>console.log()</code> con intención</div>
+  <div>□ Localizar archivo y línea</div><div>□ Usar breakpoints básicos</div>
+  <div>□ Corregir errores preparados</div><div>□ Comprobar que la solución funciona</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>3/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Tres palabras que conviene separar</h2>
+<div class="grid-3">
+  <div class="card"><h3>Error</h3><p>Algo está mal en el código o en el entorno.</p></div>
+  <div class="card"><h3>Fallo</h3><p>Lo que vemos cuando el programa no se comporta como esperamos.</p></div>
+  <div class="card"><h3>Depuración</h3><p>Investigar paso a paso hasta encontrar la causa.</p></div>
+</div>
+<div class="diagnostico"><strong>Ejemplo:</strong> si al pulsar el botón no pasa nada, puede fallar el selector, el evento, la ruta del JS o un error anterior.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>4/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Una rutina, no intuición</h2>
+<div class="step-list">
+  <div><span>1</span> Guarda.</div><div><span>2</span> Recarga.</div><div><span>3</span> Abre Console.</div><div><span>4</span> Lee el primer error.</div>
+  <div><span>5</span> Localiza archivo y línea.</div><div><span>6</span> Corrige una cosa.</div><div><span>7</span> Guarda otra vez.</div><div><span>8</span> Vuelve a probar.</div>
+</div>
+<div class="aviso">No corrijas cinco cosas a la vez. Si cambias demasiado, no sabrás qué ha arreglado el problema.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>5/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>No todos los errores se comportan igual</h2>
+<div class="grid-3">
+  <div class="error-card syntax"><h3>Sintaxis</h3><p>El código está mal escrito.</p></div>
+  <div class="error-card runtime"><h3>Ejecución</h3><p>El código empieza, pero falla en algún punto.</p></div>
+  <div class="error-card logic"><h3>Lógica</h3><p>El código funciona, pero el resultado es incorrecto.</p></div>
+</div>
+<div class="idea-clave">Algunos errores gritan en rojo. Otros solo se descubren comprobando resultados.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>6/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>El navegador no puede interpretar el código</h2>
+<div class="grid-2">
+  <div><h3>Error</h3><pre class="bad-code"><code>console.log(&quot;Hola&quot;;</code></pre></div>
+  <div><h3>Corrección</h3><pre class="good-code"><code>console.log(&quot;Hola&quot;);</code></pre></div>
+</div>
+<div class="console-card error"><strong>Console:</strong> SyntaxError · falta cerrar correctamente la instrucción.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>7/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Usar algo que no existe</h2>
+<div class="grid-2">
+  <div><h3>Error</h3><pre class="bad-code"><code>console.log(nombre);</code></pre></div>
+  <div><h3>Corrección</h3><pre class="good-code"><code>const nombre = &quot;Ana&quot;;
+console.log(nombre);</code></pre></div>
+</div>
+<div class="console-card error"><strong>ReferenceError:</strong> <code>nombre</code> no está definido.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>8/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Funciona, pero calcula mal</h2>
+<div class="grid-2">
+  <div><h3>Código válido, resultado incorrecto</h3><pre class="bad-code"><code>const precio = 100;
+const descuento = 20;
+
+const total = precio + descuento;
+console.log(total);</code></pre></div>
+  <div><h3>Corrección lógica</h3><pre class="good-code"><code>const precio = 100;
+const descuento = 20;
+
+const total = precio - descuento;
+console.log(total);</code></pre></div>
+</div>
+<div class="aviso">Console no marca esto como error porque sumar es una operación válida. El problema está en la lógica.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>9/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>¿Qué tipo de error es?</h2>
+<div class="grid-2">
+  <div class="ejercicio"><p>A. Falta un paréntesis.</p><p>B. Una variable no existe.</p><p>C. El cálculo usa <code>+</code> en vez de <code>-</code>.</p><p>D. El archivo JS no carga.</p><p>E. La página muestra 30 cuando debería mostrar 20.</p><p>F. <code>class="destcado"</code>, pero en CSS pone <code>.destacado</code>.</p></div>
+  <div class="correcto"><p>A → sintaxis</p><p>B → ejecución</p><p>C → lógico</p><p>D → entorno / ruta</p><p>E → lógico</p><p>F → nombre / conexión HTML-CSS</p></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>10/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Lectura mínima de Console</h2>
+<div class="step-list compact">
+  <div><span>1</span> Tipo de error</div><div><span>2</span> Mensaje</div><div><span>3</span> Archivo</div><div><span>4</span> Línea</div><div><span>5</span> Primera línea útil</div>
+</div>
+<div class="console-card error">ReferenceError: nombre is not defined<br><strong>script.js:4</strong></div>
+<div class="idea-clave">Interpretación: en <code>script.js</code>, línea 4, se usa <code>nombre</code> pero no existe.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>11/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Prioridad inicial</h2>
+<div class="grid-2">
+  <div class="card"><h3>En Console pueden aparecer</h3><ul><li>errores;</li><li>advertencias;</li><li>mensajes de <code>console.log()</code>;</li><li>mensajes del navegador;</li><li>mensajes de extensiones.</li></ul></div>
+  <div class="idea-clave"><p>Para empezar, mira primero los errores en rojo relacionados con tus archivos.</p><p>No te pierdas leyendo veinte mensajes.</p></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>12/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Un error pequeño, una pista clara</h2>
+<pre class=""><code>console.log(&quot;Inicio del programa&quot;);
+
+const edad = 18;
+
+console.log(eda);
+
+console.log(&quot;Fin del programa&quot;);</code></pre>
+<div class="grid-2">
+  <div class="error-tipico"><h3>Pregunta</h3><p>¿Qué dice Console?<br>¿Qué variable falla?<br>¿En qué línea?</p></div>
+  <div class="correcto"><h3>Corrección</h3><pre><code>console.log(edad);</code></pre></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>13/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Actividad 2</h2>
+<div class="ejercicio">
+<p>Copia este código en <code>script.js</code>, guarda, recarga, abre Console, localiza el error y corrige.</p>
+<pre class=""><code>console.log(&quot;Inicio&quot;);
+
+const ciudad = &quot;Ourense&quot;;
+
+console.log(cuidad);
+
+console.log(&quot;Fin&quot;);</code></pre>
+</div>
+<div class="correcto">Corrección esperada: <code>console.log(ciudad);</code></div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>14/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Un primer error puede bloquear el resto</h2>
+<pre class=""><code>console.log(&quot;Paso 1&quot;);
+
+console.log(nombre);
+
+console.log(&quot;Paso 2&quot;);
+console.log(&quot;Paso 3&quot;);</code></pre>
+<div class="idea-clave">Si <code>nombre</code> no existe, el programa se detiene ahí. Los mensajes posteriores no aparecen.</div>
+<div class="aviso">Corrige primero el primer error. Después vuelve a probar.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>15/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Depende de dónde se ejecuta JavaScript</h2>
+<div class="grid-2">
+  <div class="browser-card"><div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="url-box">Chrome DevTools → Console</div></div><div class="browser-body"><h3>JavaScript en Chrome</h3><p>Los errores aparecen en Console.</p></div></div>
+  <div class="terminal-window"><div class="terminal-title">Terminal</div><pre><code>node ejercicios/calculos.js</code></pre><p>Los errores aparecen en la terminal.</p></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>16/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Leer errores en terminal</h2>
+<div class="grid-2">
+  <div><pre class="bad-code"><code>const numero1 = 10;
+const numero2 = 5;
+
+console.log(numero1 + numero3);</code></pre></div>
+  <div class="terminal-window"><div class="terminal-title">Salida esperada</div><pre><code>ReferenceError: numero3 is not defined</code></pre><p>Busca tipo de error, archivo, línea y nombre que falla.</p></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>17/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Actividad 3</h2>
+<div class="ejercicio">
+<p>Crea <code>errores-node.js</code>, ejecútalo con Node.js, lee el error, localiza el nombre mal escrito y corrige.</p>
+<pre class=""><code>const nombre = &quot;Luis&quot;;
+console.log(nombree);</code></pre>
+<pre><code>node errores-node.js</code></pre>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>18/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>No es solo para saludar</h2>
+<div class="grid-2">
+  <div class="error-tipico"><h3>Uso pobre</h3><pre><code>console.log("hola");
+console.log("hola");
+console.log("hola");</code></pre></div>
+  <div class="correcto"><h3>Uso útil</h3><pre><code>console.log("Valor de edad:", edad);
+console.log("Botón encontrado:", boton);
+console.log("Resultado calculado:", total);</code></pre></div>
+</div>
+<div class="idea-clave">Cada <code>console.log()</code> debe responder a una pregunta.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>19/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Mensajes que ayudan a localizar el fallo</h2>
+<pre class=""><code>console.log(&quot;1. Archivo JS cargado&quot;);
+
+const boton = document.querySelector(&quot;#botonCalcular&quot;);
+console.log(&quot;2. Botón encontrado:&quot;, boton);
+
+boton.addEventListener(&quot;click&quot;, function () {{
+  console.log(&quot;3. Click detectado&quot;);
+
+  const numero1 = 10;
+  const numero2 = 5;
+  const suma = numero1 + numero2;
+
+  console.log(&quot;4. Resultado:&quot;, suma);
+}});</code></pre>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>20/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Actividad 4</h2>
+<div class="ejercicio"><p>Añade mensajes de diagnóstico para comprobar:</p>
+<ul><li>que <code>script.js</code> carga;</li><li>que el botón existe;</li><li>que el click se detecta;</li><li>que los números tienen el valor esperado;</li><li>que el resultado se calcula correctamente.</li></ul></div>
+<div class="idea-clave">No llenes Console de ruido. Usa mensajes que expliquen qué estás comprobando.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>21/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Cuando querySelector devuelve null</h2>
+<div class="grid-2">
+  <div><h3>HTML</h3><pre class=""><code>&lt;button id=&quot;botonCalcular&quot;&gt;Calcular&lt;/button&gt;</code></pre></div>
+  <div><h3>JavaScript incorrecto</h3><pre class="bad-code"><code>const boton = document.querySelector(&quot;#boton&quot;);</code></pre></div>
+</div>
+<div class="console-card warning"><code>console.log("Botón encontrado:", boton);</code> → probablemente <strong>null</strong></div>
+<div class="correcto">Corrección: <code>document.querySelector("#botonCalcular")</code></div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>22/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Antes de culpar al evento</h2>
+<div class="aviso"><p>Si no aparece <code>Click detectado</code>, revisa en este orden:</p></div>
+<div class="step-list compact">
+  <div><span>1</span> ¿El archivo JS carga?</div><div><span>2</span> ¿El botón se ha encontrado?</div><div><span>3</span> ¿El id coincide?</div><div><span>4</span> ¿Hay errores anteriores?</div><div><span>5</span> ¿Estoy pulsando el botón correcto?</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>23/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Una pausa en el código</h2>
+<div class="grid-2">
+  <div class="debug-panel"><h3>Breakpoint</h3><p>Detiene la ejecución en una línea concreta para observar qué está pasando.</p></div>
+  <div class="card"><h3>Sirve para</h3><ul><li>pausar antes de un cálculo;</li><li>ver valores de variables;</li><li>avanzar paso a paso;</li><li>comprobar si una función se ejecuta.</li></ul></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>24/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Dos herramientas, usos distintos</h2>
+<table class="comparison-table"><tr><th>console.log()</th><th>Breakpoint</th></tr><tr><td>Comprobar valores rápido.<br>Saber si una línea se ejecuta.<br>Dejar pistas simples.</td><td>Detener el programa.<br>Avanzar paso a paso.<br>Ver variables mientras el código está pausado.</td></tr></table>
+<div class="idea-clave">Para empezar, <code>console.log()</code> basta muchas veces. Pero conviene conocer el depurador.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>25/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>DevTools → Sources</h2>
+<div class="grid-2">
+<div class="card"><ol><li>Abrir la página en Chrome.</li><li>Abrir DevTools.</li><li>Ir a Sources.</li><li>Abrir <code>js/script.js</code>.</li><li>Hacer clic en el número de línea.</li><li>Pulsar el botón de la página.</li></ol></div>
+<div><pre class=""><code>boton.addEventListener(&quot;click&quot;, function () {{
+  const numero1 = 10;
+  const numero2 = 5;
+  const suma = numero1 + numero2;
+  resultado.textContent = &quot;El resultado es: &quot; + suma;
+}});</code></pre></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>26/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Botones mínimos del depurador</h2>
+<div class="grid-3">
+  <div class="debug-panel"><h3>Step over</h3><p>Ejecuta la siguiente línea.</p></div>
+  <div class="debug-panel"><h3>Resume</h3><p>Continúa hasta el siguiente breakpoint o hasta el final.</p></div>
+  <div class="debug-panel"><h3>Variables</h3><p>Permite ver valores actuales.</p></div>
+</div>
+<div class="aviso">No hace falta dominar todos los botones. Solo entender que podemos observar el código mientras se ejecuta.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>27/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Actividad 5</h2>
+<div class="ejercicio"><ol><li>Abre DevTools.</li><li>Entra en Sources.</li><li>Abre <code>js/script.js</code>.</li><li>Coloca un breakpoint dentro del click.</li><li>Pulsa el botón de la página.</li><li>Comprueba que el código se pausa.</li><li>Avanza paso a paso.</li><li>Mira el valor de <code>suma</code>.</li></ol></div>
+<div class="idea-clave">Si el código no se pausa, probablemente el evento no se está ejecutando o el archivo abierto no es el correcto.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>28/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Ruta incorrecta</h2>
+<div class="grid-2">
+<div class="error-tipico"><h3>HTML incorrecto</h3><pre><code>&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre><p>Pero el archivo está en <code>js/script.js</code>.</p></div>
+<div class="correcto"><h3>Corrección</h3><pre><code>&lt;script src="js/script.js"&gt;&lt;/script&gt;</code></pre></div>
+</div>
+<div class="idea-clave">Herramientas: Console, Network y revisión de ruta en <code>index.html</code>.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>29/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Mayúsculas y minúsculas importan</h2>
+<div class="grid-2">
+  <div><h3>HTML</h3><pre class=""><code>&lt;button id=&quot;botonCalcular&quot;&gt;Calcular&lt;/button&gt;</code></pre></div>
+  <div><h3>JS incorrecto</h3><pre class="bad-code"><code>const boton = document.querySelector(&quot;#botoncalcular&quot;);</code></pre></div>
+</div>
+<div class="correcto">Corrección: <code>#botonCalcular</code>. Los nombres deben coincidir exactamente.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>30/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Un nombre incorrecto bloquea el script</h2>
+<div class="grid-2">
+<div><pre class="bad-code"><code>const numero1 = 10;
+const numero2 = 5;
+
+const suma = numero1 + numro2;
+console.log(suma);</code></pre></div>
+<div class="console-card error"><strong>ReferenceError:</strong> numro2 is not defined<br><br><strong>Corrección:</strong> <code>numero2</code></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>31/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>No siempre aparece rojo</h2>
+<pre class="bad-code"><code>const precio = 100;
+const descuento = 20;
+
+const total = precio + descuento;
+console.log(&quot;Total:&quot;, total);</code></pre>
+<div class="grid-2"><div class="aviso"><p>JavaScript no sabe que querías aplicar un descuento.</p></div><div class="correcto"><p>Corrección lógica: <code>precio - descuento</code>.</p></div></div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>32/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Modificar antes de comprobar</h2>
+<pre class="bad-code"><code>const resultado = document.querySelector(&quot;#resultado&quot;);
+
+resultado.textContent = &quot;Preparado&quot;;</code></pre>
+<div class="console-card error"><strong>TypeError probable:</strong> si <code>resultado</code> es <code>null</code>, no puedes usar <code>textContent</code>.</div>
+<div class="correcto">Diagnóstico: <code>console.log("Resultado encontrado:", resultado);</code></div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>33/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Prepara información útil</h2>
+<div class="step-list compact">
+  <div><span>1</span> Qué querías que pasara</div><div><span>2</span> Qué ha pasado realmente</div><div><span>3</span> Qué error aparece</div><div><span>4</span> En qué archivo</div><div><span>5</span> En qué línea</div><div><span>6</span> Qué has probado</div><div><span>7</span> Qué cambio hiciste justo antes</div>
+</div>
+<div class="idea-clave">Pedir ayuda bien también forma parte de aprender a programar.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>34/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Registro de error</h2>
+<div class="registro">
+<p><strong>Problema detectado:</strong> ____________________________________</p>
+<p><strong>Qué esperaba que pasara:</strong> _______________________________</p>
+<p><strong>Qué pasa realmente:</strong> ____________________________________</p>
+<p><strong>Mensaje de error:</strong> ______________________________________</p>
+<p><strong>Archivo y línea:</strong> _______________________________________</p>
+<p><strong>Hipótesis:</strong> _____________________________________________</p>
+<p><strong>Corrección probada:</strong> ____________________________________</p>
+<p><strong>Resultado:</strong> _____________________________________________</p>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>35/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Actividad 6 · Por parejas</h2>
+<div class="ejercicio"><ol><li>Una persona provoca un error preparado.</li><li>La otra persona debe detectarlo.</li><li>Debe explicar qué falla, dónde lo ha visto, qué herramienta ha usado y cómo lo corregiría.</li><li>Después se intercambian los roles.</li></ol></div>
+<div class="idea-clave">El objetivo no es corregir por intuición. Es verbalizar el diagnóstico.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>36/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Proyecto con varios errores</h2>
+<div class="reto"><p>Recibirás un proyecto con:</p><ul><li>un script mal enlazado;</li><li>un selector incorrecto;</li><li>una variable mal escrita;</li><li>un cálculo lógico incorrecto;</li><li>un error que se localiza con Console;</li><li>un error que se entiende mejor con breakpoint.</li></ul></div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>37/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>practica-depuracion/</h2>
+<pre><code>practica-depuracion/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── script.js</code></pre>
+<div class="idea-clave">Funcionalidad esperada: al pulsar un botón, se calculan dos números, se muestra el resultado en pantalla y también en Console.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>38/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Errores incluidos</h2>
+<div class="grid-2">
+<div><pre class="bad-code"><code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code></pre></div>
+<div><pre class="bad-code"><code>const boton = document.querySelector(&quot;#botoncalcular&quot;);
+const resultado = document.querySelector(&quot;#resultado&quot;);
+
+boton.addEventListener(&quot;click&quot;, function () {{
+  const numero1 = 10;
+  const numero2 = 5;
+  const suma = numero1 - numro2;
+  console.log(&quot;Resultado:&quot;, suma);
+  resultado.textContent = &quot;La suma es: &quot; + suma;
+}});</code></pre></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>39/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Corrección guiada</h2>
+<div class="grid-2">
+<div><pre class="good-code"><code>&lt;script src=&quot;js/script.js&quot;&gt;&lt;/script&gt;</code></pre></div>
+<div><pre class="good-code"><code>const boton = document.querySelector(&quot;#botonCalcular&quot;);
+const resultado = document.querySelector(&quot;#resultado&quot;);
+
+boton.addEventListener(&quot;click&quot;, function () {{
+  const numero1 = 10;
+  const numero2 = 5;
+  const suma = numero1 + numero2;
+  console.log(&quot;Resultado:&quot;, suma);
+  resultado.textContent = &quot;La suma es: &quot; + suma;
+}});</code></pre></div>
+</div>
+<div class="aviso">No dar esta solución al principio. Usarla para cierre o corrección guiada.</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>40/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Antes de terminar</h2>
+<div class="checklist">
+  <div>□ Sé abrir Console</div><div>□ Sé leer un error básico</div>
+  <div>□ Sé localizar archivo y línea</div><div>□ Sé distinguir sintaxis, ejecución y lógica</div>
+  <div>□ Sé usar <code>console.log()</code> para investigar</div><div>□ Sé comprobar si un selector devuelve <code>null</code></div>
+  <div>□ Sé usar un breakpoint básico</div><div>□ Sé avanzar paso a paso</div>
+  <div>□ Sé corregir un error y volver a probar</div><div>□ Sé explicar qué he corregido</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>41/42</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      
+<h2>Programar también es corregir</h2>
+<div class="idea-clave big">Hoy no hemos aprendido a escribir mucho código nuevo. Hemos aprendido a leer errores, hacer pruebas pequeñas, localizar fallos, corregir con método y comprobar de nuevo.</div>
+<blockquote class="frase-final">Programar no es escribir código perfecto. Programar es escribir, probar, equivocarse, leer pistas y corregir.</blockquote>
+
+      <div class="slide-footer"><span>Bloque 6 · Detección de errores y depuración básica</span><span>42/42</span></div>
+    </div>
+  </section>
+
+</body>
+</html>

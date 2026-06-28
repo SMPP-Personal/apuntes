@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UD2_B5 · Práctica global: aplicación web interactiva</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+</head>
+<body>
+  <div class="smpp-scope">
+    <main class="main-content has-sidebar practice-document practice-global">
+      <div class="content-layout">
+        <aside class="section-sidebar" aria-label="Índice del documento">
+          <nav class="section-nav" aria-label="Secciones del documento">
+            <p class="section-nav-title"><i class="bi bi-list-task" aria-hidden="true"></i> Índice de la práctica</p>
+            <ol class="section-nav-list">
+              <li><a class="section-nav-link badge-link" href="#1-finalidad-de-la-practica"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Finalidad de la práctica</a></li><li><a class="section-nav-link badge-link" href="#2-contexto-de-la-practica"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-compass"></i></span> 2. Contexto de la práctica</a></li><li><a class="section-nav-link badge-link" href="#3-contenidos-que-se-evaluan"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-list-check"></i></span> 3. Contenidos que se evalúan</a></li><li><a class="section-nav-link badge-link" href="#4-estructura-obligatoria-del-proyecto"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-folder2-open"></i></span> 4. Estructura obligatoria del proyecto</a></li><li><a class="section-nav-link badge-link" href="#5-archivo-recursos-json"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-filetype-json"></i></span> 5. Archivo <code>recursos.json</code></a></li><li><a class="section-nav-link badge-link" href="#6-requisitos-de-la-interfaz-html"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-window-sidebar"></i></span> 6. Requisitos de la interfaz HTML</a></li><li><a class="section-nav-link badge-link" href="#7-fase-1-cargar-datos-con-fetch"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-cloud-download"></i></span> 7. Fase 1: cargar datos con <code>fetch</code></a></li><li><a class="section-nav-link badge-link" href="#8-fase-2-renderizar-recursos-en-el-dom"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-layout-text-window-reverse"></i></span> 8. Fase 2: renderizar recursos en el DOM</a></li><li><a class="section-nav-link badge-link" href="#9-fase-3-buscar-filtrar-y-ordenar"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-funnel"></i></span> 9. Fase 3: buscar, filtrar y ordenar</a></li><li><a class="section-nav-link badge-link" href="#10-fase-4-mostrar-estadisticas"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bar-chart"></i></span> 10. Fase 4: mostrar estadísticas</a></li><li><a class="section-nav-link badge-link" href="#11-fase-5-eventos-de-busqueda-filtro-y-ordenacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-lightning-charge"></i></span> 11. Fase 5: eventos de búsqueda, filtro y ordenación</a></li><li><a class="section-nav-link badge-link" href="#12-fase-6-validar-el-formulario"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-ui-checks"></i></span> 12. Fase 6: validar el formulario</a></li><li><a class="section-nav-link badge-link" href="#13-fase-7-anadir-un-nuevo-recurso"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-plus-circle"></i></span> 13. Fase 7: añadir un nuevo recurso</a></li><li><a class="section-nav-link badge-link" href="#14-fase-8-usar-json-en-la-aplicacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-braces"></i></span> 14. Fase 8: usar JSON en la aplicación</a></li><li><a class="section-nav-link badge-link" href="#15-fase-9-estilos-minimos-obligatorios"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-palette"></i></span> 15. Fase 9: estilos mínimos obligatorios</a></li><li><a class="section-nav-link badge-link" href="#16-requisitos-tecnicos-obligatorios"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-clipboard-check"></i></span> 16. Requisitos técnicos obligatorios</a></li><li><a class="section-nav-link badge-link" href="#17-restricciones"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-slash-circle"></i></span> 17. Restricciones</a></li><li><a class="section-nav-link badge-link" href="#18-pruebas-obligatorias"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> 18. Pruebas obligatorias</a></li><li><a class="section-nav-link badge-link" href="#19-entrega"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-box-arrow-up"></i></span> 19. Entrega</a></li><li><a class="section-nav-link badge-link" href="#20-breve-explicacion-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-chat-left-text"></i></span> 20. Breve explicación final</a></li><li><a class="section-nav-link badge-link" href="#21-rubrica-orientativa"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-table"></i></span> 21. Rúbrica orientativa</a></li><li><a class="section-nav-link badge-link" href="#22-lista-de-comprobacion-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-square"></i></span> 22. Lista de comprobación final</a></li><li><a class="section-nav-link badge-link" href="#23-ampliaciones-opcionales"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-stars"></i></span> 23. Ampliaciones opcionales</a></li><li><a class="section-nav-link badge-link" href="#24-contenidos-que-quedan-fuera-de-esta-practica"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-door-closed"></i></span> 24. Contenidos que quedan fuera de esta práctica</a></li><li><a class="section-nav-link badge-link" href="#25-resumen-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-flag"></i></span> 25. Resumen final</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <div class="content-wrapper">
+          <header class="content-header practice-header practice-hero header-celebration">
+            <p class="document-kicker"><i class="bi bi-stars" aria-hidden="true"></i> Práctica global de cierre</p>
+            <h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-window-stack"></i></span> UD2_B5. Práctica global: aplicación web interactiva</h1>
+          </header>
+          <hr class="content-separator">
+          <section id="1-finalidad-de-la-practica" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Finalidad de la práctica</h2>
+<p>Esta práctica sirve como cierre de la <strong>UD2: JavaScript avanzado en entorno cliente</strong>.</p>
+<p>El objetivo es construir una pequeña aplicación web completa que integre los contenidos trabajados en los bloques anteriores:</p>
+<ul class="custom-list"><li>objetos y arrays de objetos;</li><li>métodos avanzados de arrays;</li><li>DOM;</li><li>eventos;</li><li>formularios;</li><li>validación;</li><li>JSON;</li><li>asincronía;</li><li><code>fetch</code>;</li><li><code>async</code> / <code>await</code>;</li><li>gestión de errores;</li><li>renderizado dinámico de información.</li></ul>
+<p>No se trata de copiar código de los apuntes, sino de demostrar que se sabe organizar una aplicación sencilla, probarla, depurarla y explicar las decisiones tomadas.</p>
+</section><section id="2-contexto-de-la-practica" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-compass"></i></span> 2. Contexto de la práctica</h2>
+<p>Vas a crear una aplicación llamada:</p>
+<blockquote class="concept-box"><p><strong>Panel interactivo de recursos de aprendizaje</strong></p></blockquote>
+<p>La aplicación mostrará una colección de recursos relacionados con el módulo de DWCC: apuntes, ejercicios, prácticas, vídeos, enlaces o actividades.</p>
+<p>Los datos estarán guardados en un archivo JSON y se cargarán desde JavaScript usando <code>fetch</code>.</p>
+<p>La aplicación permitirá:</p>
+<ul class="custom-list"><li>cargar recursos desde un archivo JSON;</li><li>mostrarlos dinámicamente en la página;</li><li>buscar recursos por texto;</li><li>filtrar por tipo o dificultad;</li><li>ordenar resultados;</li><li>mostrar estadísticas;</li><li>validar un formulario para proponer un nuevo recurso;</li><li>añadir temporalmente ese recurso a la lista mostrada;</li><li>gestionar mensajes de carga, error y resultado vacío.</li></ul>
+<blockquote class="note-box"><p>El nuevo recurso añadido mediante el formulario no tiene que guardarse de forma permanente. Basta con añadirlo al array en memoria y volver a renderizar la página.</p></blockquote>
+</section><section id="3-contenidos-que-se-evaluan" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-list-check"></i></span> 3. Contenidos que se evalúan</h2>
+<p>Esta práctica integra contenidos de toda la UD2.</p>
+<div class="compact-table-container"><table class="comparison-table">
+<thead><tr><th>Bloque</th><th>Contenidos aplicados</th></tr></thead>
+<tbody>
+<tr><td>UD2_B1</td><td>Objetos, arrays de objetos, <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code>, <code>some</code>, <code>every</code>, <code>sort</code>, destructuring, spread/rest, JSON.</td></tr>
+<tr><td>UD2_B2</td><td>Selección de elementos, creación de nodos, modificación de contenido, atributos, clases y renderizado dinámico.</td></tr>
+<tr><td>UD2_B3</td><td>Eventos, formularios, <code>submit</code>, <code>input</code>, <code>change</code>, <code>preventDefault</code>, validación y mensajes de error.</td></tr>
+<tr><td>UD2_B4</td><td><code>fetch</code>, <code>async</code> / <code>await</code>, <code>.json()</code>, <code>response.ok</code>, <code>try...catch</code>, estados de carga y error.</td></tr>
+</tbody></table></div>
+</section><section id="4-estructura-obligatoria-del-proyecto" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-folder2-open"></i></span> 4. Estructura obligatoria del proyecto</h2>
+<p>Crea una carpeta llamada:</p>
+<div class="example-block">
+<pre class="code-bash"><code>UD2_B5_practica_global_app_interactiva</code></pre>
+</div>
+<p>Dentro debe tener esta estructura mínima:</p>
+<div class="example-block project-structure-block">
+<pre class="code-bash"><code>UD2_B5_practica_global_app_interactiva/
+├── index.html
+├── styles.css
+├── script.js
+└── datos/
+    └── recursos.json</code></pre>
+</div>
+<p>Puedes añadir más archivos si los necesitas, pero estos cuatro son obligatorios.</p>
+</section><section id="5-archivo-recursos-json" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-json"></i></span> 5. Archivo <code>recursos.json</code></h2>
+<p>El archivo <code>datos/recursos.json</code> debe contener un array de objetos.</p>
+<p>Puedes partir de este ejemplo y ampliarlo:</p>
+<div class="example-block">
+<pre class="code-json"><code>[
+  {
+    &quot;id&quot;: 1,
+    &quot;titulo&quot;: &quot;Sintaxis básica de JavaScript&quot;,
+    &quot;tipo&quot;: &quot;apuntes&quot;,
+    &quot;dificultad&quot;: &quot;basica&quot;,
+    &quot;duracion&quot;: 45,
+    &quot;etiquetas&quot;: [&quot;variables&quot;, &quot;tipos&quot;, &quot;consola&quot;],
+    &quot;publicado&quot;: true
+  },
+  {
+    &quot;id&quot;: 2,
+    &quot;titulo&quot;: &quot;Ejercicios de condicionales y bucles&quot;,
+    &quot;tipo&quot;: &quot;ejercicios&quot;,
+    &quot;dificultad&quot;: &quot;basica&quot;,
+    &quot;duracion&quot;: 60,
+    &quot;etiquetas&quot;: [&quot;if&quot;, &quot;for&quot;, &quot;while&quot;],
+    &quot;publicado&quot;: true
+  },
+  {
+    &quot;id&quot;: 3,
+    &quot;titulo&quot;: &quot;Funciones y arrays&quot;,
+    &quot;tipo&quot;: &quot;practica&quot;,
+    &quot;dificultad&quot;: &quot;media&quot;,
+    &quot;duracion&quot;: 90,
+    &quot;etiquetas&quot;: [&quot;funciones&quot;, &quot;arrays&quot;, &quot;return&quot;],
+    &quot;publicado&quot;: true
+  },
+  {
+    &quot;id&quot;: 4,
+    &quot;titulo&quot;: &quot;DOM básico&quot;,
+    &quot;tipo&quot;: &quot;apuntes&quot;,
+    &quot;dificultad&quot;: &quot;media&quot;,
+    &quot;duracion&quot;: 75,
+    &quot;etiquetas&quot;: [&quot;DOM&quot;, &quot;querySelector&quot;, &quot;createElement&quot;],
+    &quot;publicado&quot;: true
+  },
+  {
+    &quot;id&quot;: 5,
+    &quot;titulo&quot;: &quot;Eventos y formularios&quot;,
+    &quot;tipo&quot;: &quot;practica&quot;,
+    &quot;dificultad&quot;: &quot;media&quot;,
+    &quot;duracion&quot;: 120,
+    &quot;etiquetas&quot;: [&quot;eventos&quot;, &quot;formularios&quot;, &quot;validacion&quot;],
+    &quot;publicado&quot;: true
+  },
+  {
+    &quot;id&quot;: 6,
+    &quot;titulo&quot;: &quot;Consulta de datos JSON con fetch&quot;,
+    &quot;tipo&quot;: &quot;practica&quot;,
+    &quot;dificultad&quot;: &quot;avanzada&quot;,
+    &quot;duracion&quot;: 120,
+    &quot;etiquetas&quot;: [&quot;fetch&quot;, &quot;JSON&quot;, &quot;async&quot;],
+    &quot;publicado&quot;: false
+  }
+]</code></pre>
+</div>
+<p>Requisitos mínimos del JSON:</p>
+<ul class="custom-list"><li>debe contener al menos <strong>8 recursos</strong>;</li><li>cada recurso debe tener, como mínimo:</li><li><code>id</code>;</li><li><code>titulo</code>;</li><li><code>tipo</code>;</li><li><code>dificultad</code>;</li><li><code>duracion</code>;</li><li><code>etiquetas</code>;</li><li><code>publicado</code>.</li></ul>
+</section><section id="6-requisitos-de-la-interfaz-html" class="content-section practice-section interface-section requirements-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window-sidebar"></i></span> 6. Requisitos de la interfaz HTML</h2>
+<p>La página debe incluir, como mínimo:</p>
+<ol class="custom-ordered-list"><li>Un título principal.</li><li>Una zona de mensajes para mostrar:<ul class="custom-list"><li>cargando datos;</li><li>error;</li><li>sin resultados;</li><li>recurso añadido correctamente.</li></ul></li><li>Un buscador de texto.</li><li>Un filtro por tipo.</li><li>Un filtro por dificultad.</li><li>Un selector de ordenación.</li><li>Una zona de estadísticas.</li><li>Una zona donde se rendericen las tarjetas de recursos.</li><li>Un formulario para proponer un nuevo recurso.</li></ol>
+<p>Ejemplo orientativo de estructura HTML:</p>
+<div class="example-block">
+<pre class="code-html"><code>&lt;header&gt;
+  &lt;h1&gt;Panel interactivo de recursos de aprendizaje&lt;/h1&gt;
+  &lt;p&gt;Aplicación final de JavaScript avanzado en entorno cliente.&lt;/p&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;section id=&quot;controles&quot;&gt;
+    &lt;input id=&quot;busqueda&quot; type=&quot;text&quot; placeholder=&quot;Buscar recurso...&quot;&gt;
+
+    &lt;select id=&quot;filtroTipo&quot;&gt;
+      &lt;option value=&quot;todos&quot;&gt;Todos los tipos&lt;/option&gt;
+      &lt;option value=&quot;apuntes&quot;&gt;Apuntes&lt;/option&gt;
+      &lt;option value=&quot;ejercicios&quot;&gt;Ejercicios&lt;/option&gt;
+      &lt;option value=&quot;practica&quot;&gt;Práctica&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;select id=&quot;filtroDificultad&quot;&gt;
+      &lt;option value=&quot;todas&quot;&gt;Todas las dificultades&lt;/option&gt;
+      &lt;option value=&quot;basica&quot;&gt;Básica&lt;/option&gt;
+      &lt;option value=&quot;media&quot;&gt;Media&lt;/option&gt;
+      &lt;option value=&quot;avanzada&quot;&gt;Avanzada&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;select id=&quot;ordenacion&quot;&gt;
+      &lt;option value=&quot;titulo&quot;&gt;Ordenar por título&lt;/option&gt;
+      &lt;option value=&quot;duracionAsc&quot;&gt;Duración menor a mayor&lt;/option&gt;
+      &lt;option value=&quot;duracionDesc&quot;&gt;Duración mayor a menor&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/section&gt;
+
+  &lt;section id=&quot;mensaje&quot;&gt;&lt;/section&gt;
+  &lt;section id=&quot;estadisticas&quot;&gt;&lt;/section&gt;
+  &lt;section id=&quot;listadoRecursos&quot;&gt;&lt;/section&gt;
+
+  &lt;section id=&quot;nuevoRecurso&quot;&gt;
+    &lt;h2&gt;Proponer nuevo recurso&lt;/h2&gt;
+
+    &lt;form id=&quot;formularioRecurso&quot;&gt;
+      &lt;label&gt;
+        Título:
+        &lt;input id=&quot;titulo&quot; type=&quot;text&quot;&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;
+        Tipo:
+        &lt;select id=&quot;tipo&quot;&gt;
+          &lt;option value=&quot;&quot;&gt;Selecciona un tipo&lt;/option&gt;
+          &lt;option value=&quot;apuntes&quot;&gt;Apuntes&lt;/option&gt;
+          &lt;option value=&quot;ejercicios&quot;&gt;Ejercicios&lt;/option&gt;
+          &lt;option value=&quot;practica&quot;&gt;Práctica&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;
+        Dificultad:
+        &lt;select id=&quot;dificultad&quot;&gt;
+          &lt;option value=&quot;&quot;&gt;Selecciona una dificultad&lt;/option&gt;
+          &lt;option value=&quot;basica&quot;&gt;Básica&lt;/option&gt;
+          &lt;option value=&quot;media&quot;&gt;Media&lt;/option&gt;
+          &lt;option value=&quot;avanzada&quot;&gt;Avanzada&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;
+        Duración aproximada en minutos:
+        &lt;input id=&quot;duracion&quot; type=&quot;number&quot; min=&quot;1&quot;&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;
+        Etiquetas separadas por comas:
+        &lt;input id=&quot;etiquetas&quot; type=&quot;text&quot; placeholder=&quot;DOM, eventos, fetch&quot;&gt;
+      &lt;/label&gt;
+
+      &lt;button type=&quot;submit&quot;&gt;Añadir recurso&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+</div>
+<p>Puedes mejorar la estructura si lo consideras necesario, pero debes mantener todas las funcionalidades obligatorias.</p>
+</section><section id="7-fase-1-cargar-datos-con-fetch" class="content-section phase-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cloud-download"></i></span> 7. Fase 1: cargar datos con <code>fetch</code></h2>
+<p>En <code>script.js</code>, crea una variable global para guardar los recursos:</p>
+<div class="example-block">
+<pre class="code-js"><code>let recursos = [];</code></pre>
+</div>
+<p>Después crea una función asíncrona para cargar los datos:</p>
+<div class="example-block">
+<pre class="code-js"><code>async function cargarRecursos() {
+  try {
+    mostrarMensaje(&quot;Cargando recursos...&quot;);
+
+    const respuesta = await fetch(&quot;datos/recursos.json&quot;);
+
+    if (!respuesta.ok) {
+      throw new Error(&quot;No se pudieron cargar los recursos&quot;);
+    }
+
+    recursos = await respuesta.json();
+
+    mostrarMensaje(&quot;&quot;);
+    actualizarVista();
+  } catch (error) {
+    mostrarMensaje(&quot;Error al cargar los datos: &quot; + error.message);
+  }
+}</code></pre>
+</div>
+<p>Esta función debe ejecutarse al cargar la página.</p>
+</section><section id="8-fase-2-renderizar-recursos-en-el-dom" class="content-section phase-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-layout-text-window-reverse"></i></span> 8. Fase 2: renderizar recursos en el DOM</h2>
+<p>Crea una función:</p>
+<div class="example-block">
+<pre class="code-js"><code>function renderizarRecursos(lista) {
+  // código
+}</code></pre>
+</div>
+<p>Debe:</p>
+<ol class="custom-ordered-list"><li>Vaciar el contenedor antes de pintar.</li><li>Comprobar si la lista está vacía.</li><li>Crear una tarjeta por cada recurso.</li><li>Mostrar:<ul class="custom-list"><li>título;</li><li>tipo;</li><li>dificultad;</li><li>duración;</li><li>etiquetas;</li><li>si está publicado o pendiente.</li></ul></li></ol>
+<p>Ejemplo de tarjeta:</p>
+<div class="example-block">
+<pre class="code-html"><code>&lt;article class=&quot;tarjeta-recurso&quot;&gt;
+  &lt;h3&gt;DOM básico&lt;/h3&gt;
+  &lt;p&gt;Tipo: apuntes&lt;/p&gt;
+  &lt;p&gt;Dificultad: media&lt;/p&gt;
+  &lt;p&gt;Duración: 75 minutos&lt;/p&gt;
+  &lt;p&gt;Etiquetas: DOM, querySelector, createElement&lt;/p&gt;
+  &lt;p&gt;Estado: publicado&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+</div>
+<p>La tarjeta debe crearse desde JavaScript usando <code>createElement</code>, <code>textContent</code>, <code>classList</code> y <code>append</code>.</p>
+<p>No se permite generar todas las tarjetas como un único bloque enorme de texto.</p>
+</section><section id="9-fase-3-buscar-filtrar-y-ordenar" class="content-section phase-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-funnel"></i></span> 9. Fase 3: buscar, filtrar y ordenar</h2>
+<p>Crea una función principal para recalcular lo que se muestra:</p>
+<div class="example-block">
+<pre class="code-js"><code>function obtenerRecursosVisibles() {
+  // código
+}</code></pre>
+</div>
+<p>Debe aplicar:</p>
+<ol class="custom-ordered-list"><li>Búsqueda por texto.</li><li>Filtro por tipo.</li><li>Filtro por dificultad.</li><li>Ordenación.</li></ol>
+<p>Puedes usar <code>filter</code>, <code>sort</code> y otros métodos de array.</p>
+<p>Ejemplo orientativo:</p>
+<div class="example-block">
+<pre class="code-js"><code>function obtenerRecursosVisibles() {
+  const texto = inputBusqueda.value.trim().toLowerCase();
+  const tipo = selectTipo.value;
+  const dificultad = selectDificultad.value;
+  const orden = selectOrdenacion.value;
+
+  let resultado = recursos.filter((recurso) =&gt; {
+    const coincideTexto = recurso.titulo.toLowerCase().includes(texto);
+    const coincideTipo = tipo === &quot;todos&quot; || recurso.tipo === tipo;
+    const coincideDificultad = dificultad === &quot;todas&quot; || recurso.dificultad === dificultad;
+
+    return coincideTexto &amp;&amp; coincideTipo &amp;&amp; coincideDificultad;
+  });
+
+  resultado = [...resultado].sort((a, b) =&gt; {
+    if (orden === &quot;titulo&quot;) {
+      return a.titulo.localeCompare(b.titulo);
+    }
+
+    if (orden === &quot;duracionAsc&quot;) {
+      return a.duracion - b.duracion;
+    }
+
+    if (orden === &quot;duracionDesc&quot;) {
+      return b.duracion - a.duracion;
+    }
+
+    return 0;
+  });
+
+  return resultado;
+}</code></pre>
+</div>
+</section><section id="10-fase-4-mostrar-estadisticas" class="content-section phase-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bar-chart"></i></span> 10. Fase 4: mostrar estadísticas</h2>
+<p>Crea una función:</p>
+<div class="example-block">
+<pre class="code-js"><code>function renderizarEstadisticas(lista) {
+  // código
+}</code></pre>
+</div>
+<p>Debe mostrar, como mínimo:</p>
+<ul class="custom-list"><li>total de recursos cargados;</li><li>total de recursos visibles con los filtros actuales;</li><li>número de recursos publicados;</li><li>número de recursos pendientes;</li><li>duración total de los recursos visibles;</li><li>duración media de los recursos visibles.</li></ul>
+<p>Para calcular estos datos debes usar métodos de array cuando sea adecuado, por ejemplo <code>filter</code> y <code>reduce</code>.</p>
+<p>Ejemplo:</p>
+<div class="example-block">
+<pre class="code-js"><code>const duracionTotal = lista.reduce((total, recurso) =&gt; total + recurso.duracion, 0);</code></pre>
+</div>
+<p>Si no hay recursos visibles, la duración media debe evitar divisiones entre cero.</p>
+</section><section id="11-fase-5-eventos-de-busqueda-filtro-y-ordenacion" class="content-section phase-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-lightning-charge"></i></span> 11. Fase 5: eventos de búsqueda, filtro y ordenación</h2>
+<p>Debes asociar eventos a los controles:</p>
+<div class="example-block">
+<pre class="code-js"><code>inputBusqueda.addEventListener(&quot;input&quot;, actualizarVista);
+selectTipo.addEventListener(&quot;change&quot;, actualizarVista);
+selectDificultad.addEventListener(&quot;change&quot;, actualizarVista);
+selectOrdenacion.addEventListener(&quot;change&quot;, actualizarVista);</code></pre>
+</div>
+<p>La función <code>actualizarVista()</code> debe:</p>
+<ol class="custom-ordered-list"><li>Obtener los recursos visibles.</li><li>Renderizar las tarjetas.</li><li>Renderizar las estadísticas.</li></ol>
+<div class="example-block">
+<pre class="code-js"><code>function actualizarVista() {
+  const visibles = obtenerRecursosVisibles();
+  renderizarRecursos(visibles);
+  renderizarEstadisticas(visibles);
+}</code></pre>
+</div>
+</section><section id="12-fase-6-validar-el-formulario" class="content-section phase-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-ui-checks"></i></span> 12. Fase 6: validar el formulario</h2>
+<p>El formulario debe validar:</p>
+<div class="compact-table-container"><table class="comparison-table">
+<thead><tr><th>Campo</th><th>Validación mínima</th></tr></thead>
+<tbody>
+<tr><td>Título</td><td>Obligatorio, al menos 4 caracteres.</td></tr>
+<tr><td>Tipo</td><td>Debe estar seleccionado.</td></tr>
+<tr><td>Dificultad</td><td>Debe estar seleccionada.</td></tr>
+<tr><td>Duración</td><td>Debe ser un número mayor que 0.</td></tr>
+<tr><td>Etiquetas</td><td>Debe haber al menos una etiqueta.</td></tr>
+</tbody></table></div>
+<p>Crea una función:</p>
+<div class="example-block">
+<pre class="code-js"><code>function validarFormulario() {
+  // código
+}</code></pre>
+</div>
+<p>Debe devolver:</p>
+<ul class="custom-list"><li><code>true</code> si todo es correcto;</li><li><code>false</code> si hay errores.</li></ul>
+<p>Además, debe mostrar mensajes claros al usuario.</p>
+</section><section id="13-fase-7-anadir-un-nuevo-recurso" class="content-section phase-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-plus-circle"></i></span> 13. Fase 7: añadir un nuevo recurso</h2>
+<p>Al enviar el formulario:</p>
+<ol class="custom-ordered-list"><li>Usa <code>preventDefault()</code>.</li><li>Valida los datos.</li><li>Si hay errores, no añadas nada.</li><li>Si todo es correcto, crea un nuevo objeto recurso.</li><li>Añádelo al array <code>recursos</code>.</li><li>Actualiza la vista.</li><li>Limpia el formulario.</li><li>Muestra un mensaje de confirmación.</li></ol>
+<p>Ejemplo de estructura del nuevo objeto:</p>
+<div class="example-block">
+<pre class="code-js"><code>const nuevoRecurso = {
+  id: Date.now(),
+  titulo: titulo.value.trim(),
+  tipo: tipo.value,
+  dificultad: dificultad.value,
+  duracion: Number(duracion.value),
+  etiquetas: etiquetas.value.split(&quot;,&quot;).map((etiqueta) =&gt; etiqueta.trim()).filter((etiqueta) =&gt; etiqueta !== &quot;&quot;),
+  publicado: false
+};</code></pre>
+</div>
+<p>Puedes usar <code>Date.now()</code> para generar un identificador temporal.</p>
+</section><section id="14-fase-8-usar-json-en-la-aplicacion" class="content-section phase-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces"></i></span> 14. Fase 8: usar JSON en la aplicación</h2>
+<p>Además de cargar el archivo JSON con <code>fetch</code>, debes demostrar que entiendes <code>JSON.stringify()</code> y <code>JSON.parse()</code>.</p>
+<p>Añade una sección de depuración o exportación que permita mostrar en consola una copia de los recursos actuales en formato JSON:</p>
+<div class="example-block">
+<pre class="code-js"><code>function exportarRecursosAJSON() {
+  const textoJSON = JSON.stringify(recursos, null, 2);
+  console.log(textoJSON);
+
+  const copia = JSON.parse(textoJSON);
+  console.log(&quot;Copia recuperada:&quot;, copia);
+}</code></pre>
+</div>
+<p>Puedes llamarla desde el código o asociarla a un botón si quieres ampliar la práctica.</p>
+</section><section id="15-fase-9-estilos-minimos-obligatorios" class="content-section phase-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-palette"></i></span> 15. Fase 9: estilos mínimos obligatorios</h2>
+<p>El archivo <code>styles.css</code> debe incluir, como mínimo:</p>
+<ul class="custom-list"><li>estilo general de la página;</li><li>distribución clara de controles;</li><li>tarjetas diferenciadas;</li><li>estilos distintos para recursos publicados y pendientes;</li><li>estilos para mensajes de error o confirmación;</li><li>diseño legible en pantalla.</li></ul>
+<p>No se valorará hacer un diseño espectacular, pero sí que la aplicación sea clara y usable.</p>
+</section><section id="16-requisitos-tecnicos-obligatorios" class="content-section practice-section requirements-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard-check"></i></span> 16. Requisitos técnicos obligatorios</h2>
+<p>La práctica debe cumplir estos requisitos:</p>
+<ul class="custom-list"><li>El código JavaScript debe estar en <code>script.js</code>.</li><li>El CSS debe estar en <code>styles.css</code>.</li><li>Los datos deben estar en <code>datos/recursos.json</code>.</li><li>Debe usarse <code>fetch</code> para cargar los datos.</li><li>Debe usarse <code>async</code> / <code>await</code>.</li><li>Debe comprobarse <code>response.ok</code>.</li><li>Debe usarse <code>try...catch</code>.</li><li>Deben crearse elementos del DOM desde JavaScript.</li><li>Deben usarse eventos.</li><li>Debe haber validación de formulario.</li><li>Deben usarse métodos avanzados de arrays.</li><li>Debe haber mensajes de carga, error y resultado vacío.</li><li>El código debe estar organizado en funciones.</li></ul>
+</section><section id="17-restricciones" class="content-section practice-section restrictions-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-slash-circle"></i></span> 17. Restricciones</h2>
+<p>En esta práctica no se debe usar:</p>
+<ul class="custom-list"><li>frameworks;</li><li>librerías externas;</li><li>jQuery;</li><li>Bootstrap obligatorio;</li><li>código copiado sin entender;</li><li>almacenamiento persistente obligatorio;</li><li>APIs con clave o autenticación;</li><li>backend propio.</li></ul>
+<p>La aplicación debe funcionar con HTML, CSS y JavaScript puro.</p>
+</section><section id="18-pruebas-obligatorias" class="content-section practice-section testing-section requirements-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 18. Pruebas obligatorias</h2>
+<p>Antes de entregar, comprueba:</p>
+<ul class="custom-list"><li>La página carga sin errores en consola.</li><li>Los datos se cargan desde <code>recursos.json</code>.</li><li>Si cambias mal la ruta del JSON, aparece un mensaje de error.</li><li>La búsqueda filtra correctamente.</li><li>Los filtros por tipo y dificultad funcionan.</li><li>La ordenación funciona.</li><li>Las estadísticas se actualizan al filtrar.</li><li>El formulario no permite enviar datos vacíos.</li><li>El formulario añade un recurso válido.</li><li>El nuevo recurso aparece en el listado.</li><li>Las etiquetas del nuevo recurso se convierten correctamente en array.</li><li>La aplicación no se rompe si no hay resultados visibles.</li></ul>
+</section><section id="19-entrega" class="content-section practice-section delivery-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> 19. Entrega</h2>
+<p>Debes entregar un archivo comprimido con la carpeta completa del proyecto.</p>
+<p>Nombre recomendado:</p>
+<div class="example-block">
+<pre class="code-bash"><code>UD2_B5_Practica_global_Aplicacion_web_interactiva_Nombre_Apellidos.zip</code></pre>
+</div>
+<p>La entrega debe incluir:</p>
+<ul class="custom-list"><li><code>index.html</code>;</li><li><code>styles.css</code>;</li><li><code>script.js</code>;</li><li><code>datos/recursos.json</code>;</li><li>capturas de funcionamiento, si las solicita la profesora;</li><li>breve explicación final, si se pide en la plataforma.</li></ul>
+</section><section id="20-breve-explicacion-final" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-chat-left-text"></i></span> 20. Breve explicación final</h2>
+<p>Añade al final de la entrega, o en un comentario aparte, una explicación breve respondiendo:</p>
+<ol class="custom-ordered-list"><li>¿Qué datos carga la aplicación?</li><li>¿Qué filtros permite aplicar?</li><li>¿Qué método de array te resultó más útil?</li><li>¿Dónde usas <code>fetch</code>?</li><li>¿Dónde usas <code>async</code> / <code>await</code>?</li><li>¿Dónde validas el formulario?</li><li>¿Qué error te costó más resolver?</li></ol>
+</section><section id="21-rubrica-orientativa" class="content-section practice-section rubric-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-table"></i></span> 21. Rúbrica orientativa</h2>
+<div class="compact-table-container"><table class="comparison-table">
+<thead><tr><th>Criterio</th><th>Peso</th></tr></thead>
+<tbody>
+<tr><td>Estructura correcta del proyecto</td><td>10 %</td></tr>
+<tr><td>Carga de datos con <code>fetch</code>, <code>async</code> / <code>await</code> y <code>try...catch</code></td><td>15 %</td></tr>
+<tr><td>Renderizado dinámico en el DOM</td><td>15 %</td></tr>
+<tr><td>Búsqueda, filtros y ordenación</td><td>15 %</td></tr>
+<tr><td>Estadísticas con métodos de arrays</td><td>10 %</td></tr>
+<tr><td>Formulario y validación</td><td>15 %</td></tr>
+<tr><td>Organización del código en funciones</td><td>10 %</td></tr>
+<tr><td>Claridad visual, usabilidad y limpieza</td><td>5 %</td></tr>
+<tr><td>Comentarios, pruebas y explicación final</td><td>5 %</td></tr>
+</tbody></table></div>
+</section><section id="22-lista-de-comprobacion-final" class="content-section practice-section checklist-section requirements-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> 22. Lista de comprobación final</h2>
+<p>Antes de entregar, marca mentalmente que cumples todo esto:</p>
+<ul class="custom-list checklist-list"><li><span class="check-marker">[ ]</span> El proyecto tiene la estructura solicitada.</li><li><span class="check-marker">[ ]</span> Los archivos están correctamente enlazados.</li><li><span class="check-marker">[ ]</span> Los datos se cargan con <code>fetch</code>.</li><li><span class="check-marker">[ ]</span> Se usa <code>async</code> / <code>await</code>.</li><li><span class="check-marker">[ ]</span> Se comprueba <code>response.ok</code>.</li><li><span class="check-marker">[ ]</span> Se gestionan errores con <code>try...catch</code>.</li><li><span class="check-marker">[ ]</span> Se renderizan tarjetas desde JavaScript.</li><li><span class="check-marker">[ ]</span> Funcionan búsqueda, filtros y ordenación.</li><li><span class="check-marker">[ ]</span> Se calculan estadísticas.</li><li><span class="check-marker">[ ]</span> El formulario valida datos.</li><li><span class="check-marker">[ ]</span> El formulario añade recursos nuevos al array.</li><li><span class="check-marker">[ ]</span> El código está organizado en funciones.</li><li><span class="check-marker">[ ]</span> No hay errores en consola.</li><li><span class="check-marker">[ ]</span> La interfaz es clara y legible.</li></ul>
+</section><section id="23-ampliaciones-opcionales" class="content-section practice-section extension-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-stars"></i></span> 23. Ampliaciones opcionales</h2>
+<p>Estas ampliaciones no son obligatorias:</p>
+<ul class="custom-list"><li>botón para limpiar filtros;</li><li>botón para exportar recursos a JSON en consola;</li><li>destacar visualmente recursos pendientes;</li><li>contador por tipo de recurso;</li><li>ordenar por dificultad;</li><li>mostrar etiquetas como pequeñas etiquetas visuales;</li><li>confirmar antes de añadir un recurso;</li><li>permitir eliminar un recurso añadido durante la sesión.</li></ul>
+<p>No añadas ampliaciones si la parte obligatoria no funciona correctamente.</p>
+</section><section id="24-contenidos-que-quedan-fuera-de-esta-practica" class="content-section practice-section restrictions-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-door-closed"></i></span> 24. Contenidos que quedan fuera de esta práctica</h2>
+<p>Esta práctica cierra la UD2, pero no pretende introducir tecnologías externas.</p>
+<p>Quedan fuera como contenido obligatorio:</p>
+<ul class="custom-list"><li>frameworks como React, Vue o Angular;</li><li>backend propio;</li><li>autenticación;</li><li>bases de datos reales;</li><li>API con clave privada;</li><li>despliegue en servidor;</li><li><code>localStorage</code> obligatorio;</li><li>módulos JavaScript;</li><li>herramientas de empaquetado como Vite o Webpack.</li></ul>
+</section><section id="25-resumen-final" class="content-section summary-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-flag"></i></span> 25. Resumen final</h2>
+<p>En esta práctica debes demostrar que sabes construir una aplicación web interactiva completa usando JavaScript en el navegador.</p>
+<p>La aplicación debe cargar datos, mostrarlos en el DOM, permitir interacción del usuario, validar formularios, procesar arrays de objetos y gestionar errores de forma clara.</p>
+<p>Si la práctica funciona correctamente, tendrás una evidencia global de los contenidos principales de la UD2.</p>
+</section>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

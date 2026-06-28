@@ -1,0 +1,1323 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Bloque 4. Funciones básicas en JavaScript</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../assets/css/smpp.css" rel="stylesheet" />
+    <script defer="" src="../../assets/js/smpp.js"></script>
+  </head>
+  <body>
+    <div class="smpp-scope">
+      <main class="main-content has-sidebar notes-page">
+        <div class="content-layout">
+          <aside class="section-sidebar">
+            <nav aria-label="Índice del documento" class="section-nav">
+              <p class="section-nav-title">
+                <i
+                  aria-hidden="true"
+                  class="bi bi-list-check section-nav-icon"
+                ></i>
+                Índice
+              </p>
+              <ul class="section-nav-list">
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#1-que-vas-a-aprender-en-este-bloque"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-bullseye section-nav-icon"
+                    ></i
+                    ><span>1. Qué vas a aprender en este bloque</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#2-relacion-con-lo-visto-hasta-ahora"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-arrow-left-right section-nav-icon"
+                    ></i
+                    ><span>2. Relación con lo visto hasta ahora</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#3-que-es-una-funcion-y-por-que-se-usa"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-braces section-nav-icon"
+                    ></i
+                    ><span>3. Qué es una función y por qué se usa</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#4-declarar-una-funcion"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-file-earmark-code section-nav-icon"
+                    ></i
+                    ><span>4. Declarar una función</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#5-llamar-a-una-funcion"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-play-circle section-nav-icon"
+                    ></i
+                    ><span>5. Llamar a una función</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#6-parametros-y-argumentos"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-input-cursor-text section-nav-icon"
+                    ></i
+                    ><span>6. Parámetros y argumentos</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#7-funciones-que-muestran-datos-y-funciones-que-devuelven-datos"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-box-arrow-in-right section-nav-icon"
+                    ></i
+                    ><span
+                      >7. Funciones que muestran datos y funciones que devuelven
+                      datos</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#8-return-devolver-un-valor-y-terminar-la-funcion"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-arrow-return-left section-nav-icon"
+                    ></i
+                    ><span
+                      >8. return : devolver un valor y terminar la función</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#9-variables-locales-y-ambito-de-funcion"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-diagram-3 section-nav-icon"
+                    ></i
+                    ><span>9. Variables locales y ámbito de función</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#10-funciones-con-condicionales"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-question-diamond section-nav-icon"
+                    ></i
+                    ><span>10. Funciones con condicionales</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#11-funciones-con-bucles"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-arrow-repeat section-nav-icon"
+                    ></i
+                    ><span>11. Funciones con bucles</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#12-buenas-practicas-basicas"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-check2-square section-nav-icon"
+                    ></i
+                    ><span>12. Buenas prácticas básicas</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#13-errores-frecuentes"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-bug section-nav-icon"
+                    ></i
+                    ><span>13. Errores frecuentes</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#14-que-no-vamos-a-tratar-todavia"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-slash-circle section-nav-icon"
+                    ></i
+                    ><span>14. Qué no vamos a tratar todavía</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#15-resumen-final"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-flag section-nav-icon"
+                    ></i
+                    ><span>15. Resumen final</span></a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </aside>
+          <div class="content-wrapper">
+            <div class="document-toolbar">
+              <a class="document-home-link" href="../../index.html"
+                ><i aria-hidden="true" class="bi bi-house-door"></i> Índice del
+                curso</a
+              >
+               <button id="theme-toggle" class="document-theme-toggle" type="button">
+    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+    Modo oscuro
+  </button>
+            </div>
+            <header class="content-header">
+              <h1>
+                <span aria-hidden="true" class="document-title-icon"
+                  ><i aria-hidden="true" class="bi bi-braces"></i
+                ></span>
+                Bloque 4. Funciones básicas en JavaScript
+              </h1>
+            </header>
+            <section
+              class="content-section learning-objectives-section"
+              id="1-que-vas-a-aprender-en-este-bloque"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bullseye"></i></span
+                >1. Qué vas a aprender en este bloque
+              </h2>
+              <p class="section-lead">
+                En este bloque aprenderás a organizar el código JavaScript
+                usando <strong>funciones</strong>.
+              </p>
+              <p>
+                Una función permite agrupar instrucciones bajo un nombre para
+                poder reutilizarlas varias veces. Esto evita repetir código,
+                mejora la claridad del programa y facilita la comprobación de
+                errores.
+              </p>
+              <p>Al terminar este bloque deberías ser capaz de:</p>
+              <ul class="custom-list">
+                <li>
+                  declarar funciones usando la sintaxis clásica
+                  <code>function</code>;
+                </li>
+                <li>llamar a una función desde el programa principal;</li>
+                <li>
+                  diferenciar entre <strong>parámetros</strong> y
+                  <strong>argumentos</strong>;
+                </li>
+                <li>usar <code>return</code> para devolver un resultado;</li>
+                <li>
+                  distinguir entre mostrar un valor con
+                  <code>console.log()</code> y devolverlo con
+                  <code>return</code>;
+                </li>
+                <li>
+                  comprender el ámbito local de las variables declaradas dentro
+                  de una función;
+                </li>
+                <li>
+                  escribir funciones sencillas que usen condicionales o bucles;
+                </li>
+                <li>
+                  aplicar buenas prácticas básicas al nombrar y diseñar
+                  funciones.
+                </li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section flow-section"
+              id="2-relacion-con-lo-visto-hasta-ahora"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-arrow-left-right"
+                  ></i></span
+                >2. Relación con lo visto hasta ahora
+              </h2>
+              <p class="section-lead">
+                Antes de estudiar funciones ya hemos trabajado:
+              </p>
+              <ul class="custom-list">
+                <li>variables y constantes;</li>
+                <li>tipos de datos;</li>
+                <li>operadores;</li>
+                <li>expresiones booleanas;</li>
+                <li>condicionales;</li>
+                <li>bucles.</li>
+              </ul>
+              <p>
+                Las funciones permiten <strong>encapsular</strong> todo eso en
+                bloques reutilizables.
+              </p>
+              <p>
+                Por ejemplo, en lugar de escribir varias veces el mismo cálculo,
+                podemos escribirlo una sola vez dentro de una función y llamarla
+                cuando la necesitemos.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>function calcularDoble(numero) {
+  return numero * 2;
+}
+
+console.log(calcularDoble(5));
+console.log(calcularDoble(12));
+</code></pre>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section flow-section"
+              id="3-que-es-una-funcion-y-por-que-se-usa"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-braces"></i></span
+                >3. Qué es una función y por qué se usa
+              </h2>
+              <p class="section-lead">
+                Una <strong>función</strong> es un bloque de código con un
+                nombre, pensado para realizar una tarea concreta.
+              </p>
+              <p>Podemos imaginar una función como una receta:</p>
+              <ul class="custom-list">
+                <li>tiene un nombre;</li>
+                <li>puede recibir datos de entrada;</li>
+                <li>ejecuta una serie de instrucciones;</li>
+                <li>puede devolver un resultado.</li>
+              </ul>
+              <p>Ejemplo sencillo:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>function saludar() {
+  console.log("Hola desde DWCC");
+}
+</code></pre>
+              </div>
+              <p>
+                En este ejemplo, <code>saludar</code> es el nombre de la
+                función. Dentro de las llaves <code>{ ... }</code> están las
+                instrucciones que forman la función.
+              </p>
+              <div class="subsection-card">
+                <h3>¿Por qué usamos funciones?</h3>
+                <p>Usamos funciones porque ayudan a:</p>
+                <ol class="custom-ordered-list">
+                  <li>
+                    <p>
+                      <strong>Evitar repetir código.</strong> Si una operación
+                      se repite varias veces, podemos ponerla en una función y
+                      llamarla cuando haga falta.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <strong>Ordenar el programa.</strong> Cada función puede
+                      encargarse de una tarea concreta.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <strong>Mejorar la legibilidad.</strong> Un nombre bien
+                      elegido ayuda a entender qué hace una parte del programa.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <strong>Facilitar las pruebas.</strong> Podemos comprobar
+                      una función con distintos valores de entrada.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <strong>Reutilizar código.</strong> Una función bien
+                      diseñada puede usarse en diferentes partes del programa.
+                    </p>
+                  </li>
+                </ol>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>function precioConIVA(precioSinIVA, tipoIVA) {
+  const iva = precioSinIVA * (tipoIVA / 100);
+  const total = precioSinIVA + iva;
+  return total;
+}
+
+const totalLibro = precioConIVA(20, 4);
+console.log("Libro con IVA:", totalLibro);
+
+const totalProducto = precioConIVA(50, 21);
+console.log("Producto con IVA:", totalProducto);
+</code></pre>
+                </div>
+                <p>
+                  La lógica del cálculo aparece una sola vez, dentro de
+                  <code>precioConIVA</code>, pero se reutiliza con datos
+                  diferentes.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section operators-section"
+              id="4-declarar-una-funcion"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-file-earmark-code"
+                  ></i></span
+                >4. Declarar una función
+              </h2>
+              <p class="section-lead">
+                Para crear una función usamos la palabra reservada
+                <code>function</code>, seguida del nombre de la función,
+                paréntesis y un bloque de código entre llaves.
+              </p>
+              <div class="syntax-box">
+                <p>Sintaxis básica:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function nombreDeLaFuncion() {
+  // instrucciones
+}
+</code></pre>
+                </div>
+              </div>
+              <p>Ejemplo:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>function mostrarMensaje() {
+  console.log("Estoy aprendiendo funciones");
+}
+</code></pre>
+              </div>
+              <p>
+                En este punto la función está <strong>declarada</strong>, pero
+                todavía no se ha ejecutado.
+              </p>
+              <p>Declarar una función significa decirle a JavaScript:</p>
+              <blockquote class="note-box">
+                <p>
+                  “Existe una función con este nombre y estas instrucciones.”
+                </p>
+              </blockquote>
+              <hr />
+            </section>
+            <section
+              class="content-section flow-section"
+              id="5-llamar-a-una-funcion"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-play-circle"></i></span
+                >5. Llamar a una función
+              </h2>
+              <p class="section-lead">
+                Para ejecutar una función usamos su nombre seguido de
+                paréntesis.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>function mostrarMensaje() {
+  console.log("Estoy aprendiendo funciones");
+}
+
+mostrarMensaje();
+</code></pre>
+              </div>
+              <p>La línea:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>mostrarMensaje();
+</code></pre>
+              </div>
+              <p>es una <strong>llamada a la función</strong>.</p>
+              <p>Una función puede llamarse varias veces:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>function saludar() {
+  console.log("Hola");
+}
+
+saludar();
+saludar();
+saludar();
+</code></pre>
+              </div>
+              <p>
+                La función se escribe una vez, pero se ejecuta tantas veces como
+                la llamemos.
+              </p>
+              <hr />
+            </section>
+            <section
+              class="content-section operators-section"
+              id="6-parametros-y-argumentos"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-input-cursor-text"
+                  ></i></span
+                >6. Parámetros y argumentos
+              </h2>
+              <p class="section-lead">
+                Las funciones pueden recibir datos de entrada.
+              </p>
+              <p>
+                A esos datos, dentro de la declaración de la función, los
+                llamamos <strong>parámetros</strong>.
+              </p>
+              <p>
+                Cuando llamamos a la función y le pasamos valores concretos,
+                esos valores se llaman <strong>argumentos</strong>.
+              </p>
+              <div class="subsection-card">
+                <h3>6.1. Función con un parámetro</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar(nombre) {
+  console.log("Hola " + nombre);
+}
+
+saludar("Ana");
+saludar("Marcos");
+</code></pre>
+                </div>
+                <p>En este ejemplo:</p>
+                <ul class="custom-list">
+                  <li><code>nombre</code> es el <strong>parámetro</strong>;</li>
+                  <li>
+                    <code>"Ana"</code> y <code>"Marcos"</code> son
+                    <strong>argumentos</strong>;
+                  </li>
+                  <li>
+                    en cada llamada, el parámetro <code>nombre</code> toma el
+                    valor que se le pasa.
+                  </li>
+                </ul>
+                <p>La salida sería:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>Hola Ana
+Hola Marcos
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>6.2. Función con varios parámetros</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function mostrarSuma(a, b) {
+  console.log(a + b);
+}
+
+mostrarSuma(3, 4);
+mostrarSuma(10, 5);
+</code></pre>
+                </div>
+                <p>En este caso:</p>
+                <ul class="custom-list">
+                  <li><code>a</code> y <code>b</code> son parámetros;</li>
+                  <li>
+                    <code>3</code> y <code>4</code> son argumentos en la primera
+                    llamada;
+                  </li>
+                  <li>
+                    <code>10</code> y <code>5</code> son argumentos en la
+                    segunda llamada.
+                  </li>
+                </ul>
+              </div>
+              <div class="subsection-card">
+                <h3>6.3. Si faltan argumentos</h3>
+                <p>
+                  En JavaScript, si llamamos a una función sin pasar todos los
+                  argumentos, los parámetros que falten tendrán el valor
+                  <code>undefined</code>.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function sumar(a, b) {
+  return a + b;
+}
+
+console.log(sumar(3));
+</code></pre>
+                </div>
+                <p>
+                  En este ejemplo, <code>a</code> vale <code>3</code>, pero
+                  <code>b</code> vale <code>undefined</code>. El resultado será
+                  <code>NaN</code>, porque JavaScript intenta calcular:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>3 + undefined
+</code></pre>
+                </div>
+                <p>
+                  Por eso es importante llamar a las funciones con los
+                  argumentos que necesitan.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section operators-section"
+              id="7-funciones-que-muestran-datos-y-funciones-que-devuelven-datos"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-box-arrow-in-right"
+                  ></i></span
+                >7. Funciones que muestran datos y funciones que devuelven datos
+              </h2>
+              <p class="section-lead">Este punto es importante.</p>
+              <p>
+                No es lo mismo <strong>mostrar un dato</strong> que
+                <strong>devolver un dato</strong>.
+              </p>
+              <div class="subsection-card">
+                <h3>7.1. Mostrar con <code>console.log()</code></h3>
+                <p>
+                  <code>console.log()</code> muestra información en la consola,
+                  pero no devuelve un resultado útil para seguir calculando.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function mostrarSuma(a, b) {
+  console.log(a + b);
+}
+
+mostrarSuma(3, 4);
+</code></pre>
+                </div>
+                <p>
+                  Esta función muestra <code>7</code> en consola, pero no
+                  permite guardar ese resultado directamente en una variable
+                  para reutilizarlo.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>7.2. Devolver con <code>return</code></h3>
+                <p>
+                  <code>return</code> devuelve un valor al lugar desde donde se
+                  llamó la función.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function devolverSuma(a, b) {
+  return a + b;
+}
+
+const resultado = devolverSuma(3, 4);
+console.log("Resultado:", resultado);
+</code></pre>
+                </div>
+                <p>
+                  Aquí la función devuelve <code>7</code>, y ese valor se guarda
+                  en la variable <code>resultado</code>.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>7.3. Comparación directa</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function sumarYMostrar(a, b) {
+  console.log(a + b);
+}
+
+function sumarYDevolver(a, b) {
+  return a + b;
+}
+
+sumarYMostrar(3, 4);
+
+const total = sumarYDevolver(3, 4);
+console.log(total * 2);
+</code></pre>
+                </div>
+                <p>
+                  La segunda función es más reutilizable porque el resultado
+                  puede guardarse, combinarse con otros cálculos o pasarse a
+                  otra función.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section operators-section"
+              id="8-return-devolver-un-valor-y-terminar-la-funcion"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-arrow-return-left"
+                  ></i></span
+                >8. <code>return</code>: devolver un valor y terminar la función
+              </h2>
+              <p class="section-lead">
+                La instrucción <code>return</code> tiene dos efectos:
+              </p>
+              <ol class="custom-ordered-list">
+                <li>Devuelve un valor.</li>
+                <li>Termina inmediatamente la ejecución de la función.</li>
+              </ol>
+              <p>Ejemplo:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>function sumar(a, b) {
+  const resultado = a + b;
+  return resultado;
+}
+
+const total = sumar(3, 4);
+console.log("Total:", total);
+</code></pre>
+              </div>
+              <p>También podemos escribirlo de forma más compacta:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>function sumar(a, b) {
+  return a + b;
+}
+</code></pre>
+              </div>
+              <div class="subsection-card">
+                <h3>8.1. Código después de <code>return</code></h3>
+                <p>
+                  Cualquier instrucción escrita después de un
+                  <code>return</code> ejecutado no se ejecutará.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar(nombre) {
+  return "Hola " + nombre;
+  console.log("Esta línea no se ejecuta");
+}
+
+console.log(saludar("Ana"));
+</code></pre>
+                </div>
+                <p>
+                  La función termina en el <code>return</code>. La línea
+                  posterior queda inaccesible.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>8.2. Función sin <code>return</code></h3>
+                <p>
+                  Si una función no tiene un <code>return</code> explícito,
+                  devuelve <code>undefined</code>.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function mostrarMensaje() {
+  console.log("Hola");
+}
+
+const resultado = mostrarMensaje();
+console.log(resultado); // undefined
+</code></pre>
+                </div>
+                <p>
+                  La función muestra <code>"Hola"</code>, pero no devuelve
+                  ningún valor útil.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section flow-section"
+              id="9-variables-locales-y-ambito-de-funcion"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-diagram-3"></i></span
+                >9. Variables locales y ámbito de función
+              </h2>
+              <p class="section-lead">
+                Las variables declaradas dentro de una función solo existen
+                dentro de esa función.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>function ejemplo() {
+  let x = 10;
+  console.log(x);
+}
+
+ejemplo();
+
+// console.log(x); // Error: x is not defined
+</code></pre>
+              </div>
+              <p>
+                La variable <code>x</code> se ha creado dentro de
+                <code>ejemplo()</code>, por tanto no se puede usar desde fuera.
+              </p>
+              <p>Esto se llama <strong>ámbito local</strong>.</p>
+              <div class="subsection-card">
+                <h3>9.1. Parámetros como variables locales</h3>
+                <p>
+                  Los parámetros también se comportan como variables locales de
+                  la función.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar(nombre) {
+  console.log("Hola " + nombre);
+}
+
+saludar("Ana");
+
+// console.log(nombre); // Error: nombre is not defined
+</code></pre>
+                </div>
+                <p>
+                  El parámetro <code>nombre</code> solo existe dentro de la
+                  función <code>saludar</code>.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>9.2. Evitar depender de variables globales</h3>
+                <p>
+                  Una función es más clara y reutilizable si recibe los datos
+                  que necesita mediante parámetros.
+                </p>
+                <div class="bad-example-block">
+                  <p>Menos recomendable:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>let precio = 100;
+
+function calcularIVA() {
+  return precio * 0.21;
+}
+
+console.log(calcularIVA());
+</code></pre>
+                  </div>
+                </div>
+                <div class="good-example-block">
+                  <p>Más recomendable:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>function calcularIVA(precio) {
+  return precio * 0.21;
+}
+
+console.log(calcularIVA(100));
+</code></pre>
+                  </div>
+                  <p>
+                    La segunda versión es mejor porque la función no depende de
+                    una variable externa llamada <code>precio</code>.
+                  </p>
+                  <hr />
+                </div>
+              </div>
+            </section>
+            <section
+              class="content-section conditionals-section"
+              id="10-funciones-con-condicionales"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-question-diamond"
+                  ></i></span
+                >10. Funciones con condicionales
+              </h2>
+              <p class="section-lead">
+                Una función puede contener condicionales.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>function esMayorDeEdad(edad) {
+  if (edad &gt;= 18) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+console.log(esMayorDeEdad(20));
+console.log(esMayorDeEdad(15));
+</code></pre>
+              </div>
+              <p>
+                La función anterior puede simplificarse porque la condición
+                <code>edad &gt;= 18</code> ya produce un valor booleano:
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>function esMayorDeEdad(edad) {
+  return edad &gt;= 18;
+}
+</code></pre>
+              </div>
+              <p>Otro ejemplo con texto:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>function obtenerResultadoNota(nota) {
+  if (nota &gt;= 5) {
+    return "Aprobado";
+  }
+
+  return "Suspenso";
+}
+
+console.log(obtenerResultadoNota(7));
+console.log(obtenerResultadoNota(3));
+</code></pre>
+              </div>
+              <p>
+                En este ejemplo, si se cumple <code>nota &gt;= 5</code>, la
+                función devuelve <code>"Aprobado"</code> y termina. Si no se
+                cumple, continúa y devuelve <code>"Suspenso"</code>.
+              </p>
+              <hr />
+            </section>
+            <section
+              class="content-section loops-section"
+              id="11-funciones-con-bucles"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-arrow-repeat"></i></span
+                >11. Funciones con bucles
+              </h2>
+              <p class="section-lead">
+                Una función también puede contener bucles.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>function imprimirHasta(n) {
+  for (let i = 1; i &lt;= n; i++) {
+    console.log(i);
+  }
+}
+
+imprimirHasta(5);
+</code></pre>
+              </div>
+              <p>
+                La función <code>imprimirHasta</code> recibe un número y muestra
+                todos los números desde <code>1</code> hasta ese número.
+              </p>
+              <p>Otro ejemplo:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>function sumarHasta(n) {
+  let suma = 0;
+
+  for (let i = 1; i &lt;= n; i++) {
+    suma = suma + i;
+  }
+
+  return suma;
+}
+
+const resultado = sumarHasta(10);
+console.log("Suma:", resultado);
+</code></pre>
+              </div>
+              <p>
+                Aquí el bucle se usa para calcular un resultado, y la función lo
+                devuelve con <code>return</code>.
+              </p>
+              <hr />
+            </section>
+            <section
+              class="content-section review-section"
+              id="12-buenas-practicas-basicas"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-check2-square"></i></span
+                >12. Buenas prácticas básicas
+              </h2>
+              <div class="good-practice-box">
+                <h3>12.1. Usar nombres claros</h3>
+                <p>El nombre de una función debe indicar qué hace.</p>
+                <div class="bad-example-block">
+                  <p>Malos nombres:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>function cosa() {
+  // ...
+}
+
+function funcion1() {
+  // ...
+}
+</code></pre>
+                  </div>
+                </div>
+                <div class="good-example-block">
+                  <p>Mejores nombres:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>function calcularTotal() {
+  // ...
+}
+
+function esMayorDeEdad(edad) {
+  // ...
+}
+
+function mostrarMensajeError() {
+  // ...
+}
+</code></pre>
+                  </div>
+                  <p>
+                    En JavaScript se recomienda usar
+                    <strong>camelCase</strong> para nombres de funciones:
+                  </p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>calcularPrecioFinal
+mostrarResultado
+obtenerNombreUsuario
+</code></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="good-practice-box">
+                <h3>12.2. Usar normalmente verbos</h3>
+                <p>
+                  Una función suele representar una acción. Por eso muchos
+                  nombres empiezan por verbos:
+                </p>
+                <ul class="custom-list">
+                  <li><code>calcularTotal</code></li>
+                  <li><code>mostrarMensaje</code></li>
+                  <li><code>obtenerDescuento</code></li>
+                  <li><code>validarEdad</code></li>
+                  <li><code>convertirMinutosASegundos</code></li>
+                </ul>
+              </div>
+              <div class="good-practice-box">
+                <h3>12.3. Una función, una tarea principal</h3>
+                <p>Una función debe intentar hacer una tarea clara.</p>
+                <div class="bad-example-block">
+                  <p>Menos recomendable:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>function hacerTodo() {
+  // pide datos
+  // calcula
+  // valida
+  // muestra resultados
+  // modifica muchas variables
+}
+</code></pre>
+                  </div>
+                </div>
+                <div class="good-example-block">
+                  <p>Más recomendable:</p>
+                  <div class="example-block">
+                    <pre
+                      class="code-js"
+                    ><code>function calcularPrecioConIVA(precio, iva) {
+  return precio + precio * (iva / 100);
+}
+</code></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="good-practice-box">
+                <h3>
+                  12.4. Preferir <code>return</code> cuando el resultado se va a
+                  reutilizar
+                </h3>
+                <p>
+                  Si solo queremos ver algo durante una prueba,
+                  <code>console.log()</code> está bien.
+                </p>
+                <p>
+                  Pero si queremos usar el resultado más adelante, conviene
+                  devolverlo.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function calcularCuadrado(numero) {
+  return numero * numero;
+}
+
+const cuadrado = calcularCuadrado(5);
+console.log(cuadrado + 10);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section frequent-errors-section"
+              id="13-errores-frecuentes"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bug"></i></span
+                >13. Errores frecuentes
+              </h2>
+              <div class="error-card">
+                <h3>13.1. Declarar la función pero no llamarla</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  console.log("Hola");
+}
+</code></pre>
+                </div>
+                <p>
+                  Este código no muestra nada porque la función está declarada,
+                  pero no llamada.
+                </p>
+                <div class="good-example-block">
+                  <p>Correcto:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>function saludar() {
+  console.log("Hola");
+}
+
+saludar();
+</code></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="error-card">
+                <h3>13.2. Confundir parámetro y argumento</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar(nombre) {
+  console.log("Hola " + nombre);
+}
+
+saludar("Ana");
+</code></pre>
+                </div>
+                <ul class="custom-list">
+                  <li><code>nombre</code> es el parámetro.</li>
+                  <li><code>"Ana"</code> es el argumento.</li>
+                </ul>
+              </div>
+              <div class="error-card">
+                <h3>
+                  13.3. Esperar que <code>console.log()</code> devuelva un valor
+                </h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function sumar(a, b) {
+  console.log(a + b);
+}
+
+const resultado = sumar(3, 4);
+console.log(resultado); // undefined
+</code></pre>
+                </div>
+                <p>
+                  La función muestra <code>7</code>, pero no devuelve
+                  <code>7</code>.
+                </p>
+                <div class="good-example-block">
+                  <p>Correcto:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>function sumar(a, b) {
+  return a + b;
+}
+
+const resultado = sumar(3, 4);
+console.log(resultado);
+</code></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="error-card">
+                <h3>
+                  13.4. Escribir código después de <code>return</code> pensando
+                  que se ejecutará
+                </h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function ejemplo() {
+  return "Fin";
+  console.log("Esto no se ejecuta");
+}
+</code></pre>
+                </div>
+                <p>La línea posterior al <code>return</code> no se ejecuta.</p>
+              </div>
+              <div class="error-card">
+                <h3>13.5. Usar variables locales fuera de la función</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function crearMensaje() {
+  const mensaje = "Hola";
+}
+
+// console.log(mensaje); // Error
+</code></pre>
+                </div>
+                <p><code>mensaje</code> solo existe dentro de la función.</p>
+              </div>
+              <div class="error-card">
+                <h3>13.6. No pasar todos los argumentos necesarios</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function multiplicar(a, b) {
+  return a * b;
+}
+
+console.log(multiplicar(5)); // NaN
+</code></pre>
+                </div>
+                <p>
+                  Falta el segundo argumento, por lo que <code>b</code> vale
+                  <code>undefined</code>.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section restrictions-section review-section"
+              id="14-que-no-vamos-a-tratar-todavia"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-slash-circle"></i></span
+                >14. Qué no vamos a tratar todavía
+              </h2>
+              <p class="section-lead">
+                En este bloque vamos a trabajar solo con la forma clásica:
+              </p>
+              <div class="example-block">
+                <pre
+                  class="code-js"
+                ><code>function nombreFuncion(parametro1, parametro2) {
+  // instrucciones
+}
+</code></pre>
+              </div>
+              <p>De momento no vamos a estudiar en profundidad:</p>
+              <ul class="custom-list">
+                <li>funciones flecha;</li>
+                <li>funciones anónimas;</li>
+                <li>callbacks;</li>
+                <li>funciones como valores;</li>
+                <li>closures;</li>
+                <li>recursividad;</li>
+                <li>métodos de arrays.</li>
+              </ul>
+              <p>
+                Estos contenidos aparecerán más adelante cuando ya tengamos una
+                base más sólida.
+              </p>
+              <div class="note-box">
+                <h3>Nota sobre hoisting</h3>
+                <p>Las declaraciones de función como esta:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  console.log("Hola");
+}
+</code></pre>
+                </div>
+                <p>
+                  son conocidas por JavaScript antes de ejecutar el código. Por
+                  eso, técnicamente, una función declarada con
+                  <code>function nombre() { ... }</code> puede llamarse antes de
+                  aparecer escrita en el archivo.
+                </p>
+                <p>Sin embargo, en este bloque usaremos siempre este estilo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  console.log("Hola");
+}
+
+saludar();
+</code></pre>
+                </div>
+                <p>
+                  Primero declaramos la función y después la llamamos. Es más
+                  claro para aprender y evita confusiones.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section summary-section"
+              id="15-resumen-final"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-flag"></i></span
+                >15. Resumen final
+              </h2>
+              <p class="section-lead">
+                Una <strong>función</strong> es un bloque de código con nombre
+                que podemos reutilizar.
+              </p>
+              <p>Ideas clave:</p>
+              <ul class="custom-list">
+                <li>Se declara con <code>function</code>.</li>
+                <li>
+                  Se ejecuta llamándola por su nombre seguido de paréntesis.
+                </li>
+                <li>Puede recibir datos mediante parámetros.</li>
+                <li>
+                  Los valores concretos que se pasan al llamar son argumentos.
+                </li>
+                <li>Puede devolver un resultado con <code>return</code>.</li>
+                <li><code>return</code> termina la función.</li>
+                <li>
+                  Una función sin <code>return</code> explícito devuelve
+                  <code>undefined</code>.
+                </li>
+                <li>
+                  Las variables declaradas dentro de una función tienen ámbito
+                  local.
+                </li>
+                <li>Una función puede contener condicionales y bucles.</li>
+                <li>
+                  Es mejor usar nombres claros y funciones con una tarea
+                  concreta.
+                </li>
+              </ul>
+              <p>Ejemplo final:</p>
+              <div class="example-block">
+                <pre
+                  class="code-js"
+                ><code>function calcularPrecioFinal(precio, descuento) {
+  const rebaja = precio * (descuento / 100);
+  return precio - rebaja;
+}
+
+const total = calcularPrecioFinal(100, 15);
+console.log("Precio final:", total);
+</code></pre>
+              </div>
+              <p>En este ejemplo:</p>
+              <ul class="custom-list">
+                <li>
+                  <code>precio</code> y <code>descuento</code> son parámetros;
+                </li>
+                <li><code>100</code> y <code>15</code> son argumentos;</li>
+                <li>la función calcula un resultado;</li>
+                <li><code>return</code> devuelve ese resultado;</li>
+                <li>
+                  el resultado se guarda en <code>total</code> y después se
+                  muestra en consola.
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UD2_B4 · Ejercicios: promesas y async/await</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+<script defer="" src="../../assets/js/smpp.js"></script>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar exercises-page">
+<div class="content-layout">
+<aside aria-label="Índice del documento" class="section-sidebar">
+<nav aria-label="Secciones del documento" class="section-nav">
+<p class="section-nav-title">
+<i aria-hidden="true" class="bi bi-list-ul"></i>
+              Índice del documento
+            </p>
+<ol class="section-nav-list">
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#1-objetivo-de-la-hoja"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#2-antes-de-empezar"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-info-circle"></i></span> 2. Antes de empezar</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#3-recordatorio-rapido"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-journal-code"></i></span> 3. Recordatorio rápido</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#parte-1-comprender-el-orden-de-ejecucion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-123"></i></span> Parte 1. Comprender el orden de ejecución</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-1-codigo-sincrono-y-asincrono"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 1. Código síncrono y asíncrono</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-2-dos-temporizadores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 2. Dos temporizadores</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#parte-2-crear-promesas-sencillas"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-box-arrow-in-down"></i></span> Parte 2. Crear promesas sencillas</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-3-promesa-que-siempre-se-resuelve"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 3. Promesa que siempre se resuelve</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-4-promesa-con-resolve-y-reject"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 4. Promesa con <code>resolve</code> y <code>reject</code></a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-5-promesa-con-retraso"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 5. Promesa con retraso</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#parte-3-consumir-promesas-con-then-catch-y-finally"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-diagram-3"></i></span> Parte 3. Consumir promesas con <code>.then()</code>, <code>.catch()</code> y <code>.finally()</code></a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-6-simular-una-descarga-correcta"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 6. Simular una descarga correcta</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-7-simular-una-descarga-con-error"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 7. Simular una descarga con error</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-8-anadir-finally"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 8. Añadir <code>finally</code></a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#parte-4-encadenar-operaciones-asincronas"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-link-45deg"></i></span> Parte 4. Encadenar operaciones asíncronas</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-9-preparar-procesar-y-finalizar"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 9. Preparar, procesar y finalizar</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-10-encadenamiento-con-datos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 10. Encadenamiento con datos</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#parte-5-usar-async-y-await"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-hourglass-split"></i></span> Parte 5. Usar <code>async</code> y <code>await</code></a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-11-primera-funcion-async"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 11. Primera función <code>async</code></a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-12-reescribir-then-usando-async-await"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 12. Reescribir <code>.then()</code> usando <code>async</code>/<code>await</code></a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-13-usar-await-varias-veces"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 13. Usar <code>await</code> varias veces</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#parte-6-tratamiento-de-errores-con-try-catch"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-exclamation"></i></span> Parte 6. Tratamiento de errores con <code>try...catch</code></a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-14-capturar-un-error-con-try-catch"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 14. Capturar un error con <code>try...catch</code></a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-15-validar-usuario-de-forma-asincrona"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 15. Validar usuario de forma asíncrona</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#parte-7-promesas-con-datos-simulados"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-database"></i></span> Parte 7. Promesas con datos simulados</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-16-simular-carga-de-una-lista-de-notas"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 16. Simular carga de una lista de notas</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-17-simular-carga-de-nombres"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 17. Simular carga de nombres</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-18-simular-carga-de-productos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 18. Simular carga de productos</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#parte-8-elegir-la-solucion-adecuada"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-ui-checks"></i></span> Parte 8. Elegir la solución adecuada</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-19-que-usarias"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 19. ¿Qué usarías?</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-20-explica-con-tus-palabras"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 20. Explica con tus palabras</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#parte-9-corrige-los-errores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> Parte 9. Corrige los errores</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-21-falta-return"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 21. Falta <code>return</code></a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-22-usar-await-fuera-de-una-funcion-async"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 22. Usar <code>await</code> fuera de una función <code>async</code></a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-23-error-no-capturado"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 23. Error no capturado</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-24-confusion-entre-promesa-y-resultado"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 24. Confusión entre promesa y resultado</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#parte-10-mini-entrega-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-send-check"></i></span> Parte 10. Mini-entrega final</a></li>
+<li class="section-nav-item section-nav-subitem"><a class="section-nav-link badge-link section-nav-sub-link" href="#ejercicio-25-simulador-de-consulta-de-datos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 25. Simulador de consulta de datos</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#4-lista-de-comprobacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-square"></i></span> 4. Lista de comprobación</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#5-errores-frecuentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-exclamation-triangle"></i></span> 5. Errores frecuentes</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#6-contenidos-que-quedan-para-la-siguiente-hoja"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-arrow-right-circle"></i></span> 6. Contenidos que quedan para la siguiente hoja</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#7-resumen-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-card-checklist"></i></span> 7. Resumen final</a></li>
+</ol>
+</nav>
+</aside>
+<div class="content-wrapper">
+<nav aria-label="Acciones del documento" class="main-header">
+<a class="nav-link" href="../../index.html"><i aria-hidden="true" class="bi bi-house-door"></i> Volver al índice</a>
+<button aria-label="Cambiar a modo oscuro" aria-pressed="false" data-update-text="true" id="theme-toggle" type="button">🌙 Modo oscuro</button>
+</nav>
+<header class="content-header">
+<h1><i aria-hidden="true" class="bi bi-hourglass-split"></i> UD2_B4. Ejercicios: promesas y <code>async</code>/<code>await</code></h1>
+</header>
+<section class="content-section" id="1-objetivo-de-la-hoja">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</h2>
+<p>En esta hoja vas a practicar la <strong>asincronía en JavaScript</strong> antes de trabajar con <code>fetch</code> y datos externos.</p>
+<p>El objetivo no es memorizar la sintaxis, sino entender qué ocurre cuando una operación <strong>no termina inmediatamente</strong> y cómo podemos gestionar su resultado de forma ordenada.</p>
+<p>Al finalizar deberías ser capaz de:</p>
+<ul class="custom-list">
+<li>distinguir código síncrono y código asíncrono;</li>
+<li>crear funciones que devuelvan promesas sencillas;</li>
+<li>consumir promesas con <code>.then()</code>, <code>.catch()</code> y <code>.finally()</code>;</li>
+<li>escribir funciones <code>async</code>;</li>
+<li>usar <code>await</code> para esperar el resultado de una promesa;</li>
+<li>capturar errores con <code>try...catch</code>;</li>
+<li>transformar código con <code>.then()</code> a código con <code>async</code>/<code>await</code>;</li>
+<li>razonar el orden de ejecución de un programa asíncrono.</li>
+</ul>
+<hr/>
+</section>
+<section class="content-section" id="2-antes-de-empezar">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-info-circle"></i></span> 2. Antes de empezar</h2>
+<p>Trabaja en un archivo llamado:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">UD2_B4_ejercicios_promesas_async_await.js
+</code></pre></div>
+<p>Puedes ejecutar los ejercicios:</p>
+<ul class="custom-list">
+<li>en la consola del navegador;</li>
+<li>en un archivo <code>.js</code> enlazado desde una página HTML;</li>
+<li>o con Node.js, si ya lo tienes preparado.</li>
+</ul>
+<p>En esta hoja <strong>no se usa todavía <code>fetch</code></strong>. Vamos a simular operaciones asíncronas con <code>setTimeout()</code> y promesas para entender bien la base antes de consumir datos reales.</p>
+<div class="subsection-block">
+<h3 class="subsection-title">Cómo trabajar esta hoja</h3>
+<p>La hoja contiene muchos ejercicios porque sirve como práctica completa del bloque. Si se trabaja en clase y no da tiempo a completarla entera, prioriza estos ejercicios:</p>
+<ul class="custom-list">
+<li><strong>Básicos imprescindibles:</strong> 1, 2, 3, 4, 5, 7, 8, 11, 12, 14, 15, 21, 22, 23 y 24.</li>
+<li><strong>Refuerzo recomendado:</strong> 6, 9, 10, 16, 17, 18, 19 y 20.</li>
+<li><strong>Entrega final:</strong> 25.</li>
+</ul>
+<p>La idea es que primero entiendas el orden de ejecución y el funcionamiento de las promesas, y después practiques la forma moderna de escribir código asíncrono con <code>async</code>/<code>await</code>.</p>
+<hr/>
+</div>
+</section>
+<section class="content-section" id="3-recordatorio-rapido">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-journal-code"></i></span> 3. Recordatorio rápido</h2>
+<div class="example-section">
+<h3 class="subsection-title">3.1. Promesa resuelta</h3>
+<div class="example-block"><pre class="code-js"><code class="language-js">const promesa = new Promise((resolve, reject) =&gt; {
+  resolve("Operación completada");
+});
+
+promesa.then((resultado) =&gt; {
+  console.log(resultado);
+});
+</code></pre></div>
+</div><div class="example-section">
+<h3 class="subsection-title">3.2. Promesa rechazada</h3>
+<div class="example-block"><pre class="code-js"><code class="language-js">const promesa = new Promise((resolve, reject) =&gt; {
+  reject("Ha ocurrido un error");
+});
+
+promesa.catch((error) =&gt; {
+  console.log(error);
+});
+</code></pre></div>
+</div><div class="example-section">
+<h3 class="subsection-title">3.3. Función <code>async</code> con <code>await</code></h3>
+<div class="example-block"><pre class="code-js"><code class="language-js">function esperar(ms) {
+  return new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; {
+      resolve("Tiempo finalizado");
+    }, ms);
+  });
+}
+
+async function ejecutar() {
+  const resultado = await esperar(1000);
+  console.log(resultado);
+}
+
+ejecutar();
+</code></pre></div>
+<hr/>
+</div>
+</section>
+<section class="content-section unit-part-section" id="parte-1-comprender-el-orden-de-ejecucion">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-123"></i></span> Parte 1. Comprender el orden de ejecución</h2>
+<section class="exercise-block" id="ejercicio-1-codigo-sincrono-y-asincrono">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 1. Código síncrono y asíncrono</h3>
+<p>Analiza este código antes de ejecutarlo:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">console.log("Inicio");
+
+setTimeout(() =&gt; {
+  console.log("Mensaje dentro de setTimeout");
+}, 1000);
+
+console.log("Fin");
+</code></pre></div>
+<p>Responde:</p>
+<ol class="custom-ordered-list">
+<li>¿Qué mensaje se muestra primero?</li>
+<li>¿Qué mensaje se muestra segundo?</li>
+<li>¿Qué mensaje se muestra último?</li>
+<li>¿Por qué <code>"Fin"</code> aparece antes que el mensaje del <code>setTimeout</code>?</li>
+</ol>
+<p>Después, ejecútalo y comprueba tu respuesta.</p>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-2-dos-temporizadores">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 2. Dos temporizadores</h3>
+<p>Analiza el siguiente código:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">console.log("A");
+
+setTimeout(() =&gt; {
+  console.log("B");
+}, 2000);
+
+setTimeout(() =&gt; {
+  console.log("C");
+}, 1000);
+
+console.log("D");
+</code></pre></div>
+<p>Responde antes de ejecutar:</p>
+<ol class="custom-ordered-list">
+<li>¿Cuál será el orden exacto de los mensajes?</li>
+<li>¿Por qué <code>C</code> aparece antes que <code>B</code>?</li>
+<li>¿Qué mensajes pertenecen al código síncrono?</li>
+<li>¿Qué mensajes pertenecen al código asíncrono?</li>
+</ol>
+<hr/>
+</section>
+</section>
+<section class="content-section unit-part-section" id="parte-2-crear-promesas-sencillas">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-in-down"></i></span> Parte 2. Crear promesas sencillas</h2>
+<section class="exercise-block" id="ejercicio-3-promesa-que-siempre-se-resuelve">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 3. Promesa que siempre se resuelve</h3>
+<p>Crea una función llamada <code>cargarDatos()</code> que devuelva una promesa.</p>
+<p>La promesa debe resolverse después de 1 segundo con el texto:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Datos cargados correctamente
+</code></pre></div>
+<p>Ejemplo de uso:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">cargarDatos().then((mensaje) =&gt; {
+  console.log(mensaje);
+});
+</code></pre></div>
+<p>Salida esperada después de 1 segundo:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Datos cargados correctamente
+</code></pre></div>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-4-promesa-con-resolve-y-reject">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 4. Promesa con <code>resolve</code> y <code>reject</code></h3>
+<p>Crea una función llamada <code>comprobarEdad(edad)</code> que devuelva una promesa.</p>
+<p>La promesa debe funcionar así:</p>
+<ul class="custom-list">
+<li>si <code>edad &gt;= 18</code>, se resuelve con el mensaje <code>"Acceso permitido"</code>;</li>
+<li>si <code>edad &lt; 18</code>, se rechaza con el mensaje <code>"Acceso denegado"</code>.</li>
+</ul>
+<p>Prueba la función con estos valores usando <code>.then()</code> y <code>.catch()</code> para mostrar el resultado:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">comprobarEdad(20)
+  .then((mensaje) =&gt; {
+    console.log(mensaje);
+  })
+  .catch((error) =&gt; {
+    console.log(error);
+  });
+
+comprobarEdad(15)
+  .then((mensaje) =&gt; {
+    console.log(mensaje);
+  })
+  .catch((error) =&gt; {
+    console.log(error);
+  });
+</code></pre></div>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-5-promesa-con-retraso">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 5. Promesa con retraso</h3>
+<p>Crea una función llamada <code>esperar(ms)</code> que devuelva una promesa que se resuelva después de los milisegundos indicados.</p>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">esperar(2000).then(() =&gt; {
+  console.log("Han pasado 2 segundos");
+});
+</code></pre></div>
+<p>Pista:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function esperar(ms) {
+  return new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; {
+      resolve();
+    }, ms);
+  });
+}
+</code></pre></div>
+<p>Modifica el ejemplo para que muestre mensajes después de:</p>
+<ul class="custom-list">
+<li>1 segundo;</li>
+<li>2 segundos;</li>
+<li>3 segundos.</li>
+</ul>
+<hr/>
+</section>
+</section>
+<section class="content-section unit-part-section" id="parte-3-consumir-promesas-con-then-catch-y-finally">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> Parte 3. Consumir promesas con <code>.then()</code>, <code>.catch()</code> y <code>.finally()</code></h2>
+<section class="exercise-block" id="ejercicio-6-simular-una-descarga-correcta">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 6. Simular una descarga correcta</h3>
+<p>Crea una función llamada <code>descargarArchivo(nombreArchivo)</code>.</p>
+<p>Debe devolver una promesa que, después de 1 segundo, se resuelva con el mensaje:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Archivo descargado: apuntes.pdf
+</code></pre></div>
+<p>Si se llama así:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">descargarArchivo("apuntes.pdf")
+  .then((mensaje) =&gt; {
+    console.log(mensaje);
+  });
+</code></pre></div>
+<p>Debe mostrar:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Archivo descargado: apuntes.pdf
+</code></pre></div>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-7-simular-una-descarga-con-error">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 7. Simular una descarga con error</h3>
+<p>Modifica la función anterior para que reciba dos parámetros:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">descargarArchivo(nombreArchivo, disponible)
+</code></pre></div>
+<p>Funcionamiento:</p>
+<ul class="custom-list">
+<li>si <code>disponible</code> es <code>true</code>, la promesa se resuelve con <code>"Archivo descargado: nombreArchivo"</code>;</li>
+<li>si <code>disponible</code> es <code>false</code>, la promesa se rechaza con <code>"Error: el archivo no está disponible"</code>.</li>
+</ul>
+<p>Prueba:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">descargarArchivo("apuntes.pdf", true)
+  .then((mensaje) =&gt; {
+    console.log(mensaje);
+  })
+  .catch((error) =&gt; {
+    console.log(error);
+  });
+
+descargarArchivo("solucion.pdf", false)
+  .then((mensaje) =&gt; {
+    console.log(mensaje);
+  })
+  .catch((error) =&gt; {
+    console.log(error);
+  });
+</code></pre></div>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-8-anadir-finally">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 8. Añadir <code>finally</code></h3>
+<p>Amplía el ejercicio anterior añadiendo <code>.finally()</code>.</p>
+<p>Debe mostrar siempre:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Operación finalizada
+</code></pre></div>
+<p>tanto si la descarga se completa como si falla.</p>
+<p>Estructura esperada:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">descargarArchivo("apuntes.pdf", true)
+  .then((mensaje) =&gt; {
+    console.log(mensaje);
+  })
+  .catch((error) =&gt; {
+    console.log(error);
+  })
+  .finally(() =&gt; {
+    console.log("Operación finalizada");
+  });
+</code></pre></div>
+<p>Responde:</p>
+<ol class="custom-ordered-list">
+<li>¿Cuándo se ejecuta <code>.then()</code>?</li>
+<li>¿Cuándo se ejecuta <code>.catch()</code>?</li>
+<li>¿Cuándo se ejecuta <code>.finally()</code>?</li>
+</ol>
+<hr/>
+</section>
+</section>
+<section class="content-section unit-part-section" id="parte-4-encadenar-operaciones-asincronas">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-link-45deg"></i></span> Parte 4. Encadenar operaciones asíncronas</h2>
+<section class="exercise-block" id="ejercicio-9-preparar-procesar-y-finalizar">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 9. Preparar, procesar y finalizar</h3>
+<p>Crea tres funciones que devuelvan promesas:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">prepararDatos()
+procesarDatos()
+finalizarProceso()
+</code></pre></div>
+<p>Cada una debe resolverse después de 1 segundo con estos mensajes:</p>
+<ul class="custom-list">
+<li><code>"Datos preparados"</code>;</li>
+<li><code>"Datos procesados"</code>;</li>
+<li><code>"Proceso finalizado"</code>.</li>
+</ul>
+<p>Después encadénalas con <code>.then()</code> para que se ejecuten en orden.</p>
+<blockquote class="note-box">
+<p>Importante: para que una operación espere a la anterior, debes devolver la siguiente promesa con <code>return</code>.</p>
+</blockquote>
+<p>Estructura orientativa:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">prepararDatos()
+  .then((mensaje) =&gt; {
+    console.log(mensaje);
+    return procesarDatos();
+  })
+  .then((mensaje) =&gt; {
+    console.log(mensaje);
+    return finalizarProceso();
+  })
+  .then((mensaje) =&gt; {
+    console.log(mensaje);
+  })
+  .catch((error) =&gt; {
+    console.log(error);
+  });
+</code></pre></div>
+<p>Salida esperada:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Datos preparados
+Datos procesados
+Proceso finalizado
+</code></pre></div>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-10-encadenamiento-con-datos">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 10. Encadenamiento con datos</h3>
+<p>Crea una función llamada <code>obtenerNumero()</code> que devuelva una promesa resuelta con el número <code>5</code>.</p>
+<p>Después encadena operaciones con <code>.then()</code> para:</p>
+<ol class="custom-ordered-list">
+<li>multiplicar el número por 2;</li>
+<li>sumarle 10;</li>
+<li>mostrar el resultado final.</li>
+</ol>
+<p>Resultado esperado:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">20
+</code></pre></div>
+<p>Estructura orientativa:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">obtenerNumero()
+  .then((numero) =&gt; {
+    return numero * 2;
+  })
+  .then((numero) =&gt; {
+    return numero + 10;
+  })
+  .then((resultado) =&gt; {
+    console.log(resultado);
+  });
+</code></pre></div>
+<hr/>
+</section>
+</section>
+<section class="content-section unit-part-section" id="parte-5-usar-async-y-await">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-hourglass-split"></i></span> Parte 5. Usar <code>async</code> y <code>await</code></h2>
+<section class="exercise-block" id="ejercicio-11-primera-funcion-async">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 11. Primera función <code>async</code></h3>
+<p>Usa la función <code>esperar(ms)</code> creada antes.</p>
+<p>Crea una función <code>async</code> llamada <code>mostrarMensaje()</code> que:</p>
+<ol class="custom-ordered-list">
+<li>muestre <code>"Inicio"</code>;</li>
+<li>espere 1 segundo;</li>
+<li>muestre <code>"Después de esperar"</code>;</li>
+<li>muestre <code>"Fin"</code>.</li>
+</ol>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function mostrarMensaje() {
+  console.log("Inicio");
+
+  await esperar(1000);
+
+  console.log("Después de esperar");
+  console.log("Fin");
+}
+
+mostrarMensaje();
+</code></pre></div>
+<p>Ejecuta el código y comprueba el orden de los mensajes.</p>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-12-reescribir-then-usando-async-await">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 12. Reescribir <code>.then()</code> usando <code>async</code>/<code>await</code></h3>
+<p>Partimos de este código:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">cargarDatos()
+  .then((mensaje) =&gt; {
+    console.log(mensaje);
+  });
+</code></pre></div>
+<p>Reescríbelo usando una función <code>async</code> y <code>await</code>.</p>
+<p>Resultado esperado:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function ejecutarCarga() {
+  const mensaje = await cargarDatos();
+  console.log(mensaje);
+}
+
+ejecutarCarga();
+</code></pre></div>
+<p>Después responde:</p>
+<ol class="custom-ordered-list">
+<li>¿Qué palabra indica que la función puede usar <code>await</code>?</li>
+<li>¿Qué hace <code>await</code>?</li>
+<li>¿Por qué la llamada final <code>ejecutarCarga()</code> sigue siendo necesaria?</li>
+</ol>
+<p>Recuerda: <code>await</code> permite esperar el resultado de una promesa, pero <strong>no ejecuta por sí solo la función</strong>. La función <code>async</code> debe llamarse igualmente.</p>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-13-usar-await-varias-veces">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 13. Usar <code>await</code> varias veces</h3>
+<p>Crea una función <code>async</code> llamada <code>ejecutarProceso()</code> que use <code>await</code> para ejecutar en orden:</p>
+<ol class="custom-ordered-list">
+<li><code>prepararDatos()</code>;</li>
+<li><code>procesarDatos()</code>;</li>
+<li><code>finalizarProceso()</code>.</li>
+</ol>
+<p>Cada resultado debe mostrarse por consola.</p>
+<p>Salida esperada:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Datos preparados
+Datos procesados
+Proceso finalizado
+</code></pre></div>
+<hr/>
+</section>
+</section>
+<section class="content-section unit-part-section" id="parte-6-tratamiento-de-errores-con-try-catch">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-exclamation"></i></span> Parte 6. Tratamiento de errores con <code>try...catch</code></h2>
+<section class="exercise-block" id="ejercicio-14-capturar-un-error-con-try-catch">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 14. Capturar un error con <code>try...catch</code></h3>
+<p>Usa la función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">descargarArchivo(nombreArchivo, disponible)
+</code></pre></div>
+<p>Crea una función <code>async</code> llamada <code>probarDescarga()</code> que:</p>
+<ol class="custom-ordered-list">
+<li>intente descargar <code>"apuntes.pdf"</code> con <code>disponible = true</code>;</li>
+<li>muestre el resultado;</li>
+<li>capture posibles errores con <code>catch</code>.</li>
+</ol>
+<p>Después prueba también el caso de error modificando la llamada dentro de la función <code>async</code>. No ejecutes una promesa rechazada suelta sin capturar el error.</p>
+<p>Ejemplo orientativo:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function probarDescarga() {
+  try {
+    const mensaje = await descargarArchivo("apuntes.pdf", true);
+    console.log(mensaje);
+  } catch (error) {
+    console.log("Error capturado:", error);
+  }
+}
+
+probarDescarga();
+</code></pre></div>
+<p>Para probar el caso de error, cambia la línea del <code>await</code> por esta:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const mensaje = await descargarArchivo("solucion.pdf", false);
+</code></pre></div>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-15-validar-usuario-de-forma-asincrona">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 15. Validar usuario de forma asíncrona</h3>
+<p>Crea una función llamada <code>validarUsuario(usuario)</code> que devuelva una promesa.</p>
+<p>Funcionamiento:</p>
+<ul class="custom-list">
+<li>si <code>usuario</code> es <code>"admin"</code>, se resuelve con <code>"Usuario correcto"</code>;</li>
+<li>si no, se rechaza con <code>"Usuario no válido"</code>.</li>
+</ul>
+<p>Después crea una función <code>async</code> llamada <code>iniciarSesion(usuario)</code> que use <code>try...catch</code> para mostrar el resultado.</p>
+<p>Prueba:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">iniciarSesion("admin");
+iniciarSesion("pepe");
+</code></pre></div>
+<hr/>
+</section>
+</section>
+<section class="content-section unit-part-section" id="parte-7-promesas-con-datos-simulados">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-database"></i></span> Parte 7. Promesas con datos simulados</h2>
+<section class="exercise-block" id="ejercicio-16-simular-carga-de-una-lista-de-notas">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 16. Simular carga de una lista de notas</h3>
+<p>Crea una función llamada <code>obtenerNotas()</code> que devuelva una promesa.</p>
+<p>Después de 1 segundo debe resolverse con este array:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">[4, 7, 9, 3, 5, 10]
+</code></pre></div>
+<p>Después crea una función <code>async</code> llamada <code>mostrarMedia()</code> que:</p>
+<ol class="custom-ordered-list">
+<li>espere a obtener las notas;</li>
+<li>calcule la suma con <code>reduce</code>;</li>
+<li>calcule la media;</li>
+<li>muestre el resultado por consola.</li>
+</ol>
+<p>Pista para calcular la suma:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const suma = notas.reduce((acumulador, nota) =&gt; acumulador + nota, 0);
+</code></pre></div>
+<p>Salida orientativa:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Media: 6.33
+</code></pre></div>
+<p>Puedes usar <code>.toFixed(2)</code> para mostrar dos decimales.</p>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-17-simular-carga-de-nombres">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 17. Simular carga de nombres</h3>
+<p>Crea una función <code>obtenerNombres()</code> que devuelva una promesa.</p>
+<p>Después de 1 segundo debe resolverse con:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">["ana", "luis", "maría", "pedro"]
+</code></pre></div>
+<p>Después crea una función <code>async</code> que:</p>
+<ol class="custom-ordered-list">
+<li>espere los nombres;</li>
+<li>cree un nuevo array con los nombres en mayúsculas usando <code>map</code>;</li>
+<li>muestre el array resultante.</li>
+</ol>
+<p>Salida esperada:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">["ANA", "LUIS", "MARÍA", "PEDRO"]
+</code></pre></div>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-18-simular-carga-de-productos">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 18. Simular carga de productos</h3>
+<p>Crea una función <code>obtenerProductos()</code> que devuelva una promesa.</p>
+<p>Después de 1 segundo debe resolverse con este array:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">[
+  { nombre: "Teclado", precio: 25, stock: true },
+  { nombre: "Ratón", precio: 15, stock: true },
+  { nombre: "Monitor", precio: 140, stock: false },
+  { nombre: "USB", precio: 8, stock: true }
+]
+</code></pre></div>
+<p>Después crea una función <code>async</code> llamada <code>mostrarProductosDisponibles()</code> que:</p>
+<ol class="custom-ordered-list">
+<li>espere a obtener los productos;</li>
+<li>filtre los productos con <code>stock === true</code>;</li>
+<li>muestre solo sus nombres usando <code>map</code>.</li>
+</ol>
+<p>Salida esperada:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">["Teclado", "Ratón", "USB"]
+</code></pre></div>
+<hr/>
+</section>
+</section>
+<section class="content-section unit-part-section" id="parte-8-elegir-la-solucion-adecuada">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-ui-checks"></i></span> Parte 8. Elegir la solución adecuada</h2>
+<section class="exercise-block" id="ejercicio-19-que-usarias">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 19. ¿Qué usarías?</h3>
+<p>Indica qué usarías en cada caso: <code>.then()</code>, <code>async</code>/<code>await</code>, <code>try...catch</code>, <code>.catch()</code> o <code>.finally()</code>.</p>
+<p>Elige la opción más adecuada según el contexto indicado. En algunos casos podrían existir alternativas, pero aquí se busca la más coherente con la forma de código descrita.</p>
+<ol class="custom-ordered-list">
+<li>Quieres ejecutar código cuando una promesa se resuelve.</li>
+<li>Quieres capturar un error usando una cadena de promesas.</li>
+<li>Quieres escribir código asíncrono con aspecto parecido al código síncrono.</li>
+<li>Quieres capturar errores dentro de una función <code>async</code>.</li>
+<li>Quieres ejecutar una instrucción tanto si la promesa se resuelve como si se rechaza.</li>
+</ol>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-20-explica-con-tus-palabras">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 20. Explica con tus palabras</h3>
+<p>Responde brevemente:</p>
+<ol class="custom-ordered-list">
+<li>¿Qué es una promesa?</li>
+<li>¿Qué diferencia hay entre <code>resolve</code> y <code>reject</code>?</li>
+<li>¿Qué hace <code>await</code>?</li>
+<li>En el contexto de estos ejercicios, ¿por qué usamos <code>await</code> dentro de funciones <code>async</code>?</li>
+<li>¿Qué diferencia hay entre <code>.catch()</code> y <code>try...catch</code>?</li>
+<li>¿Qué ventaja tiene <code>async</code>/<code>await</code> frente a encadenar muchos <code>.then()</code>?</li>
+</ol>
+<hr/>
+</section>
+</section>
+<section class="content-section unit-part-section" id="parte-9-corrige-los-errores">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> Parte 9. Corrige los errores</h2>
+<section class="exercise-block" id="ejercicio-21-falta-return">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 21. Falta <code>return</code></h3>
+<p>El siguiente código no funciona como se espera:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function obtenerNumero() {
+  new Promise((resolve) =&gt; {
+    resolve(5);
+  });
+}
+
+obtenerNumero().then((numero) =&gt; {
+  console.log(numero);
+});
+</code></pre></div>
+<ol class="custom-ordered-list">
+<li>Explica cuál es el problema.</li>
+<li>Corrige el código.</li>
+</ol>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-22-usar-await-fuera-de-una-funcion-async">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 22. Usar <code>await</code> fuera de una función <code>async</code></h3>
+<p>Corrige este código:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const mensaje = await cargarDatos();
+console.log(mensaje);
+</code></pre></div>
+<p>Debe quedar dentro de una función <code>async</code>.</p>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-23-error-no-capturado">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 23. Error no capturado</h3>
+<p>Corrige este código para capturar el error:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function ejecutar() {
+  const mensaje = await descargarArchivo("solucion.pdf", false);
+  console.log(mensaje);
+}
+
+ejecutar();
+</code></pre></div>
+<p>Debe usar <code>try...catch</code>.</p>
+<hr/>
+</section><section class="exercise-block" id="ejercicio-24-confusion-entre-promesa-y-resultado">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 24. Confusión entre promesa y resultado</h3>
+<p>Analiza este código:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const resultado = cargarDatos();
+
+console.log(resultado);
+</code></pre></div>
+<ol class="custom-ordered-list">
+<li>¿Qué se muestra realmente en consola?</li>
+<li>¿Por qué no se muestra directamente el mensaje?</li>
+<li>Corrige el código usando <code>.then()</code>.</li>
+<li>Corrige el código usando <code>async</code>/<code>await</code>.</li>
+</ol>
+<hr/>
+</section>
+</section>
+<section class="content-section unit-part-section delivery-section" id="parte-10-mini-entrega-final">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-send-check"></i></span> Parte 10. Mini-entrega final</h2>
+<section class="exercise-block" id="ejercicio-25-simulador-de-consulta-de-datos">
+<h3><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 25. Simulador de consulta de datos</h3>
+<p>Crea un pequeño programa llamado:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">simulador_consulta_datos.js
+</code></pre></div>
+<p>Debe incluir:</p>
+<ol class="custom-ordered-list">
+<li>Una función <code>obtenerUsuarios()</code> que devuelva una promesa resuelta después de 1 segundo con este array:</li>
+</ol>
+<div class="example-block"><pre class="code-js"><code class="language-js">[
+  { nombre: "Ana", edad: 22, activo: true },
+  { nombre: "Luis", edad: 17, activo: false },
+  { nombre: "María", edad: 30, activo: true },
+  { nombre: "Pedro", edad: 15, activo: true }
+]
+</code></pre></div>
+<ol class="custom-ordered-list" start="2">
+<li><p>Una función <code>async</code> llamada <code>generarInformeUsuarios()</code> que:</p>
+<ul class="custom-list">
+<li>espere a obtener los usuarios;</li>
+<li>muestre todos los usuarios;</li>
+<li>filtre los usuarios activos;</li>
+<li>filtre los usuarios mayores de edad;</li>
+<li>cree un array solo con los nombres;</li>
+<li>calcule cuántos usuarios hay en total;</li>
+<li>muestre un resumen final.</li>
+</ul>
+</li>
+<li><p>El código debe usar, como mínimo:</p>
+<ul class="custom-list">
+<li>una promesa;</li>
+<li>una función <code>async</code>;</li>
+<li><code>await</code>;</li>
+<li><code>try...catch</code>;</li>
+<li><code>filter</code>;</li>
+<li><code>map</code>;</li>
+<li><code>console.log</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Salida orientativa:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Cargando usuarios...
+Usuarios cargados correctamente.
+
+Usuarios activos:
+Ana
+María
+Pedro
+
+Usuarios mayores de edad:
+Ana
+María
+
+Resumen:
+Total de usuarios: 4
+Usuarios activos: 3
+Usuarios mayores de edad: 2
+</code></pre></div>
+<p>Criterios mínimos de corrección:</p>
+<ul class="custom-list">
+<li><code>obtenerUsuarios()</code> devuelve realmente una promesa.</li>
+<li>La promesa simula una espera con <code>setTimeout()</code>.</li>
+<li><code>generarInformeUsuarios()</code> está declarada como función <code>async</code>.</li>
+<li>Se usa <code>await</code> para obtener los usuarios.</li>
+<li>Hay un bloque <code>try...catch</code> para capturar posibles errores.</li>
+<li>Se muestran los usuarios activos.</li>
+<li>Se muestran los usuarios mayores de edad.</li>
+<li>Se crea un array con los nombres usando <code>map</code>.</li>
+<li>Se calcula correctamente el total de usuarios.</li>
+<li>El código está ordenado, indentado y probado.</li>
+</ul>
+<hr/>
+</section>
+</section>
+<section class="content-section final-checklist-section" id="4-lista-de-comprobacion">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> 4. Lista de comprobación</h2>
+<p>Antes de entregar, revisa:</p>
+<ul class="custom-list checklist-list">
+<li class="checklist-item"><span class="check-marker">[ ] </span>He creado funciones que devuelven promesas.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>He usado <code>resolve</code> y <code>reject</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>He consumido promesas con <code>.then()</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>He capturado errores con <code>.catch()</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>He usado <code>.finally()</code> al menos una vez.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>He creado funciones <code>async</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>He usado <code>await</code> correctamente.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>He usado <code>try...catch</code> para capturar errores.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>He transformado datos simulados con <code>map</code>, <code>filter</code> o <code>reduce</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>El código está indentado.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Los nombres de variables y funciones son claros.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>He probado los casos correctos y los casos con error.</li>
+</ul>
+<hr/>
+</section>
+<section class="content-section frequent-errors-section" id="5-errores-frecuentes">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-exclamation-triangle"></i></span> 5. Errores frecuentes</h2>
+<div class="compact-table-container"><table class="compact-table comparison-table">
+<thead>
+<tr>
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Cómo corregirlo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Usar <code>await</code> fuera de una función <code>async</code></td>
+<td><code>await</code> necesita un contexto asíncrono</td>
+<td>Crear una función <code>async</code></td>
+</tr>
+<tr>
+<td>Olvidar <code>return</code> al crear una promesa dentro de una función</td>
+<td>La función no devuelve la promesa</td>
+<td>Escribir <code>return new Promise(...)</code></td>
+</tr>
+<tr>
+<td>Pensar que una promesa contiene ya el resultado</td>
+<td>La promesa representa un resultado futuro</td>
+<td>Usar <code>.then()</code> o <code>await</code></td>
+</tr>
+<tr>
+<td>No capturar errores</td>
+<td>Si la promesa se rechaza, el error queda sin tratar</td>
+<td>Usar <code>.catch()</code> o <code>try...catch</code></td>
+</tr>
+<tr>
+<td>Confundir <code>.then()</code> con <code>await</code></td>
+<td>Son dos formas distintas de consumir promesas</td>
+<td>Elegir una y usarla de forma coherente</td>
+</tr>
+<tr>
+<td>Poner demasiada lógica dentro de <code>.then()</code></td>
+<td>El código se vuelve difícil de leer</td>
+<td>Usar funciones auxiliares o <code>async</code>/<code>await</code></td>
+</tr>
+<tr>
+<td>Usar <code>try...catch</code> pero olvidarse de <code>await</code></td>
+<td>El error de la promesa puede no capturarse como se espera</td>
+<td>Usar <code>await</code> dentro del <code>try</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+</section>
+<section class="content-section" id="6-contenidos-que-quedan-para-la-siguiente-hoja">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-right-circle"></i></span> 6. Contenidos que quedan para la siguiente hoja</h2>
+<p>En esta hoja no hemos trabajado todavía con datos externos reales.</p>
+<p>Queda para la siguiente hoja:</p>
+<ul class="custom-list">
+<li><code>fetch</code>;</li>
+<li>lectura de respuestas HTTP;</li>
+<li><code>response.ok</code>;</li>
+<li><code>.json()</code>;</li>
+<li>consumo de APIs;</li>
+<li>renderizado de datos externos en el DOM;</li>
+<li>tratamiento de estados de carga y error en una interfaz.</li>
+</ul>
+<hr/>
+</section>
+<section class="content-section summary-section" id="7-resumen-final">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-card-checklist"></i></span> 7. Resumen final</h2>
+<p>En esta hoja has practicado la base de la asincronía en JavaScript:</p>
+<ul class="custom-list">
+<li>una promesa representa una operación que puede completarse más adelante;</li>
+<li><code>resolve</code> indica que la operación ha ido bien;</li>
+<li><code>reject</code> indica que ha ocurrido un error;</li>
+<li><code>.then()</code> permite trabajar con el resultado correcto;</li>
+<li><code>.catch()</code> permite capturar errores;</li>
+<li><code>.finally()</code> se ejecuta siempre;</li>
+<li><code>async</code> permite declarar funciones asíncronas;</li>
+<li><code>await</code> permite esperar el resultado de una promesa;</li>
+<li><code>try...catch</code> permite capturar errores dentro de funciones <code>async</code>.</li>
+</ul>
+<p>Estos conceptos son imprescindibles antes de trabajar con <code>fetch</code> y datos JSON externos.</p>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>UD2_B3 · Eventos, interacción con el usuario y formularios</title><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/><link href="../../assets/css/smpp.css" rel="stylesheet"/></head><body><div class="smpp-scope"><main class="main-content has-sidebar notes-page"><div class="content-layout"><aside aria-label="Índice del documento" class="section-sidebar"><nav aria-label="Secciones del documento" class="section-nav"><p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-ul"></i> Índice del documento</p><ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-introduccion-y-objetivos-del-bloque"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Introducción y objetivos del bloque</a></li><li><a class="section-nav-link badge-link" href="#2-fundamentos-de-los-eventos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-cursor"></i></span> 2. Fundamentos de los eventos</a></li><li><a class="section-nav-link badge-link" href="#3-eventos-de-interaccion-habituales"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-mouse"></i></span> 3. Eventos de interacción habituales</a></li><li><a class="section-nav-link badge-link" href="#4-formularios-html-y-lectura-de-datos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-ui-checks-grid"></i></span> 4. Formularios HTML y lectura de datos</a></li><li><a class="section-nav-link badge-link" href="#5-envio-de-formularios"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-send-check"></i></span> 5. Envío de formularios</a></li><li><a class="section-nav-link badge-link" href="#6-validacion-de-formularios"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-check"></i></span> 6. Validación de formularios</a></li><li><a class="section-nav-link badge-link" href="#7-formularios-y-contenido-dinamico"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-plus-square"></i></span> 7. Formularios y contenido dinámico</a></li><li><a class="section-nav-link badge-link" href="#8-organizacion-del-codigo-y-separacion-de-responsabilidades"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-diagram-3"></i></span> 8. Organización del código y separación de responsabilidades</a></li><li><a class="section-nav-link badge-link" href="#9-ejemplo-global-progresivo"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-stars"></i></span> 9. Ejemplo global progresivo</a></li><li><a class="section-nav-link badge-link" href="#10-buenas-practicas-seguridad-y-accesibilidad"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-circle"></i></span> 10. Buenas prácticas, seguridad y accesibilidad</a></li><li><a class="section-nav-link badge-link" href="#11-errores-frecuentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> 11. Errores frecuentes</a></li><li><a class="section-nav-link badge-link" href="#12-preguntas-tipo-examen-resumen-y-contenidos-posteriores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-question-circle"></i></span> 12. Preguntas tipo examen, resumen y contenidos posteriores</a></li></ol></nav></aside><div class="content-wrapper"><header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-ui-checks-grid"></i></span> UD2_B3. Eventos, interacción con el usuario y formularios</h1></header><hr class="content-separator"/><section class="content-section" id="1-introduccion-y-objetivos-del-bloque"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Introducción y objetivos del bloque</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bullseye"></i></span> 1.1. Qué vamos a trabajar</h3><p>En los bloques anteriores ya hemos trabajado la base de JavaScript, los objetos, los arrays de objetos, el BOM y la manipulación básica del DOM.</p><p>En este bloque vamos a dar un paso más: la página dejará de ser solo un documento que modificamos desde JavaScript y empezará a <strong>responder a las acciones del usuario</strong>.</p><p>Trabajaremos:</p><ul class="custom-list">
+<li>qué es un evento;</li>
+<li>cómo asociar código JavaScript a un evento;</li>
+<li>cómo usar <code>addEventListener()</code>;</li>
+<li>qué información proporciona el objeto <code>event</code>;</li>
+<li>las diferencias entre <code>event.target</code> y <code>event.currentTarget</code>;</li>
+<li>eventos habituales como <code>click</code>, <code>input</code>, <code>change</code> y <code>submit</code>;</li>
+<li>lectura de datos introducidos en formularios;</li>
+<li>diferencia entre <code>id</code>, <code>name</code> y la asociación con <code>&lt;label&gt;</code>;</li>
+<li>validación básica mediante HTML;</li>
+<li>validación básica mediante JavaScript;</li>
+<li>mensajes de error y confirmación;</li>
+<li>modificación de clases CSS en función de la interacción del usuario;</li>
+<li>prevención del envío automático de formularios con <code>preventDefault()</code>;</li>
+<li>creación de contenido dinámico como respuesta a un formulario;</li>
+<li>organización del código en funciones;</li>
+<li>accesibilidad básica en mensajes dinámicos.</li>
+</ul><div class="note-box">
+<p><strong>Importante:</strong> en este bloque no vamos a trabajar todavía <code>fetch</code>, promesas, <code>async</code>/<code>await</code> ni datos externos. Eso queda para el bloque de comunicación asíncrona.</p>
+</div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-link-45deg"></i></span> 1.2. Relación con DWCC</h3><p>Este bloque se relaciona principalmente con:</p><ul class="custom-list">
+<li>la interacción del usuario con la página web;</li>
+<li>la captura y gestión de eventos;</li>
+<li>el uso de formularios desde código JavaScript;</li>
+<li>la validación de datos introducidos por el usuario;</li>
+<li>la modificación dinámica del contenido y la apariencia de la página.</li>
+</ul><p>Después de este bloque, el alumnado debería ser capaz de crear pequeñas páginas interactivas donde JavaScript responda a acciones como pulsar un botón, escribir en un campo, cambiar una selección o enviar un formulario.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.3. Cómo utilizar los ejemplos</h3><p>Los ejemplos de este documento son <strong>independientes</strong>.</p><p>Si se reúnen varios ejemplos en una misma página:</p><ul class="custom-list">
+<li>cada elemento debe tener un <code>id</code> único;</li>
+<li>no deben repetirse nombres de constantes en el mismo ámbito;</li>
+<li>conviene organizar cada ejemplo en una función;</li>
+<li>debe comprobarse que cada selector coincide con un elemento real del HTML.</li>
+</ul><hr/></section><section class="content-section" id="2-fundamentos-de-los-eventos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cursor"></i></span> 2. Fundamentos de los eventos</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cursor"></i></span> 2.1. Qué es un evento</h3><p>Un <strong>evento</strong> es algo que ocurre en la página y que JavaScript puede detectar.</p><p>Algunos ejemplos de eventos son:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Evento</th>
+<th>Cuándo ocurre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>click</code></td>
+<td>Cuando un elemento se activa, normalmente con ratón, panel táctil o teclado.</td>
+</tr>
+<tr>
+<td><code>input</code></td>
+<td>Cada vez que cambia el contenido o valor de un campo mientras el usuario interactúa con él.</td>
+</tr>
+<tr>
+<td><code>change</code></td>
+<td>Cuando el usuario confirma o consolida un cambio en un control.</td>
+</tr>
+<tr>
+<td><code>submit</code></td>
+<td>Cuando se intenta enviar un formulario.</td>
+</tr>
+<tr>
+<td><code>keydown</code></td>
+<td>Cuando se pulsa una tecla.</td>
+</tr>
+<tr>
+<td><code>mouseover</code></td>
+<td>Cuando el puntero pasa por encima de un elemento.</td>
+</tr>
+</tbody>
+</table></div><p>Ejemplo cotidiano:</p><ul class="custom-list">
+<li>El usuario pulsa un botón.</li>
+<li>Se produce un evento <code>click</code>.</li>
+<li>JavaScript ejecuta una función.</li>
+<li>La página cambia algo: un texto, una clase, un mensaje, una lista, etc.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cursor"></i></span> 2.2. Preparar el HTML para trabajar con eventos</h3><p>Para trabajar con eventos necesitamos tener elementos HTML que podamos seleccionar desde JavaScript.</p><p>Ejemplo de HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;h1 id="titulo"&gt;Eventos en JavaScript&lt;/h1&gt;
+&lt;button id="botonSaludo" type="button"&gt;Mostrar saludo&lt;/button&gt;
+&lt;p id="mensaje" aria-live="polite"&gt;&lt;/p&gt;
+</code></pre></div><p>Y un fichero JavaScript enlazado desde el HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;script src="script.js"&gt;&lt;/script&gt;
+</code></pre></div><p>En el fichero <code>script.js</code> seleccionaremos los elementos y les asociaremos eventos.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cursor"></i></span> 2.3. Seleccionar elementos antes de usar eventos</h3><p>Antes de asociar un evento a un elemento, debemos seleccionarlo.</p><div class="example-block"><pre class="code-js"><code class="language-js">const boton = document.querySelector("#botonSaludo");
+const mensaje = document.querySelector("#mensaje");
+</code></pre></div><p>A partir de ahí, ya podemos indicar qué debe ocurrir cuando el usuario interactúe con el botón.</p><p>Conviene comprobar que el selector y el HTML coinciden. Si el elemento no existe, <code>querySelector()</code> devuelve <code>null</code>.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cursor"></i></span> 2.4. <code>addEventListener()</code>: asociar un evento a un elemento</h3><p>La forma recomendada de asociar eventos en JavaScript moderno es usar <code>addEventListener()</code>.</p><p>Sintaxis básica:</p><div class="example-block"><pre class="code-js"><code class="language-js">elemento.addEventListener("evento", funcion);
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code class="language-js">const boton = document.querySelector("#botonSaludo");
+const mensaje = document.querySelector("#mensaje");
+
+boton.addEventListener("click", function () {
+  mensaje.textContent = "Hola, estás usando eventos en JavaScript.";
+});
+</code></pre></div><p>En este ejemplo:</p><ul class="custom-list">
+<li><code>boton</code> es el elemento que escucha el evento;</li>
+<li><code>"click"</code> es el tipo de evento;</li>
+<li>la función se ejecuta cuando ocurre el evento;</li>
+<li>se modifica el contenido del párrafo <code>mensaje</code>.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cursor"></i></span> 2.5. Funciones callback en eventos</h3><p>La función que se ejecuta cuando ocurre un evento es una <strong>función callback</strong>.</p><p>Podemos escribirla directamente dentro de <code>addEventListener()</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">boton.addEventListener("click", function () {
+  mensaje.textContent = "Has pulsado el botón.";
+});
+</code></pre></div><p>También podemos definirla aparte:</p><div class="example-block"><pre class="code-js"><code class="language-js">function mostrarMensaje() {
+  mensaje.textContent = "Has pulsado el botón.";
+}
+
+boton.addEventListener("click", mostrarMensaje);
+</code></pre></div><div class="warning-box">
+<p><strong>Atención:</strong> al pasar la función a <code>addEventListener()</code>, no se escriben paréntesis.</p>
+</div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">boton.addEventListener("click", mostrarMensaje);
+</code></pre></div><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">boton.addEventListener("click", mostrarMensaje());
+</code></pre></div><p>En el segundo caso, la función se ejecutaría inmediatamente al cargar la página, no cuando se active el botón.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cursor"></i></span> 2.6. Funciones flecha en eventos</h3><p>También podemos usar funciones flecha como callbacks:</p><div class="example-block"><pre class="code-js"><code class="language-js">boton.addEventListener("click", () =&gt; {
+  mensaje.textContent = "Evento gestionado con una función flecha.";
+});
+</code></pre></div><p>Son muy habituales en JavaScript moderno.</p><p>Sin embargo, si dentro del evento necesitamos usar <code>this</code>, conviene tener cuidado, porque las funciones flecha no tienen su propio <code>this</code>.</p><p>En este bloque trabajaremos principalmente con:</p><ul class="custom-list">
+<li>el elemento seleccionado;</li>
+<li><code>event.target</code>;</li>
+<li><code>event.currentTarget</code>.</li>
+</ul><p>Este enfoque suele ser más claro para este nivel.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cursor"></i></span> 2.7. El objeto <code>event</code></h3><p>Cuando ocurre un evento, JavaScript proporciona información sobre él mediante el objeto <code>event</code>.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code class="language-js">const boton = document.querySelector("#botonSaludo");
+
+boton.addEventListener("click", function (event) {
+  console.log(event);
+});
+</code></pre></div><p>El objeto <code>event</code> contiene información como:</p><ul class="custom-list">
+<li>qué tipo de evento ocurrió;</li>
+<li>sobre qué elemento se originó;</li>
+<li>qué elemento está ejecutando el manejador;</li>
+<li>valores asociados al evento;</li>
+<li>métodos útiles como <code>preventDefault()</code>.</li>
+</ul><p>Una propiedad muy usada es <code>event.target</code>, que indica el elemento concreto sobre el que se originó el evento.</p><div class="example-block"><pre class="code-js"><code class="language-js">boton.addEventListener("click", function (event) {
+  console.log(event.target);
+});
+</code></pre></div><p>También es importante <code>event.currentTarget</code>, que indica el elemento al que se asoció el listener que se está ejecutando.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;button id="botonGuardar" type="button"&gt;
+  &lt;span&gt;Guardar&lt;/span&gt;
+&lt;/button&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const botonGuardar = document.querySelector("#botonGuardar");
+
+botonGuardar.addEventListener("click", (event) =&gt; {
+  console.log("Origen:", event.target);
+  console.log("Listener asociado a:", event.currentTarget);
+});
+</code></pre></div><p>Si se pulsa sobre el <code>&lt;span&gt;</code>:</p><ul class="custom-list">
+<li><code>event.target</code> puede ser el <code>&lt;span&gt;</code>;</li>
+<li><code>event.currentTarget</code> será el botón.</li>
+</ul><p>En este bloque no desarrollaremos todavía la propagación, la captura ni la delegación de eventos, pero conviene conocer esta diferencia.</p><hr/></section><section class="content-section" id="3-eventos-de-interaccion-habituales"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-mouse"></i></span> 3. Eventos de interacción habituales</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> 3.1. Evento <code>click</code></h3><p>El evento <code>click</code> ocurre cuando un elemento se activa, normalmente mediante ratón, panel táctil o teclado.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;button id="botonColor" type="button"&gt;Cambiar color&lt;/button&gt;
+&lt;p id="texto"&gt;Texto de ejemplo&lt;/p&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const botonColor = document.querySelector("#botonColor");
+const texto = document.querySelector("#texto");
+
+botonColor.addEventListener("click", () =&gt; {
+  texto.classList.add("destacado");
+});
+</code></pre></div><p>CSS de ejemplo:</p><div class="example-block"><pre class="code-css"><code class="language-css">.destacado {
+  color: darkblue;
+  font-weight: bold;
+}
+</code></pre></div><p>Este ejemplo no cambia directamente el estilo desde JavaScript, sino que añade una clase CSS. Esta suele ser una práctica más limpia.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cursor"></i></span> 3.2. Añadir, quitar y alternar clases con eventos</h3><p>Podemos combinar eventos con <code>classList</code>.</p><div class="example-block"><pre class="code-js"><code class="language-js">elemento.classList.add("clase");      // añade una clase
+elemento.classList.remove("clase");   // quita una clase
+elemento.classList.toggle("clase");   // añade o quita según esté o no esté
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;button id="botonAlternar" type="button"&gt;Mostrar / ocultar aviso&lt;/button&gt;
+&lt;p id="aviso" class="oculto"&gt;Este es un aviso importante.&lt;/p&gt;
+</code></pre></div><div class="example-block"><pre class="code-css"><code class="language-css">.oculto {
+  display: none;
+}
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const botonAlternar = document.querySelector("#botonAlternar");
+const aviso = document.querySelector("#aviso");
+
+botonAlternar.addEventListener("click", () =&gt; {
+  aviso.classList.toggle("oculto");
+});
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> 3.3. Evento <code>input</code></h3><p>El evento <code>input</code> ocurre cada vez que cambia el contenido de un campo mientras el usuario escribe o modifica su valor.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+&lt;input id="nombre" name="nombre" type="text"&gt;
+&lt;p id="salida" aria-live="polite"&gt;&lt;/p&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const nombre = document.querySelector("#nombre");
+const salida = document.querySelector("#salida");
+
+nombre.addEventListener("input", () =&gt; {
+  salida.textContent = "Estás escribiendo: " + nombre.value;
+});
+</code></pre></div><p>La propiedad <code>.value</code> permite leer el valor actual de un campo de formulario.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> 3.4. Evento <code>change</code></h3><p>El evento <code>change</code> ocurre cuando el usuario confirma o consolida el cambio de un control.</p><p>Se usa mucho con:</p><ul class="custom-list">
+<li>listas desplegables (<code>select</code>);</li>
+<li>casillas de verificación (<code>checkbox</code>);</li>
+<li>botones de opción (<code>radio</code>);</li>
+<li>algunos campos de formulario.</li>
+</ul><p>Ejemplo con <code>select</code>:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;label for="curso"&gt;Curso:&lt;/label&gt;
+&lt;select id="curso" name="curso"&gt;
+  &lt;option value=""&gt;Elige una opción&lt;/option&gt;
+  &lt;option value="DWCC"&gt;DWCC&lt;/option&gt;
+  &lt;option value="DWES"&gt;DWES&lt;/option&gt;
+  &lt;option value="DIW"&gt;DIW&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;p id="cursoElegido" aria-live="polite"&gt;&lt;/p&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const curso = document.querySelector("#curso");
+const cursoElegido = document.querySelector("#cursoElegido");
+
+curso.addEventListener("change", () =&gt; {
+  cursoElegido.textContent = "Has elegido: " + curso.value;
+});
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> 3.5. Diferencia entre <code>input</code> y <code>change</code></h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Evento</th>
+<th>Comportamiento habitual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>input</code></td>
+<td>Se produce cada vez que el usuario modifica el valor.</td>
+</tr>
+<tr>
+<td><code>change</code></td>
+<td>Se produce cuando el usuario confirma o consolida el cambio.</td>
+</tr>
+</tbody>
+</table></div><p>En un campo de texto:</p><ul class="custom-list">
+<li><code>input</code> se ejecuta mientras se escribe;</li>
+<li><code>change</code> suele producirse cuando el campo pierde el foco después de haber cambiado.</li>
+</ul><p>Ejemplo comparativo:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;label for="textoComparacion"&gt;Texto:&lt;/label&gt;
+&lt;input id="textoComparacion" name="textoComparacion" type="text"&gt;
+
+&lt;p id="salidaInput"&gt;&lt;/p&gt;
+&lt;p id="salidaChange"&gt;&lt;/p&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const textoComparacion = document.querySelector("#textoComparacion");
+const salidaInput = document.querySelector("#salidaInput");
+const salidaChange = document.querySelector("#salidaChange");
+
+textoComparacion.addEventListener("input", () =&gt; {
+  salidaInput.textContent = "input: " + textoComparacion.value;
+});
+
+textoComparacion.addEventListener("change", () =&gt; {
+  salidaChange.textContent = "change: " + textoComparacion.value;
+});
+</code></pre></div><hr/></section><section class="content-section" id="4-formularios-html-y-lectura-de-datos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-ui-checks-grid"></i></span> 4. Formularios HTML y lectura de datos</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-ui-checks"></i></span> 4.1. Formularios en HTML</h3><p>Un formulario permite recoger datos del usuario.</p><p>Ejemplo básico:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;form id="formularioRegistro"&gt;
+  &lt;label for="nombreRegistro"&gt;Nombre:&lt;/label&gt;
+  &lt;input id="nombreRegistro" name="nombre" type="text"&gt;
+
+  &lt;label for="edadRegistro"&gt;Edad:&lt;/label&gt;
+  &lt;input id="edadRegistro" name="edad" type="number"&gt;
+
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;p id="mensajeFormulario" aria-live="polite"&gt;&lt;/p&gt;
+</code></pre></div><p>Elementos habituales:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;form&gt;</code></td>
+<td>Agrupa los campos del formulario.</td>
+</tr>
+<tr>
+<td><code>&lt;input&gt;</code></td>
+<td>Permite introducir datos.</td>
+</tr>
+<tr>
+<td><code>&lt;label&gt;</code></td>
+<td>Texto descriptivo asociado a un campo.</td>
+</tr>
+<tr>
+<td><code>&lt;select&gt;</code></td>
+<td>Lista desplegable.</td>
+</tr>
+<tr>
+<td><code>&lt;textarea&gt;</code></td>
+<td>Campo de texto largo.</td>
+</tr>
+<tr>
+<td><code>&lt;button&gt;</code></td>
+<td>Botón para enviar o ejecutar una acción.</td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.2. Diferencia entre <code>id</code>, <code>name</code> y <code>&lt;label&gt;</code></h3><p>Ejemplo:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;label for="email"&gt;Correo:&lt;/label&gt;
+&lt;input id="email" name="email" type="email"&gt;
+</code></pre></div><ul class="custom-list">
+<li><code>id</code> identifica el elemento dentro del documento y permite seleccionarlo desde JavaScript.</li>
+<li><code>name</code> identifica el dato cuando el formulario se envía o cuando se construye un <code>FormData</code>.</li>
+<li><code>for="email"</code> asocia el <code>&lt;label&gt;</code> con el elemento cuyo <code>id</code> es <code>email</code>.</li>
+</ul><p>Usar correctamente <code>&lt;label&gt;</code> mejora la accesibilidad y permite activar el campo al pulsar sobre el texto de la etiqueta.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-ui-checks"></i></span> 4.3. Leer valores de un formulario</h3><p>Para leer el valor de un campo usamos <code>.value</code>.</p><div class="example-block"><pre class="code-js"><code class="language-js">const nombre = document.querySelector("#nombreRegistro");
+const edad = document.querySelector("#edadRegistro");
+
+console.log(nombre.value);
+console.log(edad.value);
+</code></pre></div><div class="note-box">
+<p><strong>Importante:</strong> aunque un campo sea <code>type="number"</code>, el valor que leemos con <code>.value</code> llega como texto. Si queremos operar numéricamente, debemos convertirlo.</p>
+</div><div class="example-block"><pre class="code-js"><code class="language-js">const edadNumero = Number(edad.value);
+</code></pre></div><p>Antes de convertir, conviene comprobar que el campo no esté vacío:</p><div class="example-block"><pre class="code-js"><code class="language-js">const edadTexto = edad.value.trim();
+
+if (edadTexto === "") {
+  console.log("Debes introducir una edad.");
+} else {
+  const edadNumero = Number(edadTexto);
+  console.log(edadNumero);
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.4. <code>valueAsNumber</code> como alternativa</h3><p>En un <code>&lt;input type="number"&gt;</code> también se puede usar:</p><div class="example-block"><pre class="code-js"><code class="language-js">const edadNumero = edad.valueAsNumber;
+</code></pre></div><p>Si el campo está vacío o no contiene un número válido, <code>valueAsNumber</code> devuelve <code>NaN</code>.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (Number.isNaN(edad.valueAsNumber)) {
+  console.log("La edad no es válida.");
+}
+</code></pre></div><p>En este bloque seguiremos usando principalmente <code>.value</code>, <code>trim()</code> y <code>Number()</code> porque permiten practicar de forma explícita la validación y la conversión.</p><hr/></section><section class="content-section" id="5-envio-de-formularios"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-send-check"></i></span> 5. Envío de formularios</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-send-check"></i></span> 5.1. Evento <code>submit</code></h3><p>El evento <code>submit</code> ocurre cuando el usuario intenta enviar un formulario.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code class="language-js">const formulario = document.querySelector("#formularioRegistro");
+
+formulario.addEventListener("submit", function (event) {
+  console.log("Formulario enviado");
+});
+</code></pre></div><p>Por defecto, al enviar un formulario el navegador puede navegar o recargar la página. Para evitarlo mientras validamos o procesamos datos con JavaScript, usamos <code>preventDefault()</code>.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-send-check"></i></span> 5.2. <code>event.preventDefault()</code></h3><p><code>preventDefault()</code> evita el comportamiento predeterminado asociado al evento.</p><p>En formularios, impide que se realice el envío tradicional mientras procesamos los datos con JavaScript.</p><div class="example-block"><pre class="code-js"><code class="language-js">const formulario = document.querySelector("#formularioRegistro");
+const mensaje = document.querySelector("#mensajeFormulario");
+
+formulario.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  mensaje.textContent = "Formulario procesado con JavaScript.";
+});
+</code></pre></div><p>Esto nos permite:</p><ul class="custom-list">
+<li>leer los datos;</li>
+<li>validarlos;</li>
+<li>mostrar errores;</li>
+<li>mostrar mensajes de confirmación;</li>
+<li>preparar el envío real más adelante, cuando trabajemos comunicación asíncrona.</li>
+</ul><div class="warning-box">
+<p><code>preventDefault()</code> no detiene automáticamente la propagación del evento. Evitar la acción predeterminada y detener la propagación son operaciones diferentes. En este bloque no trabajaremos <code>stopPropagation()</code> como contenido principal.</p>
+</div><hr/></section><section class="content-section" id="6-validacion-de-formularios"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-check"></i></span> 6. Validación de formularios</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.1. Qué significa validar</h3><p>Validar significa comprobar que los datos introducidos por el usuario son adecuados antes de aceptarlos.</p><p>La validación puede realizarse en varios niveles:</p><ul class="custom-list">
+<li>validación básica mediante atributos HTML;</li>
+<li>validación adicional mediante JavaScript;</li>
+<li>validación en el servidor, cuando exista un backend.</li>
+</ul><p>La validación JavaScript mejora la experiencia del usuario, pero no sustituye la validación del servidor en una aplicación real.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-shield-check"></i></span> 6.2. Validación básica mediante HTML</h3><p>HTML ofrece atributos de validación integrados:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;form id="formularioRegistro"&gt;
+  &lt;label for="nombreRegistro"&gt;Nombre:&lt;/label&gt;
+  &lt;input
+    id="nombreRegistro"
+    name="nombre"
+    type="text"
+    required
+    minlength="2"
+  &gt;
+
+  &lt;label for="edadRegistro"&gt;Edad:&lt;/label&gt;
+  &lt;input
+    id="edadRegistro"
+    name="edad"
+    type="number"
+    required
+    min="0"
+  &gt;
+
+  &lt;label for="emailRegistro"&gt;Correo:&lt;/label&gt;
+  &lt;input
+    id="emailRegistro"
+    name="email"
+    type="email"
+    required
+  &gt;
+
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+</code></pre></div><p>Atributos habituales:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>required</code></td>
+<td>El campo no puede quedar vacío.</td>
+</tr>
+<tr>
+<td><code>minlength</code></td>
+<td>Longitud mínima de texto.</td>
+</tr>
+<tr>
+<td><code>maxlength</code></td>
+<td>Longitud máxima de texto.</td>
+</tr>
+<tr>
+<td><code>min</code></td>
+<td>Valor numérico mínimo.</td>
+</tr>
+<tr>
+<td><code>max</code></td>
+<td>Valor numérico máximo.</td>
+</tr>
+<tr>
+<td><code>type="email"</code></td>
+<td>Comprueba un formato básico de correo.</td>
+</tr>
+<tr>
+<td><code>pattern</code></td>
+<td>Permite indicar un patrón.</td>
+</tr>
+</tbody>
+</table></div><p>La validación HTML y la validación JavaScript pueden combinarse.</p><p>Cuando un formulario no supera la validación HTML integrada, el navegador puede impedir el envío antes de que se ejecute el código asociado al evento <code>submit</code>. Por eso conviene probar y entender por separado la validación HTML y la validación personalizada con JavaScript.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-shield-check"></i></span> 6.3. Validación básica de formularios mediante JavaScript</h3><p>Ejemplo corregido:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;form id="formularioRegistro"&gt;
+  &lt;label for="nombreRegistro"&gt;Nombre:&lt;/label&gt;
+  &lt;input id="nombreRegistro" name="nombre" type="text"&gt;
+
+  &lt;label for="edadRegistro"&gt;Edad:&lt;/label&gt;
+  &lt;input id="edadRegistro" name="edad" type="number"&gt;
+
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;p id="mensajeFormulario" aria-live="polite"&gt;&lt;/p&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const formulario = document.querySelector("#formularioRegistro");
+const nombre = document.querySelector("#nombreRegistro");
+const edad = document.querySelector("#edadRegistro");
+const mensajeFormulario = document.querySelector("#mensajeFormulario");
+
+formulario.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const nombreLimpio = nombre.value.trim();
+  const edadTexto = edad.value.trim();
+
+  mensajeFormulario.classList.remove("error", "correcto");
+
+  if (nombreLimpio === "") {
+    mensajeFormulario.textContent = "El nombre no puede estar vacío.";
+    mensajeFormulario.classList.add("error");
+    nombre.focus();
+    return;
+  }
+
+  if (edadTexto === "") {
+    mensajeFormulario.textContent = "Debes introducir una edad.";
+    mensajeFormulario.classList.add("error");
+    edad.focus();
+    return;
+  }
+
+  const edadNumero = Number(edadTexto);
+
+  if (
+    Number.isNaN(edadNumero)
+    || !Number.isInteger(edadNumero)
+    || edadNumero &lt; 0
+  ) {
+    mensajeFormulario.textContent =
+      "La edad debe ser un número entero válido.";
+    mensajeFormulario.classList.add("error");
+    edad.focus();
+    return;
+  }
+
+  mensajeFormulario.textContent =
+    "Datos correctos. Bienvenido/a, " + nombreLimpio + ".";
+  mensajeFormulario.classList.add("correcto");
+});
+</code></pre></div><p>CSS de ejemplo:</p><div class="example-block"><pre class="code-css"><code class="language-css">.error {
+  color: darkred;
+  font-weight: bold;
+}
+
+.correcto {
+  color: darkgreen;
+  font-weight: bold;
+}
+</code></pre></div><p>Se utiliza <code>classList</code> en lugar de asignar directamente <code>className</code>, porque <code>className = "error"</code> reemplazaría todas las clases existentes del elemento.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.4. Validar mientras el usuario escribe</h3><p>A veces interesa validar en tiempo real, mientras el usuario escribe.</p><p>Ejemplo: comprobar la longitud de una contraseña.</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;label for="password"&gt;Contraseña:&lt;/label&gt;
+&lt;input id="password" name="password" type="password"&gt;
+&lt;p id="ayudaPassword" aria-live="polite"&gt;&lt;/p&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const password = document.querySelector("#password");
+const ayudaPassword = document.querySelector("#ayudaPassword");
+
+password.addEventListener("input", () =&gt; {
+  ayudaPassword.classList.remove("error", "correcto");
+
+  if (password.value.length &lt; 8) {
+    ayudaPassword.textContent =
+      "La contraseña debe tener al menos 8 caracteres.";
+    ayudaPassword.classList.add("error");
+  } else {
+    ayudaPassword.textContent = "Longitud correcta.";
+    ayudaPassword.classList.add("correcto");
+  }
+});
+</code></pre></div><p>La validación en tiempo real debe ayudar al usuario, no interrumpirlo constantemente ni mostrar errores agresivos antes de que haya podido terminar de escribir.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.5. Activar o desactivar un botón</h3><p>Podemos usar la propiedad <code>disabled</code> para activar o desactivar botones.</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;label&gt;
+  &lt;input id="acepta" name="acepta" type="checkbox"&gt;
+  Acepto las condiciones
+&lt;/label&gt;
+
+&lt;button id="botonEnviar" type="button" disabled&gt;Enviar&lt;/button&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const acepta = document.querySelector("#acepta");
+const botonEnviar = document.querySelector("#botonEnviar");
+
+acepta.addEventListener("change", () =&gt; {
+  botonEnviar.disabled = !acepta.checked;
+});
+</code></pre></div><p>En este ejemplo:</p><ul class="custom-list">
+<li><code>acepta.checked</code> vale <code>true</code> si la casilla está marcada;</li>
+<li>el botón solo se activa cuando el usuario acepta las condiciones.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-regex"></i></span> 6.6. Validación sencilla con expresiones regulares</h3><p>Una <strong>expresión regular</strong> permite comprobar si un texto cumple un patrón.</p><p>En este bloque solo las usaremos de forma básica.</p><p>Ejemplo: comprobar si un texto parece un correo electrónico sencillo.</p><div class="example-block"><pre class="code-js"><code class="language-js">const patronEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+console.log(patronEmail.test("ana@example.com")); // true
+console.log(patronEmail.test("ana.example.com")); // false
+</code></pre></div><p>Aplicado a un formulario:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;label for="email"&gt;Correo:&lt;/label&gt;
+&lt;input id="email" name="email" type="email"&gt;
+&lt;p id="mensajeEmail" aria-live="polite"&gt;&lt;/p&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const email = document.querySelector("#email");
+const mensajeEmail = document.querySelector("#mensajeEmail");
+const patronEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+email.addEventListener("input", () =&gt; {
+  mensajeEmail.classList.remove("error", "correcto");
+
+  if (patronEmail.test(email.value)) {
+    mensajeEmail.textContent = "Correo válido.";
+    mensajeEmail.classList.add("correcto");
+  } else {
+    mensajeEmail.textContent = "Correo no válido.";
+    mensajeEmail.classList.add("error");
+  }
+});
+</code></pre></div><div class="note-box">
+<p>Esta expresión regular es una aproximación didáctica sencilla. No valida todas las direcciones de correo posibles.</p>
+</div><p>No es necesario memorizar expresiones regulares complejas en este punto. Lo importante es entender que permiten validar patrones de texto.</p><p>Antes de recurrir a una expresión regular, conviene aprovechar también:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;input id="email" name="email" type="email" required&gt;
+</code></pre></div><hr/></section><section class="content-section" id="7-formularios-y-contenido-dinamico"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-plus-square"></i></span> 7. Formularios y contenido dinámico</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-ui-checks"></i></span> 7.1. Generar contenido en respuesta a un formulario</h3><p>Podemos usar un formulario para recoger datos y después crear contenido en el DOM.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;form id="formularioTarea"&gt;
+  &lt;label for="tarea"&gt;Nueva tarea:&lt;/label&gt;
+  &lt;input id="tarea" name="tarea" type="text"&gt;
+  &lt;button type="submit"&gt;Añadir&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;ul id="listaTareas"&gt;&lt;/ul&gt;
+&lt;p id="mensajeTarea" aria-live="polite"&gt;&lt;/p&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const formularioTarea = document.querySelector("#formularioTarea");
+const tarea = document.querySelector("#tarea");
+const listaTareas = document.querySelector("#listaTareas");
+const mensajeTarea = document.querySelector("#mensajeTarea");
+
+formularioTarea.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+
+  const textoTarea = tarea.value.trim();
+
+  mensajeTarea.classList.remove("error", "correcto");
+
+  if (textoTarea === "") {
+    mensajeTarea.textContent = "Debes escribir una tarea.";
+    mensajeTarea.classList.add("error");
+    tarea.focus();
+    return;
+  }
+
+  const li = document.createElement("li");
+  li.textContent = textoTarea;
+  listaTareas.append(li);
+
+  formularioTarea.reset();
+
+  mensajeTarea.textContent = "Tarea añadida correctamente.";
+  mensajeTarea.classList.add("correcto");
+  tarea.focus();
+});
+</code></pre></div><p>Para limpiar únicamente el campo de la tarea también podríamos escribir:</p><div class="example-block"><pre class="code-js"><code class="language-js">tarea.value = "";
+</code></pre></div><p><code>formularioTarea.reset()</code> restablece todos los controles del formulario, mientras que <code>tarea.value = ""</code> limpia solo ese campo.</p><p>Este ejemplo combina:</p><ul class="custom-list">
+<li>evento <code>submit</code>;</li>
+<li><code>preventDefault()</code>;</li>
+<li>lectura con <code>.value</code>;</li>
+<li>validación con <code>trim()</code>;</li>
+<li>creación de elementos con <code>createElement()</code>;</li>
+<li>inserción en el DOM con <code>append()</code>;</li>
+<li>limpieza del formulario con <code>reset()</code>;</li>
+<li>recuperación del foco con <code>focus()</code>.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-filetype-html"></i></span> 7.2. <code>textContent</code> frente a <code>innerHTML</code></h3><p>Para mostrar texto simple, es preferible usar:</p><div class="example-block"><pre class="code-js"><code class="language-js">mensaje.textContent = "Datos correctos";
+</code></pre></div><p><code>textContent</code> trata el contenido como texto.</p><p><code>innerHTML</code> interpreta la cadena como marcado HTML:</p><div class="example-block"><pre class="code-js"><code class="language-js">mensaje.innerHTML = "&lt;strong&gt;Datos correctos&lt;/strong&gt;";
+</code></pre></div><p>No se debe insertar directamente con <code>innerHTML</code> contenido introducido por el usuario o recibido de una fuente no confiable.</p><p>Ejemplo inseguro:</p><div class="example-block"><pre class="code-js"><code class="language-js">salida.innerHTML = inputUsuario.value;
+</code></pre></div><p>Alternativa segura para mostrar texto:</p><div class="example-block"><pre class="code-js"><code class="language-js">salida.textContent = inputUsuario.value;
+</code></pre></div><p>Reservamos <code>innerHTML</code> para casos donde realmente necesitemos insertar HTML controlado y conozcamos el origen del contenido.</p><hr/></section><section class="content-section" id="8-organizacion-del-codigo-y-separacion-de-responsabilidades"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 8. Organización del código y separación de responsabilidades</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> 8.1. Separar responsabilidades</h3><p>Cuando el código empieza a crecer, conviene dividirlo en funciones.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code class="language-js">function obtenerTextoLimpio(input) {
+  return input.value.trim();
+}
+
+function limpiarEstado(elemento) {
+  elemento.classList.remove("error", "correcto");
+}
+
+function mostrarError(elemento, mensaje) {
+  limpiarEstado(elemento);
+  elemento.textContent = mensaje;
+  elemento.classList.add("error");
+}
+
+function mostrarCorrecto(elemento, mensaje) {
+  limpiarEstado(elemento);
+  elemento.textContent = mensaje;
+  elemento.classList.add("correcto");
+}
+</code></pre></div><p>Después podemos usarlas dentro del evento:</p><div class="example-block"><pre class="code-js"><code class="language-js">formulario.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+
+  const nombreLimpio = obtenerTextoLimpio(nombre);
+
+  if (nombreLimpio === "") {
+    mostrarError(
+      mensajeFormulario,
+      "El nombre no puede estar vacío."
+    );
+    nombre.focus();
+    return;
+  }
+
+  mostrarCorrecto(
+    mensajeFormulario,
+    "Formulario correcto."
+  );
+});
+</code></pre></div><p>Esto hace que el código sea más claro, reutilizable y fácil de depurar.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-crosshair"></i></span> 8.2. Seleccionar elementos al principio</h3><p>Una estructura habitual es:</p><div class="example-block"><pre class="code-js"><code class="language-js">const formulario = document.querySelector("#formulario");
+const nombre = document.querySelector("#nombre");
+const mensaje = document.querySelector("#mensaje");
+
+function validarNombre() {
+  // lógica
+}
+
+formulario.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+  validarNombre();
+});
+</code></pre></div><p>Así se separan:</p><ul class="custom-list">
+<li>selección de elementos;</li>
+<li>funciones auxiliares;</li>
+<li>asociación de eventos.</li>
+</ul><hr/></section><section class="content-section" id="9-ejemplo-global-progresivo"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-stars"></i></span> 9. Ejemplo global progresivo</h2><p>El siguiente ejemplo reúne los contenidos principales del bloque.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-filetype-html"></i></span> 9.1. HTML</h3><div class="example-block"><pre class="code-html"><code class="language-html">&lt;form id="formularioPerfil"&gt;
+  &lt;label for="nombrePerfil"&gt;Nombre:&lt;/label&gt;
+  &lt;input
+    id="nombrePerfil"
+    name="nombre"
+    type="text"
+    required
+    minlength="2"
+  &gt;
+
+  &lt;label for="emailPerfil"&gt;Correo:&lt;/label&gt;
+  &lt;input
+    id="emailPerfil"
+    name="email"
+    type="email"
+    required
+  &gt;
+
+  &lt;label for="cursoPerfil"&gt;Curso:&lt;/label&gt;
+  &lt;select id="cursoPerfil" name="curso" required&gt;
+    &lt;option value=""&gt;Selecciona un curso&lt;/option&gt;
+    &lt;option value="DWCC"&gt;DWCC&lt;/option&gt;
+    &lt;option value="DWES"&gt;DWES&lt;/option&gt;
+    &lt;option value="DIW"&gt;DIW&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;label&gt;
+    &lt;input id="aceptaPerfil" name="acepta" type="checkbox"&gt;
+    Acepto las condiciones
+  &lt;/label&gt;
+
+  &lt;button id="enviarPerfil" type="submit" disabled&gt;
+    Crear perfil
+  &lt;/button&gt;
+&lt;/form&gt;
+
+&lt;p id="mensajePerfil" aria-live="polite"&gt;&lt;/p&gt;
+&lt;ul id="listaPerfiles"&gt;&lt;/ul&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-filetype-js"></i></span> 9.2. JavaScript</h3><div class="example-block"><pre class="code-js"><code class="language-js">const formularioPerfil =
+  document.querySelector("#formularioPerfil");
+
+const nombrePerfil =
+  document.querySelector("#nombrePerfil");
+
+const emailPerfil =
+  document.querySelector("#emailPerfil");
+
+const cursoPerfil =
+  document.querySelector("#cursoPerfil");
+
+const aceptaPerfil =
+  document.querySelector("#aceptaPerfil");
+
+const enviarPerfil =
+  document.querySelector("#enviarPerfil");
+
+const mensajePerfil =
+  document.querySelector("#mensajePerfil");
+
+const listaPerfiles =
+  document.querySelector("#listaPerfiles");
+
+const patronEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function mostrarEstado(elemento, mensaje, clase) {
+  elemento.classList.remove("error", "correcto");
+  elemento.textContent = mensaje;
+  elemento.classList.add(clase);
+}
+
+aceptaPerfil.addEventListener("change", () =&gt; {
+  enviarPerfil.disabled = !aceptaPerfil.checked;
+});
+
+emailPerfil.addEventListener("input", () =&gt; {
+  if (emailPerfil.value === "") {
+    mensajePerfil.textContent = "";
+    mensajePerfil.classList.remove("error", "correcto");
+    return;
+  }
+
+  if (patronEmail.test(emailPerfil.value)) {
+    mostrarEstado(
+      mensajePerfil,
+      "El correo tiene un formato válido.",
+      "correcto"
+    );
+  } else {
+    mostrarEstado(
+      mensajePerfil,
+      "El correo no tiene un formato válido.",
+      "error"
+    );
+  }
+});
+
+formularioPerfil.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+
+  const nombreLimpio = nombrePerfil.value.trim();
+  const emailLimpio = emailPerfil.value.trim();
+  const cursoSeleccionado = cursoPerfil.value;
+
+  if (nombreLimpio.length &lt; 2) {
+    mostrarEstado(
+      mensajePerfil,
+      "El nombre debe tener al menos dos caracteres.",
+      "error"
+    );
+    nombrePerfil.focus();
+    return;
+  }
+
+  if (!patronEmail.test(emailLimpio)) {
+    mostrarEstado(
+      mensajePerfil,
+      "Debes introducir un correo válido.",
+      "error"
+    );
+    emailPerfil.focus();
+    return;
+  }
+
+  if (cursoSeleccionado === "") {
+    mostrarEstado(
+      mensajePerfil,
+      "Debes seleccionar un curso.",
+      "error"
+    );
+    cursoPerfil.focus();
+    return;
+  }
+
+  if (!aceptaPerfil.checked) {
+    mostrarEstado(
+      mensajePerfil,
+      "Debes aceptar las condiciones.",
+      "error"
+    );
+    aceptaPerfil.focus();
+    return;
+  }
+
+  const li = document.createElement("li");
+  li.textContent =
+    `${nombreLimpio} · ${emailLimpio} · ${cursoSeleccionado}`;
+
+  listaPerfiles.append(li);
+
+  mostrarEstado(
+    mensajePerfil,
+    "Perfil creado correctamente.",
+    "correcto"
+  );
+
+  formularioPerfil.reset();
+  enviarPerfil.disabled = true;
+  nombrePerfil.focus();
+});
+</code></pre></div><p>Este ejemplo integra:</p><ul class="custom-list">
+<li><code>input</code>;</li>
+<li><code>change</code>;</li>
+<li><code>submit</code>;</li>
+<li><code>preventDefault()</code>;</li>
+<li>validación HTML;</li>
+<li>validación JavaScript;</li>
+<li>expresiones regulares sencillas;</li>
+<li><code>checked</code>;</li>
+<li><code>disabled</code>;</li>
+<li><code>classList</code>;</li>
+<li>creación de contenido;</li>
+<li><code>reset()</code>;</li>
+<li><code>focus()</code>;</li>
+<li>mensajes dinámicos accesibles.</li>
+</ul><hr/></section><section class="content-section" id="10-buenas-practicas-seguridad-y-accesibilidad"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-circle"></i></span> 10. Buenas prácticas, seguridad y accesibilidad</h2><div class="good-practice-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-circle"></i></span> 10.1. Buenas prácticas generales</h3><ul class="custom-list">
+<li>Seleccionar los elementos al principio del script.</li>
+<li>Usar nombres descriptivos para variables y funciones.</li>
+<li>Asociar eventos con <code>addEventListener()</code>.</li>
+<li>Evitar mezclar demasiado HTML dentro de JavaScript si no es necesario.</li>
+<li>Usar <code>textContent</code> para textos simples.</li>
+<li>Usar <code>innerHTML</code> solo cuando sea necesario y con contenido controlado.</li>
+<li>Validar los datos antes de aceptarlos.</li>
+<li>Combinar validación HTML y JavaScript cuando sea apropiado.</li>
+<li>Mostrar mensajes claros al usuario.</li>
+<li>Evitar que el formulario se envíe automáticamente si lo estamos procesando con JavaScript.</li>
+<li>Dividir el código en funciones cuando empiece a repetirse.</li>
+<li>Usar <code>classList</code> en lugar de sobrescribir todas las clases con <code>className</code>.</li>
+<li>Utilizar <code>type="button"</code> en botones que no envían formularios.</li>
+<li>Utilizar <code>type="submit"</code> en los botones que sí envían el formulario.</li>
+<li>Mantener identificadores únicos.</li>
+<li>Devolver el foco al campo que contiene el primer error.</li>
+<li>Limpiar los formularios con <code>reset()</code> cuando proceda.</li>
+</ul></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-universal-access"></i></span> 10.2. Accesibilidad básica de mensajes dinámicos</h3><p>Cuando un mensaje cambia mediante JavaScript, puede añadirse:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;p id="mensaje" aria-live="polite"&gt;&lt;/p&gt;
+</code></pre></div><p><code>aria-live="polite"</code> permite que las tecnologías de asistencia anuncien el cambio sin interrumpir de forma brusca.</p><p>Para errores importantes puede usarse:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;p id="mensajeError" role="alert"&gt;&lt;/p&gt;
+</code></pre></div><p>No conviene usar <code>role="alert"</code> para todos los mensajes, porque puede resultar intrusivo.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-shield-exclamation"></i></span> 10.3. Seguridad al mostrar datos</h3><p>No introduzcas directamente datos no confiables con <code>innerHTML</code>.</p><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">resultado.innerHTML = campo.value;
+</code></pre></div><p>Correcto para texto:</p><div class="example-block"><pre class="code-js"><code class="language-js">resultado.textContent = campo.value;
+</code></pre></div><hr/></section><section class="content-section" id="11-errores-frecuentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 11. Errores frecuentes</h2><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.1. Escribir mal el selector</h3><div class="example-block"><pre class="code-js"><code class="language-js">const boton = document.querySelector("botonEnviar");
+</code></pre></div><p>Si queremos seleccionar por <code>id</code>, falta <code>#</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">const boton = document.querySelector("#botonEnviar");
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.2. Ejecutar la función en lugar de pasarla</h3><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">boton.addEventListener("click", mostrarMensaje());
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">boton.addEventListener("click", mostrarMensaje);
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-send-check"></i></span> 11.3. Olvidar <code>preventDefault()</code> en formularios</h3><p>Si no usamos <code>event.preventDefault()</code>, la página puede navegar o recargarse antes de que veamos el resultado.</p><div class="example-block"><pre class="code-js"><code class="language-js">formulario.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+  // código de validación
+});
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.4. Leer un número como texto</h3><div class="example-block"><pre class="code-js"><code class="language-js">const edad = edadInput.value;
+
+if (edad &gt;= 18) {
+  console.log("Mayor de edad");
+}
+</code></pre></div><p>Aunque a veces parezca funcionar por conversión implícita, es mejor convertir explícitamente:</p><div class="example-block"><pre class="code-js"><code class="language-js">const edad = Number(edadInput.value);
+</code></pre></div><p>Antes hay que comprobar si el campo está vacío:</p><div class="example-block"><pre class="code-js"><code class="language-js">const edadTexto = edadInput.value.trim();
+
+if (edadTexto === "") {
+  console.log("Debes introducir una edad.");
+} else {
+  const edad = Number(edadTexto);
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.5. No limpiar espacios</h3><div class="example-block"><pre class="code-js"><code class="language-js">if (nombre.value === "") {
+  console.log("Nombre vacío");
+}
+</code></pre></div><p>Si el usuario escribe espacios, esa condición no detecta correctamente el problema. Mejor:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (nombre.value.trim() === "") {
+  console.log("Nombre vacío");
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-filetype-html"></i></span> 11.6. Usar <code>innerHTML</code> sin necesidad</h3><p>Para mostrar texto simple, es mejor usar <code>textContent</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">mensaje.textContent = "Datos correctos";
+</code></pre></div><p>Reservamos <code>innerHTML</code> para casos donde realmente necesitemos insertar etiquetas HTML controladas.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.7. No comprobar si un elemento existe</h3><p>Si el selector no encuentra nada, devuelve <code>null</code>.</p><div class="example-block"><pre class="code-js"><code class="language-js">const boton = document.querySelector("#boton");
+
+boton.addEventListener("click", () =&gt; {
+  console.log("clic");
+});
+</code></pre></div><p>Si no existe un elemento con <code>id="boton"</code>, se producirá un error.</p><p>Podemos comprobarlo:</p><div class="example-block"><pre class="code-js"><code class="language-js">const boton = document.querySelector("#boton");
+
+if (boton !== null) {
+  boton.addEventListener("click", () =&gt; {
+    console.log("clic");
+  });
+}
+</code></pre></div><p>La solución principal sigue siendo revisar que el HTML y el selector coincidan.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-palette"></i></span> 11.8. Sobrescribir todas las clases con <code>className</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">mensaje.className = "error";
+</code></pre></div><p>Esto reemplaza todas las clases existentes.</p><p>Mejor:</p><div class="example-block"><pre class="code-js"><code class="language-js">mensaje.classList.remove("correcto");
+mensaje.classList.add("error");
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.9. Confundir <code>target</code> y <code>currentTarget</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">boton.addEventListener("click", (event) =&gt; {
+  console.log(event.target);
+});
+</code></pre></div><p>Si se pulsa un elemento hijo del botón, <code>target</code> puede ser ese elemento hijo.</p><p>Cuando se necesita el elemento que tiene asociado el listener:</p><div class="example-block"><pre class="code-js"><code class="language-js">console.log(event.currentTarget);
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-shield-check"></i></span> 11.10. Confiar solo en la validación JavaScript</h3><p>La validación JavaScript puede manipularse o desactivarse.</p><p>En una aplicación real:</p><ul class="custom-list">
+<li>se aprovecha la validación HTML;</li>
+<li>se mejora la experiencia con JavaScript;</li>
+<li>se validan de nuevo los datos en el servidor.</li>
+</ul><hr/></div></section><section class="content-section" id="12-preguntas-tipo-examen-resumen-y-contenidos-posteriores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-question-circle"></i></span> 12. Preguntas tipo examen, resumen y contenidos posteriores</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-question-circle"></i></span> 12.1. Preguntas tipo examen</h3><ol class="custom-ordered-list">
+<li>¿Qué es un evento en JavaScript?</li>
+<li>¿Para qué sirve <code>addEventListener()</code>?</li>
+<li>¿Qué diferencia hay entre <code>click</code>, <code>input</code>, <code>change</code> y <code>submit</code>?</li>
+<li>¿Qué es una función callback en el contexto de eventos?</li>
+<li>¿Por qué no debemos escribir paréntesis al pasar una función a <code>addEventListener()</code>?</li>
+<li>¿Para qué sirve el objeto <code>event</code>?</li>
+<li>¿Qué diferencia hay entre <code>event.target</code> y <code>event.currentTarget</code>?</li>
+<li>¿Qué hace <code>event.preventDefault()</code>?</li>
+<li>¿Detiene <code>preventDefault()</code> la propagación del evento?</li>
+<li>¿Cómo se lee el valor de un campo de formulario?</li>
+<li>¿Qué diferencia hay entre <code>id</code> y <code>name</code>?</li>
+<li>¿Por qué conviene usar <code>.trim()</code> al validar textos?</li>
+<li>¿Por qué hay que comprobar un campo vacío antes de convertirlo con <code>Number()</code>?</li>
+<li>¿Qué alternativa ofrece <code>valueAsNumber</code>?</li>
+<li>¿Qué propiedad permite saber si un <code>checkbox</code> está marcado?</li>
+<li>¿Qué diferencia hay entre mostrar un error con <code>textContent</code> y cambiar una clase con <code>classList</code>?</li>
+<li>¿Cuándo usarías <code>input</code> en lugar de <code>submit</code>?</li>
+<li>¿Por qué no conviene usar <code>innerHTML</code> para cualquier texto?</li>
+<li>¿Qué ventaja tiene dividir el código de validación en funciones?</li>
+<li>¿Qué diferencia hay entre validación HTML y validación JavaScript?</li>
+<li>¿Para qué sirve <code>aria-live</code>?</li>
+<li>¿Por qué conviene utilizar <code>type="button"</code> en botones que no envían formularios?</li>
+</ol><div class="concept-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-flag"></i></span> 12.2. Resumen final</h3><p>En este bloque hemos visto que JavaScript puede responder a acciones del usuario mediante eventos.</p><p>Ideas clave:</p><ul class="custom-list">
+<li>Un evento es algo que ocurre en la página.</li>
+<li><code>addEventListener()</code> permite asociar una función a un evento.</li>
+<li>La función asociada al evento es un callback.</li>
+<li>El objeto <code>event</code> aporta información sobre lo ocurrido.</li>
+<li><code>event.target</code> indica dónde se originó el evento.</li>
+<li><code>event.currentTarget</code> indica qué elemento está ejecutando el listener.</li>
+<li><code>click</code>, <code>input</code>, <code>change</code> y <code>submit</code> son eventos muy habituales.</li>
+<li>En formularios, <code>preventDefault()</code> evita la acción predeterminada de envío.</li>
+<li>Los valores de formulario se leen con <code>.value</code>.</li>
+<li>Los valores leídos suelen llegar como texto.</li>
+<li>La validación HTML y la validación JavaScript pueden combinarse.</li>
+</ul><p>Cuando un formulario no supera la validación HTML integrada, el navegador puede impedir el envío antes de que se ejecute el código asociado al evento <code>submit</code>. Por eso conviene probar y entender por separado la validación HTML y la validación personalizada con JavaScript.</p><ul class="custom-list">
+<li>La validación permite comprobar datos antes de aceptarlos.</li>
+<li><code>classList</code> ayuda a modificar la apariencia mediante clases CSS.</li>
+<li>Las expresiones regulares permiten validar patrones sencillos de texto.</li>
+<li><code>textContent</code> es la opción adecuada para mostrar texto no confiable.</li>
+<li><code>reset()</code> permite limpiar un formulario.</li>
+<li><code>focus()</code> permite dirigir al usuario al campo que necesita corregir.</li>
+<li><code>aria-live</code> mejora la accesibilidad de los mensajes dinámicos.</li>
+</ul><p>Este bloque prepara el terreno para crear páginas realmente interactivas y para, más adelante, conectar esas interacciones con datos externos mediante comunicación asíncrona.</p></div><div class="note-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-box-arrow-right"></i></span> 12.3. Contenidos que dejamos para bloques posteriores</h3><p>No forman parte principal de este bloque:</p><ul class="custom-list">
+<li>propagación avanzada de eventos;</li>
+<li>captura y burbujeo en profundidad;</li>
+<li>delegación de eventos;</li>
+<li><code>stopPropagation()</code> como contenido principal;</li>
+<li>consumo de APIs;</li>
+<li><code>fetch</code>;</li>
+<li>promesas;</li>
+<li><code>async</code> / <code>await</code>;</li>
+<li>almacenamiento persistente avanzado;</li>
+<li>comunicación cliente-servidor;</li>
+<li>validación real en backend;</li>
+<li>aplicaciones dinámicas con datos externos.</li>
+</ul><p>Estos contenidos se trabajarán en bloques posteriores, especialmente en el bloque de aplicaciones dinámicas y comunicación asíncrona.</p></div></section></div></div></main></div><script src="../../assets/js/smpp.js"></script></body></html>

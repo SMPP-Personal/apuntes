@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plantilla base · Catálogo visual de estilos</title>
+  <link rel="stylesheet" href="minicurso-entorno-diapos.css" />
+</head>
+<body>
+  <nav class="nav-indice">
+    <a href="#portada">Portada</a>
+    <a href="#layouts">Layouts</a>
+    <a href="#avisos">Bloques</a>
+    <a href="#terminal">Terminal</a>
+    <a href="#navegador">Navegador</a>
+    <a href="#devtools">DevTools</a>
+    <a href="#codigo">Código</a>
+    <a href="#git">Git</a>
+    <a href="#evaluacion">Evaluación</a>
+    <a href="#clases">Clases</a>
+  </nav>
+
+  <section class="slide portada" id="portada">
+    <div class="slide-inner">
+      <span class="etiqueta-bloque">Plantilla base</span>
+      <h1>Catálogo visual de estilos</h1>
+      <p class="subtitle">Referencia para revisar y ajustar el CSS común de las diapositivas del minicurso.</p>
+      <div class="idea-clave big">
+        Este HTML enlaza el fichero <code>minicurso-entorno-diapos.css</code>. Si modificas el CSS, puedes abrir esta plantilla para ver rápidamente cómo cambian los componentes.
+      </div>
+      <div class="slide-footer">CSS externo usado: <code>minicurso-entorno-diapos.css</code></div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="tipografia">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Tipografía y portada</p>
+      <h2>Jerarquía visual básica</h2>
+      <p class="kicker">Este texto usa la clase <code>.kicker</code> para entradillas o aclaraciones.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h1>h1 principal</h1>
+          <h2>h2 de sección</h2>
+          <h3>h3 de tarjeta</h3>
+          <p>Texto de párrafo normal. También se ve el estilo de <code>code</code> en línea.</p>
+          <small>Texto secundario con <code>small</code>.</small>
+        </div>
+        <div>
+          <blockquote class="big-quote">“Un error no es una pared. <span>Es una pista.</span>”</blockquote>
+          <div class="frase-final">Frase final destacada para cerrar una diapositiva o bloque.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="layouts">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Layouts</p>
+      <h2>Rejillas, tarjetas y estructura</h2>
+      <div class="grid-3">
+        <div class="card"><h3>.card</h3><p>Tarjeta neutra para conceptos, pasos o pequeños contenidos.</p></div>
+        <div class="card"><h3>.grid-3</h3><p>Distribución de tres columnas para comparar elementos.</p></div>
+        <div class="card"><h3>.slide-inner</h3><p>Contenedor central de cada diapositiva.</p></div>
+      </div>
+      <div class="two-col-balanced" style="margin-top: 24px;">
+        <div class="card"><h3>.two-col-balanced</h3><p>Columna izquierda equilibrada.</p></div>
+        <div class="card"><h3>.grid-2</h3><p>Columna derecha equilibrada.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="avisos">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Bloques didácticos</p>
+      <h2>Avisos, ideas, errores y ejercicios</h2>
+      <div class="grid-2">
+        <div class="idea-clave"><strong>.idea-clave</strong><br />Mensaje central de la diapositiva.</div>
+        <div class="aviso"><strong>.aviso</strong><br />Advertencia o matiz importante.</div>
+        <div class="correcto"><strong>.correcto</strong><br />Solución válida o resultado esperado.</div>
+        <div class="error-tipico"><strong>.error-tipico</strong><br />Error frecuente que se debe diagnosticar.</div>
+        <div class="ejercicio"><strong>.ejercicio</strong><br />Actividad guiada para el alumnado.</div>
+        <div class="reto"><strong>.reto</strong><br />Reto o práctica destacada.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="badges">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Etiquetas y estados</p>
+      <h2>Badges, estados y colores</h2>
+      <div class="badge-row">
+        <span class="badge">.badge</span>
+        <span class="badge ok">.badge.ok</span>
+        <span class="badge warn">.badge.warn</span>
+        <span class="badge error">.badge.error</span>
+        <span class="badge err">.badge.err</span>
+        <span class="badge-mini">.badge-mini</span>
+      </div>
+      <div class="grid-3" style="margin-top: 28px;">
+        <div class="status-card save"><h3>.status-card.save</h3><p>Guardar archivo.</p></div>
+        <div class="status-card commit"><h3>.status-card.commit</h3><p>Crear commit.</p></div>
+        <div class="status-card push"><h3>.status-card.push</h3><p>Subir a GitHub.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="terminal">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Terminal</p>
+      <h2>Ventanas de terminal y comandos</h2>
+      <div class="grid-2">
+        <div class="terminal-window">
+          <div class="terminal-bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Terminal integrada</span></div>
+          <div class="terminal-body">
+            <span class="prompt">PS C:\proyecto&gt;</span> <span class="cmd">dir</span><br />
+            <span class="output">index.html css js node README.md</span><br />
+            <span class="prompt">PS C:\proyecto&gt;</span> <span class="cmd">node node/prueba-node.js</span><br />
+            <span class="output">Prueba de JavaScript con Node.js</span><br />
+            <span class="term-error">ReferenceError: herramienta4 is not defined</span><br />
+            <span class="term-muted">Pulsa Ctrl + C para detener un proceso.</span>
+          </div>
+        </div>
+        <div>
+          <div class="command-grid">
+            <div class="command-card"><code>dir</code><p>Ver archivos.</p></div>
+            <div class="command-card"><code>cd ..</code><p>Volver atrás.</p></div>
+            <div class="command-card"><code>cls</code><p>Limpiar pantalla.</p></div>
+          </div>
+          <p style="margin-top: 20px;">Teclas: <span class="ctrl-key">Ctrl</span> + <span class="ctrl-key">C</span></p>
+          <div class="process-card">.process-card: proceso en ejecución o servidor activo.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="navegador">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Navegador y URLs</p>
+      <h2>Simulación de Chrome, Live Server y URL</h2>
+      <div class="browser-card">
+        <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="url-box">http://127.0.0.1:5500/index.html</div></div>
+        <div class="browser-body">
+          <h3>Proyecto abierto con Live Server</h3>
+          <p>Esta zona usa <code>.browser-card</code>, <code>.browser-bar</code>, <code>.url-box</code> y <code>.browser-body</code>.</p>
+          <div class="badge-row"><span class="url-good">http://localhost:5500/</span><span class="url-bad">file:///C:/proyecto/index.html</span><span class="url-chip">localhost</span></div>
+        </div>
+      </div>
+      <div class="browser-mock" style="margin-top: 24px;">
+        <div class="browser-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="url">http://localhost:5173/</div></div>
+        <div class="browser-page"><h3>.browser-mock</h3><p>Otra variante usada para representar navegador + página.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="devtools">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">DevTools</p>
+      <h2>Console, Elements y Network</h2>
+      <div class="browser-mock">
+        <div class="browser-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="url">http://localhost:5500/</div></div>
+        <div class="devtools">
+          <div class="web-pane">
+            <h3>Vista web</h3>
+            <p>Zona visible de la página.</p>
+            <p><span class="dom-node">&lt;button id="boton"&gt;</span> con <span class="css-prop">background-color</span>.</p>
+          </div>
+          <div class="dev-pane">
+            <div class="dev-tabs"><span class="dev-tab active-console">Console</span><span class="dev-tab active-elements">Elements</span><span class="dev-tab active-network">Network</span></div>
+            <div class="dev-content">
+              <span class="console-line console-ok">Archivo JS conectado correctamente</span>
+              <span class="console-line console-warn">Aviso: revisa la ruta</span>
+              <span class="console-line console-error">ReferenceError: nombre is not defined <span class="file-link">script.js:4</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="network-table" style="margin-top: 24px;">
+        <tr><th>Archivo</th><th>Estado</th><th>Tipo</th></tr>
+        <tr><td>estilos.css</td><td class="status-ok">200</td><td>stylesheet</td></tr>
+        <tr><td>script.js</td><td class="status-bad">404</td><td>script</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="slide compact" id="codigo">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Código</p>
+      <h2>Bloques de código y comparación</h2>
+      <div class="two-code">
+        <div>
+          <div class="mini-title">Código incorrecto</div>
+          <pre class="bad-code"><code>const numero1 = 10;
+const numero2 = 5;
+console.log(numero1 + numero3);</code></pre>
+        </div>
+        <div>
+          <div class="mini-title">Código correcto</div>
+          <pre class="good-code"><code>const numero1 = 10;
+const numero2 = 5;
+console.log(numero1 + numero2);</code></pre>
+        </div>
+      </div>
+      <div class="code-comparison" style="margin-top: 24px;">
+        <div class="code-compare"><span class="code-label">Antes</span><code>const a=10;const b=5;</code></div>
+        <div class="code-compare"><span class="code-label">Después</span><code>const numero1 = 10;<br />const numero2 = 5;</code></div>
+      </div>
+      <p><span class="mark-err">.mark-err</span> · <span class="mark-ok">.mark-ok</span></p>
+    </div>
+  </section>
+
+  <section class="slide compact" id="vscode">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">VS Code</p>
+      <h2>Editor, árbol de carpetas y mockups</h2>
+      <div class="mock-vscode">
+        <div class="mock-vscode-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span> Visual Studio Code</div>
+        <div class="mock-vscode-body">
+          <div class="mock-sidebar">
+            <div class="folder-tree">proyecto/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── script.js</div>
+          </div>
+          <div class="mock-editor">
+            <span class="line"><span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="str">"stylesheet"</span> <span class="attr">href</span>=<span class="str">"css/estilos.css"</span><span class="tag">&gt;</span></span>
+            <span class="line"><span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="str">"js/script.js"</span><span class="tag">&gt;&lt;/script&gt;</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="vs-window" style="margin-top: 24px;">
+        <div class="vs-titlebar">VS Code alternativo</div>
+        <div class="vs-body"><div class="vs-sidebar">EXPLORADOR<br />index.html<br />css/<br />js/</div><div class="vs-editor">Área de edición.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="flujos">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Flujos</p>
+      <h2>Secuencias de trabajo</h2>
+      <div class="big-flow"><span class="flow-node">Crear</span><span class="flow-arrow">→</span><span class="flow-node">Probar</span><span class="flow-arrow">→</span><span class="flow-node">Corregir</span><span class="flow-arrow">→</span><span class="flow-node">Commit</span></div>
+      <div class="debug-flow"><span>Guardar</span><b>→</b><span>Recargar</span><b>→</b><span>Leer error</span><b>→</b><span>Corregir</span></div>
+      <div class="command-flow"><div class="flow-step">Abrir carpeta</div><div class="flow-arrow">→</div><div class="flow-step">npm run dev</div><div class="flow-arrow">→</div><div class="flow-step">Chrome</div></div>
+      <div class="route-map" style="margin-top: 24px;">proyecto/
+├── index.html
+├── css/estilos.css
+└── js/script.js</div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="listas">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Listas, preguntas y registros</p>
+      <h2>Checklist y diagnóstico</h2>
+      <div class="grid-2">
+        <div>
+          <h3>.checklist</h3>
+          <div class="checklist">
+            <div>□ Carpeta correcta</div><div>□ CSS enlazado</div><div>□ JS conectado</div><div>□ Console sin errores</div>
+          </div>
+        </div>
+        <div>
+          <h3>.step-list</h3>
+          <div class="step-list compact"><div><span>1</span>Abrir</div><div><span>2</span>Probar</div><div><span>3</span>Corregir</div></div>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top: 24px;">
+        <div class="question-box">¿Qué esperaba que pasara?</div>
+        <div class="answer-box">Respuesta esperada: aparece el mensaje en Console.</div>
+      </div>
+      <div class="registro" style="margin-top: 24px;"><p><strong>Error detectado:</strong> ________________________________</p><p><strong>Corrección aplicada:</strong> ________________________________</p></div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="errores">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Errores</p>
+      <h2>Tarjetas de error y diagnóstico</h2>
+      <div class="grid-3">
+        <div class="error-card syntax"><h3>Sintaxis</h3><p>Falta un paréntesis o etiqueta mal cerrada.</p></div>
+        <div class="error-card runtime"><h3>Ejecución</h3><p>Variable inexistente o selector incorrecto.</p></div>
+        <div class="error-card logic"><h3>Lógica</h3><p>El código funciona pero calcula mal.</p></div>
+      </div>
+      <div class="err-grid" style="margin-top: 24px;">
+        <div class="err-item"><strong>Error preparado</strong><p>Ruta JS incorrecta.</p></div>
+        <div class="err-item"><strong>Diagnóstico</strong><p>Revisar Console y Network.</p></div>
+      </div>
+      <div class="diagnostico">.diagnostico: zona para registrar hipótesis, corrección y comprobación.</div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="git">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Git y GitHub</p>
+      <h2>Versionado y repositorios</h2>
+      <div class="git-flow"><span>Guardar</span><b>→</b><span>git add</span><b>→</b><span>commit</span><b>→</b><span>push</span></div>
+      <div class="grid-2" style="margin-top: 24px;">
+        <div class="git-term"><div class="title">Terminal Git</div><pre><code>git status
+git add .
+git commit -m "Modificar App"
+git push</code></pre></div>
+        <div class="github-card"><div class="github-top"><span>GitHub</span><span class="badge ok">main</span></div><div class="github-body"><div class="file-row">📄 index.html <span class="badge">HTML</span></div><div class="file-row">📁 css/ <span class="badge ok">OK</span></div><div class="file-row">📁 js/ <span class="badge warn">JS</span></div></div></div>
+      </div>
+      <div class="grid-2" style="margin-top: 24px;">
+        <div class="commit-good"><h3>Commit claro</h3><p>Añadir estilos básicos</p></div>
+        <div class="commit-bad"><h3>Commit pobre</h3><p>cosas finales</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="componentes">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Tarjetas específicas</p>
+      <h2>Herramientas, extensiones y entregas</h2>
+      <div class="grid-3">
+        <div class="tool-card console"><h3>Console</h3><p>Herramienta para errores JavaScript.</p></div>
+        <div class="tool-card elements"><h3>Elements</h3><p>Inspección de HTML y CSS.</p></div>
+        <div class="tool-card network"><h3>Network</h3><p>Comprobación de archivos cargados.</p></div>
+      </div>
+      <div class="extension-list" style="margin-top: 24px;">
+        <div class="extension-item"><h3>Live Server</h3><p>Servidor local y recarga automática.</p></div>
+        <div class="extension-item"><h3>Prettier</h3><p>Formateo de código.</p></div>
+      </div>
+      <div class="grid-2" style="margin-top: 24px;">
+        <div class="deliver-card structure"><h3>Estructura</h3><p>Archivos y carpetas correctos.</p></div>
+        <div class="deliver-card defense"><h3>Defensa</h3><p>Explicar qué se hizo y por qué.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide compact" id="evaluacion">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Evaluación</p>
+      <h2>Rúbrica, timeline y entrega</h2>
+      <div class="timeline"><div><strong>1</strong>Crear</div><div><strong>2</strong>Probar</div><div><strong>3</strong>Depurar</div><div><strong>4</strong>Entregar</div></div>
+      <table class="rubrica" style="margin-top: 28px;">
+        <tr><th>Criterio</th><th>Puntos</th><th>Descripción</th></tr>
+        <tr><td>Estructura</td><td>15</td><td>Carpetas y archivos correctos.</td></tr>
+        <tr><td>Funcionamiento</td><td>20</td><td>HTML, CSS y JS conectados.</td></tr>
+        <tr><td>Diagnóstico</td><td>15</td><td>Errores preparados corregidos.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="slide compact" id="clases">
+    <div class="slide-inner compact">
+      <p class="slide-title-kicker">Listado de clases visibles</p>
+      <h2>Clases CSS incluidas en el catálogo</h2>
+      <p>Esta sección enumera las clases principales del CSS común. Algunas solo tienen sentido combinadas con una estructura concreta.</p>
+      <div class="repo-tree">.slide .slide-inner .portada .compact .etiqueta-bloque .subtitle .kicker .slide-title-kicker .frase-final
+.grid-2 .grid-3 .two-col-balanced .card .idea-clave .aviso .correcto .error-tipico .ejercicio .reto
+.badge .badge-mini .badge-row .status-card .save .commit .push .ok .warn .error .err
+.terminal-window .terminal-bar .terminal-title .terminal-body .prompt .cmd .output .term-error .term-muted .ctrl-key
+.command-grid .command-card .process-card .mini-terminal-row
+.browser-card .browser-bar .browser-body .browser-mock .browser-top .browser-page .url .url-box .url-good .url-bad .url-chip
+.devtools .web-pane .dev-pane .dev-tabs .dev-tab .active-console .active-elements .active-network .dev-content
+.console-line .console-ok .console-warn .console-error .console-box .console-card .network-table .status-ok .status-bad
+.mock-vscode .mock-vscode-header .mock-vscode-body .mock-sidebar .mock-editor .line .tag .attr .str .folder-tree
+.vs-window .vs-titlebar .vs-body .vs-sidebar .vs-editor
+.two-code .code-comparison .code-compare .code-label .good-code .bad-code .mark-ok .mark-err .code-small
+.big-flow .flow-node .flow-arrow .debug-flow .command-flow .flow-step .route-map .final-flow .git-flow
+.checklist .check-item .check-box .step-list .question-box .answer-box .registro .diagnostico
+.error-card .syntax .runtime .logic .err-grid .err-item
+.git-term .github-card .github-top .github-body .file-row .commit-good .commit-bad .git-panel .repo-tree
+.tool-card .console .elements .network .extension-list .extension-item .deliver-card .structure .run .git .defense
+.timeline .rubrica .mini-window .comparison-table</div>
+      <div class="aviso" style="margin-top: 24px;">
+        Si quieres editar el diseño, modifica primero variables de <code>:root</code>: colores, radios, sombras, ancho y alto mínimo de diapositiva.
+      </div>
+    </div>
+  </section>
+</body>
+</html>

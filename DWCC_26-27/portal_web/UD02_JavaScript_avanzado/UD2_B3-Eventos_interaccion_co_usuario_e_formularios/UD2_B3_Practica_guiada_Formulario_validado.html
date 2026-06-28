@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>UD2_B3 · Práctica guiada: formulario validado con JavaScript</title><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/><link href="../../assets/css/smpp.css" rel="stylesheet"/></head><body><div class="smpp-scope"><main class="main-content has-sidebar practice-document"><div class="content-layout"><aside aria-label="Índice del documento" class="section-sidebar"><nav aria-label="Secciones del documento" class="section-nav"><p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-ol"></i> Índice de la práctica</p><ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-objetivo-escenario-y-archivos-de-trabajo"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo, escenario y archivos de trabajo</a></li><li><a class="section-nav-link badge-link" href="#2-preparacion-del-proyecto"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-tools"></i></span> 2. Preparación del proyecto</a></li><li><a class="section-nav-link badge-link" href="#3-seleccion-de-elementos-y-arquitectura-del-codigo"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-diagram-3"></i></span> 3. Selección de elementos y arquitectura del código</a></li><li><a class="section-nav-link badge-link" href="#4-funciones-puras-de-comprobacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-braces-asterisk"></i></span> 4. Funciones puras de comprobación</a></li><li><a class="section-nav-link badge-link" href="#5-funciones-de-interfaz-y-mensajes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-chat-square-text"></i></span> 5. Funciones de interfaz y mensajes</a></li><li><a class="section-nav-link badge-link" href="#6-validacion-visible-de-los-campos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-check"></i></span> 6. Validación visible de los campos</a></li><li><a class="section-nav-link badge-link" href="#7-validacion-completa-y-envio"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-send-check"></i></span> 7. Validación completa y envío</a></li><li><a class="section-nav-link badge-link" href="#8-creacion-segura-del-resumen"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-lock"></i></span> 8. Creación segura del resumen</a></li><li><a class="section-nav-link badge-link" href="#9-validacion-en-tiempo-real-y-boton-de-envio"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-lightning-charge"></i></span> 9. Validación en tiempo real y botón de envío</a></li><li><a class="section-nav-link badge-link" href="#10-codigo-javascript-orientativo-completo"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-file-earmark-code"></i></span> 10. Código JavaScript orientativo completo</a></li><li><a class="section-nav-link badge-link" href="#11-ampliacion-opcional-limpiar-el-formulario"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-stars"></i></span> 11. Ampliación opcional: limpiar el formulario</a></li><li><a class="section-nav-link badge-link" href="#12-pruebas-errores-frecuentes-entrega-y-evaluacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-clipboard2-check"></i></span> 12. Pruebas, errores frecuentes, entrega y evaluación</a></li></ol></nav></aside><div class="content-wrapper"><header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-signpost-split"></i></span> UD2_B3. Práctica guiada: formulario validado con JavaScript</h1></header><hr class="content-separator"/><section class="content-section practice-section" id="1-objetivo-escenario-y-archivos-de-trabajo"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo, escenario y archivos de trabajo</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.1. Objetivo de la práctica</h3><p>En esta práctica vas a construir un formulario de inscripción y vas a validarlo con JavaScript antes de aceptar el envío.</p><p>La práctica se centra en los contenidos del bloque <strong>UD2_B3: Eventos, interacción con el usuario y formularios</strong>.</p><p>Vas a trabajar:</p><ul class="custom-list">
+<li>selección de elementos del DOM;</li>
+<li>eventos <code>input</code>, <code>change</code> y <code>submit</code>;</li>
+<li><code>addEventListener()</code>;</li>
+<li>objeto <code>event</code>;</li>
+<li><code>event.preventDefault()</code>;</li>
+<li>lectura de valores con <code>.value</code>;</li>
+<li>validación de campos obligatorios;</li>
+<li>validación de números;</li>
+<li>validación básica con expresiones regulares;</li>
+<li>mensajes de error y confirmación;</li>
+<li>modificación de clases CSS con <code>classList</code>;</li>
+<li>organización del código en funciones;</li>
+<li>separación entre reglas de validación y presentación de mensajes;</li>
+<li>creación segura de contenido en el DOM;</li>
+<li>accesibilidad básica de formularios.</li>
+</ul><blockquote class="warning-box">
+<p>En esta práctica <strong>no se envían datos a ningún servidor</strong>. Todo se comprueba en el navegador.</p>
+</blockquote><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.2. Escenario de la práctica</h3><p>Vas a crear un formulario para simular la inscripción de una persona en una actividad formativa.</p><p>El formulario tendrá estos campos:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Validación requerida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nombre completo</td>
+<td>Texto</td>
+<td>Obligatorio. Mínimo 3 caracteres.</td>
+</tr>
+<tr>
+<td>Correo electrónico</td>
+<td>Email</td>
+<td>Obligatorio. Formato básico válido.</td>
+</tr>
+<tr>
+<td>Edad</td>
+<td>Número</td>
+<td>Obligatoria. Número entero entre 16 y 99.</td>
+</tr>
+<tr>
+<td>Curso</td>
+<td>Lista desplegable</td>
+<td>Debe seleccionarse una opción válida.</td>
+</tr>
+<tr>
+<td>Modalidad</td>
+<td>Botones de opción</td>
+<td>Debe seleccionarse una modalidad.</td>
+</tr>
+<tr>
+<td>Aceptación de normas</td>
+<td>Casilla de verificación</td>
+<td>Debe estar marcada.</td>
+</tr>
+</tbody>
+</table></div><p>Cuando el formulario sea correcto, se mostrará un resumen seguro de los datos introducidos.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.3. Archivos de trabajo</h3><p>Crea una carpeta llamada:</p><div class="example-block"><pre class="code-bash"><code>UD2_B3_practica_formulario_validado
+</code></pre></div><p>Dentro de la carpeta crea estos tres archivos:</p><div class="example-block"><pre class="code-bash"><code>UD2_B3_practica_formulario_validado/
+├── index.html
+├── styles.css
+└── script.js
+</code></pre></div><hr/></section><section class="content-section practice-section" id="2-preparacion-del-proyecto"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-tools"></i></span> 2. Preparación del proyecto</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.1. HTML inicial</h3><p>En <code>index.html</code>, escribe esta estructura:</p><div class="example-block"><pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Formulario validado&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main class="contenedor"&gt;
+    &lt;h1&gt;Inscripción a actividad formativa&lt;/h1&gt;
+
+    &lt;p class="intro"&gt;
+      Completa el formulario. Todos los campos son obligatorios.
+    &lt;/p&gt;
+
+    &lt;form id="formularioInscripcion" novalidate&gt;
+      &lt;div class="campo"&gt;
+        &lt;label for="nombre"&gt;Nombre completo&lt;/label&gt;
+
+        &lt;input
+          type="text"
+          id="nombre"
+          name="nombre"
+          autocomplete="name"
+          minlength="3"
+          required
+          aria-describedby="errorNombre"
+        &gt;
+
+        &lt;p
+          class="mensaje-error"
+          id="errorNombre"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label for="email"&gt;Correo electrónico&lt;/label&gt;
+
+        &lt;input
+          type="email"
+          id="email"
+          name="email"
+          autocomplete="email"
+          required
+          aria-describedby="errorEmail"
+        &gt;
+
+        &lt;p
+          class="mensaje-error"
+          id="errorEmail"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label for="edad"&gt;Edad&lt;/label&gt;
+
+        &lt;input
+          type="number"
+          id="edad"
+          name="edad"
+          min="16"
+          max="99"
+          step="1"
+          required
+          aria-describedby="errorEdad"
+        &gt;
+
+        &lt;p
+          class="mensaje-error"
+          id="errorEdad"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label for="curso"&gt;Curso&lt;/label&gt;
+
+        &lt;select
+          id="curso"
+          name="curso"
+          required
+          aria-describedby="errorCurso"
+        &gt;
+          &lt;option value=""&gt;-- Selecciona un curso --&lt;/option&gt;
+          &lt;option value="JavaScript básico"&gt;JavaScript básico&lt;/option&gt;
+          &lt;option value="DOM y eventos"&gt;DOM y eventos&lt;/option&gt;
+          &lt;option value="Aplicaciones dinámicas"&gt;
+            Aplicaciones dinámicas
+          &lt;/option&gt;
+        &lt;/select&gt;
+
+        &lt;p
+          class="mensaje-error"
+          id="errorCurso"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;fieldset
+        id="grupoModalidad"
+        class="campo"
+        aria-describedby="errorModalidad"
+      &gt;
+        &lt;legend&gt;Modalidad&lt;/legend&gt;
+
+        &lt;label&gt;
+          &lt;input
+            type="radio"
+            name="modalidad"
+            value="Presencial"
+          &gt;
+          Presencial
+        &lt;/label&gt;
+
+        &lt;label&gt;
+          &lt;input
+            type="radio"
+            name="modalidad"
+            value="Online"
+          &gt;
+          Online
+        &lt;/label&gt;
+
+        &lt;p
+          class="mensaje-error"
+          id="errorModalidad"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/fieldset&gt;
+
+      &lt;div id="grupoNormas" class="campo checkbox"&gt;
+        &lt;label&gt;
+          &lt;input
+            type="checkbox"
+            id="aceptaNormas"
+            name="aceptaNormas"
+            required
+            aria-describedby="errorNormas"
+          &gt;
+          Acepto las normas de participación
+        &lt;/label&gt;
+
+        &lt;p
+          class="mensaje-error"
+          id="errorNormas"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;button type="submit" id="botonEnviar"&gt;
+        Enviar inscripción
+      &lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;section
+      id="resultado"
+      class="resultado oculto"
+      aria-live="polite"
+    &gt;
+      &lt;h2&gt;Inscripción registrada correctamente&lt;/h2&gt;
+      &lt;div id="resumen"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.2. Por qué usamos <code>novalidate</code></h3><p>El formulario contiene:</p><div class="example-block"><pre class="code-html"><code>&lt;form id="formularioInscripcion" novalidate&gt;
+</code></pre></div><p><code>novalidate</code> evita que el navegador bloquee el envío mediante su validación automática.</p><p>En esta práctica se utiliza para:</p><ul class="custom-list">
+<li>gestionar todos los mensajes desde JavaScript;</li>
+<li>comprender qué regla comprueba cada función;</li>
+<li>controlar cómo y dónde aparecen los errores;</li>
+<li>comparar más adelante la validación HTML con la validación JavaScript.</li>
+</ul><p>Aunque el formulario use <code>novalidate</code>, conservamos atributos como <code>required</code>, <code>min</code>, <code>max</code>, <code>step</code> y <code>minlength</code> porque documentan las reglas y mejoran la semántica del formulario.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.3. CSS base</h3><p>En <code>styles.css</code>, escribe:</p><div class="example-block"><pre class="code-css"><code>body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+
+.contenedor {
+  max-width: 760px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  margin-top: 0;
+}
+
+.intro {
+  color: #555555;
+}
+
+.campo {
+  margin-bottom: 18px;
+}
+
+label,
+legend {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input,
+select,
+button {
+  font-size: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+fieldset {
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+fieldset label {
+  font-weight: normal;
+  display: block;
+  margin-top: 8px;
+}
+
+.checkbox label {
+  font-weight: normal;
+}
+
+button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 3px solid #80bfff;
+  outline-offset: 2px;
+}
+
+.mensaje-error {
+  color: #b00020;
+  font-size: 0.9rem;
+  margin: 6px 0 0;
+  min-height: 18px;
+}
+
+input.correcto,
+select.correcto,
+fieldset.correcto,
+#grupoNormas.correcto {
+  border-color: #1b7f3a;
+  background-color: #f0fff4;
+}
+
+input.incorrecto,
+select.incorrecto,
+fieldset.incorrecto,
+#grupoNormas.incorrecto {
+  border-color: #b00020;
+  background-color: #fff5f5;
+}
+
+.resultado {
+  margin-top: 24px;
+  padding: 18px;
+  border-radius: 8px;
+  background-color: #eef7ff;
+  border: 1px solid #b8ddff;
+}
+
+.oculto {
+  display: none;
+}
+</code></pre></div><p>No usamos <code>!important</code>. Los selectores son suficientemente específicos.</p><hr/></section><section class="content-section practice-section" id="3-seleccion-de-elementos-y-arquitectura-del-codigo"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 3. Selección de elementos y arquitectura del código</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.1. Seleccionar los elementos del DOM</h3><p>En <code>script.js</code>, empieza seleccionando los elementos:</p><div class="example-block"><pre class="code-js"><code>const formulario =
+  document.querySelector("#formularioInscripcion");
+
+const inputNombre =
+  document.querySelector("#nombre");
+
+const inputEmail =
+  document.querySelector("#email");
+
+const inputEdad =
+  document.querySelector("#edad");
+
+const selectCurso =
+  document.querySelector("#curso");
+
+const inputNormas =
+  document.querySelector("#aceptaNormas");
+
+const grupoModalidad =
+  document.querySelector("#grupoModalidad");
+
+const grupoNormas =
+  document.querySelector("#grupoNormas");
+
+const errorNombre =
+  document.querySelector("#errorNombre");
+
+const errorEmail =
+  document.querySelector("#errorEmail");
+
+const errorEdad =
+  document.querySelector("#errorEdad");
+
+const errorCurso =
+  document.querySelector("#errorCurso");
+
+const errorModalidad =
+  document.querySelector("#errorModalidad");
+
+const errorNormas =
+  document.querySelector("#errorNormas");
+
+const resultado =
+  document.querySelector("#resultado");
+
+const resumen =
+  document.querySelector("#resumen");
+
+const botonEnviar =
+  document.querySelector("#botonEnviar");
+
+const radiosModalidad =
+  document.querySelectorAll(
+    "input[name='modalidad']"
+  );
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.2. Comprobar las selecciones</h3><p>Añade temporalmente:</p><div class="example-block"><pre class="code-js"><code>console.log(formulario);
+console.log(inputNombre);
+console.log(inputEmail);
+console.log(radiosModalidad);
+</code></pre></div><p>Comprueba que no aparece <code>null</code> en los elementos individuales y que <code>radiosModalidad</code> contiene dos elementos.</p><p>Después puedes borrar estas líneas.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.3. Separar reglas y presentación</h3><p>La práctica utilizará dos tipos de funciones:</p><ol class="custom-ordered-list">
+<li><p><strong>Funciones puras de comprobación</strong></p>
+<ul class="custom-list">
+<li>reciben valores;</li>
+<li>no modifican el DOM;</li>
+<li>no muestran mensajes;</li>
+<li>devuelven <code>true</code> o <code>false</code>.</li>
+</ul>
+</li>
+<li><p><strong>Funciones de interfaz</strong></p>
+<ul class="custom-list">
+<li>muestran mensajes;</li>
+<li>añaden o quitan clases;</li>
+<li>actualizan atributos de accesibilidad;</li>
+<li>colocan el foco cuando procede.</li>
+</ul>
+</li>
+</ol><p>Esta separación permite:</p><ul class="custom-list">
+<li>reutilizar las reglas sin mostrar errores;</li>
+<li>activar o desactivar el botón sin llenar la página de mensajes;</li>
+<li>probar las reglas de forma independiente;</li>
+<li>evitar duplicar condiciones.</li>
+</ul><hr/></section><section class="content-section practice-section" id="4-funciones-puras-de-comprobacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces-asterisk"></i></span> 4. Funciones puras de comprobación</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.1. Patrón de correo</h3><p>Declara el patrón una sola vez:</p><div class="example-block"><pre class="code-js"><code>const PATRON_EMAIL =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+</code></pre></div><p>No es necesario memorizar expresiones regulares complejas. En este bloque basta con comprender que <code>.test()</code> comprueba si un texto cumple un patrón.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.2. Comprobar el nombre</h3><div class="example-block"><pre class="code-js"><code>function comprobarNombre(valor) {
+  return valor.trim().length &gt;= 3;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.3. Comprobar el correo</h3><div class="example-block"><pre class="code-js"><code>function comprobarEmail(valor) {
+  return PATRON_EMAIL.test(valor.trim());
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.4. Comprobar la edad</h3><div class="example-block"><pre class="code-js"><code>function comprobarEdad(valor) {
+  const texto = valor.trim();
+
+  if (texto === "") {
+    return false;
+  }
+
+  const edad = Number(texto);
+
+  return (
+    Number.isInteger(edad)
+    &amp;&amp; edad &gt;= 16
+    &amp;&amp; edad &lt;= 99
+  );
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.5. Comprobar el curso</h3><div class="example-block"><pre class="code-js"><code>function comprobarCurso(valor) {
+  return valor !== "";
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.6. Comprobar la modalidad</h3><div class="example-block"><pre class="code-js"><code>function obtenerModalidadSeleccionada() {
+  return document.querySelector(
+    "input[name='modalidad']:checked"
+  );
+}
+
+function comprobarSeleccion(valorSeleccionado) {
+  return valorSeleccionado !== null;
+}
+</code></pre></div><p><code>obtenerModalidadSeleccionada()</code> consulta el DOM. La regla <code>comprobarSeleccion()</code> recibe el resultado y realiza la comprobación sin modificar la página.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.7. Comprobar la aceptación de normas</h3><div class="example-block"><pre class="code-js"><code>function comprobarNormas(estaMarcado) {
+  return estaMarcado;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.8. Comprobar el formulario sin mostrar mensajes</h3><div class="example-block"><pre class="code-js"><code>function comprobarFormularioCompleto() {
+  const modalidadSeleccionada =
+    obtenerModalidadSeleccionada();
+
+  return (
+    comprobarNombre(inputNombre.value)
+    &amp;&amp; comprobarEmail(inputEmail.value)
+    &amp;&amp; comprobarEdad(inputEdad.value)
+    &amp;&amp; comprobarCurso(selectCurso.value)
+    &amp;&amp; comprobarSeleccion(modalidadSeleccionada)
+    &amp;&amp; comprobarNormas(inputNormas.checked)
+  );
+}
+</code></pre></div><p>Esta función será útil para activar o desactivar el botón sin mostrar todos los errores.</p><hr/></section><section class="content-section practice-section" id="5-funciones-de-interfaz-y-mensajes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-chat-square-text"></i></span> 5. Funciones de interfaz y mensajes</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.1. Mostrar un error</h3><div class="example-block"><pre class="code-js"><code>function mostrarError(campo, elementoError, mensaje) {
+  campo.classList.remove("correcto");
+  campo.classList.add("incorrecto");
+  campo.setAttribute("aria-invalid", "true");
+
+  elementoError.textContent = mensaje;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.2. Marcar un campo como correcto</h3><div class="example-block"><pre class="code-js"><code>function marcarCorrecto(campo, elementoError) {
+  campo.classList.remove("incorrecto");
+  campo.classList.add("correcto");
+  campo.setAttribute("aria-invalid", "false");
+
+  elementoError.textContent = "";
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.3. Limpiar el estado de un campo</h3><div class="example-block"><pre class="code-js"><code>function limpiarEstado(campo, elementoError) {
+  campo.classList.remove("correcto", "incorrecto");
+  campo.removeAttribute("aria-invalid");
+
+  elementoError.textContent = "";
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.4. Por qué separamos estas funciones</h3><p>Las funciones puras solo responden:</p><div class="example-block"><pre class="code-bash"><code>¿El dato cumple la regla?
+</code></pre></div><p>Las funciones de interfaz responden:</p><div class="example-block"><pre class="code-bash"><code>¿Cómo mostramos el resultado al usuario?
+</code></pre></div><p>Así evitamos que una comprobación utilizada para activar el botón muestre errores prematuramente.</p><hr/></section><section class="content-section practice-section" id="6-validacion-visible-de-los-campos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-check"></i></span> 6. Validación visible de los campos</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.1. Validar el nombre</h3><div class="example-block"><pre class="code-js"><code>function validarNombre() {
+  const nombre = inputNombre.value.trim();
+
+  if (nombre === "") {
+    mostrarError(
+      inputNombre,
+      errorNombre,
+      "El nombre es obligatorio."
+    );
+
+    return false;
+  }
+
+  if (!comprobarNombre(nombre)) {
+    mostrarError(
+      inputNombre,
+      errorNombre,
+      "El nombre debe tener al menos 3 caracteres."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(inputNombre, errorNombre);
+  return true;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.2. Validar el correo electrónico</h3><div class="example-block"><pre class="code-js"><code>function validarEmail() {
+  const email = inputEmail.value.trim();
+
+  if (email === "") {
+    mostrarError(
+      inputEmail,
+      errorEmail,
+      "El correo electrónico es obligatorio."
+    );
+
+    return false;
+  }
+
+  if (!comprobarEmail(email)) {
+    mostrarError(
+      inputEmail,
+      errorEmail,
+      "Introduce un correo electrónico válido."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(inputEmail, errorEmail);
+  return true;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.3. Validar la edad</h3><div class="example-block"><pre class="code-js"><code>function validarEdad() {
+  const edadTexto = inputEdad.value.trim();
+
+  if (edadTexto === "") {
+    mostrarError(
+      inputEdad,
+      errorEdad,
+      "La edad es obligatoria."
+    );
+
+    return false;
+  }
+
+  const edad = Number(edadTexto);
+
+  if (Number.isNaN(edad)) {
+    mostrarError(
+      inputEdad,
+      errorEdad,
+      "La edad debe ser un número."
+    );
+
+    return false;
+  }
+
+  if (!Number.isInteger(edad)) {
+    mostrarError(
+      inputEdad,
+      errorEdad,
+      "La edad debe ser un número entero."
+    );
+
+    return false;
+  }
+
+  if (!comprobarEdad(edadTexto)) {
+    mostrarError(
+      inputEdad,
+      errorEdad,
+      "La edad debe estar entre 16 y 99 años."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(inputEdad, errorEdad);
+  return true;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.4. Validar el curso</h3><div class="example-block"><pre class="code-js"><code>function validarCurso() {
+  if (!comprobarCurso(selectCurso.value)) {
+    mostrarError(
+      selectCurso,
+      errorCurso,
+      "Debes seleccionar un curso."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(selectCurso, errorCurso);
+  return true;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.5. Validar la modalidad</h3><div class="example-block"><pre class="code-js"><code>function validarModalidad() {
+  const modalidadSeleccionada =
+    obtenerModalidadSeleccionada();
+
+  if (!comprobarSeleccion(modalidadSeleccionada)) {
+    mostrarError(
+      grupoModalidad,
+      errorModalidad,
+      "Debes seleccionar una modalidad."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(
+    grupoModalidad,
+    errorModalidad
+  );
+
+  return true;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.6. Validar la aceptación de normas</h3><div class="example-block"><pre class="code-js"><code>function validarNormas() {
+  if (!comprobarNormas(inputNormas.checked)) {
+    mostrarError(
+      grupoNormas,
+      errorNormas,
+      "Debes aceptar las normas para continuar."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(
+    grupoNormas,
+    errorNormas
+  );
+
+  return true;
+}
+</code></pre></div><hr/></section><section class="content-section practice-section" id="7-validacion-completa-y-envio"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-send-check"></i></span> 7. Validación completa y envío</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 7.1. Validar el formulario mostrando errores</h3><div class="example-block"><pre class="code-js"><code>function validarFormulario() {
+  const nombreValido = validarNombre();
+  const emailValido = validarEmail();
+  const edadValida = validarEdad();
+  const cursoValido = validarCurso();
+  const modalidadValida = validarModalidad();
+  const normasValidas = validarNormas();
+
+  return (
+    nombreValido
+    &amp;&amp; emailValido
+    &amp;&amp; edadValida
+    &amp;&amp; cursoValido
+    &amp;&amp; modalidadValida
+    &amp;&amp; normasValidas
+  );
+}
+</code></pre></div><p>Cada función devuelve <code>true</code> o <code>false</code>.</p><p>Se ejecutan todas las funciones para que el usuario pueda ver todos los errores del formulario, no solo el primero.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 7.2. Capturar el evento <code>submit</code></h3><div class="example-block"><pre class="code-js"><code>formulario.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+
+  const formularioValido =
+    validarFormulario();
+
+  if (formularioValido) {
+    mostrarResumen();
+  } else {
+    resultado.classList.add("oculto");
+  }
+});
+</code></pre></div><p><code>event.preventDefault()</code> evita el envío tradicional y la recarga de la página.</p><p>Esto permite:</p><ul class="custom-list">
+<li>validar los datos;</li>
+<li>mostrar errores;</li>
+<li>decidir cuándo se acepta la inscripción;</li>
+<li>generar el resumen en el DOM.</li>
+</ul><hr/></section><section class="content-section practice-section" id="8-creacion-segura-del-resumen"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-lock"></i></span> 8. Creación segura del resumen</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.1. Agrupar los datos en un objeto</h3><div class="example-block"><pre class="code-js"><code>function obtenerDatosInscripcion() {
+  const modalidadSeleccionada =
+    obtenerModalidadSeleccionada();
+
+  return {
+    nombre: inputNombre.value.trim(),
+    email: inputEmail.value.trim(),
+    edad: Number(inputEdad.value),
+    curso: selectCurso.value,
+    modalidad: modalidadSeleccionada.value
+  };
+}
+</code></pre></div><p>Esto conecta con lo trabajado en el bloque anterior sobre objetos.</p><p>Ejemplo de objeto:</p><div class="example-block"><pre class="code-js"><code>const datosInscripcion = {
+  nombre: "Ana",
+  email: "ana@correo.com",
+  edad: 22,
+  curso: "DOM y eventos",
+  modalidad: "Presencial"
+};
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.2. Crear una fila del resumen</h3><div class="example-block"><pre class="code-js"><code>function crearDatoResumen(etiqueta, valor) {
+  const parrafo = document.createElement("p");
+  const strong = document.createElement("strong");
+
+  strong.textContent = etiqueta + ": ";
+
+  parrafo.append(
+    strong,
+    String(valor)
+  );
+
+  return parrafo;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.3. Mostrar el resumen</h3><div class="example-block"><pre class="code-js"><code>function mostrarResumen() {
+  const datosInscripcion =
+    obtenerDatosInscripcion();
+
+  const nombre = crearDatoResumen(
+    "Nombre",
+    datosInscripcion.nombre
+  );
+
+  const email = crearDatoResumen(
+    "Email",
+    datosInscripcion.email
+  );
+
+  const edad = crearDatoResumen(
+    "Edad",
+    datosInscripcion.edad
+  );
+
+  const curso = crearDatoResumen(
+    "Curso",
+    datosInscripcion.curso
+  );
+
+  const modalidad = crearDatoResumen(
+    "Modalidad",
+    datosInscripcion.modalidad
+  );
+
+  resumen.replaceChildren(
+    nombre,
+    email,
+    edad,
+    curso,
+    modalidad
+  );
+
+  resultado.classList.remove("oculto");
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.4. Por qué no usamos <code>innerHTML</code></h3><p>No usamos:</p><div class="example-block"><pre class="code-js"><code>resumen.innerHTML = inputNombre.value;
+</code></pre></div><p>porque los datos escritos por el usuario no deben interpretarse como HTML.</p><p>Usamos:</p><ul class="custom-list">
+<li><code>createElement()</code>;</li>
+<li><code>textContent</code>;</li>
+<li><code>append()</code>;</li>
+<li><code>replaceChildren()</code>.</li>
+</ul><p>Así, cualquier etiqueta escrita por el usuario se muestra como texto y no se ejecuta como código.</p><hr/></section><section class="content-section practice-section" id="9-validacion-en-tiempo-real-y-boton-de-envio"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-lightning-charge"></i></span> 9. Validación en tiempo real y botón de envío</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.1. Validar mientras el usuario interactúa</h3><p>Añade:</p><div class="example-block"><pre class="code-js"><code>inputNombre.addEventListener(
+  "input",
+  validarNombre
+);
+
+inputEmail.addEventListener(
+  "input",
+  validarEmail
+);
+
+inputEdad.addEventListener(
+  "input",
+  validarEdad
+);
+
+selectCurso.addEventListener(
+  "change",
+  validarCurso
+);
+
+inputNormas.addEventListener(
+  "change",
+  validarNormas
+);
+
+radiosModalidad.forEach((radio) =&gt; {
+  radio.addEventListener(
+    "change",
+    validarModalidad
+  );
+});
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.2. Activar el botón sin mostrar errores prematuros</h3><p>En el HTML, modifica el botón:</p><div class="example-block"><pre class="code-html"><code>&lt;button
+  type="submit"
+  id="botonEnviar"
+  disabled
+&gt;
+  Enviar inscripción
+&lt;/button&gt;
+</code></pre></div><p>Crea:</p><div class="example-block"><pre class="code-js"><code>function actualizarBoton() {
+  botonEnviar.disabled =
+    !comprobarFormularioCompleto();
+}
+</code></pre></div><p>Esta función usa las reglas de comprobación, pero no las funciones que muestran mensajes.</p><p>Así evitamos que, al escribir la primera letra del nombre, aparezcan errores en todos los campos restantes.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.3. Combinar validación visible y actualización del botón</h3><div class="example-block"><pre class="code-js"><code>inputNombre.addEventListener("input", () =&gt; {
+  validarNombre();
+  actualizarBoton();
+});
+
+inputEmail.addEventListener("input", () =&gt; {
+  validarEmail();
+  actualizarBoton();
+});
+
+inputEdad.addEventListener("input", () =&gt; {
+  validarEdad();
+  actualizarBoton();
+});
+
+selectCurso.addEventListener("change", () =&gt; {
+  validarCurso();
+  actualizarBoton();
+});
+
+inputNormas.addEventListener("change", () =&gt; {
+  validarNormas();
+  actualizarBoton();
+});
+
+radiosModalidad.forEach((radio) =&gt; {
+  radio.addEventListener("change", () =&gt; {
+    validarModalidad();
+    actualizarBoton();
+  });
+});
+</code></pre></div><p>Aunque el botón esté desactivado mientras el formulario sea incompleto, el evento <code>submit</code> vuelve a ejecutar <code>validarFormulario()</code>.</p><p>El estado del botón mejora la interfaz, pero no sustituye la validación final.</p><hr/></section><section class="content-section practice-section" id="10-codigo-javascript-orientativo-completo"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-file-earmark-code"></i></span> 10. Código JavaScript orientativo completo</h2><p>Al terminar, <code>script.js</code> puede quedar así:</p><div class="example-block"><pre class="code-js"><code>const formulario =
+  document.querySelector("#formularioInscripcion");
+
+const inputNombre =
+  document.querySelector("#nombre");
+
+const inputEmail =
+  document.querySelector("#email");
+
+const inputEdad =
+  document.querySelector("#edad");
+
+const selectCurso =
+  document.querySelector("#curso");
+
+const inputNormas =
+  document.querySelector("#aceptaNormas");
+
+const grupoModalidad =
+  document.querySelector("#grupoModalidad");
+
+const grupoNormas =
+  document.querySelector("#grupoNormas");
+
+const errorNombre =
+  document.querySelector("#errorNombre");
+
+const errorEmail =
+  document.querySelector("#errorEmail");
+
+const errorEdad =
+  document.querySelector("#errorEdad");
+
+const errorCurso =
+  document.querySelector("#errorCurso");
+
+const errorModalidad =
+  document.querySelector("#errorModalidad");
+
+const errorNormas =
+  document.querySelector("#errorNormas");
+
+const resultado =
+  document.querySelector("#resultado");
+
+const resumen =
+  document.querySelector("#resumen");
+
+const botonEnviar =
+  document.querySelector("#botonEnviar");
+
+const radiosModalidad =
+  document.querySelectorAll(
+    "input[name='modalidad']"
+  );
+
+const PATRON_EMAIL =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function comprobarNombre(valor) {
+  return valor.trim().length &gt;= 3;
+}
+
+function comprobarEmail(valor) {
+  return PATRON_EMAIL.test(valor.trim());
+}
+
+function comprobarEdad(valor) {
+  const texto = valor.trim();
+
+  if (texto === "") {
+    return false;
+  }
+
+  const edad = Number(texto);
+
+  return (
+    Number.isInteger(edad)
+    &amp;&amp; edad &gt;= 16
+    &amp;&amp; edad &lt;= 99
+  );
+}
+
+function comprobarCurso(valor) {
+  return valor !== "";
+}
+
+function comprobarSeleccion(valorSeleccionado) {
+  return valorSeleccionado !== null;
+}
+
+function comprobarNormas(estaMarcado) {
+  return estaMarcado;
+}
+
+function obtenerModalidadSeleccionada() {
+  return document.querySelector(
+    "input[name='modalidad']:checked"
+  );
+}
+
+function comprobarFormularioCompleto() {
+  return (
+    comprobarNombre(inputNombre.value)
+    &amp;&amp; comprobarEmail(inputEmail.value)
+    &amp;&amp; comprobarEdad(inputEdad.value)
+    &amp;&amp; comprobarCurso(selectCurso.value)
+    &amp;&amp; comprobarSeleccion(
+      obtenerModalidadSeleccionada()
+    )
+    &amp;&amp; comprobarNormas(inputNormas.checked)
+  );
+}
+
+function mostrarError(campo, elementoError, mensaje) {
+  campo.classList.remove("correcto");
+  campo.classList.add("incorrecto");
+  campo.setAttribute("aria-invalid", "true");
+
+  elementoError.textContent = mensaje;
+}
+
+function marcarCorrecto(campo, elementoError) {
+  campo.classList.remove("incorrecto");
+  campo.classList.add("correcto");
+  campo.setAttribute("aria-invalid", "false");
+
+  elementoError.textContent = "";
+}
+
+function limpiarEstado(campo, elementoError) {
+  campo.classList.remove("correcto", "incorrecto");
+  campo.removeAttribute("aria-invalid");
+
+  elementoError.textContent = "";
+}
+
+function validarNombre() {
+  const nombre = inputNombre.value.trim();
+
+  if (nombre === "") {
+    mostrarError(
+      inputNombre,
+      errorNombre,
+      "El nombre es obligatorio."
+    );
+
+    return false;
+  }
+
+  if (!comprobarNombre(nombre)) {
+    mostrarError(
+      inputNombre,
+      errorNombre,
+      "El nombre debe tener al menos 3 caracteres."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(inputNombre, errorNombre);
+  return true;
+}
+
+function validarEmail() {
+  const email = inputEmail.value.trim();
+
+  if (email === "") {
+    mostrarError(
+      inputEmail,
+      errorEmail,
+      "El correo electrónico es obligatorio."
+    );
+
+    return false;
+  }
+
+  if (!comprobarEmail(email)) {
+    mostrarError(
+      inputEmail,
+      errorEmail,
+      "Introduce un correo electrónico válido."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(inputEmail, errorEmail);
+  return true;
+}
+
+function validarEdad() {
+  const edadTexto = inputEdad.value.trim();
+
+  if (edadTexto === "") {
+    mostrarError(
+      inputEdad,
+      errorEdad,
+      "La edad es obligatoria."
+    );
+
+    return false;
+  }
+
+  const edad = Number(edadTexto);
+
+  if (Number.isNaN(edad)) {
+    mostrarError(
+      inputEdad,
+      errorEdad,
+      "La edad debe ser un número."
+    );
+
+    return false;
+  }
+
+  if (!Number.isInteger(edad)) {
+    mostrarError(
+      inputEdad,
+      errorEdad,
+      "La edad debe ser un número entero."
+    );
+
+    return false;
+  }
+
+  if (!comprobarEdad(edadTexto)) {
+    mostrarError(
+      inputEdad,
+      errorEdad,
+      "La edad debe estar entre 16 y 99 años."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(inputEdad, errorEdad);
+  return true;
+}
+
+function validarCurso() {
+  if (!comprobarCurso(selectCurso.value)) {
+    mostrarError(
+      selectCurso,
+      errorCurso,
+      "Debes seleccionar un curso."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(selectCurso, errorCurso);
+  return true;
+}
+
+function validarModalidad() {
+  const modalidadSeleccionada =
+    obtenerModalidadSeleccionada();
+
+  if (!comprobarSeleccion(modalidadSeleccionada)) {
+    mostrarError(
+      grupoModalidad,
+      errorModalidad,
+      "Debes seleccionar una modalidad."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(
+    grupoModalidad,
+    errorModalidad
+  );
+
+  return true;
+}
+
+function validarNormas() {
+  if (!comprobarNormas(inputNormas.checked)) {
+    mostrarError(
+      grupoNormas,
+      errorNormas,
+      "Debes aceptar las normas para continuar."
+    );
+
+    return false;
+  }
+
+  marcarCorrecto(
+    grupoNormas,
+    errorNormas
+  );
+
+  return true;
+}
+
+function validarFormulario() {
+  const nombreValido = validarNombre();
+  const emailValido = validarEmail();
+  const edadValida = validarEdad();
+  const cursoValido = validarCurso();
+  const modalidadValida = validarModalidad();
+  const normasValidas = validarNormas();
+
+  return (
+    nombreValido
+    &amp;&amp; emailValido
+    &amp;&amp; edadValida
+    &amp;&amp; cursoValido
+    &amp;&amp; modalidadValida
+    &amp;&amp; normasValidas
+  );
+}
+
+function obtenerDatosInscripcion() {
+  const modalidadSeleccionada =
+    obtenerModalidadSeleccionada();
+
+  return {
+    nombre: inputNombre.value.trim(),
+    email: inputEmail.value.trim(),
+    edad: Number(inputEdad.value),
+    curso: selectCurso.value,
+    modalidad: modalidadSeleccionada.value
+  };
+}
+
+function crearDatoResumen(etiqueta, valor) {
+  const parrafo = document.createElement("p");
+  const strong = document.createElement("strong");
+
+  strong.textContent = etiqueta + ": ";
+
+  parrafo.append(
+    strong,
+    String(valor)
+  );
+
+  return parrafo;
+}
+
+function mostrarResumen() {
+  const datosInscripcion =
+    obtenerDatosInscripcion();
+
+  resumen.replaceChildren(
+    crearDatoResumen(
+      "Nombre",
+      datosInscripcion.nombre
+    ),
+    crearDatoResumen(
+      "Email",
+      datosInscripcion.email
+    ),
+    crearDatoResumen(
+      "Edad",
+      datosInscripcion.edad
+    ),
+    crearDatoResumen(
+      "Curso",
+      datosInscripcion.curso
+    ),
+    crearDatoResumen(
+      "Modalidad",
+      datosInscripcion.modalidad
+    )
+  );
+
+  resultado.classList.remove("oculto");
+}
+
+function actualizarBoton() {
+  botonEnviar.disabled =
+    !comprobarFormularioCompleto();
+}
+
+formulario.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+
+  const formularioValido =
+    validarFormulario();
+
+  if (formularioValido) {
+    mostrarResumen();
+  } else {
+    resultado.classList.add("oculto");
+  }
+});
+
+inputNombre.addEventListener("input", () =&gt; {
+  validarNombre();
+  actualizarBoton();
+});
+
+inputEmail.addEventListener("input", () =&gt; {
+  validarEmail();
+  actualizarBoton();
+});
+
+inputEdad.addEventListener("input", () =&gt; {
+  validarEdad();
+  actualizarBoton();
+});
+
+selectCurso.addEventListener("change", () =&gt; {
+  validarCurso();
+  actualizarBoton();
+});
+
+inputNormas.addEventListener("change", () =&gt; {
+  validarNormas();
+  actualizarBoton();
+});
+
+radiosModalidad.forEach((radio) =&gt; {
+  radio.addEventListener("change", () =&gt; {
+    validarModalidad();
+    actualizarBoton();
+  });
+});
+
+actualizarBoton();
+</code></pre></div><hr/></section><section class="content-section practice-section summary-section" id="11-ampliacion-opcional-limpiar-el-formulario"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-stars"></i></span> 11. Ampliación opcional: limpiar el formulario</h2><p>Después de mostrar el resumen puedes limpiar el formulario, manteniendo visible el resultado.</p><div class="example-block"><pre class="code-js"><code>function limpiarFormulario() {
+  formulario.reset();
+
+  limpiarEstado(
+    inputNombre,
+    errorNombre
+  );
+
+  limpiarEstado(
+    inputEmail,
+    errorEmail
+  );
+
+  limpiarEstado(
+    inputEdad,
+    errorEdad
+  );
+
+  limpiarEstado(
+    selectCurso,
+    errorCurso
+  );
+
+  limpiarEstado(
+    grupoModalidad,
+    errorModalidad
+  );
+
+  limpiarEstado(
+    grupoNormas,
+    errorNormas
+  );
+
+  actualizarBoton();
+  inputNombre.focus();
+}
+</code></pre></div><p>Para usarla:</p><div class="example-block"><pre class="code-js"><code>if (formularioValido) {
+  mostrarResumen();
+  limpiarFormulario();
+}
+</code></pre></div><p><code>formulario.reset()</code> solo restablece los controles. No elimina por sí mismo:</p><ul class="custom-list">
+<li>clases;</li>
+<li>mensajes;</li>
+<li>atributos <code>aria-invalid</code>;</li>
+<li>estado calculado del botón;</li>
+<li>variables JavaScript.</li>
+</ul><hr/></section><section class="content-section practice-section delivery-section" id="12-pruebas-errores-frecuentes-entrega-y-evaluacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard2-check"></i></span> 12. Pruebas, errores frecuentes, entrega y evaluación</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.1. Pruebas obligatorias</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Prueba</th>
+<th>Resultado esperado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enviar el formulario vacío</td>
+<td>Aparecen mensajes de error.</td>
+</tr>
+<tr>
+<td>Escribir solo espacios en el nombre</td>
+<td>Error de nombre obligatorio.</td>
+</tr>
+<tr>
+<td>Escribir un nombre de 2 caracteres</td>
+<td>Error de longitud mínima.</td>
+</tr>
+<tr>
+<td>Escribir un email sin <code>@</code></td>
+<td>Error de email no válido.</td>
+</tr>
+<tr>
+<td>Escribir edad <code>15</code></td>
+<td>Error de edad fuera de rango.</td>
+</tr>
+<tr>
+<td>Escribir edad <code>16</code></td>
+<td>Edad válida.</td>
+</tr>
+<tr>
+<td>Escribir edad <code>99</code></td>
+<td>Edad válida.</td>
+</tr>
+<tr>
+<td>Escribir edad <code>100</code></td>
+<td>Error de edad fuera de rango.</td>
+</tr>
+<tr>
+<td>Escribir una edad decimal</td>
+<td>Error: la edad debe ser entera.</td>
+</tr>
+<tr>
+<td>No seleccionar curso</td>
+<td>Error de curso obligatorio.</td>
+</tr>
+<tr>
+<td>No seleccionar modalidad</td>
+<td>Error de modalidad obligatoria.</td>
+</tr>
+<tr>
+<td>No aceptar normas</td>
+<td>Error de aceptación de normas.</td>
+</tr>
+<tr>
+<td>Corregir un campo incorrecto</td>
+<td>Desaparece el error y cambia la clase.</td>
+</tr>
+<tr>
+<td>Completar todo correctamente</td>
+<td>Aparece el resumen de inscripción.</td>
+</tr>
+<tr>
+<td>Introducir etiquetas en el nombre</td>
+<td>Se muestran como texto, no como HTML.</td>
+</tr>
+<tr>
+<td>Enviar dos veces con datos diferentes</td>
+<td>El resumen anterior se sustituye.</td>
+</tr>
+<tr>
+<td>Formulario incompleto</td>
+<td>El botón permanece desactivado.</td>
+</tr>
+<tr>
+<td>Todos los datos válidos</td>
+<td>El botón se activa.</td>
+</tr>
+<tr>
+<td>Invalidar un campo válido</td>
+<td>El botón vuelve a desactivarse.</td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.2. Errores frecuentes</h3><div class="error-card"><h4>Error 1. Olvidar <code>preventDefault()</code></h4><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>formulario.addEventListener("submit", (event) =&gt; {
+  validarFormulario();
+});
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>formulario.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+  validarFormulario();
+});
+</code></pre></div></div><div class="error-card"><h4>Error 2. Leer el elemento en lugar de su valor</h4><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>const nombre = inputNombre;
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>const nombre = inputNombre.value;
+</code></pre></div></div><div class="error-card"><h4>Error 3. No convertir la edad</h4><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>const edad = inputEdad.value;
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>const edad = Number(inputEdad.value);
+</code></pre></div></div><div class="error-card"><h4>Error 4. Acceder a un radio sin comprobarlo</h4><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>const modalidad =
+  document.querySelector(
+    "input[name='modalidad']:checked"
+  ).value;
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>const modalidadSeleccionada =
+  document.querySelector(
+    "input[name='modalidad']:checked"
+  );
+
+if (modalidadSeleccionada !== null) {
+  console.log(
+    modalidadSeleccionada.value
+  );
+}
+</code></pre></div></div><div class="error-card"><h4>Error 5. Mantener clases incompatibles</h4><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>inputNombre.classList.add("incorrecto");
+inputNombre.classList.add("correcto");
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>inputNombre.classList.remove("correcto");
+inputNombre.classList.add("incorrecto");
+</code></pre></div></div><div class="error-card"><h4>Error 6. Mostrar datos del usuario con <code>innerHTML</code></h4><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>resumen.innerHTML = inputNombre.value;
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>resumen.textContent = inputNombre.value;
+</code></pre></div></div><div class="error-card"><h4>Error 7. Aceptar edades decimales</h4><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>if (edad &gt;= 16 &amp;&amp; edad &lt;= 99) {
+  console.log("Edad válida");
+}
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>if (
+  Number.isInteger(edad)
+  &amp;&amp; edad &gt;= 16
+  &amp;&amp; edad &lt;= 99
+) {
+  console.log("Edad válida");
+}
+</code></pre></div></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.3. Entrega</h3><p>Entrega una carpeta comprimida con:</p><div class="example-block"><pre class="code-bash"><code>UD2_B3_practica_formulario_validado/
+├── index.html
+├── styles.css
+└── script.js
+</code></pre></div><p>Además, responde brevemente:</p><ol class="custom-ordered-list">
+<li>¿Para qué sirve <code>event.preventDefault()</code>?</li>
+<li>¿Qué diferencia hay entre <code>input.value</code> e <code>input</code>?</li>
+<li>¿Por qué usamos funciones separadas para validar cada campo?</li>
+<li>¿Qué diferencia hay entre una función pura de comprobación y una función que muestra mensajes?</li>
+<li>¿Qué hace la expresión regular usada para validar el email?</li>
+<li>¿Qué ocurre si no se selecciona ninguna modalidad y se intenta acceder directamente a <code>.value</code>?</li>
+<li>¿Por qué no debemos usar <code>innerHTML</code> con datos introducidos por el usuario?</li>
+<li>¿Por qué el botón desactivado no sustituye la validación en <code>submit</code>?</li>
+</ol><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.4. Rúbrica orientativa</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntuación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estructura HTML correcta y vinculada con CSS y JS</td>
+<td>1 punto</td>
+</tr>
+<tr>
+<td>Selección correcta de elementos del DOM</td>
+<td>1 punto</td>
+</tr>
+<tr>
+<td>Separación entre reglas puras y funciones de interfaz</td>
+<td>1 punto</td>
+</tr>
+<tr>
+<td>Uso correcto de eventos, <code>submit</code> y <code>preventDefault()</code></td>
+<td>1 punto</td>
+</tr>
+<tr>
+<td>Validación de nombre, email, edad, curso, modalidad y normas</td>
+<td>2,5 puntos</td>
+</tr>
+<tr>
+<td>Mensajes, clases y accesibilidad básica</td>
+<td>1 punto</td>
+</tr>
+<tr>
+<td>Resumen seguro mostrado solo con datos válidos</td>
+<td>1 punto</td>
+</tr>
+<tr>
+<td>Validación en tiempo real y estado del botón</td>
+<td>0,5 puntos</td>
+</tr>
+<tr>
+<td>Código ordenado, comentado y sin errores de consola</td>
+<td>1 punto</td>
+</tr>
+</tbody>
+</table></div><p>Total: <strong>10 puntos</strong></p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.5. Lista de comprobación final</h3><p>Antes de entregar, revisa:</p><ul class="custom-list">
+<li><input disabled="" type="checkbox"/>El HTML carga correctamente el CSS.</li>
+<li><input disabled="" type="checkbox"/>El HTML carga correctamente el JavaScript.</li>
+<li><input disabled="" type="checkbox"/>No aparecen errores en la consola.</li>
+<li><input disabled="" type="checkbox"/>El formulario vacío no se acepta.</li>
+<li><input disabled="" type="checkbox"/>Los errores aparecen junto a cada campo.</li>
+<li><input disabled="" type="checkbox"/>Los errores desaparecen cuando el campo es correcto.</li>
+<li><input disabled="" type="checkbox"/>El correo se valida con una expresión regular sencilla.</li>
+<li><input disabled="" type="checkbox"/>La edad se convierte a número.</li>
+<li><input disabled="" type="checkbox"/>La edad debe ser entera.</li>
+<li><input disabled="" type="checkbox"/>El formulario no recarga la página.</li>
+<li><input disabled="" type="checkbox"/>El resumen solo aparece con todos los datos válidos.</li>
+<li><input disabled="" type="checkbox"/>El resumen no usa <code>innerHTML</code> con datos del usuario.</li>
+<li><input disabled="" type="checkbox"/>Las reglas de validación están separadas de los mensajes.</li>
+<li><input disabled="" type="checkbox"/>El botón se activa y desactiva correctamente.</li>
+<li><input disabled="" type="checkbox"/>El formulario vuelve a validarse en <code>submit</code>.</li>
+<li><input disabled="" type="checkbox"/>Los estados visuales no dependen solo del color.</li>
+<li><input disabled="" type="checkbox"/>Los mensajes dinámicos incluyen accesibilidad básica.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.6. Contenidos aplazados</h3><p>No forman parte de esta práctica:</p><ul class="custom-list">
+<li>almacenamiento en <code>localStorage</code>;</li>
+<li>envío real de datos a un servidor;</li>
+<li><code>fetch</code>;</li>
+<li>promesas;</li>
+<li><code>async</code>/<code>await</code>;</li>
+<li>consumo de APIs;</li>
+<li>validaciones asíncronas;</li>
+<li>frameworks o librerías externas;</li>
+<li>componentes reutilizables avanzados;</li>
+<li>propagación avanzada y delegación de eventos.</li>
+</ul></section></div></div></main></div><script src="../../assets/js/smpp.js"></script></body></html>

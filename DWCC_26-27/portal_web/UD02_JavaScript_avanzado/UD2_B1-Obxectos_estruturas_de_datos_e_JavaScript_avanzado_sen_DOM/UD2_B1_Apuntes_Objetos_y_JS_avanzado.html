@@ -1,0 +1,2864 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   UD2_B1. Objetos y JavaScript avanzado sin DOM
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="../../assets/css/smpp.css" rel="stylesheet"/>
+  <script defer="" src="../../assets/js/smpp.js">
+  </script>
+ </head>
+ <body>
+  <div class="smpp-scope">
+   <main class="main-content has-sidebar notes-page">
+    <div class="content-layout">
+     <aside class="section-sidebar">
+      <nav aria-label="&Iacute;ndice del documento" class="section-nav">
+       <p class="section-nav-title">
+        <i aria-hidden="true" class="bi bi-list-check section-nav-icon">
+        </i>
+        &Iacute;ndice
+       </p>
+       <ul class="section-nav-list">
+        <li>
+         <a class="section-nav-link" href="#1-que-vamos-a-trabajar-en-este-bloque">
+          <i aria-hidden="true" class="bi bi-bullseye section-nav-icon">
+          </i>
+          <span>
+           1. Qu&eacute; vamos a trabajar en este bloque
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#2-relacion-con-dwcc">
+          <i aria-hidden="true" class="bi bi-diagram-3 section-nav-icon">
+          </i>
+          <span>
+           2. Relaci&oacute;n con DWCC
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#3-de-los-datos-simples-a-los-objetos">
+          <i aria-hidden="true" class="bi bi-boxes section-nav-icon">
+          </i>
+          <span>
+           3. De los datos simples a los objetos
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#4-objetos-literales-propiedades-acceso-modificacion-y-eliminacion">
+          <i aria-hidden="true" class="bi bi-braces section-nav-icon">
+          </i>
+          <span>
+           4. Objetos literales: propiedades, acceso, modificaci&oacute;n y eliminaci&oacute;n
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#5-metodos-de-objetos-y-uso-basico-de-this">
+          <i aria-hidden="true" class="bi bi-person-gear section-nav-icon">
+          </i>
+          <span>
+           5. M&eacute;todos de objetos y uso b&aacute;sico de this
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#6-arrays-objetos-y-arrays-asociativos">
+          <i aria-hidden="true" class="bi bi-list-columns section-nav-icon">
+          </i>
+          <span>
+           6. Arrays, objetos y arrays asociativos
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#7-arrays-de-objetos">
+          <i aria-hidden="true" class="bi bi-collection section-nav-icon">
+          </i>
+          <span>
+           7. Arrays de objetos
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#8-recorrer-transformar-filtrar-y-acumular-arrays-de-objetos">
+          <i aria-hidden="true" class="bi bi-collection section-nav-icon">
+          </i>
+          <span>
+           8. Recorrer, transformar, filtrar y acumular arrays de objetos
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#9-buscar-y-comprobar-con-find-some-y-every">
+          <i aria-hidden="true" class="bi bi-search section-nav-icon">
+          </i>
+          <span>
+           9. Buscar y comprobar con find , some y every
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#10-ordenacion-con-sort">
+          <i aria-hidden="true" class="bi bi-sort-down section-nav-icon">
+          </i>
+          <span>
+           10. Ordenaci&oacute;n con sort
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#11-destructuring">
+          <i aria-hidden="true" class="bi bi-braces-asterisk section-nav-icon">
+          </i>
+          <span>
+           11. Destructuring
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#12-spread-y-rest">
+          <i aria-hidden="true" class="bi bi-three-dots section-nav-icon">
+          </i>
+          <span>
+           12. Spread y rest
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#13-json-map-y-estructuras-clave-valor">
+          <i aria-hidden="true" class="bi bi-filetype-json section-nav-icon">
+          </i>
+          <span>
+           13. JSON, Map y estructuras clave-valor
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#14-ampliaciones-arrays-multidimensionales-closures-y-recursividad">
+          <i aria-hidden="true" class="bi bi-stars section-nav-icon">
+          </i>
+          <span>
+           14. Ampliaciones: arrays multidimensionales, closures y recursividad
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#15-tabla-resumen-de-metodos-utiles">
+          <i aria-hidden="true" class="bi bi-table section-nav-icon">
+          </i>
+          <span>
+           15. Tabla resumen de m&eacute;todos &uacute;tiles
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#16-ejemplo-integrador">
+          <i aria-hidden="true" class="bi bi-puzzle section-nav-icon">
+          </i>
+          <span>
+           16. Ejemplo integrador
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#17-errores-frecuentes">
+          <i aria-hidden="true" class="bi bi-bug section-nav-icon">
+          </i>
+          <span>
+           17. Errores frecuentes
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#18-preguntas-tipo-examen">
+          <i aria-hidden="true" class="bi bi-patch-question section-nav-icon">
+          </i>
+          <span>
+           18. Preguntas tipo examen
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="section-nav-link" href="#19-resumen-final">
+          <i aria-hidden="true" class="bi bi-flag section-nav-icon">
+          </i>
+          <span>
+           19. Resumen final
+          </span>
+         </a>
+        </li>
+       </ul>
+      </nav>
+     </aside>
+     <div class="content-wrapper">
+      <div class="document-toolbar">
+       <a class="document-home-link" href="../../index.html">
+        <i aria-hidden="true" class="bi bi-house-door">
+        </i>
+        &Iacute;ndice del curso
+       </a>
+       <button class="document-theme-toggle" id="theme-toggle" type="button">
+        <i aria-hidden="true" class="bi bi-moon-stars">
+        </i>
+        Modo oscuro
+       </button>
+      </div>
+      <header class="content-header">
+       <h1>
+        <span aria-hidden="true" class="document-title-icon">
+         <i aria-hidden="true" class="bi bi-code-square">
+         </i>
+        </span>
+        UD2_B1. Objetos y JavaScript avanzado sin DOM
+       </h1>
+      </header>
+      <section class="content-section learning-objectives-section" id="1-que-vamos-a-trabajar-en-este-bloque">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-bullseye">
+         </i>
+        </span>
+        1. Qu&eacute; vamos a trabajar en este bloque
+       </h2>
+       <p>
+        En la unidad anterior se trabaj&oacute; la base de JavaScript: variables, tipos, operadores, condicionales, bucles, funciones, arrays y objetos predefinidos.
+       </p>
+       <p>
+        En este bloque vamos a avanzar un paso m&aacute;s, pero
+        <strong>
+         sin trabajar todav&iacute;a con el DOM
+        </strong>
+        . El objetivo es aprender a organizar mejor los datos y a escribir c&oacute;digo m&aacute;s expresivo usando objetos, arrays de objetos y recursos modernos de JavaScript.
+       </p>
+       <p>
+        En este bloque aprender&aacute;s a:
+       </p>
+       <ul class="custom-list">
+        <li>
+         crear y utilizar objetos propios;
+        </li>
+        <li>
+         distinguir entre arrays y objetos;
+        </li>
+        <li>
+         trabajar con propiedades y m&eacute;todos;
+        </li>
+        <li>
+         entender el uso b&aacute;sico de
+         <code>
+          this
+         </code>
+         ;
+        </li>
+        <li>
+         evitar errores habituales con funciones flecha dentro de objetos;
+        </li>
+        <li>
+         crear arrays de objetos;
+        </li>
+        <li>
+         recorrer y transformar arrays de objetos;
+        </li>
+        <li>
+         usar m&eacute;todos como
+         <code>
+          find
+         </code>
+         ,
+         <code>
+          some
+         </code>
+         ,
+         <code>
+          every
+         </code>
+         y
+         <code>
+          sort
+         </code>
+         ;
+        </li>
+        <li>
+         aplicar
+         <code>
+          destructuring
+         </code>
+         ;
+        </li>
+        <li>
+         usar spread/rest de forma b&aacute;sica;
+        </li>
+        <li>
+         comprender cu&aacute;ndo puede ser &uacute;til
+         <code>
+          Map
+         </code>
+         ;
+        </li>
+        <li>
+         conocer, como ampliaci&oacute;n, arrays multidimensionales, closures y recursividad.
+        </li>
+       </ul>
+       <blockquote class="warning-box">
+        <p>
+         <strong>
+          Importante:
+         </strong>
+         en este bloque todav&iacute;a no manipularemos elementos HTML desde JavaScript. Eso se trabajar&aacute; en el bloque de DOM.
+        </p>
+       </blockquote>
+       <hr/>
+      </section>
+      <section class="content-section flow-section" id="2-relacion-con-dwcc">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-diagram-3">
+         </i>
+        </span>
+        2. Relaci&oacute;n con DWCC
+       </h2>
+       <p>
+        Este bloque se relaciona especialmente con:
+       </p>
+       <ul class="custom-list">
+        <li>
+         el uso de objetos predefinidos y estructuras propias de JavaScript;
+        </li>
+        <li>
+         la creaci&oacute;n y utilizaci&oacute;n de arrays;
+        </li>
+        <li>
+         las operaciones agregadas sobre colecciones;
+        </li>
+        <li>
+         la definici&oacute;n de objetos, propiedades y m&eacute;todos;
+        </li>
+        <li>
+         la depuraci&oacute;n y documentaci&oacute;n del c&oacute;digo.
+        </li>
+       </ul>
+       <p>
+        El objetivo no es memorizar m&eacute;todos sueltos, sino aprender a elegir la estructura adecuada para representar informaci&oacute;n y procesarla correctamente.
+       </p>
+       <hr/>
+      </section>
+      <section class="content-section flow-section" id="3-de-los-datos-simples-a-los-objetos">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-boxes">
+         </i>
+        </span>
+        3. De los datos simples a los objetos
+       </h2>
+       <p>
+        Hasta ahora hemos trabajado con datos simples:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const nombre = "Ana";
+const edad = 20;
+const nota = 7.5;
+const matriculado = true;
+</code></pre>
+       </div>
+       <p>
+        Tambi&eacute;n hemos trabajado con arrays:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const notas = [4, 7, 9, 3, 5];
+</code></pre>
+       </div>
+       <p>
+        Un array es &uacute;til cuando tenemos una
+        <strong>
+         lista ordenada de valores similares
+        </strong>
+        .
+       </p>
+       <p>
+        Pero muchas veces necesitamos representar informaci&oacute;n m&aacute;s compleja. Por ejemplo, un alumno no es solo un nombre o una nota. Puede tener varias propiedades:
+       </p>
+       <ul class="custom-list">
+        <li>
+         nombre;
+        </li>
+        <li>
+         edad;
+        </li>
+        <li>
+         curso;
+        </li>
+        <li>
+         nota media;
+        </li>
+        <li>
+         si est&aacute; aprobado o no.
+        </li>
+       </ul>
+       <p>
+        Para eso usamos
+        <strong>
+         objetos
+        </strong>
+        .
+       </p>
+       <hr/>
+      </section>
+      <section class="content-section operators-section" id="4-objetos-literales-propiedades-acceso-modificacion-y-eliminacion">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-braces">
+         </i>
+        </span>
+        4. Objetos literales: propiedades, acceso, modificaci&oacute;n y eliminaci&oacute;n
+       </h2>
+       <p>
+        Un
+        <strong>
+         objeto
+        </strong>
+        permite agrupar informaci&oacute;n relacionada en una sola estructura.
+       </p>
+       <p>
+        Ejemplo:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  edad: 20,
+  curso: "DWCC",
+  notaMedia: 7.5,
+  aprobado: true
+};
+</code></pre>
+       </div>
+       <p>
+        En este ejemplo:
+       </p>
+       <ul class="custom-list">
+        <li>
+         <code>
+          alumno
+         </code>
+         es un objeto;
+        </li>
+        <li>
+         <code>
+          nombre
+         </code>
+         ,
+         <code>
+          edad
+         </code>
+         ,
+         <code>
+          curso
+         </code>
+         ,
+         <code>
+          notaMedia
+         </code>
+         y
+         <code>
+          aprobado
+         </code>
+         son propiedades;
+        </li>
+        <li>
+         cada propiedad tiene un valor asociado.
+        </li>
+       </ul>
+       <hr/>
+       <div class="subsection-card">
+        <h3>
+         4.1. Acceder a propiedades de un objeto
+        </h3>
+        <p>
+         La forma m&aacute;s habitual es usar el punto:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  edad: 20,
+  curso: "DWCC"
+};
+
+console.log(alumno.nombre); // Ana
+console.log(alumno.edad);   // 20
+console.log(alumno.curso);  // DWCC
+</code></pre>
+        </div>
+        <p>
+         Tambi&eacute;n se puede acceder con corchetes:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">console.log(alumno["nombre"]); // Ana
+</code></pre>
+        </div>
+        <p>
+         La notaci&oacute;n con punto es la m&aacute;s c&oacute;moda cuando conocemos el nombre de la propiedad.
+        </p>
+        <p>
+         La notaci&oacute;n con corchetes es &uacute;til cuando el nombre de la propiedad est&aacute; guardado en una variable:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const propiedad = "edad";
+
+console.log(alumno[propiedad]); // 20
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+       <div class="subsection-card">
+        <h3>
+         4.2. Modificar y a&ntilde;adir propiedades
+        </h3>
+        <p>
+         Los objetos pueden modificarse despu&eacute;s de crearse.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  edad: 20
+};
+
+alumno.edad = 21;
+alumno.curso = "DWCC";
+
+console.log(alumno);
+</code></pre>
+        </div>
+        <p>
+         Resultado aproximado:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">{
+  nombre: "Ana",
+  edad: 21,
+  curso: "DWCC"
+}
+</code></pre>
+        </div>
+        <p>
+         Aunque el objeto est&eacute; declarado con
+         <code>
+          const
+         </code>
+         , podemos modificar sus propiedades.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  edad: 20
+};
+
+alumno.edad = 21; // permitido
+
+// alumno = { nombre: "Luis" }; // error: no se puede reasignar la constante
+</code></pre>
+        </div>
+        <p>
+         Esto es parecido a lo que ocurr&iacute;a con los arrays declarados con
+         <code>
+          const
+         </code>
+         .
+        </p>
+        <hr/>
+       </div>
+       <div class="subsection-card">
+        <h3>
+         4.3. Eliminar propiedades
+        </h3>
+        <p>
+         Podemos eliminar una propiedad con
+         <code>
+          delete
+         </code>
+         .
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  edad: 20,
+  telefono: "111222333"
+};
+
+delete alumno.telefono;
+
+console.log(alumno);
+</code></pre>
+        </div>
+        <p>
+         Despu&eacute;s de ejecutar el c&oacute;digo, el objeto ya no tendr&aacute; la propiedad
+         <code>
+          telefono
+         </code>
+         .
+        </p>
+        <blockquote class="note-box">
+         <p>
+          En c&oacute;digo real no conviene abusar de
+          <code>
+           delete
+          </code>
+          . Muchas veces es mejor dise&ntilde;ar bien la estructura de datos desde el principio.
+         </p>
+        </blockquote>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section operators-section" id="5-metodos-de-objetos-y-uso-basico-de-this">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-person-gear">
+         </i>
+        </span>
+        5. M&eacute;todos de objetos y uso b&aacute;sico de
+        <code>
+         this
+        </code>
+       </h2>
+       <p>
+        Un objeto puede contener propiedades con datos, pero tambi&eacute;n puede contener funciones. Cuando una funci&oacute;n est&aacute; dentro de un objeto, se suele llamar
+        <strong>
+         m&eacute;todo
+        </strong>
+        .
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  nota: 8,
+
+  saludar: function () {
+    console.log("Hola, soy Ana");
+  }
+};
+
+alumno.saludar();
+</code></pre>
+       </div>
+       <p>
+        En este caso,
+        <code>
+         saludar
+        </code>
+        es un m&eacute;todo del objeto
+        <code>
+         alumno
+        </code>
+        .
+       </p>
+       <hr/>
+       <div class="subsection-card">
+        <h3>
+         5.1. Uso b&aacute;sico de
+         <code>
+          this
+         </code>
+        </h3>
+        <p>
+         Dentro de un m&eacute;todo, podemos usar
+         <code>
+          this
+         </code>
+         para referirnos al propio objeto.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  nota: 8,
+
+  saludar: function () {
+    console.log("Hola, soy " + this.nombre);
+  }
+};
+
+alumno.saludar(); // Hola, soy Ana
+</code></pre>
+        </div>
+        <p>
+         Aqu&iacute;
+         <code>
+          this.nombre
+         </code>
+         significa &ldquo;la propiedad
+         <code>
+          nombre
+         </code>
+         de este objeto&rdquo;.
+        </p>
+        <p>
+         Otro ejemplo:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const producto = {
+  nombre: "Teclado",
+  precio: 25,
+
+  mostrarPrecio: function () {
+    console.log(this.nombre + " cuesta " + this.precio + " euros");
+  }
+};
+
+producto.mostrarPrecio();
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+       <div class="subsection-card">
+        <h3>
+         5.2. Cuidado con funciones flecha dentro de objetos
+        </h3>
+        <p>
+         Las funciones flecha son muy &uacute;tiles, pero no se comportan igual que las funciones tradicionales con
+         <code>
+          this
+         </code>
+         .
+        </p>
+        <p>
+         Ejemplo problem&aacute;tico:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+
+  saludar: () =&gt; {
+    console.log("Hola, soy " + this.nombre);
+  }
+};
+
+alumno.saludar(); // this.nombre no apunta al objeto alumno
+</code></pre>
+        </div>
+        <p>
+         La funci&oacute;n flecha no crea su propio
+         <code>
+          this
+         </code>
+         , por lo que
+         <code>
+          this.nombre
+         </code>
+         no apunta al objeto
+         <code>
+          alumno
+         </code>
+         .
+        </p>
+        <p>
+         En general, para m&eacute;todos de objetos donde necesitemos usar
+         <code>
+          this
+         </code>
+         , es m&aacute;s seguro utilizar funciones tradicionales:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+
+  saludar: function () {
+    console.log("Hola, soy " + this.nombre);
+  }
+};
+
+alumno.saludar(); // Hola, soy Ana
+</code></pre>
+        </div>
+        <blockquote class="concept-box">
+         <p>
+          <strong>
+           Regla pr&aacute;ctica para este nivel:
+          </strong>
+          si un m&eacute;todo necesita usar
+          <code>
+           this
+          </code>
+          , usa
+          <code>
+           function
+          </code>
+          .
+         </p>
+        </blockquote>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section operators-section" id="6-arrays-objetos-y-arrays-asociativos">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-list-columns">
+         </i>
+        </span>
+        6. Arrays, objetos y arrays asociativos
+       </h2>
+       <p>
+        Un
+        <strong>
+         array
+        </strong>
+        sirve para guardar una lista ordenada de elementos:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const notas = [4, 7, 9, 3, 5];
+</code></pre>
+       </div>
+       <p>
+        Un
+        <strong>
+         objeto
+        </strong>
+        sirve para representar una entidad con propiedades:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  edad: 20,
+  nota: 8
+};
+</code></pre>
+       </div>
+       <p>
+        Comparaci&oacute;n:
+       </p>
+       <div class="compact-table-container">
+        <table class="comparison-table">
+         <thead>
+          <tr>
+           <th>
+            Estructura
+           </th>
+           <th>
+            Se usa para
+           </th>
+           <th>
+            Acceso
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            Array
+           </td>
+           <td>
+            Lista ordenada de valores
+           </td>
+           <td>
+            <code>
+             notas[0]
+            </code>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Objeto
+           </td>
+           <td>
+            Entidad con propiedades
+           </td>
+           <td>
+            <code>
+             alumno.nombre
+            </code>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <p>
+        Ejemplo:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const nombres = ["Ana", "Luis", "Mar&iacute;a"];
+
+const alumno = {
+  nombre: "Ana",
+  edad: 20,
+  nota: 8
+};
+</code></pre>
+       </div>
+       <hr/>
+       <div class="subsection-card">
+        <h3>
+         6.1. Aclaraci&oacute;n: &ldquo;arrays asociativos&rdquo; en JavaScript
+        </h3>
+        <p>
+         En algunos lenguajes se habla de
+         <strong>
+          arrays asociativos
+         </strong>
+         , donde se guardan valores usando claves de texto.
+        </p>
+        <p>
+         En JavaScript, si queremos guardar pares clave-valor, lo normal es usar objetos:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const persona = {
+  nombre: "Ana",
+  edad: 20
+};
+</code></pre>
+        </div>
+        <p>
+         No es recomendable usar un array como si fuera un objeto:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const datos = [];
+
+datos["nombre"] = "Ana";
+datos["edad"] = 20;
+
+console.log(datos);
+</code></pre>
+        </div>
+        <p>
+         Aunque JavaScript lo permite, no es el uso adecuado de un array.
+        </p>
+        <blockquote class="concept-box">
+         <p>
+          <strong>
+           Idea clave:
+          </strong>
+          para listas, arrays. Para datos con nombre, objetos.
+         </p>
+        </blockquote>
+        <p>
+         Adem&aacute;s, aunque JavaScript permita escribir propiedades con claves de texto en un array, esas propiedades no cuentan como elementos reales del array y no afectan a
+         <code>
+          length
+         </code>
+         .
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const datos = [];
+
+datos["nombre"] = "Ana";
+
+console.log(datos.length); // 0
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section flow-section" id="7-arrays-de-objetos">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-collection">
+         </i>
+        </span>
+        7. Arrays de objetos
+       </h2>
+       <p>
+        Una estructura muy habitual en JavaScript es un array que contiene objetos.
+       </p>
+       <p>
+        Ejemplo:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const alumnos = [
+  {
+    nombre: "Ana",
+    nota: 8
+  },
+  {
+    nombre: "Luis",
+    nota: 4
+  },
+  {
+    nombre: "Mar&iacute;a",
+    nota: 9
+  }
+];
+</code></pre>
+       </div>
+       <p>
+        Aqu&iacute;:
+       </p>
+       <ul class="custom-list">
+        <li>
+         <code>
+          alumnos
+         </code>
+         es un array;
+        </li>
+        <li>
+         cada elemento del array es un objeto;
+        </li>
+        <li>
+         cada objeto representa un alumno.
+        </li>
+       </ul>
+       <p>
+        Podemos acceder a los datos as&iacute;:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">console.log(alumnos[0].nombre); // Ana
+console.log(alumnos[1].nota);   // 4
+</code></pre>
+       </div>
+       <hr/>
+      </section>
+      <section class="content-section flow-section" id="8-recorrer-transformar-filtrar-y-acumular-arrays-de-objetos">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-collection">
+         </i>
+        </span>
+        8. Recorrer, transformar, filtrar y acumular arrays de objetos
+       </h2>
+       <p>
+        Podemos recorrer un array de objetos con un bucle
+        <code>
+         for
+        </code>
+        .
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const alumnos = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 },
+  { nombre: "Mar&iacute;a", nota: 9 }
+];
+
+for (let i = 0; i &lt; alumnos.length; i++) {
+  console.log(alumnos[i].nombre + ": " + alumnos[i].nota);
+}
+</code></pre>
+       </div>
+       <p>
+        Este recorrido es muy &uacute;til para entender qu&eacute; est&aacute; ocurriendo internamente.
+       </p>
+       <hr/>
+       <div class="subsection-card">
+        <h3>
+         8.1. Recorrer arrays de objetos con
+         <code>
+          forEach
+         </code>
+        </h3>
+        <p>
+         Tambi&eacute;n podemos usar
+         <code>
+          forEach
+         </code>
+         .
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumnos = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 },
+  { nombre: "Mar&iacute;a", nota: 9 }
+];
+
+alumnos.forEach((alumno) =&gt; {
+  console.log(alumno.nombre + ": " + alumno.nota);
+});
+</code></pre>
+        </div>
+        <p>
+         Aqu&iacute;, en cada vuelta,
+         <code>
+          alumno
+         </code>
+         representa uno de los objetos del array.
+        </p>
+        <hr/>
+       </div>
+       <div class="subsection-card">
+        <h3>
+         8.2. Transformar arrays de objetos con
+         <code>
+          map
+         </code>
+        </h3>
+        <p>
+         <code>
+          map
+         </code>
+         permite crear un nuevo array transformando cada elemento.
+        </p>
+        <p>
+         Ejemplo: obtener solo los nombres.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumnos = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 },
+  { nombre: "Mar&iacute;a", nota: 9 }
+];
+
+const nombres = alumnos.map((alumno) =&gt; {
+  return alumno.nombre;
+});
+
+console.log(nombres); // ["Ana", "Luis", "Mar&iacute;a"]
+</code></pre>
+        </div>
+        <p>
+         Ejemplo: generar mensajes personalizados.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const mensajes = alumnos.map((alumno) =&gt; {
+  return alumno.nombre + " tiene una nota de " + alumno.nota;
+});
+
+console.log(mensajes);
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+       <div class="subsection-card">
+        <h3>
+         8.3. Filtrar arrays de objetos con
+         <code>
+          filter
+         </code>
+        </h3>
+        <p>
+         <code>
+          filter
+         </code>
+         permite crear un nuevo array con los elementos que cumplen una condici&oacute;n.
+        </p>
+        <p>
+         Ejemplo: obtener solo los aprobados.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumnos = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 },
+  { nombre: "Mar&iacute;a", nota: 9 }
+];
+
+const aprobados = alumnos.filter((alumno) =&gt; {
+  return alumno.nota &gt;= 5;
+});
+
+console.log(aprobados);
+</code></pre>
+        </div>
+        <p>
+         El array
+         <code>
+          aprobados
+         </code>
+         contiene los objetos de Ana y Mar&iacute;a.
+        </p>
+        <hr/>
+       </div>
+       <div class="subsection-card">
+        <h3>
+         8.4. Acumular informaci&oacute;n con
+         <code>
+          reduce
+         </code>
+        </h3>
+        <p>
+         <code>
+          reduce
+         </code>
+         permite obtener un &uacute;nico resultado a partir de un array.
+        </p>
+        <p>
+         Ejemplo: calcular la suma de las notas.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumnos = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 },
+  { nombre: "Mar&iacute;a", nota: 9 }
+];
+
+const sumaNotas = alumnos.reduce((acumulador, alumno) =&gt; {
+  return acumulador + alumno.nota;
+}, 0);
+
+console.log(sumaNotas); // 21
+</code></pre>
+        </div>
+        <p>
+         Podemos calcular la media:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const media = sumaNotas / alumnos.length;
+
+console.log(media); // 7
+</code></pre>
+        </div>
+        <p>
+         Tabla mental del proceso:
+        </p>
+        <div class="compact-table-container">
+         <table class="comparison-table">
+          <thead>
+           <tr>
+            <th>
+             Vuelta
+            </th>
+            <th>
+             acumulador
+            </th>
+            <th>
+             alumno.nota
+            </th>
+            <th>
+             nuevo acumulador
+            </th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>
+             1
+            </td>
+            <td>
+             0
+            </td>
+            <td>
+             8
+            </td>
+            <td>
+             8
+            </td>
+           </tr>
+           <tr>
+            <td>
+             2
+            </td>
+            <td>
+             8
+            </td>
+            <td>
+             4
+            </td>
+            <td>
+             12
+            </td>
+           </tr>
+           <tr>
+            <td>
+             3
+            </td>
+            <td>
+             12
+            </td>
+            <td>
+             9
+            </td>
+            <td>
+             21
+            </td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section logic-section" id="9-buscar-y-comprobar-con-find-some-y-every">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-search">
+         </i>
+        </span>
+        9. Buscar y comprobar con
+        <code>
+         find
+        </code>
+        ,
+        <code>
+         some
+        </code>
+        y
+        <code>
+         every
+        </code>
+       </h2>
+       <p>
+        <code>
+         find
+        </code>
+        devuelve el
+        <strong>
+         primer elemento
+        </strong>
+        que cumple una condici&oacute;n.
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const alumnos = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 },
+  { nombre: "Mar&iacute;a", nota: 9 }
+];
+
+const alumnoBuscado = alumnos.find((alumno) =&gt; {
+  return alumno.nombre === "Luis";
+});
+
+console.log(alumnoBuscado); // { nombre: "Luis", nota: 4 }
+</code></pre>
+       </div>
+       <p>
+        Si no encuentra nada, devuelve
+        <code>
+         undefined
+        </code>
+        .
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const resultado = alumnos.find((alumno) =&gt; {
+  return alumno.nombre === "Pedro";
+});
+
+console.log(resultado); // undefined
+</code></pre>
+       </div>
+       <hr/>
+       <div class="subsection-card">
+        <h3>
+         9.1. Comprobar condiciones con
+         <code>
+          some
+         </code>
+        </h3>
+        <p>
+         <code>
+          some
+         </code>
+         devuelve
+         <code>
+          true
+         </code>
+         si
+         <strong>
+          al menos un elemento
+         </strong>
+         cumple la condici&oacute;n.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumnos = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 },
+  { nombre: "Mar&iacute;a", nota: 9 }
+];
+
+const haySuspensos = alumnos.some((alumno) =&gt; {
+  return alumno.nota &lt; 5;
+});
+
+console.log(haySuspensos); // true
+</code></pre>
+        </div>
+        <p>
+         Pregunta que responde
+         <code>
+          some
+         </code>
+         :
+        </p>
+        <blockquote class="note-box">
+         <p>
+          &iquest;Hay alguno que cumpla esta condici&oacute;n?
+         </p>
+        </blockquote>
+        <hr/>
+       </div>
+       <div class="subsection-card">
+        <h3>
+         9.2. Comprobar condiciones con
+         <code>
+          every
+         </code>
+        </h3>
+        <p>
+         <code>
+          every
+         </code>
+         devuelve
+         <code>
+          true
+         </code>
+         si
+         <strong>
+          todos los elementos
+         </strong>
+         cumplen la condici&oacute;n.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumnos = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 },
+  { nombre: "Mar&iacute;a", nota: 9 }
+];
+
+const todosAprobados = alumnos.every((alumno) =&gt; {
+  return alumno.nota &gt;= 5;
+});
+
+console.log(todosAprobados); // false
+</code></pre>
+        </div>
+        <p>
+         Pregunta que responde
+         <code>
+          every
+         </code>
+         :
+        </p>
+        <blockquote class="note-box">
+         <p>
+          &iquest;Todos cumplen esta condici&oacute;n?
+         </p>
+        </blockquote>
+        <hr/>
+       </div>
+       <div class="subsection-card">
+        <h3>
+         9.3. Comparativa:
+         <code>
+          find
+         </code>
+         ,
+         <code>
+          some
+         </code>
+         y
+         <code>
+          every
+         </code>
+        </h3>
+        <div class="compact-table-container">
+         <table class="comparison-table">
+          <thead>
+           <tr>
+            <th>
+             M&eacute;todo
+            </th>
+            <th>
+             Pregunta que responde
+            </th>
+            <th>
+             Resultado
+            </th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>
+             <code>
+              find
+             </code>
+            </td>
+            <td>
+             &iquest;Cu&aacute;l es el primer elemento que cumple la condici&oacute;n?
+            </td>
+            <td>
+             Un elemento o
+             <code>
+              undefined
+             </code>
+            </td>
+           </tr>
+           <tr>
+            <td>
+             <code>
+              some
+             </code>
+            </td>
+            <td>
+             &iquest;Hay al menos uno que cumple la condici&oacute;n?
+            </td>
+            <td>
+             <code>
+              true
+             </code>
+             o
+             <code>
+              false
+             </code>
+            </td>
+           </tr>
+           <tr>
+            <td>
+             <code>
+              every
+             </code>
+            </td>
+            <td>
+             &iquest;Cumplen todos la condici&oacute;n?
+            </td>
+            <td>
+             <code>
+              true
+             </code>
+             o
+             <code>
+              false
+             </code>
+            </td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <p>
+         Ejemplo con productos:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const productos = [
+  { nombre: "Teclado", precio: 25 },
+  { nombre: "Rat&oacute;n", precio: 12 },
+  { nombre: "Monitor", precio: 140 }
+];
+
+const productoCaro = productos.find((producto) =&gt; producto.precio &gt; 100);
+const hayProductosBaratos = productos.some((producto) =&gt; producto.precio &lt; 15);
+const todosCuestanMasDe10 = productos.every((producto) =&gt; producto.precio &gt; 10);
+
+console.log(productoCaro);
+console.log(hayProductosBaratos);
+console.log(todosCuestanMasDe10);
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section logic-section" id="10-ordenacion-con-sort">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-sort-down">
+         </i>
+        </span>
+        10. Ordenaci&oacute;n con
+        <code>
+         sort
+        </code>
+       </h2>
+       <blockquote class="warning-box">
+        <p>
+         <strong>
+          Importante
+         </strong>
+         <code>
+          sort()
+         </code>
+         modifica el array original. Si quieres conservar el orden inicial, crea una copia antes de ordenar.
+        </p>
+       </blockquote>
+       <p>
+        El m&eacute;todo
+        <code>
+         sort()
+        </code>
+        ordena los elementos de un array.
+       </p>
+       <p>
+        Con textos:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const nombres = ["Mar&iacute;a", "Ana", "Luis"];
+
+nombres.sort();
+
+console.log(nombres); // ["Ana", "Luis", "Mar&iacute;a"]
+</code></pre>
+       </div>
+       <p>
+        Con n&uacute;meros, hay que tener cuidado:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const numeros = [10, 2, 30, 4];
+
+numeros.sort();
+
+console.log(numeros); // [10, 2, 30, 4] o resultado no esperado
+</code></pre>
+       </div>
+       <p>
+        Por defecto,
+        <code>
+         sort()
+        </code>
+        ordena como texto. Para ordenar n&uacute;meros correctamente, usamos una funci&oacute;n de comparaci&oacute;n:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const numeros = [10, 2, 30, 4];
+
+numeros.sort((a, b) =&gt; {
+  return a - b;
+});
+
+console.log(numeros); // [2, 4, 10, 30]
+</code></pre>
+       </div>
+       <p>
+        Orden descendente:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">numeros.sort((a, b) =&gt; {
+  return b - a;
+});
+
+console.log(numeros); // [30, 10, 4, 2]
+</code></pre>
+       </div>
+       <hr/>
+       <div class="subsection-card">
+        <h3>
+         10.1. Ordenar arrays de objetos
+        </h3>
+        <p>
+         Podemos ordenar arrays de objetos usando una propiedad.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumnos = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 },
+  { nombre: "Mar&iacute;a", nota: 9 }
+];
+
+alumnos.sort((a, b) =&gt; {
+  return a.nota - b.nota;
+});
+
+console.log(alumnos);
+</code></pre>
+        </div>
+        <p>
+         Esto ordena de menor a mayor nota.
+        </p>
+        <p>
+         Para ordenar de mayor a menor:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">alumnos.sort((a, b) =&gt; {
+  return b.nota - a.nota;
+});
+</code></pre>
+        </div>
+        <p>
+         Para ordenar por nombre:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">alumnos.sort((a, b) =&gt; {
+  return a.nombre.localeCompare(b.nombre);
+});
+</code></pre>
+        </div>
+        <blockquote class="note-box">
+         <p>
+          <code>
+           sort()
+          </code>
+          modifica el array original. Si queremos conservar el array inicial, podemos hacer una copia antes.
+         </p>
+        </blockquote>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const copiaOrdenada = alumnos.slice().sort((a, b) =&gt; {
+  return b.nota - a.nota;
+});
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section operators-section" id="11-destructuring">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-braces-asterisk">
+         </i>
+        </span>
+        11. Destructuring
+       </h2>
+       <p>
+        El
+        <strong>
+         destructuring
+        </strong>
+        permite extraer propiedades de un objeto y guardarlas en variables.
+       </p>
+       <p>
+        Sin destructuring:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  nota: 8
+};
+
+const nombre = alumno.nombre;
+const nota = alumno.nota;
+
+console.log(nombre, nota);
+</code></pre>
+       </div>
+       <p>
+        Con destructuring:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  nota: 8
+};
+
+const { nombre, nota } = alumno;
+
+console.log(nombre, nota);
+</code></pre>
+       </div>
+       <p>
+        Es especialmente &uacute;til cuando trabajamos con objetos grandes.
+       </p>
+       <hr/>
+       <div class="subsection-card">
+        <h3>
+         11.1. Destructuring en par&aacute;metros de funciones
+        </h3>
+        <p>
+         Podemos usar destructuring directamente en los par&aacute;metros.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">function mostrarAlumno({ nombre, nota }) {
+  console.log(nombre + " tiene un " + nota);
+}
+
+const alumno = {
+  nombre: "Ana",
+  nota: 8
+};
+
+mostrarAlumno(alumno);
+</code></pre>
+        </div>
+        <p>
+         Esto evita escribir continuamente
+         <code>
+          alumno.nombre
+         </code>
+         ,
+         <code>
+          alumno.nota
+         </code>
+         , etc.
+        </p>
+        <hr/>
+       </div>
+       <div class="subsection-card">
+        <h3>
+         11.2. Destructuring de arrays
+        </h3>
+        <p>
+         Tambi&eacute;n podemos extraer valores de un array.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const coordenadas = [10, 20];
+
+const [x, y] = coordenadas;
+
+console.log(x); // 10
+console.log(y); // 20
+</code></pre>
+        </div>
+        <p>
+         Otro ejemplo:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const nombres = ["Ana", "Luis", "Mar&iacute;a"];
+
+const [primero, segundo] = nombres;
+
+console.log(primero); // Ana
+console.log(segundo); // Luis
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section operators-section" id="12-spread-y-rest">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-three-dots">
+         </i>
+        </span>
+        12. Spread y rest
+       </h2>
+       <blockquote class="warning-box">
+        <p>
+         <strong>
+          Ojo
+         </strong>
+         Spread y rest usan el mismo s&iacute;mbolo
+         <code>
+          ...
+         </code>
+         , pero no hacen lo mismo:
+        </p>
+        <ul class="custom-list">
+         <li>
+          <strong>
+           spread
+          </strong>
+          expande valores;
+         </li>
+         <li>
+          <strong>
+           rest
+          </strong>
+          recoge varios valores en un array.
+         </li>
+        </ul>
+       </blockquote>
+       <p>
+        El operador spread
+        <code>
+         ...
+        </code>
+        permite expandir los elementos de un array.
+       </p>
+       <p>
+        Crear una copia:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const numeros = [1, 2, 3];
+
+const copia = [...numeros];
+
+console.log(copia);
+</code></pre>
+       </div>
+       <p>
+        Combinar arrays:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const grupoA = ["Ana", "Luis"];
+const grupoB = ["Mar&iacute;a", "Pedro"];
+
+const grupoCompleto = [...grupoA, ...grupoB];
+
+console.log(grupoCompleto);
+</code></pre>
+       </div>
+       <p>
+        A&ntilde;adir elementos:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const numeros = [2, 3, 4];
+
+const nuevosNumeros = [1, ...numeros, 5];
+
+console.log(nuevosNumeros); // [1, 2, 3, 4, 5]
+</code></pre>
+       </div>
+       <hr/>
+       <div class="subsection-card">
+        <h3>
+         12.1. Spread con objetos
+        </h3>
+        <p>
+         Tambi&eacute;n podemos usar spread con objetos.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  nota: 8
+};
+
+const alumnoActualizado = {
+  ...alumno,
+  nota: 9
+};
+
+console.log(alumnoActualizado);
+</code></pre>
+        </div>
+        <p>
+         El objeto original no se modifica:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">console.log(alumno); // { nombre: "Ana", nota: 8 }
+</code></pre>
+        </div>
+        <p>
+         Esto es muy &uacute;til cuando queremos crear una versi&oacute;n modificada de un objeto sin tocar el original.
+        </p>
+        <hr/>
+       </div>
+       <div class="subsection-card">
+        <h3>
+         12.2. Rest en funciones
+        </h3>
+        <p>
+         El operador rest tambi&eacute;n usa
+         <code>
+          ...
+         </code>
+         , pero sirve para recoger varios argumentos en un array.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">function sumar(...numeros) {
+  let suma = 0;
+
+  for (let i = 0; i &lt; numeros.length; i++) {
+    suma += numeros[i];
+  }
+
+  return suma;
+}
+
+console.log(sumar(1, 2, 3));       // 6
+console.log(sumar(10, 20, 30, 40)); // 100
+</code></pre>
+        </div>
+        <p>
+         Aqu&iacute;
+         <code>
+          numeros
+         </code>
+         es un array con todos los argumentos recibidos.
+        </p>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section operators-section" id="13-json-map-y-estructuras-clave-valor">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-filetype-json">
+         </i>
+        </span>
+        13. JSON, Map y estructuras clave-valor
+       </h2>
+       <p>
+        En la unidad anterior vimos
+        <code>
+         JSON.stringify()
+        </code>
+        y
+        <code>
+         JSON.parse()
+        </code>
+        de forma b&aacute;sica. Ahora podemos aplicarlo a arrays de objetos.
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const alumnos = [
+  { nombre: "Ana", nota: 8 },
+  { nombre: "Luis", nota: 4 }
+];
+
+const textoJSON = JSON.stringify(alumnos);
+
+console.log(textoJSON);
+</code></pre>
+       </div>
+       <p>
+        Convertir de texto JSON a estructura JavaScript:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const datos = '[{"nombre":"Ana","nota":8},{"nombre":"Luis","nota":4}]';
+
+const alumnos = JSON.parse(datos);
+
+console.log(alumnos[0].nombre); // Ana
+</code></pre>
+       </div>
+       <p>
+        Esto ser&aacute; fundamental m&aacute;s adelante cuando trabajemos con APIs y
+        <code>
+         fetch
+        </code>
+        .
+       </p>
+       <hr/>
+       <div class="subsection-card">
+        <h3>
+         13.1.
+         <code>
+          Map
+         </code>
+         como colecci&oacute;n clave-valor
+        </h3>
+        <p>
+         Adem&aacute;s de objetos y arrays, JavaScript tiene una estructura llamada
+         <code>
+          Map
+         </code>
+         .
+        </p>
+        <p>
+         Un
+         <code>
+          Map
+         </code>
+         permite guardar pares clave-valor.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const telefonos = new Map();
+
+telefonos.set("Ana", "111-111-111");
+telefonos.set("Luis", "222-222-222");
+
+console.log(telefonos.get("Ana")); // 111-111-111
+console.log(telefonos.has("Luis")); // true
+console.log(telefonos.size);        // 2
+</code></pre>
+        </div>
+        <p>
+         Recorrer un
+         <code>
+          Map
+         </code>
+         :
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">for (const [nombre, telefono] of telefonos) {
+  console.log(nombre + ": " + telefono);
+}
+</code></pre>
+        </div>
+        <p>
+         Para este nivel:
+        </p>
+        <ul class="custom-list">
+         <li>
+          si tienes una entidad con propiedades fijas, usa un objeto;
+         </li>
+         <li>
+          si tienes una lista, usa un array;
+         </li>
+         <li>
+          si necesitas una colecci&oacute;n clave-valor que cambia mucho,
+          <code>
+           Map
+          </code>
+          puede ser una opci&oacute;n.
+         </li>
+        </ul>
+        <p>
+         No ser&aacute; la estructura principal del curso, pero conviene conocerla.
+        </p>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section review-section" id="14-ampliaciones-arrays-multidimensionales-closures-y-recursividad">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-stars">
+         </i>
+        </span>
+        14. Ampliaciones: arrays multidimensionales, closures y recursividad
+       </h2>
+       <p>
+        Estas secciones son de ampliaci&oacute;n. Conviene conocer la idea general, pero no ser&aacute;n el eje principal del bloque.
+       </p>
+       <div class="subsection-card note-box">
+        <h3>
+         14.1. Ampliaci&oacute;n: arrays multidimensionales
+        </h3>
+        <p>
+         Un array multidimensional es un array que contiene otros arrays.
+        </p>
+        <p>
+         Ejemplo de tabla:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const tablero = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+
+console.log(tablero[0][0]); // 1
+console.log(tablero[1][1]); // 5
+console.log(tablero[2][2]); // 9
+</code></pre>
+        </div>
+        <p>
+         Podemos recorrerlo con bucles anidados:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">for (let fila = 0; fila &lt; tablero.length; fila++) {
+  for (let columna = 0; columna &lt; tablero[fila].length; columna++) {
+    console.log(tablero[fila][columna]);
+  }
+}
+</code></pre>
+        </div>
+        <p>
+         Este contenido se considera ampliaci&oacute;n porque a&ntilde;ade complejidad al manejo de arrays.
+        </p>
+        <hr/>
+       </div>
+       <div class="subsection-card note-box">
+        <h3>
+         14.2. Ampliaci&oacute;n: closures
+        </h3>
+        <p>
+         Un
+         <strong>
+          closure
+         </strong>
+         aparece cuando una funci&oacute;n recuerda variables del entorno en el que fue creada.
+        </p>
+        <p>
+         Ejemplo sencillo:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">function crearContador() {
+  let contador = 0;
+
+  return function () {
+    contador++;
+    return contador;
+  };
+}
+
+const contador1 = crearContador();
+
+console.log(contador1()); // 1
+console.log(contador1()); // 2
+console.log(contador1()); // 3
+</code></pre>
+        </div>
+        <p>
+         La funci&oacute;n interna sigue recordando la variable
+         <code>
+          contador
+         </code>
+         , aunque
+         <code>
+          crearContador()
+         </code>
+         ya haya terminado.
+        </p>
+        <p>
+         En este bloque solo necesitamos entender la idea general. Se profundizar&aacute; si es necesario m&aacute;s adelante.
+        </p>
+        <hr/>
+       </div>
+       <div class="subsection-card note-box">
+        <h3>
+         14.3. Ampliaci&oacute;n: recursividad
+        </h3>
+        <p>
+         Una funci&oacute;n recursiva es una funci&oacute;n que se llama a s&iacute; misma.
+        </p>
+        <p>
+         Ejemplo cl&aacute;sico: cuenta atr&aacute;s.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">function cuentaAtras(numero) {
+  if (numero &lt;= 0) {
+    console.log("Fin");
+    return;
+  }
+
+  console.log(numero);
+  cuentaAtras(numero - 1);
+}
+
+cuentaAtras(5);
+</code></pre>
+        </div>
+        <p>
+         Una funci&oacute;n recursiva necesita siempre:
+        </p>
+        <ul class="custom-list">
+         <li>
+          un caso base;
+         </li>
+         <li>
+          una llamada recursiva que se acerque al caso base.
+         </li>
+        </ul>
+        <p>
+         Si no hay caso base, se produce una recursi&oacute;n infinita.
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">function error() {
+  error();
+}
+
+// error(); // No ejecutar: provocar&iacute;a un error por recursi&oacute;n infinita
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section operators-section" id="15-tabla-resumen-de-metodos-utiles">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-table">
+         </i>
+        </span>
+        15. Tabla resumen de m&eacute;todos &uacute;tiles
+       </h2>
+       <div class="compact-table-container">
+        <table class="comparison-table">
+         <thead>
+          <tr>
+           <th>
+            M&eacute;todo / recurso
+           </th>
+           <th>
+            Se usa para
+           </th>
+           <th>
+            Devuelve
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <code>
+             forEach
+            </code>
+           </td>
+           <td>
+            Recorrer y ejecutar una acci&oacute;n
+           </td>
+           <td>
+            <code>
+             undefined
+            </code>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             map
+            </code>
+           </td>
+           <td>
+            Transformar elementos
+           </td>
+           <td>
+            Nuevo array
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             filter
+            </code>
+           </td>
+           <td>
+            Seleccionar elementos
+           </td>
+           <td>
+            Nuevo array
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             reduce
+            </code>
+           </td>
+           <td>
+            Acumular un resultado
+           </td>
+           <td>
+            Un valor
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             find
+            </code>
+           </td>
+           <td>
+            Buscar el primer elemento que cumple una condici&oacute;n
+           </td>
+           <td>
+            Elemento o
+            <code>
+             undefined
+            </code>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             some
+            </code>
+           </td>
+           <td>
+            Comprobar si alguno cumple
+           </td>
+           <td>
+            Booleano
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             every
+            </code>
+           </td>
+           <td>
+            Comprobar si todos cumplen
+           </td>
+           <td>
+            Booleano
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             sort
+            </code>
+           </td>
+           <td>
+            Ordenar un array
+           </td>
+           <td>
+            El mismo array ordenado
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             destructuring
+            </code>
+           </td>
+           <td>
+            Extraer valores
+           </td>
+           <td>
+            Variables
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             spread
+            </code>
+           </td>
+           <td>
+            Copiar, combinar o expandir
+           </td>
+           <td>
+            Depende del uso
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             rest
+            </code>
+           </td>
+           <td>
+            Recoger argumentos
+           </td>
+           <td>
+            Array
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             JSON.stringify
+            </code>
+           </td>
+           <td>
+            Convertir estructura a texto JSON
+           </td>
+           <td>
+            String
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <code>
+             JSON.parse
+            </code>
+           </td>
+           <td>
+            Convertir texto JSON a estructura JS
+           </td>
+           <td>
+            Objeto o array
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <hr/>
+      </section>
+      <section class="content-section flow-section" id="16-ejemplo-integrador">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-puzzle">
+         </i>
+        </span>
+        16. Ejemplo integrador
+       </h2>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const productos = [
+  { nombre: "Teclado", precio: 25, stock: 10 },
+  { nombre: "Rat&oacute;n", precio: 12, stock: 0 },
+  { nombre: "Monitor", precio: 140, stock: 4 },
+  { nombre: "Cable HDMI", precio: 8, stock: 20 }
+];
+
+// Mostrar productos
+productos.forEach((producto) =&gt; {
+  console.log(producto.nombre + " - " + producto.precio + " &euro;");
+});
+
+// Obtener solo los nombres
+const nombres = productos.map((producto) =&gt; {
+  return producto.nombre;
+});
+
+// Filtrar productos disponibles
+const disponibles = productos.filter((producto) =&gt; {
+  return producto.stock &gt; 0;
+});
+
+// Calcular valor total del stock
+const valorStock = productos.reduce((total, producto) =&gt; {
+  return total + producto.precio * producto.stock;
+}, 0);
+
+// Buscar un producto concreto
+const monitor = productos.find((producto) =&gt; {
+  return producto.nombre === "Monitor";
+});
+
+// Comprobar condiciones
+const haySinStock = productos.some((producto) =&gt; {
+  return producto.stock === 0;
+});
+
+const todosTienenPrecio = productos.every((producto) =&gt; {
+  return producto.precio &gt; 0;
+});
+
+// Ordenar copia por precio
+const ordenadosPorPrecio = [...productos].sort((a, b) =&gt; {
+  return a.precio - b.precio;
+});
+
+console.log("Nombres:", nombres);
+console.log("Disponibles:", disponibles);
+console.log("Valor total del stock:", valorStock);
+console.log("Monitor:", monitor);
+console.log("Hay productos sin stock:", haySinStock);
+console.log("Todos tienen precio:", todosTienenPrecio);
+console.log("Ordenados por precio:", ordenadosPorPrecio);
+</code></pre>
+       </div>
+       <p>
+        Este ejemplo resume muchas de las operaciones m&aacute;s habituales con arrays de objetos.
+       </p>
+       <hr/>
+      </section>
+      <section class="content-section frequent-errors-section" id="17-errores-frecuentes">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-bug">
+         </i>
+        </span>
+        17. Errores frecuentes
+       </h2>
+       <div class="error-card">
+        <h3>
+         17.1. Confundir array y objeto
+        </h3>
+        <p>
+         Incorrecto si queremos representar una entidad:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = ["Ana", 20, 8];
+</code></pre>
+        </div>
+        <p>
+         Es mejor:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  edad: 20,
+  nota: 8
+};
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+       <div class="error-card">
+        <h3>
+         17.2. Usar corchetes cuando la notaci&oacute;n con punto ser&iacute;a m&aacute;s clara
+        </h3>
+        <p>
+         Esto no es un error t&eacute;cnico:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">console.log(alumno["nombre"]);
+</code></pre>
+        </div>
+        <p>
+         La notaci&oacute;n con corchetes es v&aacute;lida y puede ser &uacute;til si el nombre de la propiedad est&aacute; guardado en una variable. Pero si conocemos la propiedad, suele ser m&aacute;s claro escribir:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">console.log(alumno.nombre);
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+       <div class="error-card">
+        <h3>
+         17.3. Olvidar que
+         <code>
+          find
+         </code>
+         puede devolver
+         <code>
+          undefined
+         </code>
+        </h3>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = alumnos.find((a) =&gt; a.nombre === "Pedro");
+
+console.log(alumno.nota); // error si alumno es undefined
+</code></pre>
+        </div>
+        <p>
+         Mejor:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = alumnos.find((a) =&gt; a.nombre === "Pedro");
+
+if (alumno !== undefined) {
+  console.log(alumno.nota);
+} else {
+  console.log("Alumno no encontrado");
+}
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+       <div class="error-card">
+        <h3>
+         17.4. Usar
+         <code>
+          map
+         </code>
+         cuando se necesita
+         <code>
+          filter
+         </code>
+        </h3>
+        <p>
+         Si queremos quedarnos solo con aprobados, usamos
+         <code>
+          filter
+         </code>
+         :
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const aprobados = alumnos.filter((alumno) =&gt; alumno.nota &gt;= 5);
+</code></pre>
+        </div>
+        <p>
+         No
+         <code>
+          map
+         </code>
+         .
+        </p>
+        <hr/>
+       </div>
+       <div class="error-card">
+        <h3>
+         17.5. Usar
+         <code>
+          forEach
+         </code>
+         esperando un nuevo array
+        </h3>
+        <p>
+         Incorrecto:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const dobles = numeros.forEach((n) =&gt; n * 2);
+
+console.log(dobles); // undefined
+</code></pre>
+        </div>
+        <p>
+         Correcto:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const dobles = numeros.map((n) =&gt; n * 2);
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+       <div class="error-card">
+        <h3>
+         17.6. Olvidar que
+         <code>
+          sort
+         </code>
+         modifica el array original
+        </h3>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const ordenados = productos.sort((a, b) =&gt; a.precio - b.precio);
+</code></pre>
+        </div>
+        <p>
+         Si queremos conservar el array original:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const ordenados = [...productos].sort((a, b) =&gt; a.precio - b.precio);
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+       <div class="error-card">
+        <h3>
+         17.7. Usar funciones flecha como m&eacute;todos cuando se necesita
+         <code>
+          this
+         </code>
+        </h3>
+        <p>
+         Problem&aacute;tico:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  saludar: () =&gt; {
+    console.log(this.nombre);
+  }
+};
+</code></pre>
+        </div>
+        <p>
+         Mejor:
+        </p>
+        <div class="example-block">
+         <pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  saludar: function () {
+    console.log(this.nombre);
+  }
+};
+</code></pre>
+        </div>
+        <hr/>
+       </div>
+      </section>
+      <section class="content-section review-section" id="18-preguntas-tipo-examen">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-patch-question">
+         </i>
+        </span>
+        18. Preguntas tipo examen
+       </h2>
+       <ol>
+        <li>
+         &iquest;Qu&eacute; diferencia hay entre un array y un objeto?
+        </li>
+        <li>
+         &iquest;Qu&eacute; es una propiedad de un objeto?
+        </li>
+        <li>
+         &iquest;Qu&eacute; es un m&eacute;todo de un objeto?
+        </li>
+        <li>
+         &iquest;Para qu&eacute; se usa
+         <code>
+          this
+         </code>
+         dentro de un m&eacute;todo?
+        </li>
+        <li>
+         &iquest;Por qu&eacute; hay que tener cuidado con funciones flecha dentro de objetos?
+        </li>
+        <li>
+         &iquest;Qu&eacute; estructura usar&iacute;as para guardar una lista de alumnos con nombre y nota?
+        </li>
+        <li>
+         &iquest;Qu&eacute; diferencia hay entre
+         <code>
+          map
+         </code>
+         y
+         <code>
+          filter
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;Qu&eacute; devuelve
+         <code>
+          find
+         </code>
+         si no encuentra ning&uacute;n elemento?
+        </li>
+        <li>
+         &iquest;Qu&eacute; diferencia hay entre
+         <code>
+          some
+         </code>
+         y
+         <code>
+          every
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;Por qu&eacute;
+         <code>
+          sort()
+         </code>
+         puede dar problemas al ordenar n&uacute;meros?
+        </li>
+        <li>
+         &iquest;Qu&eacute; ventaja tiene usar destructuring?
+        </li>
+        <li>
+         &iquest;Qu&eacute; diferencia hay entre spread y rest?
+        </li>
+        <li>
+         &iquest;Para qu&eacute; sirve
+         <code>
+          JSON.stringify()
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;Para qu&eacute; sirve
+         <code>
+          JSON.parse()
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;Cu&aacute;ndo puede ser &uacute;til un
+         <code>
+          Map
+         </code>
+         ?
+        </li>
+       </ol>
+       <hr/>
+      </section>
+      <section class="content-section summary-section" id="19-resumen-final">
+       <h2>
+        <span class="section-icon">
+         <i aria-hidden="true" class="bi bi-flag">
+         </i>
+        </span>
+        19. Resumen final
+       </h2>
+       <p>
+        En este bloque hemos dado el salto desde datos simples y arrays b&aacute;sicos hacia estructuras de datos m&aacute;s reales.
+       </p>
+       <p>
+        Ideas clave:
+       </p>
+       <ul class="custom-list">
+        <li>
+         Los objetos permiten representar entidades con propiedades.
+        </li>
+        <li>
+         Los m&eacute;todos son funciones dentro de objetos.
+        </li>
+        <li>
+         <code>
+          this
+         </code>
+         permite acceder al propio objeto desde un m&eacute;todo.
+        </li>
+        <li>
+         Los arrays de objetos son una estructura muy habitual en JavaScript.
+        </li>
+        <li>
+         <code>
+          map
+         </code>
+         ,
+         <code>
+          filter
+         </code>
+         ,
+         <code>
+          reduce
+         </code>
+         ,
+         <code>
+          find
+         </code>
+         ,
+         <code>
+          some
+         </code>
+         ,
+         <code>
+          every
+         </code>
+         y
+         <code>
+          sort
+         </code>
+         permiten procesar colecciones de datos.
+        </li>
+        <li>
+         <code>
+          destructuring
+         </code>
+         ayuda a extraer informaci&oacute;n de arrays y objetos.
+        </li>
+        <li>
+         <code>
+          spread
+         </code>
+         permite copiar y combinar estructuras.
+        </li>
+        <li>
+         <code>
+          rest
+         </code>
+         permite recoger varios argumentos en una funci&oacute;n.
+        </li>
+        <li>
+         <code>
+          JSON
+         </code>
+         permite convertir datos entre estructuras JavaScript y texto.
+        </li>
+        <li>
+         <code>
+          Map
+         </code>
+         , arrays multidimensionales, closures y recursividad son recursos avanzados que conviene conocer, aunque no ser&aacute;n el eje principal de los siguientes bloques.
+        </li>
+       </ul>
+       <p>
+        En el siguiente bloque empezaremos a usar JavaScript para acceder y modificar una p&aacute;gina web mediante el
+        <strong>
+         DOM
+        </strong>
+        .
+       </p>
+      </section>
+     </div>
+    </div>
+   </main>
+  </div>
+ </body>
+</html>

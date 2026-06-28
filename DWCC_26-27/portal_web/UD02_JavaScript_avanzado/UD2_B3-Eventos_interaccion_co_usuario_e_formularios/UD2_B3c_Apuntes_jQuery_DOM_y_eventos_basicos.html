@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>UD2_B3c · jQuery básico: DOM y eventos</title><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/><link href="../../assets/css/smpp.css" rel="stylesheet"/></head><body><div class="smpp-scope"><main class="main-content has-sidebar notes-page"><div class="content-layout"><aside aria-label="Índice del documento" class="section-sidebar"><nav aria-label="Secciones del documento" class="section-nav"><p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-ul"></i> Índice del documento</p><ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-contexto-y-finalidad"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-compass"></i></span> 1. Contexto y finalidad</a></li><li><a class="section-nav-link badge-link" href="#2-carga-y-preparacion-de-jquery"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-cloud-download"></i></span> 2. Carga y preparación de jQuery</a></li><li><a class="section-nav-link badge-link" href="#3-selectores-y-objetos-jquery"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-cursor"></i></span> 3. Selectores y objetos jQuery</a></li><li><a class="section-nav-link badge-link" href="#4-texto-html-y-valores-de-formularios"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-input-cursor-text"></i></span> 4. Texto, HTML y valores de formularios</a></li><li><a class="section-nav-link badge-link" href="#5-atributos-propiedades-clases-y-estilos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-toggles"></i></span> 5. Atributos, propiedades, clases y estilos</a></li><li><a class="section-nav-link badge-link" href="#6-creacion-y-manipulacion-del-dom"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-diagram-3"></i></span> 6. Creación y manipulación del DOM</a></li><li><a class="section-nav-link badge-link" href="#7-eventos-directos-y-delegados"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-lightning-charge"></i></span> 7. Eventos directos y delegados</a></li><li><a class="section-nav-link badge-link" href="#8-visibilidad-y-efectos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-eye"></i></span> 8. Visibilidad y efectos</a></li><li><a class="section-nav-link badge-link" href="#9-ejemplo-guiado-lista-de-tareas-con-jquery"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-list-check"></i></span> 9. Ejemplo guiado: lista de tareas con jQuery</a></li><li><a class="section-nav-link badge-link" href="#10-ajax-como-contexto-y-codigo-heredado"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-arrow-repeat"></i></span> 10. AJAX como contexto y código heredado</a></li><li><a class="section-nav-link badge-link" href="#11-comparacion-y-criterios-de-uso"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-columns-gap"></i></span> 11. Comparación y criterios de uso</a></li><li><a class="section-nav-link badge-link" href="#12-errores-preguntas-resumen-y-contenidos-relacionados"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-question-circle"></i></span> 12. Errores, preguntas, resumen y contenidos relacionados</a></li></ol></nav></aside><div class="content-wrapper"><header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-braces-asterisk"></i></span> UD2_B3c. jQuery básico: DOM y eventos</h1></header><hr class="content-separator"/><section class="content-section" id="1-contexto-y-finalidad"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-compass"></i></span> 1. Contexto y finalidad</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.1. ¿Por qué incluimos jQuery en esta unidad?</h3><p><code>jQuery</code> es una biblioteca de JavaScript que simplifica tareas frecuentes en el navegador:</p><ul class="custom-list">
+<li>seleccionar elementos del DOM;</li>
+<li>modificar texto, HTML, atributos, propiedades, estilos y clases;</li>
+<li>gestionar eventos;</li>
+<li>crear, insertar y eliminar elementos;</li>
+<li>aplicar efectos visuales sencillos;</li>
+<li>comprender y mantener código existente que ya utiliza jQuery.</li>
+</ul><p>Actualmente, JavaScript estándar moderno permite realizar estas tareas con herramientas como:</p><ul class="custom-list">
+<li><code>querySelector()</code> y <code>querySelectorAll()</code>;</li>
+<li><code>textContent</code> e <code>innerHTML</code>;</li>
+<li><code>classList</code>;</li>
+<li><code>addEventListener()</code>;</li>
+<li><code>createElement()</code> y <code>append()</code>;</li>
+<li><code>fetch()</code>.</li>
+</ul><p>Aun así, jQuery sigue siendo útil para:</p><ul class="custom-list">
+<li>entender proyectos antiguos o mantenidos con jQuery;</li>
+<li>leer código heredado;</li>
+<li>trabajar con plantillas o plugins que dependen de esta biblioteca;</li>
+<li>comparar la sintaxis de JavaScript nativo con la de una biblioteca;</li>
+<li>comprender ejemplos y documentación creados durante muchos años.</li>
+</ul><blockquote class="note-box">
+<p>En este módulo utilizaremos jQuery como <strong>complemento didáctico</strong>, no como sustituto de JavaScript moderno ni del aprendizaje del DOM nativo.</p>
+</blockquote><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-collection"></i></span> 1.2. ¿Qué es una biblioteca JavaScript?</h3><p>Una <strong>biblioteca</strong> es un conjunto de código ya preparado que podemos incorporar a un proyecto para facilitar tareas habituales.</p><p>jQuery no sustituye ni modifica el lenguaje JavaScript. Proporciona funciones y métodos que simplifican operaciones frecuentes sobre el DOM, los eventos y otros elementos del navegador.</p><p>Ejemplo comparativo:</p><div class="example-block"><pre class="code-js"><code class="language-js">// JavaScript estándar
+const titulo = document.querySelector("#titulo");
+titulo.textContent = "Nuevo título";
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">// jQuery
+$("#titulo").text("Nuevo título");
+</code></pre></div><p>En ambos casos se selecciona el mismo elemento y se modifica su texto.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.3. Situación actual de jQuery</h3><p>En los ejemplos nuevos de este documento utilizaremos <strong>jQuery 4.0.0</strong>.</p><p>Esto no significa que todos los proyectos existentes utilicen esa versión. Es frecuente encontrar aplicaciones con jQuery 1.x, 2.x o 3.x.</p><blockquote class="warning-box">
+<p>En un proyecto heredado no debemos cambiar directamente la versión existente de jQuery. Antes hay que revisar la compatibilidad del código, los plugins utilizados y la guía de migración correspondiente.</p>
+</blockquote><hr/><hr/></section><section class="content-section" id="2-carga-y-preparacion-de-jquery"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cloud-download"></i></span> 2. Carga y preparación de jQuery</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.1. Añadir jQuery desde un CDN</h3><p>Podemos cargar jQuery mediante una etiqueta <code>&lt;script&gt;</code>:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  &gt;
+
+  &lt;title&gt;Ejemplo con jQuery&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id="titulo"&gt;Título inicial&lt;/h1&gt;
+
+  &lt;script src="https://code.jquery.com/jquery-4.0.0.min.js"&gt;&lt;/script&gt;
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><p>El orden es importante:</p><ol class="custom-ordered-list">
+<li>primero se carga jQuery;</li>
+<li>después se carga nuestro archivo <code>script.js</code>.</li>
+</ol><p>Si nuestro script intenta utilizar <code>$</code> antes de que jQuery esté disponible, se producirá un error.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cloud-download"></i></span> 2.2. Cargar una copia local</h3><p>También podemos descargar jQuery y guardarlo dentro del proyecto:</p><div class="example-block"><pre class="code-text"><code class="language-text">proyecto/
+├── index.html
+├── js/
+│   ├── jquery-4.0.0.min.js
+│   └── script.js
+└── css/
+    └── estilos.css
+</code></pre></div><p>En el HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;script src="js/jquery-4.0.0.min.js"&gt;&lt;/script&gt;
+&lt;script src="js/script.js"&gt;&lt;/script&gt;
+</code></pre></div><p>La copia local permite trabajar sin conexión a Internet.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-stack"></i></span> 2.3. Versión completa y versión <code>slim</code></h3><p>jQuery ofrece una compilación completa y una compilación reducida denominada <code>slim</code>.</p><p>La versión <code>slim</code> no incluye:</p><ul class="custom-list">
+<li>el módulo AJAX;</li>
+<li>los efectos y animaciones de jQuery.</li>
+</ul><p>En este documento se muestran métodos como:</p><div class="example-block"><pre class="code-js"><code class="language-js">$.get();
+$("#panel").fadeIn();
+$("#panel").slideToggle();
+</code></pre></div><p>Por tanto, para probar todos los ejemplos necesitamos la <strong>versión completa</strong>, no la versión <code>slim</code>.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.4. Esperar a que el documento esté preparado</h3><p>En código jQuery tradicional es frecuente utilizar:</p><div class="example-block"><pre class="code-js"><code class="language-js">$(document).ready(function () {
+  console.log("Documento preparado");
+});
+</code></pre></div><p>La forma abreviada es:</p><div class="example-block"><pre class="code-js"><code class="language-js">$(function () {
+  console.log("Documento preparado");
+});
+</code></pre></div><p>Estas funciones ejecutan el código cuando el DOM está disponible.</p><p>No siempre son obligatorias:</p><ul class="custom-list">
+<li>si el script está al final de <code>&lt;body&gt;</code>, los elementos anteriores ya han sido procesados;</li>
+<li>si el script utiliza <code>defer</code>, se ejecuta después de analizar el HTML;</li>
+<li>en código heredado o cuando no controlamos la posición del script, <code>$(function () { ... })</code> sigue siendo un patrón habitual.</li>
+</ul><hr/><hr/></section><section class="content-section" id="3-selectores-y-objetos-jquery"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cursor"></i></span> 3. Selectores y objetos jQuery</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.1. El símbolo <code>$</code></h3><p>En jQuery se utiliza frecuentemente el símbolo <code>$</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo")
+</code></pre></div><p>Este código:</p><ol class="custom-ordered-list">
+<li>busca los elementos que coinciden con el selector;</li>
+<li>devuelve un <strong>objeto jQuery</strong>;</li>
+<li>permite utilizar métodos como <code>.text()</code>, <code>.html()</code>, <code>.addClass()</code> o <code>.on()</code>.</li>
+</ol><p>De forma aproximada:</p><div class="example-block"><pre class="code-js"><code class="language-js">document.querySelector("#titulo");
+</code></pre></div><p>y:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo");
+</code></pre></div><p>realizan una selección similar, pero no devuelven el mismo tipo de objeto.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.2. Seleccionar por identificador</h3><p>HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;h1 id="titulo"&gt;Apuntes de DWCC&lt;/h1&gt;
+</code></pre></div><p>jQuery:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo").text("UD2: JavaScript avanzado");
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-palette"></i></span> 3.3. Seleccionar por clase</h3><p>HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;p class="aviso"&gt;Primer aviso&lt;/p&gt;
+&lt;p class="aviso"&gt;Segundo aviso&lt;/p&gt;
+</code></pre></div><p>jQuery:</p><div class="example-block"><pre class="code-js"><code class="language-js">$(".aviso").text("Aviso modificado");
+</code></pre></div><p>Se modifican todos los elementos que tienen la clase <code>aviso</code>.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.4. Seleccionar por etiqueta</h3><div class="example-block"><pre class="code-js"><code class="language-js">$("p").addClass("parrafo-destacado");
+</code></pre></div><p>Selecciona todos los párrafos.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cursor"></i></span> 3.5. Selectores combinados</h3><p>jQuery utiliza selectores CSS:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("main .tarjeta h2").addClass("titulo-tarjeta");
+</code></pre></div><p>Podemos combinar:</p><ul class="custom-list">
+<li>etiquetas;</li>
+<li>identificadores;</li>
+<li>clases;</li>
+<li>atributos;</li>
+<li>descendientes;</li>
+<li>pseudoclases admitidas por el selector.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-box"></i></span> 3.6. Objeto jQuery frente a elemento DOM</h3><p>Esta selección devuelve un objeto jQuery:</p><div class="example-block"><pre class="code-js"><code class="language-js">const tituloJQuery = $("#titulo");
+</code></pre></div><p>Para obtener el primer elemento DOM de la selección:</p><div class="example-block"><pre class="code-js"><code class="language-js">const tituloDOM1 = tituloJQuery[0];
+const tituloDOM2 = tituloJQuery.get(0);
+</code></pre></div><p>Los métodos dependen del tipo de objeto:</p><div class="example-block"><pre class="code-js"><code class="language-js">// Método jQuery
+$("#titulo").text("Nuevo título");
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">// Propiedad del elemento DOM
+$("#titulo")[0].textContent = "Nuevo título";
+</code></pre></div><p>No debemos mezclar directamente ambas interfaces:</p><div class="example-block"><pre class="code-js"><code class="language-js">// Incorrecto: textContent no es un método del objeto jQuery
+$("#titulo").textContent = "Nuevo título";
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.7. Selecciones sin resultados</h3><p>Si <code>querySelector()</code> no encuentra un elemento, devuelve <code>null</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">const elemento =
+  document.querySelector("#noExiste");
+
+console.log(elemento); // null
+</code></pre></div><p>Una selección jQuery vacía sigue siendo un objeto jQuery:</p><div class="example-block"><pre class="code-js"><code class="language-js">const resultado =
+  $("#noExiste");
+
+console.log(resultado.length); // 0
+</code></pre></div><p>Esta operación no produce necesariamente un error:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#noExiste").text("Texto");
+</code></pre></div><p>Simplemente no modifica ningún elemento.</p><p>Para comprobar si existe alguna coincidencia:</p><div class="example-block"><pre class="code-js"><code class="language-js">if ($("#titulo").length &gt; 0) {
+  console.log("El elemento existe");
+}
+</code></pre></div><hr/><hr/></section><section class="content-section" id="4-texto-html-y-valores-de-formularios"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-input-cursor-text"></i></span> 4. Texto, HTML y valores de formularios</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-fonts"></i></span> 4.1. Leer y modificar texto con <code>.text()</code></h3><p>HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;h1 id="titulo"&gt;JavaScript&lt;/h1&gt;
+</code></pre></div><p>Leer el texto:</p><div class="example-block"><pre class="code-js"><code class="language-js">const texto = $("#titulo").text();
+
+console.log(texto);
+</code></pre></div><p>Modificarlo:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo").text("JavaScript avanzado");
+</code></pre></div><p><code>.text()</code> equivale aproximadamente a trabajar con <code>textContent</code> en JavaScript estándar.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-filetype-html"></i></span> 4.2. Leer y modificar HTML con <code>.html()</code></h3><p>HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;section id="contenedor"&gt;&lt;/section&gt;
+</code></pre></div><p>jQuery:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#contenedor").html(
+  "&lt;p&gt;Texto creado desde jQuery&lt;/p&gt;"
+);
+</code></pre></div><p><code>.html()</code> interpreta la cadena como contenido HTML y equivale aproximadamente a <code>innerHTML</code>.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-shield-check"></i></span> 4.3. Seguridad al utilizar <code>.html()</code></h3><p>No debemos insertar con <code>.html()</code> contenido:</p><ul class="custom-list">
+<li>escrito por personas usuarias;</li>
+<li>recibido de una fuente no fiable;</li>
+<li>procedente de datos externos no controlados.</li>
+</ul><p>La validación no convierte automáticamente un texto en HTML seguro.</p><p>Ejemplo inseguro:</p><div class="example-block"><pre class="code-js"><code class="language-js">const nombre = $("#nombre").val();
+
+$("#salida").html(nombre);
+</code></pre></div><p>Alternativa segura:</p><div class="example-block"><pre class="code-js"><code class="language-js">const nombre = $("#nombre").val();
+
+$("#salida").text(nombre);
+</code></pre></div><p>Cuando solo queremos mostrar texto, debemos utilizar <code>.text()</code>.</p><p>Las cadenas HTML literales son adecuadas cuando el contenido está completamente controlado por el programa:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#salida").html(
+  "&lt;strong&gt;Operación completada&lt;/strong&gt;"
+);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-input-cursor"></i></span> 4.4. Leer y modificar valores con <code>.val()</code></h3><p>HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;input id="nombre" type="text"&gt;
+</code></pre></div><p>Leer el valor:</p><div class="example-block"><pre class="code-js"><code class="language-js">const nombre = $("#nombre").val();
+
+console.log(nombre);
+</code></pre></div><p>Cambiarlo:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#nombre").val("Ana");
+</code></pre></div><p><code>.val()</code> equivale aproximadamente a la propiedad <code>.value</code> de JavaScript estándar.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-ui-checks"></i></span> 4.5. Formularios y métodos adecuados</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Elemento</th>
+<th>JavaScript estándar</th>
+<th>jQuery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Texto de un <code>h1</code> o <code>p</code></td>
+<td><code>textContent</code></td>
+<td><code>.text()</code></td>
+</tr>
+<tr>
+<td>HTML interno</td>
+<td><code>innerHTML</code></td>
+<td><code>.html()</code></td>
+</tr>
+<tr>
+<td>Valor de <code>input</code>, <code>select</code> o <code>textarea</code></td>
+<td><code>.value</code></td>
+<td><code>.val()</code></td>
+</tr>
+<tr>
+<td>Estado de un checkbox</td>
+<td><code>.checked</code></td>
+<td><code>.prop("checked")</code></td>
+</tr>
+</tbody>
+</table></div><hr/><hr/></section><section class="content-section" id="5-atributos-propiedades-clases-y-estilos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-toggles"></i></span> 5. Atributos, propiedades, clases y estilos</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-tags"></i></span> 5.1. Atributos con <code>.attr()</code></h3><p>HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;img
+  id="foto"
+  src="img/default.png"
+  alt="Imagen por defecto"
+&gt;
+</code></pre></div><p>Leer un atributo:</p><div class="example-block"><pre class="code-js"><code class="language-js">const ruta = $("#foto").attr("src");
+
+console.log(ruta);
+</code></pre></div><p>Modificar atributos:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#foto").attr("src", "img/nueva.png");
+$("#foto").attr("alt", "Nueva imagen");
+</code></pre></div><p><code>.attr()</code> es apropiado para atributos como:</p><ul class="custom-list">
+<li><code>src</code>;</li>
+<li><code>href</code>;</li>
+<li><code>alt</code>;</li>
+<li><code>title</code>;</li>
+<li><code>data-*</code>.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-toggle-on"></i></span> 5.2. Propiedades con <code>.prop()</code></h3><p>Algunos estados de los controles se representan mediante propiedades del DOM.</p><p>Para consultar un checkbox:</p><div class="example-block"><pre class="code-js"><code class="language-js">const aceptado =
+  $("#aceptaCondiciones").prop("checked");
+</code></pre></div><p>Para desactivar un botón:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#botonEnviar").prop("disabled", true);
+</code></pre></div><p>Para activarlo:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#botonEnviar").prop("disabled", false);
+</code></pre></div><p>Para estados booleanos como <code>checked</code>, <code>disabled</code> o <code>selected</code>, debemos utilizar <code>.prop()</code>.</p><p>Comparación:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Necesidad</th>
+<th>Método recomendado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Leer <code>src</code>, <code>href</code> o <code>alt</code></td>
+<td><code>.attr()</code></td>
+</tr>
+<tr>
+<td>Saber si un checkbox está marcado</td>
+<td><code>.prop("checked")</code></td>
+</tr>
+<tr>
+<td>Activar o desactivar un botón</td>
+<td><code>.prop("disabled", valor)</code></td>
+</tr>
+<tr>
+<td>Saber si una opción está seleccionada</td>
+<td><code>.prop("selected")</code></td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-palette"></i></span> 5.3. Añadir, quitar y alternar clases</h3><p>Añadir una clase:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#mensaje").addClass("correcto");
+</code></pre></div><p>Quitar una clase:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#mensaje").removeClass("error");
+</code></pre></div><p>Alternar una clase:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#panel").toggleClass("oculto");
+</code></pre></div><p>Comprobar si existe una clase con <code>.hasClass()</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">if ($("#panel").hasClass("oculto")) {
+  console.log("El panel está oculto");
+}
+</code></pre></div><p>Comparación:</p><div class="example-block"><pre class="code-js"><code class="language-js">document
+  .querySelector("#mensaje")
+  .classList
+  .add("correcto");
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">$("#mensaje").addClass("correcto");
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-brush"></i></span> 5.4. Estilos con <code>.css()</code></h3><p>Modificar una propiedad:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo").css("color", "blue");
+</code></pre></div><p>Modificar varias:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo").css({
+  color: "blue",
+  backgroundColor: "#eef",
+  padding: "1rem"
+});
+</code></pre></div><p>En proyectos reales suele ser preferible añadir o quitar clases:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo").addClass("titulo-destacado");
+</code></pre></div><p>Esto permite mantener la presentación en el CSS.</p><hr/><hr/></section><section class="content-section" id="6-creacion-y-manipulacion-del-dom"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 6. Creación y manipulación del DOM</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-plus-square"></i></span> 6.1. Crear elementos</h3><p>Podemos crear un elemento con <code>$()</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">const parrafo = $("&lt;p&gt;&lt;/p&gt;");
+
+parrafo.text(
+  "Párrafo creado con jQuery"
+);
+</code></pre></div><p>También podemos usar una cadena HTML controlada:</p><div class="example-block"><pre class="code-js"><code class="language-js">const parrafo =
+  $("&lt;p&gt;Párrafo creado con jQuery&lt;/p&gt;");
+</code></pre></div><p>Cuando el contenido procede del usuario, es más seguro separar la creación y el texto:</p><div class="example-block"><pre class="code-js"><code class="language-js">const textoUsuario =
+  $("#entrada").val();
+
+const parrafo =
+  $("&lt;p&gt;&lt;/p&gt;").text(textoUsuario);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-node-plus"></i></span> 6.2. Insertar al final con <code>.append()</code></h3><div class="example-block"><pre class="code-html"><code class="language-html">&lt;section id="lista"&gt;&lt;/section&gt;
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">const elemento =
+  $("&lt;p&gt;&lt;/p&gt;").text("Nuevo elemento");
+
+$("#lista").append(elemento);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-node-plus"></i></span> 6.3. Insertar al principio con <code>.prepend()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">const elemento =
+  $("&lt;p&gt;&lt;/p&gt;").text("Elemento inicial");
+
+$("#lista").prepend(elemento);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-node-plus"></i></span> 6.4. Insertar antes o después</h3><div class="example-block"><pre class="code-js"><code class="language-js">const antes =
+  $("&lt;p&gt;&lt;/p&gt;").text("Texto antes");
+
+const despues =
+  $("&lt;p&gt;&lt;/p&gt;").text("Texto después");
+
+$("#titulo").before(antes);
+$("#titulo").after(despues);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-trash3"></i></span> 6.5. Eliminar elementos</h3><div class="example-block"><pre class="code-js"><code class="language-js">$("#aviso").remove();
+</code></pre></div><p>Si la selección contiene varios elementos:</p><div class="example-block"><pre class="code-js"><code class="language-js">$(".temporal").remove();
+</code></pre></div><p>se eliminan todos.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-repeat"></i></span> 6.6. Recorrer elementos con <code>.each()</code></h3><p>HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;Ana&lt;/li&gt;
+  &lt;li&gt;Luis&lt;/li&gt;
+  &lt;li&gt;María&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre></div><p>jQuery:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("li").each(function (indice, elemento) {
+  console.log(
+    indice,
+    $(elemento).text()
+  );
+});
+</code></pre></div><p>Dentro de <code>.each()</code>:</p><ul class="custom-list">
+<li><code>indice</code> es la posición;</li>
+<li><code>elemento</code> es un elemento DOM;</li>
+<li><code>$(elemento)</code> lo envuelve en un objeto jQuery.</li>
+</ul><div class="example-block"><pre class="code-js"><code class="language-js">$(elemento).addClass("item-lista");
+</code></pre></div><hr/><hr/></section><section class="content-section" id="7-eventos-directos-y-delegados"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-lightning-charge"></i></span> 7. Eventos directos y delegados</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> 7.1. Gestionar eventos con <code>.on()</code></h3><p>HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;button id="boton"&gt;Pulsar&lt;/button&gt;
+&lt;p id="mensaje"&gt;&lt;/p&gt;
+</code></pre></div><p>jQuery:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#boton").on("click", function () {
+  $("#mensaje").text("Botón pulsado");
+});
+</code></pre></div><p>Equivalente aproximado:</p><div class="example-block"><pre class="code-js"><code class="language-js">document
+  .querySelector("#boton")
+  .addEventListener("click", function () {
+    document
+      .querySelector("#mensaje")
+      .textContent = "Botón pulsado";
+  });
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> 7.2. Evento <code>input</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">$("#nombre").on("input", function () {
+  const valor = $(this).val();
+
+  $("#salida").text(valor);
+});
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> 7.3. Evento <code>change</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">$("#modalidad").on("change", function () {
+  const modalidad = $(this).val();
+
+  $("#salida").text(modalidad);
+});
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> 7.4. Evento <code>submit</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">$("#formulario").on(
+  "submit",
+  function (event) {
+    event.preventDefault();
+
+    const nombre =
+      $("#nombre").val().trim();
+
+    if (nombre === "") {
+      $("#error").text(
+        "El nombre es obligatorio"
+      );
+
+      return;
+    }
+
+    $("#error").text("");
+    $("#resultado").text(
+      "Formulario correcto"
+    );
+  }
+);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-person-bounding-box"></i></span> 7.5. <code>this</code>, <code>event.target</code> y <code>event.currentTarget</code></h3><p>En una función tradicional:</p><div class="example-block"><pre class="code-js"><code class="language-js">$(".boton-accion").on(
+  "click",
+  function (event) {
+    console.log(this);
+    console.log(event.currentTarget);
+    console.log(event.target);
+  }
+);
+</code></pre></div><ul class="custom-list">
+<li><code>this</code> representa el elemento para el que jQuery está ejecutando el manejador;</li>
+<li>normalmente coincide con <code>event.currentTarget</code>;</li>
+<li><code>event.target</code> es el elemento concreto en el que se originó el evento;</li>
+<li><code>event.target</code> puede ser un descendiente del elemento que tiene el manejador.</li>
+</ul><p>Ejemplo:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;button class="boton-accion"&gt;
+  &lt;span&gt;Guardar&lt;/span&gt;
+&lt;/button&gt;
+</code></pre></div><p>Si se pulsa el <code>&lt;span&gt;</code>:</p><ul class="custom-list">
+<li><code>event.target</code> puede ser el <code>span</code>;</li>
+<li><code>this</code> representa el botón.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-person-bounding-box"></i></span> 7.6. Funciones flecha y <code>this</code></h3><p>Las funciones flecha no crean su propio <code>this</code>.</p><p>Evitar cuando necesitamos el elemento del evento:</p><div class="example-block"><pre class="code-js"><code class="language-js">$(".boton-accion").on(
+  "click",
+  () =&gt; {
+    $(this).addClass("activo");
+  }
+);
+</code></pre></div><p>Utilizar una función tradicional:</p><div class="example-block"><pre class="code-js"><code class="language-js">$(".boton-accion").on(
+  "click",
+  function () {
+    $(this).addClass("activo");
+  }
+);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> 7.7. Eventos directos</h3><div class="example-block"><pre class="code-js"><code class="language-js">$(".boton").on(
+  "click",
+  function () {
+    console.log("Pulsado");
+  }
+);
+</code></pre></div><p>Este listener se asocia a los elementos que existen en el momento de ejecutar la selección.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> 7.8. Eventos delegados</h3><p>Si los botones se crean después, podemos delegar el evento:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#lista").on(
+  "click",
+  ".boton-eliminar",
+  function () {
+    $(this).closest("li").remove();
+  }
+);
+</code></pre></div><p>En este caso:</p><ul class="custom-list">
+<li>el listener se asocia a <code>#lista</code>;</li>
+<li>jQuery comprueba si el evento procede de <code>.boton-eliminar</code>;</li>
+<li>funciona también con botones creados dinámicamente.</li>
+</ul><p>La delegación es habitual en aplicaciones que generan contenido desde JavaScript.</p><hr/><hr/></section><section class="content-section" id="8-visibilidad-y-efectos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-eye"></i></span> 8. Visibilidad y efectos</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-eye"></i></span> 8.1. Mostrar, ocultar y alternar</h3><div class="example-block"><pre class="code-js"><code class="language-js">$("#panel").hide();
+$("#panel").show();
+$("#panel").toggle();
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-magic"></i></span> 8.2. Efectos sencillos</h3><div class="example-block"><pre class="code-js"><code class="language-js">$("#panel").fadeIn();
+$("#panel").fadeOut();
+$("#panel").slideToggle();
+</code></pre></div><p>Estos efectos:</p><ul class="custom-list">
+<li>son una mejora visual;</li>
+<li>no deben sustituir una estructura correcta de HTML, CSS y JavaScript;</li>
+<li>no deben impedir el acceso al contenido;</li>
+<li>no están disponibles en la compilación <code>slim</code>.</li>
+</ul><p>Conviene evitar animaciones excesivas o innecesarias.</p><hr/><hr/></section><section class="content-section" id="9-ejemplo-guiado-lista-de-tareas-con-jquery"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-list-check"></i></span> 9. Ejemplo guiado: lista de tareas con jQuery</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-filetype-html"></i></span> 9.1. HTML</h3><div class="example-block"><pre class="code-html"><code class="language-html">&lt;h1&gt;Lista de tareas&lt;/h1&gt;
+
+&lt;form id="formulario-tarea"&gt;
+  &lt;label for="tarea"&gt;Nueva tarea:&lt;/label&gt;
+
+  &lt;input
+    id="tarea"
+    name="tarea"
+    type="text"
+  &gt;
+
+  &lt;button type="submit"&gt;
+    Añadir
+  &lt;/button&gt;
+&lt;/form&gt;
+
+&lt;p
+  id="mensaje"
+  aria-live="polite"
+&gt;&lt;/p&gt;
+
+&lt;ul id="lista-tareas"&gt;&lt;/ul&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.2. JavaScript con jQuery</h3><div class="example-block"><pre class="code-js"><code class="language-js">$(function () {
+  $("#formulario-tarea").on(
+    "submit",
+    function (event) {
+      event.preventDefault();
+
+      const texto =
+        $("#tarea").val().trim();
+
+      if (texto === "") {
+        $("#mensaje")
+          .text("Debes escribir una tarea")
+          .removeClass("correcto")
+          .addClass("error");
+
+        return;
+      }
+
+      const item =
+        $("&lt;li&gt;&lt;/li&gt;")
+          .addClass("tarea");
+
+      const contenido =
+        $("&lt;span&gt;&lt;/span&gt;")
+          .text(texto);
+
+      const botonEliminar =
+        $("&lt;button&gt;&lt;/button&gt;")
+          .attr("type", "button")
+          .addClass("boton-eliminar")
+          .text("Eliminar");
+
+      item.append(
+        contenido,
+        botonEliminar
+      );
+
+      $("#lista-tareas").append(item);
+
+      $("#mensaje")
+        .text("Tarea añadida correctamente")
+        .removeClass("error")
+        .addClass("correcto");
+
+      $("#tarea")
+        .val("")
+        .trigger("focus");
+    }
+  );
+
+  $("#lista-tareas").on(
+    "click",
+    ".boton-eliminar",
+    function () {
+      $(this).closest("li").remove();
+
+      $("#mensaje")
+        .text("Tarea eliminada")
+        .removeClass("error")
+        .addClass("correcto");
+    }
+  );
+});
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-box-arrow-right"></i></span> 9.3. Contenidos integrados</h3><p>Este ejemplo utiliza:</p><ul class="custom-list">
+<li>selección de elementos;</li>
+<li><code>$(function () { ... })</code>;</li>
+<li>evento <code>submit</code>;</li>
+<li><code>event.preventDefault()</code>;</li>
+<li>lectura con <code>.val()</code>;</li>
+<li>validación básica;</li>
+<li>creación de elementos;</li>
+<li>inserción con <code>.append()</code>;</li>
+<li>clases CSS;</li>
+<li>encadenamiento de métodos;</li>
+<li>evento delegado;</li>
+<li><code>this</code>;</li>
+<li>eliminación con <code>.remove()</code>.</li>
+</ul><hr/><hr/></section><section class="content-section" id="10-ajax-como-contexto-y-codigo-heredado"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-repeat"></i></span> 10. AJAX como contexto y código heredado</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-arrow-repeat"></i></span> 10.1. AJAX en jQuery</h3><p>jQuery incluye métodos para realizar peticiones asíncronas:</p><ul class="custom-list">
+<li><code>$.ajax()</code>;</li>
+<li><code>$.get()</code>;</li>
+<li><code>$.post()</code>.</li>
+</ul><p>Durante muchos años se utilizaron ampliamente.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code class="language-js">$.get(
+  "datos/productos.json",
+  function (datos) {
+    console.log(datos);
+  }
+);
+</code></pre></div><p>Estos métodos requieren la versión completa de jQuery.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 10.2. Enfoque actual del curso</h3><p>En este curso priorizaremos la API estándar <code>fetch()</code>.</p><p>Ejemplo contextual:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarProductos() {
+  const respuesta =
+    await fetch(
+      "datos/productos.json"
+    );
+
+  const datos =
+    await respuesta.json();
+
+  console.log(datos);
+}
+
+cargarProductos();
+</code></pre></div><p>Este ejemplo solo muestra la estructura básica.</p><p>En <strong>UD2_B4</strong> se trabajarán:</p><ul class="custom-list">
+<li>comprobación de <code>response.ok</code>;</li>
+<li><code>try...catch</code>;</li>
+<li>estados de carga;</li>
+<li>tratamiento de errores;</li>
+<li>consumo de APIs;</li>
+<li>promesas;</li>
+<li><code>async</code>/<code>await</code>.</li>
+</ul><p>jQuery AJAX se estudia aquí únicamente para reconocer y mantener código heredado.</p><hr/><hr/></section><section class="content-section" id="11-comparacion-y-criterios-de-uso"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-columns-gap"></i></span> 11. Comparación y criterios de uso</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.1. JavaScript estándar y jQuery</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Tarea</th>
+<th>JavaScript estándar</th>
+<th>jQuery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Seleccionar por id</td>
+<td><code>document.querySelector("#titulo")</code></td>
+<td><code>$("#titulo")</code></td>
+</tr>
+<tr>
+<td>Seleccionar varios</td>
+<td><code>document.querySelectorAll(".item")</code></td>
+<td><code>$(".item")</code></td>
+</tr>
+<tr>
+<td>Cambiar texto</td>
+<td><code>elemento.textContent = "Texto"</code></td>
+<td><code>$("#id").text("Texto")</code></td>
+</tr>
+<tr>
+<td>Cambiar HTML</td>
+<td><code>elemento.innerHTML = "&lt;p&gt;...&lt;/p&gt;"</code></td>
+<td><code>$("#id").html("&lt;p&gt;...&lt;/p&gt;")</code></td>
+</tr>
+<tr>
+<td>Leer valor de un input</td>
+<td><code>input.value</code></td>
+<td><code>$("#input").val()</code></td>
+</tr>
+<tr>
+<td>Comprobar checkbox</td>
+<td><code>checkbox.checked</code></td>
+<td><code>$("#id").prop("checked")</code></td>
+</tr>
+<tr>
+<td>Desactivar botón</td>
+<td><code>boton.disabled = true</code></td>
+<td><code>$("#id").prop("disabled", true)</code></td>
+</tr>
+<tr>
+<td>Leer atributo</td>
+<td><code>elemento.getAttribute("src")</code></td>
+<td><code>$("#id").attr("src")</code></td>
+</tr>
+<tr>
+<td>Añadir clase</td>
+<td><code>elemento.classList.add("activo")</code></td>
+<td><code>$("#id").addClass("activo")</code></td>
+</tr>
+<tr>
+<td>Quitar clase</td>
+<td><code>elemento.classList.remove("activo")</code></td>
+<td><code>$("#id").removeClass("activo")</code></td>
+</tr>
+<tr>
+<td>Evento directo</td>
+<td><code>addEventListener("click", fn)</code></td>
+<td><code>.on("click", fn)</code></td>
+</tr>
+<tr>
+<td>Crear elemento</td>
+<td><code>document.createElement("p")</code></td>
+<td><code>$("&lt;p&gt;&lt;/p&gt;")</code></td>
+</tr>
+<tr>
+<td>Insertar elemento</td>
+<td><code>contenedor.append(elemento)</code></td>
+<td><code>$("#contenedor").append(elemento)</code></td>
+</tr>
+<tr>
+<td>Eliminar elemento</td>
+<td><code>elemento.remove()</code></td>
+<td><code>$("#id").remove()</code></td>
+</tr>
+<tr>
+<td>Comprobar existencia</td>
+<td><code>elemento !== null</code></td>
+<td><code>$("#id").length &gt; 0</code></td>
+</tr>
+<tr>
+<td>Evento delegado</td>
+<td><code>addEventListener()</code> con <code>closest()</code></td>
+<td><code>.on("click", ".boton", fn)</code></td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-signpost-split"></i></span> 11.2. ¿Cuándo tiene sentido utilizar jQuery?</h3><p>Puede tener sentido:</p><ul class="custom-list">
+<li>en un proyecto existente que ya lo utiliza;</li>
+<li>cuando una plantilla o un plugin depende de jQuery;</li>
+<li>para comprender código heredado;</li>
+<li>para mantener aplicaciones antiguas;</li>
+<li>como introducción a la idea de biblioteca JavaScript.</li>
+</ul><p>No suele ser imprescindible:</p><ul class="custom-list">
+<li>en proyectos nuevos pequeños;</li>
+<li>cuando JavaScript estándar resuelve claramente el problema;</li>
+<li>cuando se utilizan frameworks modernos;</li>
+<li>para sustituir el aprendizaje del DOM y los eventos nativos.</li>
+</ul><hr/><hr/></section><section class="content-section" id="12-errores-preguntas-resumen-y-contenidos-relacionados"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-question-circle"></i></span> 12. Errores, preguntas, resumen y contenidos relacionados</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> 12.1. Errores frecuentes</h3><div class="error-card"><h4><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 1. Cargar el script propio antes de jQuery</h4><p>Incorrecto:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;script src="https://code.jquery.com/jquery-4.0.0.min.js"&gt;&lt;/script&gt;
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;script src="https://code.jquery.com/jquery-4.0.0.min.js"&gt;&lt;/script&gt;
+&lt;script src="script.js"&gt;&lt;/script&gt;
+</code></pre></div></div><div class="error-card"><h4><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 2. Olvidar <code>#</code> o <code>.</code> en los selectores</h4><div class="example-block"><pre class="code-js"><code class="language-js">$("titulo");  // Busca una etiqueta &lt;titulo&gt;
+$("#titulo"); // Busca id="titulo"
+$(".titulo"); // Busca class="titulo"
+</code></pre></div></div><div class="error-card"><h4><span aria-hidden="true" class="subsection-icon"><i class="bi bi-filetype-html"></i></span> Error 3. Confundir <code>.text()</code> y <code>.html()</code></h4><div class="example-block"><pre class="code-js"><code class="language-js">$("#salida").text(
+  "&lt;strong&gt;Hola&lt;/strong&gt;"
+);
+</code></pre></div><p>Muestra las etiquetas como texto.</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#salida").html(
+  "&lt;strong&gt;Hola&lt;/strong&gt;"
+);
+</code></pre></div><p>Interpreta las etiquetas como HTML.</p></div><div class="error-card"><h4><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 4. Utilizar <code>.val()</code> en un elemento que no es un control</h4><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo").val();
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo").text();
+</code></pre></div></div><div class="error-card"><h4><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 5. Confundir objeto jQuery y elemento DOM</h4><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo").textContent =
+  "Nuevo título";
+</code></pre></div><p>Correcto con jQuery:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo").text(
+  "Nuevo título"
+);
+</code></pre></div><p>Correcto con DOM:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#titulo")[0].textContent =
+  "Nuevo título";
+</code></pre></div></div><div class="error-card"><h4><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 6. Utilizar <code>.attr()</code> para estados booleanos</h4><p>Problemático:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#acepta").attr("checked");
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#acepta").prop("checked");
+</code></pre></div></div><div class="error-card"><h4><span aria-hidden="true" class="subsection-icon"><i class="bi bi-filetype-html"></i></span> Error 7. Introducir datos del usuario con <code>.html()</code></h4><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#salida").html(
+  $("#nombre").val()
+);
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#salida").text(
+  $("#nombre").val()
+);
+</code></pre></div></div><div class="error-card"><h4><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 8. Utilizar una función flecha cuando se necesita <code>this</code></h4><p>Problemático:</p><div class="example-block"><pre class="code-js"><code class="language-js">$(".item").on(
+  "click",
+  () =&gt; {
+    $(this).addClass("activo");
+  }
+);
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">$(".item").on(
+  "click",
+  function () {
+    $(this).addClass("activo");
+  }
+);
+</code></pre></div></div><div class="error-card"><h4><span aria-hidden="true" class="subsection-icon"><i class="bi bi-lightning-charge"></i></span> Error 9. Asociar el evento antes de crear los elementos</h4><p>Problemático:</p><div class="example-block"><pre class="code-js"><code class="language-js">$(".boton-eliminar").on(
+  "click",
+  function () {
+    // Los botones se crean después
+  }
+);
+</code></pre></div><p>Solución delegada:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#lista").on(
+  "click",
+  ".boton-eliminar",
+  function () {
+    $(this).closest("li").remove();
+  }
+);
+</code></pre></div></div><div class="error-card"><h4><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 10. Pensar que jQuery sustituye JavaScript</h4><p>jQuery está escrito en JavaScript y trabaja sobre el DOM.</p><p>Para utilizarlo correctamente es necesario comprender:</p><ul class="custom-list">
+<li>variables;</li>
+<li>funciones;</li>
+<li>arrays;</li>
+<li>objetos;</li>
+<li>DOM;</li>
+<li>eventos;</li>
+<li>callbacks.</li>
+</ul></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-question-circle"></i></span> 12.2. Preguntas tipo examen</h3><ol class="custom-ordered-list">
+<li>¿Qué es jQuery?</li>
+<li>¿Por qué se considera una biblioteca y no un lenguaje?</li>
+<li>¿Para qué sirve el símbolo <code>$</code>?</li>
+<li>¿Qué diferencia existe entre un elemento DOM y un objeto jQuery?</li>
+<li>¿Cómo se comprueba si una selección jQuery contiene elementos?</li>
+<li>¿Qué diferencia hay entre <code>.text()</code> y <code>.html()</code>?</li>
+<li>¿Qué método se utiliza para leer el valor de un <code>&lt;input&gt;</code>?</li>
+<li>¿Qué diferencia hay entre <code>.attr()</code> y <code>.prop()</code>?</li>
+<li>¿Cómo se comprueba si un checkbox está marcado?</li>
+<li>¿Qué hacen <code>.addClass()</code>, <code>.removeClass()</code> y <code>.toggleClass()</code>?</li>
+<li>¿Qué hace <code>.on("click", function () { ... })</code>?</li>
+<li>¿Qué diferencia existe entre <code>event.target</code>, <code>event.currentTarget</code> y <code>this</code>?</li>
+<li>¿Por qué una función flecha puede causar problemas con <code>this</code>?</li>
+<li>¿Qué es un evento delegado?</li>
+<li>¿Por qué es importante cargar jQuery antes de nuestro script?</li>
+<li>¿Por qué no debe utilizarse <code>.html()</code> con datos introducidos por el usuario?</li>
+<li>¿Qué diferencia existe entre la versión completa y la versión <code>slim</code>?</li>
+<li>¿Por qué seguimos estudiando JavaScript estándar?</li>
+<li>¿En qué tipo de proyectos puede seguir siendo útil jQuery?</li>
+<li>¿Por qué en este curso se prioriza <code>fetch()</code> frente a jQuery AJAX?</li>
+</ol><div class="concept-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-circle"></i></span> 12.3. Resumen final</h3><ul class="custom-list">
+<li>jQuery es una biblioteca JavaScript para trabajar con el DOM, eventos, efectos y AJAX.</li>
+<li>Se utiliza como complemento para comprender y mantener código existente.</li>
+<li>En los ejemplos nuevos se emplea jQuery 4.0.0.</li>
+<li><code>$()</code> devuelve un objeto jQuery, no directamente un elemento DOM.</li>
+<li>Los selectores jQuery utilizan sintaxis CSS.</li>
+<li><code>.text()</code> trabaja con texto.</li>
+<li><code>.html()</code> interpreta contenido HTML.</li>
+<li><code>.val()</code> trabaja con valores de formularios.</li>
+<li><code>.attr()</code> gestiona atributos.</li>
+<li><code>.prop()</code> gestiona propiedades como <code>checked</code> o <code>disabled</code>.</li>
+<li><code>.addClass()</code>, <code>.removeClass()</code> y <code>.toggleClass()</code> modifican clases.</li>
+<li><code>.on()</code> gestiona eventos directos y delegados.</li>
+<li>Dentro de una función tradicional, <code>this</code> representa el elemento para el que se ejecuta el manejador.</li>
+<li><code>.append()</code>, <code>.prepend()</code>, <code>.before()</code> y <code>.after()</code> insertan contenido.</li>
+<li><code>.remove()</code> elimina elementos.</li>
+<li>La versión <code>slim</code> no incluye AJAX ni efectos.</li>
+<li>En comunicación asíncrona se priorizará <code>fetch()</code>.</li>
+</ul></div><div class="note-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-box-arrow-right"></i></span> 12.4. Contenidos relacionados y aplazados</h3><p>Este documento se relaciona con:</p><ul class="custom-list">
+<li>UD2_B2: DOM básico;</li>
+<li>UD2_B3: eventos y formularios;</li>
+<li>UD2_B4: asincronía y <code>fetch</code>;</li>
+<li>UD2_B5: práctica global de aplicación web interactiva.</li>
+</ul><p>Quedan fuera como contenido principal:</p><ul class="custom-list">
+<li>jQuery UI;</li>
+<li>plugins externos;</li>
+<li>AJAX avanzado con jQuery;</li>
+<li>migración detallada de proyectos antiguos;</li>
+<li>integración con frameworks modernos;</li>
+<li>animaciones complejas;</li>
+<li>desarrollo de plugins propios;</li>
+<li>compatibilidad avanzada entre versiones.</li>
+</ul></div><div class="good-practice-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.5. Fuentes oficiales consultadas</h3><ul class="custom-list">
+<li><a href="https://blog.jquery.com/2026/01/17/jquery-4-0-0/" rel="noopener noreferrer" target="_blank">jQuery 4.0.0 — blog oficial</a></li>
+<li><a href="https://jquery.com/download/" rel="noopener noreferrer" target="_blank">Descarga oficial de jQuery</a></li>
+<li><a href="https://api.jquery.com/attr/" rel="noopener noreferrer" target="_blank">Documentación de <code>.attr()</code></a></li>
+<li><a href="https://api.jquery.com/prop/" rel="noopener noreferrer" target="_blank">Documentación de <code>.prop()</code></a></li>
+<li><a href="https://api.jquery.com/on/" rel="noopener noreferrer" target="_blank">Documentación de <code>.on()</code></a></li>
+<li><a href="https://api.jquery.com/event.target/" rel="noopener noreferrer" target="_blank">Documentación de <code>event.target</code></a></li>
+</ul></div></section></div></div></main></div><script src="../../assets/js/smpp.js"></script></body></html>

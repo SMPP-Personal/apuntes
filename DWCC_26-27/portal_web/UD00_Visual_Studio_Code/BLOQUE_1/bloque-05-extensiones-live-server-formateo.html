@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloque 5 · Extensiones, Live Server y formateo</title>
+  <style>
+:root {
+  --color-fondo: #f4f7fb;
+  --color-slide: #ffffff;
+  --color-texto: #1f2937;
+  --color-secundario: #4b5563;
+  --color-principal: #2563eb;
+  --color-principal-oscuro: #1e3a8a;
+  --color-acento: #f59e0b;
+  --color-error: #dc2626;
+  --color-ok: #16a34a;
+  --color-borde: #dbeafe;
+
+  --radio-grande: 24px;
+  --radio-medio: 16px;
+
+  --sombra-suave: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+  --ancho-contenido: 1180px;
+  --alto-minimo-slide: 100vh;
+}
+
+/* Base */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+/* Diapositivas */
+
+.slide {
+  min-height: var(--alto-minimo-slide);
+  padding: 48px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  page-break-after: always;
+}
+
+.slide-inner {
+  width: min(100%, var(--ancho-contenido));
+  min-height: calc(100vh - 96px);
+  background: var(--color-slide);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra-suave);
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Tipografía */
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  color: var(--color-principal-oscuro);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  color: var(--color-principal-oscuro);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: var(--color-principal);
+}
+
+p,
+li {
+  font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+}
+
+small {
+  color: var(--color-secundario);
+}
+
+/* Portadas */
+
+.slide.portada .slide-inner {
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 55%, #fef3c7 100%);
+}
+
+.etiqueta-bloque {
+  display: inline-block;
+  width: fit-content;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: var(--color-principal-oscuro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Layouts */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-medio);
+  padding: 24px;
+  background: #f8fafc;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+}
+
+/* Bloques didácticos */
+
+.idea-clave {
+  border-left: 8px solid var(--color-principal);
+  background: #eff6ff;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.aviso {
+  border-left: 8px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.error-tipico {
+  border-left: 8px solid var(--color-error);
+  background: #fef2f2;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.correcto {
+  border-left: 8px solid var(--color-ok);
+  background: #f0fdf4;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.ejercicio {
+  border: 3px dashed var(--color-principal);
+  background: #f8fafc;
+  padding: 28px;
+  border-radius: var(--radio-medio);
+}
+
+.reto {
+  border: 3px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 32px;
+  border-radius: var(--radio-medio);
+}
+
+/* Código */
+
+pre {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 24px;
+  border-radius: var(--radio-medio);
+  overflow-x: auto;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+}
+
+code {
+  font-family: "Consolas", "Cascadia Code", monospace;
+}
+
+p code,
+li code {
+  background: #e0f2fe;
+  color: #075985;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+/* Listas */
+
+ul,
+ol {
+  padding-left: 1.4em;
+}
+
+li + li {
+  margin-top: 0.4em;
+}
+
+/* Barra inferior opcional */
+
+.slide-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  font-size: 0.95rem;
+  color: var(--color-secundario);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Navegación simple */
+
+.nav-indice {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+.nav-indice a {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--color-principal);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Impresión / exportación a PDF */
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .nav-indice {
+    display: none;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 0;
+    page-break-after: always;
+  }
+
+  .slide-inner {
+    box-shadow: none;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Pantallas pequeñas */
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 24px;
+  }
+
+  .slide-inner {
+    padding: 32px;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Estilos específicos Bloque 5 */
+.kicker {
+  font-size: 1.25rem;
+  color: var(--color-secundario);
+  max-width: 920px;
+}
+.icon-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 28px;
+}
+.icon-pill {
+  border: 2px solid #dbeafe;
+  background: #eff6ff;
+  color: #1e3a8a;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.tool-card {
+  background: linear-gradient(180deg, #ffffff, #f8fafc);
+  border: 2px solid var(--color-borde);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.07);
+}
+.tool-card strong {
+  display: block;
+  font-size: 1.6rem;
+  color: var(--color-principal-oscuro);
+  margin-bottom: 10px;
+}
+.mock-vscode {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid #cbd5e1;
+  background: #0f172a;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, .18);
+}
+.mock-vscode-header {
+  background: #1e293b;
+  color: #e5e7eb;
+  padding: 12px 18px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-family: Consolas, monospace;
+  font-size: 1rem;
+}
+.dot { width: 12px; height: 12px; border-radius: 50%; background: #ef4444; display: inline-block; }
+.dot:nth-child(2) { background: #f59e0b; }
+.dot:nth-child(3) { background: #22c55e; }
+.mock-vscode-body {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 360px;
+}
+.mock-sidebar {
+  background: #111827;
+  color: #cbd5e1;
+  padding: 18px;
+  font-family: Consolas, monospace;
+  font-size: 1.05rem;
+  border-right: 1px solid #334155;
+}
+.mock-editor {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 22px;
+  font-family: Consolas, monospace;
+  font-size: 1.05rem;
+}
+.mock-editor .line { display: block; margin: 4px 0; }
+.mock-editor .tag { color: #93c5fd; }
+.mock-editor .attr { color: #fde68a; }
+.mock-editor .str { color: #bbf7d0; }
+.browser-card {
+  border: 2px solid #cbd5e1;
+  border-radius: 18px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 12px 24px rgba(15,23,42,.10);
+}
+.browser-bar {
+  background: #f1f5f9;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #cbd5e1;
+}
+.url-box {
+  flex: 1;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  padding: 8px 14px;
+  font-family: Consolas, monospace;
+  color: #334155;
+  font-size: 1rem;
+}
+.browser-body {
+  padding: 28px;
+  min-height: 210px;
+}
+.url-good, .url-bad {
+  padding: 18px 20px;
+  border-radius: 14px;
+  font-family: Consolas, monospace;
+  font-size: 1.25rem;
+  overflow-wrap: anywhere;
+}
+.url-good { background:#ecfdf5; border:2px solid #86efac; color:#166534; }
+.url-bad { background:#fef2f2; border:2px solid #fecaca; color:#991b1b; }
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.25rem;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.comparison-table th {
+  background: #1e3a8a;
+  color: white;
+  padding: 16px;
+  text-align: left;
+}
+.comparison-table td {
+  border: 1px solid #dbeafe;
+  padding: 16px;
+  vertical-align: top;
+  background: #fff;
+}
+.code-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.code-label {
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--color-principal-oscuro);
+}
+.badge-mini {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 6px 12px;
+  background: #e0f2fe;
+  color: #075985;
+  font-weight: 800;
+  font-size: 1rem;
+  margin-right: 8px;
+}
+.flow-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+.flow-step {
+  background: #eff6ff;
+  border: 2px solid #bfdbfe;
+  color: #1e3a8a;
+  padding: 16px 18px;
+  border-radius: 16px;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+.arrow { color: var(--color-principal); font-weight: 900; font-size: 2rem; }
+.extension-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.extension-item {
+  padding: 20px;
+  border-radius: 16px;
+  border: 2px solid #dbeafe;
+  background: #f8fafc;
+}
+.extension-item h3 { margin-bottom: 8px; }
+.checklist {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 24px;
+}
+.checklist div {
+  background: #f8fafc;
+  border: 1px solid #dbeafe;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 1.18rem;
+}
+.registro {
+  background: #f8fafc;
+  border: 2px dashed #93c5fd;
+  border-radius: 18px;
+  padding: 26px;
+  font-size: 1.25rem;
+}
+.registro p { margin: 0.55em 0; }
+@media (max-width: 900px) {
+  .mock-vscode-body, .code-compare, .extension-list, .checklist { grid-template-columns: 1fr; }
+}
+
+  </style>
+</head>
+<body>
+
+  <nav class="nav-indice">
+    <a href="#indice">Índice</a>
+  </nav>
+
+  <section class="slide portada">
+    <div class="slide-inner">
+      <span class="etiqueta-bloque">Bloque 5 · Entorno JavaScript</span>
+      <h1>Extensiones, Live Server y formateo</h1>
+      <p class="kicker">Herramientas mínimas para trabajar mejor en VS Code sin depender de automatismos que no se entienden.</p>
+      <div class="icon-strip">
+        <span class="icon-pill">Extensiones</span>
+        <span class="icon-pill">Live Server</span>
+        <span class="icon-pill">Prettier</span>
+        <span class="icon-pill">Código legible</span>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>1/34</span></div>
+    </div>
+  </section>
+  <section class="slide" id="indice">
+    <div class="slide-inner">
+      <h2>Índice del bloque</h2>
+
+      <ol>
+        <li>Qué problema resolvemos con extensiones, Live Server y formateo.</li>
+        <li>Instalar extensiones con criterio.</li>
+        <li>Abrir el proyecto con Live Server.</li>
+        <li>Diferenciar <code>file:///</code> de <code>localhost</code>.</li>
+        <li>Comprobar recarga automática.</li>
+        <li>Formatear código y usar Prettier sin confundirlo con corregir errores.</li>
+        <li>Mini práctica final con errores preparados.</li>
+      </ol>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>2/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>El problema habitual</h2>
+
+      <div class="grid-2">
+        <div class="error-tipico">
+          <h3>Situaciones frecuentes</h3>
+          <ul>
+            <li>Abro <code>index.html</code> a mano cada vez.</li>
+            <li>Cambio el código, pero Chrome no cambia.</li>
+            <li>No sé si estoy viendo el archivo correcto.</li>
+            <li>Mi código funciona, pero está desordenado.</li>
+            <li>Instalo extensiones sin saber para qué sirven.</li>
+          </ul>
+        </div>
+        <div class="idea-clave">
+          Hoy vamos a mejorar la forma de trabajar, no a aprender más sintaxis.
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>3/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Qué vamos a conseguir hoy</h2>
+
+      <div class="checklist">
+        <div>□ Instalar una extensión.</div>
+        <div>□ Usar Live Server.</div>
+        <div>□ Reconocer una URL local.</div>
+        <div>□ Comprobar recarga automática.</div>
+        <div>□ Instalar o usar Prettier.</div>
+        <div>□ Formatear documentos.</div>
+        <div>□ Diferenciar código ordenado y código correcto.</div>
+        <div>□ Evitar depender de demasiadas extensiones.</div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>4/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Idea clave del bloque</h2>
+
+      <div class="idea-clave">
+        Las extensiones ayudan, pero no sustituyen entender lo que ocurre.<br><br>
+        Live Server ayuda a probar.<br>
+        Prettier ayuda a ordenar.<br><br>
+        Pero el código sigue siendo responsabilidad nuestra.
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>5/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Qué es una extensión</h2>
+
+      <div class="grid-2">
+        <div>
+          <p>Una extensión añade funciones a VS Code.</p>
+          <ul>
+            <li>Abrir una página con servidor local.</li>
+            <li>Formatear código.</li>
+            <li>Detectar errores visualmente.</li>
+            <li>Cambiar idioma.</li>
+            <li>Mejorar la escritura de código.</li>
+          </ul>
+        </div>
+        <div class="aviso">
+          <h3>Advertencia</h3>
+          <p>Más extensiones no significa mejor entorno. Demasiadas extensiones pueden confundir, ralentizar o esconder problemas.</p>
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>6/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Extensiones que usaremos</h2>
+
+      <div class="extension-list">
+        <div class="extension-item"><h3>Live Server</h3><p>Para abrir proyectos web con servidor local y recarga automática.</p></div>
+        <div class="extension-item"><h3>Prettier</h3><p>Para formatear HTML, CSS, JavaScript y otros formatos.</p></div>
+        <div class="extension-item"><h3>Spanish Language Pack</h3><p>Opcional, si se quiere VS Code en español.</p></div>
+        <div class="extension-item"><h3>Error Lens</h3><p>Opcional, para ver errores de forma más visible.</p></div>
+      </div>
+      <div class="idea-clave" style="margin-top:24px;">Instalamos pocas extensiones, pero sabemos para qué sirve cada una.</div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>7/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Instalar una extensión</h2>
+
+      <div class="grid-2">
+        <div>
+          <ol>
+            <li>Abrir el panel de extensiones.</li>
+            <li>Buscar <strong>Live Server</strong>.</li>
+            <li>Comprobar el nombre de la extensión.</li>
+            <li>Instalar.</li>
+            <li>Esperar a que aparezca instalada.</li>
+          </ol>
+          <p><span class="badge-mini">Atajo</span><code>Ctrl + Shift + X</code></p>
+        </div>
+        <div class="mock-vscode">
+          <div class="mock-vscode-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>EXTENSIONS</span></div>
+          <div class="mock-vscode-body" style="grid-template-columns:1fr;min-height:260px;">
+            <div class="mock-sidebar">
+              Buscar: Live Server<br><br>
+              Live Server<br>
+              Ritwick Dey<br>
+              <span style="color:#22c55e">Install</span><br><br>
+              Prettier<br>
+              Prettier Code Formatter
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>8/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Actividad 1 · Instala Live Server</h2>
+
+      <div class="ejercicio">
+        <h3>Ahora lo haces tú</h3>
+        <ul>
+          <li>Instala <strong>Live Server</strong>.</li>
+          <li>Comprueba que aparece como instalada.</li>
+          <li>No instales otra extensión con nombre parecido.</li>
+          <li>Comprueba que aparece el botón <strong>Go Live</strong>.</li>
+          <li>Comprueba que tienes abierta una carpeta de proyecto.</li>
+        </ul>
+      </div>
+      <div class="aviso" style="margin-top:24px;">No instales extensiones al azar. Lee el nombre y comprueba que es la correcta.</div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>9/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Para qué sirve Live Server</h2>
+
+      <div class="grid-2">
+        <div>
+          <p>Live Server abre tu proyecto web usando un servidor local.</p>
+          <ul>
+            <li>Prueba la página en Chrome.</li>
+            <li>Recarga al guardar cambios.</li>
+            <li>Evita abrir archivos manualmente todo el tiempo.</li>
+            <li>Se parece más a un entorno real.</li>
+          </ul>
+        </div>
+        <div class="idea-clave">
+          Live Server no cambia tu código.<br><br>
+          Solo cambia la forma de servir la página al navegador.
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>10/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Proyecto base</h2>
+
+      <p>Trabajaremos con un proyecto sencillo:</p>
+      <pre><code>proyecto-live-server/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── script.js</code></pre>
+      <div class="idea-clave">El proyecto debe abrirse como carpeta completa en VS Code, no como archivo suelto.</div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>11/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Abrir un proyecto con Live Server</h2>
+
+      <div class="grid-2">
+        <div>
+          <ol>
+            <li>Abrir la carpeta del proyecto en VS Code.</li>
+            <li>Abrir <code>index.html</code>.</li>
+            <li>Pulsar <strong>Go Live</strong>.</li>
+            <li>Esperar a que se abra Chrome.</li>
+            <li>Comprobar la URL.</li>
+          </ol>
+        </div>
+        <div class="browser-card">
+          <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="url-box">http://127.0.0.1:5500/</div></div>
+          <div class="browser-body"><h3>Probando Live Server</h3><p>Esta página se actualizará al guardar cambios.</p><button style="padding:12px 18px;border:0;border-radius:8px;background:#2563eb;color:white;">Probar JavaScript</button></div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>12/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>file:/// frente a localhost</h2>
+
+      <div class="grid-2">
+        <div>
+          <h3>Abrir archivo directamente</h3>
+          <div class="url-bad">file:///C:/Users/Alumno/Desktop/proyecto/index.html</div>
+          <p>Estoy abriendo un archivo directamente.</p>
+        </div>
+        <div>
+          <h3>Usar Live Server</h3>
+          <div class="url-good">http://127.0.0.1:5500/index.html</div>
+          <p>Estoy viendo la página servida por Live Server.</p>
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>13/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Actividad 2 · Abre con Live Server</h2>
+
+      <div class="ejercicio">
+        <h3>Comprueba</h3>
+        <ul>
+          <li>La página se abre en Chrome.</li>
+          <li>La URL empieza por <code>http://</code>.</li>
+          <li>Aparece <code>localhost</code> o <code>127.0.0.1</code>.</li>
+          <li>No estás abriendo un archivo con <code>file:///</code>.</li>
+          <li>El contenido de <code>index.html</code> se ve correctamente.</li>
+        </ul>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>14/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Recarga automática</h2>
+
+      <div class="grid-2">
+        <div>
+          <ol>
+            <li>Cambia un texto en <code>index.html</code>.</li>
+            <li>Guarda.</li>
+            <li>Observa Chrome.</li>
+            <li>Comprueba que la página se actualiza sola.</li>
+          </ol>
+        </div>
+        <div class="idea-clave">
+          Live Server recarga al guardar.<br><br>
+          Si no guardas, no hay nada que recargar.
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>15/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Actividad 3 · Prueba la recarga</h2>
+
+      <div class="ejercicio">
+        <ol>
+          <li>Cambia el título <code>h1</code>.</li>
+          <li>Guarda.</li>
+          <li>Mira si Chrome se actualiza.</li>
+          <li>Cambia el color del <code>h1</code> en CSS.</li>
+          <li>Guarda y comprueba el cambio.</li>
+          <li>Añade un <code>console.log()</code> en JS.</li>
+          <li>Guarda y revisa Console.</li>
+        </ol>
+      </div>
+      <div class="correcto" style="margin-top:24px;">Cada cambio debe comprobarse en Chrome.</div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>16/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Error preparado · No se actualiza</h2>
+
+      <div class="error-tipico">
+        <h3>Situación</h3>
+        <p>He cambiado el código, pero Chrome no muestra el cambio.</p>
+      </div>
+      <div class="grid-2" style="margin-top:24px;">
+        <div class="card"><h3>Revisar</h3><ol><li>¿He guardado?</li><li>¿Estoy usando Live Server?</li><li>¿Veo la URL correcta?</li></ol></div>
+        <div class="card"><h3>Seguir revisando</h3><ol start="4"><li>¿He modificado el archivo correcto?</li><li>¿Hay errores en Console?</li><li>¿CSS o JS están bien enlazados?</li></ol></div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>17/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Error preparado · Go Live no aparece</h2>
+
+      <div class="grid-2">
+        <div class="error-tipico">
+          <h3>Posibles causas</h3>
+          <ul><li>Live Server no está instalado.</li><li>La extensión está deshabilitada.</li><li>No has abierto una carpeta de proyecto.</li><li>VS Code necesita recargarse.</li><li>Estás mirando otra ventana de VS Code.</li></ul>
+        </div>
+        <div class="correcto">
+          <h3>Soluciones razonables</h3>
+          <ol><li>Revisar extensiones instaladas.</li><li>Abrir una carpeta, no solo un archivo.</li><li>Cerrar y abrir VS Code.</li><li>Botón derecho → Open with Live Server.</li></ol>
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>18/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Error preparado · Abre otro proyecto</h2>
+
+      <div class="error-tipico">
+        <h3>Situación</h3>
+        <p>La página se abre, pero no es la que estoy editando.</p>
+      </div>
+      <div class="idea-clave" style="margin-top:24px;">Live Server sirve la carpeta que tienes abierta. Si la carpeta es incorrecta, verás el proyecto incorrecto.</div>
+      <ul>
+        <li>¿Tienes varias carpetas parecidas?</li>
+        <li>¿Has abierto la carpeta correcta en VS Code?</li>
+        <li>¿Estás editando un <code>index.html</code> y viendo otro?</li>
+        <li>¿Qué URL aparece en Chrome?</li>
+      </ul>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>19/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Qué significa formatear código</h2>
+
+      <div class="grid-2">
+        <div>
+          <p>Formatear código significa ordenarlo visualmente:</p>
+          <ul>
+            <li>sangrías correctas;</li>
+            <li>saltos de línea claros;</li>
+            <li>espacios consistentes;</li>
+            <li>etiquetas bien alineadas;</li>
+            <li>bloques fáciles de leer.</li>
+          </ul>
+        </div>
+        <div class="aviso">
+          <h3>Idea clave</h3>
+          <p>Formatear no significa corregir la lógica. Un código puede estar muy bonito y estar mal.</p>
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>20/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Código sin formato</h2>
+
+      <p>Puede funcionar, pero se lee mal:</p>
+      <pre><code>&lt;!DOCTYPE html&gt;&lt;html lang="es"&gt;&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;title&gt;Mal formato&lt;/title&gt;&lt;link rel="stylesheet" href="css/estilos.css"&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Texto&lt;/h1&gt;&lt;p&gt;Un párrafo&lt;/p&gt;&lt;script src="js/script.js"&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;</code></pre>
+      <div class="error-tipico">Pregunta: ¿funciona? Puede que sí. ¿Se lee bien? No.</div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>21/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Código formateado</h2>
+
+      <p>El mismo código ordenado:</p>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Buen formato&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/estilos.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Texto&lt;/h1&gt;
+  &lt;p&gt;Un párrafo&lt;/p&gt;
+
+  &lt;script src="js/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <div class="correcto">El formato ayuda a leer, detectar errores y trabajar en equipo.</div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>22/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Formatear documento en VS Code</h2>
+
+      <div class="grid-2">
+        <div>
+          <p><span class="badge-mini">Menú</span>Botón derecho → Formatear documento</p>
+          <p><span class="badge-mini">Atajo</span><code>Shift + Alt + F</code></p>
+          <ol>
+            <li>Copia un código desordenado.</li>
+            <li>Usa Formatear documento.</li>
+            <li>Observa qué cambia.</li>
+            <li>Comprueba que sigue funcionando.</li>
+          </ol>
+        </div>
+        <div class="mock-vscode">
+          <div class="mock-vscode-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>index.html</span></div>
+          <div class="mock-editor">
+            <span class="line">Botón derecho</span>
+            <span class="line">────────────────</span>
+            <span class="line">Format Document</span>
+            <span class="line">Format Selection</span>
+            <span class="line">Command Palette...</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>23/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Prettier</h2>
+
+      <div class="grid-2">
+        <div>
+          <p>Prettier es una herramienta que formatea código automáticamente.</p>
+          <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>JSON</li>
+            <li>otros formatos</li>
+          </ul>
+        </div>
+        <div class="idea-clave">
+          Prettier no piensa por ti.<br><br>
+          Solo aplica reglas de formato.
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>24/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Instalar Prettier</h2>
+
+      <div class="grid-2">
+        <div>
+          <ol>
+            <li>Abrir extensiones.</li>
+            <li>Buscar <strong>Prettier</strong>.</li>
+            <li>Instalar la extensión correcta.</li>
+            <li>Abrir un archivo HTML, CSS o JS.</li>
+            <li>Usar Formatear documento.</li>
+          </ol>
+        </div>
+        <div class="aviso">
+          <h3>Posible problema</h3>
+          <p>Si VS Code pregunta qué formateador usar, selecciona Prettier.</p>
+        </div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>25/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Actividad 4 · Usa Prettier</h2>
+
+      <div class="ejercicio">
+        <ul>
+          <li>Instala Prettier.</li>
+          <li>Abre <code>index.html</code>.</li>
+          <li>Desordena un poco el código.</li>
+          <li>Usa Formatear documento.</li>
+          <li>Repite con <code>estilos.css</code>.</li>
+          <li>Repite con <code>script.js</code>.</li>
+          <li>Comprueba que el proyecto sigue funcionando.</li>
+        </ul>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>26/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Formatear al guardar: sí o no</h2>
+
+      <div class="grid-2">
+        <div class="correcto"><h3>Ventaja</h3><p>Mantiene el código limpio automáticamente.</p></div>
+        <div class="aviso"><h3>Riesgo</h3><p>Si no entiendes qué cambia, puede confundirte al principio.</p></div>
+      </div>
+      <div class="idea-clave" style="margin-top:24px;">Primero aprender a formatear manualmente. Después, si se trabaja con seguridad, activar formato al guardar.</div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>27/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Código correcto vs código legible</h2>
+
+      <table class="comparison-table">
+        <tr><th>Código correcto</th><th>Código legible</th></tr>
+        <tr><td>El navegador o Node.js puede ejecutarlo.</td><td>Una persona puede entenderlo con facilidad.</td></tr>
+      </table>
+      <div class="code-compare" style="margin-top:24px;">
+        <div><div class="code-label">Funciona, pero se lee peor</div><pre><code>const a=10;const b=5;console.log(a+b);</code></pre></div>
+        <div><div class="code-label">Funciona y se lee mejor</div><pre><code>const numero1 = 10;
+const numero2 = 5;
+
+console.log(numero1 + numero2);</code></pre></div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>28/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Error preparado · Código bonito pero mal</h2>
+
+      <pre><code>const numero1 = 10;
+const numero2 = 5;
+
+console.log(numero1 + numero3);</code></pre>
+      <div class="grid-2">
+        <div class="correcto"><h3>¿Está bien formateado?</h3><p>Sí.</p></div>
+        <div class="error-tipico"><h3>¿Funciona?</h3><p>No. <code>numero3</code> no existe.</p></div>
+      </div>
+      <div class="idea-clave" style="margin-top:24px;">El formato no corrige errores de lógica ni nombres incorrectos.</div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>29/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Flujo de trabajo recomendado</h2>
+
+      <div class="flow-line">
+        <span class="flow-step">Abrir carpeta</span><span class="arrow">→</span>
+        <span class="flow-step">Go Live</span><span class="arrow">→</span>
+        <span class="flow-step">Escribir</span><span class="arrow">→</span>
+        <span class="flow-step">Guardar</span><span class="arrow">→</span>
+        <span class="flow-step">Chrome</span><span class="arrow">→</span>
+        <span class="flow-step">Console</span><span class="arrow">→</span>
+        <span class="flow-step">Corregir</span>
+      </div>
+      <div class="idea-clave" style="margin-top:32px;">Una buena herramienta no sustituye saber qué estás haciendo, pero reduce fricción.</div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>30/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Problemas frecuentes</h2>
+
+      <div class="grid-2">
+        <div class="card"><h3>No aparece Go Live</h3><p>Revisar extensión instalada, carpeta abierta y VS Code reiniciado.</p></div>
+        <div class="card"><h3>La página no cambia</h3><p>Revisar guardar, URL correcta y archivo correcto.</p></div>
+        <div class="card"><h3>El CSS no carga</h3><p>Revisar ruta, nombre del archivo y Network.</p></div>
+        <div class="card"><h3>Código formateado pero falla</h3><p>Revisar Console, nombres de variables, rutas y sintaxis.</p></div>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>31/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Mini práctica final</h2>
+
+      <div class="reto">
+        <h3>practica-live-server</h3>
+        <p>Crea esta estructura:</p>
+        <pre><code>practica-live-server/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── script.js</code></pre>
+        <p>Debe abrirse con Live Server, aplicar estilos, mostrar un mensaje en Console, recargarse al guardar, estar formateado e incluir un error provocado y corregido.</p>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>32/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Error provocado de la práctica</h2>
+
+      <p>Elige uno:</p>
+      <div class="grid-2">
+        <div class="error-tipico"><h3>A</h3><p>Escribir mal la ruta del CSS.</p></div>
+        <div class="error-tipico"><h3>B</h3><p>Escribir mal la ruta del JS.</p></div>
+        <div class="error-tipico"><h3>C</h3><p>Desordenar el HTML y formatearlo.</p></div>
+        <div class="error-tipico"><h3>D</h3><p>Escribir una variable mal en JavaScript.</p></div>
+      </div>
+      <div class="registro" style="margin-top:24px;">
+        <p>Error elegido: __________________________</p>
+        <p>Cómo lo detecté: ________________________</p>
+        <p>Cómo lo corregí: ________________________</p>
+        <p>Cómo comprobé que funciona: _____________</p>
+      </div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>33/34</span></div>
+    </div>
+  </section>
+  <section class="slide">
+    <div class="slide-inner">
+      <h2>Checklist final</h2>
+
+      <div class="checklist">
+        <div>□ Sé abrir el panel de extensiones.</div>
+        <div>□ Sé instalar Live Server.</div>
+        <div>□ Sé abrir un proyecto con Go Live.</div>
+        <div>□ Sé reconocer una URL de Live Server.</div>
+        <div>□ Sé distinguir <code>file:///</code> de <code>localhost</code>.</div>
+        <div>□ Sé comprobar recarga automática.</div>
+        <div>□ Sé instalar o usar Prettier.</div>
+        <div>□ Sé formatear un documento.</div>
+        <div>□ Sé explicar que formatear no corrige errores.</div>
+        <div>□ Sé revisar Console si algo falla.</div>
+      </div>
+      <div class="idea-clave" style="margin-top:28px;">Live Server y Prettier no son magia: ayudan a probar mejor y leer mejor, pero diagnosticar sigue siendo parte del trabajo.</div>
+      <div class="slide-footer"><span>Bloque 5 · Extensiones, Live Server y formateo</span><span>34/34</span></div>
+    </div>
+  </section>
+
+
+</body>
+</html>

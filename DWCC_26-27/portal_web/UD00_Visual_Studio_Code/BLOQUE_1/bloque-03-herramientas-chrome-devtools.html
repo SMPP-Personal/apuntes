@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloque 3 · Herramientas de Chrome para desarrollo web</title>
+  <style>
+:root {
+  --color-fondo: #f4f7fb;
+  --color-slide: #ffffff;
+  --color-texto: #1f2937;
+  --color-secundario: #4b5563;
+  --color-principal: #2563eb;
+  --color-principal-oscuro: #1e3a8a;
+  --color-acento: #f59e0b;
+  --color-error: #dc2626;
+  --color-ok: #16a34a;
+  --color-borde: #dbeafe;
+
+  --radio-grande: 24px;
+  --radio-medio: 16px;
+
+  --sombra-suave: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+  --ancho-contenido: 1180px;
+  --alto-minimo-slide: 100vh;
+}
+
+/* Base */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+/* Diapositivas */
+
+.slide {
+  min-height: var(--alto-minimo-slide);
+  padding: 48px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  page-break-after: always;
+}
+
+.slide-inner {
+  width: min(100%, var(--ancho-contenido));
+  min-height: calc(100vh - 96px);
+  background: var(--color-slide);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra-suave);
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Tipografía */
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  color: var(--color-principal-oscuro);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  color: var(--color-principal-oscuro);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: var(--color-principal);
+}
+
+p,
+li {
+  font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+}
+
+small {
+  color: var(--color-secundario);
+}
+
+/* Portadas */
+
+.slide.portada .slide-inner {
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 55%, #fef3c7 100%);
+}
+
+.etiqueta-bloque {
+  display: inline-block;
+  width: fit-content;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: var(--color-principal-oscuro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Layouts */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-medio);
+  padding: 24px;
+  background: #f8fafc;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+}
+
+/* Bloques didácticos */
+
+.idea-clave {
+  border-left: 8px solid var(--color-principal);
+  background: #eff6ff;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.aviso {
+  border-left: 8px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.error-tipico {
+  border-left: 8px solid var(--color-error);
+  background: #fef2f2;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.correcto {
+  border-left: 8px solid var(--color-ok);
+  background: #f0fdf4;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.ejercicio {
+  border: 3px dashed var(--color-principal);
+  background: #f8fafc;
+  padding: 28px;
+  border-radius: var(--radio-medio);
+}
+
+.reto {
+  border: 3px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 32px;
+  border-radius: var(--radio-medio);
+}
+
+/* Código */
+
+pre {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 24px;
+  border-radius: var(--radio-medio);
+  overflow-x: auto;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+}
+
+code {
+  font-family: "Consolas", "Cascadia Code", monospace;
+}
+
+p code,
+li code {
+  background: #e0f2fe;
+  color: #075985;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+/* Listas */
+
+ul,
+ol {
+  padding-left: 1.4em;
+}
+
+li + li {
+  margin-top: 0.4em;
+}
+
+/* Barra inferior opcional */
+
+.slide-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  font-size: 0.95rem;
+  color: var(--color-secundario);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Navegación simple */
+
+.nav-indice {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+.nav-indice a {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--color-principal);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Impresión / exportación a PDF */
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .nav-indice {
+    display: none;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 0;
+    page-break-after: always;
+  }
+
+  .slide-inner {
+    box-shadow: none;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Pantallas pequeñas */
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 24px;
+  }
+
+  .slide-inner {
+    padding: 32px;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ajustes específicos Bloque 3 · Chrome DevTools */
+.slide-inner.compact { justify-content: flex-start; }
+.kicker { color: var(--color-principal); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+.big-flow { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; margin: 28px 0; }
+.flow-node { padding: 18px 24px; border-radius: 18px; border: 2px solid var(--color-borde); background: #f8fafc; font-size: clamp(1.1rem, 1.5vw, 1.4rem); font-weight: 800; color: var(--color-principal-oscuro); text-align: center; min-width: 150px; }
+.flow-arrow { font-size: 2rem; color: var(--color-principal); font-weight: 900; }
+.tool-card { border: 2px solid var(--color-borde); border-radius: 20px; padding: 26px; background: #f8fafc; position: relative; overflow: hidden; }
+.tool-card::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 8px; background: var(--tool-color, var(--color-principal)); }
+.tool-card h3 { margin-left: 4px; color: var(--tool-color, var(--color-principal)); }
+.tool-card.console { --tool-color: #2563eb; }
+.tool-card.elements { --tool-color: #f59e0b; }
+.tool-card.network { --tool-color: #16a34a; }
+.browser-mock { border: 2px solid #cbd5e1; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 10px 28px rgba(15, 23, 42, .12); }
+.browser-top { display:flex; gap:8px; align-items:center; padding: 12px 16px; background: #e2e8f0; }
+.dot { width: 13px; height: 13px; border-radius: 50%; background: #94a3b8; display:inline-block; }
+.url { margin-left: 10px; flex:1; background: white; border-radius: 999px; padding: 7px 14px; font-size: .95rem; color:#64748b; font-family: Consolas, monospace; }
+.devtools { display:grid; grid-template-columns: 1fr 1fr; min-height: 320px; }
+.web-pane { padding: 26px; background:#fff; }
+.dev-pane { border-left: 2px solid #cbd5e1; background:#0f172a; color:#e5e7eb; font-family: Consolas, 'Cascadia Code', monospace; padding: 0; }
+.dev-tabs { display:flex; border-bottom:1px solid #334155; background:#111827; }
+.dev-tab { padding:10px 14px; border-right:1px solid #334155; color:#cbd5e1; font-size:.95rem; }
+.dev-tab.active-console { color:#93c5fd; border-bottom:3px solid #3b82f6; }
+.dev-tab.active-elements { color:#fcd34d; border-bottom:3px solid #f59e0b; }
+.dev-tab.active-network { color:#86efac; border-bottom:3px solid #22c55e; }
+.dev-content { padding: 18px; font-size: 1rem; line-height: 1.55; }
+.console-line { display:block; border-bottom:1px solid #1f2937; padding: 8px 0; }
+.console-ok { color:#86efac; }
+.console-error { color:#fca5a5; }
+.console-warn { color:#fde68a; }
+.file-link { color:#93c5fd; }
+.network-table { width:100%; border-collapse:collapse; font-family: Consolas, monospace; font-size: .98rem; }
+.network-table th, .network-table td { border-bottom:1px solid #334155; padding:8px 10px; text-align:left; }
+.status-ok { color:#86efac; font-weight:700; }
+.status-bad { color:#fca5a5; font-weight:700; }
+.dom-node { color:#93c5fd; }
+.css-prop { color:#fcd34d; }
+.badge-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+.badge { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; background:#e0f2fe; color:#075985; font-weight:800; }
+.badge.error { background:#fee2e2; color:#991b1b; }
+.badge.ok { background:#dcfce7; color:#166534; }
+.badge.warn { background:#fef3c7; color:#92400e; }
+.checklist { list-style: none; padding-left:0; }
+.checklist li { padding-left: 2.1em; position: relative; margin: .55em 0; }
+.checklist li::before { content:'□'; position:absolute; left:0; color: var(--color-principal); font-weight: 900; }
+.two-code { display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start; }
+.mini-title { font-weight:800; color:var(--color-principal-oscuro); margin-bottom:8px; font-size:1.2rem; }
+.question-box { border: 3px solid var(--color-acento); background:#fffbeb; border-radius:22px; padding:28px; font-size:clamp(1.15rem,1.6vw,1.45rem); font-weight:700; }
+.answer-box { border-left:8px solid var(--color-ok); background:#f0fdf4; border-radius:16px; padding:22px; }
+.err-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:18px; }
+.err-item { border:2px solid #fecaca; background:#fef2f2; border-radius:18px; padding:18px; }
+.err-item strong { color:#991b1b; }
+@media (max-width: 900px) {
+  .devtools, .two-code, .err-grid { grid-template-columns: 1fr; }
+  .dev-pane { border-left:0; border-top:2px solid #cbd5e1; }
+  .flow-arrow { transform: rotate(90deg); }
+}
+
+  </style>
+</head>
+<body>
+  <nav class="nav-indice">
+    <a href="#indice">Índice</a>
+  </nav>
+
+  <section class="slide" id="indice">
+    <div class="slide-inner">
+      <span class="etiqueta-bloque">Índice</span>
+      <h1>Bloque 3 · Chrome DevTools</h1>
+      <ol>
+        <li>El problema: “no funciona”.</li>
+        <li>Abrir DevTools.</li>
+        <li>Console: mensajes y errores.</li>
+        <li>Elements: HTML y CSS real.</li>
+        <li>Network: archivos cargados y errores 404.</li>
+        <li>Método de diagnóstico.</li>
+        <li>Mini práctica final.</li>
+      </ol>
+      <div class="slide-footer"><span>Bloque 3 · Índice</span><span>00</span></div>
+    </div>
+  </section>
+
+  <section class="slide portada" id="portada">
+    <div class="slide-inner">
+      <span class="etiqueta-bloque">Bloque 3 · Entorno JavaScript</span>
+      <h1>Chrome DevTools</h1>
+      <p>Herramientas de Chrome para comprobar qué pasa realmente en una página web.</p>
+      <div class="big-flow">
+        <div class="flow-node">Console</div><div class="flow-arrow">→</div><div class="flow-node">Elements</div><div class="flow-arrow">→</div><div class="flow-node">Network</div>
+      </div>
+      <div class="slide-footer"><span>Bloque 3 · Portada</span><span>01</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s02">
+    <div class="slide-inner">
+      <h2>Qué vamos a conseguir hoy</h2>
+      
+<ul class="checklist">
+  <li>Abrir DevTools en Chrome.</li>
+  <li>Usar <strong>Console</strong> para mensajes y errores.</li>
+  <li>Usar <strong>Elements</strong> para inspeccionar HTML y CSS.</li>
+  <li>Usar <strong>Network</strong> para comprobar archivos cargados.</li>
+  <li>Seguir un orden básico de diagnóstico.</li>
+</ul>
+<div class="idea-clave">Chrome no solo sirve para ver la página: también sirve para investigar qué está fallando.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>02</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s03">
+    <div class="slide-inner">
+      <h2>El problema habitual</h2>
+      
+<div class="error-tipico">
+  <strong>“He escrito el código, pero no funciona.”</strong><br><br>
+  Esa frase no basta. A partir de hoy necesitamos responder con datos:
+</div>
+<div class="grid-2" style="margin-top:24px;">
+  <div class="card"><h3>Preguntas útiles</h3><ul><li>¿Qué no funciona?</li><li>¿Dónde falla?</li><li>¿Qué dice Chrome?</li><li>¿Qué archivo no carga?</li><li>¿Qué línea provoca el error?</li></ul></div>
+  <div class="card"><h3>Respuesta mejor</h3><p>“El CSS no carga: en Network aparece <code>estilos.css</code> con estado 404.”</p></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>03</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s04">
+    <div class="slide-inner">
+      <h2>Abrir DevTools</h2>
+      
+<div class="grid-3">
+  <div class="card"><h3>Tecla rápida</h3><p><code>F12</code></p></div>
+  <div class="card"><h3>Atajo</h3><p><code>Ctrl + Shift + I</code></p></div>
+  <div class="card"><h3>Ratón</h3><p>Botón derecho → <strong>Inspeccionar</strong></p></div>
+</div>
+<div class="ejercicio" style="margin-top:28px;">
+  <strong>Acción:</strong> abre tu página en Chrome, abre DevTools y localiza <strong>Console</strong>, <strong>Elements</strong> y <strong>Network</strong>.
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>04</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s05">
+    <div class="slide-inner">
+      <h2>Las tres pestañas que nos interesan</h2>
+      
+<div class="grid-3">
+  <div class="tool-card console"><h3>Console</h3><p>Mensajes de <code>console.log()</code> y errores de JavaScript.</p></div>
+  <div class="tool-card elements"><h3>Elements</h3><p>HTML real de la página y estilos CSS aplicados.</p></div>
+  <div class="tool-card network"><h3>Network</h3><p>Archivos que el navegador intenta cargar: CSS, JS, imágenes...</p></div>
+</div>
+<div class="idea-clave" style="margin-top:28px;">DevTools no arregla el código por nosotros, pero nos dice dónde empezar a buscar.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>05</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s06">
+    <div class="slide-inner">
+      <h2>Console: para qué sirve</h2>
+      
+<div class="grid-2">
+  <div>
+    <p>Console permite ver:</p>
+    <ul>
+      <li>mensajes escritos con <code>console.log()</code>;</li>
+      <li>errores de JavaScript;</li>
+      <li>advertencias del navegador;</li>
+      <li>si el archivo JS se está ejecutando.</li>
+    </ul>
+    <pre><code class="language-javascript">console.log(&quot;JavaScript conectado correctamente&quot;);</code></pre>
+  </div>
+  <div>
+<div class="browser-mock">
+  <div class="browser-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">http://127.0.0.1/proyecto-devtools/</span></div>
+  <div class="devtools">
+    <div class="web-pane"><h3>Práctica con Chrome DevTools</h3><p>Esta página sirve para aprender a detectar errores.</p><button>Probar JavaScript</button></div>
+    <div class="dev-pane"><div class="dev-tabs"><span class="dev-tab active-console">Console</span><span class="dev-tab">Elements</span><span class="dev-tab">Network</span></div><div class="dev-content"><span class="console-line console-ok">Archivo JavaScript cargado correctamente</span><span class="console-line console-ok">Has pulsado el botón</span><span class="console-line console-error">ReferenceError: nombre is not defined <span class="file-link">script.js:3</span></span></div></div>
+  </div>
+</div>
+</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>06</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s07">
+    <div class="slide-inner">
+      <h2>Demostración: comprobar JavaScript</h2>
+      
+<div class="grid-2">
+  <div class="card"><h3>Pasos</h3><ol><li>Abrir <code>script.js</code>.</li><li>Escribir un <code>console.log()</code>.</li><li>Guardar.</li><li>Recargar Chrome.</li><li>Abrir Console.</li><li>Comprobar el mensaje.</li></ol></div>
+  <div><pre><code class="language-javascript">console.log(&quot;Estoy comprobando la consola&quot;);</code></pre><div class="aviso"><strong>Si no aparece:</strong> guardar, recargar, revisar enlace del JS y comprobar que abrimos el HTML correcto.</div></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>07</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s08">
+    <div class="slide-inner">
+      <h2>Actividad 1 · Mensajes en Console</h2>
+      
+<div class="ejercicio">
+  <h3>Ahora lo haces tú</h3>
+  <p>En <code>script.js</code> escribe tres mensajes:</p>
+  <ol><li><code>"Página cargada"</code></li><li><code>"JavaScript conectado"</code></li><li><code>"Preparando DevTools"</code></li></ol>
+</div>
+<ul class="checklist" style="margin-top:24px;"><li>Guarda.</li><li>Recarga Chrome.</li><li>Abre Console.</li><li>Comprueba que aparecen los tres mensajes.</li></ul>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>08</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s09">
+    <div class="slide-inner">
+      <h2>Error preparado · Variable no definida</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">Error provocado</div><pre><code class="language-javascript">console.log(nombre);</code></pre></div>
+  <div><div class="mini-title">Corrección</div><pre><code class="language-javascript">const nombre = &quot;Silvia&quot;;
+console.log(nombre);</code></pre></div>
+</div>
+<div class="question-box" style="margin-top:24px;">¿Qué ocurre en Console? ¿Qué tipo de error aparece? ¿En qué archivo y línea?</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>09</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s10">
+    <div class="slide-inner">
+      <h2>Cómo leer un error sin bloquearse</h2>
+      
+<div class="grid-3">
+  <div class="card"><h3>1. Tipo</h3><p><code>ReferenceError</code><br><code>SyntaxError</code><br><code>TypeError</code></p></div>
+  <div class="card"><h3>2. Archivo</h3><p>Ejemplo:<br><code>script.js</code></p></div>
+  <div class="card"><h3>3. Línea</h3><p>Ejemplo:<br><code>línea 3</code></p></div>
+</div>
+<div class="idea-clave" style="margin-top:28px;">No hace falta entender todo el mensaje al principio, pero sí aprender a localizar dónde mirar.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>10</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s11">
+    <div class="slide-inner">
+      <h2>Error preparado · Error de sintaxis</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">Código incorrecto</div><pre><code class="language-javascript">console.log(&quot;Hola&quot;;</code></pre></div>
+  <div><div class="mini-title">Código corregido</div><pre><code class="language-javascript">console.log(&quot;Hola&quot;);</code></pre></div>
+</div>
+<div class="error-tipico" style="margin-top:24px;"><strong>Pregunta:</strong> ¿qué está mal? ¿Qué pista da Console?</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>11</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s12">
+    <div class="slide-inner">
+      <h2>Actividad 2 · Diagnóstico en Console</h2>
+      
+<div class="ejercicio">
+  <h3>Trabajo guiado</h3>
+  <p>Vas a recibir un <code>script.js</code> con errores.</p>
+  <ul class="checklist"><li>Abrir Console.</li><li>Localizar el primer error.</li><li>Anotar archivo y línea.</li><li>Corregirlo.</li><li>Guardar y recargar.</li><li>Comprobar si aparece otro error.</li></ul>
+</div>
+<div class="aviso" style="margin-top:24px;"><strong>Regla:</strong> no corrijas a ciegas. Primero mira qué dice Chrome.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>12</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s13">
+    <div class="slide-inner">
+      <h2>Elements: para qué sirve</h2>
+      
+<div class="grid-2">
+  <div>
+    <p>Elements permite ver:</p>
+    <ul><li>el HTML que Chrome interpreta;</li><li>qué elemento ocupa cada zona;</li><li>qué estilos CSS se aplican;</li><li>qué estilos están tachados;</li><li>cambios visuales temporales.</li></ul>
+    <div class="idea-clave">Elements no modifica tus archivos. Solo permite probar cambios en el navegador.</div>
+  </div>
+  <div>
+<div class="browser-mock">
+  <div class="browser-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">Inspeccionar elemento</span></div>
+  <div class="devtools">
+    <div class="web-pane"><h3 style="color:#2563eb;">Práctica con Chrome DevTools</h3><p class="mensaje">Texto importante</p><button>Probar JavaScript</button></div>
+    <div class="dev-pane"><div class="dev-tabs"><span class="dev-tab">Console</span><span class="dev-tab active-elements">Elements</span><span class="dev-tab">Network</span></div><div class="dev-content"><span class="console-line"><span class="dom-node">&lt;h1 id="titulo"&gt;</span>Práctica...<span class="dom-node">&lt;/h1&gt;</span></span><span class="console-line"><span class="css-prop">color:</span> #2563eb;</span><span class="console-line"><span class="css-prop">font-family:</span> Arial;</span></div></div>
+  </div>
+</div>
+</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>13</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s14">
+    <div class="slide-inner">
+      <h2>Demostración: inspeccionar un título</h2>
+      
+<div class="grid-2">
+  <div class="card"><h3>Acción docente</h3><ol><li>Botón derecho sobre el título.</li><li>Inspeccionar.</li><li>Localizar el <code>h1</code>.</li><li>Ver estilos aplicados.</li><li>Cambiar temporalmente el color.</li></ol></div>
+  <div class="question-box">Si cambio el color en Elements, ¿se guarda en <code>estilos.css</code>?</div>
+</div>
+<div class="answer-box" style="margin-top:24px;"><strong>Respuesta:</strong> no. Si quiero conservarlo, debo cambiar el CSS real en VS Code.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>14</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s15">
+    <div class="slide-inner">
+      <h2>Actividad 3 · Inspección de elementos</h2>
+      
+<div class="ejercicio">
+  <h3>Inspecciona estos elementos</h3>
+  <ul class="checklist"><li>Título principal.</li><li>Párrafo.</li><li>Botón.</li></ul>
+</div>
+<div class="grid-3" style="margin-top:24px;">
+  <div class="card"><h3>Etiqueta</h3><p>¿Es <code>h1</code>, <code>p</code>, <code>button</code>...?</p></div>
+  <div class="card"><h3>Clase o id</h3><p>¿Tiene <code>class</code> o <code>id</code>?</p></div>
+  <div class="card"><h3>CSS aplicado</h3><p>¿Qué reglas están activas?</p></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>15</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s16">
+    <div class="slide-inner">
+      <h2>Probar estilos sin romper archivos</h2>
+      
+<p>En Elements puedes probar cambios visuales:</p>
+<div class="grid-2">
+  <div class="card"><h3>Se puede probar</h3><ul><li>colores;</li><li>tamaños;</li><li>márgenes;</li><li>activar/desactivar propiedades;</li><li>ver qué regla manda.</li></ul></div>
+  <div class="aviso"><h3>Advertencia</h3><p>Si recargas la página, los cambios hechos en DevTools desaparecen.</p></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>16</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s17">
+    <div class="slide-inner">
+      <h2>Error preparado · CSS escrito pero no aplicado</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">CSS</div><pre><code class="language-css">.destacado {
+  color: red;
+}</code></pre></div>
+  <div><div class="mini-title">HTML con error</div><pre><code class="language-html">&lt;p class=&quot;desctacado&quot;&gt;Texto importante&lt;/p&gt;</code></pre></div>
+</div>
+<div class="question-box" style="margin-top:24px;">¿Por qué no se aplica el estilo? Usa Elements para comprobar qué clase tiene realmente el párrafo.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>17</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s18">
+    <div class="slide-inner">
+      <h2>Actividad 4 · Inspección visual</h2>
+      
+<div class="ejercicio">
+  <h3>Modifica temporalmente desde Elements</h3>
+  <ul class="checklist"><li>Color del título.</li><li>Color de fondo del párrafo.</li><li>Texto del botón.</li><li>Tamaño de letra.</li></ul>
+</div>
+<div class="correcto" style="margin-top:24px;"><strong>Después recarga:</strong> ¿qué cambios se mantienen? ¿Qué cambios desaparecen? ¿Por qué?</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>18</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s19">
+    <div class="slide-inner">
+      <h2>Network: para qué sirve</h2>
+      
+<div class="grid-2">
+  <div>
+    <p>Network permite ver qué archivos carga Chrome:</p>
+    <ul><li><code>index.html</code></li><li><code>estilos.css</code></li><li><code>script.js</code></li><li>imágenes, fuentes y otros recursos.</li></ul>
+    <div class="idea-clave">Si un archivo no carga, la página puede verse mal o JavaScript puede no ejecutarse.</div>
+  </div>
+  <div>
+<div class="browser-mock">
+  <div class="browser-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">Network · recursos cargados</span></div>
+  <div class="devtools">
+    <div class="web-pane"><h3>Resultado visual</h3><p>Si falta CSS o JS, aquí veremos síntomas.</p></div>
+    <div class="dev-pane"><div class="dev-tabs"><span class="dev-tab">Console</span><span class="dev-tab">Elements</span><span class="dev-tab active-network">Network</span></div><div class="dev-content"><table class="network-table"><thead><tr><th>Name</th><th>Status</th><th>Type</th></tr></thead><tbody><tr><td>index.html</td><td class="status-ok">200</td><td>document</td></tr><tr><td>estilos.css</td><td class="status-bad">404</td><td>stylesheet</td></tr><tr><td>script.js</td><td class="status-ok">200</td><td>script</td></tr></tbody></table></div></div>
+  </div>
+</div>
+</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>19</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s20">
+    <div class="slide-inner">
+      <h2>Demostración: comprobar archivos cargados</h2>
+      
+<div class="grid-2">
+  <div class="card"><h3>Pasos</h3><ol><li>Abrir DevTools.</li><li>Ir a Network.</li><li>Recargar la página.</li><li>Buscar <code>index.html</code>.</li><li>Buscar <code>estilos.css</code>.</li><li>Buscar <code>script.js</code>.</li><li>Comprobar el estado.</li></ol></div>
+  <div class="grid-2"><div class="correcto"><h3>200</h3><p>Archivo cargado correctamente.</p></div><div class="error-tipico"><h3>404</h3><p>Chrome no encontró el archivo.</p></div></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>20</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s21">
+    <div class="slide-inner">
+      <h2>Error preparado · CSS con ruta incorrecta</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">HTML incorrecto</div><pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;estilos.css&quot;&gt;</code></pre></div>
+  <div><div class="mini-title">Corrección</div><pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/estilos.css&quot;&gt;</code></pre></div>
+</div>
+<div class="ejercicio" style="margin-top:24px;"><strong>Actividad:</strong> recarga, abre Network, busca <code>estilos.css</code>, comprueba si aparece 404, corrige la ruta y recarga de nuevo.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>21</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s22">
+    <div class="slide-inner">
+      <h2>Error preparado · JavaScript con ruta incorrecta</h2>
+      
+<div class="two-code">
+  <div><div class="mini-title">HTML incorrecto</div><pre><code class="language-html">&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code></pre></div>
+  <div><div class="mini-title">Corrección</div><pre><code class="language-html">&lt;script src=&quot;js/script.js&quot;&gt;&lt;/script&gt;</code></pre></div>
+</div>
+<div class="idea-clave" style="margin-top:24px;">Console ayuda a ver si JavaScript se ejecuta. Network ayuda a ver si el archivo JavaScript se ha cargado.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>22</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s23">
+    <div class="slide-inner">
+      <h2>Console, Elements y Network: diferencias</h2>
+      
+<div class="grid-3">
+  <div class="tool-card console"><h3>Console</h3><p>¿Hay mensajes o errores de JavaScript?</p></div>
+  <div class="tool-card network"><h3>Network</h3><p>¿Se han cargado los archivos necesarios?</p></div>
+  <div class="tool-card elements"><h3>Elements</h3><p>¿Qué HTML y qué CSS está usando Chrome?</p></div>
+</div>
+<div class="aviso" style="margin-top:28px;"><strong>Ejemplo:</strong> si no se aplica el CSS, Console puede no mostrar nada, Network puede mostrar un 404 y Elements puede mostrar que no hay estilos aplicados.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>23</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s24">
+    <div class="slide-inner">
+      <h2>Método básico cuando algo falla</h2>
+      
+<div class="big-flow"><div class="flow-node">Guardar</div><div class="flow-arrow">→</div><div class="flow-node">Recargar</div><div class="flow-arrow">→</div><div class="flow-node">Console</div><div class="flow-arrow">→</div><div class="flow-node">Network</div><div class="flow-arrow">→</div><div class="flow-node">Elements</div><div class="flow-arrow">→</div><div class="flow-node">Corregir</div></div>
+<div class="idea-clave">No se corrige a ciegas. Primero se observa, después se decide qué cambiar.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>24</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s25">
+    <div class="slide-inner">
+      <h2>Diagnóstico guiado 1 · El fondo no cambia</h2>
+      
+<div class="question-box">Caso: el fondo de la página no cambia.</div>
+<div class="grid-2" style="margin-top:24px;">
+  <div class="card"><h3>Preguntas</h3><ul><li>¿He guardado?</li><li>¿Está bien el <code>link</code> del CSS?</li><li>¿Qué dice Network?</li><li>¿Elements muestra estilos aplicados?</li></ul></div>
+  <div class="answer-box"><h3>Ruta probable</h3><ol><li>Guardar.</li><li>Revisar <code>href</code>.</li><li>Buscar <code>estilos.css</code> en Network.</li><li>Revisar estilos en Elements.</li></ol></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>25</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s26">
+    <div class="slide-inner">
+      <h2>Diagnóstico guiado 2 · console.log() no aparece</h2>
+      
+<div class="question-box">Caso: el mensaje de <code>console.log()</code> no aparece.</div>
+<div class="grid-2" style="margin-top:24px;">
+  <div class="card"><h3>Preguntas</h3><ul><li>¿He guardado <code>script.js</code>?</li><li>¿He recargado Chrome?</li><li>¿La ruta del script es correcta?</li><li>¿Network carga el JS?</li></ul></div>
+  <div class="answer-box"><h3>Ruta probable</h3><ol><li>Guardar.</li><li>Recargar.</li><li>Mirar Console.</li><li>Mirar Network.</li><li>Revisar <code>src</code> en HTML.</li></ol></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>26</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s27">
+    <div class="slide-inner">
+      <h2>Diagnóstico guiado 3 · Una clase no se aplica</h2>
+      
+<div class="two-code">
+  <div><pre><code class="language-css">.aviso {
+  color: red;
+}</code></pre></div>
+  <div><pre><code class="language-html">&lt;p class=&quot;abiso&quot;&gt;Texto de aviso&lt;/p&gt;</code></pre></div>
+</div>
+<div class="answer-box" style="margin-top:24px;">Elements permite ver que el párrafo tiene <code>class="abiso"</code>, pero el CSS define <code>.aviso</code>.</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>27</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s28">
+    <div class="slide-inner">
+      <h2>Mini práctica final</h2>
+      
+<div class="reto">
+  <h3>Proyecto con errores preparados</h3>
+  <ul class="checklist"><li>Un CSS que no carga.</li><li>Un JavaScript que no carga.</li><li>Una clase CSS mal escrita.</li><li>Un <code>console.log()</code> con error.</li><li>Un cambio que no aparece porque no se ha guardado.</li></ul>
+</div>
+<ol style="margin-top:24px;"><li>Abrir la página en Chrome.</li><li>Abrir DevTools.</li><li>Localizar los errores.</li><li>Anotar qué pestaña ayudó.</li><li>Corregir en VS Code.</li><li>Comprobar de nuevo.</li></ol>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>28</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s29">
+    <div class="slide-inner">
+      <h2>Plantilla de registro de errores</h2>
+      
+<div class="card">
+  <p><strong>Error detectado:</strong> ____________________________________</p>
+  <p><strong>Qué ocurre:</strong> ____________________________________</p>
+  <p><strong>Dónde lo he visto:</strong> □ Console &nbsp; □ Elements &nbsp; □ Network &nbsp; □ VS Code</p>
+  <p><strong>Archivo afectado:</strong> ____________________________________</p>
+  <p><strong>Línea aproximada:</strong> ____________________________________</p>
+  <p><strong>Causa probable:</strong> ____________________________________</p>
+  <p><strong>Corrección aplicada:</strong> ____________________________________</p>
+  <p><strong>Resultado:</strong> ____________________________________</p>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>29</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s30">
+    <div class="slide-inner">
+      <h2>Checklist final</h2>
+      
+<ul class="checklist">
+  <li>Sé abrir DevTools.</li>
+  <li>Sé abrir Console.</li>
+  <li>Sé ver mensajes de <code>console.log()</code>.</li>
+  <li>Sé localizar un error básico de JavaScript.</li>
+  <li>Sé inspeccionar un elemento HTML.</li>
+  <li>Sé ver estilos aplicados.</li>
+  <li>Sé abrir Network.</li>
+  <li>Sé detectar un archivo CSS que no carga.</li>
+  <li>Sé detectar un archivo JS que no carga.</li>
+  <li>Sé seguir un orden básico de diagnóstico.</li>
+</ul>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>30</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s31">
+    <div class="slide-inner">
+      <h2>Cierre del bloque</h2>
+      
+<div class="idea-clave">
+  Chrome no solo sirve para ver la página.<br><br>
+  También sirve para preguntar: ¿qué ha cargado?, ¿qué no ha cargado?, ¿qué error aparece?, ¿dónde está el fallo?
+</div>
+<div class="correcto" style="margin-top:28px;">
+  <strong>Frase final:</strong><br>
+  Programar no es escribir código y esperar que funcione. Programar también es comprobar, leer errores y corregir.
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>31</span></div>
+    </div>
+  </section>
+  <section class="slide " id="s32">
+    <div class="slide-inner">
+      <h2>Errores preparados recomendados</h2>
+      
+<div class="err-grid">
+  <div class="err-item"><strong>CSS mal enlazado</strong><br><code>href="estilos.css"</code> en vez de <code>css/estilos.css</code></div>
+  <div class="err-item"><strong>JS mal enlazado</strong><br><code>src="script.js"</code> en vez de <code>js/script.js</code></div>
+  <div class="err-item"><strong>Clase mal escrita</strong><br><code>.destacado</code> / <code>class="desctacado"</code></div>
+  <div class="err-item"><strong>Variable no definida</strong><br><code>console.log(nombre);</code></div>
+  <div class="err-item"><strong>Error de sintaxis</strong><br><code>console.log("Hola";</code></div>
+  <div class="err-item"><strong>No guardar</strong><br>El cambio existe en VS Code, pero no en Chrome.</div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 3 · Chrome DevTools</span><span>32</span></div>
+    </div>
+  </section>
+</body>
+</html>

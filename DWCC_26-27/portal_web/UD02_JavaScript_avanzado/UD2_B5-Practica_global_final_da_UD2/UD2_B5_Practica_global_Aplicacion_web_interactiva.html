@@ -1,0 +1,3226 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   UD2_B5 &middot; Pr&aacute;ctica global final: aplicaci&oacute;n web interactiva
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="../../assets/css/smpp.css" rel="stylesheet"/>
+  <script defer src="../../assets/js/smpp.js">
+  </script>
+ </head>
+ <body>
+  <div class="smpp-scope">
+   <main class="main-content has-sidebar practice-page global-practice-page celebration-page final-project-page">
+    <div class="content-layout">
+     <aside aria-label="&Iacute;ndice del documento" class="section-sidebar">
+      <nav aria-label="Secciones del documento" class="section-nav">
+       <p class="section-nav-title">
+        <i aria-hidden="true" class="bi bi-list-ul">
+        </i>
+        &Iacute;ndice del documento
+       </p>
+       <ol class="section-nav-list">
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#1-finalidad-de-la-practica">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-flag">
+           </i>
+          </span>
+          1. Finalidad de la pr&aacute;ctica
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#2-diferencia-con-la-practica-global-de-ud2-b4">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-arrow-left-right">
+           </i>
+          </span>
+          2. Diferencia con la pr&aacute;ctica global de UD2_B4
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#3-aplicacion-que-se-va-a-construir">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-window-stack">
+           </i>
+          </span>
+          3. Aplicaci&oacute;n que se va a construir
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#4-contenidos-evaluados">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-journal-check">
+           </i>
+          </span>
+          4. Contenidos evaluados
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#5-estructura-obligatoria-del-proyecto">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-folder2-open">
+           </i>
+          </span>
+          5. Estructura obligatoria del proyecto
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#6-archivo-datos-recursos-json">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-filetype-json">
+           </i>
+          </span>
+          6. Archivo datos/recursos.json
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#7-datos-de-usuario-que-se-guardaran-en-localstorage">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-database-check">
+           </i>
+          </span>
+          7. Datos de usuario que se guardar&aacute;n en localStorage
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#8-requisitos-de-la-interfaz-html">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-filetype-html">
+           </i>
+          </span>
+          8. Requisitos de la interfaz HTML
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#9-secuencia-recomendada-de-trabajo">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-signpost-split">
+           </i>
+          </span>
+          9. Secuencia recomendada de trabajo
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#10-funciones-esperadas">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-braces">
+           </i>
+          </span>
+          10. Funciones esperadas
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#11-carga-de-datos-con-fetch">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-cloud-arrow-down">
+           </i>
+          </span>
+          11. Carga de datos con fetch
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#12-mensajes-de-estado">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-chat-left-text">
+           </i>
+          </span>
+          12. Mensajes de estado
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#13-renderizado-de-recursos">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-layout-text-window-reverse">
+           </i>
+          </span>
+          13. Renderizado de recursos
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#14-seguimiento-personal-de-cada-recurso">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-clipboard2-check">
+           </i>
+          </span>
+          14. Seguimiento personal de cada recurso
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#15-guardar-y-recuperar-con-localstorage">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-database-check">
+           </i>
+          </span>
+          15. Guardar y recuperar con localStorage
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#16-buscar-filtrar-y-ordenar">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-funnel">
+           </i>
+          </span>
+          16. Buscar, filtrar y ordenar
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#17-estadisticas">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-bar-chart">
+           </i>
+          </span>
+          17. Estad&iacute;sticas
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#18-formulario-para-anadir-recurso-personalizado">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-ui-checks">
+           </i>
+          </span>
+          18. Formulario para a&ntilde;adir recurso personalizado
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#19-eventos-obligatorios">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-cursor">
+           </i>
+          </span>
+          19. Eventos obligatorios
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#20-exportar-estado-a-json">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-chat-left-text">
+           </i>
+          </span>
+          20. Exportar estado a JSON
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#21-reiniciar-seguimiento">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-clipboard2-check">
+           </i>
+          </span>
+          21. Reiniciar seguimiento
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#22-estilos-minimos-obligatorios">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-palette">
+           </i>
+          </span>
+          22. Estilos m&iacute;nimos obligatorios
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#23-requisitos-tecnicos-obligatorios">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-check2-circle">
+           </i>
+          </span>
+          23. Requisitos t&eacute;cnicos obligatorios
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#24-restricciones">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-slash-circle">
+           </i>
+          </span>
+          24. Restricciones
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#25-pruebas-obligatorias">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-bug">
+           </i>
+          </span>
+          25. Pruebas obligatorias
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#26-entrega">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-send-check">
+           </i>
+          </span>
+          26. Entrega
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#27-explicacion-final-obligatoria">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-pencil-square">
+           </i>
+          </span>
+          27. Explicaci&oacute;n final obligatoria
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#28-rubrica-orientativa">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-clipboard-check">
+           </i>
+          </span>
+          28. R&uacute;brica orientativa
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#29-lista-de-comprobacion-final">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-check2-square">
+           </i>
+          </span>
+          29. Lista de comprobaci&oacute;n final
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#30-ampliaciones-opcionales">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-stars">
+           </i>
+          </span>
+          30. Ampliaciones opcionales
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#31-contenidos-que-quedan-fuera-de-esta-practica">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-journal-check">
+           </i>
+          </span>
+          31. Contenidos que quedan fuera de esta pr&aacute;ctica
+         </a>
+        </li>
+        <li class="section-nav-item">
+         <a class="section-nav-link badge-link" href="#32-resumen-final">
+          <span aria-hidden="true" class="section-nav-icon">
+           <i class="bi bi-award">
+           </i>
+          </span>
+          32. Resumen final
+         </a>
+        </li>
+       </ol>
+      </nav>
+     </aside>
+     <div class="content-wrapper">
+      <nav aria-label="Acciones del documento" class="main-header">
+       <a class="nav-link" href="../../index.html">
+        <i aria-hidden="true" class="bi bi-house-door">
+        </i>
+        Volver al &iacute;ndice
+       </a>
+       <button aria-label="Cambiar a modo oscuro" aria-pressed="false" data-update-text="true" id="theme-toggle" type="button">
+        🌙 Modo oscuro
+       </button>
+      </nav>
+      <header class="content-header celebration-header final-project-header">
+       <h1>
+        <i aria-hidden="true" class="bi bi-stars">
+        </i>
+        UD2_B5. Pr&aacute;ctica global final: aplicaci&oacute;n web interactiva con seguimiento de recursos
+       </h1>
+       <p class="celebration-subtitle">
+        Pr&aacute;ctica global final de cierre de la UD2: integraci&oacute;n, persistencia local y seguimiento personal de recursos.
+       </p>
+      </header>
+      <section class="content-section practice-step-section global-practice-section celebration-section milestone-section" id="1-finalidad-de-la-practica">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-flag">
+         </i>
+        </span>
+        1. Finalidad de la pr&aacute;ctica
+       </h2>
+       <p>
+        Esta pr&aacute;ctica sirve como cierre de la
+        <strong>
+         UD2: JavaScript avanzado en entorno cliente
+        </strong>
+        .
+       </p>
+       <p>
+        El objetivo es construir una aplicaci&oacute;n web completa que integre los contenidos trabajados en la unidad y que no se limite a cargar datos y pintarlos en pantalla. La aplicaci&oacute;n deber&aacute; permitir al usuario interactuar con esos datos, modificar su estado, conservar parte de esa informaci&oacute;n en el navegador y explicar t&eacute;cnicamente las decisiones tomadas.
+       </p>
+       <p>
+        En esta pr&aacute;ctica vas a demostrar que sabes:
+       </p>
+       <ul class="custom-list">
+        <li>
+         trabajar con objetos y arrays de objetos;
+        </li>
+        <li>
+         cargar datos externos en formato JSON usando
+         <code>
+          fetch
+         </code>
+         ;
+        </li>
+        <li>
+         usar
+         <code>
+          async
+         </code>
+         /
+         <code>
+          await
+         </code>
+         y
+         <code>
+          try...catch
+         </code>
+         ;
+        </li>
+        <li>
+         comprobar
+         <code>
+          response.ok
+         </code>
+         antes de leer la respuesta;
+        </li>
+        <li>
+         convertir una respuesta HTTP en datos JavaScript con
+         <code>
+          await response.json()
+         </code>
+         ;
+        </li>
+        <li>
+         renderizar contenido din&aacute;mico en el DOM;
+        </li>
+        <li>
+         gestionar eventos en elementos est&aacute;ticos y generados din&aacute;micamente;
+        </li>
+        <li>
+         validar formularios;
+        </li>
+        <li>
+         filtrar, ordenar, buscar y calcular estad&iacute;sticas;
+        </li>
+        <li>
+         usar
+         <code>
+          localStorage
+         </code>
+         para conservar informaci&oacute;n del usuario;
+        </li>
+        <li>
+         separar el c&oacute;digo en funciones con responsabilidades claras;
+        </li>
+        <li>
+         probar, depurar y justificar el funcionamiento de la aplicaci&oacute;n.
+        </li>
+       </ul>
+       <p>
+        No se trata de copiar c&oacute;digo de apuntes anteriores. La pr&aacute;ctica debe funcionar como una aplicaci&oacute;n propia y debe poder explicarse.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section milestone-section" id="2-diferencia-con-la-practica-global-de-ud2-b4">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-arrow-left-right">
+         </i>
+        </span>
+        2. Diferencia con la pr&aacute;ctica global de UD2_B4
+       </h2>
+       <p>
+        La pr&aacute;ctica global de UD2_B4 se centraba principalmente en cargar datos con
+        <code>
+         fetch
+        </code>
+        , mostrarlos en tarjetas, filtrarlos y a&ntilde;adir un recurso visualmente.
+       </p>
+       <p>
+        Esta pr&aacute;ctica final sube un nivel:
+       </p>
+       <ul class="custom-list">
+        <li>
+         el fichero JSON ser&aacute; el
+         <strong>
+          cat&aacute;logo base
+         </strong>
+         de recursos;
+        </li>
+        <li>
+         el usuario podr&aacute; marcar recursos como favoritos;
+        </li>
+        <li>
+         el usuario podr&aacute; cambiar el estado de cada recurso: pendiente, en progreso o completado;
+        </li>
+        <li>
+         el usuario podr&aacute; guardar una nota personal asociada a un recurso;
+        </li>
+        <li>
+         esa informaci&oacute;n personal se guardar&aacute; en
+         <code>
+          localStorage
+         </code>
+         ;
+        </li>
+        <li>
+         se calcular&aacute;n estad&iacute;sticas combinando datos del JSON y datos guardados por el usuario;
+        </li>
+        <li>
+         se a&ntilde;adir&aacute; una peque&ntilde;a zona de exportaci&oacute;n o depuraci&oacute;n con
+         <code>
+          JSON.stringify()
+         </code>
+         y
+         <code>
+          JSON.parse()
+         </code>
+         ;
+        </li>
+        <li>
+         se entregar&aacute; una explicaci&oacute;n t&eacute;cnica final.
+        </li>
+       </ul>
+       <p>
+        Por tanto, esta pr&aacute;ctica no consiste solo en
+        <strong>
+         consultar y mostrar datos
+        </strong>
+        , sino en crear una peque&ntilde;a aplicaci&oacute;n interactiva de seguimiento.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section milestone-section" id="3-aplicacion-que-se-va-a-construir">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-window-stack">
+         </i>
+        </span>
+        3. Aplicaci&oacute;n que se va a construir
+       </h2>
+       <p>
+        Vas a crear una aplicaci&oacute;n llamada:
+       </p>
+       <blockquote class="note-box">
+        <p>
+         <strong>
+          Panel personal de recursos de aprendizaje
+         </strong>
+        </p>
+       </blockquote>
+       <p>
+        La aplicaci&oacute;n cargar&aacute; una lista de recursos desde un archivo JSON y permitir&aacute; al usuario gestionar su propio seguimiento.
+       </p>
+       <p>
+        La aplicaci&oacute;n deber&aacute; permitir:
+       </p>
+       <ol class="custom-ordered-list">
+        <li>
+         Cargar recursos desde
+         <code>
+          datos/recursos.json
+         </code>
+         usando
+         <code>
+          fetch
+         </code>
+         .
+        </li>
+        <li>
+         Mostrar los recursos en tarjetas creadas desde JavaScript.
+        </li>
+        <li>
+         Buscar recursos por texto.
+        </li>
+        <li>
+         Filtrar por tipo.
+        </li>
+        <li>
+         Filtrar por dificultad.
+        </li>
+        <li>
+         Filtrar por estado personal: pendiente, en progreso o completado.
+        </li>
+        <li>
+         Mostrar solo favoritos.
+        </li>
+        <li>
+         Ordenar por t&iacute;tulo, duraci&oacute;n o dificultad.
+        </li>
+        <li>
+         Cambiar el estado personal de un recurso.
+        </li>
+        <li>
+         Marcar y desmarcar recursos como favoritos.
+        </li>
+        <li>
+         Escribir una nota personal breve en cada recurso.
+        </li>
+        <li>
+         Guardar progreso, favoritos y notas en
+         <code>
+          localStorage
+         </code>
+         .
+        </li>
+        <li>
+         Restaurar autom&aacute;ticamente esa informaci&oacute;n al recargar la p&aacute;gina.
+        </li>
+        <li>
+         Mostrar estad&iacute;sticas generales y de progreso.
+        </li>
+        <li>
+         Exportar en consola el estado actual de la aplicaci&oacute;n en formato JSON.
+        </li>
+        <li>
+         Validar un formulario para a&ntilde;adir un recurso personalizado durante la sesi&oacute;n.
+        </li>
+        <li>
+         Mostrar mensajes de carga, error, confirmaci&oacute;n y resultado vac&iacute;o.
+        </li>
+       </ol>
+       <p>
+        Los recursos personalizados a&ntilde;adidos desde el formulario s&iacute; se conservar&aacute;n en
+        <code>
+         localStorage
+        </code>
+        , pero no se modificar&aacute;n f&iacute;sicamente en el archivo
+        <code>
+         recursos.json
+        </code>
+        .
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="4-contenidos-evaluados">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-journal-check">
+         </i>
+        </span>
+        4. Contenidos evaluados
+       </h2>
+       <div class="table-wrapper">
+        <table class="content-table">
+         <thead>
+          <tr>
+           <th>
+            Bloque
+           </th>
+           <th>
+            Contenidos aplicados
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            UD2_B1
+           </td>
+           <td>
+            Objetos, arrays de objetos,
+            <code>
+             map
+            </code>
+            ,
+            <code>
+             filter
+            </code>
+            ,
+            <code>
+             reduce
+            </code>
+            ,
+            <code>
+             find
+            </code>
+            ,
+            <code>
+             some
+            </code>
+            ,
+            <code>
+             every
+            </code>
+            ,
+            <code>
+             sort
+            </code>
+            , destructuring, spread/rest, JSON.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            UD2_B2
+           </td>
+           <td>
+            DOM, selecci&oacute;n de elementos, creaci&oacute;n de nodos, modificaci&oacute;n de contenido, clases, atributos y renderizado din&aacute;mico.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            UD2_B3
+           </td>
+           <td>
+            Eventos, formularios,
+            <code>
+             input
+            </code>
+            ,
+            <code>
+             change
+            </code>
+            ,
+            <code>
+             click
+            </code>
+            ,
+            <code>
+             submit
+            </code>
+            ,
+            <code>
+             preventDefault
+            </code>
+            , validaci&oacute;n y mensajes.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            UD2_B4
+           </td>
+           <td>
+            Asincron&iacute;a, promesas,
+            <code>
+             fetch
+            </code>
+            ,
+            <code>
+             async
+            </code>
+            /
+            <code>
+             await
+            </code>
+            ,
+            <code>
+             .json()
+            </code>
+            ,
+            <code>
+             response.ok
+            </code>
+            ,
+            <code>
+             try...catch
+            </code>
+            , estados de carga y error.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            UD2_B4b
+           </td>
+           <td>
+            <code>
+             localStorage
+            </code>
+            , serializaci&oacute;n con
+            <code>
+             JSON.stringify()
+            </code>
+            y recuperaci&oacute;n con
+            <code>
+             JSON.parse()
+            </code>
+            .
+           </td>
+          </tr>
+          <tr>
+           <td>
+            UD2_B4c
+           </td>
+           <td>
+            AJAX como concepto: petici&oacute;n de datos sin recargar toda la p&aacute;gina.
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="5-estructura-obligatoria-del-proyecto">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-folder2-open">
+         </i>
+        </span>
+        5. Estructura obligatoria del proyecto
+       </h2>
+       <p>
+        Crea una carpeta llamada:
+       </p>
+       <div class="example-block">
+        <pre class="code-text"><code class="language-text">UD2_B5_practica_global_panel_recursos
+</code></pre>
+       </div>
+       <p>
+        Dentro debe tener esta estructura m&iacute;nima:
+       </p>
+       <div class="example-block">
+        <pre class="code-text"><code class="language-text">UD2_B5_practica_global_panel_recursos/
+&boxvr;&boxh;&boxh; index.html
+&boxvr;&boxh;&boxh; styles.css
+&boxvr;&boxh;&boxh; script.js
+&boxur;&boxh;&boxh; datos/
+    &boxur;&boxh;&boxh; recursos.json
+</code></pre>
+       </div>
+       <p>
+        Puedes a&ntilde;adir m&aacute;s archivos si lo necesitas, pero estos cuatro son obligatorios.
+       </p>
+       <p>
+        La aplicaci&oacute;n debe ejecutarse con
+        <strong>
+         Live Server
+        </strong>
+        o con un servidor local equivalente. No abras
+        <code>
+         index.html
+        </code>
+        directamente con doble clic, porque
+        <code>
+         fetch
+        </code>
+        puede fallar al leer un archivo JSON local.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="6-archivo-datos-recursos-json">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-filetype-json">
+         </i>
+        </span>
+        6. Archivo
+        <code>
+         datos/recursos.json
+        </code>
+       </h2>
+       <p>
+        Crea el archivo
+        <code>
+         datos/recursos.json
+        </code>
+        con este contenido inicial.
+       </p>
+       <p>
+        Debe contener al menos
+        <strong>
+         8 recursos
+        </strong>
+        .
+       </p>
+       <div class="example-block">
+        <pre class="code-json"><code class="language-json">[
+  {
+    "id": 1,
+    "titulo": "Sintaxis b&aacute;sica de JavaScript",
+    "tipo": "apuntes",
+    "dificultad": "basica",
+    "duracion": 45,
+    "etiquetas": ["variables", "tipos", "consola"],
+    "publicado": true
+  },
+  {
+    "id": 2,
+    "titulo": "Ejercicios de condicionales y bucles",
+    "tipo": "ejercicios",
+    "dificultad": "basica",
+    "duracion": 60,
+    "etiquetas": ["if", "for", "while"],
+    "publicado": true
+  },
+  {
+    "id": 3,
+    "titulo": "Funciones y arrays",
+    "tipo": "practica",
+    "dificultad": "media",
+    "duracion": 90,
+    "etiquetas": ["funciones", "arrays", "return"],
+    "publicado": true
+  },
+  {
+    "id": 4,
+    "titulo": "DOM b&aacute;sico",
+    "tipo": "apuntes",
+    "dificultad": "media",
+    "duracion": 75,
+    "etiquetas": ["DOM", "querySelector", "createElement"],
+    "publicado": true
+  },
+  {
+    "id": 5,
+    "titulo": "Eventos y formularios",
+    "tipo": "practica",
+    "dificultad": "media",
+    "duracion": 120,
+    "etiquetas": ["eventos", "formularios", "validacion"],
+    "publicado": true
+  },
+  {
+    "id": 6,
+    "titulo": "Consulta de datos JSON con fetch",
+    "tipo": "practica",
+    "dificultad": "avanzada",
+    "duracion": 120,
+    "etiquetas": ["fetch", "JSON", "async"],
+    "publicado": true
+  },
+  {
+    "id": 7,
+    "titulo": "Persistencia b&aacute;sica con localStorage",
+    "tipo": "apuntes",
+    "dificultad": "media",
+    "duracion": 70,
+    "etiquetas": ["localStorage", "JSON.stringify", "JSON.parse"],
+    "publicado": true
+  },
+  {
+    "id": 8,
+    "titulo": "Aplicaci&oacute;n din&aacute;mica con filtros",
+    "tipo": "proyecto",
+    "dificultad": "avanzada",
+    "duracion": 150,
+    "etiquetas": ["DOM", "filter", "sort", "renderizado"],
+    "publicado": false
+  }
+]
+</code></pre>
+       </div>
+       <p>
+        Cada recurso debe tener obligatoriamente estas propiedades:
+       </p>
+       <ul class="custom-list">
+        <li>
+         <code>
+          id
+         </code>
+         ;
+        </li>
+        <li>
+         <code>
+          titulo
+         </code>
+         ;
+        </li>
+        <li>
+         <code>
+          tipo
+         </code>
+         ;
+        </li>
+        <li>
+         <code>
+          dificultad
+         </code>
+         ;
+        </li>
+        <li>
+         <code>
+          duracion
+         </code>
+         ;
+        </li>
+        <li>
+         <code>
+          etiquetas
+         </code>
+         ;
+        </li>
+        <li>
+         <code>
+          publicado
+         </code>
+         .
+        </li>
+       </ul>
+       <p>
+        No cambies los nombres de las propiedades, porque el JavaScript depender&aacute; de ellos.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="7-datos-de-usuario-que-se-guardaran-en-localstorage">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-database-check">
+         </i>
+        </span>
+        7. Datos de usuario que se guardar&aacute;n en
+        <code>
+         localStorage
+        </code>
+       </h2>
+       <p>
+        El archivo JSON contiene los datos base de los recursos. Pero el seguimiento personal del usuario se guardar&aacute; aparte.
+       </p>
+       <p>
+        Para cada recurso, se guardar&aacute; informaci&oacute;n como esta:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">{
+  estado: "pendiente",
+  favorito: false,
+  nota: ""
+}
+</code></pre>
+       </div>
+       <p>
+        Estados v&aacute;lidos:
+       </p>
+       <div class="example-block">
+        <pre class="code-text"><code class="language-text">pendiente
+en-progreso
+completado
+</code></pre>
+       </div>
+       <p>
+        Ejemplo de estructura global guardada en
+        <code>
+         localStorage
+        </code>
+        :
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">{
+  "1": {
+    estado: "completado",
+    favorito: true,
+    nota: "Repasar ejemplos de variables."
+  },
+  "2": {
+    estado: "en-progreso",
+    favorito: false,
+    nota: "Me cuesta el bucle while."
+  }
+}
+</code></pre>
+       </div>
+       <p>
+        La clave recomendada para
+        <code>
+         localStorage
+        </code>
+        ser&aacute;:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const CLAVE_SEGUIMIENTO = "ud2_b5_seguimiento_recursos";
+</code></pre>
+       </div>
+       <p>
+        Y para los recursos personalizados:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const CLAVE_RECURSOS_PERSONALES = "ud2_b5_recursos_personales";
+</code></pre>
+       </div>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="8-requisitos-de-la-interfaz-html">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-filetype-html">
+         </i>
+        </span>
+        8. Requisitos de la interfaz HTML
+       </h2>
+       <p>
+        La p&aacute;gina debe incluir, como m&iacute;nimo:
+       </p>
+       <ol class="custom-ordered-list">
+        <li>
+         Un t&iacute;tulo principal.
+        </li>
+        <li>
+         Una breve descripci&oacute;n de la aplicaci&oacute;n.
+        </li>
+        <li>
+         Una zona de mensajes para mostrar carga, error, confirmaci&oacute;n y resultado vac&iacute;o.
+        </li>
+        <li>
+         Un bot&oacute;n para recargar los datos del JSON.
+        </li>
+        <li>
+         Un bot&oacute;n para reiniciar el seguimiento guardado.
+        </li>
+        <li>
+         Un bot&oacute;n para exportar el estado actual a JSON en consola.
+        </li>
+        <li>
+         Un buscador de texto.
+        </li>
+        <li>
+         Un filtro por tipo.
+        </li>
+        <li>
+         Un filtro por dificultad.
+        </li>
+        <li>
+         Un filtro por estado personal.
+        </li>
+        <li>
+         Un control para mostrar solo favoritos.
+        </li>
+        <li>
+         Un selector de ordenaci&oacute;n.
+        </li>
+        <li>
+         Una zona de estad&iacute;sticas.
+        </li>
+        <li>
+         Una zona donde se rendericen las tarjetas de recursos.
+        </li>
+        <li>
+         Un formulario para a&ntilde;adir un recurso personalizado.
+        </li>
+       </ol>
+       <p>
+        Ejemplo orientativo de estructura:
+       </p>
+       <div class="example-block">
+        <pre class="code-html"><code class="language-html">&lt;header&gt;
+  &lt;h1&gt;Panel personal de recursos de aprendizaje&lt;/h1&gt;
+  &lt;p&gt;Aplicaci&oacute;n final de la UD2 con fetch, DOM, eventos, JSON y localStorage.&lt;/p&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;section id="mensaje" class="mensaje"&gt;&lt;/section&gt;
+
+  &lt;section class="acciones"&gt;
+    &lt;button id="btnRecargar"&gt;Recargar cat&aacute;logo&lt;/button&gt;
+    &lt;button id="btnReiniciar"&gt;Reiniciar seguimiento&lt;/button&gt;
+    &lt;button id="btnExportar"&gt;Exportar estado a JSON&lt;/button&gt;
+  &lt;/section&gt;
+
+  &lt;section class="controles"&gt;
+    &lt;label&gt;
+      Buscar:
+      &lt;input id="busqueda" type="search" placeholder="T&iacute;tulo, tipo, dificultad o etiqueta..."&gt;
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      Tipo:
+      &lt;select id="filtroTipo"&gt;
+        &lt;option value="todos"&gt;Todos los tipos&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      Dificultad:
+      &lt;select id="filtroDificultad"&gt;
+        &lt;option value="todas"&gt;Todas las dificultades&lt;/option&gt;
+        &lt;option value="basica"&gt;B&aacute;sica&lt;/option&gt;
+        &lt;option value="media"&gt;Media&lt;/option&gt;
+        &lt;option value="avanzada"&gt;Avanzada&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      Estado:
+      &lt;select id="filtroEstado"&gt;
+        &lt;option value="todos"&gt;Todos los estados&lt;/option&gt;
+        &lt;option value="pendiente"&gt;Pendiente&lt;/option&gt;
+        &lt;option value="en-progreso"&gt;En progreso&lt;/option&gt;
+        &lt;option value="completado"&gt;Completado&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      &lt;input id="soloFavoritos" type="checkbox"&gt;
+      Solo favoritos
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      Ordenar:
+      &lt;select id="ordenacion"&gt;
+        &lt;option value="titulo"&gt;T&iacute;tulo&lt;/option&gt;
+        &lt;option value="duracionAsc"&gt;Duraci&oacute;n menor a mayor&lt;/option&gt;
+        &lt;option value="duracionDesc"&gt;Duraci&oacute;n mayor a menor&lt;/option&gt;
+        &lt;option value="dificultadAsc"&gt;Dificultad menor a mayor&lt;/option&gt;
+        &lt;option value="dificultadDesc"&gt;Dificultad mayor a menor&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/label&gt;
+  &lt;/section&gt;
+
+  &lt;section id="estadisticas" class="estadisticas"&gt;&lt;/section&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;Recursos&lt;/h2&gt;
+    &lt;div id="listadoRecursos" class="listado-recursos"&gt;&lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;A&ntilde;adir recurso personalizado&lt;/h2&gt;
+
+    &lt;form id="formularioRecurso"&gt;
+      &lt;label&gt;
+        T&iacute;tulo:
+        &lt;input id="titulo" type="text"&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;
+        Tipo:
+        &lt;select id="tipo"&gt;
+          &lt;option value=""&gt;Selecciona un tipo&lt;/option&gt;
+          &lt;option value="apuntes"&gt;Apuntes&lt;/option&gt;
+          &lt;option value="ejercicios"&gt;Ejercicios&lt;/option&gt;
+          &lt;option value="practica"&gt;Pr&aacute;ctica&lt;/option&gt;
+          &lt;option value="proyecto"&gt;Proyecto&lt;/option&gt;
+          &lt;option value="video"&gt;V&iacute;deo&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;
+        Dificultad:
+        &lt;select id="dificultad"&gt;
+          &lt;option value=""&gt;Selecciona una dificultad&lt;/option&gt;
+          &lt;option value="basica"&gt;B&aacute;sica&lt;/option&gt;
+          &lt;option value="media"&gt;Media&lt;/option&gt;
+          &lt;option value="avanzada"&gt;Avanzada&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;
+        Duraci&oacute;n aproximada en minutos:
+        &lt;input id="duracion" type="number" min="1"&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;
+        Etiquetas separadas por comas:
+        &lt;input id="etiquetas" type="text" placeholder="DOM, eventos, fetch"&gt;
+      &lt;/label&gt;
+
+      &lt;button type="submit"&gt;A&ntilde;adir recurso&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+</code></pre>
+       </div>
+       <p>
+        Puedes modificar la estructura, pero no puedes eliminar funcionalidades obligatorias.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="9-secuencia-recomendada-de-trabajo">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-signpost-split">
+         </i>
+        </span>
+        9. Secuencia recomendada de trabajo
+       </h2>
+       <p>
+        Para no bloquearte, sigue este orden:
+       </p>
+       <ol class="custom-ordered-list">
+        <li>
+         Crear la estructura de carpetas y archivos.
+        </li>
+        <li>
+         Crear
+         <code>
+          recursos.json
+         </code>
+         y comprobar que es JSON v&aacute;lido.
+        </li>
+        <li>
+         Montar el HTML b&aacute;sico.
+        </li>
+        <li>
+         Seleccionar elementos del DOM en
+         <code>
+          script.js
+         </code>
+         .
+        </li>
+        <li>
+         Crear
+         <code>
+          mostrarMensaje()
+         </code>
+         .
+        </li>
+        <li>
+         Cargar recursos con
+         <code>
+          fetch
+         </code>
+         .
+        </li>
+        <li>
+         Renderizar tarjetas b&aacute;sicas.
+        </li>
+        <li>
+         A&ntilde;adir b&uacute;squeda, filtros y ordenaci&oacute;n.
+        </li>
+        <li>
+         Crear estad&iacute;sticas.
+        </li>
+        <li>
+         A&ntilde;adir seguimiento personal: estado, favorito y nota.
+        </li>
+        <li>
+         Guardar y recuperar seguimiento con
+         <code>
+          localStorage
+         </code>
+         .
+        </li>
+        <li>
+         A&ntilde;adir formulario de recurso personalizado.
+        </li>
+        <li>
+         Guardar recursos personalizados con
+         <code>
+          localStorage
+         </code>
+         .
+        </li>
+        <li>
+         A&ntilde;adir exportaci&oacute;n a JSON.
+        </li>
+        <li>
+         Probar errores y casos l&iacute;mite.
+        </li>
+        <li>
+         Mejorar estilos.
+        </li>
+        <li>
+         Preparar explicaci&oacute;n final.
+        </li>
+       </ol>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="10-funciones-esperadas">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-braces">
+         </i>
+        </span>
+        10. Funciones esperadas
+       </h2>
+       <p>
+        Tu c&oacute;digo no tiene que usar exactamente estos nombres, pero s&iacute; debe tener una organizaci&oacute;n equivalente.
+       </p>
+       <div class="example-block">
+        <pre class="code-text"><code class="language-text">cargarRecursos()
+mostrarMensaje(texto, tipo)
+leerSeguimiento()
+guardarSeguimiento()
+leerRecursosPersonales()
+guardarRecursosPersonales()
+obtenerSeguimientoRecurso(id)
+actualizarSeguimientoRecurso(id, cambios)
+crearTarjetaRecurso(recurso)
+renderizarRecursos(lista)
+obtenerRecursosVisibles()
+renderizarEstadisticas(listaVisible)
+rellenarFiltros()
+actualizarVista()
+validarFormulario()
+crearRecursoDesdeFormulario()
+generarNuevoId()
+exportarEstadoAJSON()
+reiniciarSeguimiento()
+</code></pre>
+       </div>
+       <p>
+        No concentres toda la l&oacute;gica dentro de un &uacute;nico bloque de c&oacute;digo. Una aplicaci&oacute;n final debe estar dividida en funciones peque&ntilde;as y comprensibles.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="11-carga-de-datos-con-fetch">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-cloud-arrow-down">
+         </i>
+        </span>
+        11. Carga de datos con
+        <code>
+         fetch
+        </code>
+       </h2>
+       <p>
+        En
+        <code>
+         script.js
+        </code>
+        , crea al menos estas variables globales controladas:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const CLAVE_SEGUIMIENTO = "ud2_b5_seguimiento_recursos";
+const CLAVE_RECURSOS_PERSONALES = "ud2_b5_recursos_personales";
+
+let recursosBase = [];
+let recursosPersonales = [];
+let seguimiento = {};
+</code></pre>
+       </div>
+       <p>
+        Crea una funci&oacute;n as&iacute;ncrona para cargar el cat&aacute;logo base:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">async function cargarRecursos() {
+  try {
+    mostrarMensaje("Cargando recursos...", "cargando");
+
+    const respuesta = await fetch("datos/recursos.json");
+
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP: ${respuesta.status}`);
+    }
+
+    recursosBase = await respuesta.json();
+    recursosPersonales = leerRecursosPersonales();
+    seguimiento = leerSeguimiento();
+
+    rellenarFiltros();
+    actualizarVista();
+    mostrarMensaje("Recursos cargados correctamente.", "ok");
+  } catch (error) {
+    mostrarMensaje("No se pudieron cargar los recursos: " + error.message, "error");
+    console.error("Error al cargar recursos:", error);
+  }
+}
+</code></pre>
+       </div>
+       <p>
+        Recuerda:
+       </p>
+       <ul class="custom-list">
+        <li>
+         <code>
+          fetch()
+         </code>
+         inicia la petici&oacute;n;
+        </li>
+        <li>
+         <code>
+          response.ok
+         </code>
+         permite comprobar si la respuesta HTTP es correcta;
+        </li>
+        <li>
+         <code>
+          response.json()
+         </code>
+         devuelve una promesa;
+        </li>
+        <li>
+         por eso se usa
+         <code>
+          await response.json()
+         </code>
+         ;
+        </li>
+        <li>
+         <code>
+          try...catch
+         </code>
+         captura errores de red y errores lanzados manualmente.
+        </li>
+       </ul>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="12-mensajes-de-estado">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-chat-left-text">
+         </i>
+        </span>
+        12. Mensajes de estado
+       </h2>
+       <p>
+        Crea una funci&oacute;n para mostrar mensajes de forma coherente:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function mostrarMensaje(texto, tipo = "normal") {
+  mensaje.textContent = texto;
+  mensaje.className = "mensaje";
+
+  if (tipo !== "normal") {
+    mensaje.classList.add(tipo);
+  }
+}
+</code></pre>
+       </div>
+       <p>
+        Tipos recomendados:
+       </p>
+       <div class="example-block">
+        <pre class="code-text"><code class="language-text">normal
+cargando
+ok
+error
+vacio
+</code></pre>
+       </div>
+       <p>
+        Ejemplos de uso:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">mostrarMensaje("Cargando recursos...", "cargando");
+mostrarMensaje("Recursos cargados correctamente.", "ok");
+mostrarMensaje("No hay recursos que coincidan con los filtros.", "vacio");
+mostrarMensaje("No se pudieron cargar los datos.", "error");
+</code></pre>
+       </div>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="13-renderizado-de-recursos">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-layout-text-window-reverse">
+         </i>
+        </span>
+        13. Renderizado de recursos
+       </h2>
+       <p>
+        Crea una funci&oacute;n:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function renderizarRecursos(lista) {
+  // c&oacute;digo
+}
+</code></pre>
+       </div>
+       <p>
+        Debe:
+       </p>
+       <ol class="custom-ordered-list">
+        <li>
+         Vaciar el contenedor antes de pintar.
+        </li>
+        <li>
+         Comprobar si la lista est&aacute; vac&iacute;a.
+        </li>
+        <li>
+         Crear una tarjeta por cada recurso.
+        </li>
+        <li>
+         Mostrar datos del recurso:
+         <ul class="custom-list">
+          <li>
+           t&iacute;tulo;
+          </li>
+          <li>
+           tipo;
+          </li>
+          <li>
+           dificultad;
+          </li>
+          <li>
+           duraci&oacute;n;
+          </li>
+          <li>
+           etiquetas;
+          </li>
+          <li>
+           si est&aacute; publicado o pendiente de publicaci&oacute;n.
+          </li>
+         </ul>
+        </li>
+        <li>
+         Mostrar datos personales del usuario:
+         <ul class="custom-list">
+          <li>
+           estado personal;
+          </li>
+          <li>
+           favorito;
+          </li>
+          <li>
+           nota personal.
+          </li>
+         </ul>
+        </li>
+        <li>
+         A&ntilde;adir controles interactivos en cada tarjeta:
+         <ul class="custom-list">
+          <li>
+           selector de estado;
+          </li>
+          <li>
+           checkbox de favorito;
+          </li>
+          <li>
+           campo o &aacute;rea breve para nota;
+          </li>
+          <li>
+           bot&oacute;n para guardar nota, si decides no guardar en cada pulsaci&oacute;n.
+          </li>
+         </ul>
+        </li>
+       </ol>
+       <p>
+        La tarjeta debe crearse principalmente con:
+       </p>
+       <ul class="custom-list">
+        <li>
+         <code>
+          document.createElement
+         </code>
+         ;
+        </li>
+        <li>
+         <code>
+          textContent
+         </code>
+         ;
+        </li>
+        <li>
+         <code>
+          classList
+         </code>
+         ;
+        </li>
+        <li>
+         <code>
+          append
+         </code>
+         .
+        </li>
+       </ul>
+       <p>
+        No se permite generar todas las tarjetas como un &uacute;nico bloque enorme de
+        <code>
+         innerHTML
+        </code>
+        .
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="14-seguimiento-personal-de-cada-recurso">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-clipboard2-check">
+         </i>
+        </span>
+        14. Seguimiento personal de cada recurso
+       </h2>
+       <p>
+        Crea una funci&oacute;n para obtener los datos personales de un recurso. Si todav&iacute;a no existen, debe devolver valores por defecto.
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function obtenerSeguimientoRecurso(id) {
+  if (!seguimiento[id]) {
+    seguimiento[id] = {
+      estado: "pendiente",
+      favorito: false,
+      nota: ""
+    };
+  }
+
+  return seguimiento[id];
+}
+</code></pre>
+       </div>
+       <p>
+        Cuando el usuario cambie el estado, marque favorito o escriba una nota, debes actualizar
+        <code>
+         seguimiento
+        </code>
+        y guardar los cambios en
+        <code>
+         localStorage
+        </code>
+        .
+       </p>
+       <p>
+        Ejemplo orientativo:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function actualizarSeguimientoRecurso(id, cambios) {
+  const datosActuales = obtenerSeguimientoRecurso(id);
+
+  seguimiento[id] = {
+    ...datosActuales,
+    ...cambios
+  };
+
+  guardarSeguimiento();
+  actualizarVista();
+}
+</code></pre>
+       </div>
+       <p>
+        Este patr&oacute;n usa el operador spread para combinar el estado anterior con los cambios nuevos.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="15-guardar-y-recuperar-con-localstorage">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-database-check">
+         </i>
+        </span>
+        15. Guardar y recuperar con
+        <code>
+         localStorage
+        </code>
+       </h2>
+       <p>
+        Crea funciones separadas para leer y guardar.
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function leerSeguimiento() {
+  const texto = localStorage.getItem(CLAVE_SEGUIMIENTO);
+
+  if (texto === null) {
+    return {};
+  }
+
+  return JSON.parse(texto);
+}
+
+function guardarSeguimiento() {
+  localStorage.setItem(CLAVE_SEGUIMIENTO, JSON.stringify(seguimiento));
+}
+</code></pre>
+       </div>
+       <p>
+        Haz lo mismo con los recursos personalizados:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function leerRecursosPersonales() {
+  const texto = localStorage.getItem(CLAVE_RECURSOS_PERSONALES);
+
+  if (texto === null) {
+    return [];
+  }
+
+  return JSON.parse(texto);
+}
+
+function guardarRecursosPersonales() {
+  localStorage.setItem(CLAVE_RECURSOS_PERSONALES, JSON.stringify(recursosPersonales));
+}
+</code></pre>
+       </div>
+       <p>
+        Para esta pr&aacute;ctica no es necesario capturar errores de
+        <code>
+         JSON.parse()
+        </code>
+        con
+        <code>
+         try...catch
+        </code>
+        , pero puedes hacerlo como ampliaci&oacute;n si quieres una soluci&oacute;n m&aacute;s robusta.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="16-buscar-filtrar-y-ordenar">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-funnel">
+         </i>
+        </span>
+        16. Buscar, filtrar y ordenar
+       </h2>
+       <p>
+        Crea una funci&oacute;n:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function obtenerRecursosVisibles() {
+  // c&oacute;digo
+}
+</code></pre>
+       </div>
+       <p>
+        Primero debes unir los recursos del JSON con los recursos personalizados:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const todosLosRecursos = [...recursosBase, ...recursosPersonales];
+</code></pre>
+       </div>
+       <p>
+        Despu&eacute;s aplica b&uacute;squeda, filtros y ordenaci&oacute;n.
+       </p>
+       <p>
+        La b&uacute;squeda debe funcionar, como m&iacute;nimo, sobre:
+       </p>
+       <ul class="custom-list">
+        <li>
+         t&iacute;tulo;
+        </li>
+        <li>
+         tipo;
+        </li>
+        <li>
+         dificultad;
+        </li>
+        <li>
+         etiquetas.
+        </li>
+       </ul>
+       <p>
+        Ejemplo orientativo para la b&uacute;squeda:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const textoEtiquetas = recurso.etiquetas.join(" ").toLowerCase();
+
+const coincideTexto =
+  recurso.titulo.toLowerCase().includes(texto) ||
+  recurso.tipo.toLowerCase().includes(texto) ||
+  recurso.dificultad.toLowerCase().includes(texto) ||
+  textoEtiquetas.includes(texto);
+</code></pre>
+       </div>
+       <p>
+        El filtro por estado debe consultar el seguimiento personal:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const seguimientoRecurso = obtenerSeguimientoRecurso(recurso.id);
+const coincideEstado = filtroEstado === "todos" || seguimientoRecurso.estado === filtroEstado;
+</code></pre>
+       </div>
+       <p>
+        El filtro de favoritos debe funcionar as&iacute;:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const coincideFavorito = !soloFavoritos.checked || seguimientoRecurso.favorito;
+</code></pre>
+       </div>
+       <p>
+        Para ordenar, no modifiques directamente el array original. Usa una copia:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">let resultado = [...todosLosRecursos];
+</code></pre>
+       </div>
+       <p>
+        Para ordenar por dificultad puedes usar un objeto de pesos:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const pesoDificultad = {
+  basica: 1,
+  media: 2,
+  avanzada: 3
+};
+</code></pre>
+       </div>
+       <p>
+        Y despu&eacute;s:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">if (orden === "dificultadAsc") {
+  resultado.sort((a, b) =&gt; pesoDificultad[a.dificultad] - pesoDificultad[b.dificultad]);
+}
+</code></pre>
+       </div>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="17-estadisticas">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-bar-chart">
+         </i>
+        </span>
+        17. Estad&iacute;sticas
+       </h2>
+       <p>
+        Crea una funci&oacute;n:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function renderizarEstadisticas(listaVisible) {
+  // c&oacute;digo
+}
+</code></pre>
+       </div>
+       <p>
+        Debe mostrar, como m&iacute;nimo:
+       </p>
+       <ul class="custom-list">
+        <li>
+         total de recursos del cat&aacute;logo;
+        </li>
+        <li>
+         total de recursos personalizados;
+        </li>
+        <li>
+         total de recursos visibles con los filtros actuales;
+        </li>
+        <li>
+         n&uacute;mero de favoritos visibles;
+        </li>
+        <li>
+         n&uacute;mero de recursos pendientes;
+        </li>
+        <li>
+         n&uacute;mero de recursos en progreso;
+        </li>
+        <li>
+         n&uacute;mero de recursos completados;
+        </li>
+        <li>
+         duraci&oacute;n total visible;
+        </li>
+        <li>
+         duraci&oacute;n media visible;
+        </li>
+        <li>
+         porcentaje de recursos completados.
+        </li>
+       </ul>
+       <p>
+        Debes controlar el caso de lista vac&iacute;a:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">if (listaVisible.length === 0) {
+  estadisticas.textContent = "No hay recursos visibles para calcular estad&iacute;sticas.";
+  return;
+}
+</code></pre>
+       </div>
+       <p>
+        Para evitar divisiones entre cero, calcula la media solo si hay recursos visibles.
+       </p>
+       <p>
+        Ejemplo:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const duracionTotal = listaVisible.reduce((total, recurso) =&gt; {
+  return total + recurso.duracion;
+}, 0);
+
+const duracionMedia = duracionTotal / listaVisible.length;
+</code></pre>
+       </div>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="18-formulario-para-anadir-recurso-personalizado">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-ui-checks">
+         </i>
+        </span>
+        18. Formulario para a&ntilde;adir recurso personalizado
+       </h2>
+       <p>
+        El formulario debe validar:
+       </p>
+       <div class="table-wrapper">
+        <table class="content-table">
+         <thead>
+          <tr>
+           <th>
+            Campo
+           </th>
+           <th>
+            Validaci&oacute;n m&iacute;nima
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            T&iacute;tulo
+           </td>
+           <td>
+            Obligatorio, al menos 4 caracteres.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Tipo
+           </td>
+           <td>
+            Debe estar seleccionado.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Dificultad
+           </td>
+           <td>
+            Debe estar seleccionada.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Duraci&oacute;n
+           </td>
+           <td>
+            Debe ser un n&uacute;mero mayor que 0.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Etiquetas
+           </td>
+           <td>
+            Debe haber al menos una etiqueta.
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <p>
+        Crea una funci&oacute;n:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function validarFormulario() {
+  // c&oacute;digo
+}
+</code></pre>
+       </div>
+       <p>
+        Debe devolver
+        <code>
+         true
+        </code>
+        si todo es correcto y
+        <code>
+         false
+        </code>
+        si hay errores.
+       </p>
+       <p>
+        Cuando el formulario sea correcto, crea un objeto con esta estructura:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">const nuevoRecurso = {
+  id: generarNuevoId(),
+  titulo: titulo.value.trim(),
+  tipo: tipo.value,
+  dificultad: dificultad.value,
+  duracion: Number(duracion.value),
+  etiquetas: etiquetas.value
+    .split(",")
+    .map((etiqueta) =&gt; etiqueta.trim())
+    .filter((etiqueta) =&gt; etiqueta !== ""),
+  publicado: false,
+  personalizado: true
+};
+</code></pre>
+       </div>
+       <p>
+        Usa una funci&oacute;n para generar identificadores:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function generarNuevoId() {
+  const todosLosRecursos = [...recursosBase, ...recursosPersonales];
+
+  if (todosLosRecursos.length === 0) {
+    return 1;
+  }
+
+  const ids = todosLosRecursos.map((recurso) =&gt; recurso.id);
+  return Math.max(...ids) + 1;
+}
+</code></pre>
+       </div>
+       <p>
+        Despu&eacute;s de a&ntilde;adir un recurso personalizado:
+       </p>
+       <ol class="custom-ordered-list">
+        <li>
+         A&ntilde;&aacute;delo a
+         <code>
+          recursosPersonales
+         </code>
+         .
+        </li>
+        <li>
+         Guarda
+         <code>
+          recursosPersonales
+         </code>
+         en
+         <code>
+          localStorage
+         </code>
+         .
+        </li>
+        <li>
+         Crea su seguimiento inicial si es necesario.
+        </li>
+        <li>
+         Limpia el formulario.
+        </li>
+        <li>
+         Limpia filtros para que el recurso a&ntilde;adido sea visible.
+        </li>
+        <li>
+         Actualiza la vista.
+        </li>
+        <li>
+         Muestra un mensaje de confirmaci&oacute;n.
+        </li>
+       </ol>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="19-eventos-obligatorios">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-cursor">
+         </i>
+        </span>
+        19. Eventos obligatorios
+       </h2>
+       <p>
+        Debes usar, como m&iacute;nimo:
+       </p>
+       <ul class="custom-list">
+        <li>
+         <code>
+          DOMContentLoaded
+         </code>
+         o llamada inicial equivalente;
+        </li>
+        <li>
+         <code>
+          click
+         </code>
+         en botones;
+        </li>
+        <li>
+         <code>
+          input
+         </code>
+         en b&uacute;squeda o nota personal;
+        </li>
+        <li>
+         <code>
+          change
+         </code>
+         en filtros, ordenaci&oacute;n, estado y favorito;
+        </li>
+        <li>
+         <code>
+          submit
+         </code>
+         en el formulario;
+        </li>
+        <li>
+         <code>
+          preventDefault()
+         </code>
+         en el formulario.
+        </li>
+       </ul>
+       <p>
+        Ejemplo orientativo:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">document.addEventListener("DOMContentLoaded", cargarRecursos);
+
+btnRecargar.addEventListener("click", cargarRecursos);
+busqueda.addEventListener("input", actualizarVista);
+filtroTipo.addEventListener("change", actualizarVista);
+filtroDificultad.addEventListener("change", actualizarVista);
+filtroEstado.addEventListener("change", actualizarVista);
+soloFavoritos.addEventListener("change", actualizarVista);
+ordenacion.addEventListener("change", actualizarVista);
+
+formularioRecurso.addEventListener("submit", (evento) =&gt; {
+  evento.preventDefault();
+  // validar y a&ntilde;adir recurso
+});
+</code></pre>
+       </div>
+       <p>
+        Los eventos de estado, favorito y nota pueden a&ntilde;adirse al crear cada tarjeta.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="20-exportar-estado-a-json">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-chat-left-text">
+         </i>
+        </span>
+        20. Exportar estado a JSON
+       </h2>
+       <p>
+        A&ntilde;ade una funci&oacute;n para exportar en consola el estado actual de la aplicaci&oacute;n.
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function exportarEstadoAJSON() {
+  const estadoAplicacion = {
+    recursosBase,
+    recursosPersonales,
+    seguimiento
+  };
+
+  const textoJSON = JSON.stringify(estadoAplicacion, null, 2);
+  console.log(textoJSON);
+
+  const copia = JSON.parse(textoJSON);
+  console.log("Copia recuperada:", copia);
+
+  mostrarMensaje("Estado exportado en consola.", "ok");
+}
+</code></pre>
+       </div>
+       <p>
+        Esta funci&oacute;n sirve para comprobar que entiendes:
+       </p>
+       <ul class="custom-list">
+        <li>
+         conversi&oacute;n de objetos JavaScript a texto JSON con
+         <code>
+          JSON.stringify()
+         </code>
+         ;
+        </li>
+        <li>
+         recuperaci&oacute;n de datos desde texto JSON con
+         <code>
+          JSON.parse()
+         </code>
+         .
+        </li>
+       </ul>
+       <p>
+        As&oacute;ciala al bot&oacute;n
+        <code>
+         btnExportar
+        </code>
+        .
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="21-reiniciar-seguimiento">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-clipboard2-check">
+         </i>
+        </span>
+        21. Reiniciar seguimiento
+       </h2>
+       <p>
+        A&ntilde;ade un bot&oacute;n para borrar los datos personales guardados.
+       </p>
+       <p>
+        La funci&oacute;n debe:
+       </p>
+       <ol class="custom-ordered-list">
+        <li>
+         Pedir confirmaci&oacute;n con
+         <code>
+          confirm()
+         </code>
+         .
+        </li>
+        <li>
+         Borrar las claves usadas en
+         <code>
+          localStorage
+         </code>
+         .
+        </li>
+        <li>
+         Vaciar las variables
+         <code>
+          seguimiento
+         </code>
+         y
+         <code>
+          recursosPersonales
+         </code>
+         .
+        </li>
+        <li>
+         Actualizar la vista.
+        </li>
+        <li>
+         Mostrar un mensaje de confirmaci&oacute;n.
+        </li>
+       </ol>
+       <p>
+        Ejemplo orientativo:
+       </p>
+       <div class="example-block">
+        <pre class="code-js"><code class="language-js">function reiniciarSeguimiento() {
+  const confirmar = confirm("&iquest;Seguro que quieres borrar tu seguimiento y recursos personalizados?");
+
+  if (!confirmar) {
+    return;
+  }
+
+  localStorage.removeItem(CLAVE_SEGUIMIENTO);
+  localStorage.removeItem(CLAVE_RECURSOS_PERSONALES);
+
+  seguimiento = {};
+  recursosPersonales = [];
+
+  actualizarVista();
+  mostrarMensaje("Seguimiento reiniciado.", "ok");
+}
+</code></pre>
+       </div>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="22-estilos-minimos-obligatorios">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-palette">
+         </i>
+        </span>
+        22. Estilos m&iacute;nimos obligatorios
+       </h2>
+       <p>
+        El archivo
+        <code>
+         styles.css
+        </code>
+        debe incluir, como m&iacute;nimo:
+       </p>
+       <ul class="custom-list">
+        <li>
+         estilo general de la p&aacute;gina;
+        </li>
+        <li>
+         distribuci&oacute;n clara de controles;
+        </li>
+        <li>
+         tarjetas diferenciadas;
+        </li>
+        <li>
+         estilos distintos para recursos publicados y pendientes de publicaci&oacute;n;
+        </li>
+        <li>
+         estilos para favoritos;
+        </li>
+        <li>
+         estilos para estados personales: pendiente, en progreso y completado;
+        </li>
+        <li>
+         estilos para mensajes de carga, error, confirmaci&oacute;n y vac&iacute;o;
+        </li>
+        <li>
+         dise&ntilde;o legible en pantalla.
+        </li>
+       </ul>
+       <p>
+        No se valora hacer un dise&ntilde;o espectacular. S&iacute; se valora que sea claro, ordenado y usable.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="23-requisitos-tecnicos-obligatorios">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-check2-circle">
+         </i>
+        </span>
+        23. Requisitos t&eacute;cnicos obligatorios
+       </h2>
+       <p>
+        La pr&aacute;ctica debe cumplir estos requisitos:
+       </p>
+       <ul class="custom-list">
+        <li>
+         El c&oacute;digo JavaScript debe estar en
+         <code>
+          script.js
+         </code>
+         .
+        </li>
+        <li>
+         El CSS debe estar en
+         <code>
+          styles.css
+         </code>
+         .
+        </li>
+        <li>
+         Los datos base deben estar en
+         <code>
+          datos/recursos.json
+         </code>
+         .
+        </li>
+        <li>
+         Debe usarse
+         <code>
+          fetch
+         </code>
+         para cargar el JSON.
+        </li>
+        <li>
+         Debe usarse
+         <code>
+          async
+         </code>
+         /
+         <code>
+          await
+         </code>
+         .
+        </li>
+        <li>
+         Debe comprobarse
+         <code>
+          response.ok
+         </code>
+         .
+        </li>
+        <li>
+         Debe usarse
+         <code>
+          try...catch
+         </code>
+         .
+        </li>
+        <li>
+         Debe usarse
+         <code>
+          await response.json()
+         </code>
+         .
+        </li>
+        <li>
+         Deben crearse elementos del DOM desde JavaScript.
+        </li>
+        <li>
+         Deben usarse eventos.
+        </li>
+        <li>
+         Debe haber validaci&oacute;n de formulario.
+        </li>
+        <li>
+         Deben usarse m&eacute;todos avanzados de arrays.
+        </li>
+        <li>
+         Debe haber b&uacute;squeda, filtros y ordenaci&oacute;n.
+        </li>
+        <li>
+         Debe haber estad&iacute;sticas.
+        </li>
+        <li>
+         Debe usarse
+         <code>
+          localStorage
+         </code>
+         .
+        </li>
+        <li>
+         Debe usarse
+         <code>
+          JSON.stringify()
+         </code>
+         .
+        </li>
+        <li>
+         Debe usarse
+         <code>
+          JSON.parse()
+         </code>
+         .
+        </li>
+        <li>
+         Debe haber mensajes de carga, error, confirmaci&oacute;n y resultado vac&iacute;o.
+        </li>
+        <li>
+         El c&oacute;digo debe estar organizado en funciones.
+        </li>
+       </ul>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="24-restricciones">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-slash-circle">
+         </i>
+        </span>
+        24. Restricciones
+       </h2>
+       <p>
+        En esta pr&aacute;ctica no se debe usar:
+       </p>
+       <ul class="custom-list">
+        <li>
+         frameworks;
+        </li>
+        <li>
+         librer&iacute;as externas;
+        </li>
+        <li>
+         jQuery;
+        </li>
+        <li>
+         Bootstrap obligatorio;
+        </li>
+        <li>
+         c&oacute;digo copiado sin entender;
+        </li>
+        <li>
+         backend propio;
+        </li>
+        <li>
+         APIs con clave o autenticaci&oacute;n;
+        </li>
+        <li>
+         bases de datos reales;
+        </li>
+        <li>
+         m&oacute;dulos JavaScript obligatorios;
+        </li>
+        <li>
+         herramientas de empaquetado.
+        </li>
+       </ul>
+       <p>
+        La aplicaci&oacute;n debe funcionar con HTML, CSS y JavaScript puro.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="25-pruebas-obligatorias">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-bug">
+         </i>
+        </span>
+        25. Pruebas obligatorias
+       </h2>
+       <p>
+        Antes de entregar, comprueba:
+       </p>
+       <ul class="custom-list">
+        <li>
+         La p&aacute;gina carga sin errores en consola.
+        </li>
+        <li>
+         Los datos se cargan desde
+         <code>
+          recursos.json
+         </code>
+         .
+        </li>
+        <li>
+         Si cambias mal la ruta del JSON, aparece un mensaje de error controlado.
+        </li>
+        <li>
+         La b&uacute;squeda filtra por t&iacute;tulo, tipo, dificultad o etiquetas.
+        </li>
+        <li>
+         Los filtros por tipo y dificultad funcionan.
+        </li>
+        <li>
+         El filtro por estado personal funciona.
+        </li>
+        <li>
+         El filtro de favoritos funciona.
+        </li>
+        <li>
+         La ordenaci&oacute;n funciona.
+        </li>
+        <li>
+         Las estad&iacute;sticas se actualizan al filtrar.
+        </li>
+        <li>
+         Se puede cambiar el estado personal de un recurso.
+        </li>
+        <li>
+         Se puede marcar y desmarcar favorito.
+        </li>
+        <li>
+         Se puede guardar una nota personal.
+        </li>
+        <li>
+         Al recargar la p&aacute;gina se recuperan estado, favoritos y notas.
+        </li>
+        <li>
+         El formulario no permite enviar datos vac&iacute;os.
+        </li>
+        <li>
+         El formulario a&ntilde;ade un recurso personalizado v&aacute;lido.
+        </li>
+        <li>
+         El recurso personalizado sigue existiendo al recargar la p&aacute;gina.
+        </li>
+        <li>
+         El bot&oacute;n de exportar muestra JSON en consola.
+        </li>
+        <li>
+         El bot&oacute;n de reiniciar borra seguimiento y recursos personalizados.
+        </li>
+        <li>
+         La aplicaci&oacute;n no se rompe si no hay resultados visibles.
+        </li>
+        <li>
+         No quedan promesas rechazadas sin capturar.
+        </li>
+       </ul>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="26-entrega">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-send-check">
+         </i>
+        </span>
+        26. Entrega
+       </h2>
+       <p>
+        Debes entregar un archivo comprimido con la carpeta completa del proyecto.
+       </p>
+       <p>
+        Nombre recomendado:
+       </p>
+       <div class="example-block">
+        <pre class="code-text"><code class="language-text">UD2_B5_Practica_global_Panel_recursos_Nombre_Apellidos.zip
+</code></pre>
+       </div>
+       <p>
+        La entrega debe incluir:
+       </p>
+       <div class="example-block">
+        <pre class="code-text"><code class="language-text">index.html
+styles.css
+script.js
+datos/recursos.json
+</code></pre>
+       </div>
+       <p>
+        Adem&aacute;s, incluye una breve explicaci&oacute;n final en un archivo llamado:
+       </p>
+       <div class="example-block">
+        <pre class="code-text"><code class="language-text">explicacion_final.md
+</code></pre>
+       </div>
+       <p>
+        Tambi&eacute;n debes entregar capturas donde se vea:
+       </p>
+       <ol class="custom-ordered-list">
+        <li>
+         La aplicaci&oacute;n cargada correctamente.
+        </li>
+        <li>
+         Recursos renderizados.
+        </li>
+        <li>
+         B&uacute;squeda o filtro aplicado.
+        </li>
+        <li>
+         Cambio de estado de un recurso.
+        </li>
+        <li>
+         Recurso marcado como favorito.
+        </li>
+        <li>
+         Nota personal guardada.
+        </li>
+        <li>
+         Recurso personalizado a&ntilde;adido.
+        </li>
+        <li>
+         Datos recuperados tras recargar la p&aacute;gina.
+        </li>
+        <li>
+         Exportaci&oacute;n a JSON en consola.
+        </li>
+        <li>
+         Error controlado al cambiar temporalmente la ruta del JSON.
+        </li>
+       </ol>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="27-explicacion-final-obligatoria">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-pencil-square">
+         </i>
+        </span>
+        27. Explicaci&oacute;n final obligatoria
+       </h2>
+       <p>
+        En
+        <code>
+         explicacion_final.md
+        </code>
+        , responde brevemente:
+       </p>
+       <ol class="custom-ordered-list">
+        <li>
+         &iquest;Qu&eacute; datos carga la aplicaci&oacute;n desde el JSON?
+        </li>
+        <li>
+         &iquest;Qu&eacute; informaci&oacute;n se guarda en
+         <code>
+          localStorage
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;Por qu&eacute; el recurso personalizado no modifica f&iacute;sicamente
+         <code>
+          recursos.json
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;D&oacute;nde usas
+         <code>
+          fetch
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;D&oacute;nde usas
+         <code>
+          async
+         </code>
+         /
+         <code>
+          await
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;D&oacute;nde compruebas
+         <code>
+          response.ok
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;D&oacute;nde usas
+         <code>
+          JSON.stringify()
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;D&oacute;nde usas
+         <code>
+          JSON.parse()
+         </code>
+         ?
+        </li>
+        <li>
+         &iquest;Qu&eacute; m&eacute;todos de array has usado y para qu&eacute;?
+        </li>
+        <li>
+         &iquest;Qu&eacute; eventos principales usa tu aplicaci&oacute;n?
+        </li>
+        <li>
+         &iquest;Qu&eacute; error te cost&oacute; m&aacute;s resolver?
+        </li>
+        <li>
+         &iquest;Qu&eacute; mejorar&iacute;as si tuvieras m&aacute;s tiempo?
+        </li>
+       </ol>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="28-rubrica-orientativa">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-clipboard-check">
+         </i>
+        </span>
+        28. R&uacute;brica orientativa
+       </h2>
+       <div class="table-wrapper">
+        <table class="content-table rubric-table">
+         <thead>
+          <tr>
+           <th>
+            Criterio
+           </th>
+           <th>
+            Peso
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            Estructura correcta del proyecto y JSON v&aacute;lido
+           </td>
+           <td>
+            10 %
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Carga de datos con
+            <code>
+             fetch
+            </code>
+            ,
+            <code>
+             async
+            </code>
+            /
+            <code>
+             await
+            </code>
+            ,
+            <code>
+             response.ok
+            </code>
+            y
+            <code>
+             try...catch
+            </code>
+           </td>
+           <td>
+            15 %
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Renderizado din&aacute;mico en el DOM
+           </td>
+           <td>
+            15 %
+           </td>
+          </tr>
+          <tr>
+           <td>
+            B&uacute;squeda, filtros y ordenaci&oacute;n
+           </td>
+           <td>
+            10 %
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Seguimiento personal: estado, favorito y nota
+           </td>
+           <td>
+            15 %
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Persistencia con
+            <code>
+             localStorage
+            </code>
+            ,
+            <code>
+             JSON.stringify()
+            </code>
+            y
+            <code>
+             JSON.parse()
+            </code>
+           </td>
+           <td>
+            15 %
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Formulario de recurso personalizado y validaci&oacute;n
+           </td>
+           <td>
+            10 %
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Estad&iacute;sticas y m&eacute;todos de arrays
+           </td>
+           <td>
+            5 %
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Claridad visual, pruebas y explicaci&oacute;n final
+           </td>
+           <td>
+            5 %
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="29-lista-de-comprobacion-final">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-check2-square">
+         </i>
+        </span>
+        29. Lista de comprobaci&oacute;n final
+       </h2>
+       <p>
+        Antes de entregar, revisa:
+       </p>
+       <ul class="checklist-list">
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         El proyecto tiene la estructura solicitada.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Los archivos est&aacute;n correctamente enlazados.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         El JSON tiene al menos 8 recursos.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Los datos se cargan con
+         <code>
+          fetch
+         </code>
+         .
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se usa
+         <code>
+          async
+         </code>
+         /
+         <code>
+          await
+         </code>
+         .
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se comprueba
+         <code>
+          response.ok
+         </code>
+         .
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se usa
+         <code>
+          await response.json()
+         </code>
+         .
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se gestionan errores con
+         <code>
+          try...catch
+         </code>
+         .
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se renderizan tarjetas desde JavaScript.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Funcionan b&uacute;squeda, filtros y ordenaci&oacute;n.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se calculan estad&iacute;sticas.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se puede cambiar el estado de un recurso.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se pueden marcar favoritos.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se pueden guardar notas personales.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se usa
+         <code>
+          localStorage
+         </code>
+         .
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se usa
+         <code>
+          JSON.stringify()
+         </code>
+         .
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         Se usa
+         <code>
+          JSON.parse()
+         </code>
+         .
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         El formulario valida datos.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         El formulario a&ntilde;ade recursos personalizados.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         El recurso personalizado se conserva al recargar.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         El bot&oacute;n de exportar funciona.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         El bot&oacute;n de reiniciar funciona.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         No hay errores no controlados en consola.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         La interfaz es clara y legible.
+        </li>
+        <li>
+         <span class="check-marker">
+          [ ]
+         </span>
+         He entregado
+         <code>
+          explicacion_final.md
+         </code>
+         .
+        </li>
+       </ul>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="30-ampliaciones-opcionales">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-stars">
+         </i>
+        </span>
+        30. Ampliaciones opcionales
+       </h2>
+       <p>
+        Estas ampliaciones no son obligatorias:
+       </p>
+       <ul class="custom-list">
+        <li>
+         bot&oacute;n para limpiar filtros;
+        </li>
+        <li>
+         contador por tipo de recurso;
+        </li>
+        <li>
+         gr&aacute;fico simple de progreso usando HTML y CSS;
+        </li>
+        <li>
+         permitir eliminar solo recursos personalizados;
+        </li>
+        <li>
+         ordenar por estado personal;
+        </li>
+        <li>
+         destacar recursos de larga duraci&oacute;n;
+        </li>
+        <li>
+         a&ntilde;adir fecha de &uacute;ltima modificaci&oacute;n de la nota;
+        </li>
+        <li>
+         validar
+         <code>
+          localStorage
+         </code>
+         con
+         <code>
+          try...catch
+         </code>
+         por si los datos guardados est&aacute;n corruptos;
+        </li>
+        <li>
+         mostrar una vista resumida y una vista detallada.
+        </li>
+       </ul>
+       <p>
+        No a&ntilde;adas ampliaciones si la parte obligatoria no funciona correctamente.
+       </p>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section" id="31-contenidos-que-quedan-fuera-de-esta-practica">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-journal-check">
+         </i>
+        </span>
+        31. Contenidos que quedan fuera de esta pr&aacute;ctica
+       </h2>
+       <p>
+        Esta pr&aacute;ctica cierra la UD2, pero no introduce tecnolog&iacute;as externas.
+       </p>
+       <p>
+        Quedan fuera como contenido obligatorio:
+       </p>
+       <ul class="custom-list">
+        <li>
+         frameworks como React, Vue o Angular;
+        </li>
+        <li>
+         backend propio;
+        </li>
+        <li>
+         autenticaci&oacute;n;
+        </li>
+        <li>
+         bases de datos reales;
+        </li>
+        <li>
+         API con clave privada;
+        </li>
+        <li>
+         despliegue en servidor;
+        </li>
+        <li>
+         m&oacute;dulos JavaScript obligatorios;
+        </li>
+        <li>
+         herramientas de empaquetado como Vite o Webpack;
+        </li>
+        <li>
+         llamadas
+         <code>
+          POST
+         </code>
+         ,
+         <code>
+          PUT
+         </code>
+         ,
+         <code>
+          PATCH
+         </code>
+         o
+         <code>
+          DELETE
+         </code>
+         contra un servidor real.
+        </li>
+       </ul>
+       <hr/>
+       <hr class="section-divider"/>
+      </section>
+      <section class="content-section practice-step-section global-practice-section celebration-section milestone-section" id="32-resumen-final">
+       <h2>
+        <span aria-hidden="true" class="section-icon">
+         <i class="bi bi-award">
+         </i>
+        </span>
+        32. Resumen final
+       </h2>
+       <p>
+        En esta pr&aacute;ctica debes demostrar que sabes construir una aplicaci&oacute;n web interactiva completa usando JavaScript en el navegador.
+       </p>
+       <p>
+        La aplicaci&oacute;n debe cargar datos, mostrarlos en el DOM, permitir interacci&oacute;n real del usuario, guardar informaci&oacute;n en el navegador, validar formularios, procesar arrays de objetos y gestionar errores de forma clara.
+       </p>
+       <p>
+        Si la pr&aacute;ctica funciona correctamente, tendr&aacute;s una evidencia global de los contenidos principales de la UD2.
+       </p>
+       <hr class="section-divider"/>
+      </section>
+     </div>
+    </div>
+   </main>
+  </div>
+ </body>
+</html>

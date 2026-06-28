@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UD2_B4b · localStorage y persistencia básica</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar">
+<div class="content-layout">
+<aside aria-label="Índice del documento" class="section-sidebar">
+<nav aria-label="Secciones del documento" class="section-nav">
+<p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-ul"></i> Índice del documento</p>
+<ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-objetivos-y-concepto-de-persistencia"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span><span>1. Objetivos y concepto de persistencia</span></a></li><li><a class="section-nav-link badge-link" href="#2-alcance-y-funcionamiento-de-localstorage"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-database"></i></span><span>2. Alcance y funcionamiento de <code>localStorage</code></span></a></li><li><a class="section-nav-link badge-link" href="#3-operaciones-basicas"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-tools"></i></span><span>3. Operaciones básicas</span></a></li><li><a class="section-nav-link badge-link" href="#4-cadenas-numeros-booleanos-y-valores-ausentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-fonts"></i></span><span>4. Cadenas, números, booleanos y valores ausentes</span></a></li><li><a class="section-nav-link badge-link" href="#5-objetos-y-arrays-mediante-json"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-braces"></i></span><span>5. Objetos y arrays mediante JSON</span></a></li><li><a class="section-nav-link badge-link" href="#6-recuperacion-segura-y-tratamiento-de-errores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-check"></i></span><span>6. Recuperación segura y tratamiento de errores</span></a></li><li><a class="section-nav-link badge-link" href="#7-ejemplo-completo-preferencia-de-tema"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-palette"></i></span><span>7. Ejemplo completo: preferencia de tema</span></a></li><li><a class="section-nav-link badge-link" href="#8-ejemplo-completo-lista-de-tareas-persistente"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-list-task"></i></span><span>8. Ejemplo completo: lista de tareas persistente</span></a></li><li><a class="section-nav-link badge-link" href="#9-localstorage-y-sessionstorage"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-window"></i></span><span>9. <code>localStorage</code> y <code>sessionStorage</code></span></a></li><li><a class="section-nav-link badge-link" href="#10-seguridad-y-datos-que-no-deben-guardarse"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-lock"></i></span><span>10. Seguridad y datos que no deben guardarse</span></a></li><li><a class="section-nav-link badge-link" href="#11-errores-frecuentes-y-buenas-practicas"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-exclamation-triangle"></i></span><span>11. Errores frecuentes y buenas prácticas</span></a></li><li><a class="section-nav-link badge-link" href="#12-preguntas-resumen-y-contenidos-aplazados"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-circle"></i></span><span>12. Preguntas, resumen y contenidos aplazados</span></a></li></ol>
+</nav>
+</aside>
+<div class="content-wrapper">
+<header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-device-ssd"></i></span> UD2_B4b. Apuntes: <code>localStorage</code> y persistencia básica en JavaScript</h1></header>
+<hr class="content-separator"/>
+<section class="content-section" id="1-objetivos-y-concepto-de-persistencia"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivos y concepto de persistencia</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.1. Qué vamos a aprender</h3><p>En los documentos anteriores hemos trabajado con:</p><ul class="custom-list">
+<li>variables;</li>
+<li>arrays;</li>
+<li>objetos;</li>
+<li>JSON;</li>
+<li>formularios;</li>
+<li>eventos;</li>
+<li>manipulación del DOM.</li>
+</ul><p>Estos datos suelen mantenerse únicamente mientras la página está abierta. Si recargamos el documento, las variables vuelven a crearse y su contenido anterior se pierde.</p><p>En este documento aprenderemos a utilizar <code>localStorage</code> para conservar datos sencillos en el navegador.</p><p>Al finalizar deberías ser capaz de:</p><ul class="custom-list">
+<li>explicar qué significa persistir datos;</li>
+<li>distinguir entre estado temporal y estado persistido;</li>
+<li>guardar datos con <code>localStorage.setItem()</code>;</li>
+<li>recuperarlos con <code>localStorage.getItem()</code>;</li>
+<li>eliminar claves con <code>removeItem()</code>;</li>
+<li>utilizar <code>clear()</code> con precaución;</li>
+<li>comprender que <code>localStorage</code> siempre almacena texto;</li>
+<li>convertir números y booleanos;</li>
+<li>guardar arrays y objetos mediante <code>JSON.stringify()</code>;</li>
+<li>recuperar datos mediante <code>JSON.parse()</code>;</li>
+<li>tratar claves inexistentes, JSON incorrecto y formatos inesperados;</li>
+<li>aplicar persistencia a preferencias y pequeñas listas;</li>
+<li>diferenciar <code>localStorage</code> y <code>sessionStorage</code>;</li>
+<li>identificar limitaciones y riesgos de seguridad.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.2. Datos temporales y persistentes</h3><p>Una variable mantiene su valor mientras se ejecuta la aplicación:</p><div class="example-block"><pre class="code-js"><code class="language-js">let nombre = "Ana";
+
+console.log(nombre);
+</code></pre></div><p>Si recargamos la página, el programa vuelve a empezar y la variable se crea de nuevo.</p><p>En cambio, un dato guardado en <code>localStorage</code> puede seguir disponible después de:</p><ul class="custom-list">
+<li>recargar la página;</li>
+<li>cerrar la pestaña;</li>
+<li>cerrar y volver a abrir el navegador;</li>
+<li>regresar más tarde a la misma aplicación.</li>
+</ul><p>Ejemplos de uso:</p><ul class="custom-list">
+<li>recordar el tema claro u oscuro;</li>
+<li>conservar una lista de tareas;</li>
+<li>guardar preferencias de visualización;</li>
+<li>mantener el borrador de un formulario sencillo;</li>
+<li>recordar filtros o configuraciones de una práctica.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.3. Persistir no significa guardar para siempre</h3><p><code>localStorage</code> no tiene una caducidad automática ordinaria, pero sus datos pueden desaparecer si:</p><ul class="custom-list">
+<li>el usuario borra los datos del sitio;</li>
+<li>el navegador aplica una política de limpieza;</li>
+<li>se utiliza navegación privada y se cierra la sesión privada;</li>
+<li>se cambia de navegador, perfil o dispositivo;</li>
+<li>se accede desde otro origen;</li>
+<li>el almacenamiento está bloqueado.</li>
+</ul><p>Por tanto, <code>localStorage</code> permite conservar datos entre sesiones, pero no debe considerarse una copia permanente ni una base de datos segura.</p><hr/></section><section class="content-section" id="2-alcance-y-funcionamiento-de-localstorage"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-database"></i></span> 2. Alcance y funcionamiento de <code>localStorage</code></h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.1. Qué es <code>localStorage</code></h3><p><code>localStorage</code> es una API del navegador que permite almacenar pares <strong>clave-valor</strong>.</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "usuario",
+  "Ana"
+);
+</code></pre></div><p>En este ejemplo:</p><ul class="custom-list">
+<li><code>"usuario"</code> es la clave;</li>
+<li><code>"Ana"</code> es el valor.</li>
+</ul><p>Para recuperar el dato:</p><div class="example-block"><pre class="code-js"><code class="language-js">const usuario =
+  localStorage.getItem(
+    "usuario"
+  );
+
+console.log(usuario);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.2. El almacenamiento pertenece al origen</h3><p>Los datos de <code>localStorage</code> están asociados al <strong>origen</strong> de la página.</p><p>De forma simplificada, un origen depende de:</p><ul class="custom-list">
+<li>protocolo;</li>
+<li>host;</li>
+<li>puerto.</li>
+</ul><p>Estas direcciones pueden tener almacenamientos diferentes:</p><div class="example-block"><pre class="code-bash"><code class="language-text">http://localhost:5500
+http://localhost:3000
+https://localhost:5500
+</code></pre></div><p>Las páginas que comparten origen comparten también el mismo <code>localStorage</code>.</p><p>Por eso conviene evitar claves demasiado genéricas.</p><p>En lugar de:</p><div class="example-block"><pre class="code-js"><code class="language-js">const CLAVE_TEMA =
+  "tema";
+</code></pre></div><p>es preferible:</p><div class="example-block"><pre class="code-js"><code class="language-js">const CLAVE_TEMA =
+  "dwcc.ud2.tema";
+
+const CLAVE_TAREAS =
+  "dwcc.ud2.tareas";
+</code></pre></div><p>El prefijo ayuda a identificar qué aplicación creó cada dato y reduce el riesgo de colisiones.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.3. <code>localStorage</code> es síncrono</h3><p>Las operaciones de <code>localStorage</code> son síncronas:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "clave",
+  "valor"
+);
+
+localStorage.getItem(
+  "clave"
+);
+</code></pre></div><p>Esto significa que se ejecutan inmediatamente y bloquean la continuación del JavaScript hasta terminar.</p><p>Comparación:</p><div class="example-block"><pre class="code-bash"><code class="language-text">fetch()       → operación asíncrona
+localStorage  → operación síncrona
+</code></pre></div><p>Para cantidades pequeñas de datos no suele suponer un problema.</p><p>No debe utilizarse para:</p><ul class="custom-list">
+<li>grandes volúmenes de información;</li>
+<li>escrituras continuas;</li>
+<li>datos complejos de gran tamaño;</li>
+<li>sustituir una base de datos.</li>
+</ul><p>Para almacenamientos más avanzados existe <code>IndexedDB</code>, pero no será contenido principal en este bloque.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.4. Inspeccionar el almacenamiento</h3><p>Puedes revisar los datos guardados desde las herramientas de desarrollo del navegador.</p><p>En Chrome suele encontrarse en:</p><div class="example-block project-structure-block"><pre class="code-bash"><code class="language-text">Application
+└── Storage
+    └── Local Storage
+</code></pre></div><p>El nombre exacto puede variar según el navegador.</p><hr/></section><section class="content-section" id="3-operaciones-basicas"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-tools"></i></span> 3. Operaciones básicas</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.1. Guardar con <code>setItem()</code></h3><p>Sintaxis:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  clave,
+  valor
+);
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "dwcc.ud2.curso",
+  "DWCC"
+);
+
+localStorage.setItem(
+  "dwcc.ud2.idioma",
+  "es"
+);
+</code></pre></div><p>Si se utiliza una clave que ya existe, su valor se sustituye:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "dwcc.ud2.curso",
+  "DWCC"
+);
+
+localStorage.setItem(
+  "dwcc.ud2.curso",
+  "DIW"
+);
+</code></pre></div><p>El valor final será:</p><div class="example-block"><pre class="code-bash"><code class="language-text">DIW
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.2. Recuperar con <code>getItem()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">const curso =
+  localStorage.getItem(
+    "dwcc.ud2.curso"
+  );
+
+console.log(curso);
+</code></pre></div><p>Si la clave no existe, <code>getItem()</code> devuelve:</p><div class="example-block"><pre class="code-js"><code class="language-js">null
+</code></pre></div><p>Por eso debemos comprobar su existencia:</p><div class="example-block"><pre class="code-js"><code class="language-js">const nombre =
+  localStorage.getItem(
+    "dwcc.ud2.nombre"
+  );
+
+if (nombre !== null) {
+  console.log(
+    "Hola, " + nombre
+  );
+} else {
+  console.log(
+    "No hay nombre guardado."
+  );
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.3. Eliminar una clave con <code>removeItem()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.removeItem(
+  "dwcc.ud2.usuario"
+);
+</code></pre></div><p>Después:</p><div class="example-block"><pre class="code-js"><code class="language-js">const usuario =
+  localStorage.getItem(
+    "dwcc.ud2.usuario"
+  );
+
+console.log(usuario);
+</code></pre></div><p>El resultado será:</p><div class="example-block"><pre class="code-bash"><code class="language-text">null
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.4. Eliminar todas las claves con <code>clear()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.clear();
+</code></pre></div><p><code>clear()</code> elimina todas las claves de <code>localStorage</code> del origen actual, no solo las creadas por una práctica concreta.</p><p>Por eso, normalmente es preferible:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.removeItem(
+  "dwcc.ud2.tareas"
+);
+</code></pre></div><p>frente a:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.clear();
+</code></pre></div><blockquote class="note-box">
+<p>En prácticas de aula, utiliza <code>clear()</code> únicamente cuando quieras borrar conscientemente todos los datos del origen.</p>
+</blockquote><hr/></section><section class="content-section" id="4-cadenas-numeros-booleanos-y-valores-ausentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-fonts"></i></span> 4. Cadenas, números, booleanos y valores ausentes</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.1. <code>localStorage</code> siempre almacena texto</h3><p>Aunque guardemos un número:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "dwcc.ud2.edad",
+  20
+);
+</code></pre></div><p>al recuperarlo obtenemos una cadena:</p><div class="example-block"><pre class="code-js"><code class="language-js">const edad =
+  localStorage.getItem(
+    "dwcc.ud2.edad"
+  );
+
+console.log(edad);
+console.log(typeof edad);
+</code></pre></div><p>Resultado:</p><div class="example-block"><pre class="code-bash"><code class="language-text">20
+string
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.2. Recuperar números de forma segura</h3><p>No conviene convertir directamente sin comprobar si la clave existe:</p><div class="example-block"><pre class="code-js"><code class="language-js">const edad =
+  Number(
+    localStorage.getItem(
+      "dwcc.ud2.edad"
+    )
+  );
+</code></pre></div><p>Si la clave no existe:</p><div class="example-block"><pre class="code-js"><code class="language-js">Number(null);
+</code></pre></div><p>produce:</p><div class="example-block"><pre class="code-bash"><code class="language-text">0
+</code></pre></div><p>Una forma más segura:</p><div class="example-block"><pre class="code-js"><code class="language-js">const edadGuardada =
+  localStorage.getItem(
+    "dwcc.ud2.edad"
+  );
+
+let edad = null;
+
+if (edadGuardada !== null) {
+  const numero =
+    Number(edadGuardada);
+
+  if (Number.isFinite(numero)) {
+    edad = numero;
+  }
+}
+
+console.log(edad);
+</code></pre></div><p>Así diferenciamos:</p><ul class="custom-list">
+<li>una edad válida;</li>
+<li>un valor numérico incorrecto;</li>
+<li>la ausencia de la clave.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.3. Guardar y recuperar booleanos</h3><p>Al guardar un booleano:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "dwcc.ud2.acepta",
+  true
+);
+</code></pre></div><p>se almacena la cadena:</p><div class="example-block"><pre class="code-bash"><code class="language-text">true
+</code></pre></div><p>Conversión sencilla:</p><div class="example-block"><pre class="code-js"><code class="language-js">const acepta =
+  localStorage.getItem(
+    "dwcc.ud2.acepta"
+  ) === "true";
+</code></pre></div><p>Esta expresión devuelve <code>false</code> tanto si se guardó <code>"false"</code> como si la clave no existe.</p><p>Para distinguir los tres estados:</p><div class="example-block"><pre class="code-js"><code class="language-js">const aceptaGuardado =
+  localStorage.getItem(
+    "dwcc.ud2.acepta"
+  );
+
+let acepta = null;
+
+if (aceptaGuardado !== null) {
+  acepta =
+    aceptaGuardado === "true";
+}
+</code></pre></div><p>Ahora <code>acepta</code> puede ser:</p><ul class="custom-list">
+<li><code>true</code>;</li>
+<li><code>false</code>;</li>
+<li><code>null</code>, si todavía no se guardó ninguna decisión.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.4. Clave inexistente y valor vacío</h3><p>No es lo mismo:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "dwcc.ud2.nombre",
+  ""
+);
+</code></pre></div><p>que eliminar la clave:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.removeItem(
+  "dwcc.ud2.nombre"
+);
+</code></pre></div><p>En el primer caso:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.getItem(
+  "dwcc.ud2.nombre"
+);
+</code></pre></div><p>devuelve una cadena vacía.</p><p>En el segundo devuelve:</p><div class="example-block"><pre class="code-js"><code class="language-js">null
+</code></pre></div><hr/></section><section class="content-section" id="5-objetos-y-arrays-mediante-json"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces"></i></span> 5. Objetos y arrays mediante JSON</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.1. Guardar objetos</h3><p>No debemos guardar un objeto directamente:</p><div class="example-block"><pre class="code-js"><code class="language-js">const usuario = {
+  nombre: "Ana",
+  edad: 20
+};
+
+localStorage.setItem(
+  "dwcc.ud2.usuario",
+  usuario
+);
+</code></pre></div><p>El valor resultante sería:</p><div class="example-block"><pre class="code-bash"><code class="language-text">[object Object]
+</code></pre></div><p>Debemos convertir el objeto a JSON:</p><div class="example-block"><pre class="code-js"><code class="language-js">const usuario = {
+  nombre: "Ana",
+  edad: 20
+};
+
+const textoJSON =
+  JSON.stringify(usuario);
+
+localStorage.setItem(
+  "dwcc.ud2.usuario",
+  textoJSON
+);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.2. Recuperar objetos</h3><div class="example-block"><pre class="code-js"><code class="language-js">const textoGuardado =
+  localStorage.getItem(
+    "dwcc.ud2.usuario"
+  );
+
+if (textoGuardado !== null) {
+  const usuario =
+    JSON.parse(textoGuardado);
+
+  console.log(usuario.nombre);
+  console.log(usuario.edad);
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.3. Guardar arrays</h3><div class="example-block"><pre class="code-js"><code class="language-js">const tareas = [
+  "Estudiar",
+  "Practicar JavaScript",
+  "Repasar DOM"
+];
+
+localStorage.setItem(
+  "dwcc.ud2.tareas",
+  JSON.stringify(tareas)
+);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.4. Recuperar arrays</h3><div class="example-block"><pre class="code-js"><code class="language-js">const textoTareas =
+  localStorage.getItem(
+    "dwcc.ud2.tareas"
+  );
+
+let tareas = [];
+
+if (textoTareas !== null) {
+  tareas =
+    JSON.parse(textoTareas);
+}
+</code></pre></div><p>Este ejemplo funciona si el texto guardado contiene JSON válido y representa realmente un array.</p><p>En la siguiente sección aprenderemos una recuperación más segura.</p><hr/></section><section class="content-section" id="6-recuperacion-segura-y-tratamiento-de-errores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-check"></i></span> 6. Recuperación segura y tratamiento de errores</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.1. Qué ocurre con <code>JSON.parse(null)</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">JSON.parse(null);
+</code></pre></div><p>devuelve:</p><div class="example-block"><pre class="code-js"><code class="language-js">null
+</code></pre></div><p>No lanza una excepción por sí mismo.</p><p>El problema aparece después si tratamos el resultado como objeto:</p><div class="example-block"><pre class="code-js"><code class="language-js">const usuario =
+  JSON.parse(
+    localStorage.getItem(
+      "dwcc.ud2.usuario"
+    )
+  );
+
+console.log(usuario.nombre);
+</code></pre></div><p>Si la clave no existe:</p><div class="example-block"><pre class="code-js"><code class="language-js">usuario === null
+</code></pre></div><p>y acceder a <code>usuario.nombre</code> provoca un error.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.2. JSON incorrecto o manipulado</h3><p>El contenido del almacenamiento puede ser:</p><ul class="custom-list">
+<li>antiguo;</li>
+<li>incorrecto;</li>
+<li>manipulado desde DevTools;</li>
+<li>incompatible con la versión actual de la aplicación.</li>
+</ul><p>Ejemplo de texto JSON incompleto:</p><div class="example-block"><pre class="code-bash"><code class="language-text">[{"texto":"Estudiar"
+</code></pre></div><p>En ese caso:</p><div class="example-block"><pre class="code-js"><code class="language-js">JSON.parse(texto);
+</code></pre></div><p>lanza un <code>SyntaxError</code>.</p><p>La expresión:</p><div class="example-block"><pre class="code-js"><code class="language-js">const tareas =
+  JSON.parse(
+    localStorage.getItem(
+      "dwcc.ud2.tareas"
+    )
+  ) || [];
+</code></pre></div><p>no evita ese error, porque <code>JSON.parse()</code> falla antes de poder aplicar <code>|| []</code>.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.3. Función segura para recuperar un array</h3><div class="example-block"><pre class="code-js"><code class="language-js">const CLAVE_TAREAS =
+  "dwcc.ud2.tareas";
+
+function recuperarTareas() {
+  const texto =
+    localStorage.getItem(
+      CLAVE_TAREAS
+    );
+
+  if (texto === null) {
+    return [];
+  }
+
+  try {
+    const datos =
+      JSON.parse(texto);
+
+    if (!Array.isArray(datos)) {
+      console.warn(
+        "El dato guardado no es un array."
+      );
+
+      return [];
+    }
+
+    return datos;
+  } catch (error) {
+    console.error(
+      "Las tareas guardadas no son válidas:",
+      error
+    );
+
+    return [];
+  }
+}
+</code></pre></div><p>Esta función trata:</p><ul class="custom-list">
+<li>una clave inexistente;</li>
+<li>JSON incorrecto;</li>
+<li>un tipo de dato inesperado;</li>
+<li>un array correcto.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.4. Guardar JSON de forma segura</h3><p><code>setItem()</code> puede fallar, por ejemplo:</p><ul class="custom-list">
+<li>por falta de espacio;</li>
+<li>porque el almacenamiento esté bloqueado;</li>
+<li>por una política del navegador;</li>
+<li>por un contexto de seguridad incompatible.</li>
+</ul><div class="example-block"><pre class="code-js"><code class="language-js">function guardarTareas(tareas) {
+  try {
+    localStorage.setItem(
+      CLAVE_TAREAS,
+      JSON.stringify(tareas)
+    );
+
+    return true;
+  } catch (error) {
+    console.error(
+      "No se pudieron guardar las tareas:",
+      error
+    );
+
+    return false;
+  }
+}
+</code></pre></div><p>La función devuelve:</p><ul class="custom-list">
+<li><code>true</code>, si pudo guardar;</li>
+<li><code>false</code>, si se produjo un error.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.5. Funciones genéricas para JSON</h3><p>Podemos crear funciones reutilizables:</p><div class="example-block"><pre class="code-js"><code class="language-js">function guardarJSON(
+  clave,
+  datos
+) {
+  try {
+    const texto =
+      JSON.stringify(datos);
+
+    localStorage.setItem(
+      clave,
+      texto
+    );
+
+    return true;
+  } catch (error) {
+    console.error(
+      `No se pudo guardar ${clave}:`,
+      error
+    );
+
+    return false;
+  }
+}
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">function recuperarJSON(
+  clave,
+  valorInicial
+) {
+  const texto =
+    localStorage.getItem(clave);
+
+  if (texto === null) {
+    return valorInicial;
+  }
+
+  try {
+    return JSON.parse(texto);
+  } catch (error) {
+    console.error(
+      `No se pudo recuperar ${clave}:`,
+      error
+    );
+
+    return valorInicial;
+  }
+}
+</code></pre></div><p>Estas funciones no sustituyen la validación de tipos.</p><p>Después de recuperar debemos comprobar:</p><div class="example-block"><pre class="code-js"><code class="language-js">const tareasRecuperadas =
+  recuperarJSON(
+    CLAVE_TAREAS,
+    []
+  );
+
+const tareas =
+  Array.isArray(
+    tareasRecuperadas
+  )
+    ? tareasRecuperadas
+    : [];
+</code></pre></div><hr/></section><section class="content-section" id="7-ejemplo-completo-preferencia-de-tema"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-palette"></i></span> 7. Ejemplo completo: preferencia de tema</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 7.1. HTML</h3><div class="example-block"><pre class="code-html"><code class="language-html">&lt;button
+  type="button"
+  id="tema-claro"
+&gt;
+  Tema claro
+&lt;/button&gt;
+
+&lt;button
+  type="button"
+  id="tema-oscuro"
+&gt;
+  Tema oscuro
+&lt;/button&gt;
+
+&lt;p
+  id="estado-tema"
+  aria-live="polite"
+&gt;&lt;/p&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 7.2. CSS básico</h3><div class="example-block"><pre class="code-css"><code class="language-css">.tema-claro {
+  color: #222222;
+  background-color: #ffffff;
+}
+
+.tema-oscuro {
+  color: #f5f5f5;
+  background-color: #1f1f1f;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 7.3. JavaScript</h3><div class="example-block"><pre class="code-js"><code class="language-js">const CLAVE_TEMA =
+  "dwcc.ud2.tema";
+
+const TEMAS_VALIDOS = [
+  "tema-claro",
+  "tema-oscuro"
+];
+
+const botonClaro =
+  document.querySelector(
+    "#tema-claro"
+  );
+
+const botonOscuro =
+  document.querySelector(
+    "#tema-oscuro"
+  );
+
+const estadoTema =
+  document.querySelector(
+    "#estado-tema"
+  );
+
+function aplicarTema(tema) {
+  if (
+    !TEMAS_VALIDOS.includes(tema)
+  ) {
+    return;
+  }
+
+  document.body.classList.remove(
+    ...TEMAS_VALIDOS
+  );
+
+  document.body.classList.add(
+    tema
+  );
+}
+
+function guardarTema(tema) {
+  aplicarTema(tema);
+
+  try {
+    localStorage.setItem(
+      CLAVE_TEMA,
+      tema
+    );
+
+    estadoTema.textContent =
+      "Preferencia guardada.";
+  } catch (error) {
+    estadoTema.textContent =
+      "El tema se aplicó, pero no pudo guardarse.";
+
+    console.error(error);
+  }
+}
+
+const temaGuardado =
+  localStorage.getItem(
+    CLAVE_TEMA
+  );
+
+if (
+  temaGuardado !== null
+  &amp;&amp; TEMAS_VALIDOS.includes(
+    temaGuardado
+  )
+) {
+  aplicarTema(temaGuardado);
+}
+
+botonClaro.addEventListener(
+  "click",
+  () =&gt; {
+    guardarTema("tema-claro");
+  }
+);
+
+botonOscuro.addEventListener(
+  "click",
+  () =&gt; {
+    guardarTema("tema-oscuro");
+  }
+);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 7.4. Por qué no usamos <code>body.className</code></h3><p>Evita:</p><div class="example-block"><pre class="code-js"><code class="language-js">document.body.className =
+  temaGuardado;
+</code></pre></div><p>Esta instrucción sustituye todas las clases del elemento <code>&lt;body&gt;</code>.</p><p>Con <code>classList</code> podemos eliminar únicamente las clases de tema y conservar el resto.</p><hr/></section><section class="content-section" id="8-ejemplo-completo-lista-de-tareas-persistente"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-list-task"></i></span> 8. Ejemplo completo: lista de tareas persistente</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.1. Flujo de una aplicación persistente</h3><p>El ciclo recomendado es:</p><ol class="custom-ordered-list">
+<li>recuperar el estado guardado;</li>
+<li>validarlo;</li>
+<li>renderizarlo;</li>
+<li>modificarlo como respuesta a un evento;</li>
+<li>guardar el nuevo estado;</li>
+<li>volver a renderizar.</li>
+</ol><p>Debemos diferenciar:</p><ul class="custom-list">
+<li><strong>estado en memoria</strong>: el array <code>tareas</code>;</li>
+<li><strong>estado persistido</strong>: el JSON de <code>localStorage</code>;</li>
+<li><strong>interfaz visible</strong>: los elementos del DOM.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.2. HTML</h3><div class="example-block"><pre class="code-html"><code class="language-html">&lt;form id="formulario-tarea"&gt;
+  &lt;label for="texto-tarea"&gt;
+    Nueva tarea:
+  &lt;/label&gt;
+
+  &lt;input
+    type="text"
+    id="texto-tarea"
+    name="texto-tarea"
+  &gt;
+
+  &lt;button type="submit"&gt;
+    Añadir tarea
+  &lt;/button&gt;
+&lt;/form&gt;
+
+&lt;p
+  id="estado-tareas"
+  aria-live="polite"
+&gt;&lt;/p&gt;
+
+&lt;ul id="lista-tareas"&gt;&lt;/ul&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.3. Estado inicial</h3><div class="example-block"><pre class="code-js"><code class="language-js">const CLAVE_TAREAS =
+  "dwcc.ud2.tareas";
+
+let tareas =
+  recuperarTareas();
+</code></pre></div><p>No añadimos tareas automáticamente al cargar la página.</p><p>Este patrón sería incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">agregarTarea(
+  "Estudiar localStorage"
+);
+
+agregarTarea(
+  "Practicar JSON"
+);
+</code></pre></div><p>Si se ejecuta al cargar el script, las tareas se duplicarán después de cada recarga.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.4. Renderizar las tareas</h3><div class="example-block"><pre class="code-js"><code class="language-js">const listaTareas =
+  document.querySelector(
+    "#lista-tareas"
+  );
+
+function renderizarTareas() {
+  listaTareas.replaceChildren();
+
+  tareas.forEach((tarea) =&gt; {
+    const li =
+      document.createElement("li");
+
+    li.textContent =
+      tarea.texto;
+
+    listaTareas.append(li);
+  });
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.5. Añadir una tarea</h3><div class="example-block"><pre class="code-js"><code class="language-js">const formulario =
+  document.querySelector(
+    "#formulario-tarea"
+  );
+
+const campoTarea =
+  document.querySelector(
+    "#texto-tarea"
+  );
+
+const estadoTareas =
+  document.querySelector(
+    "#estado-tareas"
+  );
+
+formulario.addEventListener(
+  "submit",
+  (event) =&gt; {
+    event.preventDefault();
+
+    const texto =
+      campoTarea.value.trim();
+
+    if (texto === "") {
+      estadoTareas.textContent =
+        "Escribe una tarea.";
+
+      return;
+    }
+
+    const nuevaTarea = {
+      id: Date.now(),
+      texto
+    };
+
+    tareas.push(nuevaTarea);
+
+    const guardado =
+      guardarTareas(tareas);
+
+    if (!guardado) {
+      tareas.pop();
+
+      estadoTareas.textContent =
+        "No se pudo guardar la tarea.";
+
+      return;
+    }
+
+    renderizarTareas();
+
+    formulario.reset();
+    campoTarea.focus();
+
+    estadoTareas.textContent =
+      "Tarea añadida.";
+  }
+);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.6. Inicio de la aplicación</h3><div class="example-block"><pre class="code-js"><code class="language-js">renderizarTareas();
+</code></pre></div><p>Al recargar:</p><ol class="custom-ordered-list">
+<li><code>recuperarTareas()</code> obtiene el array;</li>
+<li><code>renderizarTareas()</code> reconstruye la lista;</li>
+<li>no se añaden elementos duplicados.</li>
+</ol><hr/></section><section class="content-section" id="9-localstorage-y-sessionstorage"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window"></i></span> 9. <code>localStorage</code> y <code>sessionStorage</code></h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.1. Comparación básica</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>API</th>
+<th>Comportamiento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>localStorage</code></td>
+<td>Se conserva entre sesiones hasta que se elimina o el navegador lo limpia.</td>
+</tr>
+<tr>
+<td><code>sessionStorage</code></td>
+<td>Se conserva durante la sesión de una pestaña, incluidas sus recargas, y normalmente se elimina al cerrarla.</td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.2. Ejemplo con <code>sessionStorage</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">sessionStorage.setItem(
+  "dwcc.ud2.pasoActual",
+  "2"
+);
+
+const paso =
+  sessionStorage.getItem(
+    "dwcc.ud2.pasoActual"
+  );
+</code></pre></div><p>La API es similar:</p><div class="example-block"><pre class="code-js"><code class="language-js">sessionStorage.setItem();
+sessionStorage.getItem();
+sessionStorage.removeItem();
+sessionStorage.clear();
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.3. Cuándo usar cada una</h3><p>Usa <code>localStorage</code> para:</p><ul class="custom-list">
+<li>preferencias que deben conservarse;</li>
+<li>pequeñas listas;</li>
+<li>configuraciones sencillas;</li>
+<li>borradores que deban seguir disponibles.</li>
+</ul><p>Usa <code>sessionStorage</code> para:</p><ul class="custom-list">
+<li>información temporal de una pestaña;</li>
+<li>pasos de un proceso corto;</li>
+<li>filtros que solo interesan durante la sesión;</li>
+<li>estados que no deben conservarse al cerrar la pestaña.</li>
+</ul><hr/></section><section class="content-section" id="10-seguridad-y-datos-que-no-deben-guardarse"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-lock"></i></span> 10. Seguridad y datos que no deben guardarse</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 10.1. <code>localStorage</code> no es un almacén seguro</h3><p>Los datos:</p><ul class="custom-list">
+<li>no están cifrados automáticamente;</li>
+<li>pueden inspeccionarse desde DevTools;</li>
+<li>pueden ser leídos por JavaScript ejecutado en el mismo origen;</li>
+<li>permanecen en el dispositivo hasta que se eliminan.</li>
+</ul><p>No guardes:</p><ul class="custom-list">
+<li>contraseñas;</li>
+<li>tokens de autenticación;</li>
+<li>identificadores secretos de sesión;</li>
+<li>datos bancarios;</li>
+<li>información médica;</li>
+<li>datos personales sensibles;</li>
+<li>información que no debería quedar almacenada en el equipo.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 10.2. Usos apropiados</h3><p>Es adecuado para:</p><ul class="custom-list">
+<li>tema claro u oscuro;</li>
+<li>preferencias de visualización;</li>
+<li>filtros;</li>
+<li>pequeñas listas de una práctica;</li>
+<li>borradores no sensibles;</li>
+<li>configuraciones locales.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 10.3. Datos externos y validación</h3><p>No confíes automáticamente en el contenido recuperado.</p><p>Aunque lo haya creado la propia aplicación, el dato puede:</p><ul class="custom-list">
+<li>estar manipulado;</li>
+<li>pertenecer a una versión antigua;</li>
+<li>tener un formato incorrecto;</li>
+<li>contener propiedades inesperadas.</li>
+</ul><p>Después de <code>JSON.parse()</code> debemos validar:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (!Array.isArray(datos)) {
+  return [];
+}
+</code></pre></div><p>y, cuando sea necesario, comprobar las propiedades de cada elemento.</p><hr/></section><section class="content-section" id="11-errores-frecuentes-y-buenas-practicas"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-exclamation-triangle"></i></span> 11. Errores frecuentes y buenas prácticas</h2><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.1. Olvidar que todo se almacena como texto</h3><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "dwcc.ud2.contador",
+  5
+);
+
+const contador =
+  localStorage.getItem(
+    "dwcc.ud2.contador"
+  );
+
+console.log(contador + 1);
+</code></pre></div><p>Resultado:</p><div class="example-block"><pre class="code-bash"><code class="language-text">51
+</code></pre></div><p>Corrección:</p><div class="example-block"><pre class="code-js"><code class="language-js">const textoContador =
+  localStorage.getItem(
+    "dwcc.ud2.contador"
+  );
+
+if (textoContador !== null) {
+  const contador =
+    Number(textoContador);
+
+  if (
+    Number.isFinite(contador)
+  ) {
+    console.log(
+      contador + 1
+    );
+  }
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.2. Guardar objetos sin <code>JSON.stringify()</code></h3><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "dwcc.ud2.usuario",
+  {
+    nombre: "Ana"
+  }
+);
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "dwcc.ud2.usuario",
+  JSON.stringify({
+    nombre: "Ana"
+  })
+);
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.3. Recuperar JSON sin tratar errores</h3><p>Problemático:</p><div class="example-block"><pre class="code-js"><code class="language-js">const tareas =
+  JSON.parse(
+    localStorage.getItem(
+      "dwcc.ud2.tareas"
+    )
+  );
+</code></pre></div><p>Mejor:</p><div class="example-block"><pre class="code-js"><code class="language-js">const tareas =
+  recuperarTareas();
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.4. No comprobar el tipo recuperado</h3><p>El JSON puede representar:</p><ul class="custom-list">
+<li>un array;</li>
+<li>un objeto;</li>
+<li>una cadena;</li>
+<li>un número;</li>
+<li><code>null</code>.</li>
+</ul><p>Por eso:</p><div class="example-block"><pre class="code-js"><code class="language-js">const datos =
+  JSON.parse(texto);
+</code></pre></div><p>debe ir acompañado de una validación:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (!Array.isArray(datos)) {
+  return [];
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.5. Usar <code>clear()</code> sin pensar</h3><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.clear();
+</code></pre></div><p>puede borrar claves de otras partes de la misma aplicación.</p><p>Es más seguro:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.removeItem(
+  "dwcc.ud2.tareas"
+);
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.6. Utilizar claves genéricas</h3><p>Evita:</p><div class="example-block"><pre class="code-js"><code class="language-js">"tema"
+"datos"
+"usuario"
+</code></pre></div><p>Prefiere:</p><div class="example-block"><pre class="code-js"><code class="language-js">"dwcc.ud2.tema"
+"dwcc.ud2.tareas"
+"dwcc.ud2.usuario"
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.7. Duplicar datos al iniciar</h3><p>No añadas elementos de demostración cada vez que se carga <code>script.js</code>.</p><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">agregarTarea("Estudiar");
+</code></pre></div><p>si se ejecuta siempre al iniciar.</p><p>Los datos iniciales solo deberían crearse si todavía no existe almacenamiento y la aplicación necesita realmente valores de ejemplo.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.8. Sobrescribir todas las clases del documento</h3><p>Evita:</p><div class="example-block"><pre class="code-js"><code class="language-js">document.body.className =
+  tema;
+</code></pre></div><p>Utiliza:</p><div class="example-block"><pre class="code-js"><code class="language-js">document.body.classList.remove(
+  "tema-claro",
+  "tema-oscuro"
+);
+
+document.body.classList.add(
+  tema
+);
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.9. Ignorar errores de escritura</h3><p>No des por hecho que <code>setItem()</code> siempre funciona.</p><p>Utiliza <code>try...catch</code> cuando el guardado sea importante:</p><div class="example-block"><pre class="code-js"><code class="language-js">try {
+  localStorage.setItem(
+    clave,
+    valor
+  );
+} catch (error) {
+  console.error(error);
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.10. Guardar demasiados datos</h3><p><code>localStorage</code> está pensado para cantidades pequeñas.</p><p>No debe utilizarse como sustituto de:</p><ul class="custom-list">
+<li>una API;</li>
+<li>una base de datos;</li>
+<li>un sistema de archivos;</li>
+<li>un almacén de grandes colecciones.</li>
+</ul><hr/></div></section><section class="content-section" id="12-preguntas-resumen-y-contenidos-aplazados"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-circle"></i></span> 12. Preguntas, resumen y contenidos aplazados</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.1. Preguntas tipo examen</h3><ol class="custom-ordered-list">
+<li>¿Qué significa persistir datos?</li>
+<li>¿Qué diferencia existe entre una variable y <code>localStorage</code>?</li>
+<li>¿Qué es un origen?</li>
+<li>¿Por qué dos puertos diferentes pueden tener almacenamientos distintos?</li>
+<li>¿Qué método guarda un valor?</li>
+<li>¿Qué método recupera un valor?</li>
+<li>¿Qué devuelve <code>getItem()</code> si una clave no existe?</li>
+<li>¿Qué diferencia existe entre <code>removeItem()</code> y <code>clear()</code>?</li>
+<li>¿Por qué conviene utilizar prefijos en las claves?</li>
+<li>¿Qué tipo de dato almacena siempre <code>localStorage</code>?</li>
+<li>¿Qué problema aparece al convertir directamente <code>Number(null)</code>?</li>
+<li>¿Cómo diferenciamos un booleano <code>false</code> de una clave inexistente?</li>
+<li>¿Para qué sirve <code>JSON.stringify()</code>?</li>
+<li>¿Para qué sirve <code>JSON.parse()</code>?</li>
+<li>¿Qué devuelve <code>JSON.parse(null)</code>?</li>
+<li>¿Cuándo puede fallar <code>JSON.parse()</code>?</li>
+<li>¿Por qué debemos comprobar <code>Array.isArray()</code>?</li>
+<li>¿Por qué <code>setItem()</code> puede necesitar <code>try...catch</code>?</li>
+<li>¿Por qué no debemos añadir datos automáticamente en cada recarga?</li>
+<li>¿Por qué es preferible <code>classList</code> frente a sustituir <code>className</code>?</li>
+<li>¿Qué diferencia hay entre <code>localStorage</code> y <code>sessionStorage</code>?</li>
+<li>¿Por qué no debemos guardar contraseñas ni tokens?</li>
+<li>¿Es <code>localStorage</code> síncrono o asíncrono?</li>
+<li>¿Cuándo sería necesario utilizar una solución distinta, como <code>IndexedDB</code>?</li>
+</ol><div class="concept-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.2. Resumen final</h3><ul class="custom-list">
+<li><code>localStorage</code> conserva datos sencillos entre recargas y sesiones.</li>
+<li>El almacenamiento pertenece al origen de la página.</li>
+<li>Protocolo, host y puerto influyen en el origen.</li>
+<li><code>localStorage</code> es una API síncrona.</li>
+<li>Todas las claves y valores se almacenan como texto.</li>
+<li><code>setItem()</code> guarda o sustituye un valor.</li>
+<li><code>getItem()</code> recupera un valor y devuelve <code>null</code> si no existe.</li>
+<li><code>removeItem()</code> elimina una clave concreta.</li>
+<li><code>clear()</code> elimina todas las claves del origen actual.</li>
+<li>Los números y booleanos necesitan conversión.</li>
+<li>Los objetos y arrays requieren <code>JSON.stringify()</code> y <code>JSON.parse()</code>.</li>
+<li><code>JSON.parse()</code> puede fallar si el texto no es JSON válido.</li>
+<li>El tipo de dato recuperado debe validarse.</li>
+<li><code>setItem()</code> también puede producir errores.</li>
+<li>Una aplicación persistente debe recuperar, renderizar, modificar, guardar y volver a renderizar.</li>
+<li><code>sessionStorage</code> conserva datos durante la sesión de una pestaña.</li>
+<li><code>localStorage</code> no debe utilizarse para secretos ni información sensible.</li>
+</ul></div><div class="note-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.3. Contenidos aplazados</h3><p>Quedan fuera como contenido principal:</p><ul class="custom-list">
+<li>evento <code>storage</code>;</li>
+<li>sincronización entre pestañas;</li>
+<li>límites exactos de cuota por navegador;</li>
+<li><code>IndexedDB</code>;</li>
+<li>almacenamiento en caché;</li>
+<li>cookies;</li>
+<li>cookies <code>HttpOnly</code>;</li>
+<li>autenticación y gestión de sesiones;</li>
+<li>cifrado;</li>
+<li>migración y versionado de datos;</li>
+<li>serialización de fechas;</li>
+<li>referencias circulares;</li>
+<li>almacenamiento en servidores o bases de datos.</li>
+</ul></div></section></div>
+</div>
+</main>
+</div>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

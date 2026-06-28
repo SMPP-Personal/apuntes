@@ -1,0 +1,2235 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Bloque 3. Operadores, condicionales y bucles en JavaScript</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../assets/css/smpp.css" rel="stylesheet" />
+    <script defer="" src="../../assets/js/smpp.js"></script>
+  </head>
+  <body>
+    <div class="smpp-scope">
+      <main class="main-content has-sidebar notes-page">
+        <div class="content-layout">
+          <aside class="section-sidebar">
+            <nav aria-label="Índice del documento" class="section-nav">
+              <p class="section-nav-title">
+                <i
+                  aria-hidden="true"
+                  class="bi bi-list-check section-nav-icon"
+                ></i>
+                Índice
+              </p>
+              <ul class="section-nav-list">
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#1-que-vas-a-aprender-en-este-bloque"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-bullseye section-nav-icon"
+                    ></i
+                    ><span>1. Qué vas a aprender en este bloque</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#2-relacion-con-dwcc"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-diagram-3 section-nav-icon"
+                    ></i
+                    ><span>2. Relación con DWCC</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#3-control-de-flujo"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-signpost-split section-nav-icon"
+                    ></i
+                    ><span>3. Control de flujo</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#4-expresiones-booleanas-y-operadores-de-comparacion"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-toggle-on section-nav-icon"
+                    ></i
+                    ><span
+                      >4. Expresiones booleanas y operadores de
+                      comparación</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#5-operadores-logicos"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-diagram-2 section-nav-icon"
+                    ></i
+                    ><span>5. Operadores lógicos</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#6-valores-truthy-y-falsy"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-lightbulb section-nav-icon"
+                    ></i
+                    ><span>6. Valores truthy y falsy</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#7-cortocircuito-y-valores-por-defecto"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-lightning-charge section-nav-icon"
+                    ></i
+                    ><span>7. Cortocircuito y valores por defecto</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#8-condicional-if"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-question-diamond section-nav-icon"
+                    ></i
+                    ><span>8. Condicional if</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#9-condicional-if-else"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-shuffle section-nav-icon"
+                    ></i
+                    ><span>9. Condicional if / else</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#10-condicional-if-else-if-else"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-diagram-3 section-nav-icon"
+                    ></i
+                    ><span>10. Condicional if / else if / else</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#11-operador-ternario"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-code-slash section-nav-icon"
+                    ></i
+                    ><span>11. Operador ternario</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#12-switch"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-toggles section-nav-icon"
+                    ></i
+                    ><span>12. switch</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#13-bucles"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-arrow-repeat section-nav-icon"
+                    ></i
+                    ><span>13. Bucles</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#14-errores-frecuentes"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-bug section-nav-icon"
+                    ></i
+                    ><span>14. Errores frecuentes</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#15-ejercicios-guiados"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-pencil-square section-nav-icon"
+                    ></i
+                    ><span>15. Ejercicios guiados</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#16-preguntas-tipo-examen"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-question-circle section-nav-icon"
+                    ></i
+                    ><span>16. Preguntas tipo examen</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#17-resumen-final"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-flag section-nav-icon"
+                    ></i
+                    ><span>17. Resumen final</span></a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </aside>
+          <div class="content-wrapper">
+            <div class="document-toolbar">
+              <a class="document-home-link" href="../../index.html"
+                ><i aria-hidden="true" class="bi bi-house-door"></i> Índice del
+                curso</a
+              >
+               <button id="theme-toggle" class="document-theme-toggle" type="button">
+    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+    Modo oscuro
+  </button>
+            </div>
+            <header class="content-header">
+              <h1>
+                <span class="document-title-icon"
+                  ><i aria-hidden="true" class="bi bi-signpost-split"></i
+                ></span>
+                Bloque 3. Operadores, condicionales y bucles en JavaScript
+              </h1>
+            </header>
+            <section
+              class="content-section learning-objectives-section"
+              id="1-que-vas-a-aprender-en-este-bloque"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bullseye"></i></span
+                >1. Qué vas a aprender en este bloque
+              </h2>
+              <p class="section-lead">
+                En el bloque anterior trabajamos la sintaxis básica de
+                JavaScript, las variables, las constantes, los tipos de datos y
+                algunas conversiones entre tipos. En este bloque vamos a
+                utilizar esos conocimientos para controlar el flujo de ejecución
+                de un programa.
+              </p>
+              <p>Al finalizar este bloque deberías ser capaz de:</p>
+              <ul class="custom-list">
+                <li>
+                  construir expresiones booleanas con operadores de comparación;
+                </li>
+                <li>combinar condiciones mediante operadores lógicos;</li>
+                <li>
+                  entender cómo JavaScript interpreta valores como verdaderos o
+                  falsos;
+                </li>
+                <li>
+                  utilizar <code>if</code>, <code>else if</code>,
+                  <code>else</code> y <code>switch</code> para tomar decisiones;
+                </li>
+                <li>utilizar el operador ternario en casos sencillos;</li>
+                <li>
+                  repetir instrucciones mediante bucles <code>while</code>,
+                  <code>do...while</code> y <code>for</code>;
+                </li>
+                <li>detectar errores frecuentes en condiciones y bucles.</li>
+              </ul>
+              <blockquote class="concept-box">
+                <p>
+                  <strong>Idea clave</strong><br />
+                  Un programa no siempre se ejecuta línea a línea sin desviarse.
+                  Las estructuras de control permiten decidir qué instrucciones
+                  se ejecutan y cuántas veces se repiten.
+                </p>
+              </blockquote>
+              <hr />
+            </section>
+            <section
+              class="content-section curriculum-section"
+              id="2-relacion-con-dwcc"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-diagram-3"></i></span
+                >2. Relación con DWCC
+              </h2>
+              <p class="section-lead">
+                Este bloque forma parte de la unidad de JavaScript básico en
+                entorno cliente. Se relaciona principalmente con el resultado de
+                aprendizaje en el que se trabaja la escritura de sentencias
+                simples aplicando la sintaxis del lenguaje y verificando su
+                ejecución en navegadores web.
+              </p>
+              <p>Criterios trabajados de forma directa:</p>
+              <ul class="custom-list">
+                <li>
+                  <strong>CA2.2</strong>: utilización de variables y operadores
+                  disponibles en el lenguaje.
+                </li>
+                <li>
+                  <strong>CA2.5</strong>: utilización de mecanismos de decisión
+                  en la creación de bloques de sentencias.
+                </li>
+                <li>
+                  <strong>CA2.6</strong>: utilización de bucles y verificación
+                  de su funcionamiento.
+                </li>
+                <li>
+                  <strong>CA2.7</strong>: incorporación de comentarios al
+                  código.
+                </li>
+                <li>
+                  <strong>CA2.8</strong>: uso de herramientas y entornos para
+                  programar, probar y documentar código.
+                </li>
+              </ul>
+              <p>Durante el bloque se usará principalmente:</p>
+              <ul class="custom-list">
+                <li>la consola del navegador;</li>
+                <li>
+                  ficheros <code>.js</code> enlazados desde una página HTML;
+                </li>
+                <li><code>console.log()</code> para comprobar resultados;</li>
+                <li>comentarios para explicar fragmentos de código.</li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section flow-section"
+              id="3-control-de-flujo"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-signpost-split"></i></span
+                >3. Control de flujo
+              </h2>
+              <p class="section-lead">
+                En JavaScript, si no indicamos lo contrario, las instrucciones
+                se ejecutan <strong>de arriba abajo</strong>, una detrás de
+                otra. A esto se le llama <strong>ejecución secuencial</strong>.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>console.log("Primera línea");
+console.log("Segunda línea");
+console.log("Tercera línea");
+</code></pre>
+              </div>
+              <p>La salida será:</p>
+              <div class="example-block">
+                <pre class="code-text"><code>Primera línea
+Segunda línea
+Tercera línea
+</code></pre>
+              </div>
+              <p>
+                Las <strong>estructuras de control</strong> permiten cambiar ese
+                orden natural:
+              </p>
+              <ul class="custom-list">
+                <li>
+                  <strong>Condicionales</strong>: ejecutan un bloque solo si se
+                  cumple una condición.
+                </li>
+                <li>
+                  <strong>Bucles</strong>: repiten un bloque varias veces
+                  mientras se cumpla una condición.
+                </li>
+              </ul>
+              <p>Ejemplo conceptual:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>const edad = 17;
+
+if (edad &gt;= 18) {
+  console.log("Puedes acceder");
+} else {
+  console.log("No puedes acceder");
+}
+</code></pre>
+              </div>
+              <p>
+                Aquí no se ejecutan todas las instrucciones posibles. El
+                programa toma una decisión según el valor de <code>edad</code>.
+              </p>
+              <hr />
+            </section>
+            <section
+              class="content-section operators-section"
+              id="4-expresiones-booleanas-y-operadores-de-comparacion"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-toggle-on"></i></span
+                >4. Expresiones booleanas y operadores de comparación
+              </h2>
+              <p class="section-lead">
+                Una <strong>expresión booleana</strong> es una expresión cuyo
+                resultado es <code>true</code> o <code>false</code>.
+              </p>
+              <p>Ejemplos:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>console.log(5 &gt; 3);       // true
+console.log(10 &lt; 4);      // false
+console.log(7 === 7);     // true
+console.log("7" === 7);   // false
+</code></pre>
+              </div>
+              <div class="subsection-card">
+                <h3>4.1. Operadores de comparación más usados</h3>
+                <div class="compact-table-container">
+                  <table class="comparison-table operator-table">
+                    <thead>
+                      <tr>
+                        <th>Operador</th>
+                        <th>Significado</th>
+                        <th>Ejemplo</th>
+                        <th>Resultado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>&gt;</code></td>
+                        <td>Mayor que</td>
+                        <td><code>8 &gt; 3</code></td>
+                        <td><code>true</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>&lt;</code></td>
+                        <td>Menor que</td>
+                        <td><code>8 &lt; 3</code></td>
+                        <td><code>false</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>&gt;=</code></td>
+                        <td>Mayor o igual que</td>
+                        <td><code>5 &gt;= 5</code></td>
+                        <td><code>true</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>&lt;=</code></td>
+                        <td>Menor o igual que</td>
+                        <td><code>4 &lt;= 2</code></td>
+                        <td><code>false</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>===</code></td>
+                        <td>Igualdad estricta</td>
+                        <td><code>3 === 3</code></td>
+                        <td><code>true</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>!==</code></td>
+                        <td>Diferencia estricta</td>
+                        <td><code>3 !== "3"</code></td>
+                        <td><code>true</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>4.2. Igualdad estricta frente a igualdad débil</h3>
+                <p>
+                  En JavaScript existen dos formas habituales de comparar
+                  igualdad:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>console.log(0 == "0");    // true
+console.log(0 === "0");   // false
+</code></pre>
+                </div>
+                <ul class="custom-list">
+                  <li>
+                    <code>==</code> compara haciendo conversiones automáticas de
+                    tipo.
+                  </li>
+                  <li>
+                    <code>===</code> compara valor y tipo, sin conversión
+                    automática.
+                  </li>
+                </ul>
+                <p>
+                  En código nuevo se recomienda usar
+                  <strong><code>===</code></strong> y
+                  <strong><code>!==</code></strong> como norma general.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = "18";
+
+console.log(edad == 18);   // true, porque convierte tipos
+console.log(edad === 18);  // false, porque string y number no son el mismo tipo
+</code></pre>
+                </div>
+                <blockquote class="good-practice-box">
+                  <p>
+                    <strong>Regla práctica</strong><br />
+                    Usa <code>===</code> y <code>!==</code>. Si necesitas
+                    convertir un dato, hazlo explícitamente con
+                    <code>Number()</code>, <code>String()</code> o
+                    <code>Boolean()</code>.
+                  </p>
+                </blockquote>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section logic-section"
+              id="5-operadores-logicos"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-diagram-2"></i></span
+                >5. Operadores lógicos
+              </h2>
+              <p class="section-lead">
+                Los operadores lógicos sirven para combinar o modificar
+                condiciones.
+              </p>
+              <p>Los tres operadores principales son:</p>
+              <div class="compact-table-container">
+                <table class="comparison-table operator-table">
+                  <thead>
+                    <tr>
+                      <th>Operador</th>
+                      <th>Nombre</th>
+                      <th>Significado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>&amp;&amp;</code></td>
+                      <td>AND / Y lógico</td>
+                      <td>Todas las condiciones deben ser verdaderas.</td>
+                    </tr>
+                    <tr>
+                      <td><code>||</code></td>
+                      <td>OR / O lógico</td>
+                      <td>Basta con que una condición sea verdadera.</td>
+                    </tr>
+                    <tr>
+                      <td><code>!</code></td>
+                      <td>NOT / NO lógico</td>
+                      <td>Invierte el valor lógico.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="subsection-card">
+                <h3>5.1. AND lógico: <code>&amp;&amp;</code></h3>
+                <p>
+                  <code>&amp;&amp;</code> devuelve <code>true</code> solo cuando
+                  todas las condiciones son verdaderas.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 20;
+const tieneCarnet = true;
+
+const puedeConducir = edad &gt;= 18 &amp;&amp; tieneCarnet === true;
+
+console.log(puedeConducir); // true
+</code></pre>
+                </div>
+                <p>Tabla básica:</p>
+                <div class="compact-table-container">
+                  <table class="comparison-table operator-table">
+                    <thead>
+                      <tr>
+                        <th>Expresión</th>
+                        <th>Resultado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>true &amp;&amp; true</code></td>
+                        <td><code>true</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>true &amp;&amp; false</code></td>
+                        <td><code>false</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>false &amp;&amp; true</code></td>
+                        <td><code>false</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>false &amp;&amp; false</code></td>
+                        <td><code>false</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p>Ejemplo con un resultado falso:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 20;
+const tieneCarnet = false;
+
+console.log(edad &gt;= 18 &amp;&amp; tieneCarnet === true); // false
+</code></pre>
+                </div>
+                <p>
+                  La edad cumple la condición, pero
+                  <code>tieneCarnet === true</code> no se cumple.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>5.2. OR lógico: <code>||</code></h3>
+                <p>
+                  <code>||</code> devuelve <code>true</code> cuando al menos una
+                  condición es verdadera.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const esAdmin = false;
+const esEditor = true;
+
+const puedeEditar = esAdmin === true || esEditor === true;
+
+console.log(puedeEditar); // true
+</code></pre>
+                </div>
+                <p>Tabla básica:</p>
+                <div class="compact-table-container">
+                  <table class="comparison-table operator-table">
+                    <thead>
+                      <tr>
+                        <th>Expresión</th>
+                        <th>Resultado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>true || true</code></td>
+                        <td><code>true</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>true || false</code></td>
+                        <td><code>true</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>false || true</code></td>
+                        <td><code>true</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>false || false</code></td>
+                        <td><code>false</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>5.3. NOT lógico: <code>!</code></h3>
+                <p><code>!</code> invierte el valor lógico.</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const logueado = false;
+
+console.log(!logueado); // true
+</code></pre>
+                </div>
+                <p>Ejemplos:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>console.log(!true);   // false
+console.log(!false);  // true
+</code></pre>
+                </div>
+                <p>
+                  También puede usarse para expresar condiciones como “si no
+                  está logueado”:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const logueado = false;
+
+if (!logueado) {
+  console.log("Debes iniciar sesión");
+}
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>5.4. Condiciones compuestas</h3>
+                <p>Podemos combinar varias condiciones:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 22;
+const tieneEntrada = true;
+const expulsado = false;
+
+if (edad &gt;= 18 &amp;&amp; tieneEntrada &amp;&amp; !expulsado) {
+  console.log("Puede acceder al evento");
+} else {
+  console.log("No puede acceder al evento");
+}
+</code></pre>
+                </div>
+                <p>Lectura de la condición:</p>
+                <blockquote class="note-box">
+                  <p>
+                    Si la edad es mayor o igual que 18, tiene entrada y no está
+                    expulsado, puede acceder.
+                  </p>
+                </blockquote>
+                <p>
+                  Cuando una condición sea larga, conviene dividirla en
+                  variables intermedias:
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const esMayorDeEdad = edad &gt;= 18;
+const puedeEntrar = tieneEntrada &amp;&amp; !expulsado;
+
+if (esMayorDeEdad &amp;&amp; puedeEntrar) {
+  console.log("Puede acceder al evento");
+}
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section logic-section"
+              id="6-valores-truthy-y-falsy"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-lightbulb"></i></span
+                >6. Valores truthy y falsy
+              </h2>
+              <p class="section-lead">
+                En JavaScript, una condición no tiene que ser necesariamente
+                <code>true</code> o <code>false</code>. Cuando un valor se usa
+                dentro de un <code>if</code>, JavaScript lo interpreta como
+                verdadero o falso.
+              </p>
+              <p>
+                A los valores que se interpretan como <code>false</code> se les
+                llama <strong>falsy</strong>.
+              </p>
+              <p>
+                A los valores que se interpretan como <code>true</code> se les
+                llama <strong>truthy</strong>.
+              </p>
+              <div class="subsection-card">
+                <h3>6.1. Valores falsy más importantes</h3>
+                <p>
+                  Estos valores se comportan como <code>false</code> en una
+                  condición:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>false
+0
+""
+null
+undefined
+NaN
+</code></pre>
+                </div>
+                <p>Ejemplos:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>if (0) {
+  console.log("Esto no se ejecuta");
+}
+
+if ("") {
+  console.log("Esto tampoco se ejecuta");
+}
+
+if (null) {
+  console.log("Esto tampoco se ejecuta");
+}
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>6.2. Valores truthy</h3>
+                <p>
+                  Casi todos los demás valores se comportan como
+                  <code>true</code>.
+                </p>
+                <p>Ejemplos importantes:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>if ("Hola") {
+  console.log("Una cadena no vacía es truthy");
+}
+
+if ("0") {
+  console.log("La cadena '0' es truthy");
+}
+
+if ("false") {
+  console.log("La cadena 'false' también es truthy");
+}
+</code></pre>
+                </div>
+                <p>Esto puede sorprender al principio:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(Boolean("false")); // true
+console.log(Boolean("0"));     // true
+console.log(Boolean(""));      // false
+</code></pre>
+                </div>
+                <blockquote class="warning-box">
+                  <p>
+                    <strong>Cuidado</strong><br />
+                    La cadena <code>"false"</code> no es el valor booleano
+                    <code>false</code>. Es texto, y como no está vacía, es
+                    truthy.
+                  </p>
+                </blockquote>
+              </div>
+              <div class="subsection-card">
+                <h3>6.3. Uso habitual en validaciones sencillas</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nombre = "Ana";
+
+if (nombre) {
+  console.log("Hay un nombre guardado");
+} else {
+  console.log("No hay nombre");
+}
+</code></pre>
+                </div>
+                <p>
+                  Si <code>nombre</code> es una cadena vacía (<code>""</code>),
+                  la condición será falsa.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section logic-section"
+              id="7-cortocircuito-y-valores-por-defecto"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-lightning-charge"
+                  ></i></span
+                >7. Cortocircuito y valores por defecto
+              </h2>
+              <p class="section-lead">
+                Los operadores <code>&amp;&amp;</code> y <code>||</code> no
+                siempre evalúan toda la expresión. Evalúan de izquierda a
+                derecha y se detienen cuando ya saben el resultado. A esto se le
+                llama <strong>cortocircuito</strong>.
+              </p>
+              <div class="subsection-card">
+                <h3>7.1. Cortocircuito con <code>&amp;&amp;</code></h3>
+                <p>
+                  En una expresión con <code>&amp;&amp;</code>, si la primera
+                  parte es falsa, JavaScript ya sabe que el resultado completo
+                  será falso. Por tanto, no evalúa lo que viene después.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  console.log("Hola desde la función");
+  return true;
+}
+
+false &amp;&amp; saludar(); // saludar() no se ejecuta
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>7.2. Cortocircuito con <code>||</code></h3>
+                <p>
+                  En una expresión con <code>||</code>, si la primera parte es
+                  verdadera, JavaScript ya sabe que el resultado completo será
+                  verdadero. Por tanto, no evalúa lo que viene después.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  console.log("Hola desde la función");
+  return true;
+}
+
+true || saludar(); // saludar() no se ejecuta
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>7.3. Uso de <code>||</code> como valor por defecto</h3>
+                <p>
+                  Un uso habitual de <code>||</code> es proporcionar un valor
+                  por defecto cuando el primer valor es falsy.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let nombreUsuario = null;
+
+const nombreMostrado = nombreUsuario || "Invitado";
+
+console.log(nombreMostrado); // "Invitado"
+</code></pre>
+                </div>
+                <p>
+                  Si <code>nombreUsuario</code> tiene un valor truthy, se usa
+                  ese valor:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let nombreUsuario = "Ana";
+
+const nombreMostrado = nombreUsuario || "Invitado";
+
+console.log(nombreMostrado); // "Ana"
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>7.4. Advertencia sobre <code>0</code> y <code>""</code></h3>
+                <p>
+                  El uso de <code>||</code> como valor por defecto puede dar
+                  problemas cuando <code>0</code> o <code>""</code> son valores
+                  válidos.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const puntos = 0;
+const puntosMostrados = puntos || 100;
+
+console.log(puntosMostrados); // 100
+</code></pre>
+                </div>
+                <p>
+                  El resultado es <code>100</code> porque <code>0</code> es
+                  falsy. Pero quizá <code>0</code> era un valor válido y no
+                  queríamos sustituirlo.
+                </p>
+                <p>
+                  En JavaScript moderno existe el operador <code>??</code>, que
+                  solo usa el valor por defecto cuando el primer valor es
+                  <code>null</code> o <code>undefined</code>:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const puntos = 0;
+const puntosMostrados = puntos ?? 100;
+
+console.log(puntosMostrados); // 0
+</code></pre>
+                </div>
+                <p>
+                  En este bloque basta con entender bien <code>||</code>. El
+                  operador <code>??</code> queda como ampliación.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section conditionals-section"
+              id="8-condicional-if"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-question-diamond"
+                  ></i></span
+                >8. Condicional <code>if</code>
+              </h2>
+              <p class="section-lead">
+                La estructura <code>if</code> permite ejecutar un bloque de
+                código solo si se cumple una condición.
+              </p>
+              <div class="subsection-card">
+                <h3>8.1. Sintaxis</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>if (condicion) {
+  // Código que se ejecuta si la condición es true
+}
+</code></pre>
+                </div>
+                <p>
+                  La condición va entre paréntesis. El bloque de código va entre
+                  llaves.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>8.2. Ejemplo básico</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 20;
+
+if (edad &gt;= 18) {
+  console.log("Puedes entrar");
+}
+</code></pre>
+                </div>
+                <p>
+                  Si <code>edad &gt;= 18</code> es <code>true</code>, se ejecuta
+                  el <code>console.log()</code>.
+                </p>
+                <p>
+                  Si la condición es <code>false</code>, el bloque no se
+                  ejecuta.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>8.3. <code>if</code> con valores truthy y falsy</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nombre = "Ana";
+
+if (nombre) {
+  console.log("Nombre indicado");
+}
+</code></pre>
+                </div>
+                <p>
+                  La variable <code>nombre</code> contiene una cadena no vacía,
+                  por tanto se interpreta como <code>true</code>.
+                </p>
+                <p>Otro ejemplo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nombre = "";
+
+if (nombre) {
+  console.log("Nombre indicado");
+}
+</code></pre>
+                </div>
+                <p>
+                  En este caso no se muestra nada, porque la cadena vacía es
+                  falsy.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section conditionals-section"
+              id="9-condicional-if-else"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-shuffle"></i></span
+                >9. Condicional <code>if / else</code>
+              </h2>
+              <p class="section-lead">
+                Con <code>else</code> podemos indicar qué debe ocurrir cuando la
+                condición del <code>if</code> no se cumple.
+              </p>
+              <div class="subsection-card">
+                <h3>9.1. Sintaxis</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>if (condicion) {
+  // Código si la condición es true
+} else {
+  // Código si la condición es false
+}
+</code></pre>
+                </div>
+                <p>Solo se ejecuta uno de los dos bloques.</p>
+              </div>
+              <div class="subsection-card">
+                <h3>9.2. Ejemplo</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 16;
+
+if (edad &gt;= 18) {
+  console.log("Eres mayor de edad");
+} else {
+  console.log("Eres menor de edad");
+}
+</code></pre>
+                </div>
+                <p>
+                  Como <code>edad &gt;= 18</code> es <code>false</code>, se
+                  ejecuta el bloque del <code>else</code>.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>9.3. Ejemplo con usuario logueado</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const logueado = false;
+
+if (logueado) {
+  console.log("Mostrar panel de usuario");
+} else {
+  console.log("Mostrar botón de iniciar sesión");
+}
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section conditionals-section"
+              id="10-condicional-if-else-if-else"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-diagram-3"></i></span
+                >10. Condicional <code>if / else if / else</code>
+              </h2>
+              <p class="section-lead">
+                Cuando hay más de dos posibilidades, podemos encadenar
+                condiciones con <code>else if</code>.
+              </p>
+              <div class="subsection-card">
+                <h3>10.1. Sintaxis</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>if (condicion1) {
+  // Código si condicion1 es true
+} else if (condicion2) {
+  // Código si condicion2 es true
+} else if (condicion3) {
+  // Código si condicion3 es true
+} else {
+  // Código si ninguna condición anterior es true
+}
+</code></pre>
+                </div>
+                <p>
+                  JavaScript evalúa las condiciones en orden. Cuando una
+                  condición es <code>true</code>, ejecuta ese bloque y salta el
+                  resto.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>10.2. Ejemplo: nota numérica</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nota = 7;
+
+if (nota &gt;= 9) {
+  console.log("Sobresaliente");
+} else if (nota &gt;= 7) {
+  console.log("Notable");
+} else if (nota &gt;= 5) {
+  console.log("Aprobado");
+} else {
+  console.log("Suspenso");
+}
+</code></pre>
+                </div>
+                <p>
+                  El orden importa. Si <code>nota</code> es <code>7</code>, se
+                  cumple <code>nota &gt;= 7</code>, se muestra
+                  <code>"Notable"</code> y ya no se revisa el resto.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>10.3. Validación de rangos</h3>
+                <p>
+                  El ejemplo anterior clasifica notas, pero no comprueba si la
+                  nota está dentro del rango correcto.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nota = 25;
+
+if (nota &lt; 0 || nota &gt; 10) {
+  console.log("Nota no válida");
+} else if (nota &gt;= 9) {
+  console.log("Sobresaliente");
+} else if (nota &gt;= 7) {
+  console.log("Notable");
+} else if (nota &gt;= 5) {
+  console.log("Aprobado");
+} else {
+  console.log("Suspenso");
+}
+</code></pre>
+                </div>
+                <p>
+                  Aquí primero se comprueba si la nota es válida. Solo después
+                  se clasifica.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section conditionals-section"
+              id="11-operador-ternario"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-code-slash"></i></span
+                >11. Operador ternario
+              </h2>
+              <p class="section-lead">
+                El <strong>operador ternario</strong> es una forma abreviada de
+                escribir un <code>if / else</code> sencillo cuando queremos
+                elegir entre dos valores.
+              </p>
+              <div class="subsection-card">
+                <h3>11.1. Sintaxis</h3>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>condicion ? valorSiTrue : valorSiFalse
+</code></pre>
+                </div>
+                <p>La estructura tiene tres partes:</p>
+                <ol class="custom-ordered-list">
+                  <li>condición;</li>
+                  <li>valor si la condición es verdadera;</li>
+                  <li>valor si la condición es falsa.</li>
+                </ol>
+              </div>
+              <div class="subsection-card">
+                <h3>11.2. Ejemplo básico</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 18;
+
+const mensaje = edad &gt;= 18 ? "Mayor de edad" : "Menor de edad";
+
+console.log(mensaje); // "Mayor de edad"
+</code></pre>
+                </div>
+                <p>Equivale a esto:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 18;
+let mensaje;
+
+if (edad &gt;= 18) {
+  mensaje = "Mayor de edad";
+} else {
+  mensaje = "Menor de edad";
+}
+
+console.log(mensaje);
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>11.3. Ejemplo con login</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const logueado = false;
+
+const textoBoton = logueado ? "Cerrar sesión" : "Iniciar sesión";
+
+console.log(textoBoton); // "Iniciar sesión"
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>11.4. Cuándo usar ternario</h3>
+                <p>Usa ternario cuando:</p>
+                <ul class="custom-list">
+                  <li>hay una condición sencilla;</li>
+                  <li>hay solo dos valores posibles;</li>
+                  <li>
+                    el resultado se guarda en una variable o se muestra
+                    directamente.
+                  </li>
+                </ul>
+                <p>Evítalo cuando:</p>
+                <ul class="custom-list">
+                  <li>la condición es larga;</li>
+                  <li>hay varias decisiones encadenadas;</li>
+                  <li>el código pierde legibilidad.</li>
+                </ul>
+                <p>Ejemplo poco recomendable para empezar:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const mensaje = nota &gt;= 9 ? "Sobresaliente" : nota &gt;= 7 ? "Notable" : nota &gt;= 5 ? "Aprobado" : "Suspenso";
+</code></pre>
+                </div>
+                <p>
+                  Aunque funciona, es difícil de leer. En este caso es mejor
+                  usar <code>if / else if / else</code>.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section conditionals-section"
+              id="12-switch"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-toggles"></i></span
+                >12. <code>switch</code>
+              </h2>
+              <p class="section-lead">
+                <code>switch</code> permite elegir entre varios casos posibles
+                comparando una misma expresión con distintos valores.
+              </p>
+              <p>Es útil cuando tenemos muchos valores concretos posibles.</p>
+              <div class="subsection-card">
+                <h3>12.1. Sintaxis</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>switch (expresion) {
+  case valor1:
+    // Código si expresion === valor1
+    break;
+
+  case valor2:
+    // Código si expresion === valor2
+    break;
+
+  default:
+    // Código si ningún case coincide
+    break;
+}
+</code></pre>
+                </div>
+                <p>Puntos clave:</p>
+                <ul class="custom-list">
+                  <li>La expresión se evalúa una vez.</li>
+                  <li>
+                    Cada <code>case</code> se compara usando igualdad estricta.
+                  </li>
+                  <li>
+                    <code>break</code> evita que se sigan ejecutando los casos
+                    siguientes.
+                  </li>
+                  <li>
+                    <code>default</code> es opcional, pero suele ser
+                    recomendable.
+                  </li>
+                </ul>
+              </div>
+              <div class="subsection-card">
+                <h3>12.2. Ejemplo: día de la semana</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const dia = 3;
+let nombreDia;
+
+switch (dia) {
+  case 1:
+    nombreDia = "Lunes";
+    break;
+  case 2:
+    nombreDia = "Martes";
+    break;
+  case 3:
+    nombreDia = "Miércoles";
+    break;
+  case 4:
+    nombreDia = "Jueves";
+    break;
+  case 5:
+    nombreDia = "Viernes";
+    break;
+  case 6:
+    nombreDia = "Sábado";
+    break;
+  case 7:
+    nombreDia = "Domingo";
+    break;
+  default:
+    nombreDia = "Día no válido";
+    break;
+}
+
+console.log(nombreDia); // "Miércoles"
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>12.3. Fall-through</h3>
+                <p>
+                  Si no ponemos <code>break</code>, JavaScript continúa
+                  ejecutando los casos siguientes. Esto se llama
+                  <strong>fall-through</strong>.
+                </p>
+                <p>A veces es un error:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const opcion = 1;
+
+switch (opcion) {
+  case 1:
+    console.log("Opción 1");
+  case 2:
+    console.log("Opción 2");
+  default:
+    console.log("Otra opción");
+}
+</code></pre>
+                </div>
+                <p>
+                  Si <code>opcion</code> vale <code>1</code>, se imprimirán
+                  varios mensajes porque faltan los <code>break</code>.
+                </p>
+                <p>Pero también puede usarse de forma intencionada:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const dia = 6;
+
+switch (dia) {
+  case 1:
+  case 2:
+  case 3:
+  case 4:
+  case 5:
+    console.log("Día laborable");
+    break;
+  case 6:
+  case 7:
+    console.log("Fin de semana");
+    break;
+  default:
+    console.log("Día no válido");
+    break;
+}
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>
+                  12.4. Cuándo usar <code>if</code> y cuándo usar
+                  <code>switch</code>
+                </h3>
+                <div class="compact-table-container">
+                  <table class="comparison-table operator-table">
+                    <thead>
+                      <tr>
+                        <th>Estructura</th>
+                        <th>Cuándo usarla</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>if</code></td>
+                        <td>Una condición simple.</td>
+                      </tr>
+                      <tr>
+                        <td><code>if / else</code></td>
+                        <td>Dos caminos posibles.</td>
+                      </tr>
+                      <tr>
+                        <td><code>if / else if / else</code></td>
+                        <td>
+                          Varias condiciones, rangos o expresiones diferentes.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>switch</code></td>
+                        <td>
+                          Una misma expresión comparada con varios valores
+                          concretos.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p>Ejemplos:</p>
+                <ul class="custom-list">
+                  <li>
+                    Para clasificar una nota por rangos, suele ser mejor
+                    <code>if / else if / else</code>.
+                  </li>
+                  <li>
+                    Para elegir una acción según un texto como
+                    <code>"crear"</code>, <code>"editar"</code> o
+                    <code>"borrar"</code>, puede ser mejor <code>switch</code>.
+                  </li>
+                </ul>
+                <hr />
+              </div>
+            </section>
+            <section class="content-section loops-section" id="13-bucles">
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-arrow-repeat"></i></span
+                >13. Bucles
+              </h2>
+              <p class="section-lead">
+                Un <strong>bucle</strong> es una estructura que permite repetir
+                un bloque de código varias veces.
+              </p>
+              <p>En JavaScript usaremos principalmente:</p>
+              <ul class="custom-list">
+                <li><code>while</code>;</li>
+                <li><code>do...while</code>;</li>
+                <li><code>for</code>.</li>
+              </ul>
+              <p>
+                Los bucles son imprescindibles para automatizar tareas
+                repetitivas: contar, acumular valores, recorrer intervalos,
+                repetir validaciones o procesar listas de datos.
+              </p>
+              <div class="subsection-card">
+                <h3>13.1. Bucle <code>while</code></h3>
+                <p>
+                  El bucle <code>while</code> repite un bloque mientras una
+                  condición sea verdadera.
+                </p>
+                <div class="syntax-box">
+                  <h4>Sintaxis</h4>
+                  <div class="example-block">
+                    <pre class="code-js"><code>while (condicion) {
+  // Código que se repite mientras la condición sea true
+}
+</code></pre>
+                  </div>
+                </div>
+                <h4>Ejemplo: contar de 1 a 5</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>let numero = 1;
+
+while (numero &lt;= 5) {
+  console.log(numero);
+  numero = numero + 1;
+}
+</code></pre>
+                </div>
+                <p>Funcionamiento:</p>
+                <ol class="custom-ordered-list">
+                  <li><code>numero</code> empieza valiendo <code>1</code>.</li>
+                  <li>Se comprueba si <code>numero &lt;= 5</code>.</li>
+                  <li>Si la condición es verdadera, se ejecuta el bloque.</li>
+                  <li>Se incrementa <code>numero</code>.</li>
+                  <li>
+                    Cuando <code>numero</code> vale <code>6</code>, la condición
+                    es falsa y el bucle termina.
+                  </li>
+                </ol>
+                <p>También podríamos escribir el incremento así:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>numero++;
+</code></pre>
+                </div>
+                <p><code>numero++</code> equivale a:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>numero = numero + 1;
+</code></pre>
+                </div>
+                <h4>Cuidado con los bucles infinitos</h4>
+                <p>
+                  Un bucle infinito ocurre cuando la condición nunca se vuelve
+                  falsa.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let x = 0;
+
+while (x &lt; 10) {
+  console.log(x);
+  // Falta actualizar x
+}
+</code></pre>
+                </div>
+                <p>
+                  Este bucle no termina porque <code>x</code> siempre vale
+                  <code>0</code>.
+                </p>
+                <p>Regla práctica:</p>
+                <blockquote class="note-box">
+                  <p>
+                    Dentro del bucle debe cambiar alguna variable que afecte a
+                    la condición.
+                  </p>
+                </blockquote>
+              </div>
+              <div class="subsection-card">
+                <h3>13.2. Bucle <code>do...while</code></h3>
+                <p>
+                  El bucle <code>do...while</code> se parece a
+                  <code>while</code>, pero garantiza que el bloque se ejecuta al
+                  menos una vez.
+                </p>
+                <div class="syntax-box">
+                  <h4>Sintaxis</h4>
+                  <div class="example-block">
+                    <pre class="code-js"><code>do {
+  // Código que se ejecuta al menos una vez
+} while (condicion);
+</code></pre>
+                  </div>
+                </div>
+                <p>
+                  Primero se ejecuta el bloque. Después se comprueba la
+                  condición.
+                </p>
+                <h4>Ejemplo básico</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>let numero = 10;
+
+do {
+  console.log(numero);
+  numero++;
+} while (numero &lt;= 5);
+</code></pre>
+                </div>
+                <p>
+                  Aunque <code>numero &lt;= 5</code> es falso desde el
+                  principio, el bloque se ejecuta una vez.
+                </p>
+                <h4>Ejemplo: pedir un número mayor que 0</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>let numero;
+
+do {
+  numero = Number(prompt("Introduce un número mayor que 0"));
+} while (numero &lt;= 0 || Number.isNaN(numero));
+
+console.log("Número correcto:", numero);
+</code></pre>
+                </div>
+                <p>
+                  <code>prompt()</code> se utiliza aquí como recurso sencillo
+                  para practicar. Más adelante, en formularios, se sustituirá
+                  por entradas HTML.
+                </p>
+              </div>
+              <div class="subsection-card">
+                <h3>13.3. Bucle <code>for</code></h3>
+                <p>
+                  El bucle <code>for</code> se usa mucho cuando controlamos un
+                  contador o sabemos el número de repeticiones.
+                </p>
+                <div class="syntax-box">
+                  <h4>Sintaxis</h4>
+                  <div class="example-block">
+                    <pre
+                      class="code-js"
+                    ><code>for (inicializacion; condicion; actualizacion) {
+  // Código que se repite mientras la condición sea true
+}
+</code></pre>
+                  </div>
+                </div>
+                <p>Partes:</p>
+                <ul class="custom-list">
+                  <li>
+                    <strong>inicialización</strong>: se ejecuta una vez al
+                    principio;
+                  </li>
+                  <li>
+                    <strong>condición</strong>: se comprueba antes de cada
+                    vuelta;
+                  </li>
+                  <li>
+                    <strong>actualización</strong>: se ejecuta al final de cada
+                    vuelta.
+                  </li>
+                </ul>
+                <h4>Ejemplo: contar de 1 a 5</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>for (let i = 1; i &lt;= 5; i++) {
+  console.log(i);
+}
+</code></pre>
+                </div>
+                <p>Equivale a este <code>while</code>:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let i = 1;
+
+while (i &lt;= 5) {
+  console.log(i);
+  i++;
+}
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>13.4. Cuándo usar cada bucle</h3>
+                <div class="compact-table-container">
+                  <table class="comparison-table operator-table">
+                    <thead>
+                      <tr>
+                        <th>Bucle</th>
+                        <th>Cuándo usarlo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>while</code></td>
+                        <td>
+                          Cuando no sabemos cuántas veces se repetirá y
+                          dependemos de una condición.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>do...while</code></td>
+                        <td>
+                          Cuando queremos ejecutar el bloque al menos una vez.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>for</code></td>
+                        <td>
+                          Cuando usamos un contador o conocemos el rango de
+                          repetición.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p>Ejemplos típicos:</p>
+                <ul class="custom-list">
+                  <li>
+                    <code>while</code>: seguir pidiendo datos mientras no sean
+                    válidos.
+                  </li>
+                  <li>
+                    <code>do...while</code>: mostrar un menú al menos una vez.
+                  </li>
+                  <li>
+                    <code>for</code>: contar de 1 a 10 o recorrer posiciones de
+                    una lista.
+                  </li>
+                </ul>
+              </div>
+              <div class="subsection-card">
+                <h3>13.5. Contadores y acumuladores</h3>
+                <p>
+                  Un <strong>contador</strong> aumenta o disminuye para contar
+                  repeticiones.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>for (let i = 1; i &lt;= 5; i++) {
+  console.log("Vuelta", i);
+}
+</code></pre>
+                </div>
+                <p>
+                  Un <strong>acumulador</strong> guarda un resultado que se va
+                  construyendo vuelta a vuelta.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let suma = 0;
+
+for (let i = 1; i &lt;= 10; i++) {
+  suma = suma + i;
+}
+
+console.log("La suma es:", suma); // 55
+</code></pre>
+                </div>
+                <p>También se puede escribir:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>suma += i;
+</code></pre>
+                </div>
+                <p>que equivale a:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>suma = suma + i;
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>13.6. Ejemplos integradores</h3>
+                <h4>Tabla de multiplicar</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numero = 5;
+
+for (let i = 1; i &lt;= 10; i++) {
+  console.log(numero + " x " + i + " = " + numero * i);
+}
+</code></pre>
+                </div>
+                <h4>Validar una entrada numérica</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>let entrada;
+let numero;
+
+do {
+  entrada = prompt("Introduce un número:");
+  numero = Number(entrada);
+} while (Number.isNaN(numero));
+
+console.log("Has introducido el número:", numero);
+</code></pre>
+                </div>
+                <p>
+                  Este ejemplo comprueba que la entrada pueda convertirse a
+                  número. Si queremos exigir que sea un entero, habría que
+                  añadir <code>Number.isInteger(numero)</code>:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>let entrada;
+let numero;
+
+do {
+  entrada = prompt("Introduce un número entero:");
+  numero = Number(entrada);
+} while (Number.isNaN(numero) || !Number.isInteger(numero));
+
+console.log("Has introducido el entero:", numero);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section frequent-errors-section"
+              id="14-errores-frecuentes"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bug"></i></span
+                >14. Errores frecuentes
+              </h2>
+              <div class="error-card">
+                <h3>14.1. Usar <code>=</code> en lugar de <code>===</code></h3>
+                <div class="bad-example-block">
+                  <p>Incorrecto:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>let edad = 18;
+
+if (edad = 18) {
+  console.log("Edad igual a 18");
+}
+</code></pre>
+                  </div>
+                  <p><code>=</code> es asignación, no comparación.</p>
+                </div>
+                <div class="good-example-block">
+                  <p>Correcto:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>const edad = 18;
+
+if (edad === 18) {
+  console.log("Edad igual a 18");
+}
+</code></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="error-card">
+                <h3>14.2. Olvidar las llaves</h3>
+                <p>
+                  JavaScript permite escribir un <code>if</code> sin llaves
+                  cuando solo hay una instrucción, pero para aprender es mejor
+                  usarlas siempre.
+                </p>
+                <p>Poco recomendable:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>if (edad &gt;= 18)
+  console.log("Mayor de edad");
+</code></pre>
+                </div>
+                <p>Recomendado:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>if (edad &gt;= 18) {
+  console.log("Mayor de edad");
+}
+</code></pre>
+                </div>
+              </div>
+              <div class="error-card">
+                <h3>14.3. Construir condiciones demasiado largas</h3>
+                <p>Difícil de leer:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>if (edad &gt;= 18 &amp;&amp; tieneEntrada &amp;&amp; !expulsado &amp;&amp; saldo &gt;= precio &amp;&amp; eventoAbierto) {
+  console.log("Puede entrar");
+}
+</code></pre>
+                </div>
+                <p>Más claro:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const esMayorDeEdad = edad &gt;= 18;
+const entradaValida = tieneEntrada &amp;&amp; !expulsado;
+const puedePagar = saldo &gt;= precio;
+
+if (esMayorDeEdad &amp;&amp; entradaValida &amp;&amp; puedePagar &amp;&amp; eventoAbierto) {
+  console.log("Puede entrar");
+}
+</code></pre>
+                </div>
+              </div>
+              <div class="error-card">
+                <h3>14.4. Bucles infinitos</h3>
+                <div class="bad-example-block">
+                  <p>Incorrecto:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>let i = 1;
+
+while (i &lt;= 10) {
+  console.log(i);
+}
+</code></pre>
+                  </div>
+                </div>
+                <div class="good-example-block">
+                  <p>Correcto:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>let i = 1;
+
+while (i &lt;= 10) {
+  console.log(i);
+  i++;
+}
+</code></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="error-card">
+                <h3>14.5. Condiciones mal ordenadas</h3>
+                <div class="bad-example-block">
+                  <p>Incorrecto:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>const nota = 8;
+
+if (nota &gt;= 5) {
+  console.log("Aprobado");
+} else if (nota &gt;= 7) {
+  console.log("Notable");
+} else if (nota &gt;= 9) {
+  console.log("Sobresaliente");
+}
+</code></pre>
+                  </div>
+                  <p>
+                    Si <code>nota</code> vale <code>8</code>, se muestra
+                    <code>"Aprobado"</code>, porque <code>nota &gt;= 5</code> ya
+                    se cumple y las demás condiciones no se revisan.
+                  </p>
+                </div>
+                <div class="good-example-block">
+                  <p>Correcto:</p>
+                  <div class="example-block">
+                    <pre class="code-js"><code>const nota = 8;
+
+if (nota &gt;= 9) {
+  console.log("Sobresaliente");
+} else if (nota &gt;= 7) {
+  console.log("Notable");
+} else if (nota &gt;= 5) {
+  console.log("Aprobado");
+} else {
+  console.log("Suspenso");
+}
+</code></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="error-card">
+                <h3>
+                  14.6. Confundir <code>||</code> como valor por defecto en
+                  todos los casos
+                </h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const puntos = 0;
+const resultado = puntos || "Sin puntos";
+
+console.log(resultado); // "Sin puntos"
+</code></pre>
+                </div>
+                <p>
+                  Si <code>0</code> es un valor válido, esta solución no sirve.
+                  Hay que comprobar el caso concreto o usar otra estrategia.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section guided-exercises-section"
+              id="15-ejercicios-guiados"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-pencil-square"></i></span
+                >15. Ejercicios guiados
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 1. Comparaciones básicas</h3>
+                <p>Indica el resultado de cada expresión:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>5 &gt; 3
+5 &lt; 3
+7 &gt;= 7
+"7" === 7
+"7" == 7
+3 !== "3"
+</code></pre>
+                </div>
+                <p>Después compruébalo en la consola.</p>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 2. Operadores lógicos</h3>
+                <p>Con estos datos:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 20;
+const tieneCarnet = false;
+</code></pre>
+                </div>
+                <p>Indica el resultado:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>edad &gt;= 18 &amp;&amp; tieneCarnet
+edad &gt;= 18 || tieneCarnet
+!tieneCarnet
+</code></pre>
+                </div>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 3. Truthy y falsy</h3>
+                <p>Indica si cada valor se comporta como truthy o falsy:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>0
+""
+"Hola"
+null
+undefined
+NaN
+"false"
+"0"
+</code></pre>
+                </div>
+                <p>Compruébalo con <code>Boolean(valor)</code>.</p>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 4. Condicional simple</h3>
+                <p>
+                  Completa el código para mostrar
+                  <code>"Acceso permitido"</code> solo si la edad es mayor o
+                  igual que 18.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const edad = 19;
+
+// Completa aquí
+</code></pre>
+                </div>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 5. Condicional doble</h3>
+                <p>Completa el código para mostrar:</p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Aprobado"</code> si la nota es mayor o igual que 5;
+                  </li>
+                  <li><code>"Suspenso"</code> en caso contrario.</li>
+                </ul>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nota = 4;
+
+// Completa aquí
+</code></pre>
+                </div>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 6. Condicional múltiple</h3>
+                <p>Crea un programa que clasifique una nota:</p>
+                <ul class="custom-list">
+                  <li>
+                    menor que 0 o mayor que 10: <code>"Nota no válida"</code>;
+                  </li>
+                  <li>9 o más: <code>"Sobresaliente"</code>;</li>
+                  <li>7 o más: <code>"Notable"</code>;</li>
+                  <li>5 o más: <code>"Aprobado"</code>;</li>
+                  <li>menor que 5: <code>"Suspenso"</code>.</li>
+                </ul>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 7. Ternario</h3>
+                <p>Completa el código usando operador ternario:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const logueado = false;
+
+const textoBoton = // completar
+
+console.log(textoBoton); // "Iniciar sesión"
+</code></pre>
+                </div>
+                <p>
+                  Si <code>logueado</code> es <code>true</code>, debe mostrar
+                  <code>"Cerrar sesión"</code>. Si es <code>false</code>, debe
+                  mostrar <code>"Iniciar sesión"</code>.
+                </p>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 8. <code>switch</code></h3>
+                <p>
+                  Crea un <code>switch</code> que reciba una variable
+                  <code>accion</code> y muestre:
+                </p>
+                <ul class="custom-list">
+                  <li>
+                    <code>"Creando elemento"</code> si <code>accion</code> vale
+                    <code>"crear"</code>;
+                  </li>
+                  <li>
+                    <code>"Editando elemento"</code> si <code>accion</code> vale
+                    <code>"editar"</code>;
+                  </li>
+                  <li>
+                    <code>"Borrando elemento"</code> si <code>accion</code> vale
+                    <code>"borrar"</code>;
+                  </li>
+                  <li>
+                    <code>"Acción no reconocida"</code> en cualquier otro caso.
+                  </li>
+                </ul>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 9. Bucle <code>while</code></h3>
+                <p>
+                  Muestra por consola los números del 1 al 10 usando
+                  <code>while</code>.
+                </p>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 10. Bucle <code>for</code></h3>
+                <p>
+                  Muestra por consola los números pares del 2 al 20 usando
+                  <code>for</code>.
+                </p>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 11. Acumulador</h3>
+                <p>
+                  Calcula la suma de los números del 1 al 100 usando un bucle.
+                </p>
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 12. Tabla de multiplicar</h3>
+                <p>Dada esta variable:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numero = 7;
+</code></pre>
+                </div>
+                <p>
+                  Muestra por consola la tabla de multiplicar del 7, desde
+                  <code>7 x 1</code> hasta <code>7 x 10</code>.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section review-section exam-questions-section"
+              id="16-preguntas-tipo-examen"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-question-circle"
+                  ></i></span
+                >16. Preguntas tipo examen
+              </h2>
+              <ol class="question-list">
+                <li>
+                  ¿Qué diferencia hay entre <code>==</code> y <code>===</code>?
+                  ¿Cuál se recomienda usar en JavaScript moderno?
+                </li>
+                <li>
+                  ¿Qué resultado tiene
+                  <code>edad &gt;= 18 &amp;&amp; tieneCarnet</code> si
+                  <code>edad = 20</code> y <code>tieneCarnet = false</code>?
+                </li>
+                <li>
+                  Explica con tus palabras qué significa que un valor sea
+                  <strong>truthy</strong> o <strong>falsy</strong>.
+                </li>
+                <li>Indica tres valores falsy en JavaScript.</li>
+                <li>¿Qué hace el operador <code>!</code>?</li>
+                <li>
+                  ¿Qué diferencia hay entre <code>if / else if / else</code> y
+                  <code>switch</code>?
+                </li>
+                <li>
+                  ¿Para qué sirve el operador ternario? Pon un ejemplo sencillo.
+                </li>
+                <li>
+                  ¿Qué ocurre si falta un <code>break</code> dentro de un
+                  <code>switch</code>?
+                </li>
+                <li>
+                  ¿Qué diferencia hay entre <code>while</code> y
+                  <code>do...while</code>?
+                </li>
+                <li>
+                  ¿Cuándo usarías un bucle <code>for</code> en lugar de un
+                  <code>while</code>?
+                </li>
+                <li>
+                  ¿Qué es un bucle infinito? Pon un ejemplo de cómo evitarlo.
+                </li>
+                <li>¿Qué es un acumulador en un bucle?</li>
+              </ol>
+              <hr />
+            </section>
+            <section
+              class="content-section summary-section"
+              id="17-resumen-final"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-flag"></i></span
+                >17. Resumen final
+              </h2>
+              <p class="section-lead">
+                En este bloque hemos estudiado cómo controlar el flujo de
+                ejecución de un programa JavaScript.
+              </p>
+              <p>Ideas principales:</p>
+              <ul class="custom-list">
+                <li>
+                  Las comparaciones devuelven valores booleanos:
+                  <code>true</code> o <code>false</code>.
+                </li>
+                <li>
+                  En JavaScript se recomienda usar <code>===</code> y
+                  <code>!==</code> en lugar de <code>==</code> y
+                  <code>!=</code>.
+                </li>
+                <li>
+                  Los operadores lógicos permiten combinar condiciones:
+                  <ul class="custom-list">
+                    <li>
+                      <code>&amp;&amp;</code>: todas las condiciones deben
+                      cumplirse;
+                    </li>
+                    <li><code>||</code>: basta con que se cumpla una;</li>
+                    <li><code>!</code>: invierte el valor lógico.</li>
+                  </ul>
+                </li>
+                <li>
+                  Los valores falsy más importantes son <code>false</code>,
+                  <code>0</code>, <code>""</code>, <code>null</code>,
+                  <code>undefined</code> y <code>NaN</code>.
+                </li>
+                <li>
+                  <code>if</code>, <code>else if</code> y
+                  <code>else</code> permiten tomar decisiones según condiciones.
+                </li>
+                <li>
+                  El operador ternario permite elegir entre dos valores cuando
+                  la condición es sencilla.
+                </li>
+                <li>
+                  <code>switch</code> es útil cuando se compara una misma
+                  expresión con varios valores concretos.
+                </li>
+                <li>
+                  Los bucles permiten repetir instrucciones:
+                  <ul class="custom-list">
+                    <li>
+                      <code>while</code>: repite mientras se cumpla una
+                      condición;
+                    </li>
+                    <li>
+                      <code>do...while</code>: se ejecuta al menos una vez;
+                    </li>
+                    <li>
+                      <code>for</code>: suele usarse con contadores o rangos.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Todo bucle debe tener una condición que pueda llegar a ser
+                  falsa.
+                </li>
+              </ul>
+              <blockquote class="next-steps-box">
+                <p>
+                  <strong>Conexión con el siguiente bloque</strong><br />
+                  En el siguiente bloque se trabajarán las funciones. Las
+                  funciones permitirán encapsular parte de esta lógica para
+                  reutilizarla y organizar mejor el código.
+                </p>
+              </blockquote>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

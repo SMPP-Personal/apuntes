@@ -1,0 +1,1360 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Bloque 5A. Arrays básicos en JavaScript</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../assets/css/smpp.css" rel="stylesheet" />
+    <script defer="" src="../../assets/js/smpp.js"></script>
+  </head>
+  <body>
+    <div class="smpp-scope">
+      <main class="main-content has-sidebar notes-page">
+        <div class="content-layout">
+          <aside class="section-sidebar">
+            <nav aria-label="Índice del documento" class="section-nav">
+              <p class="section-nav-title">
+                <i
+                  aria-hidden="true"
+                  class="bi bi-list-check section-nav-icon"
+                ></i>
+                Índice
+              </p>
+              <ul class="section-nav-list">
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#1-que-vas-a-aprender-en-este-bloque"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-bullseye section-nav-icon"
+                    ></i
+                    ><span>1. Qué vas a aprender en este bloque</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#2-que-es-un-array"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-list-ul section-nav-icon"
+                    ></i
+                    ><span>2. Qué es un array</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#3-crear-arrays"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-plus-square section-nav-icon"
+                    ></i
+                    ><span>3. Crear arrays</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#4-acceder-a-los-elementos-de-un-array"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-brackets section-nav-icon"
+                    ></i
+                    ><span>4. Acceder a los elementos de un array</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#5-modificar-elementos-de-un-array"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-pencil-square section-nav-icon"
+                    ></i
+                    ><span>5. Modificar elementos de un array</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#6-longitud-del-array-length"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-rulers section-nav-icon"
+                    ></i
+                    ><span>6. Longitud del array: <code>length</code></span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#7-primer-y-ultimo-elemento"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-skip-start section-nav-icon"
+                    ></i
+                    ><span>7. Primer y último elemento</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#8-recorrer-un-array-con-for"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-arrow-repeat section-nav-icon"
+                    ></i
+                    ><span>8. Recorrer un array con <code>for</code></span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#9-patrones-basicos-con-arrays"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-diagram-3 section-nav-icon"
+                    ></i
+                    ><span>9. Patrones básicos con arrays</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#10-metodos-basicos-de-arrays"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-tools section-nav-icon"
+                    ></i
+                    ><span>10. Métodos básicos de arrays</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#11-arrays-y-funciones"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-node-plus section-nav-icon"
+                    ></i
+                    ><span>11. Arrays y funciones</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#12-tabla-resumen-de-metodos-basicos"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-table section-nav-icon"
+                    ></i
+                    ><span>12. Tabla resumen de métodos básicos</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#13-errores-frecuentes"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-bug section-nav-icon"
+                    ></i
+                    ><span>13. Errores frecuentes</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#14-que-veremos-en-el-siguiente-bloque"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-signpost-2 section-nav-icon"
+                    ></i
+                    ><span>14. Qué veremos en el siguiente bloque</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#15-contenidos-aplazados-para-documentos-posteriores"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-slash-circle section-nav-icon"
+                    ></i
+                    ><span
+                      >15. Contenidos aplazados para documentos
+                      posteriores</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#16-resumen-final"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-flag section-nav-icon"
+                    ></i
+                    ><span>16. Resumen final</span></a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </aside>
+          <div class="content-wrapper">
+            <div class="document-toolbar">
+              <a class="document-home-link" href="../../index.html"
+                ><i aria-hidden="true" class="bi bi-house-door"></i> Índice del
+                curso</a
+              ><button
+                id="theme-toggle"
+                class="document-theme-toggle"
+                type="button"
+              >
+                <i aria-hidden="true" class="bi bi-moon-stars"></i> Modo oscuro
+              </button>
+            </div>
+            <header class="content-header">
+              <h1>
+                <span aria-hidden="true" class="document-title-icon"
+                  ><i aria-hidden="true" class="bi bi-braces"></i
+                ></span>
+                Bloque 5A. Arrays básicos en JavaScript
+              </h1>
+            </header>
+            <section
+              class="content-section learning-objectives-section"
+              id="1-que-vas-a-aprender-en-este-bloque"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bullseye"></i></span
+                >1. Qué vas a aprender en este bloque
+              </h2>
+              <p>
+                En este bloque vas a trabajar con <strong>arrays</strong>, una
+                de las estructuras de datos más utilizadas en JavaScript.
+              </p>
+              <p>
+                Un array permite guardar
+                <strong>varios valores relacionados</strong> dentro de una sola
+                variable. Hasta ahora hemos trabajado con variables
+                individuales:
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>const nota1 = 4;
+const nota2 = 7;
+const nota3 = 9;
+</code></pre>
+              </div>
+              <p>Con un array podemos agrupar esos valores:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>const notas = [4, 7, 9];
+</code></pre>
+              </div>
+              <p>
+                Esto permite recorrer los datos, calcular resultados, buscar
+                valores y organizar mejor el código.
+              </p>
+              <p>En este bloque aprenderás a:</p>
+              <ul class="custom-list">
+                <li>crear arrays;</li>
+                <li>acceder a sus elementos mediante índices;</li>
+                <li>modificar elementos;</li>
+                <li>usar la propiedad <code>length</code>;</li>
+                <li>recorrer arrays con <code>for</code>;</li>
+                <li>
+                  aplicar patrones básicos como sumar, contar, buscar o calcular
+                  medias;
+                </li>
+                <li>
+                  utilizar métodos básicos como <code>push()</code>,
+                  <code>pop()</code>, <code>shift()</code>,
+                  <code>unshift()</code>, <code>includes()</code> e
+                  <code>indexOf()</code>;
+                </li>
+                <li>crear funciones que reciben arrays como parámetro.</li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section flow-section"
+              id="2-que-es-un-array"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-list-ul"></i></span
+                >2. Qué es un array
+              </h2>
+              <p>
+                Un <strong>array</strong> es una estructura de datos que permite
+                guardar <strong>varios valores en una sola variable</strong>,
+                como si fuera una lista ordenada.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+</code></pre>
+              </div>
+              <p>En este ejemplo:</p>
+              <ul class="custom-list">
+                <li><code>notas</code> es el nombre del array;</li>
+                <li>el array contiene 5 valores;</li>
+                <li>cada valor ocupa una posición;</li>
+                <li>las posiciones se llaman <strong>índices</strong>.</li>
+              </ul>
+              <p>Los índices en JavaScript empiezan en <strong>0</strong>:</p>
+              <div class="compact-table-container">
+                <table class="comparison-table">
+                  <thead>
+                    <tr>
+                      <th>Elemento</th>
+                      <th>Valor</th>
+                      <th>Índice</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Primer elemento</td>
+                      <td><code>4</code></td>
+                      <td><code>0</code></td>
+                    </tr>
+                    <tr>
+                      <td>Segundo elemento</td>
+                      <td><code>7</code></td>
+                      <td><code>1</code></td>
+                    </tr>
+                    <tr>
+                      <td>Tercer elemento</td>
+                      <td><code>9</code></td>
+                      <td><code>2</code></td>
+                    </tr>
+                    <tr>
+                      <td>Cuarto elemento</td>
+                      <td><code>3</code></td>
+                      <td><code>3</code></td>
+                    </tr>
+                    <tr>
+                      <td>Quinto elemento</td>
+                      <td><code>5</code></td>
+                      <td><code>4</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <blockquote class="concept-box">
+                <p>
+                  Si un array tiene 5 elementos, su último índice no es 5, sino
+                  4.
+                </p>
+              </blockquote>
+              <hr />
+            </section>
+            <section class="content-section" id="3-crear-arrays">
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-plus-square"></i></span
+                >3. Crear arrays
+              </h2>
+              <div class="subsection-card">
+                <h3>3.1. Crear un array con valores</h3>
+                <p>
+                  La forma recomendada para crear arrays en JavaScript es usar
+                  <strong>corchetes</strong> <code>[]</code>.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numeros = [10, 20, 30];
+const nombres = [&quot;Ana&quot;, &quot;Luis&quot;, &quot;María&quot;];
+const aprobados = [true, false, true];
+</code></pre>
+                </div>
+                <p>Cada elemento se separa con una coma.</p>
+              </div>
+              <div class="subsection-card">
+                <h3>3.2. Arrays con distintos tipos de datos</h3>
+                <p>
+                  JavaScript permite crear arrays con valores de distinto tipo:
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const mezcla = [1, &quot;hola&quot;, true, null];
+</code></pre>
+                </div>
+                <p>
+                  Técnicamente es válido, pero en código real suele ser más
+                  claro que un array guarde valores del mismo tipo o
+                  relacionados entre sí.
+                </p>
+                <p>Ejemplo recomendable:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+</code></pre>
+                </div>
+                <p>Ejemplo menos claro:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const datos = [4, &quot;Ana&quot;, true, null];
+</code></pre>
+                </div>
+              </div>
+              <div class="subsection-card">
+                <h3>3.3. Crear un array vacío</h3>
+                <p>
+                  También podemos crear un array vacío y añadir datos después:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const tareas = [];
+</code></pre>
+                </div>
+                <p>
+                  Más adelante podemos añadir elementos con métodos como
+                  <code>push()</code>.
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>tareas.push(&quot;Repasar JavaScript&quot;);
+tareas.push(&quot;Entregar práctica&quot;);
+
+console.log(tareas);
+</code></pre>
+                </div>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section"
+              id="4-acceder-a-los-elementos-de-un-array"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-brackets"></i></span
+                >4. Acceder a los elementos de un array
+              </h2>
+              <p>
+                Para acceder a un elemento usamos el nombre del array y su
+                índice entre corchetes.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+console.log(notas[0]); // 4
+console.log(notas[1]); // 7
+console.log(notas[4]); // 5
+</code></pre>
+              </div>
+              <p>Recuerda:</p>
+              <ul class="custom-list">
+                <li><code>notas[0]</code> accede al primer elemento;</li>
+                <li><code>notas[1]</code> accede al segundo;</li>
+                <li><code>notas[4]</code> accede al quinto.</li>
+              </ul>
+              <div class="subsection-card">
+                <h3>4.1. Acceder a una posición inexistente</h3>
+                <p>
+                  Si intentamos acceder a una posición que no existe, JavaScript
+                  devuelve <code>undefined</code>.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9];
+
+console.log(notas[0]);  // 4
+console.log(notas[10]); // undefined
+</code></pre>
+                </div>
+                <p>
+                  Esto no detiene el programa, pero normalmente indica que
+                  estamos intentando acceder a una posición incorrecta.
+                </p>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section"
+              id="5-modificar-elementos-de-un-array"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-pencil-square"></i></span
+                >5. Modificar elementos de un array
+              </h2>
+              <p>
+                Podemos cambiar el valor de una posición concreta usando su
+                índice.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>const notas = [4, 7, 9];
+
+console.log(notas); // [4, 7, 9]
+
+notas[0] = 6;
+
+console.log(notas); // [6, 7, 9]
+</code></pre>
+              </div>
+              <p>
+                Aunque el array esté declarado con <code>const</code>, podemos
+                modificar sus elementos internos.
+              </p>
+              <p>Lo que no podemos hacer es reasignar toda la constante:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>const notas = [4, 7, 9];
+
+notas[0] = 6;       // Correcto
+// notas = [10, 8]; // Error: no se puede reasignar una constante
+</code></pre>
+              </div>
+              <p>
+                La constante <code>notas</code> sigue apuntando al mismo array.
+                Lo que cambia es el contenido del array.
+              </p>
+              <hr />
+            </section>
+            <section class="content-section" id="6-longitud-del-array-length">
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-rulers"></i></span
+                >6. Longitud del array: <code>length</code>
+              </h2>
+              <p>
+                La propiedad <code>length</code> indica cuántos elementos tiene
+                un array.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+console.log(notas.length); // 5
+</code></pre>
+              </div>
+              <p>
+                <code>length</code> es muy útil para recorrer arrays sin
+                escribir a mano cuántos elementos hay.
+              </p>
+              <p>No es recomendable hacer esto:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+for (let i = 0; i &lt; 5; i++) {
+  console.log(notas[i]);
+}
+</code></pre>
+              </div>
+              <p>Es mejor usar <code>length</code>:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+for (let i = 0; i &lt; notas.length; i++) {
+  console.log(notas[i]);
+}
+</code></pre>
+              </div>
+              <p>
+                Así el código seguirá funcionando aunque el array tenga más o
+                menos elementos.
+              </p>
+              <hr />
+            </section>
+            <section class="content-section" id="7-primer-y-ultimo-elemento">
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-skip-start"></i></span
+                >7. Primer y último elemento
+              </h2>
+              <p>
+                El primer elemento de un array está en la posición
+                <code>0</code>.
+              </p>
+              <div class="example-block">
+                <pre
+                  class="code-js"
+                ><code>const nombres = [&quot;Ana&quot;, &quot;Luis&quot;, &quot;María&quot;];
+
+console.log(nombres[0]); // &quot;Ana&quot;
+</code></pre>
+              </div>
+              <p>
+                El último elemento está en la posición <code>length - 1</code>.
+              </p>
+              <div class="example-block">
+                <pre
+                  class="code-js"
+                ><code>const nombres = [&quot;Ana&quot;, &quot;Luis&quot;, &quot;María&quot;];
+
+console.log(nombres[nombres.length - 1]); // &quot;María&quot;
+</code></pre>
+              </div>
+              <p>Esto funciona aunque el array cambie de tamaño.</p>
+              <div class="example-block">
+                <pre
+                  class="code-js"
+                ><code>const frutas = [&quot;manzana&quot;, &quot;pera&quot;, &quot;naranja&quot;, &quot;kiwi&quot;];
+
+console.log(frutas[frutas.length - 1]); // &quot;kiwi&quot;
+</code></pre>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section loops-section"
+              id="8-recorrer-un-array-con-for"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-arrow-repeat"></i></span
+                >8. Recorrer un array con <code>for</code>
+              </h2>
+              <p>
+                Recorrer un array significa visitar sus elementos uno a uno.
+              </p>
+              <p>
+                La forma clásica es usar un bucle <code>for</code> con un
+                índice.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+for (let i = 0; i &lt; notas.length; i++) {
+  console.log(&quot;Índice:&quot;, i, &quot;Valor:&quot;, notas[i]);
+}
+</code></pre>
+              </div>
+              <p>En este ejemplo:</p>
+              <ul class="custom-list">
+                <li><code>i</code> empieza en <code>0</code>;</li>
+                <li>
+                  el bucle se repite mientras <code>i &lt; notas.length</code>;
+                </li>
+                <li>
+                  en cada vuelta accedemos al elemento con
+                  <code>notas[i]</code>.
+                </li>
+              </ul>
+              <div class="subsection-card">
+                <h3>8.1. Error frecuente: usar <code>&lt;=</code></h3>
+                <p>Este código tiene un error:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9];
+
+for (let i = 0; i &lt;= notas.length; i++) {
+  console.log(notas[i]);
+}
+</code></pre>
+                </div>
+                <p>
+                  El problema es que <code>i &lt;= notas.length</code> permite
+                  llegar hasta <code>i = 3</code>, pero los índices válidos son
+                  <code>0</code>, <code>1</code> y <code>2</code>.
+                </p>
+                <p>La versión correcta es:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9];
+
+for (let i = 0; i &lt; notas.length; i++) {
+  console.log(notas[i]);
+}
+</code></pre>
+                </div>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section logic-section"
+              id="9-patrones-basicos-con-arrays"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-diagram-3"></i></span
+                >9. Patrones básicos con arrays
+              </h2>
+              <p>
+                Una vez sabemos recorrer arrays, podemos hacer operaciones
+                útiles con sus elementos.
+              </p>
+              <hr />
+              <div class="subsection-card">
+                <h3>9.1. Sumar los valores de un array</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numeros = [4, 7, 9, 3, 5];
+let suma = 0;
+
+for (let i = 0; i &lt; numeros.length; i++) {
+  suma += numeros[i];
+}
+
+console.log(&quot;Suma:&quot;, suma);
+</code></pre>
+                </div>
+                <p>Funcionamiento:</p>
+                <ul class="custom-list">
+                  <li><code>suma</code> empieza en <code>0</code>;</li>
+                  <li>en cada vuelta se añade un número del array;</li>
+                  <li>al final, <code>suma</code> contiene el total.</li>
+                </ul>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>9.2. Calcular la media</h3>
+                <p>
+                  Para calcular la media necesitamos sumar los valores y dividir
+                  entre el número de elementos.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+let suma = 0;
+
+for (let i = 0; i &lt; notas.length; i++) {
+  suma += notas[i];
+}
+
+const media = suma / notas.length;
+
+console.log(&quot;Media:&quot;, media);
+</code></pre>
+                </div>
+                <p>
+                  Antes de calcular una media conviene asegurarse de que el
+                  array no está vacío.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [];
+
+if (notas.length &gt; 0) {
+  let suma = 0;
+
+  for (let i = 0; i &lt; notas.length; i++) {
+    suma += notas[i];
+  }
+
+  const media = suma / notas.length;
+  console.log(&quot;Media:&quot;, media);
+} else {
+  console.log(&quot;No hay notas para calcular la media&quot;);
+}
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>9.3. Contar elementos que cumplen una condición</h3>
+                <p>
+                  Podemos contar cuántos elementos cumplen una condición. Por
+                  ejemplo, cuántas notas son aprobadas.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+let aprobados = 0;
+
+for (let i = 0; i &lt; notas.length; i++) {
+  if (notas[i] &gt;= 5) {
+    aprobados++;
+  }
+}
+
+console.log(&quot;Aprobados:&quot;, aprobados);
+</code></pre>
+                </div>
+                <p>También podemos contar suspensos:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+let suspensos = 0;
+
+for (let i = 0; i &lt; notas.length; i++) {
+  if (notas[i] &lt; 5) {
+    suspensos++;
+  }
+}
+
+console.log(&quot;Suspensos:&quot;, suspensos);
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>9.4. Buscar un valor manualmente</h3>
+                <p>
+                  Podemos recorrer un array para comprobar si contiene un valor.
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const nombres = [&quot;Ana&quot;, &quot;Luis&quot;, &quot;María&quot;];
+let encontrado = false;
+
+for (let i = 0; i &lt; nombres.length; i++) {
+  if (nombres[i] === &quot;Luis&quot;) {
+    encontrado = true;
+  }
+}
+
+if (encontrado) {
+  console.log(&quot;Luis está en la lista&quot;);
+} else {
+  console.log(&quot;Luis no está en la lista&quot;);
+}
+</code></pre>
+                </div>
+                <p>
+                  Más adelante veremos métodos que permiten hacer esto de forma
+                  más directa.
+                </p>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section operators-section"
+              id="10-metodos-basicos-de-arrays"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-tools"></i></span
+                >10. Métodos básicos de arrays
+              </h2>
+              <p>
+                Los arrays tienen métodos incorporados que permiten realizar
+                operaciones frecuentes.
+              </p>
+              <p>
+                En este bloque veremos métodos sencillos. Los métodos avanzados
+                con callbacks se estudiarán en el siguiente bloque.
+              </p>
+              <hr />
+              <div class="subsection-card">
+                <h3>10.1. <code>push()</code>: añadir al final</h3>
+                <p><code>push()</code> añade un elemento al final del array.</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const frutas = [&quot;manzana&quot;, &quot;pera&quot;];
+
+frutas.push(&quot;naranja&quot;);
+
+console.log(frutas); // [&quot;manzana&quot;, &quot;pera&quot;, &quot;naranja&quot;]
+</code></pre>
+                </div>
+                <p><code>push()</code> modifica el array original.</p>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>10.2. <code>pop()</code>: eliminar el último elemento</h3>
+                <p>
+                  <code>pop()</code> elimina el último elemento del array y lo
+                  devuelve.
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const frutas = [&quot;manzana&quot;, &quot;pera&quot;, &quot;naranja&quot;];
+
+const ultima = frutas.pop();
+
+console.log(ultima); // &quot;naranja&quot;
+console.log(frutas); // [&quot;manzana&quot;, &quot;pera&quot;]
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>10.3. <code>unshift()</code>: añadir al principio</h3>
+                <p>
+                  <code>unshift()</code> añade un elemento al inicio del array.
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const frutas = [&quot;pera&quot;, &quot;naranja&quot;];
+
+frutas.unshift(&quot;manzana&quot;);
+
+console.log(frutas); // [&quot;manzana&quot;, &quot;pera&quot;, &quot;naranja&quot;]
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>10.4. <code>shift()</code>: eliminar el primer elemento</h3>
+                <p>
+                  <code>shift()</code> elimina el primer elemento del array y lo
+                  devuelve.
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const frutas = [&quot;manzana&quot;, &quot;pera&quot;, &quot;naranja&quot;];
+
+const primera = frutas.shift();
+
+console.log(primera); // &quot;manzana&quot;
+console.log(frutas);  // [&quot;pera&quot;, &quot;naranja&quot;]
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>
+                  10.5. <code>includes()</code>: comprobar si existe un valor
+                </h3>
+                <p>
+                  <code>includes()</code> devuelve <code>true</code> si el array
+                  contiene el valor indicado.
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const nombres = [&quot;Ana&quot;, &quot;Luis&quot;, &quot;María&quot;];
+
+console.log(nombres.includes(&quot;Luis&quot;));  // true
+console.log(nombres.includes(&quot;Pedro&quot;)); // false
+</code></pre>
+                </div>
+                <p>
+                  Este método es útil cuando solo necesitamos saber si un valor
+                  existe o no.
+                </p>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>
+                  10.6. <code>indexOf()</code>: obtener la posición de un valor
+                </h3>
+                <p>
+                  <code>indexOf()</code> devuelve el índice donde aparece un
+                  valor. Si no lo encuentra, devuelve <code>-1</code>.
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const nombres = [&quot;Ana&quot;, &quot;Luis&quot;, &quot;María&quot;];
+
+console.log(nombres.indexOf(&quot;Luis&quot;));  // 1
+console.log(nombres.indexOf(&quot;Pedro&quot;)); // -1
+</code></pre>
+                </div>
+                <p>Podemos usarlo en una condición:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const nombres = [&quot;Ana&quot;, &quot;Luis&quot;, &quot;María&quot;];
+
+if (nombres.indexOf(&quot;Pedro&quot;) === -1) {
+  console.log(&quot;Pedro no está en la lista&quot;);
+}
+</code></pre>
+                </div>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section flow-section"
+              id="11-arrays-y-funciones"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-node-plus"></i></span
+                >11. Arrays y funciones
+              </h2>
+              <p>
+                Como ya hemos trabajado funciones, podemos crear funciones que
+                reciban arrays como argumento.
+              </p>
+              <p>
+                Esto permite reutilizar código con distintas listas de datos.
+              </p>
+              <hr />
+              <div class="subsection-card">
+                <h3>11.1. Función que muestra todos los elementos</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function mostrarElementos(lista) {
+  for (let i = 0; i &lt; lista.length; i++) {
+    console.log(lista[i]);
+  }
+}
+
+const nombres = [&quot;Ana&quot;, &quot;Luis&quot;, &quot;María&quot;];
+
+mostrarElementos(nombres);
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>11.2. Función que suma los valores de un array</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function sumarArray(numeros) {
+  let suma = 0;
+
+  for (let i = 0; i &lt; numeros.length; i++) {
+    suma += numeros[i];
+  }
+
+  return suma;
+}
+
+const notas = [4, 7, 9, 3, 5];
+
+console.log(sumarArray(notas)); // 28
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>11.3. Función que calcula la media</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function calcularMedia(numeros) {
+  if (numeros.length === 0) {
+    return null;
+  }
+
+  let suma = 0;
+
+  for (let i = 0; i &lt; numeros.length; i++) {
+    suma += numeros[i];
+  }
+
+  return suma / numeros.length;
+}
+
+const notas = [4, 7, 9, 3, 5];
+const media = calcularMedia(notas);
+
+if (media !== null) {
+  console.log(&quot;Media:&quot;, media);
+} else {
+  console.log(&quot;No se puede calcular la media de un array vacío&quot;);
+}
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="subsection-card">
+                <h3>11.4. Función que cuenta aprobados</h3>
+                <div class="example-block">
+                  <pre class="code-js"><code>function contarAprobados(notas) {
+  let aprobados = 0;
+
+  for (let i = 0; i &lt; notas.length; i++) {
+    if (notas[i] &gt;= 5) {
+      aprobados++;
+    }
+  }
+
+  return aprobados;
+}
+
+const notasClase = [4, 7, 9, 3, 5];
+
+console.log(&quot;Aprobados:&quot;, contarAprobados(notasClase));
+</code></pre>
+                </div>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section"
+              id="12-tabla-resumen-de-metodos-basicos"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-table"></i></span
+                >12. Tabla resumen de métodos básicos
+              </h2>
+              <div class="compact-table-container">
+                <table class="comparison-table operator-table">
+                  <thead>
+                    <tr>
+                      <th>Método</th>
+                      <th>Qué hace</th>
+                      <th>Modifica el array original</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>push(valor)</code></td>
+                      <td>Añade un elemento al final</td>
+                      <td>Sí</td>
+                    </tr>
+                    <tr>
+                      <td><code>pop()</code></td>
+                      <td>Elimina el último elemento</td>
+                      <td>Sí</td>
+                    </tr>
+                    <tr>
+                      <td><code>unshift(valor)</code></td>
+                      <td>Añade un elemento al principio</td>
+                      <td>Sí</td>
+                    </tr>
+                    <tr>
+                      <td><code>shift()</code></td>
+                      <td>Elimina el primer elemento</td>
+                      <td>Sí</td>
+                    </tr>
+                    <tr>
+                      <td><code>includes(valor)</code></td>
+                      <td>Comprueba si un valor existe</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><code>indexOf(valor)</code></td>
+                      <td>
+                        Devuelve la posición de un valor o <code>-1</code>
+                      </td>
+                      <td>No</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section frequent-errors-section"
+              id="13-errores-frecuentes"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bug"></i></span
+                >13. Errores frecuentes
+              </h2>
+              <div class="error-card">
+                <h3>13.1. Pensar que el primer índice es 1</h3>
+                <p>Incorrecto:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const colores = [&quot;rojo&quot;, &quot;verde&quot;, &quot;azul&quot;];
+
+console.log(colores[1]); // &quot;verde&quot;, no &quot;rojo&quot;
+</code></pre>
+                </div>
+                <p>Correcto:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const colores = [&quot;rojo&quot;, &quot;verde&quot;, &quot;azul&quot;];
+
+console.log(colores[0]); // &quot;rojo&quot;
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="error-card">
+                <h3>13.2. Usar <code>&lt;=</code> al recorrer el array</h3>
+                <p>Incorrecto:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const datos = [10, 20, 30];
+
+for (let i = 0; i &lt;= datos.length; i++) {
+  console.log(datos[i]);
+}
+</code></pre>
+                </div>
+                <p>El último valor mostrado será <code>undefined</code>.</p>
+                <p>Correcto:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const datos = [10, 20, 30];
+
+for (let i = 0; i &lt; datos.length; i++) {
+  console.log(datos[i]);
+}
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="error-card">
+                <h3>13.3. Confundir <code>const</code> con inmutabilidad</h3>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const frutas = [&quot;manzana&quot;, &quot;pera&quot;];
+
+frutas.push(&quot;naranja&quot;); // Correcto
+
+// frutas = [&quot;kiwi&quot;];   // Error
+</code></pre>
+                </div>
+                <p>
+                  <code>const</code> impide reasignar la variable, pero no
+                  impide modificar el contenido del array.
+                </p>
+              </div>
+              <hr />
+              <div class="error-card">
+                <h3>13.4. Olvidar inicializar acumuladores o contadores</h3>
+                <p>Incorrecto:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numeros = [1, 2, 3];
+let suma;
+
+for (let i = 0; i &lt; numeros.length; i++) {
+  suma += numeros[i];
+}
+
+console.log(suma); // NaN
+</code></pre>
+                </div>
+                <p>Correcto:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numeros = [1, 2, 3];
+let suma = 0;
+
+for (let i = 0; i &lt; numeros.length; i++) {
+  suma += numeros[i];
+}
+
+console.log(suma); // 6
+</code></pre>
+                </div>
+              </div>
+              <hr />
+              <div class="error-card">
+                <h3>13.5. Acceder a posiciones que no existen</h3>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const nombres = [&quot;Ana&quot;, &quot;Luis&quot;];
+
+console.log(nombres[5]); // undefined
+</code></pre>
+                </div>
+                <p>
+                  Esto suele indicar que el índice utilizado no es correcto.
+                </p>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section flow-section"
+              id="14-que-veremos-en-el-siguiente-bloque"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-signpost-2"></i></span
+                >14. Qué veremos en el siguiente bloque
+              </h2>
+              <div class="next-steps-box">
+                <p>
+                  En este bloque hemos recorrido arrays con <code>for</code> y
+                  hemos usado métodos básicos.
+                </p>
+                <p>
+                  En el siguiente bloque,
+                  <strong>B05B. Arrays avanzados</strong>, veremos métodos más
+                  expresivos y habituales en JavaScript moderno:
+                </p>
+                <ul class="custom-list">
+                  <li><code>forEach()</code>;</li>
+                  <li><code>map()</code>;</li>
+                  <li><code>filter()</code>;</li>
+                  <li><code>reduce()</code>;</li>
+                  <li>callbacks aplicados a arrays;</li>
+                  <li>funciones flecha como callbacks;</li>
+                  <li>
+                    comparación entre recorrido con <code>for</code> y métodos
+                    de array.
+                  </li>
+                </ul>
+                <p>
+                  Estos contenidos ya conectan directamente con lo visto en B04b
+                  sobre callbacks y funciones flecha.
+                </p>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section restrictions-section"
+              id="15-contenidos-aplazados-para-documentos-posteriores"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-slash-circle"></i></span
+                >15. Contenidos aplazados para documentos posteriores
+              </h2>
+              <p>
+                Estos contenidos no forman parte de este bloque y se trabajarán
+                más adelante:
+              </p>
+              <div class="subsection-card">
+                <h3>B05B. Arrays avanzados</h3>
+                <ul class="custom-list">
+                  <li>
+                    métodos avanzados de arrays con callbacks:
+                    <code>forEach</code>, <code>map</code>, <code>filter</code>,
+                    <code>reduce</code>;
+                  </li>
+                  <li>funciones flecha como callbacks;</li>
+                  <li>
+                    comparación entre recorridos con <code>for</code> y métodos
+                    de array.
+                  </li>
+                </ul>
+              </div>
+              <div class="subsection-card">
+                <h3>B05C. Objetos predefinidos</h3>
+                <ul class="custom-list">
+                  <li><code>Math</code>;</li>
+                  <li><code>String</code>;</li>
+                  <li><code>Number</code>;</li>
+                  <li><code>Date</code>;</li>
+                  <li>
+                    <code>JSON</code> como ampliación o puente hacia APIs, si
+                    procede.
+                  </li>
+                </ul>
+              </div>
+              <div class="subsection-card">
+                <h3>Más adelante</h3>
+                <ul class="custom-list">
+                  <li>arrays de objetos;</li>
+                  <li>
+                    ordenación avanzada con <code>sort()</code> y función de
+                    comparación;
+                  </li>
+                  <li><code>destructuring</code>;</li>
+                  <li>operador spread/rest;</li>
+                  <li>arrays multidimensionales.</li>
+                </ul>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section summary-section"
+              id="16-resumen-final"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-flag"></i></span
+                >16. Resumen final
+              </h2>
+              <p>
+                Un <strong>array</strong> permite guardar varios valores en una
+                sola variable.
+              </p>
+              <p>Ideas clave:</p>
+              <ul class="custom-list">
+                <li>Los arrays se crean con corchetes <code>[]</code>.</li>
+                <li>Los elementos se separan con comas.</li>
+                <li>Los índices empiezan en <code>0</code>.</li>
+                <li><code>array[0]</code> accede al primer elemento.</li>
+                <li>
+                  <code>array.length</code> indica cuántos elementos tiene.
+                </li>
+                <li>
+                  El último elemento está en
+                  <code>array[array.length - 1]</code>.
+                </li>
+                <li>Podemos recorrer un array con un <code>for</code>.</li>
+                <li>
+                  Los arrays declarados con <code>const</code> pueden modificar
+                  su contenido, pero no pueden reasignarse.
+                </li>
+                <li>
+                  Los métodos básicos <code>push()</code>, <code>pop()</code>,
+                  <code>unshift()</code>, <code>shift()</code>,
+                  <code>includes()</code> e <code>indexOf()</code> permiten
+                  manipular o consultar arrays sencillos.
+                </li>
+                <li>
+                  Las funciones pueden recibir arrays como parámetros y devolver
+                  resultados calculados a partir de sus elementos.
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

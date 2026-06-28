@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bloque 5A. Hoja de ejercicios: arrays básicos</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../../assets/css/smpp.css" />
+    <script src="../../assets/js/smpp.js" defer></script>
+  </head>
+  <body>
+    <div class="smpp-scope">
+      <main class="main-content has-sidebar exercises-page">
+        <div class="content-layout">
+          <aside class="section-sidebar">
+            <nav aria-label="Índice del documento" class="section-nav">
+              <p class="section-nav-title">
+                <i
+                  aria-hidden="true"
+                  class="bi bi-list-check section-nav-icon"
+                ></i>
+                Índice
+              </p>
+              <ul class="section-nav-list">
+                <li>
+                  <a class="section-nav-link" href="#indicaciones-generales"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-info-circle section-nav-icon"
+                    ></i
+                    ><span>Indicaciones generales</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#parte-1-crear-arrays-y-acceder-a-elementos"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-brackets section-nav-icon"
+                    ></i
+                    ><span>Parte 1. Crear arrays y acceder a elementos</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#parte-2-modificar-elementos-y-entender-const-con-arrays"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-pencil-square section-nav-icon"
+                    ></i
+                    ><span
+                      >Parte 2. Modificar elementos y entender const con
+                      arrays</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#parte-3-length-y-recorrido-con-for"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-arrow-repeat section-nav-icon"
+                    ></i
+                    ><span>Parte 3. length y recorrido con for</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#parte-4-patrones-basicos-con-arrays"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-diagram-3 section-nav-icon"
+                    ></i
+                    ><span>Parte 4. Patrones básicos con arrays</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#parte-5-metodos-basicos-de-arrays"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-tools section-nav-icon"
+                    ></i
+                    ><span>Parte 5. Métodos básicos de arrays</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#parte-6-funciones-que-reciben-arrays"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-node-plus section-nav-icon"
+                    ></i
+                    ><span>Parte 6. Funciones que reciben arrays</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#parte-7-corrige-los-errores"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-bug section-nav-icon"
+                    ></i
+                    ><span>Parte 7. Corrige los errores</span></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#parte-8-mini-entrega-final"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-upload section-nav-icon"
+                    ></i
+                    ><span>Parte 8. Mini-entrega final</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link"
+                    href="#contenidos-aplazados-para-documentos-posteriores"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-slash-circle section-nav-icon"
+                    ></i
+                    ><span
+                      >Contenidos aplazados para documentos posteriores</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a class="section-nav-link" href="#resumen-de-repaso"
+                    ><i
+                      aria-hidden="true"
+                      class="bi bi-flag section-nav-icon"
+                    ></i
+                    ><span>Resumen de repaso</span></a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </aside>
+          <div class="content-wrapper">
+            <div class="document-toolbar">
+              <a class="document-home-link" href="../../index.html"
+                ><i aria-hidden="true" class="bi bi-house-door"></i> Índice del
+                curso</a
+              ><button
+                class="document-theme-toggle"
+                id="theme-toggle"
+                type="button"
+              >
+                <i aria-hidden="true" class="bi bi-moon-stars"></i> Modo oscuro
+              </button>
+            </div>
+            <header class="content-header">
+              <h1>
+                <span aria-hidden="true" class="document-title-icon"
+                  ><i aria-hidden="true" class="bi bi-braces"></i
+                ></span>
+                Bloque 5A. Hoja de ejercicios: arrays básicos
+              </h1>
+            </header>
+            <section
+              class="content-section learning-objectives-section"
+              id="indicaciones-generales"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-info-circle"></i></span
+                >Indicaciones generales
+              </h2>
+              <p>
+                En esta hoja se practican los contenidos básicos de arrays en
+                JavaScript:
+              </p>
+              <ul class="custom-list">
+                <li>creación de arrays;</li>
+                <li>acceso mediante índices;</li>
+                <li>modificación de elementos;</li>
+                <li>uso de <code>length</code>;</li>
+                <li>recorrido con <code>for</code>;</li>
+                <li>acumuladores y contadores;</li>
+                <li>búsqueda básica;</li>
+                <li>métodos básicos sin callbacks;</li>
+                <li>funciones que reciben arrays.</li>
+              </ul>
+              <p>
+                En esta hoja <strong>no se deben usar todavía</strong>
+                <code>forEach</code>, <code>map</code>, <code>filter</code>,
+                <code>reduce</code> ni funciones flecha como callbacks. Esos
+                contenidos se trabajarán en el bloque B05B.
+              </p>
+              <hr />
+            </section>
+            <section
+              class="content-section guided-exercises-section"
+              id="parte-1-crear-arrays-y-acceder-a-elementos"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-brackets"></i></span
+                >Parte 1. Crear arrays y acceder a elementos
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 1. Crear un array de nombres</h3>
+                <ol class="question-list">
+                  <li>
+                    Crea un array llamado <code>nombres</code> con al menos 4
+                    nombres de personas.
+                  </li>
+                  <li>
+                    Muestra por consola:
+                    <ul class="custom-list">
+                      <li>el primer nombre;</li>
+                      <li>el segundo nombre;</li>
+                      <li>el último nombre, sin escribir el índice a mano.</li>
+                    </ul>
+                  </li>
+                </ol>
+                <p>Ejemplo de inicio:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const nombres = ["Ana", "Luis", "María", "Noa"];
+</code></pre>
+                </div>
+                <p>Recuerda que el último elemento se obtiene con:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>nombres[nombres.length - 1]
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 2. Array de notas</h3>
+                <ol class="question-list">
+                  <li>Crea un array <code>notas</code> con 5 números.</li>
+                  <li>
+                    Muestra por consola:
+                    <ul class="custom-list">
+                      <li>la nota de la posición <code>0</code>;</li>
+                      <li>la nota de la posición <code>2</code>;</li>
+                      <li>la nota de la posición <code>4</code>.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    Cambia la nota de la posición <code>0</code> por un
+                    <code>6</code>.
+                  </li>
+                  <li>Muestra el array completo antes y después del cambio.</li>
+                </ol>
+                <p>Ejemplo de inicio:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+console.log("Notas iniciales:", notas);
+
+// Completa aquí el acceso a posiciones y la modificación.
+
+console.log("Notas modificadas:", notas);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 3. Primer y último elemento</h3>
+                <p>
+                  Crea un array llamado <code>precios</code> con al menos 4
+                  precios.
+                </p>
+                <p>Después muestra:</p>
+                <ul class="custom-list">
+                  <li>el primer precio;</li>
+                  <li>el último precio;</li>
+                  <li>un mensaje con el siguiente formato:</li>
+                </ul>
+                <div class="example-block">
+                  <pre class="code-txt"><code>Primer precio: 12
+Último precio: 8
+</code></pre>
+                </div>
+                <p>
+                  No escribas a mano el índice del último elemento. Usa
+                  <code>precios.length - 1</code>.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section guided-exercises-section"
+              id="parte-2-modificar-elementos-y-entender-const-con-arrays"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-pencil-square"></i></span
+                >Parte 2. Modificar elementos y entender <code>const</code> con
+                arrays
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 4. Modificar elementos de un array</h3>
+                <p>Dado el siguiente array:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const productos = ["ratón", "teclado", "monitor"];
+</code></pre>
+                </div>
+                <ol class="question-list">
+                  <li>Muestra el array completo.</li>
+                  <li>
+                    Cambia <code>"teclado"</code> por
+                    <code>"teclado mecánico"</code>.
+                  </li>
+                  <li>Muestra de nuevo el array.</li>
+                  <li>
+                    Explica en un comentario por qué se puede modificar el
+                    contenido aunque el array esté declarado con
+                    <code>const</code>.
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 5. Detectar operaciones permitidas y no permitidas
+                </h3>
+                <p>Observa el siguiente código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numeros = [1, 2, 3];
+
+numeros[0] = 10;
+numeros.push(4);
+numeros = [7, 8, 9];
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="question-list">
+                  <li>¿Qué líneas son válidas?</li>
+                  <li>¿Qué línea produce error?</li>
+                  <li>¿Por qué?</li>
+                </ol>
+                <p>
+                  Después, copia el código en la consola o en un archivo
+                  <code>.js</code>, comenta la línea incorrecta y comprueba el
+                  resultado.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section guided-exercises-section"
+              id="parte-3-length-y-recorrido-con-for"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-arrow-repeat"></i></span
+                >Parte 3. <code>length</code> y recorrido con <code>for</code>
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 6. Mostrar todos los elementos</h3>
+                <p>Dado el array:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const colores = ["rojo", "verde", "azul", "amarillo"];
+</code></pre>
+                </div>
+                <p>
+                  Usa un bucle <code>for</code> para mostrar todos los colores
+                  por consola, uno por línea.
+                </p>
+                <p>
+                  Condición obligatoria: el bucle debe usar
+                  <code>colores.length</code>, no un número fijo.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 7. Mostrar índice y valor</h3>
+                <p>Dado el array:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const animales = ["perro", "gato", "tortuga", "conejo"];
+</code></pre>
+                </div>
+                <p>Muestra por consola cada elemento con su índice:</p>
+                <div class="example-block">
+                  <pre class="code-txt"><code>Posición 0: perro
+Posición 1: gato
+Posición 2: tortuga
+Posición 3: conejo
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 8. Contar elementos</h3>
+                <ol class="question-list">
+                  <li>
+                    Crea un array <code>tareas</code> con al menos 5 tareas
+                    pendientes.
+                  </li>
+                  <li>Muestra por consola:</li>
+                </ol>
+                <div class="example-block">
+                  <pre class="code-txt"><code>Tienes X tareas pendientes
+</code></pre>
+                </div>
+                <p>
+                  Donde <code>X</code> debe salir de <code>tareas.length</code>.
+                </p>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section logic-section"
+              id="parte-4-patrones-basicos-con-arrays"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-diagram-3"></i></span
+                >Parte 4. Patrones básicos con arrays
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 9. Sumar todos los números</h3>
+                <p>Dado el array:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numeros = [1, 2, 3, 4, 5];
+</code></pre>
+                </div>
+                <ol class="question-list">
+                  <li>
+                    Crea una variable <code>suma</code> inicializada a
+                    <code>0</code>.
+                  </li>
+                  <li>Recorre el array con un <code>for</code>.</li>
+                  <li>Suma cada elemento a la variable <code>suma</code>.</li>
+                  <li>Muestra:</li>
+                </ol>
+                <div class="example-block">
+                  <pre class="code-txt"><code>La suma es 15
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 10. Calcular la media</h3>
+                <p>Dado el array:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+</code></pre>
+                </div>
+                <ol class="question-list">
+                  <li>
+                    Calcula la suma de todas las notas usando un
+                    <code>for</code>.
+                  </li>
+                  <li>
+                    Calcula la media dividiendo la suma entre
+                    <code>notas.length</code>.
+                  </li>
+                  <li>Muestra:</li>
+                </ol>
+                <div class="example-block">
+                  <pre class="code-txt"><code>La media es X
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 11. Contar aprobados y suspensos</h3>
+                <p>Dado el array:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+</code></pre>
+                </div>
+                <ol class="question-list">
+                  <li>Recorre el array con un <code>for</code>.</li>
+                  <li>
+                    Cuenta cuántas notas son mayores o iguales que
+                    <code>5</code>.
+                  </li>
+                  <li>
+                    Calcula los suspensos restando los aprobados al total.
+                  </li>
+                  <li>Muestra:</li>
+                </ol>
+                <div class="example-block">
+                  <pre class="code-txt"><code>Aprobados: 3
+Suspensos: 2
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 12. Buscar manualmente un valor</h3>
+                <p>Dado el array:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const tareas = ["limpiar", "estudiar", "jugar", "cocinar"];
+</code></pre>
+                </div>
+                <ol class="question-list">
+                  <li>
+                    Crea una variable <code>buscada</code> con una tarea, por
+                    ejemplo:
+                  </li>
+                </ol>
+                <div class="example-block">
+                  <pre class="code-js"><code>const buscada = "estudiar";
+</code></pre>
+                </div>
+                <ol class="question-list" start="2">
+                  <li>Recorre el array con un <code>for</code>.</li>
+                  <li>
+                    Usa una variable booleana <code>encontrada</code>,
+                    inicializada a <code>false</code>.
+                  </li>
+                  <li>
+                    Si encuentras la tarea, cambia <code>encontrada</code> a
+                    <code>true</code>.
+                  </li>
+                  <li>Al final, muestra:</li>
+                </ol>
+                <div class="example-block">
+                  <pre class="code-txt"><code>La tarea está en la lista
+</code></pre>
+                </div>
+                <p>O bien:</p>
+                <div class="example-block">
+                  <pre class="code-txt"><code>La tarea NO está en la lista
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section operators-section"
+              id="parte-5-metodos-basicos-de-arrays"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-tools"></i></span
+                >Parte 5. Métodos básicos de arrays
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 13. Añadir elementos con <code>push()</code></h3>
+                <ol class="question-list">
+                  <li>Crea un array vacío llamado <code>frutas</code>.</li>
+                  <li>
+                    Añade <code>"manzana"</code>, <code>"pera"</code> y
+                    <code>"naranja"</code> usando <code>push()</code>.
+                  </li>
+                  <li>Muestra el array y su longitud.</li>
+                  <li>Añade una fruta más y vuelve a mostrar el array.</li>
+                </ol>
+                <p>Ejemplo de inicio:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const frutas = [];
+
+frutas.push("manzana");
+// Continúa aquí.
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 14. Eliminar el último elemento con
+                  <code>pop()</code>
+                </h3>
+                <p>Dado el array:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const compras = ["pan", "leche", "huevos", "queso"];
+</code></pre>
+                </div>
+                <ol class="question-list">
+                  <li>Muestra el array completo.</li>
+                  <li>Elimina el último elemento usando <code>pop()</code>.</li>
+                  <li>Guarda el elemento eliminado en una variable.</li>
+                  <li>
+                    Muestra:
+                    <ul class="custom-list">
+                      <li>el elemento eliminado;</li>
+                      <li>el array después de eliminar.</li>
+                    </ul>
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 15. Añadir y eliminar al principio con
+                  <code>unshift()</code> y <code>shift()</code>
+                </h3>
+                <p>Dado el array:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const cola = ["Ana", "Luis", "María"];
+</code></pre>
+                </div>
+                <ol class="question-list">
+                  <li>
+                    Añade <code>"Noa"</code> al principio usando
+                    <code>unshift()</code>.
+                  </li>
+                  <li>Muestra el array.</li>
+                  <li>
+                    Elimina el primer elemento usando <code>shift()</code>.
+                  </li>
+                  <li>Guarda el elemento eliminado en una variable.</li>
+                  <li>Muestra el elemento eliminado y el array final.</li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 16. Comprobar si existe un valor con
+                  <code>includes()</code>
+                </h3>
+                <p>Dado el array:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const usuarios = ["ana", "luis", "maria", "noa"];
+</code></pre>
+                </div>
+                <ol class="question-list">
+                  <li>Crea una constante <code>usuarioBuscado</code>.</li>
+                  <li>
+                    Usa <code>includes()</code> para comprobar si está en el
+                    array.
+                  </li>
+                  <li>Muestra un mensaje distinto según el resultado.</li>
+                </ol>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const usuarioBuscado = "luis";
+
+if (usuarios.includes(usuarioBuscado)) {
+  console.log("Usuario encontrado");
+} else {
+  console.log("Usuario no encontrado");
+}
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>
+                  Ejercicio 17. Obtener la posición con <code>indexOf()</code>
+                </h3>
+                <p>Dado el array:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const modulos = ["DWCC", "DWCS", "DIW", "LMSGI"];
+</code></pre>
+                </div>
+                <ol class="question-list">
+                  <li>
+                    Busca la posición de <code>"DIW"</code> usando
+                    <code>indexOf()</code>.
+                  </li>
+                  <li>
+                    Busca la posición de un módulo que no exista en el array.
+                  </li>
+                  <li>
+                    Comprueba qué valor devuelve <code>indexOf()</code> cuando
+                    no encuentra el elemento.
+                  </li>
+                  <li>Muestra mensajes claros por consola.</li>
+                </ol>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section logic-section"
+              id="parte-6-funciones-que-reciben-arrays"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-node-plus"></i></span
+                >Parte 6. Funciones que reciben arrays
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 18. Función que suma un array</h3>
+                <p>
+                  Crea una función llamada <code>sumarArray</code> que reciba un
+                  array de números y devuelva la suma de todos sus elementos.
+                </p>
+                <p>Ejemplo esperado:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function sumarArray(numeros) {
+  // Completa aquí.
+}
+
+const datos = [2, 4, 6, 8];
+console.log(sumarArray(datos)); // 20
+</code></pre>
+                </div>
+                <p>
+                  La función debe usar un bucle <code>for</code> y
+                  <code>return</code>.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 19. Función que calcula la media</h3>
+                <p>
+                  Crea una función llamada <code>calcularMedia</code> que reciba
+                  un array de notas y devuelva la media.
+                </p>
+                <p>
+                  Si el array está vacío, la función debe devolver
+                  <code>null</code>.
+                </p>
+                <p>Ejemplo esperado:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [5, 7, 8, 4, 6];
+console.log(calcularMedia(notas));
+</code></pre>
+                </div>
+                <p>Prueba adicional:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(calcularMedia([])); // null
+</code></pre>
+                </div>
+                <p>
+                  Pista: puedes reutilizar dentro de la función la misma lógica
+                  del ejercicio 10.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 20. Función que cuenta aprobados</h3>
+                <p>
+                  Crea una función llamada <code>contarAprobados</code> que
+                  reciba un array de notas y devuelva cuántas son mayores o
+                  iguales que <code>5</code>.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+console.log(contarAprobados(notas)); // 3
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section frequent-errors-section"
+              id="parte-7-corrige-los-errores"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bug"></i></span
+                >Parte 7. Corrige los errores
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 21. Error con el límite del bucle</h3>
+                <p>
+                  El siguiente código muestra un <code>undefined</code> al
+                  final. Corrígelo y explica el error en un comentario.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const notas = [4, 7, 9];
+
+for (let i = 0; i &lt;= notas.length; i++) {
+  console.log(notas[i]);
+}
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 22. Error por confundir índice y valor</h3>
+                <p>
+                  El siguiente código pretende sumar los valores del array, pero
+                  no lo hace correctamente. Corrígelo.
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const numeros = [10, 20, 30];
+let suma = 0;
+
+for (let i = 0; i &lt; numeros.length; i++) {
+  suma += i;
+}
+
+console.log(suma);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 23. Error con <code>const</code> y arrays</h3>
+                <p>
+                  El siguiente código produce un error. Corrígelo de dos formas
+                  distintas:
+                </p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const nombres = ["Ana", "Luis"];
+
+nombres = ["María", "Noa"];
+</code></pre>
+                </div>
+                <p>Opciones posibles:</p>
+                <ol class="question-list">
+                  <li>
+                    Mantener <code>const</code> y modificar posiciones del
+                    array.
+                  </li>
+                  <li>
+                    Cambiar a <code>let</code> si realmente se quiere reasignar
+                    todo el array.
+                  </li>
+                </ol>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section delivery-section"
+              id="parte-8-mini-entrega-final"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-upload"></i></span
+                >Parte 8. Mini-entrega final
+              </h2>
+              <p>Crea un archivo llamado:</p>
+              <div class="example-block">
+                <pre class="code-txt"><code>b05a_arrays_basicos.js
+</code></pre>
+              </div>
+              <p>En ese archivo debes incluir:</p>
+              <ol class="question-list">
+                <li>Un array de al menos 6 notas.</li>
+                <li>Una función <code>calcularMedia(notas)</code>.</li>
+                <li>Una función <code>contarAprobados(notas)</code>.</li>
+                <li>Una función <code>contarSuspensos(notas)</code>.</li>
+                <li>
+                  Un bloque principal que:
+                  <ul class="custom-list">
+                    <li>muestre el array completo;</li>
+                    <li>muestre la primera nota;</li>
+                    <li>muestre la última nota;</li>
+                    <li>muestre la media;</li>
+                    <li>muestre el número de aprobados;</li>
+                    <li>muestre el número de suspensos.</li>
+                  </ul>
+                </li>
+              </ol>
+              <p>
+                No uses <code>forEach</code>, <code>map</code>,
+                <code>filter</code> ni <code>reduce</code>. Usa bucles
+                <code>for</code>.
+              </p>
+              <hr />
+            </section>
+            <section
+              class="content-section restrictions-section"
+              id="contenidos-aplazados-para-documentos-posteriores"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-slash-circle"></i></span
+                >Contenidos aplazados para documentos posteriores
+              </h2>
+              <p>
+                Estos contenidos no forman parte de esta hoja y se trabajarán
+                más adelante:
+              </p>
+              <ul class="custom-list">
+                <li><code>forEach</code>;</li>
+                <li>
+                  uso del índice como segundo parámetro de <code>forEach</code>;
+                </li>
+                <li>creación de nuevos arrays usando métodos con callback;</li>
+                <li><code>map</code>;</li>
+                <li><code>filter</code>;</li>
+                <li><code>reduce</code>;</li>
+                <li>callbacks aplicados a arrays;</li>
+                <li>funciones flecha como callbacks;</li>
+                <li>
+                  comparación entre recorridos con <code>for</code> y métodos de
+                  array;
+                </li>
+                <li>
+                  métodos de <code>String</code>, como
+                  <code>toUpperCase()</code>, dentro del bloque de objetos
+                  predefinidos.
+                </li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section summary-section"
+              id="resumen-de-repaso"
+            >
+              <h2>
+                <span class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-flag"></i></span
+                >Resumen de repaso
+              </h2>
+              <p>
+                Antes de dar por terminada la hoja, asegúrate de poder
+                responder:
+              </p>
+              <ol class="question-list">
+                <li>¿Qué posición ocupa el primer elemento de un array?</li>
+                <li>
+                  ¿Cómo se accede al último elemento sin escribir el índice a
+                  mano?
+                </li>
+                <li>
+                  ¿Qué diferencia hay entre modificar un elemento de un array y
+                  reasignar el array completo?
+                </li>
+                <li>
+                  ¿Por qué al recorrer un array usamos
+                  <code>i &lt; array.length</code> y no
+                  <code>i &lt;= array.length</code>?
+                </li>
+                <li>¿Para qué sirve un acumulador?</li>
+                <li>¿Para qué sirve un contador?</li>
+                <li>
+                  ¿Qué diferencia hay entre <code>includes()</code> e
+                  <code>indexOf()</code>?
+                </li>
+                <li>
+                  ¿Por qué en esta hoja no usamos todavía <code>forEach</code>,
+                  <code>map</code>, <code>filter</code> ni <code>reduce</code>?
+                </li>
+              </ol>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

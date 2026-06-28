@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B01 – Introducción y entorno de trabajo | DWCC</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+  <script src="../../assets/js/smpp.js" defer></script>
+</head>
+<body class="smpp-scope notes-page">
+
+  <div class="main-content has-sidebar">
+    <div class="content-layout">
+
+      <!-- ── SIDEBAR ── -->
+      <aside class="section-sidebar">
+        <nav class="section-nav" aria-label="Índice de secciones">
+          <p class="section-nav-title"><i class="bi bi-list-ul"></i> Contenido</p>
+          <ul class="section-nav-list">
+            <li><a href="#introduccion" class="section-nav-link badge-link"><i class="bi bi-info-circle section-nav-icon"></i>Introducción</a></li>
+            <li><a href="#objetivos" class="section-nav-link badge-link"><i class="bi bi-bullseye section-nav-icon"></i>Objetivos</a></li>
+            <li><a href="#s1" class="section-nav-link badge-link"><i class="bi bi-braces section-nav-icon"></i>1. JavaScript en DWCC</a></li>
+            <li><a href="#s2" class="section-nav-link badge-link"><i class="bi bi-star section-nav-icon"></i>2. Por qué es importante</a></li>
+            <li><a href="#s3" class="section-nav-link badge-link"><i class="bi bi-cpu section-nav-icon"></i>3. Dónde se ejecuta</a></li>
+            <li><a href="#s4" class="section-nav-link badge-link"><i class="bi bi-terminal section-nav-icon"></i>4. Consola del navegador</a></li>
+            <li><a href="#s5" class="section-nav-link badge-link"><i class="bi bi-file-earmark-code section-nav-icon"></i>5. Ficheros JS en proyecto</a></li>
+            <li><a href="#s6" class="section-nav-link badge-link"><i class="bi bi-gear section-nav-icon"></i>6. Entorno de trabajo</a></li>
+            <li><a href="#ejemplos" class="section-nav-link badge-link"><i class="bi bi-play-circle section-nav-icon"></i>Ejemplos</a></li>
+            <li><a href="#errores" class="section-nav-link badge-link"><i class="bi bi-exclamation-triangle section-nav-icon"></i>Errores comunes</a></li>
+            <li><a href="#buenas-practicas" class="section-nav-link badge-link"><i class="bi bi-check2-circle section-nav-icon"></i>Buenas prácticas</a></li>
+            <li><a href="#resumen" class="section-nav-link badge-link"><i class="bi bi-journal-check section-nav-icon"></i>Resumen</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- ── CONTENIDO PRINCIPAL ── -->
+      <main class="content-wrapper">
+
+        <div class="document-toolbar">
+          <a href="../index.html" class="document-home-link">
+            <i class="bi bi-house-fill"></i>
+            Plan de estudio
+          </a>
+           <button id="theme-toggle" class="document-theme-toggle" type="button">
+    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+    Modo oscuro
+  </button>
+        </div>
+
+        <div class="content-header">
+          <h1>
+            <span class="document-title-icon"><i class="bi bi-journal-code"></i></span>
+            B01 – Introducción y entorno de trabajo con JavaScript en DWCC
+          </h1>
+          <p class="lead-text">
+            Qué papel juega JavaScript en el desarrollo web del lado cliente, cómo se ejecuta en el navegador y cómo preparar un entorno básico de trabajo.
+          </p>
+        </div>
+
+        <!-- INTRODUCCIÓN -->
+        <section class="content-section" id="introduccion">
+          <h2><span class="section-icon"><i class="bi bi-info-circle"></i></span>Introducción</h2>
+          <p>
+            En el módulo <strong>Desarrollo Web en Entorno Cliente (DWCC)</strong> utilizamos <strong>JavaScript</strong> para dar
+            <strong>comportamiento</strong> a las páginas web desde el navegador del usuario. Este lenguaje se combina con
+            <strong>HTML</strong> (estructura) y <strong>CSS</strong> (presentación) para construir aplicaciones web completas del lado cliente.
+          </p>
+          <p>
+            En este primer bloque veremos qué papel juega JavaScript dentro de una aplicación web, por qué es tan importante
+            hoy en día y cómo preparar un entorno de trabajo básico para empezar a programar. Todo ello sienta las bases
+            para el resto del módulo y para poder avanzar, más adelante, hacia librerías y frameworks como React.
+          </p>
+          <div class="note-box">
+            <p><strong><i class="bi bi-info-circle"></i> Nota:</strong> En algunos materiales previos puede aparecer la sigla <strong>DWEC</strong>. En esta versión se unifica la terminología a <strong>DWCC</strong> para mantener la coherencia con el módulo y con el portal de apuntes.</p>
+          </div>
+        </section>
+
+        <!-- OBJETIVOS -->
+        <section class="content-section" id="objetivos">
+          <h2><span class="section-icon"><i class="bi bi-bullseye"></i></span>Objetivos</h2>
+          <p>Al finalizar este bloque, el alumnado deberá ser capaz de:</p>
+          <ul class="custom-list">
+            <li>Explicar el papel que juega <strong>JavaScript</strong> en una aplicación web del lado cliente dentro del módulo DWCC.</li>
+            <li>Distinguir el rol de <strong>HTML</strong>, <strong>CSS</strong> y <strong>JavaScript</strong> en una página web.</li>
+            <li>Entender dónde y cómo se ejecuta JavaScript en el navegador (motor JavaScript).</li>
+            <li>Utilizar la <strong>consola del navegador</strong> para ejecutar instrucciones simples y ver errores.</li>
+            <li>Crear una estructura mínima de trabajo con un archivo HTML y un archivo JavaScript enlazado mediante <code>&lt;script src="..."&gt;</code>.</li>
+            <li>Organizar sus archivos en carpetas de práctica de forma clara y coherente.</li>
+            <li>Usar <code>console.log()</code> para mostrar mensajes y empezar a depurar su propio código.</li>
+          </ul>
+        </section>
+
+        <!-- S1 -->
+        <section class="content-section" id="s1">
+          <h2><span class="section-icon"><i class="bi bi-braces"></i></span>1. JavaScript en el contexto de DWCC</h2>
+          <p>
+            <strong>JavaScript</strong> es el lenguaje de programación que utilizamos en el módulo Desarrollo Web en Entorno
+            Cliente para dar <strong>comportamiento</strong> a las páginas web desde el navegador.
+          </p>
+          <div class="compact-table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lenguaje</th>
+                  <th>Responsabilidad</th>
+                  <th>Ejemplos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>HTML</strong></td>
+                  <td>Estructura del documento</td>
+                  <td>Etiquetas, secciones, formularios, encabezados</td>
+                </tr>
+                <tr>
+                  <td><strong>CSS</strong></td>
+                  <td>Presentación visual</td>
+                  <td>Colores, tamaños, distribución, diseño responsive</td>
+                </tr>
+                <tr>
+                  <td><strong>JavaScript</strong></td>
+                  <td>Comportamiento dinámico</td>
+                  <td>Eventos, validación, cambios de contenido, carga de datos</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            En DWCC nos centramos en el <strong>JavaScript del lado cliente</strong>, es decir, el que se ejecuta en el navegador
+            del usuario, no en el servidor. Esto se corresponde con el currículo oficial del ciclo y con los resultados de
+            aprendizaje relacionados con la sintaxis, las sentencias simples y la prueba y depuración básica del código JavaScript.
+          </p>
+        </section>
+
+        <!-- S2 -->
+        <section class="content-section" id="s2">
+          <h2><span class="section-icon"><i class="bi bi-star"></i></span>2. ¿Por qué JavaScript es tan importante?</h2>
+          <p>Algunas razones clave por las que JavaScript es tan importante en desarrollo web:</p>
+          <ul class="custom-list">
+            <li>Es el <strong>estándar de facto</strong> para programar en el lado cliente en la web.</li>
+            <li>Está presente en todos los navegadores modernos, sin necesidad de instalar nada adicional en el equipo del usuario.</li>
+            <li>Es la base sobre la que se apoyan muchas librerías y frameworks modernos, como <strong>React</strong>, Vue o Angular.</li>
+          </ul>
+          <div class="note-box">
+            <p>Aunque en este bloque nos centramos en JavaScript "puro" (JavaScript nativo del navegador), es importante tener en mente que más adelante estos conceptos servirán para entender mejor cómo funcionan los frameworks modernos.</p>
+          </div>
+        </section>
+
+        <!-- S3 -->
+        <section class="content-section" id="s3">
+          <h2><span class="section-icon"><i class="bi bi-cpu"></i></span>3. Dónde y cómo se ejecuta JavaScript</h2>
+          <p>
+            JavaScript se ejecuta en el <strong>motor de JavaScript</strong> del navegador. Por ejemplo, Chrome y otros
+            navegadores basados en Chromium utilizan <strong>V8</strong>, mientras que Firefox utiliza <strong>SpiderMonkey</strong>.
+            Cada navegador implementa su propio motor, pero todos siguen el estándar de JavaScript, conocido como <strong>ECMAScript</strong>.
+          </p>
+          <p>En esta primera unidad trabajaremos principalmente en dos escenarios:</p>
+          <ol class="custom-ordered-list">
+            <li><strong>Consola del navegador.</strong></li>
+            <li><strong>Ficheros <code>.js</code> enlazados a una página HTML sencilla.</strong></li>
+          </ol>
+          <div class="concept-box">
+            <p>Ambos enfoques son complementarios: la consola nos permite hacer pruebas rápidas y los ficheros <code>.js</code> nos acercan más a la estructura real de un proyecto.</p>
+          </div>
+        </section>
+
+        <!-- S4 -->
+        <section class="content-section" id="s4">
+          <h2><span class="section-icon"><i class="bi bi-terminal"></i></span>4. Consola de desarrollo del navegador</h2>
+          <p>
+            Todos los navegadores modernos incluyen herramientas de desarrollo (<strong>DevTools</strong>) que nos permiten:
+          </p>
+          <ul class="custom-list">
+            <li>Ejecutar instrucciones de JavaScript de una en una.</li>
+            <li>Ver errores de ejecución.</li>
+            <li>Inspeccionar valores de variables y mensajes de depuración.</li>
+          </ul>
+          <p>Para abrir la consola, los atajos más habituales son:</p>
+          <div class="note-box">
+            <p><strong>Chrome / Edge / Firefox:</strong> tecla <code>F12</code> o combinación <code>Ctrl + Shift + I</code>, y después seleccionar la pestaña <strong>Console</strong>.</p>
+          </div>
+          <p>En la consola podemos escribir directamente instrucciones como estas:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>2 + 2
+"Hola" + " mundo"
+console.log("Probando JavaScript en la consola")</code></pre>
+          </div>
+          <p>
+            Esto es muy útil en esta unidad para <strong>probar rápidamente</strong> expresiones, estructuras de control,
+            funciones y arrays sin necesidad de montar todavía un proyecto completo.
+          </p>
+          <div class="good-practice-box">
+            <p><strong><i class="bi bi-check2-circle"></i> Buena práctica:</strong> Utilizar la consola como espacio de prueba rápida antes de llevar el código a un archivo <code>.js</code> ayuda a detectar errores simples con más rapidez.</p>
+          </div>
+        </section>
+
+        <!-- S5 -->
+        <section class="content-section" id="s5">
+          <h2><span class="section-icon"><i class="bi bi-file-earmark-code"></i></span>5. Ficheros JavaScript en un proyecto sencillo</h2>
+          <p>
+            Además de la consola, nos interesa trabajar desde el principio con ficheros <code>.js</code> que podamos reutilizar.
+            Así nos acostumbramos a una estructura similar a la de proyectos reales.
+          </p>
+          <p>Una estructura mínima de un proyecto de práctica podría ser:</p>
+          <ul class="custom-list">
+            <li>Una carpeta de trabajo, por ejemplo, <code>ud1-js-basico/</code>.</li>
+            <li>Un archivo HTML muy simple, por ejemplo, <code>index.html</code>.</li>
+            <li>Un archivo JavaScript, por ejemplo, <code>script.js</code>.</li>
+          </ul>
+          <p>Ejemplo de HTML mínimo para probar código JavaScript:</p>
+          <div class="example-block">
+            <pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Pruebas JavaScript UD1&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Pruebas de JavaScript básico&lt;/h1&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+          <p>En el archivo <code>script.js</code> escribiremos el código que queremos ejecutar cuando se cargue la página:</p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log("Hola desde script.js");</code></pre>
+          </div>
+          <p>Al abrir <code>index.html</code> en el navegador y abrir la consola, deberíamos ver el mensaje anterior.</p>
+          <div class="warning-box">
+            <p><strong><i class="bi bi-exclamation-triangle"></i> Advertencia:</strong> Si el archivo JavaScript no está correctamente enlazado con <code>&lt;script src="script.js"&gt;&lt;/script&gt;</code>, el navegador no ejecutará el código aunque el contenido del archivo sea correcto.</p>
+          </div>
+        </section>
+
+        <!-- S6 -->
+        <section class="content-section" id="s6">
+          <h2><span class="section-icon"><i class="bi bi-gear"></i></span>6. Entorno básico de trabajo</h2>
+
+          <h3>6.1. Editor de código o IDE</h3>
+          <p>
+            Para desarrollar JavaScript de forma cómoda, utilizaremos un <strong>editor de código</strong> o <strong>IDE</strong>
+            adaptado al trabajo con HTML, CSS y JavaScript.
+          </p>
+          <ul class="custom-list">
+            <li>Un editor de código ofrece <strong>resaltado de sintaxis</strong>, sangrado, ayudas básicas y extensiones.</li>
+            <li>No es un procesador de textos: trabajamos siempre con texto plano, sin formato.</li>
+          </ul>
+          <p>En DWCC, los archivos que manipularemos principalmente en la UD1 serán:</p>
+          <ul class="custom-list">
+            <li><code>.html</code> para la estructura básica de la página.</li>
+            <li><code>.js</code> para el código JavaScript.</li>
+          </ul>
+          <div class="note-box">
+            <p>Más adelante, en unidades posteriores, añadiremos CSS y trabajaremos más en profundidad con el DOM y con conceptos que nos prepararán para usar librerías como React.</p>
+          </div>
+
+          <h3>6.2. Organización mínima de archivos</h3>
+          <p>Desde esta unidad es recomendable que el alumnado adquiera una <strong>estructura mínima de trabajo</strong>:</p>
+          <ul class="custom-list">
+            <li>Cada práctica en una carpeta propia, por ejemplo, <code>ud1-ejercicios/ejercicio01/</code>.</li>
+            <li>Nombres de archivos significativos: <code>index.html</code> para el punto de entrada y <code>main.js</code> o <code>script.js</code> para el código JavaScript.</li>
+          </ul>
+          <div class="good-practice-box">
+            <p><strong><i class="bi bi-check2-circle"></i> Buena práctica:</strong> Esta organización facilita la corrección y la continuidad del trabajo durante el módulo, y se parece a cómo se organizan los proyectos en entornos profesionales.</p>
+          </div>
+
+          <h3>6.3. Uso básico de la consola para depurar</h3>
+          <p>En JavaScript, una de las herramientas de depuración más habituales es el objeto <strong><code>console</code></strong>.</p>
+          <ul class="custom-list">
+            <li><code>console.log(valor)</code> muestra información en la consola.</li>
+            <li>Lo utilizaremos constantemente para ver el valor de variables, comprobar si una parte de código se está ejecutando y entender errores.</li>
+          </ul>
+          <div class="example-block">
+            <pre class="code-js"><code>let a = 5;
+let b = 3;
+const resultado = a + b;
+
+console.log("El resultado es:", resultado);</code></pre>
+          </div>
+          <p>Además de los mensajes manuales, la consola muestra:</p>
+          <ul class="custom-list">
+            <li><strong>Errores de sintaxis</strong>, por ejemplo, llaves o paréntesis sin cerrar.</li>
+            <li><strong>Errores de ejecución</strong>, por ejemplo, intentar usar una variable que no existe.</li>
+          </ul>
+          <div class="note-box">
+            <p><strong><i class="bi bi-info-circle"></i> Nota:</strong> <code>console.log()</code> es una herramienta de apoyo para aprender y depurar. Más adelante se introducirán otras herramientas, pero en este bloque es suficiente y muy útil.</p>
+          </div>
+        </section>
+
+        <!-- EJEMPLOS -->
+        <section class="content-section" id="ejemplos">
+          <h2><span class="section-icon"><i class="bi bi-play-circle"></i></span>Ejemplos</h2>
+
+          <h3>Ejemplo 1: Probando expresiones en la consola</h3>
+          <p><strong>Contexto:</strong> Familiarizarse con la consola del navegador como herramienta rápida para comprobar operaciones sencillas.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>2 + 2
+"Hola" + " mundo"
+console.log("Probando JavaScript en la consola");</code></pre>
+          </div>
+          <ul class="custom-list">
+            <li><code>2 + 2</code> evalúa una operación aritmética simple.</li>
+            <li><code>"Hola" + " mundo"</code> concatena dos cadenas de texto.</li>
+            <li><code>console.log(...)</code> envía un mensaje a la consola para que podamos verlo.</li>
+          </ul>
+          <p><strong>Resultado esperado:</strong> En la consola veremos los resultados de las expresiones (<code>4</code>, <code>"Hola mundo"</code>) y el mensaje <code>"Probando JavaScript en la consola"</code>.</p>
+          <div class="note-box">
+            <p><strong>Relación con React:</strong> Más adelante, cuando trabajemos con React, usaremos también la consola del navegador para entender qué está pasando en nuestros componentes, especialmente al principio.</p>
+          </div>
+
+          <h3>Ejemplo 2: HTML mínimo con script enlazado</h3>
+          <p><strong>Contexto:</strong> Crear la estructura mínima para ejecutar código JavaScript desde un archivo <code>.js</code> en lugar de escribirlo directamente en la consola.</p>
+          <p><strong>Archivo <code>index.html</code>:</strong></p>
+          <div class="example-block">
+            <pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Pruebas JavaScript UD1&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Pruebas de JavaScript básico&lt;/h1&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+          <p><strong>Archivo <code>script.js</code>:</strong></p>
+          <div class="example-block">
+            <pre class="code-js"><code>console.log("Hola desde script.js");</code></pre>
+          </div>
+          <p><strong>Explicación:</strong> El navegador carga <code>index.html</code>. Cuando llega a la etiqueta <code>&lt;script src="script.js"&gt;&lt;/script&gt;</code>, carga y ejecuta el contenido de <code>script.js</code>.</p>
+          <p><strong>Resultado esperado:</strong> Al abrir <code>index.html</code> en el navegador y abrir la consola, veremos el mensaje <code>"Hola desde script.js"</code>.</p>
+          <div class="note-box">
+            <p><strong>Relación con React:</strong> En React también tendremos archivos de JavaScript o TypeScript que se cargan como parte de la aplicación. Entender cómo se enlaza y ejecuta código JavaScript en una página es un paso previo necesario.</p>
+          </div>
+
+          <h3>Ejemplo 3: Uso de <code>console.log()</code> para depurar</h3>
+          <p><strong>Contexto:</strong> Utilizar <code>console.log()</code> para entender qué valor tienen las variables y comprobar que el código funciona.</p>
+          <div class="example-block">
+            <pre class="code-js"><code>let a = 5;
+let b = 3;
+const resultado = a + b;
+
+console.log("El resultado es:", resultado);</code></pre>
+          </div>
+          <p><strong>Explicación:</strong> Se definen dos variables (<code>a</code> y <code>b</code>) y se calcula su suma en <code>resultado</code>. Luego, <code>console.log()</code> muestra un mensaje junto con el valor de <code>resultado</code>.</p>
+          <p><strong>Resultado esperado:</strong></p>
+          <div class="example-block">
+            <pre class="code-bash"><code>El resultado es: 8</code></pre>
+          </div>
+          <div class="note-box">
+            <p><strong>Relación con React:</strong> En React también utilizaremos <code>console.log()</code> al principio para entender cómo cambian los estados y qué datos llegan a un componente.</p>
+          </div>
+        </section>
+
+        <!-- ERRORES COMUNES -->
+        <section class="content-section" id="errores">
+          <h2><span class="section-icon"><i class="bi bi-exclamation-triangle"></i></span>Errores comunes</h2>
+
+          <div class="error-card">
+            <h3><i class="bi bi-bug"></i> Error 1 — La página "no hace nada" pero hay un error en la consola</h3>
+            <p>Pensar que si la página "no hace nada" no está pasando nada. Muchas veces el error se está mostrando en la <strong>consola</strong>, pero el alumnado no la mira.</p>
+          </div>
+
+          <div class="error-card">
+            <h3><i class="bi bi-bug"></i> Error 2 — Archivo <code>.js</code> no enlazado en el HTML</h3>
+            <p>Escribir código JavaScript en un archivo <code>.js</code>, pero olvidarse de enlazarlo en el HTML con <code>&lt;script src="..."&gt;&lt;/script&gt;</code>.</p>
+          </div>
+
+          <div class="error-card">
+            <h3><i class="bi bi-bug"></i> Error 3 — Editar el archivo equivocado o no guardar antes de recargar</h3>
+            <p>Guardar cambios en el archivo y recargar la página, pero no ver resultados porque se está editando un archivo distinto del que realmente carga el navegador o porque no se ha guardado antes de recargar.</p>
+          </div>
+
+          <div class="error-card">
+            <h3><i class="bi bi-bug"></i> Error 4 — Confundir editor de código con procesador de textos</h3>
+            <p>Esto puede provocar problemas con comillas tipográficas u otros caracteres no válidos en el código.</p>
+          </div>
+        </section>
+
+        <!-- BUENAS PRÁCTICAS -->
+        <section class="content-section" id="buenas-practicas">
+          <h2><span class="section-icon"><i class="bi bi-check2-circle"></i></span>Buenas prácticas</h2>
+
+          <div class="good-practice-box">
+            <p><strong><i class="bi bi-check2-circle"></i></strong> Acostumbrarse desde el primer día a <strong>mirar la consola del navegador</strong> cuando algo no funciona.</p>
+          </div>
+          <div class="good-practice-box">
+            <p><strong><i class="bi bi-check2-circle"></i></strong> Usar <code>console.log()</code> para comprobar el valor de variables y el flujo de ejecución del código.</p>
+          </div>
+          <div class="good-practice-box">
+            <p><strong><i class="bi bi-check2-circle"></i></strong> Organizar cada práctica en una carpeta propia (<code>ud1-ejercicios/ejercicio01/</code>, etc.) y utilizar nombres de archivo significativos (<code>index.html</code>, <code>main.js</code>, <code>script.js</code>).</p>
+          </div>
+          <div class="good-practice-box">
+            <p><strong><i class="bi bi-check2-circle"></i></strong> Trabajar siempre con un <strong>editor de código</strong> como VS Code, y no con procesadores de texto, para evitar problemas de formato y aprovechar el resaltado de sintaxis.</p>
+          </div>
+          <div class="good-practice-box">
+            <p><strong><i class="bi bi-check2-circle"></i></strong> Empezar desde el principio usando sintaxis moderna de JavaScript (<code>let</code>, <code>const</code> y funciones bien estructuradas), para facilitar más adelante el salto a frameworks como React.</p>
+          </div>
+        </section>
+
+        <!-- RESUMEN -->
+        <section class="content-section summary-section" id="resumen">
+          <h2><span class="section-icon"><i class="bi bi-journal-check"></i></span>Resumen</h2>
+          <p>
+            En este bloque hemos visto el papel de <strong>JavaScript</strong> en el desarrollo web del lado cliente dentro
+            del módulo DWCC, en relación con HTML (estructura) y CSS (presentación). También hemos aprendido dónde y cómo
+            se ejecuta JavaScript en el navegador y hemos utilizado la <strong>consola</strong> como herramienta para probar
+            instrucciones simples y ver errores.
+          </p>
+          <p>
+            Además, hemos preparado un entorno básico de trabajo: un editor de código adecuado, una organización mínima de
+            archivos y una estructura de proyecto sencilla con un archivo HTML y un archivo JavaScript enlazado. Por último,
+            hemos insistido en el uso de <code>console.log()</code> y de la consola del navegador como herramientas
+            fundamentales de depuración desde el primer día, algo que seguirá siendo clave cuando avancemos hacia
+            aplicaciones más complejas y hacia el uso de librerías como React.
+          </p>
+        </section>
+
+      </main>
+    </div><!-- /.content-layout -->
+  </div><!-- /.main-content -->
+
+</body>
+</html>

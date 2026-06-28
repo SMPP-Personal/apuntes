@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>UD2_B3 · Práctica global: interacción con el usuario</title><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/><link href="../../assets/css/smpp.css" rel="stylesheet"/><script defer="True" src="../../assets/js/smpp.js"></script></head><body><div class="smpp-scope"><main class="main-content has-sidebar practice-document practice-global"><div class="content-layout"><aside aria-label="Índice del documento" class="section-sidebar"><nav aria-label="Secciones del documento" class="section-nav"><p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-task"></i> Índice de la práctica</p><ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-finalidad-resultado-esperado-y-archivos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Finalidad, resultado esperado y archivos</a></li><li><a class="section-nav-link badge-link" href="#2-preparacion-del-proyecto"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-layout-text-window-reverse"></i></span> 2. Preparación del proyecto</a></li><li><a class="section-nav-link badge-link" href="#3-datos-estado-y-seleccion-del-dom"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-database"></i></span> 3. Datos, estado y selección del DOM</a></li><li><a class="section-nav-link badge-link" href="#4-renderizado-y-filtrado-de-actividades"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-grid-3x3-gap"></i></span> 4. Renderizado y filtrado de actividades</a></li><li><a class="section-nav-link badge-link" href="#5-seleccion-de-actividad"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-hand-index-thumb"></i></span> 5. Selección de actividad</a></li><li><a class="section-nav-link badge-link" href="#6-reglas-puras-de-validacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-check"></i></span> 6. Reglas puras de validación</a></li><li><a class="section-nav-link badge-link" href="#7-mensajes-y-validacion-visible"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-chat-square-text"></i></span> 7. Mensajes y validación visible</a></li><li><a class="section-nav-link badge-link" href="#8-estado-del-formulario-y-eventos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-lightning-charge"></i></span> 8. Estado del formulario y eventos</a></li><li><a class="section-nav-link badge-link" href="#9-envio-y-resumen-seguro"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-send-check"></i></span> 9. Envío y resumen seguro</a></li><li><a class="section-nav-link badge-link" href="#10-mejora-obligatoria-y-ampliacion-adicional"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-stars"></i></span> 10. Mejora obligatoria y ampliación adicional</a></li><li><a class="section-nav-link badge-link" href="#11-pruebas-y-errores-frecuentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> 11. Pruebas y errores frecuentes</a></li><li><a class="section-nav-link badge-link" href="#12-entrega-rubrica-y-contenidos-posteriores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-box-arrow-up"></i></span> 12. Entrega, rúbrica y contenidos posteriores</a></li></ol></nav></aside><div class="content-wrapper"><header class="content-header practice-hero header-celebration"><span class="badge-finish"><i aria-hidden="true" class="bi bi-stars"></i> Práctica global de cierre</span><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-people-fill"></i></span> UD2_B3. Práctica global: interacción con el usuario</h1></header><hr class="content-separator festival-divider"/><section class="content-section" id="1-finalidad-resultado-esperado-y-archivos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Finalidad, resultado esperado y archivos</h2><div><h3>1.1. Finalidad de la práctica</h3><p>Esta práctica global cierra el bloque <strong>UD2_B3 — Eventos, interacción con el usuario y formularios</strong>.</p><p>El objetivo es construir una pequeña aplicación web interactiva que permita al usuario:</p><ul class="custom-list">
+<li>consultar una lista de actividades;</li>
+<li>filtrar actividades por categoría;</li>
+<li>seleccionar una actividad;</li>
+<li>completar un formulario de inscripción;</li>
+<li>validar los datos introducidos;</li>
+<li>mostrar mensajes de error o confirmación;</li>
+<li>actualizar la interfaz según las acciones realizadas.</li>
+</ul><p>La práctica integra contenidos de bloques anteriores:</p><ul class="custom-list">
+<li>objetos y arrays de objetos;</li>
+<li>métodos de array;</li>
+<li>manipulación del DOM;</li>
+<li>creación dinámica de elementos;</li>
+<li>eventos;</li>
+<li>formularios;</li>
+<li>validación básica;</li>
+<li>expresiones regulares sencillas.</li>
+</ul><blockquote class="warning-box">
+<p>En esta práctica <strong>no se utilizarán</strong> <code>fetch</code>, promesas, <code>async</code>/<code>await</code>, APIs externas ni almacenamiento persistente. Esos contenidos se trabajarán en <strong>UD2_B4</strong>.</p>
+</blockquote></div><div><h3>1.2. Resultado final esperado</h3><p>La aplicación se llamará:</p><div class="example-block"><pre class="code-bash"><code>Gestor interactivo de actividades
+</code></pre></div><p>Deberá permitir:</p><ol class="custom-ordered-list">
+<li>mostrar una lista de actividades disponibles;</li>
+<li>filtrar las actividades por categoría;</li>
+<li>indicar cuántas actividades están visibles;</li>
+<li>seleccionar una actividad mediante un botón;</li>
+<li>mostrar los datos de la actividad seleccionada;</li>
+<li>completar un formulario de inscripción;</li>
+<li>validar el formulario antes de enviarlo;</li>
+<li>mostrar mensajes de error junto a los controles;</li>
+<li>usar clases CSS para diferenciar estados correctos e incorrectos;</li>
+<li>activar o desactivar el botón de envío según el estado del formulario;</li>
+<li>mostrar un resumen final seguro;</li>
+<li>mantener correctamente el estado de la actividad seleccionada aunque cambie el filtro.</li>
+</ol></div><div class="premium-reflection-box"><h3>1.3. Nivel de autonomía</h3><p>Esta es una <strong>práctica global</strong>, no una práctica completamente guiada.</p><p>Se proporcionan:</p><ul class="custom-list">
+<li>estructura general;</li>
+<li>datos iniciales;</li>
+<li>firmas de funciones;</li>
+<li>reglas obligatorias;</li>
+<li>algunas pistas y ejemplos parciales;</li>
+<li>pruebas de comprobación.</li>
+</ul><p>No se proporciona la solución completa. Debes decidir cómo organizar parte del código y completar las funciones indicadas.</p></div><div><h3>1.4. Estructura de archivos</h3><p>Crea una carpeta llamada:</p><div class="example-block"><pre class="code-bash"><code>UD2_B3_practica_global_interaccion_usuario
+</code></pre></div><p>Estructura obligatoria:</p><div class="example-block project-structure-block"><pre class="code-bash"><code>UD2_B3_practica_global_interaccion_usuario/
+├── index.html
+├── styles.css
+└── script.js
+</code></pre></div><hr/></div></section><section class="content-section requirements-section" id="2-preparacion-del-proyecto"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-layout-text-window-reverse"></i></span> 2. Preparación del proyecto</h2><div><h3>2.1. Estructura HTML mínima</h3><p>Crea <code>index.html</code> con esta base y completa los elementos que se indican:</p><div class="example-block"><pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+  &lt;title&gt;Gestor interactivo de actividades&lt;/title&gt;
+
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class="cabecera"&gt;
+    &lt;h1&gt;Gestor interactivo de actividades&lt;/h1&gt;
+    &lt;p&gt;Práctica global de eventos, DOM y formularios.&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section class="panel" aria-labelledby="tituloActividades"&gt;
+      &lt;h2 id="tituloActividades"&gt;1. Actividades disponibles&lt;/h2&gt;
+
+      &lt;label for="filtroCategoria"&gt;
+        Filtrar por categoría:
+      &lt;/label&gt;
+
+      &lt;select id="filtroCategoria" name="filtroCategoria"&gt;
+        &lt;option value="todas"&gt;Todas&lt;/option&gt;
+        &lt;option value="programacion"&gt;Programación&lt;/option&gt;
+        &lt;option value="diseno"&gt;Diseño&lt;/option&gt;
+        &lt;option value="sistemas"&gt;Sistemas&lt;/option&gt;
+      &lt;/select&gt;
+
+      &lt;p id="contadorActividades" aria-live="polite"&gt;&lt;/p&gt;
+
+      &lt;div
+        id="listaActividades"
+        class="lista-actividades"
+        aria-live="polite"
+      &gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="panel" aria-labelledby="tituloSeleccion"&gt;
+      &lt;h2 id="tituloSeleccion"&gt;2. Actividad seleccionada&lt;/h2&gt;
+
+      &lt;div
+        id="actividadSeleccionada"
+        class="actividad-seleccionada"
+        aria-live="polite"
+      &gt;
+        &lt;p&gt;Todavía no has seleccionado ninguna actividad.&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;p
+        id="errorActividad"
+        class="mensaje-error"
+        aria-live="polite"
+      &gt;&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class="panel" aria-labelledby="tituloFormulario"&gt;
+      &lt;h2 id="tituloFormulario"&gt;3. Formulario de inscripción&lt;/h2&gt;
+
+      &lt;form id="formularioInscripcion" novalidate&gt;
+        &lt;div class="campo"&gt;
+          &lt;label for="nombre"&gt;Nombre completo:&lt;/label&gt;
+
+          &lt;input
+            type="text"
+            id="nombre"
+            name="nombre"
+            autocomplete="name"
+            minlength="3"
+            required
+            aria-describedby="errorNombre"
+          &gt;
+
+          &lt;p
+            class="mensaje-error"
+            id="errorNombre"
+            aria-live="polite"
+          &gt;&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class="campo"&gt;
+          &lt;label for="email"&gt;Correo electrónico:&lt;/label&gt;
+
+          &lt;input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            required
+            aria-describedby="errorEmail"
+          &gt;
+
+          &lt;p
+            class="mensaje-error"
+            id="errorEmail"
+            aria-live="polite"
+          &gt;&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class="campo"&gt;
+          &lt;label for="edad"&gt;Edad:&lt;/label&gt;
+
+          &lt;input
+            type="number"
+            id="edad"
+            name="edad"
+            min="16"
+            max="99"
+            step="1"
+            required
+            aria-describedby="errorEdad"
+          &gt;
+
+          &lt;p
+            class="mensaje-error"
+            id="errorEdad"
+            aria-live="polite"
+          &gt;&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class="campo"&gt;
+          &lt;label for="nivel"&gt;Nivel:&lt;/label&gt;
+
+          &lt;select
+            id="nivel"
+            name="nivel"
+            required
+            aria-describedby="errorNivel"
+          &gt;
+            &lt;option value=""&gt;Selecciona una opción&lt;/option&gt;
+            &lt;option value="basico"&gt;Básico&lt;/option&gt;
+            &lt;option value="medio"&gt;Medio&lt;/option&gt;
+            &lt;option value="avanzado"&gt;Avanzado&lt;/option&gt;
+          &lt;/select&gt;
+
+          &lt;p
+            class="mensaje-error"
+            id="errorNivel"
+            aria-live="polite"
+          &gt;&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div id="grupoCondiciones" class="campo checkbox"&gt;
+          &lt;label&gt;
+            &lt;input
+              type="checkbox"
+              id="aceptaCondiciones"
+              name="aceptaCondiciones"
+              required
+              aria-describedby="errorCondiciones"
+            &gt;
+            Acepto las condiciones de inscripción.
+          &lt;/label&gt;
+
+          &lt;p
+            class="mensaje-error"
+            id="errorCondiciones"
+            aria-live="polite"
+          &gt;&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;button
+          type="submit"
+          id="botonEnviar"
+          disabled
+        &gt;
+          Enviar inscripción
+        &lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+
+    &lt;section class="panel" aria-labelledby="tituloResultado"&gt;
+      &lt;h2 id="tituloResultado"&gt;4. Resultado&lt;/h2&gt;
+
+      &lt;div
+        id="resultado"
+        class="resultado"
+        aria-live="polite"
+      &gt;
+        &lt;p&gt;Aquí aparecerá el resumen de la inscripción.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div></div><div><h3>2.2. Uso de <code>novalidate</code></h3><p>El formulario contiene:</p><div class="example-block"><pre class="code-html"><code>&lt;form id="formularioInscripcion" novalidate&gt;
+</code></pre></div><p>Se utiliza para que la validación y los mensajes se gestionen mediante JavaScript.</p><p>Los atributos <code>required</code>, <code>min</code>, <code>max</code>, <code>step</code> y <code>minlength</code> se mantienen porque:</p><ul class="custom-list">
+<li>documentan las reglas;</li>
+<li>mejoran la semántica;</li>
+<li>permiten comparar posteriormente validación HTML y JavaScript.</li>
+</ul></div><div><h3>2.3. CSS mínimo</h3><p>Crea <code>styles.css</code>.</p><p>Debe existir una diferencia visual clara entre:</p><ul class="custom-list">
+<li>campo correcto;</li>
+<li>campo incorrecto;</li>
+<li>mensaje de error;</li>
+<li>actividad seleccionada;</li>
+<li>actividad sin plazas;</li>
+<li>botón desactivado;</li>
+<li>foco de teclado.</li>
+</ul><p>Puedes partir de esta estructura:</p><div class="example-block"><pre class="code-css"><code>body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+  color: #222222;
+}
+
+.cabecera {
+  background: #123c69;
+  color: #ffffff;
+  padding: 24px;
+  text-align: center;
+}
+
+main {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.panel {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.lista-actividades {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.tarjeta-actividad {
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  padding: 14px;
+  background: #fafafa;
+}
+
+.tarjeta-actividad.destacada {
+  border-color: #123c69;
+  background: #eef5ff;
+}
+
+.tarjeta-actividad.sin-plazas {
+  opacity: 0.7;
+}
+
+.campo {
+  margin-bottom: 14px;
+}
+
+input,
+select,
+button {
+  padding: 8px;
+  margin-top: 4px;
+}
+
+input.correcto,
+select.correcto,
+#grupoCondiciones.correcto {
+  border: 2px solid #2e7d32;
+}
+
+input.incorrecto,
+select.incorrecto,
+#grupoCondiciones.incorrecto {
+  border: 2px solid #c62828;
+}
+
+.mensaje-error {
+  color: #c62828;
+  font-size: 0.9rem;
+  min-height: 18px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+input:focus,
+select:focus {
+  outline: 3px solid #80bfff;
+  outline-offset: 2px;
+}
+
+.resultado {
+  background: #eef5ff;
+  border-left: 4px solid #123c69;
+  padding: 12px;
+}
+</code></pre></div><p>Puedes mejorar el diseño, pero no elimines los estados necesarios.</p><hr/></div></section><section class="content-section" id="3-datos-estado-y-seleccion-del-dom"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-database"></i></span> 3. Datos, estado y selección del DOM</h2><div><h3>3.1. Array de actividades</h3><p>En <code>script.js</code>, crea este array:</p><div class="example-block"><pre class="code-js"><code>const actividades = [
+  {
+    id: 1,
+    titulo: "Introducción a JavaScript",
+    categoria: "programacion",
+    duracion: 3,
+    plazas: 12
+  },
+  {
+    id: 2,
+    titulo: "Diseño de interfaces web",
+    categoria: "diseno",
+    duracion: 2,
+    plazas: 8
+  },
+  {
+    id: 3,
+    titulo: "Herramientas de desarrollo",
+    categoria: "programacion",
+    duracion: 2,
+    plazas: 10
+  },
+  {
+    id: 4,
+    titulo: "Administración básica de sistemas",
+    categoria: "sistemas",
+    duracion: 4,
+    plazas: 6
+  },
+  {
+    id: 5,
+    titulo: "Taller completo",
+    categoria: "programacion",
+    duracion: 2,
+    plazas: 0
+  }
+];
+</code></pre></div></div><div><h3>3.2. Estado de la aplicación</h3><p>Declara:</p><div class="example-block"><pre class="code-js"><code>let actividadElegida = null;
+</code></pre></div><p>Decisiones obligatorias:</p><ul class="custom-list">
+<li>la actividad seleccionada se mantiene aunque el filtro la oculte;</li>
+<li>continúa mostrándose en el panel de selección;</li>
+<li>vuelve a aparecer destacada cuando el filtro permite verla;</li>
+<li>solo se elimina mediante una acción explícita de reinicio.</li>
+</ul></div><div><h3>3.3. Selección de elementos</h3><p>Selecciona, como mínimo:</p><div class="example-block"><pre class="code-js"><code>const listaActividades =
+  document.querySelector("#listaActividades");
+
+const filtroCategoria =
+  document.querySelector("#filtroCategoria");
+
+const contadorActividades =
+  document.querySelector("#contadorActividades");
+
+const actividadSeleccionada =
+  document.querySelector("#actividadSeleccionada");
+
+const errorActividad =
+  document.querySelector("#errorActividad");
+
+const formulario =
+  document.querySelector("#formularioInscripcion");
+
+const nombre =
+  document.querySelector("#nombre");
+
+const email =
+  document.querySelector("#email");
+
+const edad =
+  document.querySelector("#edad");
+
+const nivel =
+  document.querySelector("#nivel");
+
+const aceptaCondiciones =
+  document.querySelector("#aceptaCondiciones");
+
+const grupoCondiciones =
+  document.querySelector("#grupoCondiciones");
+
+const botonEnviar =
+  document.querySelector("#botonEnviar");
+
+const resultado =
+  document.querySelector("#resultado");
+</code></pre></div><p>Completa también la selección de los elementos de error.</p><hr/></div></section><section class="content-section phase-section" id="4-renderizado-y-filtrado-de-actividades"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-grid-3x3-gap"></i></span> 4. Renderizado y filtrado de actividades</h2><div class="phase-card"><h3>4.1. Nombre legible de las categorías</h3><p>Crea un objeto auxiliar:</p><div class="example-block"><pre class="code-js"><code>const nombresCategoria = {
+  programacion: "Programación",
+  diseno: "Diseño",
+  sistemas: "Sistemas"
+};
+</code></pre></div></div><div class="phase-card"><h3>4.2. Función <code>renderizarActividades()</code></h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code>function renderizarActividades(lista) {
+  // 1. Vacía el contenedor con replaceChildren().
+  // 2. Si la lista está vacía, muestra un mensaje.
+  // 3. Recorre el array con forEach().
+  // 4. Crea una tarjeta por actividad.
+  // 5. Muestra título, categoría, duración y plazas.
+  // 6. Crea un botón de selección.
+  // 7. Guarda el id en dataset.id.
+  // 8. Usa type="button".
+  // 9. Destaca la actividad seleccionada.
+  // 10. Desactiva el botón cuando plazas sea 0.
+  // 11. Inserta las tarjetas en el DOM.
+  // 12. Actualiza el contador de actividades visibles.
+}
+</code></pre></div><p>Requisitos:</p><ul class="custom-list">
+<li>utiliza <code>createElement()</code>;</li>
+<li>utiliza <code>textContent</code>;</li>
+<li>utiliza <code>append()</code> o <code>appendChild()</code>;</li>
+<li>no construyas las tarjetas concatenando HTML;</li>
+<li>si no hay actividades, muestra:</li>
+</ul><div class="example-block"><pre class="code-bash"><code>No hay actividades en esta categoría.
+</code></pre></div><p>El contador debe mostrar:</p><div class="example-block"><pre class="code-bash"><code>Mostrando 2 actividades
+</code></pre></div><p>o:</p><div class="example-block"><pre class="code-bash"><code>Mostrando 1 actividad
+</code></pre></div></div><div class="phase-card"><h3>4.3. Pista para el botón</h3><div class="example-block"><pre class="code-js"><code>const boton = document.createElement("button");
+
+boton.type = "button";
+boton.textContent = "Seleccionar";
+boton.dataset.id = actividad.id;
+boton.disabled = actividad.plazas === 0;
+</code></pre></div><p>Si la actividad está seleccionada:</p><ul class="custom-list">
+<li>añade la clase <code>destacada</code>;</li>
+<li>cambia el texto a <code>Seleccionada</code>;</li>
+<li>puedes usar <code>aria-pressed="true"</code>.</li>
+</ul></div><div class="phase-card"><h3>4.4. Filtrar actividades</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code>function obtenerActividadesFiltradas() {
+  const categoria = filtroCategoria.value;
+
+  // Si es "todas", devuelve el array completo.
+  // En otro caso, usa filter().
+}
+</code></pre></div><p>Asocia un evento <code>change</code> al filtro:</p><div class="example-block"><pre class="code-js"><code>filtroCategoria.addEventListener("change", () =&gt; {
+  const filtradas = obtenerActividadesFiltradas();
+
+  renderizarActividades(filtradas);
+});
+</code></pre></div><hr/></div></section><section class="content-section phase-section" id="5-seleccion-de-actividad"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-hand-index-thumb"></i></span> 5. Selección de actividad</h2><div class="phase-card"><h3>5.1. Delegación de eventos</h3><p>Las tarjetas se crean dinámicamente. Por tanto, utiliza un único listener sobre <code>listaActividades</code>.</p><p>Estructura recomendada:</p><div class="example-block"><pre class="code-js"><code>listaActividades.addEventListener("click", (event) =&gt; {
+  const botonSeleccionar =
+    event.target.closest("button[data-id]");
+
+  if (botonSeleccionar === null) {
+    return;
+  }
+
+  if (!listaActividades.contains(botonSeleccionar)) {
+    return;
+  }
+
+  // Completa:
+  // 1. Convierte dataset.id a número.
+  // 2. Busca la actividad con find().
+  // 3. Evita seleccionar actividades sin plazas.
+  // 4. Guarda el objeto en actividadElegida.
+  // 5. Actualiza el panel de selección.
+  // 6. Renderiza de nuevo la lista filtrada.
+  // 7. Limpia el error de actividad.
+  // 8. Actualiza el botón del formulario.
+});
+</code></pre></div></div><div class="phase-card"><h3>5.2. Mostrar la actividad seleccionada</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code>function mostrarActividadSeleccionada() {
+  // Si actividadElegida es null:
+  //   muestra el mensaje inicial.
+  // Si existe:
+  //   crea nodos con createElement().
+  //   muestra título, categoría, duración y plazas.
+  //   sustituye el contenido con replaceChildren().
+}
+</code></pre></div><p>No uses <code>innerHTML</code> para construir el panel.</p></div><div class="phase-card"><h3>5.3. Comprobar y validar la selección</h3><p>Regla pura:</p><div class="example-block"><pre class="code-js"><code>function comprobarActividadSeleccionada() {
+  return actividadElegida !== null;
+}
+</code></pre></div><p>Validación visible:</p><div class="example-block"><pre class="code-js"><code>function validarActividadSeleccionada() {
+  if (!comprobarActividadSeleccionada()) {
+    errorActividad.textContent =
+      "Debes seleccionar una actividad.";
+
+    return false;
+  }
+
+  errorActividad.textContent = "";
+  return true;
+}
+</code></pre></div><hr/></div></section><section class="content-section phase-section" id="6-reglas-puras-de-validacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-check"></i></span> 6. Reglas puras de validación</h2><p>Las funciones de este apartado:</p><ul class="custom-list">
+<li>reciben valores;</li>
+<li>no modifican el DOM;</li>
+<li>no muestran mensajes;</li>
+<li>devuelven <code>true</code> o <code>false</code>.</li>
+</ul><div class="phase-card"><h3>6.1. Patrón de correo</h3><div class="example-block"><pre class="code-js"><code>const PATRON_EMAIL =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+</code></pre></div></div><div class="phase-card"><h3>6.2. Funciones obligatorias</h3><p>Completa:</p><div class="example-block"><pre class="code-js"><code>function comprobarNombre(valor) {
+  // Texto limpio con al menos 3 caracteres.
+}
+
+function comprobarEmail(valor) {
+  // Usa PATRON_EMAIL.test().
+}
+
+function comprobarEdad(valor) {
+  // No vacío.
+  // Conversión numérica.
+  // Número entero.
+  // Entre 16 y 99.
+}
+
+function comprobarNivel(valor) {
+  // Debe ser distinto de "".
+}
+
+function comprobarCondiciones(estaMarcado) {
+  // Devuelve el booleano recibido.
+}
+</code></pre></div></div><div class="phase-card"><h3>6.3. Comprobar todo sin mostrar errores</h3><div class="example-block"><pre class="code-js"><code>function comprobarFormularioCompleto() {
+  return (
+    comprobarActividadSeleccionada()
+    &amp;&amp; comprobarNombre(nombre.value)
+    &amp;&amp; comprobarEmail(email.value)
+    &amp;&amp; comprobarEdad(edad.value)
+    &amp;&amp; comprobarNivel(nivel.value)
+    &amp;&amp; comprobarCondiciones(
+      aceptaCondiciones.checked
+    )
+  );
+}
+</code></pre></div><p>Esta función se utiliza para actualizar el estado del botón sin mostrar errores en campos que el usuario todavía no ha tocado.</p><hr/></div></section><section class="content-section phase-section" id="7-mensajes-y-validacion-visible"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-chat-square-text"></i></span> 7. Mensajes y validación visible</h2><div class="phase-card"><h3>7.1. Funciones auxiliares</h3><p>Implementa:</p><div class="example-block"><pre class="code-js"><code>function mostrarError(campo, elementoError, mensaje) {
+  // Elimina "correcto".
+  // Añade "incorrecto".
+  // Asigna aria-invalid="true".
+  // Muestra el mensaje.
+}
+
+function mostrarCorrecto(campo, elementoError) {
+  // Elimina "incorrecto".
+  // Añade "correcto".
+  // Asigna aria-invalid="false".
+  // Limpia el mensaje.
+}
+</code></pre></div></div><div class="phase-card"><h3>7.2. Validar el nombre</h3><p>Se proporciona como modelo:</p><div class="example-block"><pre class="code-js"><code>function validarNombre() {
+  const valor = nombre.value.trim();
+
+  if (valor === "") {
+    mostrarError(
+      nombre,
+      errorNombre,
+      "El nombre es obligatorio."
+    );
+
+    return false;
+  }
+
+  if (!comprobarNombre(valor)) {
+    mostrarError(
+      nombre,
+      errorNombre,
+      "El nombre debe tener al menos 3 caracteres."
+    );
+
+    return false;
+  }
+
+  mostrarCorrecto(nombre, errorNombre);
+  return true;
+}
+</code></pre></div></div><div class="phase-card"><h3>7.3. Validaciones que debes completar</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code>function validarEmail() {
+  // Diferencia vacío y formato incorrecto.
+}
+
+function validarEdad() {
+  // Diferencia:
+  // - vacío;
+  // - no numérico;
+  // - decimal;
+  // - fuera de rango.
+}
+
+function validarNivel() {
+  // Muestra error si no hay opción.
+}
+
+function validarCondiciones() {
+  // Actualiza el contenedor grupoCondiciones.
+}
+</code></pre></div></div><div class="phase-card"><h3>7.4. Validación completa con mensajes</h3><div class="example-block"><pre class="code-js"><code>function validarFormulario() {
+  const actividadValida =
+    validarActividadSeleccionada();
+
+  const nombreValido =
+    validarNombre();
+
+  const emailValido =
+    validarEmail();
+
+  const edadValida =
+    validarEdad();
+
+  const nivelValido =
+    validarNivel();
+
+  const condicionesValidas =
+    validarCondiciones();
+
+  return (
+    actividadValida
+    &amp;&amp; nombreValido
+    &amp;&amp; emailValido
+    &amp;&amp; edadValida
+    &amp;&amp; nivelValido
+    &amp;&amp; condicionesValidas
+  );
+}
+</code></pre></div><p>Las validaciones se ejecutan por separado antes del <code>return</code> para que aparezcan todos los errores y no se produzca un cortocircuito que impida validar los campos posteriores.</p><hr/></div></section><section class="content-section phase-section" id="8-estado-del-formulario-y-eventos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-lightning-charge"></i></span> 8. Estado del formulario y eventos</h2><div class="phase-card"><h3>8.1. Actualizar el botón</h3><div class="example-block"><pre class="code-js"><code>function actualizarBoton() {
+  botonEnviar.disabled =
+    !comprobarFormularioCompleto();
+}
+</code></pre></div><p>El botón desactivado mejora la interfaz, pero no sustituye la validación final del <code>submit</code>.</p></div><div class="phase-card"><h3>8.2. Eventos de validación en tiempo real</h3><p>Asocia:</p><ul class="custom-list">
+<li><code>input</code> a nombre, email y edad;</li>
+<li><code>change</code> a nivel y condiciones.</li>
+</ul><p>Cada evento debe:</p><ol class="custom-ordered-list">
+<li>validar únicamente el campo modificado;</li>
+<li>actualizar el botón.</li>
+</ol><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>nombre.addEventListener("input", () =&gt; {
+  validarNombre();
+  actualizarBoton();
+});
+</code></pre></div><p>Completa el resto.</p></div><div class="phase-card"><h3>8.3. Inicialización</h3><p>Al final del archivo:</p><div class="example-block"><pre class="code-js"><code>renderizarActividades(actividades);
+mostrarActividadSeleccionada();
+actualizarBoton();
+</code></pre></div><hr/></div></section><section class="content-section phase-section" id="9-envio-y-resumen-seguro"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-send-check"></i></span> 9. Envío y resumen seguro</h2><div class="phase-card"><h3>9.1. Evento <code>submit</code></h3><p>Implementa:</p><div class="example-block"><pre class="code-js"><code>formulario.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+
+  const formularioValido =
+    validarFormulario();
+
+  if (!formularioValido) {
+    mostrarErrorGeneral();
+    return;
+  }
+
+  mostrarResumenInscripcion();
+});
+</code></pre></div><p>No determines la validez consultando únicamente:</p><div class="example-block"><pre class="code-js"><code>botonEnviar.disabled
+</code></pre></div><p>La función <code>mostrarErrorGeneral()</code> puede mostrar en <code>resultado</code>:</p><div class="example-block"><pre class="code-bash"><code>No se puede enviar la inscripción. Revisa los datos.
+</code></pre></div></div><div class="phase-card"><h3>9.2. Crear datos para el resumen</h3><p>Puedes crear un objeto:</p><div class="example-block"><pre class="code-js"><code>function obtenerDatosInscripcion() {
+  return {
+    nombre: nombre.value.trim(),
+    email: email.value.trim(),
+    edad: Number(edad.value),
+    nivel: nivel.value,
+    actividad: actividadElegida.titulo,
+    duracion: actividadElegida.duracion
+  };
+}
+</code></pre></div><p>Esta función solo debe ejecutarse después de validar correctamente el formulario.</p></div><div class="phase-card"><h3>9.3. Crear una fila segura</h3><div class="example-block"><pre class="code-js"><code>function crearDatoResumen(etiqueta, valor) {
+  const parrafo = document.createElement("p");
+  const strong = document.createElement("strong");
+
+  strong.textContent = etiqueta + ": ";
+  parrafo.append(strong, String(valor));
+
+  return parrafo;
+}
+</code></pre></div></div><div class="phase-card"><h3>9.4. Mostrar el resumen</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code>function mostrarResumenInscripcion() {
+  // 1. Obtén los datos.
+  // 2. Crea un título con createElement().
+  // 3. Crea cada fila con crearDatoResumen().
+  // 4. Sustituye el contenido con replaceChildren().
+}
+</code></pre></div><p>No uses <code>innerHTML</code> con datos escritos por el usuario.</p><hr/></div></section><section class="content-section practice-section" id="10-mejora-obligatoria-y-ampliacion-adicional"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-stars"></i></span> 10. Mejora obligatoria y ampliación adicional</h2><div class="requirements-section"><h3>10.1. Mejora obligatoria común</h3><p>Debes mostrar el número de actividades visibles después de cada renderizado.</p><p>Ejemplos:</p><div class="example-block"><pre class="code-bash"><code>Mostrando 4 actividades
+Mostrando 1 actividad
+Mostrando 0 actividades
+</code></pre></div></div><div class="practice-section"><h3>10.2. Elige una ampliación adicional</h3><div class="phase-card"><h4>Opción A. Actividades sin plazas</h4><ul class="custom-list">
+<li>conserva al menos una actividad con <code>plazas: 0</code>;</li>
+<li>aplica una clase especial;</li>
+<li>desactiva su botón;</li>
+<li>muestra el texto <code>Sin plazas</code>.</li>
+</ul></div><div class="phase-card"><h4>Opción B. Reiniciar la aplicación</h4><p>Añade un botón que:</p><ul class="custom-list">
+<li>limpie el formulario;</li>
+<li>borre mensajes y clases;</li>
+<li>oculte o reinicie el resumen;</li>
+<li>elimine la actividad seleccionada;</li>
+<li>restablezca el filtro;</li>
+<li>vuelva a renderizar todas las actividades;</li>
+<li>desactive el botón de envío.</li>
+</ul></div><div class="phase-card"><h4>Opción C. Ordenar las actividades</h4><p>Añade un control que permita ordenar por:</p><ul class="custom-list">
+<li>duración;</li>
+<li>plazas disponibles;</li>
+<li>título.</li>
+</ul><p>No modifiques directamente el array original si puedes evitarlo. Puedes utilizar una copia:</p><div class="example-block"><pre class="code-js"><code>const copia = [...actividades];
+</code></pre></div><hr/></div></div></section><section class="content-section practice-section" id="11-pruebas-y-errores-frecuentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 11. Pruebas y errores frecuentes</h2><div class="practice-section"><h3>11.1. Pruebas obligatorias</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Prueba</th>
+<th>Resultado esperado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cargar la página</td>
+<td>Se ven todas las actividades</td>
+</tr>
+<tr>
+<td>Cambiar categoría</td>
+<td>Se muestran solo las actividades filtradas</td>
+</tr>
+<tr>
+<td>Filtro sin resultados</td>
+<td>Aparece un mensaje de lista vacía</td>
+</tr>
+<tr>
+<td>Contador visible</td>
+<td>Coincide con las tarjetas mostradas</td>
+</tr>
+<tr>
+<td>Seleccionar actividad</td>
+<td>Aparece destacada y se muestra en el panel</td>
+</tr>
+<tr>
+<td>Cambiar filtro tras seleccionar</td>
+<td>La selección se conserva</td>
+</tr>
+<tr>
+<td>Volver a mostrar la categoría</td>
+<td>La actividad vuelve a aparecer destacada</td>
+</tr>
+<tr>
+<td>Intentar seleccionar actividad sin plazas</td>
+<td>No se permite</td>
+</tr>
+<tr>
+<td>Nombre vacío o con espacios</td>
+<td>Muestra error obligatorio</td>
+</tr>
+<tr>
+<td>Nombre con menos de 3 caracteres</td>
+<td>Muestra error de longitud</td>
+</tr>
+<tr>
+<td>Email sin <code>@</code></td>
+<td>Muestra error</td>
+</tr>
+<tr>
+<td>Edad <code>15</code></td>
+<td>Muestra error</td>
+</tr>
+<tr>
+<td>Edad <code>16</code></td>
+<td>Es válida</td>
+</tr>
+<tr>
+<td>Edad <code>99</code></td>
+<td>Es válida</td>
+</tr>
+<tr>
+<td>Edad <code>100</code></td>
+<td>Muestra error</td>
+</tr>
+<tr>
+<td>Edad decimal</td>
+<td>Muestra error de número entero</td>
+</tr>
+<tr>
+<td>Nivel sin seleccionar</td>
+<td>Muestra error</td>
+</tr>
+<tr>
+<td>Condiciones sin aceptar</td>
+<td>Muestra error</td>
+</tr>
+<tr>
+<td>Corregir un campo</td>
+<td>Desaparece el error</td>
+</tr>
+<tr>
+<td>Invalidar un campo correcto</td>
+<td>El botón vuelve a desactivarse</td>
+</tr>
+<tr>
+<td>Todo correcto</td>
+<td>Se activa el botón</td>
+</tr>
+<tr>
+<td>Enviar formulario</td>
+<td>Se muestra el resumen</td>
+</tr>
+<tr>
+<td>Introducir etiquetas en el nombre</td>
+<td>Se muestran como texto</td>
+</tr>
+<tr>
+<td>Enviar una segunda inscripción</td>
+<td>El resumen anterior se sustituye</td>
+</tr>
+<tr>
+<td>Recargar página</td>
+<td>La aplicación vuelve a su estado inicial</td>
+</tr>
+</tbody>
+</table></div></div><div class="practice-section"><h3>11.2. Errores frecuentes</h3><div class="error-card"><h4>Error 1. No usar <code>preventDefault()</code></h4><div class="example-block"><pre class="code-js"><code>formulario.addEventListener("submit", () =&gt; {
+  mostrarResumenInscripcion();
+});
+</code></pre></div><p>El formulario puede recargar la página.</p></div><div class="error-card"><h4>Error 2. Usar <code>=</code> en lugar de <code>===</code></h4><div class="example-block"><pre class="code-js"><code>if (categoria = "todas") {
+  // Error
+}
+</code></pre></div><p>Debe utilizarse:</p><div class="example-block"><pre class="code-js"><code>if (categoria === "todas") {
+  // Correcto
+}
+</code></pre></div></div><div class="error-card"><h4>Error 3. No convertir <code>dataset.id</code></h4><div class="example-block"><pre class="code-js"><code>const id = event.target.dataset.id;
+</code></pre></div><p><code>dataset.id</code> devuelve texto. Convierte con:</p><div class="example-block"><pre class="code-js"><code>const id = Number(botonSeleccionar.dataset.id);
+</code></pre></div></div><div class="error-card"><h4>Error 4. Acceder a una actividad inexistente</h4><p>Antes de usar:</p><div class="example-block"><pre class="code-js"><code>actividadElegida.titulo
+</code></pre></div><p>comprueba que <code>actividadElegida</code> no sea <code>null</code>.</p></div><div class="error-card"><h4>Error 5. Cortocircuitar las validaciones visibles</h4><p>Evita:</p><div class="example-block"><pre class="code-js"><code>return (
+  validarActividadSeleccionada()
+  &amp;&amp; validarNombre()
+  &amp;&amp; validarEmail()
+);
+</code></pre></div><p>Si una validación falla, las siguientes pueden no ejecutarse.</p></div><div class="error-card"><h4>Error 6. Confiar solo en el botón desactivado</h4><p>El formulario debe volver a validarse dentro de <code>submit</code>.</p></div><div class="error-card"><h4>Error 7. Usar <code>innerHTML</code> con datos del usuario</h4><p>Usa nodos DOM y <code>textContent</code>.</p></div><div class="error-card"><h4>Error 8. Detectar el botón únicamente con <code>tagName</code></h4><p>Es más robusto usar:</p><div class="example-block"><pre class="code-js"><code>event.target.closest("button[data-id]")
+</code></pre></div></div><div class="error-card"><h4>Error 9. Aceptar una edad decimal</h4><p>Comprueba:</p><div class="example-block"><pre class="code-js"><code>Number.isInteger(valor)
+</code></pre></div><hr/></div></div></section><section class="content-section summary-section" id="12-entrega-rubrica-y-contenidos-posteriores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> 12. Entrega, rúbrica y contenidos posteriores</h2><div class="delivery-section"><h3>12.1. Entrega</h3><p>Entrega:</p><div class="example-block"><pre class="code-bash"><code>UD2_B3_practica_global_interaccion_usuario.zip
+</code></pre></div><p>Contenido obligatorio:</p><div class="example-block project-structure-block"><pre class="code-bash"><code>UD2_B3_practica_global_interaccion_usuario/
+├── index.html
+├── styles.css
+└── script.js
+</code></pre></div><p>Incluye capturas de:</p><ol class="custom-ordered-list">
+<li>lista completa de actividades;</li>
+<li>filtro aplicado;</li>
+<li>contador de actividades visibles;</li>
+<li>actividad seleccionada;</li>
+<li>actividad sin plazas;</li>
+<li>formulario con errores;</li>
+<li>botón activado con datos válidos;</li>
+<li>resumen final;</li>
+<li>consola sin errores;</li>
+<li>ampliación adicional elegida.</li>
+</ol></div><div class="requirements-section"><h3>12.2. Lista de comprobación</h3><p>Antes de entregar, revisa:</p><ul class="checklist-list">
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>La página carga sin errores en consola.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>Las actividades se generan desde JavaScript.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>Se utiliza <code>filter()</code> para las categorías.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>Se utiliza <code>find()</code> para seleccionar la actividad.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>Se utiliza <code>dataset</code>.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>La delegación de eventos funciona.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>El filtro conserva correctamente la selección.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>El contador muestra el número correcto.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>Las actividades sin plazas no pueden seleccionarse.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>El formulario valida nombre, email, edad, nivel y condiciones.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>La actividad seleccionada también se valida.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>Las reglas están separadas de las funciones de interfaz.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>El botón se activa solo cuando todo es correcto.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>El formulario vuelve a validarse en <code>submit</code>.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>Se utiliza <code>preventDefault()</code>.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>El resumen se construye sin <code>innerHTML</code> con datos del usuario.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>Los mensajes dinámicos son accesibles.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>El código está organizado en funciones.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>Los nombres de variables son claros.</li>
+<li><span aria-hidden="true" class="check-marker"><i class="bi bi-square"></i></span>La mejora obligatoria y la ampliación están completas.</li>
+</ul></div><div class="rubric-section"><h3>12.3. Rúbrica orientativa</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estructura, HTML semántico y accesibilidad básica</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Renderizado dinámico de actividades</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Filtro, contador y estado de selección</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Validación del formulario</td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>Separación entre reglas y funciones de interfaz</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Eventos y funcionamiento conjunto</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Resumen seguro y actualización del DOM</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Mejora obligatoria, claridad y ausencia de errores</td>
+<td>5 %</td>
+</tr>
+</tbody>
+</table></div><p>Total: <strong>100 %</strong>.</p></div><div class="restrictions-section"><h3>12.4. Contenidos que no forman parte de esta práctica</h3><p>Estos contenidos se trabajarán en bloques posteriores:</p><ul class="custom-list">
+<li><code>fetch</code>;</li>
+<li>promesas;</li>
+<li><code>async</code>/<code>await</code>;</li>
+<li>consumo de APIs;</li>
+<li>almacenamiento persistente;</li>
+<li><code>localStorage</code>;</li>
+<li>conexión con servidor;</li>
+<li>subida de datos reales;</li>
+<li>autenticación;</li>
+<li>frameworks o librerías externas.</li>
+</ul></div></section></div></div></main></div></body></html>

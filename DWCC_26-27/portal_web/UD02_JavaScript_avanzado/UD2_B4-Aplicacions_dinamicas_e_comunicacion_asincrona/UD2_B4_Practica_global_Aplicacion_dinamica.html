@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UD2_B4 · Práctica global: aplicación dinámica</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+<script defer="" src="../../assets/js/smpp.js"></script>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar practice-page global-practice-page celebration-page">
+<div class="content-layout">
+<aside aria-label="Índice del documento" class="section-sidebar">
+<nav aria-label="Secciones del documento" class="section-nav">
+<p class="section-nav-title">
+<i aria-hidden="true" class="bi bi-list-ul"></i>
+              Índice del documento
+            </p>
+<ol class="section-nav-list">
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#1-sentido-de-la-practica"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-trophy"></i></span> 1. Sentido de la práctica</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#2-aplicacion-que-se-va-a-construir"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-window-stack"></i></span> 2. Aplicación que se va a construir</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#3-secuencia-recomendada-de-trabajo"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-signpost-split"></i></span> 3. Secuencia recomendada de trabajo</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#4-estructura-del-proyecto"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-folder2-open"></i></span> 4. Estructura del proyecto</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#5-datos-de-partida"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-filetype-json"></i></span> 5. Datos de partida</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#6-requisitos-del-html"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-filetype-html"></i></span> 6. Requisitos del HTML</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#7-requisitos-de-javascript"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-filetype-js"></i></span> 7. Requisitos de JavaScript</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#8-requisitos-minimos-obligatorios"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-circle"></i></span> 8. Requisitos mínimos obligatorios</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#9-ampliaciones-opcionales"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-stars"></i></span> 9. Ampliaciones opcionales</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#10-pruebas-obligatorias"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> 10. Pruebas obligatorias</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#11-entrega"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-send-check"></i></span> 11. Entrega</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#12-preguntas-de-reflexion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-question-circle"></i></span> 12. Preguntas de reflexión</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#13-errores-frecuentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-exclamation-triangle"></i></span> 13. Errores frecuentes</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#14-rubrica-orientativa"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-clipboard-check"></i></span> 14. Rúbrica orientativa</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#15-lista-de-comprobacion-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-square"></i></span> 15. Lista de comprobación final</a></li>
+<li class="section-nav-item"><a class="section-nav-link badge-link" href="#16-contenidos-que-quedan-para-mas-adelante"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-arrow-right-circle"></i></span> 16. Contenidos que quedan para más adelante</a></li>
+</ol>
+</nav>
+</aside>
+<div class="content-wrapper">
+<nav aria-label="Acciones del documento" class="main-header">
+<a class="nav-link" href="../../index.html"><i aria-hidden="true" class="bi bi-house-door"></i> Volver al índice</a>
+<button aria-label="Cambiar a modo oscuro" aria-pressed="false" data-update-text="true" id="theme-toggle" type="button">🌙 Modo oscuro</button>
+</nav>
+<header class="content-header celebration-header">
+<h1><i aria-hidden="true" class="bi bi-stars"></i> UD2_B4. Práctica global: aplicación dinámica con <code>fetch</code>, JSON y DOM</h1>
+<p class="celebration-subtitle">Práctica global de cierre del bloque UD2_B4.</p>
+</header>
+<section class="content-section practice-step-section global-practice-section celebration-section" id="1-sentido-de-la-practica">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-trophy"></i></span> 1. Sentido de la práctica</h2>
+<p>Esta práctica cierra el bloque <strong>UD2_B4: Aplicaciones dinámicas y comunicación asíncrona</strong>.</p>
+<p>El objetivo es construir una pequeña aplicación web que cargue datos desde un fichero JSON usando <code>fetch</code>, los procese con JavaScript y los muestre dinámicamente en la página mediante el DOM.</p>
+<p>La práctica integra contenidos trabajados en la UD2:</p>
+<ul class="custom-list">
+<li>objetos y arrays de objetos;</li>
+<li>métodos de array (<code>forEach</code>, <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>find</code>, <code>some</code>, <code>every</code>, <code>sort</code>);</li>
+<li>DOM;</li>
+<li>eventos;</li>
+<li>formularios sencillos;</li>
+<li>validación básica;</li>
+<li>asincronía;</li>
+<li>promesas;</li>
+<li><code>async</code> / <code>await</code>;</li>
+<li><code>try...catch</code>;</li>
+<li><code>fetch</code>;</li>
+<li>lectura de JSON con <code>.json()</code>;</li>
+<li>estados de carga y error.</li>
+</ul>
+<p>No se trabajará todavía almacenamiento persistente (<code>localStorage</code>), autenticación, cabeceras HTTP avanzadas, <code>AbortController</code>, módulos ni frameworks.</p>
+<blockquote class="note-box">
+<p><strong>Importante:</strong> esta práctica carga un fichero JSON local mediante <code>fetch</code>. Debe ejecutarse con <strong>Live Server</strong> o con un servidor local equivalente. Si abres el HTML directamente con doble clic, la carga del JSON puede fallar por restricciones del navegador.</p>
+</blockquote>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section celebration-section" id="2-aplicacion-que-se-va-a-construir">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window-stack"></i></span> 2. Aplicación que se va a construir</h2>
+<p>Vas a crear una aplicación llamada:</p>
+<blockquote class="note-box">
+<p><strong>Panel dinámico de recursos de aula</strong></p>
+</blockquote>
+<p>La aplicación cargará una lista de recursos desde un fichero JSON y permitirá:</p>
+<ol class="custom-ordered-list">
+<li>Mostrar todos los recursos en tarjetas.</li>
+<li>Filtrar recursos por categoría.</li>
+<li>Buscar recursos por texto.</li>
+<li>Ordenar los recursos por dificultad o duración.</li>
+<li>Mostrar estadísticas generales.</li>
+<li>Ver si hay recursos pendientes.</li>
+<li>Mostrar mensajes de carga, error, éxito y resultado vacío.</li>
+<li>Recargar los datos con un botón.</li>
+<li>Añadir visualmente un nuevo recurso desde un formulario, sin guardarlo en el fichero JSON.</li>
+</ol>
+<p>El recurso añadido desde el formulario se añadirá solo al array que está en memoria mientras la página está abierta.<br/>
+No se escribirá realmente dentro de <code>datos/recursos.json</code>.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section" id="3-secuencia-recomendada-de-trabajo">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-signpost-split"></i></span> 3. Secuencia recomendada de trabajo</h2>
+<p>Para evitar bloqueos, se recomienda resolver la práctica en este orden:</p>
+<ol class="custom-ordered-list">
+<li>Crear la estructura de carpetas y archivos.</li>
+<li>Crear el fichero <code>datos/recursos.json</code>.</li>
+<li>Preparar el HTML con las zonas necesarias.</li>
+<li>Crear un CSS básico para poder ver claramente la aplicación.</li>
+<li>Seleccionar los elementos del DOM desde JavaScript.</li>
+<li>Crear <code>cargarRecursos()</code> y comprobar que el JSON se carga correctamente.</li>
+<li>Renderizar tarjetas de recursos.</li>
+<li>Mostrar estadísticas.</li>
+<li>Crear el filtro de categorías.</li>
+<li>Añadir búsqueda por texto.</li>
+<li>Añadir ordenación.</li>
+<li>Crear el formulario para añadir recursos visualmente.</li>
+<li>Probar errores y casos vacíos.</li>
+<li>Revisar la entrega y responder las preguntas de reflexión.</li>
+</ol>
+<p>Si no da tiempo a completar todas las ampliaciones, prioriza siempre los <strong>requisitos mínimos obligatorios</strong>.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section" id="4-estructura-del-proyecto">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-folder2-open"></i></span> 4. Estructura del proyecto</h2>
+<p>Crea una carpeta llamada:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">UD2_B4_practica_global_aplicacion_dinamica
+</code></pre></div>
+<p>Dentro tendrá esta estructura:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">UD2_B4_practica_global_aplicacion_dinamica/
+├── index.html
+├── css/
+│   └── estilos.css
+├── js/
+│   └── app.js
+└── datos/
+    └── recursos.json
+</code></pre></div>
+<p>La aplicación debe ejecutarse con <strong>Live Server</strong> o con un servidor local equivalente. No abras el HTML directamente con doble clic, porque <code>fetch</code> puede fallar al leer ficheros locales.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section" id="5-datos-de-partida">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-json"></i></span> 5. Datos de partida</h2>
+<p>Crea el fichero <code>datos/recursos.json</code> con este contenido:</p>
+<div class="example-block"><pre class="code-json"><code class="language-json">[
+  {
+    "id": 1,
+    "titulo": "Guía de variables y tipos",
+    "categoria": "JavaScript básico",
+    "duracionMinutos": 35,
+    "dificultad": 1,
+    "completado": true,
+    "etiquetas": ["variables", "tipos", "consola"]
+  },
+  {
+    "id": 2,
+    "titulo": "Ejercicios de condicionales",
+    "categoria": "Estructuras de control",
+    "duracionMinutos": 50,
+    "dificultad": 2,
+    "completado": true,
+    "etiquetas": ["if", "else", "comparaciones"]
+  },
+  {
+    "id": 3,
+    "titulo": "Práctica de bucles",
+    "categoria": "Estructuras de control",
+    "duracionMinutos": 60,
+    "dificultad": 2,
+    "completado": false,
+    "etiquetas": ["for", "while", "acumuladores"]
+  },
+  {
+    "id": 4,
+    "titulo": "Funciones básicas",
+    "categoria": "Funciones",
+    "duracionMinutos": 45,
+    "dificultad": 2,
+    "completado": true,
+    "etiquetas": ["function", "return", "parámetros"]
+  },
+  {
+    "id": 5,
+    "titulo": "Arrays básicos",
+    "categoria": "Arrays",
+    "duracionMinutos": 55,
+    "dificultad": 2,
+    "completado": true,
+    "etiquetas": ["arrays", "length", "for"]
+  },
+  {
+    "id": 6,
+    "titulo": "Métodos avanzados de arrays",
+    "categoria": "Arrays",
+    "duracionMinutos": 75,
+    "dificultad": 3,
+    "completado": false,
+    "etiquetas": ["map", "filter", "reduce"]
+  },
+  {
+    "id": 7,
+    "titulo": "Objetos y arrays de objetos",
+    "categoria": "Objetos",
+    "duracionMinutos": 80,
+    "dificultad": 3,
+    "completado": false,
+    "etiquetas": ["objetos", "propiedades", "JSON"]
+  },
+  {
+    "id": 8,
+    "titulo": "Manipulación básica del DOM",
+    "categoria": "DOM",
+    "duracionMinutos": 70,
+    "dificultad": 3,
+    "completado": false,
+    "etiquetas": ["document", "querySelector", "createElement"]
+  }
+]
+</code></pre></div>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section" id="6-requisitos-del-html">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-html"></i></span> 6. Requisitos del HTML</h2>
+<p>El fichero <code>index.html</code> debe contener, como mínimo:</p>
+<ul class="custom-list">
+<li>un título principal;</li>
+<li>una zona para mensajes de estado;</li>
+<li>un botón para recargar datos;</li>
+<li>un campo de búsqueda;</li>
+<li>un selector de categoría;</li>
+<li>un selector de ordenación;</li>
+<li>una zona para estadísticas;</li>
+<li>un contenedor para las tarjetas de recursos;</li>
+<li>un formulario para añadir un nuevo recurso visualmente.</li>
+</ul>
+<p>Ejemplo de estructura orientativa:</p>
+<div class="example-block"><pre class="code-html"><code class="language-html">&lt;header&gt;
+  &lt;h1&gt;Panel dinámico de recursos de aula&lt;/h1&gt;
+  &lt;p&gt;Aplicación con fetch, JSON, DOM, eventos y async/await.&lt;/p&gt;
+&lt;/header&gt;
+
+&lt;section id="estado" class="estado"&gt;&lt;/section&gt;
+
+&lt;section class="controles"&gt;
+  &lt;button id="btnRecargar"&gt;Recargar datos&lt;/button&gt;
+
+  &lt;label&gt;
+    Buscar:
+    &lt;input type="search" id="busqueda" placeholder="Texto a buscar..."&gt;
+  &lt;/label&gt;
+
+  &lt;label&gt;
+    Categoría:
+    &lt;select id="filtroCategoria"&gt;
+      &lt;option value="todas"&gt;Todas&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/label&gt;
+
+  &lt;label&gt;
+    Ordenar:
+    &lt;select id="orden"&gt;
+      &lt;option value="original"&gt;Orden original&lt;/option&gt;
+      &lt;option value="duracionAsc"&gt;Duración menor a mayor&lt;/option&gt;
+      &lt;option value="duracionDesc"&gt;Duración mayor a menor&lt;/option&gt;
+      &lt;option value="dificultadAsc"&gt;Dificultad menor a mayor&lt;/option&gt;
+      &lt;option value="dificultadDesc"&gt;Dificultad mayor a menor&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/label&gt;
+&lt;/section&gt;
+
+&lt;section id="estadisticas" class="estadisticas"&gt;&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;Recursos&lt;/h2&gt;
+  &lt;div id="listaRecursos" class="lista-recursos"&gt;&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;Añadir recurso visualmente&lt;/h2&gt;
+
+  &lt;form id="formRecurso"&gt;
+    &lt;label&gt;
+      Título:
+      &lt;input type="text" id="tituloRecurso"&gt;
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      Categoría:
+      &lt;input type="text" id="categoriaRecurso"&gt;
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      Duración en minutos:
+      &lt;input type="number" id="duracionRecurso" min="1"&gt;
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      Dificultad:
+      &lt;select id="dificultadRecurso"&gt;
+        &lt;option value=""&gt;Selecciona...&lt;/option&gt;
+        &lt;option value="1"&gt;1 - Baja&lt;/option&gt;
+        &lt;option value="2"&gt;2 - Media&lt;/option&gt;
+        &lt;option value="3"&gt;3 - Alta&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/label&gt;
+
+    &lt;button type="submit"&gt;Añadir recurso&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;
+</code></pre></div>
+<p>Puedes modificar la estructura, pero debe cubrir todos los requisitos indicados.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section" id="7-requisitos-de-javascript">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-js"></i></span> 7. Requisitos de JavaScript</h2>
+<p>En <code>js/app.js</code> debes organizar el código de forma clara.</p>
+<h3 class="subsection-title">7.1. Funciones esperadas</h3>
+<p>La aplicación debería organizarse, como mínimo, con funciones similares a estas:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">cargarRecursos()
+mostrarEstado()
+crearTarjetaRecurso()
+renderizarRecursos()
+renderizarEstadisticas()
+obtenerCategorias()
+rellenarFiltroCategorias()
+obtenerRecursosFiltradosYOrdenados()
+actualizarInterfaz()
+generarNuevoId()
+validarFormulario()
+crearRecursoDesdeFormulario()
+gestionarEnvioFormulario()
+</code></pre></div>
+<p>No tienen que llamarse exactamente igual, pero el código debe estar dividido en funciones con responsabilidades claras.</p>
+<p>Evita concentrar toda la lógica dentro de un único bloque de código.</p>
+<hr class="section-divider"/>
+<h3 class="subsection-title">7.2. Variables globales controladas</h3>
+<p>Debes tener un array principal donde se guarden los recursos cargados:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">let recursos = [];
+</code></pre></div>
+<p>También puedes tener referencias a elementos del DOM:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const listaRecursos = document.querySelector("#listaRecursos");
+const estado = document.querySelector("#estado");
+const estadisticas = document.querySelector("#estadisticas");
+const btnRecargar = document.querySelector("#btnRecargar");
+const busqueda = document.querySelector("#busqueda");
+const filtroCategoria = document.querySelector("#filtroCategoria");
+const orden = document.querySelector("#orden");
+const formRecurso = document.querySelector("#formRecurso");
+</code></pre></div>
+<p>No abuses de variables globales. Usa funciones para organizar el comportamiento.</p>
+<blockquote class="note-box">
+<p>Si algo no funciona, revisa primero que los <code>id</code> del HTML coinciden exactamente con los usados en <code>querySelector()</code>.</p>
+</blockquote>
+<hr class="section-divider"/>
+<h3 class="subsection-title">7.3. Cargar los datos con <code>fetch</code></h3>
+<p>Debes crear una función asíncrona:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function cargarRecursos() {
+  // Código aquí
+}
+</code></pre></div>
+<p>Esta función debe:</p>
+<ol class="custom-ordered-list">
+<li>Mostrar un mensaje de carga.</li>
+<li>Llamar a <code>fetch("datos/recursos.json")</code>.</li>
+<li>Comprobar <code>response.ok</code>.</li>
+<li>Convertir la respuesta con <code>await response.json()</code>.</li>
+<li>Guardar los datos en el array <code>recursos</code>.</li>
+<li>Rellenar el filtro de categorías.</li>
+<li>Renderizar la página.</li>
+<li>Capturar errores con <code>try...catch</code>.</li>
+</ol>
+<p>Estructura orientativa:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function cargarRecursos() {
+  try {
+    mostrarEstado("Cargando recursos...", "cargando");
+
+    const response = await fetch("datos/recursos.json");
+
+    if (!response.ok) {
+      throw new Error("No se pudieron cargar los datos");
+    }
+
+    recursos = await response.json();
+
+    rellenarFiltroCategorias(recursos);
+    mostrarEstado("Recursos cargados correctamente.", "ok");
+    actualizarInterfaz();
+  } catch (error) {
+    mostrarEstado("Error: " + error.message, "error");
+  }
+}
+</code></pre></div>
+<h3 class="subsection-title">Explicación importante</h3>
+<p><code>fetch()</code> devuelve una promesa que se resuelve con una respuesta HTTP.</p>
+<p>Después se comprueba:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">if (!response.ok) {
+  throw new Error("No se pudieron cargar los datos");
+}
+</code></pre></div>
+<p>Solo si la respuesta es correcta se leen los datos con:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">recursos = await response.json();
+</code></pre></div>
+<p><code>response.json()</code> también devuelve una promesa. Por eso se usa <code>await</code>.</p>
+<hr class="section-divider"/>
+<h3 class="subsection-title">7.4. Mostrar estados</h3>
+<p>Crea una función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function mostrarEstado(mensaje, tipo) {
+  // Código aquí
+}
+</code></pre></div>
+<p>Debe actualizar el contenido de <code>#estado</code> y aplicar una clase según el tipo:</p>
+<ul class="custom-list">
+<li><code>cargando</code>;</li>
+<li><code>ok</code>;</li>
+<li><code>error</code>;</li>
+<li><code>vacio</code>.</li>
+</ul>
+<p>Ejemplo orientativo:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function mostrarEstado(mensaje, tipo = "ok") {
+  estado.textContent = mensaje;
+  estado.className = "estado";
+  estado.classList.add(tipo);
+}
+</code></pre></div>
+<p>El estado <code>vacio</code> debe usarse cuando no hay recursos que mostrar, por ejemplo después de una búsqueda sin resultados.</p>
+<hr class="section-divider"/>
+<h3 class="subsection-title">7.5. Renderizar tarjetas</h3>
+<p>Crea una función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarRecursos(lista) {
+  // Código aquí
+}
+</code></pre></div>
+<p>Esta función debe:</p>
+<ol class="custom-ordered-list">
+<li>Limpiar el contenedor.</li>
+<li>Comprobar si la lista está vacía.</li>
+<li>Crear una tarjeta por cada recurso.</li>
+<li>Mostrar:<ul class="custom-list">
+<li>título;</li>
+<li>categoría;</li>
+<li>duración;</li>
+<li>dificultad;</li>
+<li>si está completado o pendiente;</li>
+<li>etiquetas.</li>
+</ul>
+</li>
+</ol>
+<p>Cada tarjeta debe generarse con DOM:</p>
+<ul class="custom-list">
+<li><code>document.createElement</code>;</li>
+<li><code>textContent</code>;</li>
+<li><code>classList</code>;</li>
+<li><code>append</code>.</li>
+</ul>
+<p>Evita construir toda la tarjeta con una cadena enorme de <code>innerHTML</code>.</p>
+<p>Estructura orientativa:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarRecursos(lista) {
+  listaRecursos.innerHTML = "";
+
+  if (lista.length === 0) {
+    listaRecursos.textContent = "No hay recursos que coincidan con los filtros.";
+    mostrarEstado("No hay recursos que coincidan con los filtros.", "vacio");
+    return;
+  }
+
+  lista.forEach((recurso) =&gt; {
+    const tarjeta = crearTarjetaRecurso(recurso);
+    listaRecursos.append(tarjeta);
+  });
+}
+</code></pre></div>
+<p>La función <code>crearTarjetaRecurso(recurso)</code> debe devolver una tarjeta creada con DOM.</p>
+<p>Para mostrar etiquetas, recuerda que algunos recursos nuevos pueden tener un array vacío de etiquetas:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const etiquetas = recurso.etiquetas || [];
+</code></pre></div>
+<hr class="section-divider"/>
+<h3 class="subsection-title">7.6. Crear estadísticas</h3>
+<p>Crea una función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarEstadisticas(lista) {
+  // Código aquí
+}
+</code></pre></div>
+<p>Debe calcular y mostrar:</p>
+<ul class="custom-list">
+<li>número total de recursos;</li>
+<li>número de recursos completados;</li>
+<li>número de recursos pendientes;</li>
+<li>duración total;</li>
+<li>duración media;</li>
+<li>si existe algún recurso pendiente usando <code>some</code>;</li>
+<li>recurso más largo usando <code>reduce</code>.</li>
+</ul>
+<p>Ejemplo de ideas:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const total = lista.length;
+
+const completados = lista.filter((recurso) =&gt; recurso.completado).length;
+
+const duracionTotal = lista.reduce((acumulador, recurso) =&gt; {
+  return acumulador + recurso.duracionMinutos;
+}, 0);
+</code></pre></div>
+<h3 class="subsection-title">Control obligatorio de lista vacía</h3>
+<p>Si la lista está vacía, no debes calcular medias ni buscar el recurso más largo.</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarEstadisticas(lista) {
+  if (lista.length === 0) {
+    estadisticas.textContent = "No hay recursos para calcular estadísticas.";
+    return;
+  }
+
+  const total = lista.length;
+
+  const completados = lista.filter((recurso) =&gt; recurso.completado).length;
+  const pendientes = lista.filter((recurso) =&gt; !recurso.completado).length;
+
+  const duracionTotal = lista.reduce((acumulador, recurso) =&gt; {
+    return acumulador + recurso.duracionMinutos;
+  }, 0);
+
+  const duracionMedia = duracionTotal / total;
+
+  const hayPendientes = lista.some((recurso) =&gt; !recurso.completado);
+
+  const recursoMasLargo = lista.reduce((mayor, recurso) =&gt; {
+    if (recurso.duracionMinutos &gt; mayor.duracionMinutos) {
+      return recurso;
+    }
+
+    return mayor;
+  });
+
+  estadisticas.innerHTML = `
+    &lt;p&gt;Total de recursos: ${total}&lt;/p&gt;
+    &lt;p&gt;Completados: ${completados}&lt;/p&gt;
+    &lt;p&gt;Pendientes: ${pendientes}&lt;/p&gt;
+    &lt;p&gt;Duración total: ${duracionTotal} minutos&lt;/p&gt;
+    &lt;p&gt;Duración media: ${duracionMedia.toFixed(2)} minutos&lt;/p&gt;
+    &lt;p&gt;¿Hay recursos pendientes?: ${hayPendientes ? "Sí" : "No"}&lt;/p&gt;
+    &lt;p&gt;Recurso más largo: ${recursoMasLargo.titulo}&lt;/p&gt;
+  `;
+}
+</code></pre></div>
+<p>En este caso se usa <code>innerHTML</code> para construir un bloque de resumen con datos controlados. Para las tarjetas de recursos se recomienda usar creación de elementos del DOM.</p>
+<hr class="section-divider"/>
+<h3 class="subsection-title">7.7. Crear filtro de categorías</h3>
+<p>Al cargar los datos, debes rellenar el <code>&lt;select id="filtroCategoria"&gt;</code> con las categorías existentes.</p>
+<p>Puedes obtenerlas recorriendo el array y evitando duplicados.</p>
+<p>Ejemplo orientativo:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function obtenerCategorias(lista) {
+  const categorias = [];
+
+  lista.forEach((recurso) =&gt; {
+    if (!categorias.includes(recurso.categoria)) {
+      categorias.push(recurso.categoria);
+    }
+  });
+
+  return categorias;
+}
+</code></pre></div>
+<p>Después debes crear dinámicamente las opciones del <code>select</code>.</p>
+<p>Ejemplo orientativo:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function rellenarFiltroCategorias(lista) {
+  const categorias = obtenerCategorias(lista);
+
+  filtroCategoria.innerHTML = "";
+
+  const opcionTodas = document.createElement("option");
+  opcionTodas.value = "todas";
+  opcionTodas.textContent = "Todas";
+  filtroCategoria.append(opcionTodas);
+
+  categorias.forEach((categoria) =&gt; {
+    const option = document.createElement("option");
+    option.value = categoria;
+    option.textContent = categoria;
+    filtroCategoria.append(option);
+  });
+}
+</code></pre></div>
+<p>Cuando añadas un recurso desde el formulario, si aparece una categoría nueva, deberás volver a llamar a <code>rellenarFiltroCategorias(recursos)</code>.</p>
+<hr class="section-divider"/>
+<h3 class="subsection-title">7.8. Aplicar búsqueda, filtro y ordenación</h3>
+<p>Crea una función:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function obtenerRecursosFiltradosYOrdenados() {
+  // Código aquí
+}
+</code></pre></div>
+<p>Debe tener en cuenta:</p>
+<ul class="custom-list">
+<li>texto escrito en el campo de búsqueda;</li>
+<li>categoría seleccionada;</li>
+<li>orden seleccionado.</li>
+</ul>
+<p>Debe devolver un nuevo array con el resultado.</p>
+<p>La búsqueda debe funcionar, como mínimo, sobre:</p>
+<ul class="custom-list">
+<li>título;</li>
+<li>categoría;</li>
+<li>etiquetas.</li>
+</ul>
+<p>Para evitar problemas con mayúsculas y espacios, usa:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">texto.trim().toLowerCase()
+</code></pre></div>
+<h3 class="subsection-title">Importante sobre <code>sort()</code></h3>
+<p><code>sort()</code> modifica el array sobre el que se aplica.<br/>
+Por eso no debes ordenar directamente el array <code>recursos</code>, porque podrías perder el orden original.</p>
+<p>Empieza creando una copia:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">let lista = [...recursos];
+</code></pre></div>
+<p>Después filtra y ordena esa copia:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function obtenerRecursosFiltradosYOrdenados() {
+  const texto = busqueda.value.trim().toLowerCase();
+  const categoriaSeleccionada = filtroCategoria.value;
+  const ordenSeleccionado = orden.value;
+
+  let lista = [...recursos];
+
+  if (texto !== "") {
+    lista = lista.filter((recurso) =&gt; {
+      const etiquetas = recurso.etiquetas || [];
+      const textoEtiquetas = etiquetas.join(" ").toLowerCase();
+
+      return (
+        recurso.titulo.toLowerCase().includes(texto) ||
+        recurso.categoria.toLowerCase().includes(texto) ||
+        textoEtiquetas.includes(texto)
+      );
+    });
+  }
+
+  if (categoriaSeleccionada !== "todas") {
+    lista = lista.filter((recurso) =&gt; recurso.categoria === categoriaSeleccionada);
+  }
+
+  if (ordenSeleccionado === "duracionAsc") {
+    lista.sort((a, b) =&gt; a.duracionMinutos - b.duracionMinutos);
+  }
+
+  if (ordenSeleccionado === "duracionDesc") {
+    lista.sort((a, b) =&gt; b.duracionMinutos - a.duracionMinutos);
+  }
+
+  if (ordenSeleccionado === "dificultadAsc") {
+    lista.sort((a, b) =&gt; a.dificultad - b.dificultad);
+  }
+
+  if (ordenSeleccionado === "dificultadDesc") {
+    lista.sort((a, b) =&gt; b.dificultad - a.dificultad);
+  }
+
+  return lista;
+}
+</code></pre></div>
+<hr class="section-divider"/>
+<h3 class="subsection-title">7.9. Actualizar la interfaz</h3>
+<p>Crea una función central:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function actualizarInterfaz() {
+  const lista = obtenerRecursosFiltradosYOrdenados();
+
+  renderizarEstadisticas(lista);
+  renderizarRecursos(lista);
+}
+</code></pre></div>
+<p>Cada vez que cambie un filtro, una búsqueda o el orden, se llamará a esta función.</p>
+<hr class="section-divider"/>
+<h3 class="subsection-title">7.10. Eventos</h3>
+<p>Debes añadir eventos a:</p>
+<ul class="custom-list">
+<li>botón de recarga;</li>
+<li>campo de búsqueda;</li>
+<li>selector de categoría;</li>
+<li>selector de ordenación;</li>
+<li>formulario de nuevo recurso.</li>
+</ul>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">btnRecargar.addEventListener("click", cargarRecursos);
+
+busqueda.addEventListener("input", actualizarInterfaz);
+
+filtroCategoria.addEventListener("change", actualizarInterfaz);
+
+orden.addEventListener("change", actualizarInterfaz);
+
+formRecurso.addEventListener("submit", gestionarEnvioFormulario);
+</code></pre></div>
+<hr class="section-divider"/>
+<h3 class="subsection-title">7.11. Formulario para añadir recurso visualmente</h3>
+<p>El formulario debe permitir añadir un nuevo recurso al array <code>recursos</code> y actualizar la interfaz.</p>
+<p>No hace falta guardar el recurso en el fichero JSON. Al recargar la página o pulsar <strong>Recargar datos</strong>, se perderá.</p>
+<p>Debes validar:</p>
+<ul class="custom-list">
+<li>título obligatorio;</li>
+<li>categoría obligatoria;</li>
+<li>duración mayor que 0;</li>
+<li>dificultad entre 1 y 3.</li>
+</ul>
+<p>Cuando el formulario sea correcto:</p>
+<ol class="custom-ordered-list">
+<li>Crear un objeto recurso.</li>
+<li>Añadirlo al array <code>recursos</code>.</li>
+<li>Actualizar filtros si aparece una categoría nueva.</li>
+<li>Limpiar búsqueda, filtro y ordenación para que el nuevo recurso se vea.</li>
+<li>Actualizar la interfaz.</li>
+<li>Limpiar el formulario.</li>
+<li>Mostrar un mensaje de confirmación.</li>
+</ol>
+<h3 class="subsection-title">Modelo obligatorio del nuevo recurso</h3>
+<p>El recurso añadido desde el formulario debe tener la misma estructura básica que los recursos del JSON:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const nuevoRecurso = {
+  id: generarNuevoId(),
+  titulo: titulo,
+  categoria: categoria,
+  duracionMinutos: duracion,
+  dificultad: dificultad,
+  completado: false,
+  etiquetas: []
+};
+</code></pre></div>
+<p>Se usa <code>completado: false</code> porque un recurso recién añadido se considera pendiente.</p>
+<p>Se usa <code>etiquetas: []</code> porque el formulario no pide etiquetas, pero la aplicación puede necesitar que esa propiedad exista.</p>
+<h3 class="subsection-title">Generar un nuevo <code>id</code></h3>
+<p>Puedes crear una función sencilla:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function generarNuevoId() {
+  if (recursos.length === 0) {
+    return 1;
+  }
+
+  const ids = recursos.map((recurso) =&gt; recurso.id);
+  return Math.max(...ids) + 1;
+}
+</code></pre></div>
+<h3 class="subsection-title">Ejemplo orientativo de validación y creación</h3>
+<div class="example-block"><pre class="code-js"><code class="language-js">function gestionarEnvioFormulario(event) {
+  event.preventDefault();
+
+  const titulo = document.querySelector("#tituloRecurso").value.trim();
+  const categoria = document.querySelector("#categoriaRecurso").value.trim();
+  const duracion = Number(document.querySelector("#duracionRecurso").value);
+  const dificultad = Number(document.querySelector("#dificultadRecurso").value);
+
+  if (titulo === "" || categoria === "") {
+    mostrarEstado("El título y la categoría son obligatorios.", "error");
+    return;
+  }
+
+  if (duracion &lt;= 0) {
+    mostrarEstado("La duración debe ser mayor que 0.", "error");
+    return;
+  }
+
+  if (dificultad &lt; 1 || dificultad &gt; 3) {
+    mostrarEstado("La dificultad debe estar entre 1 y 3.", "error");
+    return;
+  }
+
+  const nuevoRecurso = {
+    id: generarNuevoId(),
+    titulo: titulo,
+    categoria: categoria,
+    duracionMinutos: duracion,
+    dificultad: dificultad,
+    completado: false,
+    etiquetas: []
+  };
+
+  recursos.push(nuevoRecurso);
+
+  rellenarFiltroCategorias(recursos);
+
+  busqueda.value = "";
+  filtroCategoria.value = "todas";
+  orden.value = "original";
+
+  actualizarInterfaz();
+
+  formRecurso.reset();
+
+  mostrarEstado("Recurso añadido visualmente. No se ha guardado en el fichero JSON.", "ok");
+}
+</code></pre></div>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section requirements-section" id="8-requisitos-minimos-obligatorios">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-circle"></i></span> 8. Requisitos mínimos obligatorios</h2>
+<p>La práctica debe cumplir estos requisitos mínimos:</p>
+<ul class="custom-list">
+<li>usar <code>fetch</code>;</li>
+<li>usar <code>async</code> / <code>await</code>;</li>
+<li>usar <code>try...catch</code>;</li>
+<li>comprobar <code>response.ok</code>;</li>
+<li>leer JSON con <code>.json()</code>;</li>
+<li>trabajar con arrays de objetos;</li>
+<li>renderizar contenido con DOM;</li>
+<li>usar al menos un evento <code>click</code>;</li>
+<li>usar al menos un evento <code>input</code>;</li>
+<li>usar al menos un evento <code>change</code>;</li>
+<li>usar al menos un evento <code>submit</code>;</li>
+<li>usar <code>preventDefault</code>;</li>
+<li>usar <code>map</code>, <code>filter</code>, <code>reduce</code> o combinaciones equivalentes;</li>
+<li>mostrar estados de carga, error, éxito y resultado vacío;</li>
+<li>validar el formulario;</li>
+<li>crear recursos nuevos con la misma estructura básica que los recursos del JSON;</li>
+<li>evitar ordenar directamente el array original con <code>sort</code>;</li>
+<li>controlar el caso de lista vacía en estadísticas y renderizado;</li>
+<li>organizar el código en funciones.</li>
+</ul>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section extension-section celebration-section" id="9-ampliaciones-opcionales">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-stars"></i></span> 9. Ampliaciones opcionales</h2>
+<p>Estas ampliaciones son voluntarias:</p>
+<ol class="custom-ordered-list">
+<li>Mostrar la dificultad con estrellas: <code>★</code>, <code>★★</code>, <code>★★★</code>.</li>
+<li>Añadir colores o clases según la dificultad.</li>
+<li>Añadir un botón para marcar un recurso como completado.</li>
+<li>Añadir un contador de recursos por categoría.</li>
+<li>Mostrar las etiquetas como badges.</li>
+<li>Añadir una ordenación alfabética.</li>
+<li>Permitir limpiar todos los filtros con un botón.</li>
+<li>Crear una función para exportar el array actual como texto JSON con <code>JSON.stringify</code>.</li>
+</ol>
+<p>No uses <code>localStorage</code> salvo que se indique expresamente.</p>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section testing-section" id="10-pruebas-obligatorias">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 10. Pruebas obligatorias</h2>
+<p>Antes de entregar, comprueba:</p>
+<ul class="custom-list">
+<li>La aplicación carga los datos desde <code>datos/recursos.json</code>.</li>
+<li>Si cambias temporalmente la ruta del JSON, se muestra un error controlado.</li>
+<li>Si el JSON está bien, se muestran las tarjetas.</li>
+<li>Si la búsqueda no encuentra resultados, se muestra un mensaje adecuado.</li>
+<li>El filtro por categoría funciona.</li>
+<li>La ordenación funciona.</li>
+<li>Las estadísticas cambian al filtrar.</li>
+<li>Las estadísticas no fallan cuando no hay resultados.</li>
+<li>El formulario no permite añadir datos vacíos.</li>
+<li>El formulario no permite duración menor o igual que 0.</li>
+<li>El formulario no permite dificultad vacía o fuera de rango.</li>
+<li>El formulario añade un recurso correcto al array.</li>
+<li>El recurso añadido aparece en pantalla después de enviarlo.</li>
+<li>El botón de recarga vuelve a cargar los datos originales.</li>
+<li>El recurso añadido desaparece al recargar datos, porque no se guarda en el JSON.</li>
+<li>La consola no muestra errores no controlados.</li>
+</ul>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section delivery-section" id="11-entrega">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-send-check"></i></span> 11. Entrega</h2>
+<p>Entrega un <code>.zip</code> con la carpeta completa:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">UD2_B4_practica_global_aplicacion_dinamica.zip
+</code></pre></div>
+<p>Debe incluir:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">index.html
+css/estilos.css
+js/app.js
+datos/recursos.json
+</code></pre></div>
+<p>También debes entregar una captura o breve documento donde se vea:</p>
+<ul class="custom-list">
+<li>aplicación funcionando;</li>
+<li>filtro aplicado;</li>
+<li>búsqueda aplicada;</li>
+<li>mensaje de error probado y controlado;</li>
+<li>nuevo recurso añadido desde el formulario;</li>
+<li>consola sin errores no controlados.</li>
+</ul>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section" id="12-preguntas-de-reflexion">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-question-circle"></i></span> 12. Preguntas de reflexión</h2>
+<p>Responde brevemente:</p>
+<ol class="custom-ordered-list">
+<li>¿Por qué usamos <code>fetch</code> si el fichero JSON está en nuestro propio proyecto?</li>
+<li>¿Qué diferencia hay entre recibir una respuesta HTTP y convertirla con <code>.json()</code>?</li>
+<li>¿Para qué sirve <code>response.ok</code>?</li>
+<li>¿Qué hace <code>try...catch</code> en una función <code>async</code>?</li>
+<li>¿Por qué no se guarda realmente en el fichero JSON el recurso añadido desde el formulario?</li>
+<li>¿Qué ventaja tiene separar el código en funciones como <code>cargarRecursos</code>, <code>renderizarRecursos</code> y <code>actualizarInterfaz</code>?</li>
+<li>¿Qué puede ocurrir si aplicas <code>sort()</code> directamente sobre el array original?</li>
+<li>¿Por qué hay que controlar el caso de una lista vacía antes de calcular estadísticas?</li>
+<li>¿Qué parte de la práctica te resultó más difícil?</li>
+</ol>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section frequent-errors-section" id="13-errores-frecuentes">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-exclamation-triangle"></i></span> 13. Errores frecuentes</h2>
+<p>Revisa especialmente estos errores:</p>
+<ul class="custom-list">
+<li>escribir mal la ruta del fichero JSON;</li>
+<li>abrir el HTML directamente sin servidor local;</li>
+<li>olvidar <code>await</code> delante de <code>fetch</code>;</li>
+<li>olvidar <code>await</code> delante de <code>response.json()</code>;</li>
+<li>no comprobar <code>response.ok</code>;</li>
+<li>no usar <code>try...catch</code>;</li>
+<li>usar <code>innerHTML</code> de forma descontrolada;</li>
+<li>no limpiar el contenedor antes de renderizar;</li>
+<li>modificar el array original al ordenar sin querer;</li>
+<li>usar <code>sort()</code> directamente sobre <code>recursos</code>;</li>
+<li>olvidar <code>preventDefault()</code> en el formulario;</li>
+<li>no convertir a número los valores de los campos numéricos;</li>
+<li>comparar textos sin normalizar mayúsculas/minúsculas;</li>
+<li>crear un recurso nuevo sin <code>id</code>;</li>
+<li>crear un recurso nuevo sin <code>completado</code>;</li>
+<li>crear un recurso nuevo sin <code>etiquetas</code>;</li>
+<li>calcular estadísticas con una lista vacía;</li>
+<li>dejar errores en la consola.</li>
+</ul>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section assessment-section" id="14-rubrica-orientativa">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard-check"></i></span> 14. Rúbrica orientativa</h2>
+<div class="compact-table-container"><table class="compact-table comparison-table">
+<thead>
+<tr>
+<th>Criterio</th>
+<th class="numeric-cell">Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estructura correcta del proyecto</td>
+<td class="numeric-cell">10 %</td>
+</tr>
+<tr>
+<td>Carga de datos con <code>fetch</code>, <code>async</code>/<code>await</code> y <code>try...catch</code></td>
+<td class="numeric-cell">20 %</td>
+</tr>
+<tr>
+<td>Renderizado correcto en el DOM</td>
+<td class="numeric-cell">20 %</td>
+</tr>
+<tr>
+<td>Filtros, búsqueda y ordenación</td>
+<td class="numeric-cell">15 %</td>
+</tr>
+<tr>
+<td>Estadísticas calculadas correctamente, incluyendo lista vacía</td>
+<td class="numeric-cell">10 %</td>
+</tr>
+<tr>
+<td>Formulario, validación y creación correcta del nuevo recurso</td>
+<td class="numeric-cell">10 %</td>
+</tr>
+<tr>
+<td>Organización, claridad y comentarios del código</td>
+<td class="numeric-cell">10 %</td>
+</tr>
+<tr>
+<td>Pruebas y reflexión final</td>
+<td class="numeric-cell">5 %</td>
+</tr>
+</tbody>
+</table></div>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section final-checklist-section" id="15-lista-de-comprobacion-final">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> 15. Lista de comprobación final</h2>
+<p>Antes de entregar, marca:</p>
+<ul class="custom-list checklist-list">
+<li class="checklist-item"><span class="check-marker">[ ] </span>He creado la estructura de carpetas indicada.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>El fichero JSON está en <code>datos/recursos.json</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Ejecuto la aplicación con Live Server o servidor local equivalente.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Uso <code>fetch</code> para cargar el JSON.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Compruebo <code>response.ok</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Uso <code>await response.json()</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Uso <code>try...catch</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Muestro estados de carga, éxito, error y vacío.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Renderizo tarjetas desde JavaScript.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Uso búsqueda por texto.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Uso filtro por categoría.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Uso ordenación.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Ordeno una copia del array, no directamente <code>recursos</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Calculo estadísticas.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Controlo el caso de lista vacía.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Uso eventos.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Uso <code>preventDefault()</code> en el formulario.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>Valido el formulario.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>El recurso nuevo tiene <code>id</code>, <code>titulo</code>, <code>categoria</code>, <code>duracionMinutos</code>, <code>dificultad</code>, <code>completado</code> y <code>etiquetas</code>.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>El recurso añadido se pierde al recargar datos, porque no se guarda en el JSON.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>La consola no tiene errores no controlados.</li>
+<li class="checklist-item"><span class="check-marker">[ ] </span>He respondido las preguntas de reflexión.</li>
+</ul>
+<hr class="section-divider"/>
+</section>
+<section class="content-section practice-step-section global-practice-section" id="16-contenidos-que-quedan-para-mas-adelante">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-right-circle"></i></span> 16. Contenidos que quedan para más adelante</h2>
+<p>Esta práctica no trabaja como contenido principal:</p>
+<ul class="custom-list">
+<li>autenticación;</li>
+<li>cabeceras HTTP avanzadas;</li>
+<li>envío real de datos a un servidor propio;</li>
+<li>persistencia real en base de datos;</li>
+<li><code>localStorage</code>;</li>
+<li><code>AbortController</code>;</li>
+<li><code>Promise.all</code>;</li>
+<li>módulos JavaScript;</li>
+<li>frameworks;</li>
+<li>bundlers.</li>
+</ul>
+<p>Estos contenidos se podrán tratar en ampliaciones o en unidades posteriores.</p>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloque 1 · VS Code, instalación, interfaz y carpetas</title>
+  <style>
+:root {
+  --color-fondo: #f4f7fb;
+  --color-slide: #ffffff;
+  --color-texto: #1f2937;
+  --color-secundario: #4b5563;
+  --color-principal: #2563eb;
+  --color-principal-oscuro: #1e3a8a;
+  --color-acento: #f59e0b;
+  --color-error: #dc2626;
+  --color-ok: #16a34a;
+  --color-borde: #dbeafe;
+
+  --radio-grande: 24px;
+  --radio-medio: 16px;
+
+  --sombra-suave: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+  --ancho-contenido: 1180px;
+  --alto-minimo-slide: 100vh;
+}
+
+/* Base */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+/* Diapositivas */
+
+.slide {
+  min-height: var(--alto-minimo-slide);
+  padding: 48px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  page-break-after: always;
+}
+
+.slide-inner {
+  width: min(100%, var(--ancho-contenido));
+  min-height: calc(100vh - 96px);
+  background: var(--color-slide);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra-suave);
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Tipografía */
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  color: var(--color-principal-oscuro);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  color: var(--color-principal-oscuro);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: var(--color-principal);
+}
+
+p,
+li {
+  font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+}
+
+small {
+  color: var(--color-secundario);
+}
+
+/* Portadas */
+
+.slide.portada .slide-inner {
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 55%, #fef3c7 100%);
+}
+
+.etiqueta-bloque {
+  display: inline-block;
+  width: fit-content;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: var(--color-principal-oscuro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Layouts */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-medio);
+  padding: 24px;
+  background: #f8fafc;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+}
+
+/* Bloques didácticos */
+
+.idea-clave {
+  border-left: 8px solid var(--color-principal);
+  background: #eff6ff;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.aviso {
+  border-left: 8px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.error-tipico {
+  border-left: 8px solid var(--color-error);
+  background: #fef2f2;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.correcto {
+  border-left: 8px solid var(--color-ok);
+  background: #f0fdf4;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.ejercicio {
+  border: 3px dashed var(--color-principal);
+  background: #f8fafc;
+  padding: 28px;
+  border-radius: var(--radio-medio);
+}
+
+.reto {
+  border: 3px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 32px;
+  border-radius: var(--radio-medio);
+}
+
+/* Código */
+
+pre {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 24px;
+  border-radius: var(--radio-medio);
+  overflow-x: auto;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+}
+
+code {
+  font-family: "Consolas", "Cascadia Code", monospace;
+}
+
+p code,
+li code {
+  background: #e0f2fe;
+  color: #075985;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+/* Listas */
+
+ul,
+ol {
+  padding-left: 1.4em;
+}
+
+li + li {
+  margin-top: 0.4em;
+}
+
+/* Barra inferior opcional */
+
+.slide-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  font-size: 0.95rem;
+  color: var(--color-secundario);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Navegación simple */
+
+.nav-indice {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+.nav-indice a {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--color-principal);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Impresión / exportación a PDF */
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .nav-indice {
+    display: none;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 0;
+    page-break-after: always;
+  }
+
+  .slide-inner {
+    box-shadow: none;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Pantallas pequeñas */
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 24px;
+  }
+
+  .slide-inner {
+    padding: 32px;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Ajustes específicos para presentación de aula */
+body {
+  counter-reset: slide;
+}
+
+.slide {
+  counter-increment: slide;
+}
+
+.slide-inner {
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-inner::after {
+  content: counter(slide, decimal-leading-zero);
+  position: absolute;
+  right: 28px;
+  bottom: 18px;
+  color: #94a3b8;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+}
+
+.slide.compact .slide-inner {
+  justify-content: flex-start;
+}
+
+.slide-title-kicker {
+  color: var(--color-principal);
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  color: var(--color-secundario);
+  max-width: 900px;
+}
+
+.big-quote {
+  font-size: clamp(1.6rem, 3vw, 3rem);
+  line-height: 1.18;
+  font-weight: 800;
+  color: var(--color-principal-oscuro);
+}
+
+.big-quote span {
+  color: var(--color-principal);
+}
+
+.tool-map {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.tool-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #f8fafc;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-medio);
+  padding: 18px 20px;
+}
+
+.tool-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: #dbeafe;
+  font-size: 1.7rem;
+  flex: 0 0 auto;
+}
+
+.tool-item strong {
+  display: block;
+  font-size: 1.25rem;
+  color: var(--color-principal-oscuro);
+}
+
+.tool-item span:last-child {
+  color: var(--color-secundario);
+  font-size: 1rem;
+}
+
+.folder-tree {
+  background: #0f172a;
+  color: #dbeafe;
+  border-radius: var(--radio-medio);
+  padding: 28px;
+  font-family: "Consolas", "Cascadia Code", monospace;
+  font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+  line-height: 1.45;
+  white-space: pre-wrap;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+}
+
+.command-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin: 22px 0;
+}
+
+.flow-step {
+  background: #eff6ff;
+  color: var(--color-principal-oscuro);
+  border: 2px solid #bfdbfe;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.flow-arrow {
+  font-size: 1.8rem;
+  color: var(--color-principal);
+  font-weight: 900;
+}
+
+.checklist {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.check-item {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  font-size: clamp(1.1rem, 1.35vw, 1.42rem);
+}
+
+.check-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  border: 3px solid var(--color-principal);
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.vs-window {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid #cbd5e1;
+  background: #0f172a;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, .18);
+}
+
+.vs-titlebar {
+  background: #1e293b;
+  color: white;
+  padding: 10px 16px;
+  font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+}
+
+.vs-body {
+  display: grid;
+  grid-template-columns: 34% 66%;
+  min-height: 280px;
+}
+
+.vs-sidebar {
+  background: #111827;
+  color: #cbd5e1;
+  padding: 18px;
+  font-family: "Consolas", "Cascadia Code", monospace;
+  font-size: 1.05rem;
+}
+
+.vs-editor {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 18px;
+  font-family: "Consolas", "Cascadia Code", monospace;
+  font-size: 1.05rem;
+}
+
+.browser-window {
+  border: 2px solid #cbd5e1;
+  border-radius: 18px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, .12);
+}
+
+.browser-bar {
+  background: #e5e7eb;
+  padding: 12px 16px;
+  color: #475569;
+  font-family: "Consolas", monospace;
+  font-size: 0.95rem;
+}
+
+.browser-page {
+  min-height: 220px;
+  padding: 32px;
+  background: #eef4ff;
+}
+
+.browser-page h3 {
+  font-size: 2rem;
+  color: var(--color-principal-oscuro);
+}
+
+.code-small pre {
+  font-size: clamp(0.86rem, 1vw, 1.05rem);
+  padding: 18px;
+}
+
+.two-col-balanced {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+.bad-list,
+.good-list {
+  padding: 24px;
+  border-radius: var(--radio-medio);
+}
+.good-list {
+  background: #f0fdf4;
+  border-left: 8px solid var(--color-ok);
+}
+.bad-list {
+  background: #fef2f2;
+  border-left: 8px solid var(--color-error);
+}
+
+.bad-list h3,
+.good-list h3 {
+  margin-bottom: 10px;
+}
+
+.nav-indice {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-indice a {
+  box-shadow: 0 8px 18px rgba(37, 99, 235, .22);
+}
+
+@media (max-width: 900px) {
+  .tool-map,
+  .two-col-balanced,
+  .vs-body {
+    grid-template-columns: 1fr;
+  }
+  .flow-arrow { display: none; }
+}
+
+  </style>
+</head>
+<body>
+  <nav class="nav-indice" aria-label="Navegación de presentación">
+    <a href="#portada">Inicio</a>
+    <a href="#indice">Objetivos</a>
+    <a href="#cierre">Cierre</a>
+  </nav>
+
+  <section class="slide portada" id="portada">
+    <div class="slide-inner">
+      <span class="etiqueta-bloque">Bloque 1 · Entorno básico</span>
+      <h1>Primer contacto práctico con VS Code</h1>
+      <p class="subtitle">Crear y organizar correctamente una carpeta de proyecto web antes de empezar JavaScript.</p>
+      <div class="command-flow" aria-label="Flujo de trabajo">
+        <span class="flow-step">Abrir carpeta</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Crear archivos</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Guardar</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Probar</span>
+      </div>
+      <div class="slide-footer"><span>Bloque 1 · VS Code, instalación, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide " id="indice">
+    <div class="slide-inner">
+      <div class="slide-title-kicker">Objetivos prácticos</div>
+      <h2>Qué vamos a conseguir hoy</h2>
+      <div class="checklist"><div class="check-item"><span class="check-box"></span><span>Abrir una carpeta en VS Code, no solo un archivo suelto.</span></div><div class="check-item"><span class="check-box"></span><span>Crear archivos y carpetas dentro del proyecto.</span></div><div class="check-item"><span class="check-box"></span><span>Organizar una estructura web básica.</span></div><div class="check-item"><span class="check-box"></span><span>Guardar correctamente antes de probar.</span></div><div class="check-item"><span class="check-box"></span><span>Reconocer si estás trabajando en el sitio correcto.</span></div><div class="check-item"><span class="check-box"></span><span>Evitar errores básicos con nombres y rutas.</span></div></div>
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      <div class="slide-title-kicker">Situación inicial</div>
+      <h2>El problema habitual</h2>
+      
+<div class="error-tipico">
+  <strong>Al empezar, muchos fallos no son de programación.</strong><br>
+  Son de entorno, carpetas, nombres, rutas o cambios sin guardar.
+</div>
+<div class="grid-2" style="margin-top:24px;">
+  <div class="card"><h3>Lo que suele pasar</h3><ul><li>Abro un archivo suelto.</li><li>Creo <code>index.html</code> donde no toca.</li><li>No encuentro el archivo recién creado.</li></ul></div>
+  <div class="card"><h3>Lo que aprenderemos</h3><ul><li>Abrir la carpeta correcta.</li><li>Organizar archivos.</li><li>Comprobar rutas y guardado.</li></ul></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      <div class="slide-title-kicker">Vista global</div>
+      <h2>Mapa del entorno</h2>
+      
+<div class="tool-map">
+  <div class="tool-item"><span class="tool-icon">🧩</span><span><strong>VS Code</strong><span>escribo y organizo el código</span></span></div>
+  <div class="tool-item"><span class="tool-icon">🌐</span><span><strong>Chrome</strong><span>pruebo la página</span></span></div>
+  <div class="tool-item"><span class="tool-icon">🔎</span><span><strong>DevTools</strong><span>veo errores del navegador</span></span></div>
+  <div class="tool-item"><span class="tool-icon">⌨️</span><span><strong>Terminal</strong><span>ejecuto comandos</span></span></div>
+  <div class="tool-item"><span class="tool-icon">🟢</span><span><strong>Node.js</strong><span>ejecuta JavaScript fuera del navegador</span></span></div>
+  <div class="tool-item"><span class="tool-icon">🔁</span><span><strong>Git / GitHub</strong><span>guardo versiones y comparto proyectos</span></span></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      
+      <h2>Idea clave</h2>
+      
+<div class="big-quote">
+  <span>VS Code no ejecuta la web.</span><br>
+  VS Code sirve para escribir, organizar y revisar el código.
+</div>
+<div class="idea-clave" style="margin-top:28px;">
+  La web se prueba en Chrome. Los errores se revisan en Chrome, VS Code o la terminal, según el caso.
+</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      <div class="slide-title-kicker">Demo 1</div>
+      <h2>Demostración docente: abrir una carpeta</h2>
+      
+<div class="two-col-balanced">
+  <div class="ejercicio">
+    <h3>Secuencia</h3>
+    <ol>
+      <li>Crear una carpeta en Escritorio o Documentos.</li>
+      <li>Llamarla <code>mi-primer-proyecto</code>.</li>
+      <li>Abrir VS Code.</li>
+      <li>Archivo → Abrir carpeta.</li>
+      <li>Seleccionar <code>mi-primer-proyecto</code>.</li>
+      <li>Comprobar el explorador lateral.</li>
+    </ol>
+  </div>
+  <div class="vs-window">
+    <div class="vs-titlebar"><span>Visual Studio Code</span><span>Explorador</span></div>
+    <div class="vs-body"><div class="vs-sidebar">▾ MI-PRIMER-PROYECTO<br><br><span style="color:#64748b">Carpeta abierta correctamente</span></div><div class="vs-editor">// Aquí escribiremos código<br>// pero primero abrimos la carpeta correcta</div></div>
+  </div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      
+      <h2>Ahora lo haces tú</h2>
+      
+<div class="ejercicio">
+  <h3>Actividad 1</h3>
+  <p>Crea una carpeta llamada <code>mi-primer-proyecto</code> y ábrela desde VS Code con <strong>Archivo → Abrir carpeta</strong>.</p>
+</div>
+<div class="aviso" style="margin-top:24px;">
+  Si no ves el nombre de la carpeta en el panel izquierdo, probablemente no has abierto bien el proyecto.
+</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      
+      <h2>Interfaz mínima de VS Code</h2>
+      
+<div class="grid-3">
+  <div class="card"><h3>1 · Explorador</h3><p>Carpetas y archivos del proyecto.</p></div>
+  <div class="card"><h3>2 · Editor</h3><p>Zona donde escribimos código.</p></div>
+  <div class="card"><h3>3 · Pestañas</h3><p>Archivos abiertos.</p></div>
+  <div class="card"><h3>4 · Panel inferior</h3><p>Terminal y problemas.</p></div>
+  <div class="card"><h3>5 · Terminal</h3><p>Comandos dentro del proyecto.</p></div>
+  <div class="card"><h3>6 · Barra de estado</h3><p>Información del archivo y entorno.</p></div>
+</div>
+<div class="aviso" style="margin-top:24px;">Hoy no explicamos todos los botones. Solo lo que vamos a tocar desde el primer día.</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      <div class="slide-title-kicker">Estructura base</div>
+      <h2>Crear la estructura del proyecto</h2>
+      
+<p>Vamos a crear una estructura mínima y ordenada:</p>
+<div class="folder-tree">mi-primer-proyecto/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── script.js</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      <div class="slide-title-kicker">Demo 2</div>
+      <h2>Demostración: crear archivos y carpetas</h2>
+      
+<div class="grid-2">
+  <div class="ejercicio">
+    <h3>Secuencia</h3>
+    <ol>
+      <li>Crear <code>index.html</code>.</li>
+      <li>Crear carpeta <code>css</code>.</li>
+      <li>Dentro, crear <code>estilos.css</code>.</li>
+      <li>Crear carpeta <code>js</code>.</li>
+      <li>Dentro, crear <code>script.js</code>.</li>
+    </ol>
+  </div>
+  <div class="correcto">
+    <h3>Regla importante</h3>
+    <p><code>index.html</code> debe estar en la raíz del proyecto. No debe estar dentro de <code>css</code> ni dentro de <code>js</code>.</p>
+  </div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      
+      <h2>Ahora lo haces tú</h2>
+      
+<div class="ejercicio">
+  <h3>Actividad 2</h3>
+  <div class="checklist"><div class="check-item"><span class="check-box"></span><span>Crear <code>index.html</code>.</span></div><div class="check-item"><span class="check-box"></span><span>Crear carpeta <code>css</code>.</span></div><div class="check-item"><span class="check-box"></span><span>Crear <code>css/estilos.css</code>.</span></div><div class="check-item"><span class="check-box"></span><span>Crear carpeta <code>js</code>.</span></div><div class="check-item"><span class="check-box"></span><span>Crear <code>js/script.js</code>.</span></div></div>
+</div>
+<div style="margin-top:24px;"><div class="folder-tree">mi-primer-proyecto/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── script.js</div></div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      
+      <h2>Nombres correctos e incorrectos</h2>
+      
+<div class="two-col-balanced">
+  <div class="good-list">
+    <h3>Recomendados</h3>
+    <ul><li><code>index.html</code></li><li><code>estilos.css</code></li><li><code>script.js</code></li><li><code>css</code></li><li><code>js</code></li><li><code>img</code></li></ul>
+  </div>
+  <div class="bad-list">
+    <h3>Evitar</h3>
+    <ul><li><code>Index.html</code></li><li><code>index.HTML</code></li><li><code>estilos css.css</code></li><li><code>mi pagina.html</code></li><li><code>script final bueno.js</code></li><li><code>Nueva carpeta</code></li></ul>
+  </div>
+</div>
+<div class="idea-clave" style="margin-top:24px;">En programación, los nombres importan. Un espacio, una tilde o una mayúscula pueden complicar el trabajo.</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      <div class="slide-title-kicker">Observación</div>
+      <h2>Error preparado 1</h2>
+      
+<div class="error-tipico">
+  <h3>Error provocado</h3>
+  <p>Crear por error <code>Index.html</code> en lugar de <code>index.html</code>.</p>
+</div>
+<div class="grid-3" style="margin-top:24px;">
+  <div class="card"><h3>Pregunta 1</h3><p>¿Son el mismo archivo?</p></div>
+  <div class="card"><h3>Pregunta 2</h3><p>¿Podría dar problemas más adelante?</p></div>
+  <div class="card"><h3>Pregunta 3</h3><p>¿Por qué conviene usar siempre minúsculas?</p></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      <div class="slide-title-kicker">Rutas y ubicación</div>
+      <h2>Error preparado 2</h2>
+      
+<div class="error-tipico"><h3>Error provocado</h3><p>Crear <code>estilos.css</code> fuera de la carpeta <code>css</code>.</p></div>
+<div style="margin-top:24px;"><div class="folder-tree">mi-primer-proyecto/
+├── index.html
+├── estilos.css   ← sitio incorrecto
+├── css/
+└── js/
+    └── script.js</div></div>
+<div class="aviso" style="margin-top:24px;">¿Dónde está el error? ¿Qué archivo está en el sitio equivocado? ¿Cómo debería quedar?</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      
+      <h2>Rutas: explicación mínima</h2>
+      
+<div class="grid-2">
+  <div class="card"><h3><code>css/estilos.css</code></h3><p>Entra en la carpeta <code>css</code> y busca el archivo <code>estilos.css</code>.</p></div>
+  <div class="card"><h3><code>js/script.js</code></h3><p>Entra en la carpeta <code>js</code> y busca el archivo <code>script.js</code>.</p></div>
+</div>
+<div class="idea-clave" style="margin-top:28px;">Una ruta indica dónde está un archivo. El navegador no adivina: busca exactamente donde le indicamos.</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide compact">
+    <div class="slide-inner">
+      
+      <h2>Mini código de prueba</h2>
+      
+<div class="code-small"><pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Mi primer proyecto&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;css/estilos.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Mi primer proyecto&lt;/h1&gt;
+  &lt;p&gt;Estoy trabajando con VS Code.&lt;/p&gt;
+
+  &lt;script src=&quot;js/script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+<div class="aviso" style="margin-top:22px;">No es aprender HTML todavía. Es comprobar que los archivos están bien colocados.</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide compact">
+    <div class="slide-inner">
+      
+      <h2>Prueba rápida de CSS</h2>
+      
+<div class="grid-2">
+  <div class="code-small"><pre><code class="language-css">body {
+  font-family: Arial, sans-serif;
+  background-color: #eef4ff;
+}
+
+h1 {
+  color: #1e3a8a;
+}</code></pre></div>
+  <div class="browser-window"><div class="browser-bar">Chrome · mi-primer-proyecto/index.html</div><div class="browser-page"><h3>Mi primer proyecto</h3><p>Si el fondo cambia, el CSS está bien enlazado.</p></div></div>
+</div>
+<div class="aviso" style="margin-top:20px;">Si no cambia: revisa carpeta, nombre del archivo, ruta en HTML y si has guardado.</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      
+      <h2>Prueba rápida de JavaScript</h2>
+      
+<div class="grid-2">
+  <div><pre><code class="language-javascript">console.log(&quot;JavaScript conectado correctamente&quot;);</code></pre></div>
+  <div class="correcto"><h3>Comprobación</h3><p>Todavía no vamos a programar en serio. Solo queremos comprobar que el archivo JS existe y está enlazado.</p><p>Lo veremos en la consola de Chrome.</p></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      
+      <h2>Guardar antes de probar</h2>
+      
+<div class="command-flow">
+  <span class="flow-step">1 · Escribo</span><span class="flow-arrow">→</span>
+  <span class="flow-step">2 · Guardo</span><span class="flow-arrow">→</span>
+  <span class="flow-step">3 · Pruebo</span><span class="flow-arrow">→</span>
+  <span class="flow-step">4 · Reviso</span>
+</div>
+<div class="idea-clave">Atajo útil: <strong>Ctrl + S</strong> → guardar</div>
+<div class="aviso" style="margin-top:24px;">Si algo falla, revisa nombres, rutas y consola antes de cambiar código al azar.</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      
+      <h2>Mini práctica guiada</h2>
+      
+<div class="reto">
+  <h3>Mini práctica</h3>
+  <p>Crea un proyecto llamado <code>proyecto-presentacion</code>.</p>
+  <div class="checklist"><div class="check-item"><span class="check-box"></span><span>Debe tener <code>index.html</code>.</span></div><div class="check-item"><span class="check-box"></span><span>Debe tener <code>css/estilos.css</code>.</span></div><div class="check-item"><span class="check-box"></span><span>Debe tener <code>js/script.js</code>.</span></div><div class="check-item"><span class="check-box"></span><span>El HTML muestra un título con tu nombre.</span></div><div class="check-item"><span class="check-box"></span><span>El CSS aplica un color de fondo.</span></div><div class="check-item"><span class="check-box"></span><span>El JS muestra un mensaje en consola.</span></div></div>
+</div>
+
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide ">
+    <div class="slide-inner">
+      <div class="slide-title-kicker">Cierre de sesión</div>
+      <h2>Checklist final</h2>
+      <div class="checklist"><div class="check-item"><span class="check-box"></span><span>He abierto una carpeta, no un archivo suelto.</span></div><div class="check-item"><span class="check-box"></span><span>Mi archivo principal se llama <code>index.html</code>.</span></div><div class="check-item"><span class="check-box"></span><span>Tengo una carpeta <code>css</code>.</span></div><div class="check-item"><span class="check-box"></span><span>Tengo una carpeta <code>js</code>.</span></div><div class="check-item"><span class="check-box"></span><span><code>estilos.css</code> está dentro de <code>css</code>.</span></div><div class="check-item"><span class="check-box"></span><span><code>script.js</code> está dentro de <code>js</code>.</span></div><div class="check-item"><span class="check-box"></span><span>He guardado los cambios.</span></div><div class="check-item"><span class="check-box"></span><span>El CSS se aplica.</span></div><div class="check-item"><span class="check-box"></span><span>El JavaScript muestra un mensaje en consola.</span></div></div>
+      <div class="slide-footer"><span>Bloque 1 · VS Code, interfaz y carpetas</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+  <section class="slide portada" id="cierre">
+    <div class="slide-inner">
+      <span class="etiqueta-bloque">Cierre del bloque</span>
+      <h2>Hoy no hemos aprendido todavía a programar.</h2>
+      <p class="subtitle">Hemos preparado el espacio de trabajo para poder programar sin perdernos.</p>
+      <div class="tool-map">
+        <div class="tool-item"><span class="tool-icon">📁</span><span><strong>Carpeta correcta</strong><span>trabajar en el lugar adecuado</span></span></div>
+        <div class="tool-item"><span class="tool-icon">📄</span><span><strong>Archivos correctos</strong><span>HTML, CSS y JS separados</span></span></div>
+        <div class="tool-item"><span class="tool-icon">🔗</span><span><strong>Rutas correctas</strong><span>cada archivo en su sitio</span></span></div>
+        <div class="tool-item"><span class="tool-icon">💾</span><span><strong>Guardar antes de probar</strong><span>Ctrl + S como hábito</span></span></div>
+      </div>
+      <div class="slide-footer"><span>Bloque 1 · Cierre</span><span>Guía práctica proyectable</span></div>
+    </div>
+  </section>
+
+
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloque 7 · Git y GitHub básico</title>
+<style>
+:root {
+  --color-fondo: #f4f7fb;
+  --color-slide: #ffffff;
+  --color-texto: #1f2937;
+  --color-secundario: #4b5563;
+  --color-principal: #2563eb;
+  --color-principal-oscuro: #1e3a8a;
+  --color-acento: #f59e0b;
+  --color-error: #dc2626;
+  --color-ok: #16a34a;
+  --color-borde: #dbeafe;
+
+  --radio-grande: 24px;
+  --radio-medio: 16px;
+
+  --sombra-suave: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+  --ancho-contenido: 1180px;
+  --alto-minimo-slide: 100vh;
+}
+
+/* Base */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+/* Diapositivas */
+
+.slide {
+  min-height: var(--alto-minimo-slide);
+  padding: 48px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  page-break-after: always;
+}
+
+.slide-inner {
+  width: min(100%, var(--ancho-contenido));
+  min-height: calc(100vh - 96px);
+  background: var(--color-slide);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra-suave);
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Tipografía */
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  color: var(--color-principal-oscuro);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  color: var(--color-principal-oscuro);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: var(--color-principal);
+}
+
+p,
+li {
+  font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+}
+
+small {
+  color: var(--color-secundario);
+}
+
+/* Portadas */
+
+.slide.portada .slide-inner {
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 55%, #fef3c7 100%);
+}
+
+.etiqueta-bloque {
+  display: inline-block;
+  width: fit-content;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: var(--color-principal-oscuro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Layouts */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-medio);
+  padding: 24px;
+  background: #f8fafc;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+}
+
+/* Bloques didácticos */
+
+.idea-clave {
+  border-left: 8px solid var(--color-principal);
+  background: #eff6ff;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.aviso {
+  border-left: 8px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.error-tipico {
+  border-left: 8px solid var(--color-error);
+  background: #fef2f2;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.correcto {
+  border-left: 8px solid var(--color-ok);
+  background: #f0fdf4;
+  padding: 24px 28px;
+  border-radius: var(--radio-medio);
+}
+
+.ejercicio {
+  border: 3px dashed var(--color-principal);
+  background: #f8fafc;
+  padding: 28px;
+  border-radius: var(--radio-medio);
+}
+
+.reto {
+  border: 3px solid var(--color-acento);
+  background: #fffbeb;
+  padding: 32px;
+  border-radius: var(--radio-medio);
+}
+
+/* Código */
+
+pre {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 24px;
+  border-radius: var(--radio-medio);
+  overflow-x: auto;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+}
+
+code {
+  font-family: "Consolas", "Cascadia Code", monospace;
+}
+
+p code,
+li code {
+  background: #e0f2fe;
+  color: #075985;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+/* Listas */
+
+ul,
+ol {
+  padding-left: 1.4em;
+}
+
+li + li {
+  margin-top: 0.4em;
+}
+
+/* Barra inferior opcional */
+
+.slide-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  font-size: 0.95rem;
+  color: var(--color-secundario);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Navegación simple */
+
+.nav-indice {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+.nav-indice a {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--color-principal);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Impresión / exportación a PDF */
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .nav-indice {
+    display: none;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 0;
+    page-break-after: always;
+  }
+
+  .slide-inner {
+    box-shadow: none;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Pantallas pequeñas */
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 24px;
+  }
+
+  .slide-inner {
+    padding: 32px;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+/* Estilos específicos Bloque 6 */
+.kicker { font-size: 1.25rem; color: var(--color-secundario); max-width: 920px; }
+.debug-flow { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:32px; }
+.debug-flow span { background:#eff6ff; border:2px solid #bfdbfe; color:#1e3a8a; padding:12px 16px; border-radius:999px; font-weight:900; font-size:1.15rem; }
+.debug-flow b { color:#2563eb; font-size:1.6rem; }
+.console-card { border-radius:18px; padding:22px 24px; margin-top:20px; font-family:Consolas, "Cascadia Code", monospace; font-size:1.22rem; border:2px solid #334155; background:#0f172a; color:#e5e7eb; }
+.console-card.error { border-color:#fecaca; background:#450a0a; color:#fee2e2; }
+.console-card.warning { border-color:#facc15; background:#422006; color:#fef3c7; }
+.terminal-window { border-radius:18px; overflow:hidden; border:2px solid #334155; background:#0f172a; color:#e5e7eb; box-shadow:0 14px 30px rgba(15,23,42,.18); }
+.terminal-window .terminal-title { background:#1e293b; padding:12px 16px; color:#cbd5e1; font-weight:800; font-family:Consolas, monospace; }
+.terminal-window pre { margin:0; box-shadow:none; border-radius:0; }
+.browser-card { border: 2px solid #cbd5e1; border-radius: 18px; overflow: hidden; background: white; box-shadow: 0 12px 24px rgba(15,23,42,.10); }
+.browser-bar { background:#f1f5f9; padding:12px 16px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #cbd5e1; }
+.url-box { flex:1; border-radius:999px; background:white; border:1px solid #cbd5e1; padding:8px 14px; font-family:Consolas, monospace; color:#334155; font-size:1rem; }
+.browser-body { padding:28px; min-height:210px; }
+.dot { width:12px; height:12px; border-radius:50%; background:#ef4444; display:inline-block; }
+.dot:nth-child(2){ background:#f59e0b; } .dot:nth-child(3){ background:#22c55e; }
+.error-card { border-radius:18px; padding:24px; border:2px solid #e5e7eb; background:#f8fafc; min-height:170px; }
+.error-card.syntax { border-left:8px solid #dc2626; }
+.error-card.runtime { border-left:8px solid #f59e0b; }
+.error-card.logic { border-left:8px solid #2563eb; }
+.step-list { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin:24px 0; }
+.step-list.compact { grid-template-columns:repeat(3,1fr); }
+.step-list div { background:#f8fafc; border:1px solid #dbeafe; border-radius:16px; padding:14px 16px; font-size:1.2rem; }
+.step-list span { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; background:#2563eb; color:white; font-weight:900; margin-right:10px; }
+.debug-panel { background:#eff6ff; border:2px solid #bfdbfe; border-radius:18px; padding:24px; }
+.debug-panel h3 { margin-bottom:10px; }
+.diagnostico { background:#f8fafc; border:2px dashed #93c5fd; border-radius:18px; padding:22px; margin-top:24px; font-size:1.25rem; }
+.comparison-table { width:100%; border-collapse:collapse; font-size:1.25rem; overflow:hidden; border-radius:16px; }
+.comparison-table th { background:#1e3a8a; color:white; padding:16px; text-align:left; }
+.comparison-table td { border:1px solid #dbeafe; padding:18px; vertical-align:top; background:white; }
+.checklist { display:grid; grid-template-columns:1fr 1fr; gap:14px 24px; }
+.checklist div { background:#f8fafc; border:1px solid #dbeafe; border-radius:14px; padding:12px 16px; font-size:1.18rem; }
+.registro { background:#f8fafc; border:2px dashed #93c5fd; border-radius:18px; padding:26px; font-size:1.2rem; }
+.registro p { margin:.55em 0; }
+.good-code { border-left:8px solid #22c55e; }
+.bad-code { border-left:8px solid #ef4444; }
+.idea-clave.big { font-size:1.55rem; }
+.frase-final { border-left:8px solid #f59e0b; margin:28px 0 0; padding:24px 28px; background:#fffbeb; border-radius:16px; font-size:1.5rem; font-weight:700; color:#78350f; }
+@media (max-width: 900px) { .step-list, .step-list.compact, .checklist { grid-template-columns:1fr; } }
+
+  
+
+/* Estilos específicos Bloque 7 */
+.kicker{font-size:1.25rem;color:var(--color-secundario);max-width:940px}.git-flow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:32px}.git-flow span{background:#eff6ff;border:2px solid #bfdbfe;color:#1e3a8a;padding:12px 16px;border-radius:999px;font-weight:900;font-size:1.12rem}.git-flow b{color:#2563eb;font-size:1.6rem}.git-term{border-radius:18px;overflow:hidden;border:2px solid #334155;background:#0f172a;color:#e5e7eb;box-shadow:0 14px 30px rgba(15,23,42,.18)}.git-term .title{background:#1e293b;padding:12px 16px;color:#cbd5e1;font-weight:800;font-family:Consolas,monospace}.git-term pre{margin:0;border-radius:0;box-shadow:none}.repo-tree{background:#f8fafc;border:2px solid #dbeafe;border-radius:18px;padding:24px;font-family:Consolas,"Cascadia Code",monospace;font-size:1.25rem;white-space:pre-wrap}.status-card{border-radius:18px;padding:22px;border:2px solid #dbeafe;background:#f8fafc;min-height:170px}.status-card.save{border-left:8px solid #0ea5e9}.status-card.commit{border-left:8px solid #2563eb}.status-card.push{border-left:8px solid #16a34a}.github-card{border:2px solid #cbd5e1;border-radius:18px;overflow:hidden;background:white;box-shadow:0 12px 24px rgba(15,23,42,.10)}.github-top{background:#0f172a;color:#e5e7eb;padding:14px 18px;font-weight:900;display:flex;justify-content:space-between}.github-body{padding:22px}.file-row{display:flex;gap:12px;align-items:center;padding:10px 12px;border-bottom:1px solid #e5e7eb;font-size:1.15rem}.file-row:last-child{border-bottom:0}.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.9rem;font-weight:900;background:#dbeafe;color:#1e3a8a}.badge.ok{background:#dcfce7;color:#166534}.badge.warn{background:#fef3c7;color:#92400e}.badge.err{background:#fee2e2;color:#991b1b}.command-stack{display:grid;gap:14px}.command-line{background:#0f172a;color:#e5e7eb;border-radius:14px;padding:14px 18px;font-family:Consolas,"Cascadia Code",monospace;font-size:1.18rem}.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}.timeline div{background:#f8fafc;border:2px solid #dbeafe;border-radius:18px;padding:18px;text-align:center;font-weight:800;color:#1e3a8a}.timeline div strong{display:block;font-size:2rem;color:#2563eb}.commit-good{background:#f0fdf4;border-left:8px solid #16a34a;border-radius:16px;padding:22px}.commit-bad{background:#fef2f2;border-left:8px solid #dc2626;border-radius:16px;padding:22px}.git-panel{background:#f8fafc;border:2px solid #dbeafe;border-radius:18px;padding:22px}.compare-row{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center}.arrow-big{font-size:3rem;color:#2563eb;font-weight:900;text-align:center}.checklist{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}.checklist div{background:#f8fafc;border:1px solid #dbeafe;border-radius:14px;padding:12px 16px;font-size:1.18rem}.registro{background:#f8fafc;border:2px dashed #93c5fd;border-radius:18px;padding:26px;font-size:1.2rem}.registro p{margin:.55em 0}.idea-clave.big{font-size:1.55rem}.frase-final{border-left:8px solid #f59e0b;margin:28px 0 0;padding:24px 28px;background:#fffbeb;border-radius:16px;font-size:1.5rem;font-weight:700;color:#78350f}@media(max-width:900px){.timeline,.checklist,.compare-row{grid-template-columns:1fr}.arrow-big{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<nav class="nav-indice"><a href="#indice">Índice</a></nav><section class="slide portada"><div class="slide-inner">
+<span class="etiqueta-bloque">Bloque 7 · Entorno JavaScript</span>
+<h1>Git y GitHub básico</h1>
+<p class="kicker">Guardar versiones del proyecto, subirlo a GitHub y recuperar una copia sin perder el control.</p>
+<div class="git-flow"><span>guardar</span><b>→</b><span>add</span><b>→</b><span>commit</span><b>→</b><span>push</span><b>→</b><span>clone</span></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>1/46</span></div></div></section><section class="slide " id="indice"><div class="slide-inner">
+<h2>El problema habitual</h2>
+<div class="grid-2">
+  <div class="error-tipico"><h3>Sin Git</h3><p><code>final.html</code><br><code>final-bueno.html</code><br><code>final-este-si.html</code><br><code>copia-nueva.html</code></p></div>
+  <div class="correcto"><h3>Con Git</h3><p>El proyecto tiene historial, commits con mensajes claros y una copia remota si usamos GitHub.</p></div>
+</div>
+<div class="idea-clave">Git ayuda a guardar versiones. GitHub ayuda a guardar una copia remota y compartir proyectos.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>2/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Objetivos prácticos</h2>
+<div class="checklist"><div>□ Comprobar si Git está instalado</div><div>□ Distinguir Git y GitHub</div><div>□ Inicializar un repositorio</div><div>□ Ver cambios en VS Code</div><div>□ Preparar cambios</div><div>□ Hacer commits claros</div><div>□ Consultar historial básico</div><div>□ Subir a GitHub</div><div>□ Clonar un proyecto</div><div>□ Diferenciar guardar, commit y push</div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>3/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Proyecto base</h2>
+<div class="repo-tree">proyecto-git-basico/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── script.js</div>
+<div class="idea-clave">Un proyecto → una carpeta → un repositorio.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>4/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Git y GitHub no son lo mismo</h2>
+<div class="grid-2"><div class="card"><h3>Git</h3><p>Herramienta de control de versiones. Trabaja dentro de tu carpeta de proyecto.</p><ul><li>registra cambios;</li><li>crea commits;</li><li>consulta historial;</li><li>permite volver atrás.</li></ul></div><div class="card"><h3>GitHub</h3><p>Plataforma en la nube para alojar repositorios Git.</p><ul><li>guarda copia remota;</li><li>permite compartir;</li><li>permite clonar;</li><li>facilita colaboración posterior.</li></ul></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>5/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Guardar, commit y push</h2>
+<div class="grid-3"><div class="status-card save"><h3>Guardar</h3><p>Guarda cambios en el archivo abierto.</p><p><strong>Ctrl + S</strong></p></div><div class="status-card commit"><h3>Commit</h3><p>Guarda una versión del proyecto en el historial local de Git.</p></div><div class="status-card push"><h3>Push</h3><p>Sube tus commits desde el ordenador a GitHub.</p></div></div>
+<div class="frase-final">Guardar no es hacer commit. Hacer commit no es subir a GitHub.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>6/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Ejemplo práctico</h2><div class="timeline"><div><strong>1</strong>Modifico <code>index.html</code></div><div><strong>2</strong>Guardo con <code>Ctrl + S</code></div><div><strong>3</strong>Aún no hay commit</div><div><strong>4</strong>Aún no está en GitHub</div></div><div class="aviso">Guardar es necesario, pero no suficiente para controlar versiones.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>7/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Comprobar instalación de Git</h2><div class="git-term"><div class="title">Terminal</div><pre><code>git --version</code></pre></div><div class="grid-2" style="margin-top:24px"><div class="correcto"><h3>Resultado esperado</h3><p>Aparece algo como <code>git version 2.x.x</code>.</p></div><div class="error-tipico"><h3>Si falla</h3><p>Git no está instalado o la terminal no lo encuentra.</p></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>8/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Error preparado: Git no reconocido</h2><div class="git-term"><div class="title">Terminal</div><pre><code>&quot;git&quot; no se reconoce como un comando interno o externo</code></pre></div><div class="grid-2" style="margin-top:24px"><div class="card"><h3>Causas probables</h3><ul><li>Git no está instalado.</li><li>VS Code estaba abierto durante la instalación.</li><li>El PATH no se actualizó.</li></ul></div><div class="correcto"><h3>Primeras soluciones</h3><ol><li>Cerrar VS Code.</li><li>Abrir VS Code de nuevo.</li><li>Abrir terminal nueva.</li><li>Probar <code>git --version</code>.</li></ol></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>9/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Configurar identidad</h2><p>Git necesita saber quién hace los commits.</p><div class="command-stack"><div class="command-line">git config --global user.name "Nombre Apellido"</div><div class="command-line">git config --global user.email "correo@example.com"</div><div class="command-line">git config --global user.name</div><div class="command-line">git config --global user.email</div></div><div class="aviso">Usa el correo que corresponda al trabajo de clase. Si se usa GitHub, conviene que coincida con la cuenta.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>10/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Error preparado: identidad no configurada</h2><div class="git-term"><div class="title">Terminal</div><pre><code>Author identity unknown</code></pre></div><div class="idea-clave">Significa que Git no sabe qué nombre y correo asociar al commit.</div><div class="command-stack" style="margin-top:24px"><div class="command-line">git config --global user.name "Nombre Apellido"</div><div class="command-line">git config --global user.email "correo@example.com"</div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>11/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Abrir la carpeta correcta</h2><div class="grid-2"><div class="correcto"><h3>Sí</h3><p>Abrir la carpeta del proyecto concreto:</p><p><code>proyecto-git-basico/</code></p></div><div class="error-tipico"><h3>No</h3><ul><li>Escritorio completo</li><li>Documentos completo</li><li>Descargas</li><li>Carpeta con muchos proyectos mezclados</li></ul></div></div><div class="idea-clave">Antes de iniciar Git, pregunta: ¿estoy dentro de la carpeta del proyecto?</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>12/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Inicializar repositorio</h2><div class="git-term"><div class="title">Terminal · dentro del proyecto</div><pre><code>git init</code></pre></div><p>Convierte la carpeta actual en un repositorio Git.</p><div class="aviso">Hazlo solo en la carpeta del proyecto. No inicialices Git en una carpeta enorme.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>13/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Comprobar estado</h2><div class="git-term"><div class="title">Terminal</div><pre><code>git status</code></pre></div><div class="grid-2" style="margin-top:24px"><div class="card"><h3>Sirve para ver</h3><ul><li>archivos nuevos;</li><li>archivos modificados;</li><li>cambios preparados;</li><li>si queda algo pendiente.</li></ul></div><div class="idea-clave"><p>Consulta <code>git status</code> constantemente. Es el “panel de control” básico de Git.</p></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>14/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Archivos sin seguimiento</h2><div class="git-term"><div class="title">git status</div><pre><code>Untracked files:
+  index.html
+  css/estilos.css
+  js/script.js</code></pre></div><div class="idea-clave">Git ve archivos nuevos, pero todavía no los está incluyendo en ningún commit.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>15/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Preparar cambios</h2><div class="grid-2"><div><h3>Todos los cambios</h3><div class="command-line">git add .</div></div><div><h3>Un archivo concreto</h3><div class="command-line">git add index.html</div></div></div><div class="aviso">Al empezar podemos usar <code>git add .</code>, pero hay que entender que añade todos los cambios del proyecto.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>16/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Staged / preparado</h2><div class="compare-row"><div class="git-panel"><h3>Antes</h3><p>Git ve cambios, pero no entrarán en el commit.</p><span class="badge warn">untracked / modified</span></div><div class="arrow-big">→</div><div class="git-panel"><h3>Después de git add</h3><p>Los cambios quedan preparados para el próximo commit.</p><span class="badge ok">staged</span></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>17/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Primer commit</h2><div class="git-term"><div class="title">Terminal</div><pre><code>git commit -m &quot;Crear estructura inicial del proyecto&quot;</code></pre></div><div class="idea-clave">Un commit debe representar un cambio concreto y entendible.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>18/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Mensajes de commit claros</h2><div class="grid-2"><div class="commit-bad"><h3>Malos mensajes</h3><p><code>cosas</code></p><p><code>cambios</code></p><p><code>final</code></p><p><code>asdf</code></p></div><div class="commit-good"><h3>Mejores mensajes</h3><p><code>Crear estructura inicial del proyecto</code></p><p><code>Añadir estilos básicos</code></p><p><code>Conectar JavaScript</code></p><p><code>Corregir ruta del CSS</code></p></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>19/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Actividad 1 · Primer commit</h2><div class="ejercicio"><ol><li>Comprobar <code>git --version</code>.</li><li>Iniciar Git con <code>git init</code>.</li><li>Mirar estado con <code>git status</code>.</li><li>Preparar cambios con <code>git add .</code>.</li><li>Crear commit: <code>git commit -m "Crear estructura inicial del proyecto"</code>.</li><li>Volver a comprobar <code>git status</code>.</li></ol></div><div class="correcto">Resultado esperado: <code>working tree clean</code>.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>20/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Error preparado: nothing to commit</h2><div class="git-term"><div class="title">Terminal</div><pre><code>nothing to commit, working tree clean</code></pre></div><div class="grid-2" style="margin-top:24px"><div class="correcto"><h3>No siempre es un error</h3><p>Puede significar que ya hiciste commit y no hay cambios pendientes.</p></div><div class="aviso"><h3>Revisa</h3><ul><li>¿has modificado algo?</li><li>¿lo has guardado?</li><li>¿estás en otro proyecto?</li></ul></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>21/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Error preparado: no es repositorio Git</h2><div class="git-term"><div class="title">Terminal</div><pre><code>fatal: not a git repository</code></pre></div><div class="error-tipico"><p>La carpeta actual no tiene Git iniciado o estás en la carpeta incorrecta.</p></div><div class="correcto"><p>Revisión: ¿hice <code>git init</code>? ¿estoy dentro del proyecto correcto?</p></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>22/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Git desde VS Code</h2><div class="grid-2"><div class="github-card"><div class="github-top"><span>VS Code</span><span>Source Control</span></div><div class="github-body"><div class="file-row">● index.html <span class="badge warn">modified</span></div><div class="file-row">● css/estilos.css <span class="badge warn">modified</span></div><div class="file-row">＋ js/script.js <span class="badge">new</span></div></div></div><div class="card"><h3>Permite ver</h3><ul><li>archivos modificados;</li><li>diferencias línea a línea;</li><li>cambios preparados;</li><li>mensaje de commit;</li><li>estado del repositorio.</li></ul></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>23/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Actividad 2 · Segundo commit</h2><div class="ejercicio"><ol><li>Cambia el texto del <code>h1</code>.</li><li>Guarda.</li><li>Mira los cambios en VS Code.</li><li>Prepara el archivo modificado.</li><li>Haz commit con el mensaje: <code>Modificar título principal</code>.</li><li>Comprueba que no quedan cambios pendientes.</li></ol></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>24/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Consultar historial</h2><div class="git-term"><div class="title">Terminal</div><pre><code>git log --oneline</code></pre></div><div class="git-term" style="margin-top:24px"><div class="title">Ejemplo</div><pre><code>a1b2c3d Modificar título principal
+e4f5g6h Crear estructura inicial del proyecto</code></pre></div><div class="idea-clave">El historial permite ver las versiones guardadas del proyecto.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>25/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Para qué usamos GitHub en este curso</h2><div class="grid-2"><div class="correcto"><h3>Sí</h3><ul><li>guardar copia remota;</li><li>compartir enlaces si procede;</li><li>clonar proyectos;</li><li>preparar React y proyectos posteriores.</li></ul></div><div class="aviso"><h3>Todavía no</h3><ul><li>ramas avanzadas;</li><li>pull requests;</li><li>conflictos complejos;</li><li>GitHub Actions;</li><li>releases.</li></ul></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>26/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Crear repositorio en GitHub</h2><div class="github-card"><div class="github-top"><span>GitHub</span><span>New repository</span></div><div class="github-body"><p><strong>Nombre:</strong> <code>proyecto-git-basico</code></p><p><strong>Visibilidad:</strong> privado salvo que se indique lo contrario.</p><p><strong>Importante:</strong> si ya tenemos proyecto local, mejor crear el repositorio vacío.</p></div></div><div class="aviso">Si GitHub crea README y tu proyecto local ya tiene commits, pueden aparecer pasos extra de sincronización.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>27/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Conectar local con GitHub</h2><div class="command-stack"><div class="command-line">git remote add origin URL_DEL_REPOSITORIO</div><div class="command-line">git branch -M main</div><div class="command-line">git push -u origin main</div></div><div class="grid-3" style="margin-top:24px"><div class="card"><h3>remote</h3><p>Conecta local con GitHub.</p></div><div class="card"><h3>main</h3><p>Asegura la rama principal.</p></div><div class="card"><h3>push</h3><p>Sube commits a GitHub.</p></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>28/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Comprobar el repositorio online</h2><div class="github-card"><div class="github-top"><span>GitHub · proyecto-git-basico</span><span class="badge ok">online</span></div><div class="github-body"><div class="file-row">📄 index.html</div><div class="file-row">📁 css/</div><div class="file-row">📁 js/</div><div class="file-row">🕘 Último commit visible</div></div></div><div class="idea-clave">No des por hecho que está subido: recarga GitHub y comprueba que aparecen los archivos.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>29/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Error preparado: remoto no configurado</h2><div class="git-term"><div class="title">Terminal</div><pre><code>fatal: &#x27;origin&#x27; does not appear to be a git repository</code></pre></div><div class="grid-2" style="margin-top:24px"><div class="card"><h3>Interpretación</h3><p>Git no sabe a qué repositorio remoto subir los commits o la URL remota no está bien configurada.</p></div><div class="correcto"><h3>Revisión</h3><div class="command-line">git remote -v</div></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>30/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Error preparado: autenticación</h2><div class="aviso"><h3>No es un error de código</h3><p>GitHub puede pedir iniciar sesión o VS Code puede solicitar autorización.</p></div><div class="checklist" style="margin-top:24px"><div>□ cuenta de GitHub correcta</div><div>□ navegador abierto</div><div>□ sesión iniciada</div><div>□ autorización concedida</div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>31/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Actividad 4 · Subir a GitHub</h2><div class="ejercicio"><ol><li>Crea un repositorio vacío en GitHub.</li><li>Copia la URL del repositorio.</li><li>Conecta tu proyecto local.</li><li>Sube los commits.</li><li>Recarga GitHub.</li><li>Comprueba que aparecen <code>index.html</code>, <code>css/</code>, <code>js/</code> y el último commit.</li></ol></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>32/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Clonar un repositorio</h2><div class="grid-2"><div class="card"><h3>Clonar significa</h3><p>Copiar un repositorio desde GitHub al ordenador con su historial Git.</p></div><div class="git-term"><div class="title">Terminal</div><pre><code>git clone URL_DEL_REPOSITORIO</code></pre></div></div><div class="idea-clave">No es descargar un archivo suelto. Es traer el proyecto como repositorio.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>33/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Clonar desde VS Code</h2><div class="step-list compact"><div><span>1</span> Copiar URL en GitHub</div><div><span>2</span> Abrir VS Code</div><div><span>3</span> Clonar repositorio</div><div><span>4</span> Elegir carpeta destino</div><div><span>5</span> Abrir proyecto clonado</div><div><span>6</span> Comprobar archivos</div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>34/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Flujo recomendado de trabajo</h2><div class="git-flow"><span>abrir carpeta</span><b>→</b><span>modificar</span><b>→</b><span>guardar</span><b>→</b><span>probar</span><b>→</b><span>status</span><b>→</b><span>commit</span><b>→</b><span>push</span></div><div class="aviso">Haz commit cuando tengas un cambio completo y comprobado.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>35/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Cuándo hacer commit</h2><div class="grid-2"><div class="correcto"><h3>Buen momento</h3><ul><li>crear estructura inicial;</li><li>añadir estilos;</li><li>conectar JavaScript;</li><li>corregir error de ruta;</li><li>terminar mini práctica.</li></ul></div><div class="error-tipico"><h3>Mal hábito</h3><ul><li>un único commit al final;</li><li>commits cada 10 segundos sin sentido;</li><li>proyecto roto sin indicarlo;</li><li>mensajes tipo final-final.</li></ul></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>36/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Cuándo hacer push</h2><div class="card"><p>Haz <code>push</code> cuando quieras subir a GitHub los commits locales.</p></div><div class="checklist" style="margin-top:24px"><div>□ al terminar una sesión</div><div>□ antes de cambiar de ordenador</div><div>□ antes de entregar</div><div>□ para guardar copia remota</div></div><div class="idea-clave">Si haces commit pero no haces push, GitHub no recibe esos cambios.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>37/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Errores preparados</h2><div class="grid-2"><div class="error-tipico"><h3>Commit sin add</h3><p><code>no changes added to commit</code></p><p>Hay cambios, pero no están preparados.</p></div><div class="error-tipico"><h3>Push sin commit</h3><p>Push solo sube commits. Si no hay commit, no hay nueva versión que subir.</p></div></div><div class="command-stack" style="margin-top:24px"><div class="command-line">git add .</div><div class="command-line">git commit -m "Mensaje claro"</div><div class="command-line">git push</div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>38/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Error: repositorio en carpeta equivocada</h2><div class="error-tipico"><p>Creo Git en una carpeta, pero edito archivos en otra.</p></div><div class="grid-2" style="margin-top:24px"><div class="card"><h3>Síntomas</h3><ul><li>Git no ve cambios.</li><li>VS Code muestra otro proyecto.</li><li>GitHub no recibe los archivos esperados.</li></ul></div><div class="correcto"><h3>Revisión</h3><ul><li>Nombre de carpeta abierta.</li><li>Ruta de la terminal.</li><li>Archivos visibles.</li><li><code>git status</code>.</li></ul></div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>39/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>.gitignore básico</h2><p><code>.gitignore</code> indica a Git qué archivos o carpetas debe ignorar.</p><div class="repo-tree">node_modules/
+dist/
+.env
+pruebas-temporales/</div><div class="idea-clave">No todo lo que está en una carpeta debe subirse a Git.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>40/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Mini práctica final</h2><div class="repo-tree">practica-git-github/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── script.js</div><div class="ejercicio" style="margin-top:24px"><p>Debe crear una página sencilla, aplicar estilos, mostrar un mensaje en Console, iniciar Git, hacer al menos tres commits, consultar historial, crear repositorio en GitHub y subir el proyecto.</p></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>41/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Commits obligatorios</h2><div class="timeline"><div><strong>1</strong>Crear estructura inicial</div><div><strong>2</strong>Añadir estilos básicos</div><div><strong>3</strong>Conectar JavaScript</div><div><strong>4</strong>Opcional: corregir ruta</div></div><div class="idea-clave">Los mensajes deben contar qué cambió.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>42/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Registro de trabajo</h2><div class="registro"><p><strong>Nombre del proyecto:</strong> ____________________________________</p><p><strong>Repositorio local iniciado:</strong> □ Sí □ No</p><p><strong>Número de commits:</strong> ____________________________________</p><p><strong>Mensajes de commit:</strong></p><p>1. __________________________________</p><p>2. __________________________________</p><p>3. __________________________________</p><p><strong>Repositorio GitHub:</strong> ____________________________________</p><p><strong>Problemas encontrados y solución:</strong> ____________________________________</p></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>43/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Checklist final</h2><div class="checklist"><div>□ Sé explicar qué es Git</div><div>□ Sé explicar qué es GitHub</div><div>□ Sé diferenciar guardar, commit y push</div><div>□ Sé usar <code>git --version</code></div><div>□ Sé usar <code>git init</code></div><div>□ Sé usar <code>git status</code></div><div>□ Sé usar <code>git add .</code></div><div>□ Sé hacer <code>git commit -m</code></div><div>□ Sé ver <code>git log --oneline</code></div><div>□ Sé subir a GitHub</div><div>□ Sé clonar un repositorio</div><div>□ Sé detectar carpeta equivocada</div></div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>44/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Cierre del bloque</h2><div class="idea-clave big">Hoy no hemos aprendido Git avanzado. Hemos aprendido el flujo mínimo para no perder el control de un proyecto.</div><div class="git-flow"><span>guardar</span><b>→</b><span>commit</span><b>→</b><span>historial</span><b>→</b><span>push</span><b>→</b><span>clone</span></div><div class="frase-final">Git no es solo para entregar trabajos. Git sirve para no perder el control de tu propio proyecto.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>45/46</span></div></div></section><section class="slide "><div class="slide-inner">
+<h2>Idea final</h2><div class="grid-2"><div class="card"><h3>Git</h3><p>Controla versiones.</p><p>Permite saber qué cambió, cuándo y con qué mensaje.</p></div><div class="card"><h3>GitHub</h3><p>Guarda una copia remota.</p><p>Permite compartir, clonar y recuperar proyectos.</p></div></div><div class="idea-clave big">Git no es una herramienta para “subir cosas”. Es una herramienta para controlar versiones.</div>
+<div class="slide-footer"><span>Bloque 7 · Git y GitHub básico</span><span>46/46</span></div></div></section>
+</body>
+</html>

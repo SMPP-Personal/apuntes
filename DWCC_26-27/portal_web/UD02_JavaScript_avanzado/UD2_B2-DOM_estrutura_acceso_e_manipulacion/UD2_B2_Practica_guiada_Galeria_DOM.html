@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UD2_B2 · Práctica guiada: Galería generada con DOM</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+  <script src="../../assets/js/smpp.js" defer></script>
+</head>
+<body>
+  <div class="smpp-scope">
+    <main class="main-content has-sidebar guided-practice-page">
+      <div class="content-layout">
+        <aside class="section-sidebar" aria-label="Índice del documento">
+          <nav class="section-nav" aria-label="Secciones del documento">
+            <ul class="section-nav-list">
+              <li>
+                <a class="section-nav-link" href="../../index.html">
+                  <span class="section-nav-icon" aria-hidden="true"><i class="bi bi-house-door"></i></span>
+                  Volver al índice
+                </a>
+              </li>
+              <li>
+                <button id="theme-toggle" class="section-nav-link" type="button" data-update-text="true" aria-label="Cambiar a modo oscuro" aria-pressed="false">🌙 Modo oscuro</button>
+              </li>
+            </ul>
+            <hr>
+            <p class="section-nav-title">
+              <i class="bi bi-list-ul" aria-hidden="true"></i>
+              Índice del documento
+            </p>
+            <ol class="section-nav-list">
+              <li><a class="section-nav-link badge-link" href="#1-objetivo-de-la-practica"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la práctica</a></li><li><a class="section-nav-link badge-link" href="#2-que-vas-a-practicar"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-ui-checks-grid"></i></span> 2. Qué vas a practicar</a></li><li><a class="section-nav-link badge-link" href="#3-archivos-de-trabajo"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-folder2-open"></i></span> 3. Archivos de trabajo</a></li><li><a class="section-nav-link badge-link" href="#4-codigo-inicial-del-html"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-filetype-html"></i></span> 4. Código inicial del HTML</a></li><li><a class="section-nav-link badge-link" href="#5-codigo-inicial-del-css"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-filetype-css"></i></span> 5. Código inicial del CSS</a></li><li><a class="section-nav-link badge-link" href="#6-paso-1-crear-el-array-de-datos"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-braces"></i></span> 6. Paso 1: crear el array de datos</a></li><li><a class="section-nav-link badge-link" href="#7-paso-2-seleccionar-elementos-del-dom"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-diagram-3"></i></span> 7. Paso 2: seleccionar elementos del DOM</a></li><li><a class="section-nav-link badge-link" href="#8-paso-3-actualizar-el-resumen-de-la-pagina"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-card-text"></i></span> 8. Paso 3: actualizar el resumen de la página</a></li><li><a class="section-nav-link badge-link" href="#9-paso-4-crear-una-tarjeta-manualmente"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-window-stack"></i></span> 9. Paso 4: crear una tarjeta manualmente</a></li><li><a class="section-nav-link badge-link" href="#10-paso-5-anadir-una-clase-si-el-lugar-esta-destacado"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-tags"></i></span> 10. Paso 5: añadir una clase si el lugar está destacado</a></li><li><a class="section-nav-link badge-link" href="#11-paso-6-convertir-la-creacion-de-tarjetas-en-una-funcion"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-window-stack"></i></span> 11. Paso 6: convertir la creación de tarjetas en una función</a></li><li><a class="section-nav-link badge-link" href="#12-paso-7-limpiar-la-galeria-antes-de-renderizar"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-eraser"></i></span> 12. Paso 7: limpiar la galería antes de renderizar</a></li><li><a class="section-nav-link badge-link" href="#13-paso-8-generar-toda-la-galeria-con-foreach"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-arrow-repeat"></i></span> 13. Paso 8: generar toda la galería con forEach</a></li><li><a class="section-nav-link badge-link" href="#14-paso-9-renderizar-desde-una-funcion"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-code-square"></i></span> 14. Paso 9: renderizar desde una función</a></li><li><a class="section-nav-link badge-link" href="#15-paso-10-eliminar-el-mensaje-inicial"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-eraser"></i></span> 15. Paso 10: eliminar el mensaje inicial</a></li><li><a class="section-nav-link badge-link" href="#16-paso-11-probar-una-galeria-filtrada-sin-eventos"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-funnel"></i></span> 16. Paso 11: probar una galería filtrada sin eventos</a></li><li><a class="section-nav-link badge-link" href="#17-codigo-final-orientativo-de-app-js"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-file-earmark-code"></i></span> 17. Código final orientativo de app.js</a></li><li><a class="section-nav-link badge-link" href="#18-comprobacion-del-estado-vacio"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-clipboard2-check"></i></span> 18. Comprobación del estado vacío</a></li><li><a class="section-nav-link badge-link" href="#19-ampliacion-controlada"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-stars"></i></span> 19. Ampliación controlada</a></li><li><a class="section-nav-link badge-link" href="#20-errores-frecuentes"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-bug"></i></span> 20. Errores frecuentes</a></li><li><a class="section-nav-link badge-link" href="#21-entrega"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-box-arrow-up"></i></span> 21. Entrega</a></li><li><a class="section-nav-link badge-link" href="#22-lista-de-comprobacion"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-check2-square"></i></span> 22. Lista de comprobación</a></li><li><a class="section-nav-link badge-link" href="#23-rubrica-orientativa"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-clipboard-data"></i></span> 23. Rúbrica orientativa</a></li><li><a class="section-nav-link badge-link" href="#24-contenidos-que-se-trabajaran-mas-adelante"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-slash-circle"></i></span> 24. Contenidos que se trabajarán más adelante</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <div class="content-wrapper">
+          <header class="content-header">
+            <h1><span class="document-title-icon" aria-hidden="true"><i class="bi bi-images"></i></span> UD2_B2. Práctica guiada: Galería generada con DOM</h1>
+          </header>
+          <hr>
+          <section class="content-section" id="1-objetivo-de-la-practica"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la práctica</h2><p>En esta práctica vas a crear una pequeña <strong>galería de tarjetas</strong> generada desde JavaScript. La página HTML tendrá una estructura mínima y será el script quien cree dinámicamente los elementos de la galería mediante el <strong>DOM</strong>.</p><p>La práctica sirve para consolidar los contenidos del bloque <strong>UD2_B2: DOM, estructura, acceso y manipulación</strong>, sin entrar todavía en eventos ni formularios.</p><p>Al terminar, tendrás una página que muestra una colección de lugares a partir de un array de objetos.</p><hr/></section>
+<section class="content-section" id="2-que-vas-a-practicar"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-ui-checks-grid"></i></span> 2. Qué vas a practicar</h2><p>En esta práctica trabajarás:</p><ul class="custom-list">
+<li>selección de elementos con <code>querySelector</code>;</li>
+<li>escritura y modificación de contenido mediante <code>textContent</code>;</li>
+<li>creación de elementos con <code>createElement</code>;</li>
+<li>modificación de atributos con <code>setAttribute</code>;</li>
+<li>trabajo con clases CSS mediante <code>classList.add()</code>;</li>
+<li>inserción de elementos con <code>append()</code>;</li>
+<li>eliminación de elementos con <code>remove()</code>;</li>
+<li>renderizado de contenido a partir de un array de objetos;</li>
+<li>separación entre HTML, CSS y JavaScript.</li>
+</ul><blockquote class="note-box">
+<p>En este bloque <strong>no usaremos todavía eventos</strong> como <code>click</code>, <code>submit</code> o <code>input</code>. Estos contenidos se trabajarán en el bloque UD2_B3.</p>
+</blockquote><hr/></section>
+<section class="content-section requirements-section" id="3-archivos-de-trabajo"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-folder2-open"></i></span> 3. Archivos de trabajo</h2><p>Crea una carpeta llamada:</p><div class="example-block"><pre class="code-bash"><code class="language-text">UD2_B2_practica_galeria_DOM
+</code></pre></div><p>Dentro de ella crea estos archivos y carpetas:</p><div class="example-block"><pre class="code-bash"><code class="language-text">index.html
+css/estilos.css
+js/app.js
+img/
+</code></pre></div><p>La estructura final debe quedar así:</p><div class="example-block"><pre class="code-bash"><code class="language-text">UD2_B2_practica_galeria_DOM/
+├── index.html
+├── css/
+│   └── estilos.css
+├── img/
+│   ├── ribeira-sacra.jpg
+│   ├── ourense-termal.jpg
+│   ├── costa-da-morte.jpg
+│   └── santiago.jpg
+└── js/
+    └── app.js
+</code></pre></div><p>Guarda en la carpeta <code>img/</code> cuatro imágenes propias, libres de uso o proporcionadas para la práctica. Procura que representen realmente los lugares indicados.</p><blockquote class="warning-box">
+<p>Si utilizas otros nombres de archivo, deberás modificar también las rutas del array de datos.</p>
+</blockquote><hr/></section>
+<section class="content-section phase-section" id="4-codigo-inicial-del-html"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-html"></i></span> 4. Código inicial del HTML</h2><p>Copia este código en <code>index.html</code>:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Galería DOM&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/estilos.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class="cabecera"&gt;
+    &lt;h1 id="titulo-principal"&gt;Galería de lugares&lt;/h1&gt;
+    &lt;p id="descripcion-principal"&gt;
+      Contenido generado dinámicamente con JavaScript.
+    &lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main class="contenedor"&gt;
+    &lt;section class="panel-info"&gt;
+      &lt;h2&gt;Resumen&lt;/h2&gt;
+      &lt;p id="total-elementos"&gt;Pendiente de calcular...&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+      &lt;h2&gt;Lugares destacados&lt;/h2&gt;
+      &lt;p id="mensaje-inicial"&gt;La galería todavía no se ha generado.&lt;/p&gt;
+      &lt;div id="galeria" class="galeria"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;script src="js/app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><p>Observa que el HTML incluye un contenedor vacío:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;div id="galeria" class="galeria"&gt;&lt;/div&gt;
+</code></pre></div><p>Ese contenedor se rellenará desde JavaScript.</p><p>El elemento:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;p id="mensaje-inicial"&gt;La galería todavía no se ha generado.&lt;/p&gt;
+</code></pre></div><p>se eliminará cuando se renderice la galería por primera vez.</p><hr/></section>
+<section class="content-section phase-section" id="5-codigo-inicial-del-css"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-css"></i></span> 5. Código inicial del CSS</h2><p>Copia este código en <code>css/estilos.css</code>:</p><div class="example-block"><pre class="code-css"><code class="language-css">* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #222;
+}
+
+.cabecera {
+  background: #1f4e79;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.contenedor {
+  width: min(1100px, 92%);
+  margin: 2rem auto;
+}
+
+.panel-info {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.tarjeta {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.tarjeta img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.tarjeta-contenido {
+  padding: 1rem;
+}
+
+.tarjeta h3 {
+  margin-top: 0;
+  color: #1f4e79;
+}
+
+.etiqueta {
+  display: inline-block;
+  background: #e8f1fa;
+  color: #1f4e79;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.localizacion {
+  margin: 0.75rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.destacado {
+  border: 3px solid #1f4e79;
+}
+
+.mensaje-vacio {
+  grid-column: 1 / -1;
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  color: #555;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+</code></pre></div><p>En esta práctica no es necesario modificar mucho el CSS. El trabajo principal se realizará en JavaScript.</p><hr/></section>
+<section class="content-section phase-section" id="6-paso-1-crear-el-array-de-datos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces"></i></span> 6. Paso 1: crear el array de datos</h2><p>En <code>js/app.js</code>, crea un array de objetos llamado <code>lugares</code>.</p><p>Cada objeto representará una tarjeta de la galería.</p><div class="example-block"><pre class="code-js"><code class="language-js">const lugares = [
+  {
+    nombre: "Ribeira Sacra",
+    descripcion: "Paisaje de viñedos, ríos y miradores.",
+    categoria: "Naturaleza",
+    localizacion: "Lugo y Ourense",
+    imagen: "img/ribeira-sacra.jpg",
+    textoAlternativo: "Viñedos en terrazas junto al río Sil",
+    destacado: true
+  },
+  {
+    nombre: "Ourense termal",
+    descripcion: "Ciudad conocida por sus aguas termales.",
+    categoria: "Ciudad",
+    localizacion: "Ourense",
+    imagen: "img/ourense-termal.jpg",
+    textoAlternativo: "Zona termal junto al río Miño en Ourense",
+    destacado: false
+  },
+  {
+    nombre: "Costa da Morte",
+    descripcion: "Zona costera con faros, playas y acantilados.",
+    categoria: "Costa",
+    localizacion: "A Coruña",
+    imagen: "img/costa-da-morte.jpg",
+    textoAlternativo: "Faro y acantilados de la Costa da Morte",
+    destacado: true
+  },
+  {
+    nombre: "Santiago de Compostela",
+    descripcion: "Ciudad histórica y final del Camino de Santiago.",
+    categoria: "Patrimonio",
+    localizacion: "A Coruña",
+    imagen: "img/santiago.jpg",
+    textoAlternativo: "Fachada de la catedral de Santiago de Compostela",
+    destacado: false
+  }
+];
+</code></pre></div><p>La propiedad <code>textoAlternativo</code> debe describir lo que aparece en la imagen. No debe limitarse a repetir el nombre del lugar si la fotografía muestra algo más concreto.</p><blockquote class="warning-box">
+<p>Si utilizas imágenes diferentes, adapta también el texto alternativo para que describa correctamente cada una.</p>
+</blockquote><hr/></section>
+<section class="content-section phase-section" id="7-paso-2-seleccionar-elementos-del-dom"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 7. Paso 2: seleccionar elementos del DOM</h2><p>Debajo del array, selecciona los elementos principales de la página:</p><div class="example-block"><pre class="code-js"><code class="language-js">const galeria = document.querySelector("#galeria");
+const totalElementos = document.querySelector("#total-elementos");
+const mensajeInicial = document.querySelector("#mensaje-inicial");
+</code></pre></div><p>Comprueba en la consola que los elementos se seleccionan correctamente:</p><div class="example-block"><pre class="code-js"><code class="language-js">console.log(galeria);
+console.log(totalElementos);
+console.log(mensajeInicial);
+</code></pre></div><p>Si alguno muestra <code>null</code>, revisa:</p><ul class="custom-list">
+<li>que el selector esté bien escrito;</li>
+<li>que el <code>id</code> exista en el HTML;</li>
+<li>que el <code>&lt;script&gt;</code> esté situado al final del <code>body</code>.</li>
+</ul><blockquote class="note-box">
+<p>Estas instrucciones <code>console.log()</code> son temporales. Puedes eliminarlas cuando hayas comprobado que los elementos se seleccionan correctamente.</p>
+</blockquote><hr/></section>
+<section class="content-section phase-section" id="8-paso-3-actualizar-el-resumen-de-la-pagina"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-card-text"></i></span> 8. Paso 3: actualizar el resumen de la página</h2><p>Modifica el texto del párrafo <code>totalElementos</code> mediante <code>textContent</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">totalElementos.textContent = `La galería contiene ${lugares.length} lugares.`;
+</code></pre></div><p>Comprueba que desaparece el texto inicial:</p><div class="example-block"><pre class="code-bash"><code class="language-text">Pendiente de calcular...
+</code></pre></div><p>y aparece el nuevo mensaje.</p><hr/></section>
+<section class="content-section phase-section" id="9-paso-4-crear-una-tarjeta-manualmente"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window-stack"></i></span> 9. Paso 4: crear una tarjeta manualmente</h2><p>Antes de recorrer el array completo, crea una tarjeta solo para el primer elemento.</p><div class="example-block"><pre class="code-js"><code class="language-js">const primerLugar = lugares[0];
+
+const tarjeta = document.createElement("article");
+tarjeta.classList.add("tarjeta");
+
+const imagen = document.createElement("img");
+imagen.setAttribute("src", primerLugar.imagen);
+imagen.setAttribute("alt", primerLugar.textoAlternativo);
+
+const contenido = document.createElement("div");
+contenido.classList.add("tarjeta-contenido");
+
+const titulo = document.createElement("h3");
+titulo.textContent = primerLugar.nombre;
+
+const descripcion = document.createElement("p");
+descripcion.textContent = primerLugar.descripcion;
+
+const localizacion = document.createElement("p");
+localizacion.classList.add("localizacion");
+localizacion.textContent = `Localización: ${primerLugar.localizacion}`;
+
+const etiqueta = document.createElement("span");
+etiqueta.classList.add("etiqueta");
+etiqueta.textContent = primerLugar.categoria;
+
+contenido.append(titulo, descripcion, localizacion, etiqueta);
+tarjeta.append(imagen, contenido);
+galeria.append(tarjeta);
+</code></pre></div><p>Comprueba que aparece una tarjeta en la página.</p><div class="good-practice-box"><h3>Resultado esperado</h3><p>La página debe mostrar:</p><ul class="custom-list">
+<li>una tarjeta;</li>
+<li>una imagen;</li>
+<li>el nombre del lugar;</li>
+<li>una descripción;</li>
+<li>una localización;</li>
+<li>una categoría.</li>
+</ul></div><div class="concept-box"><h3>Pregunta de reflexión</h3><p>¿Por qué usamos <code>textContent</code> para escribir el título, la descripción o la localización?</p><details class="concept-box">
+<summary>Comprobar la respuesta</summary>
+<p>Porque se trata de texto normal y no necesitamos que el navegador interprete etiquetas HTML. <code>textContent</code> evita insertar HTML accidentalmente y es la opción adecuada cuando solo queremos mostrar texto.</p>
+</details><blockquote class="warning-box">
+<p><strong>Código temporal:</strong> la creación manual de esta tarjeta solo sirve para comprender el proceso paso a paso. Más adelante será sustituida por una función.</p>
+</blockquote><hr/></div></section>
+<section class="content-section phase-section" id="10-paso-5-anadir-una-clase-si-el-lugar-esta-destacado"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-tags"></i></span> 10. Paso 5: añadir una clase si el lugar está destacado</h2><p>Después de crear la tarjeta, añade esta condición:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (primerLugar.destacado) {
+  tarjeta.classList.add("destacado");
+}
+</code></pre></div><p>Comprueba que la tarjeta destacada tiene un borde diferente.</p><hr/></section>
+<section class="content-section phase-section" id="11-paso-6-convertir-la-creacion-de-tarjetas-en-una-funcion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window-stack"></i></span> 11. Paso 6: convertir la creación de tarjetas en una función</h2><p>Ahora vamos a organizar mejor el código. Crea una función llamada <code>crearTarjetaLugar</code>.</p><div class="example-block"><pre class="code-js"><code class="language-js">function crearTarjetaLugar(lugar) {
+  const tarjeta = document.createElement("article");
+  tarjeta.classList.add("tarjeta");
+
+  if (lugar.destacado) {
+    tarjeta.classList.add("destacado");
+  }
+
+  const imagen = document.createElement("img");
+  imagen.setAttribute("src", lugar.imagen);
+  imagen.setAttribute("alt", lugar.textoAlternativo);
+
+  const contenido = document.createElement("div");
+  contenido.classList.add("tarjeta-contenido");
+
+  const titulo = document.createElement("h3");
+  titulo.textContent = lugar.nombre;
+
+  const descripcion = document.createElement("p");
+  descripcion.textContent = lugar.descripcion;
+
+  const localizacion = document.createElement("p");
+  localizacion.classList.add("localizacion");
+  localizacion.textContent = `Localización: ${lugar.localizacion}`;
+
+  const etiqueta = document.createElement("span");
+  etiqueta.classList.add("etiqueta");
+  etiqueta.textContent = lugar.categoria;
+
+  contenido.append(titulo, descripcion, localizacion, etiqueta);
+  tarjeta.append(imagen, contenido);
+
+  return tarjeta;
+}
+</code></pre></div><p>Esta función:</p><ol class="custom-ordered-list">
+<li>recibe un objeto <code>lugar</code>;</li>
+<li>crea una tarjeta completa;</li>
+<li>devuelve el elemento creado.</li>
+</ol><div class="warning-box"><h3>Sustitución obligatoria</h3><p>Elimina ahora el código temporal de los pasos 4 y 5, desde:</p><div class="example-block"><pre class="code-js"><code class="language-js">const primerLugar = lugares[0];
+</code></pre></div><p>hasta:</p><div class="example-block"><pre class="code-js"><code class="language-js">galeria.append(tarjeta);
+</code></pre></div><p>La función <code>crearTarjetaLugar()</code> sustituye todo ese bloque.</p><blockquote class="warning-box">
+<p>No debes conservar simultáneamente la creación manual y la función, porque estarías repitiendo el mismo proceso dos veces.</p>
+</blockquote><hr/></div></section>
+<section class="content-section phase-section" id="12-paso-7-limpiar-la-galeria-antes-de-renderizar"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-eraser"></i></span> 12. Paso 7: limpiar la galería antes de renderizar</h2><p>Antes de pintar todos los lugares, limpia el contenido de la galería:</p><div class="example-block"><pre class="code-js"><code class="language-js">galeria.textContent = "";
+</code></pre></div><p>En este caso usamos <code>textContent = ""</code> para vaciar el contenedor.</p><hr/></section>
+<section class="content-section phase-section" id="13-paso-8-generar-toda-la-galeria-con-foreach"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-repeat"></i></span> 13. Paso 8: generar toda la galería con <code>forEach</code></h2><p>Usa <code>forEach</code> para crear una tarjeta por cada lugar:</p><div class="example-block"><pre class="code-js"><code class="language-js">lugares.forEach((lugar) =&gt; {
+  const tarjetaLugar = crearTarjetaLugar(lugar);
+  galeria.append(tarjetaLugar);
+});
+</code></pre></div><p>Ahora la página debe mostrar todas las tarjetas del array.</p><div class="good-practice-box"><h3>Resultado esperado</h3><p>La página debe mostrar:</p><ul class="custom-list">
+<li>cuatro tarjetas;</li>
+<li>dos tarjetas con la clase <code>destacado</code>;</li>
+<li>una imagen, título, descripción, localización y categoría en cada tarjeta;</li>
+<li>el texto <code>La galería contiene 4 lugares.</code>;</li>
+<li>ningún error en la consola.</li>
+</ul><blockquote class="warning-box">
+<p><strong>Código temporal:</strong> este recorrido se integrará en una función en el siguiente paso.</p>
+</blockquote><hr/></div></section>
+<section class="content-section phase-section" id="14-paso-9-renderizar-desde-una-funcion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-code-square"></i></span> 14. Paso 9: renderizar desde una función</h2><p>Crea una función llamada <code>renderizarGaleria</code> para agrupar el proceso completo:</p><div class="example-block"><pre class="code-js"><code class="language-js">function renderizarGaleria(listaLugares) {
+  galeria.textContent = "";
+
+  if (listaLugares.length === 0) {
+    const mensajeVacio = document.createElement("p");
+    mensajeVacio.classList.add("mensaje-vacio");
+    mensajeVacio.textContent = "No hay lugares para mostrar.";
+    galeria.append(mensajeVacio);
+  } else {
+    listaLugares.forEach((lugar) =&gt; {
+      const tarjetaLugar = crearTarjetaLugar(lugar);
+      galeria.append(tarjetaLugar);
+    });
+  }
+
+  totalElementos.textContent =
+    `La galería contiene ${listaLugares.length} lugares.`;
+}
+</code></pre></div><p>Al final del archivo, elimina el recorrido temporal del paso anterior y llama a la función:</p><div class="example-block"><pre class="code-js"><code class="language-js">renderizarGaleria(lugares);
+</code></pre></div><div class="warning-box"><h3>Sustitución obligatoria</h3><p>No debes conservar a la vez:</p><div class="example-block"><pre class="code-js"><code class="language-js">lugares.forEach(...)
+</code></pre></div><p>fuera de la función y:</p><div class="example-block"><pre class="code-js"><code class="language-js">renderizarGaleria(lugares);
+</code></pre></div><p>La función <code>renderizarGaleria()</code> sustituye el recorrido anterior.</p><hr/></div></section>
+<section class="content-section phase-section" id="15-paso-10-eliminar-el-mensaje-inicial"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-eraser"></i></span> 15. Paso 10: eliminar el mensaje inicial</h2><p>Una vez que la galería se ha renderizado, elimina el mensaje inicial:</p><div class="example-block"><pre class="code-js"><code class="language-js">mensajeInicial.remove();
+</code></pre></div><p>Coloca esta instrucción después de:</p><div class="example-block"><pre class="code-js"><code class="language-js">renderizarGaleria(lugares);
+</code></pre></div><p>El final del archivo debe quedar así:</p><div class="example-block"><pre class="code-js"><code class="language-js">renderizarGaleria(lugares);
+mensajeInicial.remove();
+</code></pre></div><p>Este paso practica el método <code>remove()</code>.</p><blockquote class="note-box">
+<p>En una aplicación real, los mensajes de estado suelen mostrarse u ocultarse según haya o no resultados. En esta práctica eliminamos el mensaje inicial porque solo informa de que la galería todavía no se ha generado. El caso de una lista vacía ya se gestiona dentro de <code>renderizarGaleria()</code>.</p>
+</blockquote><hr/></section>
+<section class="content-section phase-section" id="16-paso-11-probar-una-galeria-filtrada-sin-eventos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-funnel"></i></span> 16. Paso 11: probar una galería filtrada sin eventos</h2><p>En este bloque todavía no vamos a usar botones ni eventos. Sin embargo, podemos practicar el renderizado con una lista filtrada.</p><p>Crea una constante con los lugares destacados:</p><div class="example-block"><pre class="code-js"><code class="language-js">const lugaresDestacados = lugares.filter(
+  (lugar) =&gt; lugar.destacado
+);
+</code></pre></div><p><code>filter()</code> no modifica el array original. Devuelve un nuevo array que contiene únicamente los elementos que cumplen la condición.</p><p>Prueba temporalmente esta llamada:</p><div class="example-block"><pre class="code-js"><code class="language-js">renderizarGaleria(lugaresDestacados);
+</code></pre></div><p>La página debe mostrar solo dos tarjetas.</p><p>Después vuelve a dejar:</p><div class="example-block"><pre class="code-js"><code class="language-js">renderizarGaleria(lugares);
+</code></pre></div><div class="concept-box"><h3>Pregunta de reflexión</h3><p>¿Por qué en este bloque no usamos todavía un botón para cambiar entre todos los lugares y los destacados?</p><details class="concept-box">
+<summary>Comprobar la respuesta</summary>
+<p>Porque un botón necesitaría detectar una interacción del usuario mediante un evento. Los eventos con <code>addEventListener()</code> se trabajarán en UD2_B3. En esta práctica llamamos directamente a la función desde el código.</p>
+</details><hr/></div></section>
+<section class="content-section summary-section" id="17-codigo-final-orientativo-de-app-js"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-file-earmark-code"></i></span> 17. Código final orientativo de <code>app.js</code></h2><p>Tu archivo <code>app.js</code> debería tener una estructura similar a esta:</p><div class="example-block"><pre class="code-js"><code class="language-js">const lugares = [
+  {
+    nombre: "Ribeira Sacra",
+    descripcion: "Paisaje de viñedos, ríos y miradores.",
+    categoria: "Naturaleza",
+    localizacion: "Lugo y Ourense",
+    imagen: "img/ribeira-sacra.jpg",
+    textoAlternativo: "Viñedos en terrazas junto al río Sil",
+    destacado: true
+  },
+  {
+    nombre: "Ourense termal",
+    descripcion: "Ciudad conocida por sus aguas termales.",
+    categoria: "Ciudad",
+    localizacion: "Ourense",
+    imagen: "img/ourense-termal.jpg",
+    textoAlternativo: "Zona termal junto al río Miño en Ourense",
+    destacado: false
+  },
+  {
+    nombre: "Costa da Morte",
+    descripcion: "Zona costera con faros, playas y acantilados.",
+    categoria: "Costa",
+    localizacion: "A Coruña",
+    imagen: "img/costa-da-morte.jpg",
+    textoAlternativo: "Faro y acantilados de la Costa da Morte",
+    destacado: true
+  },
+  {
+    nombre: "Santiago de Compostela",
+    descripcion: "Ciudad histórica y final del Camino de Santiago.",
+    categoria: "Patrimonio",
+    localizacion: "A Coruña",
+    imagen: "img/santiago.jpg",
+    textoAlternativo: "Fachada de la catedral de Santiago de Compostela",
+    destacado: false
+  }
+];
+
+const galeria = document.querySelector("#galeria");
+const totalElementos = document.querySelector("#total-elementos");
+const mensajeInicial = document.querySelector("#mensaje-inicial");
+
+function crearTarjetaLugar(lugar) {
+  const tarjeta = document.createElement("article");
+  tarjeta.classList.add("tarjeta");
+
+  if (lugar.destacado) {
+    tarjeta.classList.add("destacado");
+  }
+
+  const imagen = document.createElement("img");
+  imagen.setAttribute("src", lugar.imagen);
+  imagen.setAttribute("alt", lugar.textoAlternativo);
+
+  const contenido = document.createElement("div");
+  contenido.classList.add("tarjeta-contenido");
+
+  const titulo = document.createElement("h3");
+  titulo.textContent = lugar.nombre;
+
+  const descripcion = document.createElement("p");
+  descripcion.textContent = lugar.descripcion;
+
+  const localizacion = document.createElement("p");
+  localizacion.classList.add("localizacion");
+  localizacion.textContent = `Localización: ${lugar.localizacion}`;
+
+  const etiqueta = document.createElement("span");
+  etiqueta.classList.add("etiqueta");
+  etiqueta.textContent = lugar.categoria;
+
+  contenido.append(titulo, descripcion, localizacion, etiqueta);
+  tarjeta.append(imagen, contenido);
+
+  return tarjeta;
+}
+
+function renderizarGaleria(listaLugares) {
+  galeria.textContent = "";
+
+  if (listaLugares.length === 0) {
+    const mensajeVacio = document.createElement("p");
+    mensajeVacio.classList.add("mensaje-vacio");
+    mensajeVacio.textContent = "No hay lugares para mostrar.";
+    galeria.append(mensajeVacio);
+  } else {
+    listaLugares.forEach((lugar) =&gt; {
+      const tarjetaLugar = crearTarjetaLugar(lugar);
+      galeria.append(tarjetaLugar);
+    });
+  }
+
+  totalElementos.textContent =
+    `La galería contiene ${listaLugares.length} lugares.`;
+}
+
+renderizarGaleria(lugares);
+mensajeInicial.remove();
+</code></pre></div><hr/></section>
+<section class="content-section tests-section" id="18-comprobacion-del-estado-vacio"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard2-check"></i></span> 18. Comprobación del estado vacío</h2><p>Para comprobar que la función gestiona correctamente una lista sin elementos, prueba temporalmente:</p><div class="example-block"><pre class="code-js"><code class="language-js">renderizarGaleria([]);
+</code></pre></div><p>La página debe mostrar:</p><div class="example-block"><pre class="code-bash"><code class="language-text">No hay lugares para mostrar.
+</code></pre></div><p>y el resumen debe indicar:</p><div class="example-block"><pre class="code-bash"><code class="language-text">La galería contiene 0 lugares.
+</code></pre></div><p>Después vuelve a dejar:</p><div class="example-block"><pre class="code-js"><code class="language-js">renderizarGaleria(lugares);
+</code></pre></div><hr/></section>
+<section class="content-section optional-section" id="19-ampliacion-controlada"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-stars"></i></span> 19. Ampliación controlada</h2><p>Estas mejoras no introducen eventos y siguen perteneciendo a UD2_B2.</p><div class="exercise-block"><h3>Ampliación 1: mostrar el número de destacados</h3><p>Crea una constante:</p><div class="example-block"><pre class="code-js"><code class="language-js">const numeroDestacados = lugares.filter(
+  (lugar) =&gt; lugar.destacado
+).length;
+</code></pre></div><p>Modifica el resumen para que muestre:</p><div class="example-block"><pre class="code-bash"><code class="language-text">La galería contiene 4 lugares. Hay 2 destacados.
+</code></pre></div><p>Para que el resumen funcione también con listas filtradas, puedes calcular los destacados dentro de <code>renderizarGaleria()</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">const numeroDestacados = listaLugares.filter(
+  (lugar) =&gt; lugar.destacado
+).length;
+
+totalElementos.textContent =
+  `La galería contiene ${listaLugares.length} lugares. ` +
+  `Hay ${numeroDestacados} destacados.`;
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ampliación 2: añadir una propiedad nueva</h3><p>Añade a cada objeto una propiedad <code>duracionRecomendada</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">duracionRecomendada: "1 día"
+</code></pre></div><p>Después muestra ese dato dentro de cada tarjeta.</p><p>Esta propiedad evita simplificar información geográfica y permite seguir practicando la lectura de propiedades de un objeto.</p><hr/></div><div class="exercise-block"><h3>Ampliación 3: generar una lista de categorías</h3><p>Crea un array con las categorías de los lugares mediante <code>map()</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">const categorias = lugares.map((lugar) =&gt; lugar.categoria);
+console.log(categorias);
+</code></pre></div><p><code>map()</code> devuelve un nuevo array con el resultado de transformar cada elemento.</p><p>En esta ampliación no es obligatorio mostrar las categorías en el DOM. Puedes dejarlas visibles en la consola.</p><hr/></div></section>
+<section class="content-section" id="20-errores-frecuentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 20. Errores frecuentes</h2><div class="error-card"><h3>Error 1: seleccionar mal el contenedor</h3><div class="example-block"><pre class="code-js"><code class="language-js">const galeria = document.querySelector("galeria");
+</code></pre></div><p>Falta <code>#</code> porque <code>galeria</code> es un <code>id</code>.</p><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">const galeria = document.querySelector("#galeria");
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 2: usar <code>append()</code> sobre un elemento inexistente</h3><div class="example-block"><pre class="code-js"><code class="language-js">const galeria = document.querySelector("#contenedor-galeria");
+galeria.append(tarjeta);
+</code></pre></div><p>Si no existe ningún elemento con ese <code>id</code>, <code>galeria</code> será <code>null</code> y el código fallará.</p><hr/></div><div class="error-card"><h3>Error 3: olvidar devolver la tarjeta en la función</h3><div class="example-block"><pre class="code-js"><code class="language-js">function crearTarjetaLugar(lugar) {
+  const tarjeta = document.createElement("article");
+  // Falta return
+}
+</code></pre></div><p>La función debe devolver la tarjeta creada:</p><div class="example-block"><pre class="code-js"><code class="language-js">return tarjeta;
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 4: escribir HTML donde basta texto</h3><p>Para textos normales es preferible:</p><div class="example-block"><pre class="code-js"><code class="language-js">titulo.textContent = lugar.nombre;
+</code></pre></div><p>No es necesario usar <code>innerHTML</code> para escribir un título simple.</p><hr/></div><div class="error-card"><h3>Error 5: conservar código temporal</h3><p>Si mantienes la creación manual de la primera tarjeta, el recorrido con <code>forEach()</code> y la función <code>renderizarGaleria()</code>, estarás repitiendo el mismo proceso varias veces.</p><p>Debes sustituir cada bloque temporal cuando el documento lo indique.</p><hr/></div><div class="error-card"><h3>Error 6: ruta incorrecta de una imagen</h3><div class="example-block"><pre class="code-js"><code class="language-js">imagen: "imagenes/santiago.jpg"
+</code></pre></div><p>Si la carpeta se llama <code>img</code>, la ruta será incorrecta.</p><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">imagen: "img/santiago.jpg"
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 7: texto alternativo que no describe la imagen</h3><div class="example-block"><pre class="code-js"><code class="language-js">textoAlternativo: "Santiago"
+</code></pre></div><p>Es preferible una descripción más precisa:</p><div class="example-block"><pre class="code-js"><code class="language-js">textoAlternativo:
+  "Fachada de la catedral de Santiago de Compostela"
+</code></pre></div><hr/></div></section>
+<section class="content-section delivery-section" id="21-entrega"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> 21. Entrega</h2><p>Entrega una carpeta comprimida con:</p><div class="example-block"><pre class="code-bash"><code class="language-text">index.html
+css/estilos.css
+js/app.js
+img/
+</code></pre></div><p>La página debe cumplir estos requisitos mínimos:</p><ul class="custom-list">
+<li>se abre correctamente en el navegador;</li>
+<li>no muestra errores en consola;</li>
+<li>genera las tarjetas desde JavaScript;</li>
+<li>usa <code>createElement</code> para construir elementos;</li>
+<li>usa <code>textContent</code> para escribir textos;</li>
+<li>usa <code>setAttribute</code> para asignar la imagen y el texto alternativo;</li>
+<li>usa <code>classList.add()</code> para aplicar clases;</li>
+<li>usa <code>append()</code> para insertar elementos;</li>
+<li>usa <code>remove()</code> para eliminar el mensaje inicial;</li>
+<li>renderiza todos los objetos del array;</li>
+<li>gestiona correctamente una lista vacía;</li>
+<li>mantiene separados HTML, CSS y JavaScript;</li>
+<li>utiliza imágenes cuyas rutas y textos alternativos sean coherentes.</li>
+</ul><hr/></section>
+<section class="content-section final-checklist-section" id="22-lista-de-comprobacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> 22. Lista de comprobación</h2><p>Antes de entregar, revisa:</p><ul class="checklist-list">
+<li class="task-list-item"><span class="check-marker">[ ]</span> La estructura de carpetas es correcta.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> El archivo CSS está enlazado correctamente.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> El archivo JS está enlazado correctamente.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> Las rutas de las imágenes son correctas.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> La galería se genera desde JavaScript.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> Hay al menos cuatro objetos en el array.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> Cada tarjeta muestra imagen, título, descripción, localización y categoría.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> Las tarjetas destacadas tienen una clase adicional.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> El resumen muestra el número correcto de elementos.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> La lista vacía muestra un mensaje adecuado.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> El código temporal ha sido retirado.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> No hay errores en consola.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> El código está ordenado y sangrado.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> Los nombres de variables son claros.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span> Los textos alternativos describen correctamente las imágenes.</li>
+</ul><hr/></section>
+<section class="content-section rubric-section" id="23-rubrica-orientativa"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard-data"></i></span> 23. Rúbrica orientativa</h2><div class="compact-table-container"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estructura correcta de archivos e imágenes</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Selección correcta de elementos del DOM</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Creación de elementos con <code>createElement</code></td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>Uso correcto de <code>textContent</code>, <code>setAttribute</code>, <code>classList</code>, <code>append</code> y <code>remove</code></td>
+<td>25 %</td>
+</tr>
+<tr>
+<td>Renderizado correcto desde el array y gestión de la lista vacía</td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>Claridad, orden, accesibilidad básica y ausencia de errores en consola</td>
+<td>10 %</td>
+</tr>
+</tbody>
+</table></div><hr/></section>
+<section class="content-section restrictions-section" id="24-contenidos-que-se-trabajaran-mas-adelante"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-slash-circle"></i></span> 24. Contenidos que se trabajarán más adelante</h2><p>Esta práctica no incluye todavía:</p><ul class="custom-list">
+<li>eventos con <code>addEventListener</code>;</li>
+<li>botones interactivos;</li>
+<li>formularios;</li>
+<li>validación;</li>
+<li>almacenamiento en navegador;</li>
+<li><code>fetch</code>;</li>
+<li>promesas;</li>
+<li><code>async</code>/<code>await</code>;</li>
+<li>datos externos obtenidos desde APIs.</li>
+</ul><p>Estos contenidos se trabajarán en los bloques UD2_B3 y UD2_B4.</p></section>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

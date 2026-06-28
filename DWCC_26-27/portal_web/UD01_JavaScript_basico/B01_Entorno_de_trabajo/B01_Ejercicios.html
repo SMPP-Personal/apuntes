@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B01 · Ejercicios: introducción y entorno de trabajo con JavaScript</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+  <script src="../../assets/js/smpp.js" defer></script>
+</head>
+<body>
+  <div class="smpp-scope">
+    <main class="main-content has-sidebar exercises-page">
+      <div class="content-layout">
+        <aside class="section-sidebar" aria-label="Índice del documento">
+          <nav class="section-nav" aria-label="Secciones del documento">
+            <p class="section-nav-title"><i class="bi bi-list-task" aria-hidden="true"></i> Índice de actividades</p>
+            <ol class="section-nav-list">
+              <li><a class="section-nav-link badge-link" href="#introduccion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-journal-text"></i></span> Introducción</a></li>
+              <li><a class="section-nav-link badge-link" href="#objetivos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> Objetivos</a></li>
+              <li><a class="section-nav-link badge-link" href="#1-actividad-1-primer-contacto-con-la-consola-y-script-js"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-terminal"></i></span> 1. Actividad 1 – Primer contacto con la consola y <code>script.js</code></a></li>
+              <li><a class="section-nav-link badge-link" href="#2-actividad-2-identificacion-de-errores-usando-la-consola"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> 2. Actividad 2 – Identificación de errores usando la consola</a></li>
+              <li><a class="section-nav-link badge-link" href="#3-actividad-3-mini-ficha-de-practicas-en-consola"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> 3. Actividad 3 – Mini‑ficha de prácticas en consola</a></li>
+              <li><a class="section-nav-link badge-link" href="#4-actividad-4-cuestionario-corto-test-de-bloque-1"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-ui-checks-grid"></i></span> 4. Actividad 4 – Cuestionario corto / test de Bloque 1</a></li>
+              <li><a class="section-nav-link badge-link" href="#5-actividad-5-pequena-practica-integradora-del-bloque-1"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-window-stack"></i></span> 5. Actividad 5 – Pequeña práctica integradora del Bloque 1</a></li>
+              <li><a class="section-nav-link badge-link" href="#resumen"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-flag"></i></span> Resumen</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <div class="content-wrapper">
+          <header class="content-header">
+            <div class="document-toolbar">
+              <a class="document-home-link" href="../../index.html">
+                <i class="bi bi-house-door" aria-hidden="true"></i>
+                Índice del curso
+              </a>
+               <button id="theme-toggle" class="document-theme-toggle" type="button">
+    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+    Modo oscuro
+  </button>
+            </div>
+            <h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-terminal"></i></span> Actividades Bloque 1. Introducción y entorno de trabajo con JavaScript</h1>
+          </header>
+
+          <section id="introduccion" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-journal-text"></i></span> Introducción</h2>
+<p>En este documento se recogen una serie de <strong>actividades prácticas</strong> para el Bloque 1 del módulo <strong>DWCC</strong>. Su objetivo es que el alumnado se familiarice con la <strong>consola del navegador</strong>, el uso de <strong>archivos JavaScript enlazados a HTML</strong>, la interpretación de errores básicos y la organización mínima de un pequeño proyecto.</p>
+<p>Estas actividades están pensadas para reforzar el <strong>RA2</strong> del currículo oficial: sentencias simples en JavaScript, sintaxis, prueba y depuración básica del código.</p>
+</section>
+
+          <section id="objetivos" class="content-section featured-section requirements-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> Objetivos</h2>
+<p>Al finalizar las actividades de este bloque, el alumnado debería ser capaz de:</p>
+<ul class="custom-list"><li>Crear una estructura mínima de proyecto con HTML y un archivo <code>script.js</code> enlazado.</li><li>Usar la <strong>consola del navegador</strong> para ejecutar y comprobar código JavaScript.</li><li>Interpretar los mensajes de error básicos que aparecen en la consola.</li><li>Utilizar <code>console.log</code> de forma sistemática para depurar.</li><li>Trabajar con variables simples, concatenaciones, tipos de datos y operaciones básicas.</li><li>Responder a un cuestionario corto sobre conceptos de entorno y ejecución de JavaScript.</li><li>Realizar una pequeña práctica integradora que combine HTML, JavaScript y consola.</li></ul>
+<div class="note-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-info-circle"></i></span><p>Nota: Puedes adaptar la dificultad y el ritmo de estas actividades según el grupo, haciendo algunas de ellas obligatorias y dejando otras como ampliación o refuerzo.</p></div>
+</section>
+
+          <section id="1-actividad-1-primer-contacto-con-la-consola-y-script-js" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-terminal"></i></span> 1. Actividad 1 – Primer contacto con la consola y <code>script.js</code></h2>
+<div class="exercise-block">
+<p><strong>Objetivo:</strong> Que el alumnado use la consola del navegador y un archivo <code>.js</code> enlazado a un HTML mínimo.</p>
+<p><strong>Enunciado orientativo:</strong></p>
+<ol class="custom-ordered-list">
+<li>Crea una carpeta llamada <code>ud1-bloque1-ej1</code>.</li>
+<li>Dentro, crea un archivo <code>index.html</code> con un título “Pruebas JavaScript UD1”.</li>
+<li>Crea un archivo <code>script.js</code> y enlázalo desde el HTML con la etiqueta de script antes de <code>&lt;/body&gt;</code>:
+<div class="example-block"><pre class="code-html"><code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code></pre></div>
+</li>
+<li>En <code>script.js</code>, escribe el siguiente código y guarda el archivo:
+<div class="example-block"><pre class="code-js"><code>console.log(&quot;Bienvenido a JavaScript en DWCC&quot;);
+console.log(&quot;Este mensaje se muestra en la consola del navegador&quot;);</code></pre></div>
+</li>
+<li>Abre <code>index.html</code> en el navegador, abre las herramientas de desarrollador y la pestaña <strong>Consola</strong>. Comprueba que aparecen los mensajes.</li>
+</ol>
+<div class="good-practice-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-check2-circle"></i></span><p>Buena práctica: Coloca siempre la etiqueta <code>&lt;script src=&quot;...&quot;&gt;&lt;/script&gt;</code> al final del <code>&lt;body&gt;</code> en estos ejemplos iniciales para asegurarte de que el HTML se ha cargado antes de ejecutar el JavaScript.</p></div>
+</div>
+<p><strong>Variantes / rúbrica simple (para RA2):</strong></p>
+<ul class="custom-list"><li>0: No funciona o no se ha enlazado el script.</li><li>1: Script enlazado pero no se usa <code>console.log</code> correctamente.</li><li>2: Script enlazado y muestra al menos dos mensajes bien formateados en la consola.</li></ul>
+<div class="note-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-info-circle"></i></span><p>Nota: Puedes pedir al alumnado que modifique los mensajes para personalizarlos (por ejemplo, incluyendo su nombre o el ciclo que cursan).</p></div>
+</section>
+
+          <section id="2-actividad-2-identificacion-de-errores-usando-la-consola" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 2. Actividad 2 – Identificación de errores usando la consola</h2>
+<div class="exercise-block">
+<p><strong>Objetivo:</strong> Empezar a usar la consola como herramienta de depuración.</p>
+<p><strong>Enunciado orientativo:</strong></p>
+<p>Dado este código en <code>script.js</code>:</p>
+<div class="example-block"><pre class="code-js"><code>console.log(&quot;Inicio del ejercicio&quot;);
+let numero = 10
+console.log(&quot;El número es: &quot; numero);
+console.log(&quot;Fin del ejercicio&quot;);</code></pre></div>
+<ol class="custom-ordered-list"><li>Copia el código en tu proyecto y abre la consola.</li><li>Observa qué error aparece en la consola e intenta interpretarlo.</li><li>Corrige el código para que funcione correctamente.</li><li>Añade un cuarto <code>console.log</code> que muestre el doble de <code>numero</code>.</li></ol>
+<div class="error-card"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-bug"></i></span><p>Error común: Pensar que el problema es solo “falta un punto y coma”. En este caso, el error principal está en la concatenación de la cadena y la variable sin usar ningún operador.</p></div>
+<div class="good-practice-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-check2-circle"></i></span><p>Buena práctica: Lee siempre el mensaje de error completo (tipo de error, línea, columna) antes de empezar a tocar código al azar.</p></div>
+</div>
+<p><strong>Puntos clave a trabajar:</strong></p>
+<ul class="custom-list"><li>Entender que la falta de punto y coma no siempre es el problema principal.</li><li>Detectar el error real en la concatenación: falta el operador <code>+</code>.</li><li>Interpretar el mensaje de error (línea, tipo de error) que da la consola.</li><li>Comprobar el resultado final una vez corregido el código.</li></ul>
+</section>
+
+          <section id="3-actividad-3-mini-ficha-de-practicas-en-consola" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> 3. Actividad 3 – Mini‑ficha de prácticas en consola</h2>
+<div class="exercise-block">
+<p><strong>Objetivo:</strong> Practicar consola y primeras sentencias simples sin entrar aún en estructuras de control complejas.</p>
+<p><strong>Formato sugerido:</strong> Hoja de ejercicios cortos donde el alumnado debe ir ejecutando en consola y anotando resultados.</p>
+<ol class="custom-ordered-list">
+<li>Escribe en la consola:
+<div class="example-block"><pre class="code-js"><code>console.log(&quot;Mi nombre es&quot;, &quot;Ana&quot;);</code></pre></div>
+<ul class="custom-list"><li>¿Qué se muestra exactamente en la consola?</li></ul></li>
+<li>Declara una variable <code>curso</code> con el valor <code>"DWCC"</code> y muestra por consola el mensaje <code>"Estoy cursando DWCC"</code>, usando la variable.
+<ul class="custom-list"><li>Pista: Puedes combinar texto fijo y la variable en el mismo <code>console.log</code>.</li></ul></li>
+<li>Declara dos variables <code>a</code> y <code>b</code> con valores numéricos y muestra por consola:<ul class="custom-list"><li>La suma.</li><li>La resta.</li><li>El producto.</li></ul></li>
+<li>Escribe el siguiente código en la consola:
+<div class="example-block"><pre class="code-js"><code>let x = &quot;10&quot;;
+let y = 2;
+console.log(x + y);
+console.log(Number(x) + y);</code></pre></div>
+<ul class="custom-list"><li>Anota la diferencia entre ambos resultados.</li></ul></li>
+<li>Usa <code>typeof</code> en al menos tres valores diferentes (<code>42</code>, <code>&quot;hola&quot;</code>, <code>true</code>) y escribe qué devuelve la consola.</li>
+</ol>
+<div class="note-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-info-circle"></i></span><p>Nota: Esta ficha se puede hacer en parejas, pidiendo que comparen y comenten las respuestas antes de la puesta en común.</p></div>
+<div class="good-practice-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-check2-circle"></i></span><p>Buena práctica: Cuando no entiendas por qué JavaScript devuelve un resultado concreto, prueba a usar <code>typeof</code> para ver de qué tipo son los valores que estás usando.</p></div>
+</div>
+</section>
+
+          <section id="4-actividad-4-cuestionario-corto-test-de-bloque-1" class="content-section featured-section exam-questions-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-ui-checks-grid"></i></span> 4. Actividad 4 – Cuestionario corto / test de Bloque 1</h2>
+<p><strong>Objetivo:</strong> Verificar comprensión básica de conceptos de entorno y ejecución.</p>
+<p>Algunos <strong>ejemplos de preguntas tipo test</strong> (puedes adaptarlas o ampliarlas):</p>
+<div class="exercise-block">
+<ol class="custom-ordered-list">
+<li>
+<p>¿Dónde se ejecuta el JavaScript del módulo DWCC en esta unidad?</p>
+<ul class="custom-list"><li>a) En el servidor web</li><li>b) En el navegador del usuario</li><li>c) En la base de datos</li><li>d) En el sistema operativo directamente</li></ul>
+</li>
+<li>
+<p>¿Qué herramienta del navegador usamos para ver mensajes de <code>console.log</code> y errores?</p>
+<ul class="custom-list"><li>a) Inspector de red</li><li>b) Panel de almacenamiento</li><li>c) Consola de desarrollador</li><li>d) Administrador de tareas</li></ul>
+</li>
+<li>
+<p>¿Cuál de las siguientes opciones es la forma correcta de enlazar un archivo <code>script.js</code> al HTML?</p>
+<ul class="custom-list"><li>a) <code>&lt;js href=&quot;script.js&quot;&gt;&lt;/js&gt;</code></li><li>b) <code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code></li><li>c) <code>&lt;link rel=&quot;script&quot; href=&quot;script.js&quot;&gt;</code></li><li>d) <code>&lt;script link=&quot;script.js&quot;&gt;&lt;/script&gt;</code></li></ul>
+</li>
+<li>
+<p>¿Cuál de estas instrucciones mostrará un mensaje en la consola del navegador?</p>
+<ul class="custom-list"><li>a) <code>console.print(&quot;Hola&quot;);</code></li><li>b) <code>log.console(&quot;Hola&quot;);</code></li><li>c) <code>console.log(&quot;Hola&quot;);</code></li><li>d) <code>alert.console(&quot;Hola&quot;);</code></li></ul>
+</li>
+<li>
+<p>¿Qué afirmación es correcta sobre <code>console.log</code>?</p>
+<ul class="custom-list"><li>a) Sirve para modificar el contenido del HTML.</li><li>b) Sirve para mostrar mensajes en la consola, útil para depuración.</li><li>c) Sirve para guardar datos en una base de datos.</li><li>d) Sirve para cambiar el estilo CSS.</li></ul>
+</li>
+</ol>
+</div>
+<div class="note-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-info-circle"></i></span><p>Nota: Puedes pasar este cuestionario en papel, en un formulario online o integrarlo en una plataforma tipo Moodle / Aula Virtual.</p></div>
+<div class="good-practice-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-check2-circle"></i></span><p>Buena práctica: Tras corregir el cuestionario, revisa con el grupo las preguntas que hayan fallado más y enlázalas con ejemplos en consola.</p></div>
+</section>
+
+          <section id="5-actividad-5-pequena-practica-integradora-del-bloque-1" class="content-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window-stack"></i></span> 5. Actividad 5 – Pequeña práctica integradora del Bloque 1</h2>
+<div class="exercise-block">
+<p><strong>Objetivo:</strong> Que el alumnado combine HTML mínimo + JavaScript + consola en una práctica sencilla.</p>
+<p><strong>Enunciado orientativo:</strong></p>
+<p>Crea una práctica llamada <code>presentacion-js</code> con:</p>
+<ol class="custom-ordered-list">
+<li>Un archivo <code>index.html</code> que muestre un título “Presentación con JavaScript”.</li>
+<li>Un archivo <code>presentacion.js</code> enlazado desde el HTML.</li>
+<li>En <code>presentacion.js</code>, escribe código que:<ul class="custom-list"><li>Declare variables con tu nombre, apellidos y el ciclo que cursas.</li><li>Use <code>console.log</code> para mostrar una presentación con varias líneas, por ejemplo:</li><li><code>&quot;Hola, me llamo ...&quot;</code></li><li><code>&quot;Estoy estudiando ...&quot;</code></li><li>Calcule tu edad aproximada a partir de tu año de nacimiento (variable fija) y la muestre en consola.</li></ul></li>
+<li>Abre la página en el navegador y comprueba en la consola que toda la información se muestra correctamente.</li>
+</ol>
+<div class="good-practice-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-check2-circle"></i></span><p>Buena práctica: Empieza siempre calculando valores en variables (por ejemplo, <code>edad</code>) y luego muestra esas variables con <code>console.log</code>, en lugar de meter todos los cálculos directamente dentro del <code>console.log</code>.</p></div>
+<div class="note-box"><span aria-hidden="true" class="semantic-box-icon"><i class="bi bi-info-circle"></i></span><p>Nota: Esta práctica se puede utilizar como mini‑presentación del alumnado en las primeras sesiones, combinando presentación personal y práctica de consola.</p></div>
+</div>
+</section>
+
+          <section id="resumen" class="content-section featured-section summary-section">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-flag"></i></span> Resumen</h2>
+<p>En esta hoja de actividades del Bloque 1 se trabaja de manera progresiva:</p>
+<ul class="custom-list"><li>El uso de la <strong>consola del navegador</strong> y el enlace de un archivo <code>script.js</code> a un HTML mínimo.</li><li>La <strong>interpretación de errores</strong> a través de ejemplos donde el código está mal a propósito.</li><li>La práctica de <strong>variables, concatenación y tipos de datos</strong> en la consola.</li><li>La comprobación de conceptos clave mediante un <strong>cuestionario corto</strong>.</li><li>Una <strong>práctica integradora</strong> que combina HTML, JavaScript y consola para crear una pequeña presentación personal.</li></ul>
+<p>Estas actividades refuerzan los contenidos teóricos del bloque y ayudan al alumnado a adquirir hábitos de trabajo que serán fundamentales en unidades posteriores y en el uso de librerías como React.</p>
+</section>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

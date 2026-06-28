@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>UD2_B3 · Ejercicios: formularios y validación</title><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/><link href="../../assets/css/smpp.css" rel="stylesheet"/></head><body><div class="smpp-scope"><main class="main-content has-sidebar exercises-page"><div class="content-layout"><aside aria-label="Índice del documento" class="section-sidebar"><nav aria-label="Secciones del documento" class="section-nav"><p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-task"></i> Índice de ejercicios</p><ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-objetivo-de-la-hoja"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</a></li><li><a class="section-nav-link badge-link" href="#2-como-se-desarrollara-la-hoja"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-diagram-3"></i></span> 2. Cómo se desarrollará la hoja</a></li><li><a class="section-nav-link badge-link" href="#3-instrucciones-generales"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-list-check"></i></span> 3. Instrucciones generales</a></li><li><a class="section-nav-link badge-link" href="#4-codigo-base-recomendado"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-file-earmark-code"></i></span> 4. Código base recomendado</a></li><li><a class="section-nav-link badge-link" href="#5-parte-1-capturar-el-envio-y-leer-valores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-send-check"></i></span> 5. Parte 1. Capturar el envío y leer valores</a></li><li><a class="section-nav-link badge-link" href="#6-parte-2-validar-campos-obligatorios"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-ui-checks"></i></span> 6. Parte 2. Validar campos obligatorios</a></li><li><a class="section-nav-link badge-link" href="#7-parte-3-validar-numeros"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-calculator"></i></span> 7. Parte 3. Validar números</a></li><li><a class="section-nav-link badge-link" href="#8-parte-4-validar-texto-correo-y-telefono"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-input-cursor-text"></i></span> 8. Parte 4. Validar texto, correo y teléfono</a></li><li><a class="section-nav-link badge-link" href="#9-parte-5-validacion-en-tiempo-real-y-estado-del-boton"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-lightning-charge"></i></span> 9. Parte 5. Validación en tiempo real y estado del botón</a></li><li><a class="section-nav-link badge-link" href="#10-parte-6-mostrar-un-resumen-y-limpiar-el-formulario"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-card-text"></i></span> 10. Parte 6. Mostrar un resumen y limpiar el formulario</a></li><li><a class="section-nav-link badge-link" href="#11-parte-7-organizar-el-codigo-en-funciones"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-braces-asterisk"></i></span> 11. Parte 7. Organizar el código en funciones</a></li><li><a class="section-nav-link badge-link" href="#12-parte-8-corrige-los-errores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> 12. Parte 8. Corrige los errores</a></li><li><a class="section-nav-link badge-link" href="#13-parte-9-mini-entrega-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-clipboard2-check"></i></span> 13. Parte 9. Mini-entrega final</a></li><li><a class="section-nav-link badge-link" href="#14-entrega"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-box-arrow-up"></i></span> 14. Entrega</a></li><li><a class="section-nav-link badge-link" href="#15-lista-de-comprobacion-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-square"></i></span> 15. Lista de comprobación final</a></li><li><a class="section-nav-link badge-link" href="#16-rubrica-orientativa"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-clipboard-data"></i></span> 16. Rúbrica orientativa</a></li><li><a class="section-nav-link badge-link" href="#17-contenidos-que-quedan-para-otros-documentos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-slash-circle"></i></span> 17. Contenidos que quedan para otros documentos</a></li></ol></nav></aside><div class="content-wrapper"><header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-journal-check"></i></span> UD2_B3. Ejercicios: formularios y validación</h1></header><hr class="content-separator"/><section class="content-section" id="1-objetivo-de-la-hoja"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</h2>
+<p>En esta hoja vas a practicar la interacción con formularios HTML desde JavaScript.</p>
+<p>El objetivo principal es que seas capaz de:</p>
+<ul class="custom-list">
+<li>capturar el envío de un formulario;</li>
+<li>evitar el comportamiento automático del navegador con <code>preventDefault()</code>;</li>
+<li>leer valores escritos por el usuario;</li>
+<li>validar datos antes de aceptarlos;</li>
+<li>mostrar mensajes de error y confirmación;</li>
+<li>modificar clases CSS desde JavaScript;</li>
+<li>activar o desactivar botones según el estado del formulario;</li>
+<li>usar expresiones regulares sencillas en validaciones básicas;</li>
+<li>organizar la validación en funciones reutilizables;</li>
+<li>mostrar datos en el DOM de forma segura;</li>
+<li>mantener una aplicación sin errores ni interferencias entre ejercicios.</li>
+</ul>
+<blockquote class="note-box">
+<p>En esta hoja <strong>no</strong> trabajaremos todavía <code>fetch</code>, APIs externas, promesas ni <code>async</code>/<code>await</code>. Eso quedará para el bloque de asincronía.</p>
+</blockquote>
+<hr/>
+</section><section class="content-section" id="2-como-se-desarrollara-la-hoja"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 2. Cómo se desarrollará la hoja</h2>
+<h3>2.1. Carácter acumulativo</h3>
+<p>Los ejercicios 1 a 15 se realizan de forma <strong>acumulativa</strong> sobre el mismo formulario y el mismo proyecto.</p>
+<p>Esto significa que:</p>
+<ul class="custom-list">
+<li>no debes borrar el código de los ejercicios anteriores;</li>
+<li>cada ejercicio amplía o mejora el anterior;</li>
+<li>las funciones de validación deben reutilizarse;</li>
+<li>el formulario debe seguir funcionando al llegar a los ejercicios posteriores;</li>
+<li>no debes comentar código válido para poder probar otro ejercicio.</li>
+</ul>
+<p>Los ejercicios 16 a 19 son fragmentos independientes para corregir errores.</p>
+<p>El ejercicio 20 es una mini-entrega final. Puedes reutilizar y reorganizar el código desarrollado en los ejercicios anteriores.</p>
+<h3>2.2. Campos obligatorios por fases</h3>
+<p>Durante los ejercicios 1 a 6 se trabajará con:</p>
+<ul class="custom-list">
+<li>nombre;</li>
+<li>correo;</li>
+<li>edad;</li>
+<li>modalidad;</li>
+<li>aceptación de condiciones.</li>
+</ul>
+<p>En el ejercicio 7 se añade:</p>
+<ul class="custom-list">
+<li>precio de matrícula.</li>
+</ul>
+<p>En el ejercicio 10 se añade:</p>
+<ul class="custom-list">
+<li>teléfono.</li>
+</ul>
+<p>A partir de ese momento, precio y teléfono también deben considerarse al validar el formulario completo, salvo que la profesora indique expresamente que son opcionales.</p>
+<hr/>
+</section><section class="content-section" id="3-instrucciones-generales"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-list-check"></i></span> 3. Instrucciones generales</h2>
+<ol class="custom-ordered-list">
+<li>Crea una carpeta llamada <code>UD2_B3_formularios_validacion</code>.</li>
+<li>Dentro de ella crea, como mínimo, estos archivos:</li>
+</ol>
+<div class="example-block"><pre class="code-bash"><code>UD2_B3_formularios_validacion/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── app.js
+</code></pre></div>
+<ol class="custom-ordered-list" start="3">
+<li>Enlaza correctamente el archivo JavaScript desde el HTML:</li>
+</ol>
+<div class="example-block"><pre class="code-html"><code>&lt;script src="js/app.js" defer&gt;&lt;/script&gt;
+</code></pre></div>
+<ol class="custom-ordered-list" start="4">
+<li>Usa <code>addEventListener()</code>, no atributos HTML como <code>onclick</code>, <code>onsubmit</code>, etc.</li>
+<li>No uses <code>alert()</code> como forma principal de mostrar resultados. Usa elementos del DOM.</li>
+<li>Comenta las partes importantes del código.</li>
+<li>Comprueba la consola del navegador para detectar errores.</li>
+<li>Usa identificadores <code>id</code> únicos.</li>
+<li>Utiliza <code>classList</code> para añadir y quitar clases.</li>
+<li>Usa <code>textContent</code>, <code>createElement()</code> y <code>append()</code> para mostrar datos introducidos por el usuario.</li>
+<li>No uses <code>innerHTML</code> con datos procedentes de campos de formulario.</li>
+<li>Mantén separados HTML, CSS y JavaScript.</li>
+<li>No dependas únicamente de que el botón esté desactivado: valida de nuevo dentro del evento <code>submit</code>.</li>
+</ol>
+<hr/>
+</section><section class="content-section" id="4-codigo-base-recomendado"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-file-earmark-code"></i></span> 4. Código base recomendado</h2>
+<h3>4.1. HTML inicial</h3>
+<p>Puedes partir de este HTML e ir ampliándolo en los ejercicios.</p>
+<div class="example-block"><pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;UD2_B3 - Formularios y validación&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/estilos.css"&gt;
+  &lt;script src="js/app.js" defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main&gt;
+    &lt;h1&gt;Formulario de práctica&lt;/h1&gt;
+
+    &lt;form id="formularioRegistro" novalidate&gt;
+      &lt;div class="campo"&gt;
+        &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+        &lt;input
+          type="text"
+          id="nombre"
+          name="nombre"
+          autocomplete="name"
+        &gt;
+        &lt;p
+          class="error"
+          id="errorNombre"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label for="correo"&gt;Correo electrónico&lt;/label&gt;
+        &lt;input
+          type="email"
+          id="correo"
+          name="correo"
+          autocomplete="email"
+        &gt;
+        &lt;p
+          class="error"
+          id="errorCorreo"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label for="edad"&gt;Edad&lt;/label&gt;
+        &lt;input
+          type="number"
+          id="edad"
+          name="edad"
+          min="16"
+          max="99"
+        &gt;
+        &lt;p
+          class="error"
+          id="errorEdad"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label for="modalidad"&gt;Modalidad&lt;/label&gt;
+        &lt;select id="modalidad" name="modalidad"&gt;
+          &lt;option value=""&gt;Selecciona una opción&lt;/option&gt;
+          &lt;option value="presencial"&gt;Presencial&lt;/option&gt;
+          &lt;option value="distancia"&gt;Distancia&lt;/option&gt;
+          &lt;option value="mixta"&gt;Mixta&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;p
+          class="error"
+          id="errorModalidad"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label&gt;
+          &lt;input
+            type="checkbox"
+            id="aceptaCondiciones"
+            name="aceptaCondiciones"
+          &gt;
+          Acepto las condiciones
+        &lt;/label&gt;
+        &lt;p
+          class="error"
+          id="errorCondiciones"
+          aria-live="polite"
+        &gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;button type="submit" id="botonEnviar"&gt;
+        Enviar
+      &lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;section
+      id="resultado"
+      class="resultado"
+      aria-live="polite"
+    &gt;&lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<h3>4.2. Por qué se usa <code>novalidate</code></h3>
+<p>El formulario inicial contiene:</p>
+<div class="example-block"><pre class="code-html"><code>&lt;form id="formularioRegistro" novalidate&gt;
+</code></pre></div>
+<p><code>novalidate</code> desactiva la validación automática del navegador durante el envío.</p>
+<p>En estos primeros ejercicios se utiliza para que:</p>
+<ul class="custom-list">
+<li>todos los mensajes sean gestionados por JavaScript;</li>
+<li>puedas practicar la validación personalizada;</li>
+<li>se vea con claridad qué comprueba cada función.</li>
+</ul>
+<p>Más adelante puedes retirar <code>novalidate</code> y añadir atributos como:</p>
+<div class="example-block"><pre class="code-html"><code>required
+minlength
+min
+max
+</code></pre></div>
+<p>para comparar la validación HTML integrada con la validación JavaScript.</p>
+<h3>4.3. CSS mínimo recomendado</h3>
+<div class="example-block"><pre class="code-css"><code>body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.campo {
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: #b00020;
+  min-height: 1.2em;
+}
+
+.correcto {
+  border: 2px solid green;
+}
+
+.incorrecto {
+  border: 2px solid #b00020;
+}
+
+.resultado {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+</code></pre></div>
+<p>Los mensajes escritos junto a los campos son importantes porque la validación no debe depender únicamente del color.</p>
+<hr/>
+</section><section class="content-section" id="5-parte-1-capturar-el-envio-y-leer-valores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-send-check"></i></span> 5. Parte 1. Capturar el envío y leer valores</h2>
+<div class="exercise-block"><h3>Ejercicio 1. Evitar el envío automático</h3>
+<ol class="custom-ordered-list">
+<li>Selecciona el formulario con <code>querySelector()</code>.</li>
+<li>Añade un listener al evento <code>submit</code>.</li>
+<li>Recibe el objeto <code>event</code> como parámetro.</li>
+<li>Dentro del callback, usa <code>event.preventDefault()</code>.</li>
+<li>Muestra en consola el mensaje:</li>
+</ol>
+<div class="example-block"><pre class="code-bash"><code>Formulario capturado correctamente
+</code></pre></div>
+<p>Punto de partida:</p>
+<div class="example-block"><pre class="code-js"><code>const formulario = document.querySelector("#formularioRegistro");
+
+formulario.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+
+  console.log("Formulario capturado correctamente");
+});
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 2. Leer los valores del formulario</h3>
+<p>A partir del formulario anterior:</p>
+<ol class="custom-ordered-list">
+<li>Selecciona los campos <code>nombre</code>, <code>correo</code> y <code>edad</code>.</li>
+<li>Al enviar el formulario, muestra en consola:<ul class="custom-list">
+<li>el nombre escrito;</li>
+<li>el correo escrito;</li>
+<li>la edad escrita.</li>
+</ul>
+</li>
+</ol>
+<p>Ejemplo de salida esperada:</p>
+<div class="example-block"><pre class="code-bash"><code>Nombre: Ana
+Correo: ana@correo.com
+Edad: 20
+</code></pre></div>
+<p>Recuerda que los valores de los campos se leen con <code>.value</code>.</p>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code>const inputNombre = document.querySelector("#nombre");
+const inputCorreo = document.querySelector("#correo");
+const inputEdad = document.querySelector("#edad");
+
+console.log("Nombre:", inputNombre.value);
+console.log("Correo:", inputCorreo.value);
+console.log("Edad:", inputEdad.value);
+</code></pre></div>
+<p>Aunque el campo de edad sea <code>type="number"</code>, <code>.value</code> devuelve texto.</p>
+<hr/>
+</div></section><section class="content-section" id="6-parte-2-validar-campos-obligatorios"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-ui-checks"></i></span> 6. Parte 2. Validar campos obligatorios</h2>
+<div class="exercise-block"><h3>Ejercicio 3. Validar que el nombre no esté vacío</h3>
+<ol class="custom-ordered-list">
+<li>Lee el valor del campo <code>nombre</code>.</li>
+<li>Elimina espacios al principio y al final usando <code>.trim()</code>.</li>
+<li>Si el nombre queda vacío, muestra el mensaje:</li>
+</ol>
+<div class="example-block"><pre class="code-bash"><code>El nombre es obligatorio.
+</code></pre></div>
+<ol class="custom-ordered-list" start="4">
+<li>El mensaje debe aparecer en el elemento <code>#errorNombre</code>.</li>
+<li>Si el nombre es correcto, limpia el mensaje de error.</li>
+<li>Coloca el foco en el campo cuando haya error.</li>
+</ol>
+<p>Pista:</p>
+<div class="example-block"><pre class="code-js"><code>const nombre = inputNombre.value.trim();
+
+if (nombre === "") {
+  errorNombre.textContent = "El nombre es obligatorio.";
+  inputNombre.focus();
+} else {
+  errorNombre.textContent = "";
+}
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 4. Añadir y quitar clases según la validación</h3>
+<p>Modifica el ejercicio anterior:</p>
+<ol class="custom-ordered-list">
+<li>Si el nombre está vacío:<ul class="custom-list">
+<li>añade la clase <code>incorrecto</code> al input;</li>
+<li>elimina la clase <code>correcto</code>.</li>
+</ul>
+</li>
+<li>Si el nombre es válido:<ul class="custom-list">
+<li>añade la clase <code>correcto</code>;</li>
+<li>elimina la clase <code>incorrecto</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Usa <code>classList.add()</code> y <code>classList.remove()</code>.</p>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code>inputNombre.classList.remove("correcto");
+inputNombre.classList.add("incorrecto");
+</code></pre></div>
+<p>No permitas que un mismo campo tenga simultáneamente las clases <code>correcto</code> e <code>incorrecto</code>.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 5. Validar varios campos obligatorios</h3>
+<p>Valida también:</p>
+<ul class="custom-list">
+<li><code>correo</code>: no puede estar vacío;</li>
+<li><code>edad</code>: no puede estar vacía;</li>
+<li><code>modalidad</code>: debe tener una opción seleccionada;</li>
+<li><code>aceptaCondiciones</code>: debe estar marcado.</li>
+</ul>
+<p>Para cada campo, muestra el error en su elemento correspondiente:</p>
+<div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Campo</th>
+<th>Elemento de error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nombre</code></td>
+<td><code>#errorNombre</code></td>
+</tr>
+<tr>
+<td><code>correo</code></td>
+<td><code>#errorCorreo</code></td>
+</tr>
+<tr>
+<td><code>edad</code></td>
+<td><code>#errorEdad</code></td>
+</tr>
+<tr>
+<td><code>modalidad</code></td>
+<td><code>#errorModalidad</code></td>
+</tr>
+<tr>
+<td><code>aceptaCondiciones</code></td>
+<td><code>#errorCondiciones</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Para comprobar el checkbox utiliza:</p>
+<div class="example-block"><pre class="code-js"><code>aceptaCondiciones.checked
+</code></pre></div>
+<p>No uses <code>.value</code> para decidir si está marcado.</p>
+<hr/>
+</div></section><section class="content-section" id="7-parte-3-validar-numeros"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-calculator"></i></span> 7. Parte 3. Validar números</h2>
+<div class="exercise-block"><h3>Ejercicio 6. Convertir y validar la edad</h3>
+<ol class="custom-ordered-list">
+<li>Lee la edad como texto.</li>
+<li>Aplica <code>trim()</code>.</li>
+<li>Comprueba primero si está vacía.</li>
+<li>Conviértela a número usando <code>Number()</code>.</li>
+<li>Comprueba si la conversión ha fallado usando <code>Number.isNaN()</code>.</li>
+<li>Comprueba que sea un número entero mediante <code>Number.isInteger()</code>.</li>
+<li>Valida que la edad:<ul class="custom-list">
+<li>sea un número;</li>
+<li>sea entera;</li>
+<li>sea mayor o igual que 16;</li>
+<li>sea menor o igual que 99.</li>
+</ul>
+</li>
+</ol>
+<p>Mensajes posibles:</p>
+<div class="example-block"><pre class="code-bash"><code>La edad es obligatoria.
+La edad debe ser un número.
+La edad debe ser un número entero.
+La edad debe estar entre 16 y 99 años.
+</code></pre></div>
+<p>Orden recomendado:</p>
+<div class="example-block"><pre class="code-js"><code>const edadTexto = inputEdad.value.trim();
+
+if (edadTexto === "") {
+  // La edad es obligatoria
+} else {
+  const edadNumero = Number(edadTexto);
+
+  if (Number.isNaN(edadNumero)) {
+    // No es un número
+  } else if (!Number.isInteger(edadNumero)) {
+    // No es entero
+  } else if (edadNumero &lt; 16 || edadNumero &gt; 99) {
+    // Fuera del rango
+  }
+}
+</code></pre></div>
+<p>No conviertas antes de comprobar el vacío, porque:</p>
+<div class="example-block"><pre class="code-js"><code>Number(""); // 0
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 7. Precio de matrícula con descuento</h3>
+<p>Añade al formulario un campo nuevo:</p>
+<div class="example-block"><pre class="code-html"><code>&lt;div class="campo"&gt;
+  &lt;label for="precio"&gt;Precio de matrícula&lt;/label&gt;
+  &lt;input
+    type="number"
+    id="precio"
+    name="precio"
+    min="0"
+    step="0.01"
+  &gt;
+  &lt;p
+    class="error"
+    id="errorPrecio"
+    aria-live="polite"
+  &gt;&lt;/p&gt;
+&lt;/div&gt;
+</code></pre></div>
+<p>Después:</p>
+<ol class="custom-ordered-list">
+<li>Lee el precio como texto.</li>
+<li>Comprueba que no esté vacío.</li>
+<li>Convierte el valor con <code>Number()</code>.</li>
+<li>Valida que sea un número positivo.</li>
+<li>Si es válido, calcula un descuento del 10 %.</li>
+<li>Muestra el precio final con dos decimales usando <code>.toFixed(2)</code>.</li>
+</ol>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-bash"><code>Precio final con descuento: 90.00 €
+</code></pre></div>
+<p>Recuerda:</p>
+<div class="example-block"><pre class="code-js"><code>toFixed(2)
+</code></pre></div>
+<p>devuelve una cadena de texto.</p>
+<p>También puedes comparar el comportamiento de:</p>
+<div class="example-block"><pre class="code-js"><code>parseFloat("100abc"); // 100
+Number("100abc");     // NaN
+</code></pre></div>
+<p><code>parseFloat()</code> puede aceptar una parte inicial numérica aunque el resto del texto sea incorrecto. Para validar todo el contenido del campo, en este ejercicio se recomienda <code>Number()</code>.</p>
+<hr/>
+</div></section><section class="content-section" id="8-parte-4-validar-texto-correo-y-telefono"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-input-cursor-text"></i></span> 8. Parte 4. Validar texto, correo y teléfono</h2>
+<div class="exercise-block"><h3>Ejercicio 8. Validar longitud mínima del nombre</h3>
+<p>Amplía la validación del nombre:</p>
+<ol class="custom-ordered-list">
+<li>El nombre no puede estar vacío.</li>
+<li>El nombre debe tener al menos 3 caracteres.</li>
+</ol>
+<p>Mensajes posibles:</p>
+<div class="example-block"><pre class="code-bash"><code>El nombre es obligatorio.
+El nombre debe tener al menos 3 caracteres.
+</code></pre></div>
+<p>La longitud debe comprobarse sobre el texto limpio:</p>
+<div class="example-block"><pre class="code-js"><code>const nombre = inputNombre.value.trim();
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 9. Validar correo con una expresión regular sencilla</h3>
+<p>Valida el correo electrónico con una expresión regular básica:</p>
+<div class="example-block"><pre class="code-js"><code>const patronCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+</code></pre></div>
+<ol class="custom-ordered-list">
+<li>Si el campo está vacío, muestra:</li>
+</ol>
+<div class="example-block"><pre class="code-bash"><code>El correo es obligatorio.
+</code></pre></div>
+<ol class="custom-ordered-list" start="2">
+<li>Si no cumple el patrón, muestra:</li>
+</ol>
+<div class="example-block"><pre class="code-bash"><code>El correo no tiene un formato válido.
+</code></pre></div>
+<ol class="custom-ordered-list" start="3">
+<li>Si es correcto, limpia el mensaje de error.</li>
+</ol>
+<p>Pista:</p>
+<div class="example-block"><pre class="code-js"><code>patronCorreo.test(correo)
+</code></pre></div>
+<p>Esta expresión es una aproximación didáctica sencilla. No representa una validación completa de todas las direcciones de correo posibles.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 10. Validar teléfono español básico</h3>
+<p>Añade un campo de teléfono:</p>
+<div class="example-block"><pre class="code-html"><code>&lt;div class="campo"&gt;
+  &lt;label for="telefono"&gt;Teléfono&lt;/label&gt;
+  &lt;input
+    type="tel"
+    id="telefono"
+    name="telefono"
+    autocomplete="tel"
+  &gt;
+  &lt;p
+    class="error"
+    id="errorTelefono"
+    aria-live="polite"
+  &gt;&lt;/p&gt;
+&lt;/div&gt;
+</code></pre></div>
+<p>Valida que:</p>
+<ul class="custom-list">
+<li>no esté vacío;</li>
+<li>tenga exactamente 9 cifras;</li>
+<li>empiece por 6, 7, 8 o 9.</li>
+</ul>
+<p>Puedes usar este patrón:</p>
+<div class="example-block"><pre class="code-js"><code>const patronTelefono = /^[6789]\d{8}$/;
+</code></pre></div>
+<p>Este patrón es una simplificación didáctica para números nacionales de nueve cifras:</p>
+<ul class="custom-list">
+<li>sin espacios;</li>
+<li>sin guiones;</li>
+<li>sin prefijo internacional.</li>
+</ul>
+<hr/>
+</div></section><section class="content-section" id="9-parte-5-validacion-en-tiempo-real-y-estado-del-boton"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-lightning-charge"></i></span> 9. Parte 5. Validación en tiempo real y estado del botón</h2>
+<div class="exercise-block"><h3>Ejercicio 11. Validar mientras se escribe</h3>
+<p>Añade un evento <code>input</code> al campo <code>nombre</code>.</p>
+<ol class="custom-ordered-list">
+<li>Cada vez que el usuario escriba, valida si el nombre tiene al menos 3 caracteres.</li>
+<li>Muestra o elimina el mensaje de error según corresponda.</li>
+<li>Añade o quita las clases <code>correcto</code> e <code>incorrecto</code>.</li>
+<li>Reutiliza la misma función <code>validarNombre()</code> que se usará al enviar.</li>
+</ol>
+<p>Este ejercicio debe funcionar sin esperar al envío del formulario.</p>
+<p>La validación en tiempo real debe ayudar al usuario, no mostrar mensajes agresivos antes de que haya tenido tiempo de escribir.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 12. Activar o desactivar el botón de envío</h3>
+<p>Modifica el formulario para que el botón de envío empiece desactivado:</p>
+<div class="example-block"><pre class="code-html"><code>&lt;button type="submit" id="botonEnviar" disabled&gt;
+  Enviar
+&lt;/button&gt;
+</code></pre></div>
+<p>Después:</p>
+<ol class="custom-ordered-list">
+<li>Añade eventos <code>input</code> o <code>change</code> a los campos principales.</li>
+<li>Comprueba si:<ul class="custom-list">
+<li>el nombre tiene al menos 3 caracteres;</li>
+<li>el correo tiene formato válido;</li>
+<li>la edad es un entero entre 16 y 99;</li>
+<li>se ha seleccionado una modalidad;</li>
+<li>se han aceptado las condiciones;</li>
+<li>el precio es válido y positivo;</li>
+<li>el teléfono cumple el patrón básico.</li>
+</ul>
+</li>
+<li>Si todo es correcto, activa el botón.</li>
+<li>Si falta algo, mantenlo desactivado.</li>
+</ol>
+<p>Pista:</p>
+<div class="example-block"><pre class="code-js"><code>botonEnviar.disabled = !formularioValido;
+</code></pre></div>
+<p>Crea una función:</p>
+<div class="example-block"><pre class="code-js"><code>function actualizarEstadoBoton() {
+  const formularioValido =
+    validarNombre()
+    &amp;&amp; validarCorreo()
+    &amp;&amp; validarEdad()
+    &amp;&amp; validarModalidad()
+    &amp;&amp; validarCondiciones()
+    &amp;&amp; validarPrecio()
+    &amp;&amp; validarTelefono();
+
+  botonEnviar.disabled = !formularioValido;
+}
+</code></pre></div>
+<blockquote class="warning-box">
+<p>Aunque el botón esté desactivado, debes volver a ejecutar <code>validarFormulario()</code> dentro del evento <code>submit</code>.</p>
+</blockquote>
+<hr/>
+</div></section><section class="content-section" id="10-parte-6-mostrar-un-resumen-y-limpiar-el-formulario"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-card-text"></i></span> 10. Parte 6. Mostrar un resumen y limpiar el formulario</h2>
+<div class="exercise-block"><h3>Ejercicio 13. Mostrar confirmación en el DOM</h3>
+<p>Cuando el formulario sea válido:</p>
+<ol class="custom-ordered-list">
+<li>Limpia los mensajes de error.</li>
+<li>Muestra en <code>#resultado</code> un resumen con los datos introducidos:</li>
+</ol>
+<div class="example-block"><pre class="code-bash"><code>Registro realizado correctamente.
+
+Nombre: Ana
+Correo: ana@correo.com
+Edad: 20
+Modalidad: Presencial
+</code></pre></div>
+<ol class="custom-ordered-list" start="3">
+<li>No uses <code>alert()</code>.</li>
+<li>No recargues la página.</li>
+<li>No uses <code>innerHTML</code> con los datos introducidos por el usuario.</li>
+<li>Crea los elementos con <code>createElement()</code>, asigna el texto con <code>textContent</code> e insértalos con <code>append()</code> o <code>replaceChildren()</code>.</li>
+</ol>
+<p>Ejemplo seguro:</p>
+<div class="example-block"><pre class="code-js"><code>const titulo = document.createElement("h2");
+titulo.textContent = "Registro realizado correctamente";
+
+const parrafoNombre = document.createElement("p");
+parrafoNombre.textContent = "Nombre: " + nombre;
+
+const parrafoCorreo = document.createElement("p");
+parrafoCorreo.textContent = "Correo: " + correo;
+
+resultado.replaceChildren(
+  titulo,
+  parrafoNombre,
+  parrafoCorreo
+);
+</code></pre></div>
+<p>Validar un dato no significa que sea seguro interpretarlo como HTML.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 14. Limpiar el formulario tras enviar</h3>
+<p>Después de mostrar el resumen:</p>
+<ol class="custom-ordered-list">
+<li>Limpia los campos con <code>formulario.reset()</code>.</li>
+<li>Elimina las clases <code>correcto</code> e <code>incorrecto</code>.</li>
+<li>Limpia los mensajes de error.</li>
+<li>Desactiva de nuevo el botón de envío.</li>
+<li>Restablece las variables internas necesarias.</li>
+<li>Devuelve el foco al primer campo.</li>
+<li>Mantén visible el resumen final.</li>
+</ol>
+<p>Recuerda que:</p>
+<div class="example-block"><pre class="code-js"><code>formulario.reset();
+</code></pre></div>
+<p>solo restablece los controles del formulario. No elimina automáticamente:</p>
+<ul class="custom-list">
+<li>mensajes;</li>
+<li>clases CSS;</li>
+<li>contenido de <code>#resultado</code>;</li>
+<li>variables JavaScript;</li>
+<li>estado calculado del botón.</li>
+</ul>
+<p>Crea una función:</p>
+<div class="example-block"><pre class="code-js"><code>function limpiarFormulario() {
+  formulario.reset();
+  limpiarErrores();
+  limpiarClasesValidacion();
+  botonEnviar.disabled = true;
+  inputNombre.focus();
+}
+</code></pre></div>
+<hr/>
+</div></section><section class="content-section" id="11-parte-7-organizar-el-codigo-en-funciones"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces-asterisk"></i></span> 11. Parte 7. Organizar el código en funciones</h2>
+<div class="exercise-block"><h3>Ejercicio 15. Crear funciones de validación</h3>
+<p>Reorganiza el código creando funciones como estas:</p>
+<div class="example-block"><pre class="code-js"><code>function validarNombre() {
+  // Actualiza mensaje y clases.
+  // Devuelve true si el nombre es válido.
+}
+
+function validarCorreo() {
+  // Actualiza mensaje y clases.
+  // Devuelve true si el correo es válido.
+}
+
+function validarEdad() {
+  // Actualiza mensaje y clases.
+  // Devuelve true si la edad es válida.
+}
+
+function validarFormulario() {
+  const nombreValido = validarNombre();
+  const correoValido = validarCorreo();
+  const edadValida = validarEdad();
+
+  return nombreValido &amp;&amp; correoValido &amp;&amp; edadValida;
+}
+</code></pre></div>
+<p>Las funciones deben reutilizarse:</p>
+<ul class="custom-list">
+<li>durante la validación en tiempo real;</li>
+<li>al actualizar el estado del botón;</li>
+<li>dentro del evento <code>submit</code>.</li>
+</ul>
+<p>No escribas reglas diferentes para el mismo campo en distintos lugares.</p>
+<p>Una estructura posible:</p>
+<div class="example-block"><pre class="code-js"><code>formulario.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+
+  if (!validarFormulario()) {
+    return;
+  }
+
+  mostrarResumen();
+  limpiarFormulario();
+});
+</code></pre></div>
+<p>El objetivo es evitar que todo el código esté metido directamente dentro del evento <code>submit</code>.</p>
+<hr/>
+</div></section><section class="content-section" id="12-parte-8-corrige-los-errores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 12. Parte 8. Corrige los errores</h2>
+<div class="exercise-block"><h3>Ejercicio 16. Error con <code>preventDefault()</code></h3>
+<p>El siguiente código no evita correctamente que el formulario se envíe:</p>
+<div class="example-block"><pre class="code-js"><code>const formulario = document.querySelector("#formularioRegistro");
+
+formulario.addEventListener("submit", () =&gt; {
+  event.preventDefault();
+  console.log("Enviado");
+});
+</code></pre></div>
+<ol class="custom-ordered-list">
+<li>Localiza el error.</li>
+<li>Corrige el código.</li>
+<li>Explica por qué fallaba.</li>
+<li>No confíes en una posible variable global llamada <code>event</code>.</li>
+</ol>
+<p>Corrección esperada:</p>
+<div class="example-block"><pre class="code-js"><code>formulario.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+  console.log("Enviado");
+});
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 17. Error al leer el valor de un input</h3>
+<div class="example-block"><pre class="code-js"><code>const nombre = document.querySelector("#nombre").textContent;
+console.log(nombre);
+</code></pre></div>
+<ol class="custom-ordered-list">
+<li>Explica por qué no es correcto para un <code>&lt;input&gt;</code>.</li>
+<li>Corrige el código usando la propiedad adecuada.</li>
+</ol>
+<p>Corrección:</p>
+<div class="example-block"><pre class="code-js"><code>const nombre = document.querySelector("#nombre").value;
+console.log(nombre);
+</code></pre></div>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 18. Error al comprobar un checkbox</h3>
+<div class="example-block"><pre class="code-js"><code>const acepta = document.querySelector("#aceptaCondiciones").value;
+
+if (acepta) {
+  console.log("Aceptado");
+}
+</code></pre></div>
+<ol class="custom-ordered-list">
+<li>Explica por qué <code>.value</code> no sirve para saber si el checkbox está marcado.</li>
+<li>Corrige el código usando la propiedad adecuada.</li>
+</ol>
+<p>Corrección:</p>
+<div class="example-block"><pre class="code-js"><code>const acepta =
+  document.querySelector("#aceptaCondiciones").checked;
+
+if (acepta) {
+  console.log("Aceptado");
+}
+</code></pre></div>
+<p>La propiedad <code>.value</code> suele devolver el valor configurado del checkbox, frecuentemente <code>"on"</code>, aunque no esté marcado.</p>
+<hr/>
+</div><div class="exercise-block"><h3>Ejercicio 19. Error con clases CSS</h3>
+<div class="example-block"><pre class="code-js"><code>inputNombre.classList.add("incorrecto");
+inputNombre.classList.add("correcto");
+</code></pre></div>
+<ol class="custom-ordered-list">
+<li>¿Qué problema puede provocar este código?</li>
+<li>Corrígelo para que no tenga las dos clases a la vez.</li>
+</ol>
+<p>Ejemplo:</p>
+<div class="example-block"><pre class="code-js"><code>inputNombre.classList.remove("correcto");
+inputNombre.classList.add("incorrecto");
+</code></pre></div>
+<p>Y para el estado correcto:</p>
+<div class="example-block"><pre class="code-js"><code>inputNombre.classList.remove("incorrecto");
+inputNombre.classList.add("correcto");
+</code></pre></div>
+<hr/>
+</div></section><section class="content-section" id="13-parte-9-mini-entrega-final"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard2-check"></i></span> 13. Parte 9. Mini-entrega final</h2>
+<div class="exercise-block"><h3>Ejercicio 20. Formulario de inscripción a un curso</h3>
+<p>Crea un formulario completo de inscripción a un curso de DWCC.</p>
+<p>Debe incluir:</p>
+<ul class="custom-list">
+<li>nombre;</li>
+<li>apellidos;</li>
+<li>correo electrónico;</li>
+<li>teléfono;</li>
+<li>edad;</li>
+<li>modalidad del curso;</li>
+<li>nivel inicial:<ul class="custom-list">
+<li>básico;</li>
+<li>medio;</li>
+<li>avanzado;</li>
+</ul>
+</li>
+<li>aceptación de condiciones.</li>
+</ul>
+<h3>Requisitos de los campos</h3>
+<div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Campo</th>
+<th>Requisito mínimo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nombre</td>
+<td>Obligatorio y mínimo 3 caracteres</td>
+</tr>
+<tr>
+<td>Apellidos</td>
+<td>Obligatorios y mínimo 3 caracteres</td>
+</tr>
+<tr>
+<td>Correo</td>
+<td>Obligatorio y con formato válido</td>
+</tr>
+<tr>
+<td>Teléfono</td>
+<td>9 cifras y comienza por 6, 7, 8 o 9</td>
+</tr>
+<tr>
+<td>Edad</td>
+<td>Número entero entre 16 y 99</td>
+</tr>
+<tr>
+<td>Modalidad</td>
+<td>Debe seleccionarse una opción</td>
+</tr>
+<tr>
+<td>Nivel</td>
+<td>Debe seleccionarse una opción</td>
+</tr>
+<tr>
+<td>Condiciones</td>
+<td>Deben aceptarse</td>
+</tr>
+</tbody>
+</table></div>
+<p>Para el nivel inicial utiliza un grupo de botones de opción:</p>
+<div class="example-block"><pre class="code-html"><code>&lt;fieldset&gt;
+  &lt;legend&gt;Nivel inicial&lt;/legend&gt;
+
+  &lt;label&gt;
+    &lt;input
+      type="radio"
+      name="nivel"
+      value="basico"
+    &gt;
+    Básico
+  &lt;/label&gt;
+
+  &lt;label&gt;
+    &lt;input
+      type="radio"
+      name="nivel"
+      value="medio"
+    &gt;
+    Medio
+  &lt;/label&gt;
+
+  &lt;label&gt;
+    &lt;input
+      type="radio"
+      name="nivel"
+      value="avanzado"
+    &gt;
+    Avanzado
+  &lt;/label&gt;
+
+  &lt;p
+    class="error"
+    id="errorNivel"
+    aria-live="polite"
+  &gt;&lt;/p&gt;
+&lt;/fieldset&gt;
+</code></pre></div>
+<h3>Requisitos funcionales</h3>
+<p>El formulario debe:</p>
+<ol class="custom-ordered-list">
+<li>Capturar el evento <code>submit</code>.</li>
+<li>Usar <code>preventDefault()</code>.</li>
+<li>Validar todos los campos.</li>
+<li>Mostrar mensajes de error junto a cada campo.</li>
+<li>Aplicar clases CSS de correcto/incorrecto.</li>
+<li>Usar al menos una expresión regular.</li>
+<li>Activar/desactivar el botón de envío según el estado del formulario.</li>
+<li>Volver a validar dentro del evento <code>submit</code>.</li>
+<li>Mostrar un resumen final en el DOM cuando todo sea correcto.</li>
+<li>Construir el resumen con <code>createElement()</code>, <code>textContent</code> y <code>append()</code> o <code>replaceChildren()</code>.</li>
+<li>Organizar la validación en funciones.</li>
+<li>Comentar las partes principales del código.</li>
+<li>Limpiar el formulario después de un envío válido.</li>
+<li>Mantener visible el resumen final.</li>
+<li>No producir errores en consola.</li>
+</ol>
+<hr/>
+</div></section><section class="content-section delivery-section" id="14-entrega"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> 14. Entrega</h2>
+<p>Entrega un archivo comprimido con esta estructura:</p>
+<div class="example-block"><pre class="code-bash"><code>UD2_B3_Formularios_Nombre_Apellidos.zip
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── app.js
+</code></pre></div>
+<h3>Requisitos de la entrega</h3>
+<ul class="custom-list">
+<li>Los ejercicios 1 a 15 deben funcionar de forma acumulativa.</li>
+<li>Los ejercicios 16 a 19 deben aparecer corregidos y explicados en comentarios o en una sección diferenciada del código.</li>
+<li>El ejercicio 20 debe funcionar completamente.</li>
+<li>No debe ser necesario comentar código para probar distintos apartados.</li>
+<li>No debe haber errores en consola.</li>
+<li>Los mensajes de error deben aparecer junto a sus campos.</li>
+<li>El resumen debe generarse sin usar <code>innerHTML</code> con datos del usuario.</li>
+<li>El botón debe activarse y desactivarse correctamente.</li>
+<li>El código debe estar organizado en funciones.</li>
+</ul>
+<h3>Capturas obligatorias</h3>
+<p>Incluye, como mínimo:</p>
+<ol class="custom-ordered-list">
+<li>formulario con varios errores visibles;</li>
+<li>validación en tiempo real del nombre;</li>
+<li>botón desactivado por formulario incompleto;</li>
+<li>botón activado con datos válidos;</li>
+<li>resumen final mostrado en el DOM;</li>
+<li>consola sin errores.</li>
+</ol>
+<hr/>
+</section><section class="content-section final-checklist-section" id="15-lista-de-comprobacion-final"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> 15. Lista de comprobación final</h2>
+<p>Antes de entregar, comprueba:</p>
+<ul class="custom-list checklist-list">
+<li><span class="check-marker">[ ]</span>El formulario no se envía automáticamente.</li>
+<li><span class="check-marker">[ ]</span>Se usa <code>addEventListener()</code>.</li>
+<li><span class="check-marker">[ ]</span>Se usa <code>preventDefault()</code>.</li>
+<li><span class="check-marker">[ ]</span>Los valores de los inputs se leen con <code>.value</code>.</li>
+<li><span class="check-marker">[ ]</span>Los checkboxes se comprueban con <code>.checked</code>.</li>
+<li><span class="check-marker">[ ]</span>Los mensajes de error aparecen junto al campo correspondiente.</li>
+<li><span class="check-marker">[ ]</span>Las clases CSS se aplican y se eliminan correctamente.</li>
+<li><span class="check-marker">[ ]</span>Ningún campo tiene a la vez <code>correcto</code> e <code>incorrecto</code>.</li>
+<li><span class="check-marker">[ ]</span>El botón se activa o desactiva según el estado del formulario.</li>
+<li><span class="check-marker">[ ]</span>El formulario vuelve a validarse al enviarse.</li>
+<li><span class="check-marker">[ ]</span>El código está separado en HTML, CSS y JS.</li>
+<li><span class="check-marker">[ ]</span>No hay errores en la consola.</li>
+<li><span class="check-marker">[ ]</span>El código está ordenado y comentado.</li>
+<li><span class="check-marker">[ ]</span>Las funciones de validación se reutilizan.</li>
+<li><span class="check-marker">[ ]</span>La edad vacía no se interpreta como <code>0</code>.</li>
+<li><span class="check-marker">[ ]</span>El resumen se genera sin <code>innerHTML</code> con datos del usuario.</li>
+<li><span class="check-marker">[ ]</span><code>formulario.reset()</code> se acompaña de la limpieza de clases y mensajes.</li>
+<li><span class="check-marker">[ ]</span>El ejercicio 20 funciona completamente.</li>
+</ul>
+<hr/>
+</section><section class="content-section rubric-section" id="16-rubrica-orientativa"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard-data"></i></span> 16. Rúbrica orientativa</h2>
+<div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Captura de eventos y uso correcto de <code>preventDefault()</code></td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Lectura y tratamiento correcto de valores</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Validación de campos obligatorios y numéricos</td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>Validación con expresiones regulares sencillas</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Mensajes, clases y validación en tiempo real</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Activación del botón y funcionamiento conjunto</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Organización del código en funciones</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Claridad, seguridad y ausencia de errores en consola</td>
+<td>10 %</td>
+</tr>
+</tbody>
+</table></div>
+<p>La rúbrica suma el 100 %.</p>
+<hr/>
+</section><section class="content-section restrictions-section" id="17-contenidos-que-quedan-para-otros-documentos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-slash-circle"></i></span> 17. Contenidos que quedan para otros documentos</h2>
+<p>En esta hoja <strong>no</strong> se trabaja como contenido principal:</p>
+<ul class="custom-list">
+<li>almacenamiento en <code>localStorage</code>;</li>
+<li>envío de datos a un servidor;</li>
+<li><code>fetch</code>;</li>
+<li>promesas;</li>
+<li><code>async</code>/<code>await</code>;</li>
+<li>consumo de APIs;</li>
+<li>validaciones complejas de seguridad;</li>
+<li>librerías externas de validación;</li>
+<li>frameworks.</li>
+</ul>
+<p>Estos contenidos se trabajarán más adelante en el bloque de aplicaciones dinámicas y comunicación asíncrona.</p>
+</section></div></div></main></div><script src="../../assets/js/smpp.js"></script></body></html>

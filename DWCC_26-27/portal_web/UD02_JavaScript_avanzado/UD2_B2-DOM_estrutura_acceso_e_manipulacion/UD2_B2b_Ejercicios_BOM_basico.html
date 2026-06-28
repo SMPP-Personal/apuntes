@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>UD2_B2b &middot; Ejercicios de BOM b&aacute;sico en JavaScript</title><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/><link href="../../assets/css/smpp.css" rel="stylesheet"/></head><body><div class="smpp-scope"><main class="main-content has-sidebar"><div class="content-layout"><aside aria-label="&Iacute;ndice del documento" class="section-sidebar"><nav aria-label="Secciones del documento" class="section-nav"><p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-task"></i> &Iacute;ndice de ejercicios</p><ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-objetivo-de-la-hoja"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</a></li><li><a class="section-nav-link badge-link" href="#2-organizacion-y-preparacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-folder2-open"></i></span> 2. Organizaci&oacute;n y preparaci&oacute;n</a></li><li><a class="section-nav-link badge-link" href="#parte-1-informacion-de-la-ventana-y-de-la-pantalla"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-window"></i></span> Parte 1. Informaci&oacute;n de la ventana y de la pantalla</a></li><li><a class="section-nav-link badge-link" href="#parte-2-dialogos-basicos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-chat-square-dots"></i></span> Parte 2. Di&aacute;logos b&aacute;sicos</a></li><li><a class="section-nav-link badge-link" href="#parte-3-objeto-location"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-link-45deg"></i></span> Parte 3. Objeto location</a></li><li><a class="section-nav-link badge-link" href="#parte-4-objeto-history"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-clock-history"></i></span> Parte 4. Objeto history</a></li><li><a class="section-nav-link badge-link" href="#parte-5-objeto-navigator"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-compass"></i></span> Parte 5. Objeto navigator</a></li><li><a class="section-nav-link badge-link" href="#parte-6-temporizadores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-stopwatch"></i></span> Parte 6. Temporizadores</a></li><li><a class="section-nav-link badge-link" href="#parte-7-mini-entrega-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-window-stack"></i></span> Parte 7. Mini-entrega final</a></li><li><a class="section-nav-link badge-link" href="#parte-8-corrige-los-errores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> Parte 8. Corrige los errores</a></li><li><a class="section-nav-link badge-link" href="#entrega"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-box-arrow-up"></i></span> Entrega</a></li><li><a class="section-nav-link badge-link" href="#rubrica-orientativa"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-clipboard-data"></i></span> R&uacute;brica orientativa</a></li></ol></nav></aside><div class="content-wrapper"><header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-window-sidebar"></i></span> UD2_B2b. Ejercicios: BOM b&aacute;sico en JavaScript</h1></header><hr class="content-separator"/><section class="content-section" id="1-objetivo-de-la-hoja"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</h2><p>Esta hoja permite practicar el uso b&aacute;sico del <strong>BOM</strong> (<em>Browser Object Model</em>) desde JavaScript.</p><p>Trabajar&aacute;s con:</p><ul class="custom-list">
+<li><code>window</code>;</li>
+<li><code>alert</code>;</li>
+<li><code>confirm</code>;</li>
+<li><code>prompt</code>;</li>
+<li><code>location</code>;</li>
+<li><code>history</code>;</li>
+<li><code>navigator</code>;</li>
+<li><code>screen</code>;</li>
+<li><code>setTimeout</code>;</li>
+<li><code>setInterval</code>;</li>
+<li><code>clearTimeout</code>;</li>
+<li><code>clearInterval</code>;</li>
+<li>integraci&oacute;n b&aacute;sica entre BOM y DOM.</li>
+</ul><p>Al finalizar la hoja deber&iacute;as ser capaz de:</p><ul class="custom-list">
+<li>consultar informaci&oacute;n b&aacute;sica de la ventana, la pantalla, la URL y el navegador;</li>
+<li>mostrar esa informaci&oacute;n en la consola y en la p&aacute;gina;</li>
+<li>utilizar di&aacute;logos modales con control de cancelaci&oacute;n y entradas vac&iacute;as;</li>
+<li>usar temporizadores de una sola ejecuci&oacute;n y temporizadores repetidos;</li>
+<li>cancelar temporizadores correctamente;</li>
+<li>evitar que varios ejercicios interfieran entre s&iacute;;</li>
+<li>organizar el c&oacute;digo en funciones claras;</li>
+<li>detectar y corregir errores frecuentes relacionados con el BOM.</li>
+</ul><div class="warning-box"><span aria-hidden="true"><i class="bi bi-shield-exclamation"></i></span>
+<p><strong>Importante:</strong> estos ejercicios deben probarse en una p&aacute;gina HTML abierta en el navegador. No deben ejecutarse solamente con Node.js, porque objetos como <code>window</code>, <code>location</code>, <code>history</code>, <code>navigator</code> o <code>screen</code> pertenecen al entorno del navegador.</p>
+</div><hr/></section><section class="content-section requirements-section" id="2-organizacion-y-preparacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-folder2-open"></i></span> 2. Organizaci&oacute;n y preparaci&oacute;n</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> 2.1. Estructura del proyecto</h3><p>Crea una carpeta llamada:</p><div class="example-block"><pre class="code-bash"><code>UD2_B2b_BOM_basico
+</code></pre></div><p>Dentro crea estos archivos:</p><div class="example-block"><pre class="code-bash"><code>UD2_B2b_BOM_basico/
+&boxvr;&boxh;&boxh; index.html
+&boxur;&boxh;&boxh; script.js
+</code></pre></div><p>Puedes trabajar abriendo directamente <code>index.html</code>, pero es recomendable usar <strong>Live Server</strong> u otro servidor local.</p><p>Si abres el archivo directamente desde el disco:</p><ul class="custom-list">
+<li><code>location.protocol</code> puede devolver <code>file:</code>;</li>
+<li><code>location.hostname</code> puede estar vac&iacute;o;</li>
+<li>la URL tendr&aacute; un formato diferente al de una p&aacute;gina servida mediante <code>http://</code> o <code>https://</code>.</li>
+</ul><p>Esto no significa necesariamente que el c&oacute;digo est&eacute; mal.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> 2.2. Estructura m&iacute;nima de <code>index.html</code></h3><p>Usa esta estructura como punto de partida:</p><div class="example-block"><pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Ejercicios BOM b&aacute;sico&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Ejercicios BOM b&aacute;sico&lt;/h1&gt;
+    &lt;p&gt;Pr&aacute;ctica con objetos y funciones del navegador.&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section id="parte-1"&gt;
+      &lt;h2&gt;Parte 1. Informaci&oacute;n de la ventana&lt;/h2&gt;
+      &lt;div id="salida-parte-1"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="parte-2"&gt;
+      &lt;h2&gt;Parte 2. Di&aacute;logos b&aacute;sicos&lt;/h2&gt;
+      &lt;div id="salida-parte-2"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="parte-3"&gt;
+      &lt;h2&gt;Parte 3. Objeto location&lt;/h2&gt;
+      &lt;div id="salida-parte-3"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="parte-4"&gt;
+      &lt;h2&gt;Parte 4. Objeto history&lt;/h2&gt;
+      &lt;div id="salida-parte-4"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="parte-5"&gt;
+      &lt;h2&gt;Parte 5. Objeto navigator&lt;/h2&gt;
+      &lt;div id="salida-parte-5"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="parte-6"&gt;
+      &lt;h2&gt;Parte 6. Temporizadores&lt;/h2&gt;
+      &lt;div id="salida-parte-6"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="parte-7"&gt;
+      &lt;h2&gt;Parte 7. Mini-entrega final&lt;/h2&gt;
+      &lt;div id="salida-parte-7"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="parte-8"&gt;
+      &lt;h2&gt;Parte 8. Corrige los errores&lt;/h2&gt;
+      &lt;div id="salida-parte-8"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><p>Puedes a&ntilde;adir botones, p&aacute;rrafos, listas y otros elementos dentro de cada secci&oacute;n cuando los ejercicios lo requieran.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> 2.3. Organizaci&oacute;n de <code>script.js</code></h3><p>Cada ejercicio debe estar identificado y organizado en una funci&oacute;n propia.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>function ejecutarEjercicio1() {
+  // C&oacute;digo del ejercicio 1
+}
+
+function ejecutarEjercicio2() {
+  // C&oacute;digo del ejercicio 2
+}
+</code></pre></div><p>No ejecutes autom&aacute;ticamente todos los ejercicios al cargar la p&aacute;gina.</p><p>Los ejercicios que utilicen <code>alert()</code>, <code>confirm()</code>, <code>prompt()</code>, redirecciones o temporizadores deben iniciarse mediante botones para evitar:</p><ul class="custom-list">
+<li>una cadena de ventanas emergentes;</li>
+<li>varias cuentas atr&aacute;s funcionando al mismo tiempo;</li>
+<li>resultados que se sobrescriben;</li>
+<li>redirecciones inesperadas;</li>
+<li>m&uacute;ltiples temporizadores activos.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> 2.4. Eventos usados como apoyo</h3><p>Esta hoja se centra en el BOM. Si todav&iacute;a no se ha trabajado el bloque de eventos, puedes usar esta estructura como apoyo:</p><div class="example-block"><pre class="code-js"><code>const boton = document.querySelector("#mi-boton");
+
+boton.addEventListener("click", () =&gt; {
+  ejecutarEjercicio();
+});
+</code></pre></div><p>El objetivo principal es practicar el BOM, no evaluar todav&iacute;a el dominio completo de los eventos.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> 2.5. Reglas de funcionamiento conjunto</h3><p>Todos los ejercicios deben poder permanecer en el mismo proyecto.</p><p>Debes:</p><ul class="custom-list">
+<li>usar identificadores diferentes para los elementos de cada ejercicio;</li>
+<li>evitar declarar varias veces variables globales con el mismo nombre;</li>
+<li>guardar los identificadores de los temporizadores que deban cancelarse;</li>
+<li>impedir que se inicien varias copias del mismo temporizador;</li>
+<li>actualizar &uacute;nicamente la zona de salida correspondiente;</li>
+<li>mantener el c&oacute;digo organizado y comentado.</li>
+</ul><hr/></section><section class="content-section" id="parte-1-informacion-de-la-ventana-y-de-la-pantalla"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window"></i></span> Parte 1. Informaci&oacute;n de la ventana y de la pantalla</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 1. Tama&ntilde;o de la ventana</h3><p>En <code>script.js</code>:</p><ol class="custom-ordered-list">
+<li>Muestra por consola el ancho de la ventana con <code>window.innerWidth</code>.</li>
+<li>Muestra por consola el alto de la ventana con <code>window.innerHeight</code>.</li>
+<li>Crea un mensaje como:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>La ventana mide 1200 x 800
+</code></pre></div><ol class="custom-ordered-list" start="4">
+<li>Muestra ese mensaje en el elemento <code>#salida-parte-1</code> usando <code>textContent</code>.</li>
+<li>Organiza el c&oacute;digo dentro de una funci&oacute;n llamada <code>ejecutarEjercicio1()</code>.</li>
+</ol><p>Recuerda que <code>window.innerWidth</code> y <code>window.innerHeight</code> representan las dimensiones aproximadas del &aacute;rea visible o <em>viewport</em>.</p><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 2. Diferencia entre ventana y pantalla</h3><ol class="custom-ordered-list">
+<li>Muestra por consola:<ul class="custom-list">
+<li><code>window.innerWidth</code>;</li>
+<li><code>window.innerHeight</code>;</li>
+<li><code>screen.width</code>;</li>
+<li><code>screen.height</code>.</li>
+</ul>
+</li>
+<li>Muestra tambi&eacute;n los cuatro valores dentro de la p&aacute;gina.</li>
+<li>Escribe un comentario explicando la diferencia entre:<ul class="custom-list">
+<li>las dimensiones visibles de la ventana;</li>
+<li>las dimensiones l&oacute;gicas de la pantalla comunicadas por el navegador.</li>
+</ul>
+</li>
+<li>No afirmes que <code>screen.width</code> representa necesariamente la resoluci&oacute;n f&iacute;sica exacta del monitor.</li>
+</ol><hr/></div></section><section class="content-section" id="parte-2-dialogos-basicos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-chat-square-dots"></i></span> Parte 2. Di&aacute;logos b&aacute;sicos</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 3. Mensaje con <code>alert()</code></h3><p>A&ntilde;ade al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;button type="button" id="boton-alert"&gt;Mostrar bienvenida&lt;/button&gt;
+</code></pre></div><p>En JavaScript:</p><ol class="custom-ordered-list">
+<li>Selecciona el bot&oacute;n.</li>
+<li>Al pulsarlo, muestra un mensaje de bienvenida con <code>alert()</code>.</li>
+<li>Despu&eacute;s de cerrar el di&aacute;logo, muestra por consola:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>El usuario cerr&oacute; el mensaje de bienvenida
+</code></pre></div><ol class="custom-ordered-list" start="4">
+<li>Muestra tambi&eacute;n ese texto en <code>#salida-parte-2</code>.</li>
+</ol><div class="warning-box"><span aria-hidden="true"><i class="bi bi-shield-exclamation"></i></span>
+<p>No ejecutes el <code>alert()</code> autom&aacute;ticamente al cargar la p&aacute;gina.</p>
+</div><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 4. Confirmar una acci&oacute;n</h3><p>A&ntilde;ade al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;button type="button" id="boton-confirmar"&gt;Confirmar continuaci&oacute;n&lt;/button&gt;
+</code></pre></div><p>Al pulsar el bot&oacute;n:</p><ol class="custom-ordered-list">
+<li>Usa <code>confirm()</code> para preguntar:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>&iquest;Quieres continuar con la pr&aacute;ctica?
+</code></pre></div><ol class="custom-ordered-list" start="2">
+<li>Si el usuario acepta, muestra en la p&aacute;gina:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Has decidido continuar.
+</code></pre></div><ol class="custom-ordered-list" start="3">
+<li>Si cancela, muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Has cancelado la pr&aacute;ctica.
+</code></pre></div><ol class="custom-ordered-list" start="4">
+<li>Guarda el valor devuelto por <code>confirm()</code> en una variable.</li>
+<li>A&ntilde;ade un comentario indicando qu&eacute; valor devuelve al aceptar y qu&eacute; valor devuelve al cancelar.</li>
+</ol><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 5. Pedir un nombre con <code>prompt()</code></h3><p>A&ntilde;ade al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;button type="button" id="boton-pedir-nombre"&gt;Pedir nombre&lt;/button&gt;
+</code></pre></div><p>Al pulsar el bot&oacute;n:</p><ol class="custom-ordered-list">
+<li>Pide al usuario su nombre con <code>prompt()</code>.</li>
+<li>Si el usuario escribe un nombre, muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Hola, Ana
+</code></pre></div><ol class="custom-ordered-list" start="3">
+<li>Si el usuario cancela, muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>No has escrito ning&uacute;n nombre.
+</code></pre></div><ol class="custom-ordered-list" start="4">
+<li>Si el usuario escribe solo espacios, usa <code>trim()</code> para tratarlo como nombre vac&iacute;o.</li>
+<li>No llames a <code>trim()</code> antes de comprobar si el resultado es <code>null</code>.</li>
+</ol><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 6. Pedir y validar una edad</h3><p>A&ntilde;ade al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;button type="button" id="boton-pedir-edad"&gt;Comprobar edad&lt;/button&gt;
+</code></pre></div><p>Al pulsar el bot&oacute;n:</p><ol class="custom-ordered-list">
+<li>Pide al usuario su edad con <code>prompt()</code>.</li>
+<li>Si el usuario cancela, muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Operaci&oacute;n cancelada.
+</code></pre></div><ol class="custom-ordered-list" start="3">
+<li>Si escribe una cadena vac&iacute;a o solo espacios, muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>No has introducido una edad.
+</code></pre></div><ol class="custom-ordered-list" start="4">
+<li>Convierte el valor a n&uacute;mero con <code>Number()</code>.</li>
+<li>Comprueba que:<ul class="custom-list">
+<li>no sea <code>NaN</code>;</li>
+<li>sea un n&uacute;mero entero;</li>
+<li>sea mayor o igual que 0.</li>
+</ul>
+</li>
+<li>Si no es una edad v&aacute;lida, muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>La edad no es v&aacute;lida.
+</code></pre></div><ol class="custom-ordered-list" start="7">
+<li>Si es menor de 18, muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Eres menor de edad.
+</code></pre></div><ol class="custom-ordered-list" start="8">
+<li>Si es 18 o mayor, muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Eres mayor de edad.
+</code></pre></div><p>El orden de las comprobaciones debe ser:</p><ol class="custom-ordered-list">
+<li>cancelaci&oacute;n;</li>
+<li>entrada vac&iacute;a;</li>
+<li>conversi&oacute;n;</li>
+<li>validaci&oacute;n num&eacute;rica;</li>
+<li>comparaci&oacute;n de edad.</li>
+</ol><hr/></div></section><section class="content-section" id="parte-3-objeto-location"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-link-45deg"></i></span> Parte 3. Objeto location</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 7. Consultar la URL actual</h3><p>Muestra por consola:</p><ol class="custom-ordered-list">
+<li><code>location.href</code>;</li>
+<li><code>location.protocol</code>;</li>
+<li><code>location.hostname</code>;</li>
+<li><code>location.pathname</code>;</li>
+<li><code>location.search</code>;</li>
+<li><code>location.hash</code>.</li>
+</ol><p>Despu&eacute;s:</p><ol class="custom-ordered-list">
+<li>muestra en la p&aacute;gina un resumen con la URL completa;</li>
+<li>indica qu&eacute; valor tiene <code>location.protocol</code>;</li>
+<li>explica en un comentario por qu&eacute; <code>location.hostname</code> puede estar vac&iacute;o si se abre el archivo directamente desde el disco;</li>
+<li>a&ntilde;ade temporalmente un fragmento a la URL, por ejemplo:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>#parte-3
+</code></pre></div><ol class="custom-ordered-list" start="5">
+<li>comprueba qu&eacute; devuelve <code>location.hash</code>.</li>
+</ol><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 8. Bot&oacute;n de recarga controlada</h3><p>A&ntilde;ade al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;button type="button" id="boton-recargar"&gt;Recargar p&aacute;gina&lt;/button&gt;
+</code></pre></div><p>En JavaScript:</p><ol class="custom-ordered-list">
+<li>selecciona el bot&oacute;n;</li>
+<li>cuando se haga clic, pregunta con <code>confirm()</code> si se desea recargar;</li>
+<li>si el usuario acepta, ejecuta:</li>
+</ol><div class="example-block"><pre class="code-js"><code>location.reload();
+</code></pre></div><ol class="custom-ordered-list" start="4">
+<li>si cancela, muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Recarga cancelada.
+</code></pre></div><div class="note-box"><span aria-hidden="true"><i class="bi bi-info-circle"></i></span>
+<p>Este ejercicio combina BOM con un evento. Si el bloque de eventos todav&iacute;a no se ha trabajado, utiliza la estructura de <code>addEventListener()</code> proporcionada en la preparaci&oacute;n.</p>
+</div><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 9. Redirecci&oacute;n controlada</h3><p>A&ntilde;ade al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;button type="button" id="boton-redireccion"&gt;
+  Ir a la p&aacute;gina del centro
+&lt;/button&gt;
+</code></pre></div><ol class="custom-ordered-list">
+<li>Al hacer clic, muestra un <code>confirm()</code>.</li>
+<li>Si el usuario acepta, cambia <code>location.href</code> a la URL indicada por la profesora.</li>
+<li>Si cancela, muestra por consola:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Redirecci&oacute;n cancelada
+</code></pre></div><ol class="custom-ordered-list" start="4">
+<li>Muestra tambi&eacute;n el mismo mensaje en <code>#salida-parte-3</code>.</li>
+<li>Comprueba que la redirecci&oacute;n solo se produce despu&eacute;s de una acci&oacute;n consciente del usuario.</li>
+</ol><div class="warning-box"><span aria-hidden="true"><i class="bi bi-shield-exclamation"></i></span>
+<p>No uses redirecciones autom&aacute;ticas sin interacci&oacute;n del usuario.</p>
+</div><hr/></div></section><section class="content-section" id="parte-4-objeto-history"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clock-history"></i></span> Parte 4. Objeto history</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 10. Botones de historial</h3><p>A&ntilde;ade al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;button type="button" id="boton-atras"&gt;Atr&aacute;s&lt;/button&gt;
+&lt;button type="button" id="boton-adelante"&gt;Adelante&lt;/button&gt;
+</code></pre></div><p>En JavaScript:</p><ol class="custom-ordered-list">
+<li>al pulsar &ldquo;Atr&aacute;s&rdquo;, ejecuta <code>history.back()</code>;</li>
+<li>al pulsar &ldquo;Adelante&rdquo;, ejecuta <code>history.forward()</code>;</li>
+<li>muestra por consola el valor de <code>history.length</code>;</li>
+<li>a&ntilde;ade un comentario explicando por qu&eacute; puede parecer que no ocurre nada si no hay historial suficiente;</li>
+<li>explica por qu&eacute; JavaScript puede consultar la cantidad aproximada de entradas, pero no leer libremente las URL visitadas.</li>
+</ol><div class="note-box"><span aria-hidden="true"><i class="bi bi-info-circle"></i></span>
+<p>Para probar este ejercicio, navega antes entre varias p&aacute;ginas o utiliza diferentes fragmentos y enlaces del proyecto.</p>
+</div><hr/></div></section><section class="content-section" id="parte-5-objeto-navigator"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-compass"></i></span> Parte 5. Objeto navigator</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 11. Idioma y estado de conexi&oacute;n</h3><p>Muestra en la p&aacute;gina:</p><ol class="custom-ordered-list">
+<li>el idioma del navegador mediante <code>navigator.language</code>;</li>
+<li>el valor de <code>navigator.onLine</code>.</li>
+</ol><p>Ejemplo de salida:</p><div class="example-block"><pre class="code-bash"><code>Idioma del navegador: es-ES
+El navegador indica conexi&oacute;n de red: s&iacute;
+</code></pre></div><p>o:</p><div class="example-block"><pre class="code-bash"><code>Idioma del navegador: es-ES
+El navegador indica conexi&oacute;n de red: no
+</code></pre></div><p>A&ntilde;ade una aclaraci&oacute;n visible:</p><div class="example-block"><pre class="code-bash"><code>Este valor no garantiza que Internet o un servidor concreto est&eacute;n disponibles.
+</code></pre></div><p>No uses el mensaje:</p><div class="example-block"><pre class="code-bash"><code>Internet funciona correctamente
+</code></pre></div><p>porque <code>navigator.onLine</code> no permite asegurarlo.</p><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 12. Informaci&oacute;n declarada por el navegador</h3><p>Muestra por consola:</p><div class="example-block"><pre class="code-js"><code>navigator.userAgent
+</code></pre></div><p>Despu&eacute;s responde en un comentario:</p><ol class="custom-ordered-list">
+<li>&iquest;Qu&eacute; tipo de informaci&oacute;n aparece?</li>
+<li>&iquest;Por qu&eacute; no conviene basar toda la l&oacute;gica de una aplicaci&oacute;n en <code>userAgent</code>?</li>
+<li>&iquest;Qu&eacute; alternativa es preferible para saber si una funcionalidad est&aacute; disponible?</li>
+</ol><p>A&ntilde;ade una comprobaci&oacute;n de funcionalidad sencilla:</p><div class="example-block"><pre class="code-js"><code>if ("geolocation" in navigator) {
+  console.log("La API de geolocalizaci&oacute;n est&aacute; disponible");
+} else {
+  console.log("La API de geolocalizaci&oacute;n no est&aacute; disponible");
+}
+</code></pre></div><p>No es necesario utilizar la geolocalizaci&oacute;n. Solo debes comprobar si la propiedad existe.</p><hr/></div></section><section class="content-section" id="parte-6-temporizadores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-stopwatch"></i></span> Parte 6. Temporizadores</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 13. Mensaje retardado con <code>setTimeout()</code></h3><p>A&ntilde;ade al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;button type="button" id="boton-mensaje-retardado"&gt;
+  Iniciar mensaje retardado
+&lt;/button&gt;
+
+&lt;p id="mensaje-retardado"&gt;&lt;/p&gt;
+</code></pre></div><p>Al pulsar el bot&oacute;n:</p><ol class="custom-ordered-list">
+<li>muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Esperando mensaje...
+</code></pre></div><ol class="custom-ordered-list" start="2">
+<li>programa un <code>setTimeout()</code> de 3000 milisegundos;</li>
+<li>cuando hayan transcurrido al menos aproximadamente 3 segundos, cambia el texto a:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Mensaje mostrado despu&eacute;s de 3 segundos.
+</code></pre></div><p>El mensaje conserva la salida esperada del ejercicio original, pero recuerda que <code>setTimeout()</code> no garantiza una ejecuci&oacute;n exacta: la funci&oacute;n puede ejecutarse algo m&aacute;s tarde.</p><ol class="custom-ordered-list" start="4">
+<li>evita iniciar varios temporizadores simult&aacute;neos al pulsar repetidamente el bot&oacute;n.</li>
+</ol><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 14. Cancelar un temporizador</h3><p>A&ntilde;ade al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;button type="button" id="iniciar-temporizador"&gt;
+  Iniciar temporizador
+&lt;/button&gt;
+
+&lt;button type="button" id="cancelar-temporizador"&gt;
+  Cancelar temporizador
+&lt;/button&gt;
+</code></pre></div><p>Requisitos:</p><ol class="custom-ordered-list">
+<li>declara fuera de las funciones una variable para guardar el identificador:</li>
+</ol><div class="example-block"><pre class="code-js"><code>let temporizadorId = null;
+</code></pre></div><ol class="custom-ordered-list" start="2">
+<li>al pulsar el bot&oacute;n de inicio:<ul class="custom-list">
+<li>cancela el temporizador anterior si todav&iacute;a existe, o impide crear otro;</li>
+<li>programa un mensaje para dentro de 5 segundos;</li>
+<li>guarda el identificador devuelto por <code>setTimeout()</code>;</li>
+<li>muestra por consola que el temporizador se ha iniciado;</li>
+</ul>
+</li>
+<li>al ejecutarse el temporizador:<ul class="custom-list">
+<li>muestra el mensaje;</li>
+<li>asigna <code>null</code> a <code>temporizadorId</code>;</li>
+</ul>
+</li>
+<li>al pulsar el bot&oacute;n de cancelaci&oacute;n:<ul class="custom-list">
+<li>comprueba si existe un temporizador activo;</li>
+<li>canc&eacute;lalo con <code>clearTimeout()</code>;</li>
+<li>asigna <code>null</code> a <code>temporizadorId</code>;</li>
+<li>muestra por consola qu&eacute; ha ocurrido.</li>
+</ul>
+</li>
+</ol><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 15. Contador con <code>setInterval()</code></h3><ol class="custom-ordered-list">
+<li>Crea una variable <code>contador</code> con valor <code>0</code>.</li>
+<li>Guarda el identificador del intervalo.</li>
+<li>Cada segundo:<ul class="custom-list">
+<li>aumenta el contador en 1;</li>
+<li>muestra el contador en la p&aacute;gina.</li>
+</ul>
+</li>
+<li>Cuando llegue a 10:<ul class="custom-list">
+<li>det&eacute;n el intervalo con <code>clearInterval()</code>;</li>
+<li>muestra un mensaje indicando que ha terminado.</li>
+</ul>
+</li>
+<li>Evita iniciar m&aacute;s de un intervalo simult&aacute;neamente.</li>
+<li>A&ntilde;ade un bot&oacute;n de inicio y otro de reinicio.</li>
+</ol><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 16. Cuenta atr&aacute;s</h3><p>Crea una cuenta atr&aacute;s desde 5 hasta 0.</p><p>Salida esperada:</p><div class="example-block"><pre class="code-bash"><code>5
+4
+3
+2
+1
+0
+Tiempo terminado
+</code></pre></div><p>Funcionamiento obligatorio:</p><ol class="custom-ordered-list">
+<li>muestra <code>5</code> inmediatamente al iniciar;</li>
+<li>muestra <code>4</code>, <code>3</code>, <code>2</code>, <code>1</code> y <code>0</code> aproximadamente cada segundo;</li>
+<li>despu&eacute;s de mostrar <code>0</code>, det&eacute;n el intervalo;</li>
+<li>muestra:</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Tiempo terminado
+</code></pre></div><ol class="custom-ordered-list" start="5">
+<li>guarda el identificador del intervalo;</li>
+<li>evita iniciar varias cuentas atr&aacute;s simult&aacute;neamente;</li>
+<li>a&ntilde;ade un bot&oacute;n para iniciar y otro para cancelar;</li>
+<li>al cancelar:<ul class="custom-list">
+<li>ejecuta <code>clearInterval()</code>;</li>
+<li>muestra:</li>
+</ul>
+</li>
+</ol><div class="example-block"><pre class="code-bash"><code>Cuenta atr&aacute;s cancelada
+</code></pre></div><hr/></div></section><section class="content-section" id="parte-7-mini-entrega-final"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window-stack"></i></span> Parte 7. Mini-entrega final</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 17. Panel b&aacute;sico del navegador</h3><p>Crea una peque&ntilde;a p&aacute;gina que muestre un panel con:</p><ul class="custom-list">
+<li>tama&ntilde;o de la ventana;</li>
+<li>tama&ntilde;o de la pantalla;</li>
+<li>URL actual;</li>
+<li>protocolo;</li>
+<li>fragmento actual de la URL;</li>
+<li>idioma del navegador;</li>
+<li>estado de conexi&oacute;n comunicado por el navegador;</li>
+<li>un bot&oacute;n para mostrar un <code>alert()</code>;</li>
+<li>un bot&oacute;n para iniciar una cuenta atr&aacute;s;</li>
+<li>un bot&oacute;n para cancelar la cuenta atr&aacute;s.</li>
+</ul><p>Requisitos:</p><ol class="custom-ordered-list">
+<li>Usa al menos tres objetos o funciones del BOM. Se recomienda integrar cuatro o m&aacute;s si el panel lo permite.</li>
+<li>Usa DOM para mostrar la informaci&oacute;n en pantalla.</li>
+<li>Usa nombres de variables claros.</li>
+<li>Organiza el c&oacute;digo en funciones.</li>
+<li>A&ntilde;ade comentarios breves en el c&oacute;digo.</li>
+<li>Evita redirecciones autom&aacute;ticas.</li>
+<li>No inicies temporizadores autom&aacute;ticamente al cargar la p&aacute;gina.</li>
+<li>No permitas varias cuentas atr&aacute;s simult&aacute;neas.</li>
+<li>Guarda y cancela correctamente el identificador del intervalo.</li>
+<li>Muestra una aclaraci&oacute;n indicando que <code>navigator.onLine</code> no garantiza acceso real a Internet.</li>
+<li>El panel debe funcionar sin necesidad de comentar el c&oacute;digo de ejercicios anteriores.</li>
+<li>Ning&uacute;n ejercicio debe sobrescribir las zonas de salida de otros ejercicios.</li>
+</ol><hr/></div></section><section class="content-section" id="parte-8-corrige-los-errores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> Parte 8. Corrige los errores</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 18. Corrige este <code>setTimeout()</code></h3><p>C&oacute;digo incorrecto:</p><div class="example-block"><pre class="code-js"><code>function saludar() {
+  console.log("Hola");
+}
+
+setTimeout(saludar(), 2000);
+</code></pre></div><ol class="custom-ordered-list">
+<li>Corrige el c&oacute;digo.</li>
+<li>Explica qu&eacute; error hab&iacute;a.</li>
+<li>Indica la diferencia entre:<ul class="custom-list">
+<li><code>saludar</code>;</li>
+<li><code>saludar()</code>.</li>
+</ul>
+</li>
+</ol><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 19. Corrige este <code>prompt()</code></h3><p>C&oacute;digo incorrecto:</p><div class="example-block"><pre class="code-js"><code>const numero = prompt("Escribe un n&uacute;mero");
+console.log(numero + 5);
+</code></pre></div><p>Corrige el c&oacute;digo para que:</p><ol class="custom-ordered-list">
+<li>sume num&eacute;ricamente;</li>
+<li>controle si el usuario cancela;</li>
+<li>controle una cadena vac&iacute;a;</li>
+<li>controle una entrada formada solo por espacios;</li>
+<li>controle un valor que no sea num&eacute;rico;</li>
+<li>solo realice la suma cuando el dato sea v&aacute;lido.</li>
+</ol><hr/></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 20. Corrige este intervalo</h3><p>C&oacute;digo problem&aacute;tico:</p><div class="example-block"><pre class="code-js"><code>setInterval(() =&gt; {
+  console.log("Mensaje infinito");
+}, 1000);
+</code></pre></div><ol class="custom-ordered-list">
+<li>Modif&iacute;calo para que se detenga despu&eacute;s de 5 repeticiones.</li>
+<li>Guarda el identificador devuelto por <code>setInterval()</code>.</li>
+<li>Usa <code>clearInterval()</code>.</li>
+<li>Muestra el n&uacute;mero de repetici&oacute;n.</li>
+<li>Muestra un mensaje final cuando se detenga.</li>
+<li>Explica por qu&eacute; el c&oacute;digo original pod&iacute;a seguir ejecut&aacute;ndose indefinidamente.</li>
+</ol><hr/></div></section><section class="content-section delivery-section" id="entrega"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> Entrega</h2><p>Debes entregar una carpeta comprimida con:</p><div class="example-block"><pre class="code-bash"><code>UD2_B2b_BOM_basico/
+&boxvr;&boxh;&boxh; index.html
+&boxur;&boxh;&boxh; script.js
+</code></pre></div><p>Nombre recomendado:</p><div class="example-block"><pre class="code-bash"><code>UD2_B2b_Ejercicios_BOM_Nombre_Apellidos.zip
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> Requisitos de la entrega</h3><ul class="custom-list">
+<li>Los 20 ejercicios son obligatorios.</li>
+<li>Cada ejercicio debe estar claramente identificado en <code>script.js</code>.</li>
+<li>Los ejercicios interactivos deben ejecutarse mediante botones.</li>
+<li>Todos los ejercicios deben permanecer en el mismo proyecto.</li>
+<li>No se debe comentar o borrar c&oacute;digo anterior para poder probar ejercicios posteriores.</li>
+<li>La mini-entrega final debe funcionar sin interferencias.</li>
+<li>No debe haber errores en la consola al cargar la p&aacute;gina.</li>
+<li>Los temporizadores deben poder detenerse correctamente.</li>
+<li>Las redirecciones deben requerir confirmaci&oacute;n.</li>
+<li>Las entradas de <code>prompt()</code> deben validar cancelaci&oacute;n, vac&iacute;o y valores incorrectos.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> Capturas obligatorias</h3><p>Incluye, como m&iacute;nimo:</p><ol class="custom-ordered-list">
+<li>una captura del panel con informaci&oacute;n de <code>window</code>, <code>screen</code>, <code>location</code> y <code>navigator</code>;</li>
+<li>una captura de un di&aacute;logo o de su resultado en la p&aacute;gina;</li>
+<li>una captura de un temporizador en funcionamiento;</li>
+<li>una captura de la cuenta atr&aacute;s terminada o cancelada;</li>
+<li>una captura de la consola sin errores;</li>
+<li>una captura de la mini-entrega final.</li>
+</ol><p>En cada captura debe verse claramente:</p><ul class="custom-list">
+<li>la p&aacute;gina;</li>
+<li>el resultado del ejercicio;</li>
+<li>el n&uacute;mero o t&iacute;tulo del ejercicio cuando sea posible.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> Respuestas breves</h3><p>Incluye una breve respuesta a estas preguntas:</p><ol class="custom-ordered-list">
+<li>&iquest;Qu&eacute; diferencia hay entre DOM y BOM?</li>
+<li>&iquest;Qu&eacute; diferencia hay entre <code>window.innerWidth</code> y <code>screen.width</code>?</li>
+<li>&iquest;Qu&eacute; devuelve <code>confirm()</code>?</li>
+<li>&iquest;Qu&eacute; devuelve <code>prompt()</code> si el usuario cancela?</li>
+<li>&iquest;Por qu&eacute; hay que convertir a n&uacute;mero el resultado de <code>prompt()</code> cuando se necesita realizar una operaci&oacute;n matem&aacute;tica?</li>
+<li>&iquest;Por qu&eacute; hay que validar el resultado de <code>prompt()</code> antes de convertirlo?</li>
+<li>&iquest;Qu&eacute; diferencia hay entre <code>setTimeout()</code> y <code>setInterval()</code>?</li>
+<li>&iquest;Para qu&eacute; sirven <code>clearTimeout()</code> y <code>clearInterval()</code>?</li>
+<li>&iquest;Por qu&eacute; <code>navigator.onLine === true</code> no garantiza acceso real a Internet?</li>
+<li>&iquest;Por qu&eacute; un temporizador puede ejecutarse algo m&aacute;s tarde de lo indicado?</li>
+<li>&iquest;Qu&eacute; problema aparece si se crean varios intervalos sin guardar sus identificadores?</li>
+</ol><hr/></section><section class="content-section rubric-section" id="rubrica-orientativa"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard-data"></i></span> R&uacute;brica orientativa</h2><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Uso correcto de objetos BOM</td>
+<td>30 %</td>
+</tr>
+<tr>
+<td>Uso correcto de temporizadores</td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>Integraci&oacute;n b&aacute;sica con DOM</td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>Control de errores y casos especiales</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Claridad, nombres y comentarios</td>
+<td>15 %</td>
+</tr>
+</tbody>
+</table></div><p>La organizaci&oacute;n conjunta y la ausencia de interferencias se valorar&aacute;n de forma transversal dentro del uso del BOM, los temporizadores, la integraci&oacute;n con DOM y la claridad del c&oacute;digo.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> Indicadores de correcci&oacute;n</h3><h4>Uso correcto del BOM</h4><p>Se valorar&aacute;:</p><ul class="custom-list">
+<li>consulta adecuada de <code>window</code>, <code>screen</code>, <code>location</code>, <code>history</code> y <code>navigator</code>;</li>
+<li>interpretaci&oacute;n correcta de los valores;</li>
+<li>ausencia de afirmaciones incorrectas sobre conexi&oacute;n o resoluci&oacute;n de pantalla;</li>
+<li>redirecciones y recargas controladas.</li>
+</ul><h4>Temporizadores</h4><p>Se valorar&aacute;:</p><ul class="custom-list">
+<li>uso correcto de <code>setTimeout()</code> y <code>setInterval()</code>;</li>
+<li>almacenamiento de identificadores;</li>
+<li>cancelaci&oacute;n con <code>clearTimeout()</code> y <code>clearInterval()</code>;</li>
+<li>prevenci&oacute;n de temporizadores duplicados;</li>
+<li>finalizaci&oacute;n correcta de contadores y cuentas atr&aacute;s.</li>
+</ul><h4>Integraci&oacute;n con DOM</h4><p>Se valorar&aacute;:</p><ul class="custom-list">
+<li>selecci&oacute;n correcta de elementos;</li>
+<li>uso de <code>textContent</code>;</li>
+<li>zonas de salida independientes;</li>
+<li>botones correctamente conectados;</li>
+<li>resultados visibles y comprensibles.</li>
+</ul><h4>Validaci&oacute;n y casos especiales</h4><p>Se valorar&aacute;:</p><ul class="custom-list">
+<li>control de <code>null</code>;</li>
+<li>control de cadenas vac&iacute;as;</li>
+<li>uso correcto de <code>trim()</code>;</li>
+<li>conversi&oacute;n num&eacute;rica segura;</li>
+<li>gesti&oacute;n de cancelaciones;</li>
+<li>mensajes claros para el usuario.</li>
+</ul><h4>Claridad, organizaci&oacute;n y comentarios</h4><p>Se valorar&aacute;:</p><ul class="custom-list">
+<li>una funci&oacute;n por ejercicio;</li>
+<li>nombres descriptivos;</li>
+<li>ausencia de variables globales duplicadas;</li>
+<li>ausencia de interferencias entre ejercicios;</li>
+<li>funcionamiento de la mini-entrega sin comentar c&oacute;digo anterior;</li>
+<li>formato legible;</li>
+<li>indentaci&oacute;n coherente;</li>
+<li>comentarios breves y &uacute;tiles;</li>
+<li>nombres de variables y funciones comprensibles;</li>
+<li>ausencia de c&oacute;digo innecesario o repetido.</li>
+</ul><p>La organizaci&oacute;n conjunta y la ausencia de interferencias forman parte de este criterio y tambi&eacute;n afectan a la correcci&oacute;n funcional de los apartados anteriores.</p><h4>Comprobaci&oacute;n final del funcionamiento</h4><p>Antes de entregar, comprueba que:</p><ul class="custom-list">
+<li>la p&aacute;gina carga sin errores en consola;</li>
+<li>los botones ejecutan &uacute;nicamente el ejercicio correspondiente;</li>
+<li>los temporizadores pueden detenerse;</li>
+<li>las zonas de salida no se sobrescriben entre s&iacute;;</li>
+<li>la mini-entrega funciona sin comentar ni eliminar c&oacute;digo anterior.</li>
+</ul></section></div></div></main></div><script src="../../assets/js/smpp.js"></script></body></html>

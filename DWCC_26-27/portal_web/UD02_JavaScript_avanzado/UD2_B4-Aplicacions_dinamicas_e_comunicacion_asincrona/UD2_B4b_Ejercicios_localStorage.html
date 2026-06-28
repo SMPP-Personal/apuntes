@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UD2_B4b · Ejercicios localStorage</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar">
+<div class="content-layout">
+<aside aria-label="Índice del documento" class="section-sidebar">
+<nav aria-label="Secciones del documento" class="section-nav">
+<p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-ul"></i> Índice del documento</p>
+<ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-objetivos-entorno-y-claves"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span><span>1. Objetivos, entorno y claves</span></a></li><li><a class="section-nav-link badge-link" href="#2-guardar-recuperar-y-borrar-textos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-person-check"></i></span><span>2. Guardar, recuperar y borrar textos</span></a></li><li><a class="section-nav-link badge-link" href="#3-numeros-y-booleanos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-calculator"></i></span><span>3. Números y booleanos</span></a></li><li><a class="section-nav-link badge-link" href="#4-objetos-y-perfil-persistente"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-person-vcard"></i></span><span>4. Objetos y perfil persistente</span></a></li><li><a class="section-nav-link badge-link" href="#5-arrays-y-recuperacion-segura"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-braces"></i></span><span>5. Arrays y recuperación segura</span></a></li><li><a class="section-nav-link badge-link" href="#6-lista-de-tareas-persistente"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-list-task"></i></span><span>6. Lista de tareas persistente</span></a></li><li><a class="section-nav-link badge-link" href="#7-preferencias-visuales"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-palette"></i></span><span>7. Preferencias visuales</span></a></li><li><a class="section-nav-link badge-link" href="#8-localstorage-y-sessionstorage"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-window-stack"></i></span><span>8. <code>localStorage</code> y <code>sessionStorage</code></span></a></li><li><a class="section-nav-link badge-link" href="#9-diagnostico-y-correccion-de-errores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span><span>9. Diagnóstico y corrección de errores</span></a></li><li><a class="section-nav-link badge-link" href="#10-seguridad-y-buenas-practicas"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-shield-lock"></i></span><span>10. Seguridad y buenas prácticas</span></a></li><li><a class="section-nav-link badge-link" href="#11-mini-entrega-y-lista-de-comprobacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-box-arrow-up"></i></span><span>11. Mini-entrega y lista de comprobación</span></a></li><li><a class="section-nav-link badge-link" href="#12-rubrica-y-contenidos-posteriores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-table"></i></span><span>12. Rúbrica y contenidos posteriores</span></a></li></ol>
+</nav>
+</aside>
+<div class="content-wrapper">
+<header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-pencil-square"></i></span> UD2_B4b. Ejercicios: <code>localStorage</code> y persistencia básica</h1></header>
+<hr class="content-separator"/>
+<section class="content-section" id="1-objetivos-entorno-y-claves"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivos, entorno y claves</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.1. Objetivo de la hoja</h3><p>En esta hoja practicarás el uso de <code>localStorage</code> para conservar datos sencillos en el navegador.</p><p>Trabajarás con:</p><ul class="custom-list">
+<li><code>localStorage.setItem()</code>;</li>
+<li><code>localStorage.getItem()</code>;</li>
+<li><code>localStorage.removeItem()</code>;</li>
+<li><code>localStorage.clear()</code>;</li>
+<li>claves con prefijo;</li>
+<li>alcance por origen;</li>
+<li>conversión de números y booleanos;</li>
+<li><code>JSON.stringify()</code>;</li>
+<li><code>JSON.parse()</code>;</li>
+<li>recuperación segura;</li>
+<li>validación con <code>Array.isArray()</code>;</li>
+<li>objetos y arrays persistentes;</li>
+<li>integración con DOM y eventos;</li>
+<li><code>sessionStorage</code>;</li>
+<li>seguridad y tratamiento de errores.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.2. Preparación del proyecto</h3><p>Crea:</p><div class="example-block project-structure-block"><pre class="code-bash"><code class="language-text">UD2_B4b_localStorage/
+├── index.html
+├── styles.css
+└── script.js
+</code></pre></div><p>Trabaja con Live Server o con un servidor local equivalente.</p><p>Dirección recomendada:</p><div class="example-block"><pre class="code-bash"><code class="language-text">http://127.0.0.1:5500/index.html
+</code></pre></div><p>Evita abrir el archivo directamente mediante:</p><div class="example-block"><pre class="code-bash"><code class="language-text">file:///C:/proyecto/index.html
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.3. HTML base</h3><div class="example-block"><pre class="code-html"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+
+  &lt;meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  &gt;
+
+  &lt;title&gt;Ejercicios localStorage&lt;/title&gt;
+
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Ejercicios localStorage&lt;/h1&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section aria-labelledby="titulo-nombre"&gt;
+      &lt;h2 id="titulo-nombre"&gt;
+        Nombre persistente
+      &lt;/h2&gt;
+
+      &lt;label for="campo-nombre"&gt;
+        Nombre:
+      &lt;/label&gt;
+
+      &lt;input
+        type="text"
+        id="campo-nombre"
+      &gt;
+
+      &lt;button
+        type="button"
+        id="boton-guardar-nombre"
+      &gt;
+        Guardar nombre
+      &lt;/button&gt;
+
+      &lt;button
+        type="button"
+        id="boton-borrar-nombre"
+      &gt;
+        Borrar nombre
+      &lt;/button&gt;
+
+      &lt;p
+        id="estado-nombre"
+        aria-live="polite"
+      &gt;&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section aria-labelledby="titulo-tareas"&gt;
+      &lt;h2 id="titulo-tareas"&gt;
+        Lista de tareas
+      &lt;/h2&gt;
+
+      &lt;form id="formulario-tarea"&gt;
+        &lt;label for="campo-tarea"&gt;
+          Nueva tarea:
+        &lt;/label&gt;
+
+        &lt;input
+          type="text"
+          id="campo-tarea"
+        &gt;
+
+        &lt;button type="submit"&gt;
+          Añadir tarea
+        &lt;/button&gt;
+      &lt;/form&gt;
+
+      &lt;button
+        type="button"
+        id="boton-vaciar-tareas"
+      &gt;
+        Vaciar tareas
+      &lt;/button&gt;
+
+      &lt;p
+        id="estado-tareas"
+        aria-live="polite"
+      &gt;&lt;/p&gt;
+
+      &lt;ul id="lista-tareas"&gt;&lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.4. Constantes para las claves</h3><p>No utilices claves genéricas como:</p><div class="example-block"><pre class="code-js"><code class="language-js">"nombre"
+"tema"
+"tareas"
+</code></pre></div><p>Declara constantes:</p><div class="example-block"><pre class="code-js"><code class="language-js">const CLAVE_NOMBRE =
+  "dwcc.ud2b4b.nombre";
+
+const CLAVE_VISITAS =
+  "dwcc.ud2b4b.visitas";
+
+const CLAVE_MOSTRAR_AYUDA =
+  "dwcc.ud2b4b.mostrarAyuda";
+
+const CLAVE_PERFIL =
+  "dwcc.ud2b4b.perfil";
+
+const CLAVE_TAREAS =
+  "dwcc.ud2b4b.tareas";
+
+const CLAVE_TEMA =
+  "dwcc.ud2b4b.tema";
+
+const CLAVE_TAMANO =
+  "dwcc.ud2b4b.tamanoTexto";
+</code></pre></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 1. Reconocer el origen y revisar DevTools</h3><ol class="custom-ordered-list">
+<li>Abre la aplicación mediante Live Server.</li>
+<li>Guarda una clave de prueba:</li>
+</ol><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "dwcc.ud2b4b.prueba",
+  "dato de prueba"
+);
+</code></pre></div><ol class="custom-ordered-list" start="3">
+<li>Abre DevTools.</li>
+<li>Busca el apartado:</li>
+</ol><div class="example-block project-structure-block"><pre class="code-bash"><code class="language-text">Application
+└── Storage
+    └── Local Storage
+</code></pre></div><ol class="custom-ordered-list" start="5">
+<li>Comprueba:<ul class="custom-list">
+<li>la clave;</li>
+<li>el valor;</li>
+<li>el origen asociado.</li>
+</ul>
+</li>
+</ol><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué elementos forman un origen?</li>
+<li>¿Compartirán almacenamiento <code>localhost:5500</code> y <code>localhost:3000</code>?</li>
+<li>¿Por qué conviene usar prefijos en las claves?</li>
+</ol><hr/></div></section><section class="content-section" id="2-guardar-recuperar-y-borrar-textos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-person-check"></i></span> 2. Guardar, recuperar y borrar textos</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 2. Guardar un nombre</h3><p>Al pulsar el botón Guardar:</p><ol class="custom-ordered-list">
+<li>recupera el contenido del campo;</li>
+<li>elimina espacios iniciales y finales;</li>
+<li>comprueba que no esté vacío;</li>
+<li>guarda el nombre;</li>
+<li>actualiza el mensaje.</li>
+</ol><p>Estructura orientativa:</p><div class="example-block"><pre class="code-js"><code class="language-js">const campoNombre =
+  document.querySelector(
+    "#campo-nombre"
+  );
+
+const estadoNombre =
+  document.querySelector(
+    "#estado-nombre"
+  );
+
+function guardarNombre() {
+  const nombre =
+    campoNombre.value.trim();
+
+  if (nombre === "") {
+    estadoNombre.textContent =
+      "Escribe un nombre.";
+
+    return;
+  }
+
+  localStorage.setItem(
+    CLAVE_NOMBRE,
+    nombre
+  );
+
+  estadoNombre.textContent =
+    `Nombre guardado: ${nombre}`;
+}
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 3. Recuperar el nombre al cargar</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">function recuperarNombre() {
+  const nombre =
+    localStorage.getItem(
+      CLAVE_NOMBRE
+    );
+
+  if (nombre === null) {
+    estadoNombre.textContent =
+      "Todavía no hay nombre guardado.";
+
+    return;
+  }
+
+  campoNombre.value = nombre;
+
+  estadoNombre.textContent =
+    `Bienvenido/a de nuevo, ${nombre}.`;
+}
+</code></pre></div><p>Llama a la función al iniciar el script.</p></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 4. Borrar el nombre</h3><p>Al pulsar Borrar nombre:</p><ol class="custom-ordered-list">
+<li>elimina la clave;</li>
+<li>limpia el campo;</li>
+<li>actualiza el mensaje.</li>
+</ol><div class="example-block"><pre class="code-js"><code class="language-js">function borrarNombre() {
+  localStorage.removeItem(
+    CLAVE_NOMBRE
+  );
+
+  campoNombre.value = "";
+
+  estadoNombre.textContent =
+    "El nombre se ha eliminado.";
+}
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 5. Diferenciar clave inexistente y cadena vacía</h3><p>Prueba:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  CLAVE_NOMBRE,
+  ""
+);
+</code></pre></div><p>y después:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.removeItem(
+  CLAVE_NOMBRE
+);
+</code></pre></div><p>Compara los resultados de:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.getItem(
+  CLAVE_NOMBRE
+);
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué devuelve cuando existe una cadena vacía?</li>
+<li>¿Qué devuelve cuando la clave no existe?</li>
+<li>¿Por qué no son situaciones equivalentes?</li>
+</ol><hr/></div></section><section class="content-section" id="3-numeros-y-booleanos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-calculator"></i></span> 3. Números y booleanos</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 6. Contador de cargas de la página</h3><p>Este ejercicio cuenta cargas, no visitantes únicos.</p><p>Proceso:</p><ol class="custom-ordered-list">
+<li>recupera el valor;</li>
+<li>comprueba si existe;</li>
+<li>conviértelo a número;</li>
+<li>valida el resultado;</li>
+<li>incrementa;</li>
+<li>guarda;</li>
+<li>muestra el contador.</li>
+</ol><div class="example-block"><pre class="code-js"><code class="language-js">const textoVisitas =
+  localStorage.getItem(
+    CLAVE_VISITAS
+  );
+
+let visitas = 0;
+
+if (textoVisitas !== null) {
+  const valor =
+    Number(textoVisitas);
+
+  if (Number.isFinite(valor)) {
+    visitas = valor;
+  }
+}
+
+visitas += 1;
+
+localStorage.setItem(
+  CLAVE_VISITAS,
+  visitas
+);
+
+console.log(
+  `Esta página se ha cargado ${visitas} veces.`
+);
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué resultado produce <code>Number(null)</code>?</li>
+<li>¿Por qué se comprueba primero <code>null</code>?</li>
+<li>¿Qué ocurriría si el valor guardado fuese <code>"abc"</code>?</li>
+</ol></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 7. Preferencia booleana</h3><p>Crea un checkbox:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;label&gt;
+  &lt;input
+    type="checkbox"
+    id="mostrar-ayuda"
+  &gt;
+  Mostrar ayuda
+&lt;/label&gt;
+</code></pre></div><p>Al cambiar:</p><div class="example-block"><pre class="code-js"><code class="language-js">checkboxAyuda.addEventListener(
+  "change",
+  () =&gt; {
+    localStorage.setItem(
+      CLAVE_MOSTRAR_AYUDA,
+      checkboxAyuda.checked
+    );
+  }
+);
+</code></pre></div><p>Al iniciar:</p><div class="example-block"><pre class="code-js"><code class="language-js">const valorGuardado =
+  localStorage.getItem(
+    CLAVE_MOSTRAR_AYUDA
+  );
+
+if (valorGuardado !== null) {
+  checkboxAyuda.checked =
+    valorGuardado === "true";
+}
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué diferencia existe entre <code>"false"</code> y una clave inexistente?</li>
+<li>¿Qué tipo devuelve <code>getItem()</code>?</li>
+<li>¿Por qué no basta con usar <code>Boolean(valorGuardado)</code>?</li>
+</ol></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 8. Valor numérico corrupto</h3><p>Guarda manualmente:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  CLAVE_VISITAS,
+  "no es un número"
+);
+</code></pre></div><p>Modifica el contador para que:</p><ul class="custom-list">
+<li>no produzca <code>NaN</code>;</li>
+<li>vuelva a empezar desde cero;</li>
+<li>muestre una advertencia en consola.</li>
+</ul><hr/></div></section><section class="content-section" id="4-objetos-y-perfil-persistente"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-person-vcard"></i></span> 4. Objetos y perfil persistente</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 9. Crear un perfil</h3><p>Crea un formulario con:</p><ul class="custom-list">
+<li>nombre;</li>
+<li>edad;</li>
+<li>curso.</li>
+</ul><p>Al enviarlo:</p><ol class="custom-ordered-list">
+<li>usa <code>event.preventDefault()</code>;</li>
+<li>valida el nombre;</li>
+<li>convierte la edad;</li>
+<li>comprueba que la edad sea un entero válido;</li>
+<li>crea un objeto;</li>
+<li>guarda el objeto mediante JSON;</li>
+<li>muéstralo en pantalla.</li>
+</ol><div class="example-block"><pre class="code-js"><code class="language-js">const perfil = {
+  nombre,
+  edad,
+  curso
+};
+
+localStorage.setItem(
+  CLAVE_PERFIL,
+  JSON.stringify(perfil)
+);
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 10. Renderizar el perfil de forma segura</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">function renderizarPerfil(
+  perfil
+) {
+  // Usa createElement(),
+  // textContent,
+  // append(),
+  // replaceChildren().
+}
+</code></pre></div><p>No utilices:</p><div class="example-block"><pre class="code-js"><code class="language-js">contenedor.innerHTML = `
+  &lt;p&gt;${perfil.nombre}&lt;/p&gt;
+`;
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 11. Recuperar el perfil al cargar</h3><p>Debes comprobar:</p><ol class="custom-ordered-list">
+<li>si existe la clave;</li>
+<li>si el JSON es válido;</li>
+<li>si el resultado es un objeto;</li>
+<li>si contiene las propiedades esperadas.</li>
+</ol><p>Estructura:</p><div class="example-block"><pre class="code-js"><code class="language-js">function recuperarPerfil() {
+  const texto =
+    localStorage.getItem(
+      CLAVE_PERFIL
+    );
+
+  if (texto === null) {
+    return null;
+  }
+
+  try {
+    const perfil =
+      JSON.parse(texto);
+
+    if (
+      typeof perfil !== "object"
+      || perfil === null
+      || Array.isArray(perfil)
+    ) {
+      return null;
+    }
+
+    return perfil;
+  } catch (error) {
+    console.error(
+      "Perfil no válido:",
+      error
+    );
+
+    return null;
+  }
+}
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 12. Borrar el perfil</h3><p>Añade un botón que:</p><ul class="custom-list">
+<li>elimine la clave;</li>
+<li>limpie el formulario;</li>
+<li>vacíe el contenedor;</li>
+<li>muestre un mensaje.</li>
+</ul><p>No utilices <code>clear()</code>.</p><hr/></div></section><section class="content-section" id="5-arrays-y-recuperacion-segura"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces"></i></span> 5. Arrays y recuperación segura</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 13. Analizar un patrón inseguro</h3><p>Explica por qué esta expresión no es completamente segura:</p><div class="example-block"><pre class="code-js"><code class="language-js">const tareas =
+  JSON.parse(
+    localStorage.getItem(
+      CLAVE_TAREAS
+    )
+  ) || [];
+</code></pre></div><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué ocurre si la clave no existe?</li>
+<li>¿Qué ocurre si el texto no es JSON válido?</li>
+<li>¿Qué ocurre si el JSON contiene un objeto?</li>
+<li>¿Por qué <code>|| []</code> no captura un <code>SyntaxError</code>?</li>
+</ol></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 14. Crear <code>recuperarTareas()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">function recuperarTareas() {
+  const texto =
+    localStorage.getItem(
+      CLAVE_TAREAS
+    );
+
+  if (texto === null) {
+    return [];
+  }
+
+  try {
+    const datos =
+      JSON.parse(texto);
+
+    if (!Array.isArray(datos)) {
+      console.warn(
+        "El dato guardado no es un array."
+      );
+
+      return [];
+    }
+
+    return datos;
+  } catch (error) {
+    console.error(
+      "Las tareas no son válidas:",
+      error
+    );
+
+    return [];
+  }
+}
+</code></pre></div><p>Prueba:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  CLAVE_TAREAS,
+  "{texto incorrecto"
+);
+</code></pre></div><p>y después:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  CLAVE_TAREAS,
+  JSON.stringify({
+    tareas: []
+  })
+);
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 15. Crear <code>guardarJSON()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">function guardarJSON(
+  clave,
+  datos
+) {
+  try {
+    localStorage.setItem(
+      clave,
+      JSON.stringify(datos)
+    );
+
+    return true;
+  } catch (error) {
+    console.error(
+      `No se pudo guardar ${clave}:`,
+      error
+    );
+
+    return false;
+  }
+}
+</code></pre></div><p>Explica:</p><ol class="custom-ordered-list">
+<li>¿Por qué devuelve un booleano?</li>
+<li>¿Qué podría provocar un error de escritura?</li>
+<li>¿Por qué no debe darse por hecho que el guardado siempre funciona?</li>
+</ol><hr/></div></section><section class="content-section" id="6-lista-de-tareas-persistente"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-list-task"></i></span> 6. Lista de tareas persistente</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 16. Estado inicial</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">let tareas =
+  recuperarTareas();
+</code></pre></div><p>Cada tarea debe ser un objeto:</p><div class="example-block"><pre class="code-js"><code class="language-js">{
+  id: Date.now(),
+  texto: "Estudiar"
+}
+</code></pre></div><p>No añadas tareas automáticamente al iniciar el script.</p></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 17. Renderizar las tareas</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">function renderizarTareas() {
+  listaTareas.replaceChildren();
+
+  tareas.forEach((tarea) =&gt; {
+    const li =
+      document.createElement("li");
+
+    const texto =
+      document.createElement("span");
+
+    texto.textContent =
+      tarea.texto;
+
+    const botonEliminar =
+      document.createElement("button");
+
+    botonEliminar.type =
+      "button";
+
+    botonEliminar.textContent =
+      "Eliminar";
+
+    // Asocia el identificador.
+
+    li.append(
+      texto,
+      botonEliminar
+    );
+
+    listaTareas.append(li);
+  });
+}
+</code></pre></div><p>No utilices <code>innerHTML</code>.</p></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 18. Añadir una tarea</h3><p>Al enviar el formulario:</p><ol class="custom-ordered-list">
+<li>evita el envío;</li>
+<li>recupera el texto;</li>
+<li>valida que no esté vacío;</li>
+<li>crea un objeto;</li>
+<li>modifica el array;</li>
+<li>guarda;</li>
+<li>renderiza;</li>
+<li>limpia el formulario.</li>
+</ol><div class="example-block"><pre class="code-js"><code class="language-js">const nuevaTarea = {
+  id: Date.now(),
+  texto
+};
+</code></pre></div><p>Si <code>guardarJSON()</code> devuelve <code>false</code>, deshaz la modificación:</p><div class="example-block"><pre class="code-js"><code class="language-js">tareas.pop();
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 19. Eliminar una tarea</h3><p>Elimina por identificador:</p><div class="example-block"><pre class="code-js"><code class="language-js">function eliminarTarea(id) {
+  tareas =
+    tareas.filter(
+      (tarea) =&gt;
+        tarea.id !== id
+    );
+
+  guardarJSON(
+    CLAVE_TAREAS,
+    tareas
+  );
+
+  renderizarTareas();
+}
+</code></pre></div><p>Explica por qué es mejor eliminar por identificador que por texto.</p></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 20. Vaciar la lista</h3><p>Al pulsar Vaciar tareas:</p><ol class="custom-ordered-list">
+<li>pide confirmación;</li>
+<li>deja el array vacío;</li>
+<li>elimina la clave o guarda <code>[]</code>;</li>
+<li>actualiza el DOM;</li>
+<li>muestra un mensaje.</li>
+</ol><p>Compara:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  CLAVE_TAREAS,
+  JSON.stringify([])
+);
+</code></pre></div><p>con:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.removeItem(
+  CLAVE_TAREAS
+);
+</code></pre></div><p>Explica la diferencia.</p></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 21. Evitar duplicados al recargar</h3><p>Explica por qué este código es incorrecto si se ejecuta al iniciar:</p><div class="example-block"><pre class="code-js"><code class="language-js">agregarTarea(
+  "Estudiar localStorage"
+);
+</code></pre></div><p>Comprueba que:</p><ul class="custom-list">
+<li>al recargar no se crean nuevas tareas;</li>
+<li>solo aparecen las tareas ya guardadas;</li>
+<li>el estado se recupera antes de renderizar.</li>
+</ul><hr/></div></section><section class="content-section" id="7-preferencias-visuales"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-palette"></i></span> 7. Preferencias visuales</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 22. Tema claro y oscuro</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">const TEMAS_VALIDOS = [
+  "tema-claro",
+  "tema-oscuro"
+];
+</code></pre></div><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">function aplicarTema(tema) {
+  if (
+    !TEMAS_VALIDOS.includes(
+      tema
+    )
+  ) {
+    return;
+  }
+
+  document.body.classList.remove(
+    ...TEMAS_VALIDOS
+  );
+
+  document.body.classList.add(
+    tema
+  );
+}
+</code></pre></div><p>Al pulsar un botón:</p><ol class="custom-ordered-list">
+<li>aplica el tema;</li>
+<li>guarda la preferencia;</li>
+<li>muestra un mensaje.</li>
+</ol><p>Al iniciar:</p><ol class="custom-ordered-list">
+<li>recupera el valor;</li>
+<li>valida que sea un tema permitido;</li>
+<li>aplícalo.</li>
+</ol><p>No utilices:</p><div class="example-block"><pre class="code-js"><code class="language-js">document.body.className =
+  tema;
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 23. Tamaño de texto</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">const TAMANOS_VALIDOS = [
+  "texto-pequeno",
+  "texto-normal",
+  "texto-grande"
+];
+</code></pre></div><p>Guarda la elección de un <code>&lt;select&gt;</code>.</p><p>Al recuperarla:</p><ul class="custom-list">
+<li>valida el valor;</li>
+<li>elimina solo las clases de tamaño;</li>
+<li>añade la clase seleccionada.</li>
+</ul></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 24. Preferencia corrupta</h3><p>Guarda manualmente:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  CLAVE_TEMA,
+  "tema-inventado"
+);
+</code></pre></div><p>Comprueba que la aplicación:</p><ul class="custom-list">
+<li>no aplica una clase desconocida;</li>
+<li>mantiene el tema predeterminado;</li>
+<li>no produce errores.</li>
+</ul><hr/></div></section><section class="content-section" id="8-localstorage-y-sessionstorage"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window-stack"></i></span> 8. <code>localStorage</code> y <code>sessionStorage</code></h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 25. Guardar un paso temporal</h3><p>Guarda:</p><div class="example-block"><pre class="code-js"><code class="language-js">sessionStorage.setItem(
+  "dwcc.ud2b4b.paso",
+  "2"
+);
+</code></pre></div><p>Después:</p><ol class="custom-ordered-list">
+<li>recarga la página;</li>
+<li>comprueba que el valor permanece;</li>
+<li>cierra la pestaña;</li>
+<li>abre una nueva;</li>
+<li>compara con <code>localStorage</code>.</li>
+</ol><p>Responde:</p><ol class="custom-ordered-list">
+<li>¿Qué conserva <code>sessionStorage</code> durante una recarga?</li>
+<li>¿Qué ocurre normalmente al cerrar la pestaña?</li>
+<li>¿Qué dato guardarías en <code>sessionStorage</code> y cuál en <code>localStorage</code>?</li>
+</ol><hr/></div></section><section class="content-section" id="9-diagnostico-y-correccion-de-errores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 9. Diagnóstico y corrección de errores</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 26. Objeto mal guardado</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">const usuario = {
+  nombre: "Ana",
+  edad: 20
+};
+
+localStorage.setItem(
+  CLAVE_PERFIL,
+  usuario
+);
+</code></pre></div><p>Explica qué se guarda realmente.</p></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 27. Número tratado como texto</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  "dwcc.ud2b4b.puntos",
+  10
+);
+
+const puntos =
+  localStorage.getItem(
+    "dwcc.ud2b4b.puntos"
+  );
+
+console.log(puntos + 5);
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 28. JSON inexistente</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">const perfil =
+  JSON.parse(
+    localStorage.getItem(
+      CLAVE_PERFIL
+    )
+  );
+
+console.log(
+  perfil.nombre
+);
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 29. JSON corrupto</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">const tareas =
+  JSON.parse(
+    localStorage.getItem(
+      CLAVE_TAREAS
+    )
+  );
+</code></pre></div><p>Debes usar <code>try...catch</code>.</p></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 30. Tipo inesperado</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">const tareas =
+  JSON.parse(texto);
+
+tareas.forEach((tarea) =&gt; {
+  console.log(tarea);
+});
+</code></pre></div><p>Debes comprobar <code>Array.isArray()</code>.</p></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 31. Sobrescribir todas las clases</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">document.body.className =
+  temaGuardado;
+</code></pre></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 32. Uso indiscriminado de <code>clear()</code></h3><p>Explica por qué este código puede ser peligroso:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.clear();
+</code></pre></div><p>Sustitúyelo por la eliminación de las claves de la aplicación.</p></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 33. Error de escritura ignorado</h3><p>Corrige:</p><div class="example-block"><pre class="code-js"><code class="language-js">localStorage.setItem(
+  CLAVE_TAREAS,
+  JSON.stringify(tareas)
+);
+
+estado.textContent =
+  "Datos guardados.";
+</code></pre></div><p>El mensaje solo debe mostrarse si el guardado funciona.</p><hr/></div></section><section class="content-section" id="10-seguridad-y-buenas-practicas"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-lock"></i></span> 10. Seguridad y buenas prácticas</h2><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 34. Clasificar datos</h3><p>Indica cuáles guardarías en <code>localStorage</code>:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Dato</th>
+<th>¿Guardar?</th>
+<th>Justificación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tema claro u oscuro</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Contraseña</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Lista de tareas de práctica</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Token de autenticación</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Filtro de búsqueda</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Datos bancarios</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tamaño de texto</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Información médica</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div><div class="exercise-block"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-square"></i></span> Ejercicio 35. Borrar solo los datos de la aplicación</h3><p>Crea:</p><div class="example-block"><pre class="code-js"><code class="language-js">const CLAVES_APLICACION = [
+  CLAVE_NOMBRE,
+  CLAVE_VISITAS,
+  CLAVE_MOSTRAR_AYUDA,
+  CLAVE_PERFIL,
+  CLAVE_TAREAS,
+  CLAVE_TEMA,
+  CLAVE_TAMANO
+];
+</code></pre></div><p>Implementa:</p><div class="example-block"><pre class="code-js"><code class="language-js">function borrarDatosAplicacion() {
+  CLAVES_APLICACION.forEach(
+    (clave) =&gt; {
+      localStorage.removeItem(
+        clave
+      );
+    }
+  );
+}
+</code></pre></div><p>No utilices <code>localStorage.clear()</code>.</p><hr/></div></section><section class="content-section" id="11-mini-entrega-y-lista-de-comprobacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> 11. Mini-entrega y lista de comprobación</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.1. Aplicación de preferencias y tareas</h3><p>Crea una aplicación que incluya:</p><ul class="custom-list">
+<li>nombre persistente;</li>
+<li>tema claro u oscuro;</li>
+<li>tamaño de texto;</li>
+<li>lista de tareas persistente;</li>
+<li>eliminación individual de tareas;</li>
+<li>botón para vaciar tareas;</li>
+<li>botón para borrar únicamente los datos de la aplicación.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.2. Requisitos técnicos</h3><p>La aplicación debe:</p><ol class="custom-ordered-list">
+<li>usar claves con prefijo;</li>
+<li>declarar constantes para las claves;</li>
+<li>validar cadenas vacías;</li>
+<li>comprobar <code>null</code>;</li>
+<li>convertir y validar números;</li>
+<li>diferenciar <code>false</code> de una clave inexistente;</li>
+<li>utilizar <code>JSON.stringify()</code>;</li>
+<li>proteger <code>JSON.parse()</code> con <code>try...catch</code>;</li>
+<li>comprobar <code>Array.isArray()</code>;</li>
+<li>utilizar tareas como objetos con identificador;</li>
+<li>usar <code>createElement()</code>;</li>
+<li>usar <code>textContent</code>;</li>
+<li>usar <code>append()</code>;</li>
+<li>usar <code>replaceChildren()</code>;</li>
+<li>validar temas y tamaños;</li>
+<li>tratar errores de escritura;</li>
+<li>eliminar solo las claves propias;</li>
+<li>no guardar datos sensibles;</li>
+<li>organizar el código en funciones;</li>
+<li>no mostrar errores en consola durante el uso normal.</li>
+</ol><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.3. Entrega</h3><p>Entrega:</p><div class="example-block project-structure-block"><pre class="code-bash"><code class="language-text">UD2_B4b_Aplicacion_localStorage_Nombre_Apellidos.zip
+├── index.html
+├── styles.css
+└── script.js
+</code></pre></div><p>Incluye capturas de:</p><ol class="custom-ordered-list">
+<li>aplicación sin datos;</li>
+<li>nombre guardado;</li>
+<li>tema aplicado;</li>
+<li>tareas añadidas;</li>
+<li>DevTools mostrando las claves con prefijo;</li>
+<li>aplicación después de recargar;</li>
+<li>una tarea eliminada;</li>
+<li>lista vaciada;</li>
+<li>datos de la aplicación eliminados;</li>
+<li>consola sin errores.</li>
+</ol><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.4. Lista de comprobación</h3><ul class="custom-list checklist-list">
+<li><span class="check-marker">[ ]</span> El proyecto se abre mediante servidor local.</li>
+<li><span class="check-marker">[ ]</span> Se utilizan claves con prefijo.</li>
+<li><span class="check-marker">[ ]</span> Las claves están declaradas como constantes.</li>
+<li><span class="check-marker">[ ]</span> Se comprueba si <code>getItem()</code> devuelve <code>null</code>.</li>
+<li><span class="check-marker">[ ]</span> Los números se convierten y validan.</li>
+<li><span class="check-marker">[ ]</span> Los booleanos diferencian ausencia y <code>false</code>.</li>
+<li><span class="check-marker">[ ]</span> Los objetos y arrays se guardan con JSON.</li>
+<li><span class="check-marker">[ ]</span> <code>JSON.parse()</code> está protegido.</li>
+<li><span class="check-marker">[ ]</span> Se comprueba <code>Array.isArray()</code>.</li>
+<li><span class="check-marker">[ ]</span> Las tareas tienen identificador.</li>
+<li><span class="check-marker">[ ]</span> Se utiliza <code>textContent</code>.</li>
+<li><span class="check-marker">[ ]</span> Se utiliza <code>replaceChildren()</code>.</li>
+<li><span class="check-marker">[ ]</span> Se guarda después de modificar el estado.</li>
+<li><span class="check-marker">[ ]</span> Se renderiza después de guardar.</li>
+<li><span class="check-marker">[ ]</span> Se validan las preferencias.</li>
+<li><span class="check-marker">[ ]</span> Se tratan posibles errores de escritura.</li>
+<li><span class="check-marker">[ ]</span> No se usa <code>clear()</code> para borrar solo la aplicación.</li>
+<li><span class="check-marker">[ ]</span> No se almacenan datos sensibles.</li>
+<li><span class="check-marker">[ ]</span> La consola no muestra errores.</li>
+</ul><hr/></section><section class="content-section" id="12-rubrica-y-contenidos-posteriores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-table"></i></span> 12. Rúbrica y contenidos posteriores</h2><div class="concept-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.1. Rúbrica orientativa</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claves, operaciones básicas y alcance</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Conversiones y validación de valores</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>JSON y recuperación segura</td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>Estado persistente y lista de tareas</td>
+<td>20 %</td>
+</tr>
+<tr>
+<td>DOM, eventos y renderizado seguro</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Preferencias visuales</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Seguridad, borrado y tratamiento de errores</td>
+<td>5 %</td>
+</tr>
+<tr>
+<td>Organización y ausencia de errores</td>
+<td>5 %</td>
+</tr>
+</tbody>
+</table></div><p>Total: <strong>100 %</strong>.</p></div><div class="note-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.2. Contenidos que quedan para prácticas posteriores</h3><p>No se trabajan como contenido principal:</p><ul class="custom-list">
+<li>evento <code>storage</code>;</li>
+<li>sincronización entre pestañas;</li>
+<li>límites exactos de cuota;</li>
+<li><code>IndexedDB</code>;</li>
+<li>cookies;</li>
+<li>cookies <code>HttpOnly</code>;</li>
+<li>autenticación;</li>
+<li>gestión de sesiones;</li>
+<li>cifrado;</li>
+<li>migración de datos;</li>
+<li>versionado del almacenamiento;</li>
+<li>almacenamiento remoto;</li>
+<li>bases de datos.</li>
+</ul></div></section></div>
+</div>
+</main>
+</div>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

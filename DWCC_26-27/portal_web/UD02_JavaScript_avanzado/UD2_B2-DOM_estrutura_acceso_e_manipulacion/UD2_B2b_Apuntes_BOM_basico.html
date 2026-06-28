@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UD2_B2b · BOM básico en JavaScript</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+  <script src="../../assets/js/smpp.js" defer></script>
+</head>
+<body>
+<div class="smpp-scope"><main class="main-content has-sidebar"><div class="content-layout"><aside aria-label="Índice del documento" class="section-sidebar"><nav aria-label="Secciones del documento" class="section-nav"><p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-ul"></i> Índice del documento</p><ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-que-vamos-a-aprender-en-este-documento"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Qué vamos a aprender en este documento</a></li><li><a class="section-nav-link badge-link" href="#2-dom-y-bom-diferencia-basica"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-diagram-3"></i></span> 2. DOM y BOM: diferencia básica</a></li><li><a class="section-nav-link badge-link" href="#3-el-objeto-window"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-window"></i></span> 3. El objeto <code>window</code></a></li><li><a class="section-nav-link badge-link" href="#4-tamano-de-la-ventana-y-de-la-pantalla"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-aspect-ratio"></i></span> 4. Tamaño de la ventana y de la pantalla</a></li><li><a class="section-nav-link badge-link" href="#5-dialogos-basicos-del-navegador"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-chat-square-dots"></i></span> 5. Diálogos básicos del navegador</a></li><li><a class="section-nav-link badge-link" href="#6-el-objeto-location"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-link-45deg"></i></span> 6. El objeto <code>location</code></a></li><li><a class="section-nav-link badge-link" href="#7-el-objeto-history"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-arrow-left-right"></i></span> 7. El objeto <code>history</code></a></li><li><a class="section-nav-link badge-link" href="#8-el-objeto-navigator"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-compass"></i></span> 8. El objeto <code>navigator</code></a></li><li><a class="section-nav-link badge-link" href="#9-temporizadores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-stopwatch"></i></span> 9. Temporizadores</a></li><li><a class="section-nav-link badge-link" href="#10-ejemplo-guiado-cuenta-atras"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-hourglass-split"></i></span> 10. Ejemplo guiado: cuenta atrás</a></li><li><a class="section-nav-link badge-link" href="#11-ejemplo-integrador-mostrar-informacion-del-navegador-en-el-dom"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-diagram-3-fill"></i></span> 11. Ejemplo integrador: mostrar información del navegador en el DOM</a></li><li><a class="section-nav-link badge-link" href="#12-buenas-practicas-con-bom"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-circle"></i></span> 12. Buenas prácticas con BOM</a></li><li><a class="section-nav-link badge-link" href="#13-errores-frecuentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bug"></i></span> 13. Errores frecuentes</a></li><li><a class="section-nav-link badge-link" href="#14-preguntas-tipo-examen"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-question-circle"></i></span> 14. Preguntas tipo examen</a></li><li><a class="section-nav-link badge-link" href="#15-contenidos-relacionados-que-se-trabajaran-mas-adelante"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-signpost-split"></i></span> 15. Contenidos relacionados que se trabajarán más adelante</a></li><li><a class="section-nav-link badge-link" href="#16-resumen-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-flag"></i></span> 16. Resumen final</a></li></ol></nav></aside><div class="content-wrapper"><header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-window-stack"></i></span> UD2_B2b. Apuntes: BOM básico en JavaScript</h1></header><hr class="content-separator"/><section class="content-section" id="1-que-vamos-a-aprender-en-este-documento"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Qué vamos a aprender en este documento</h2><p class="lead-text">En los bloques anteriores hemos trabajado JavaScript como lenguaje y hemos empezado a manipular la página con el <strong>DOM</strong>.</p><p>En este documento vamos a estudiar el <strong>BOM</strong> (<em>Browser Object Model</em>), nombre habitual que se utiliza para agrupar los objetos y las APIs que el navegador ofrece para interactuar con la ventana, la URL, el historial, la información del navegador, la pantalla y algunos mecanismos de temporización.</p><p>Al finalizar este documento deberías ser capaz de:</p><ul class="custom-list">
+<li>diferenciar <strong>DOM</strong> y <strong>BOM</strong>;</li>
+<li>usar el objeto <code>window</code>;</li>
+<li>consultar el tamaño visible de la ventana;</li>
+<li>mostrar diálogos básicos con <code>alert</code>, <code>confirm</code> y <code>prompt</code>;</li>
+<li>consultar información de la URL con <code>location</code>;</li>
+<li>moverte por el historial con <code>history</code>;</li>
+<li>consultar información básica del navegador con <code>navigator</code>;</li>
+<li>consultar información básica de la pantalla con <code>screen</code>;</li>
+<li>usar temporizadores con <code>setTimeout</code> y <code>setInterval</code>;</li>
+<li>cancelar temporizadores con <code>clearTimeout</code> y <code>clearInterval</code>;</li>
+<li>aplicar buenas prácticas para no abusar de ventanas emergentes, redirecciones o mensajes intrusivos.</li>
+</ul></section><section class="content-section" id="2-dom-y-bom-diferencia-basica"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 2. DOM y BOM: diferencia básica</h2><p>El <strong>DOM</strong> representa el documento HTML cargado en el navegador.</p><p>Por ejemplo:</p><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("h1");
+titulo.textContent = "Nuevo título";
+</code></pre></div><p>El <strong>BOM</strong> es un término habitual para agrupar elementos y APIs del navegador que rodean al documento: la ventana, la barra de direcciones, el historial, la información del navegador, la pantalla, los temporizadores, etc.</p><p>Por ejemplo:</p><div class="example-block"><pre class="code-js"><code>console.log(window.innerWidth);
+console.log(location.href);
+console.log(navigator.language);
+</code></pre></div><p>Podemos resumirlo así:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Qué representa</th>
+<th>Ejemplos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOM</td>
+<td>El documento HTML</td>
+<td><code>document</code>, <code>querySelector</code>, <code>textContent</code>, <code>createElement</code></td>
+</tr>
+<tr>
+<td>BOM</td>
+<td>El navegador y el entorno de la ventana</td>
+<td><code>window</code>, <code>location</code>, <code>history</code>, <code>navigator</code>, <code>screen</code></td>
+</tr>
+</tbody>
+</table></div><p>DOM y BOM no son mundos separados. El objeto <code>document</code>, que representa el DOM, también es accesible desde <code>window</code>:</p><div class="example-block"><pre class="code-js"><code>console.log(document);
+console.log(window.document);
+</code></pre></div></section><section class="content-section" id="3-el-objeto-window"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window"></i></span> 3. El objeto <code>window</code></h2><p><code>window</code> representa la ventana o pestaña del navegador donde se está ejecutando el código JavaScript.</p><p>En el navegador, muchas funciones y objetos globales pertenecen realmente a <code>window</code>.</p><p>Por ejemplo, estas dos instrucciones son equivalentes:</p><div class="example-block"><pre class="code-js"><code>alert("Hola");
+window.alert("Hola");
+</code></pre></div><p>También ocurre con <code>document</code>:</p><div class="example-block"><pre class="code-js"><code>console.log(document);
+console.log(window.document);
+</code></pre></div><p>Normalmente escribimos <code>document</code>, <code>alert</code> o <code>setTimeout</code> directamente, sin poner <code>window.</code>, porque JavaScript los busca en el objeto global de la ventana.</p><p>Ejemplos equivalentes:</p><div class="example-block"><pre class="code-js"><code>setTimeout(() =&gt; {
+  console.log("Mensaje");
+}, 1000);
+
+window.setTimeout(() =&gt; {
+  console.log("Mensaje");
+}, 1000);
+</code></pre></div></section><section class="content-section" id="4-tamano-de-la-ventana-y-de-la-pantalla"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-aspect-ratio"></i></span> 4. Tamaño de la ventana y de la pantalla</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-window"></i></span> 4.1. Tamaño visible de la ventana</h3><p>Podemos consultar el tamaño visible de la ventana del navegador:</p><div class="example-block"><pre class="code-js"><code>console.log(window.innerWidth);
+console.log(window.innerHeight);
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const ancho = window.innerWidth;
+const alto = window.innerHeight;
+
+console.log("Ancho de la ventana:", ancho);
+console.log("Alto de la ventana:", alto);
+</code></pre></div><p><code>window.innerWidth</code> y <code>window.innerHeight</code> indican las dimensiones aproximadas del área visible o <em>viewport</em> de la página, expresadas en píxeles CSS.</p><p>Esto puede ser útil para adaptar ciertos comportamientos, aunque el diseño adaptable debe resolverse principalmente con CSS mediante técnicas como <em>media queries</em>, Flexbox o Grid.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-display"></i></span> 4.2. El objeto <code>screen</code></h3><p><code>screen</code> contiene información sobre la pantalla del dispositivo que el navegador decide exponer.</p><div class="example-block"><pre class="code-js"><code>console.log(screen.width);
+console.log(screen.height);
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>console.log(
+  "Dimensiones de pantalla comunicadas por el navegador:",
+  screen.width + "x" + screen.height
+);
+</code></pre></div><p>No debemos confundir:</p><ul class="custom-list">
+<li><code>screen.width</code>: ancho lógico de la pantalla comunicado por el navegador;</li>
+<li><code>screen.height</code>: alto lógico de la pantalla comunicado por el navegador;</li>
+<li><code>window.innerWidth</code>: ancho visible de la ventana o <em>viewport</em>;</li>
+<li><code>window.innerHeight</code>: alto visible de la ventana o <em>viewport</em>.</li>
+</ul><p>Estos valores se expresan normalmente en píxeles CSS y no tienen por qué coincidir con la resolución física exacta del panel.</p></section><section class="content-section" id="5-dialogos-basicos-del-navegador"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-chat-square-dots"></i></span> 5. Diálogos básicos del navegador</h2><p>JavaScript ofrece tres diálogos básicos:</p><ul class="custom-list">
+<li><code>alert()</code>;</li>
+<li><code>confirm()</code>;</li>
+<li><code>prompt()</code>.</li>
+</ul><div class="warning-box"><p>Son fáciles de usar, pero deben emplearse con moderación porque interrumpen la navegación y la interacción del usuario mientras están abiertos.</p><p>Los navegadores también pueden limitar o bloquear estos diálogos en determinadas situaciones.</p></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-megaphone"></i></span> 5.1. <code>alert()</code></h3><p><code>alert()</code> muestra un mensaje informativo.</p><div class="example-block"><pre class="code-js"><code>alert("Bienvenido/a a la aplicación");
+</code></pre></div><p><code>alert()</code> devuelve <code>undefined</code>, aunque normalmente ese valor no se utiliza. Su finalidad es mostrar un mensaje y esperar a que el usuario pulse aceptar.</p><p>Uso razonable:</p><div class="example-block"><pre class="code-js"><code>alert("Datos guardados correctamente");
+</code></pre></div><p>Uso poco recomendable:</p><div class="example-block"><pre class="code-js"><code>alert("Hola");
+alert("Sigue leyendo");
+alert("Otro mensaje más");
+</code></pre></div><p>En aplicaciones reales suele ser preferible mostrar mensajes dentro de la propia página mediante el DOM.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-question-circle"></i></span> 5.2. <code>confirm()</code></h3><p><code>confirm()</code> muestra una pregunta con dos opciones: aceptar o cancelar.</p><p>Devuelve:</p><ul class="custom-list">
+<li><code>true</code> si el usuario acepta;</li>
+<li><code>false</code> si cancela.</li>
+</ul><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const borrar = confirm("¿Seguro que quieres borrar este elemento?");
+
+if (borrar) {
+  console.log("Elemento borrado");
+} else {
+  console.log("Operación cancelada");
+}
+</code></pre></div><p>Es útil para pedir confirmación antes de acciones importantes.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-input-cursor-text"></i></span> 5.3. <code>prompt()</code></h3><p><code>prompt()</code> permite pedir un dato al usuario.</p><p>Devuelve:</p><ul class="custom-list">
+<li>un <code>string</code> con el texto escrito;</li>
+<li><code>null</code> si el usuario cancela.</li>
+</ul><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const nombre = prompt("Escribe tu nombre:");
+
+if (nombre !== null) {
+  console.log("Hola, " + nombre);
+} else {
+  console.log("El usuario canceló la entrada");
+}
+</code></pre></div><p>Hay que recordar que <code>prompt()</code> siempre devuelve texto cuando el usuario acepta. Si queremos trabajar con números, debemos validar primero la entrada y después convertir el valor.</p><div class="example-block"><pre class="code-js"><code>const edadTexto = prompt("Escribe tu edad:");
+
+if (edadTexto === null || edadTexto.trim() === "") {
+  console.log("No se ha introducido una edad");
+} else {
+  const edad = Number(edadTexto);
+
+  if (Number.isNaN(edad)) {
+    console.log("No has escrito un número válido");
+  } else {
+    console.log("Edad:", edad);
+  }
+}
+</code></pre></div><p>No es correcto convertir directamente sin comprobar antes la cancelación o una entrada vacía, porque:</p><div class="example-block"><pre class="code-js"><code>Number(null); // 0
+Number("");   // 0
+</code></pre></div></section><section class="content-section" id="6-el-objeto-location"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-link-45deg"></i></span> 6. El objeto <code>location</code></h2><p><code>location</code> contiene información sobre la URL actual de la página y permite realizar algunas operaciones de navegación.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-search"></i></span> 6.1. Consultar la URL actual</h3><p>Algunas propiedades útiles son:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Qué indica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>location.href</code></td>
+<td>URL completa</td>
+</tr>
+<tr>
+<td><code>location.protocol</code></td>
+<td>Protocolo o esquema, por ejemplo <code>https:</code>, <code>http:</code> o <code>file:</code></td>
+</tr>
+<tr>
+<td><code>location.hostname</code></td>
+<td>Nombre del servidor</td>
+</tr>
+<tr>
+<td><code>location.pathname</code></td>
+<td>Ruta dentro del sitio</td>
+</tr>
+<tr>
+<td><code>location.search</code></td>
+<td>Parámetros de consulta de la URL</td>
+</tr>
+<tr>
+<td><code>location.hash</code></td>
+<td>Fragmento de la URL que comienza por <code>#</code></td>
+</tr>
+</tbody>
+</table></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>console.log(location.href);
+console.log(location.protocol);
+console.log(location.hostname);
+console.log(location.pathname);
+console.log(location.search);
+console.log(location.hash);
+</code></pre></div><p>Ejemplo de URL:</p><div class="example-block"><pre class="code-bash"><code>https://www.ejemplo.com/cursos/javascript.html?unidad=2#temporizadores
+</code></pre></div><p>En ese caso:</p><div class="example-block"><pre class="code-js"><code>console.log(location.protocol); // "https:"
+console.log(location.hostname); // "www.ejemplo.com"
+console.log(location.pathname); // "/cursos/javascript.html"
+console.log(location.search);   // "?unidad=2"
+console.log(location.hash);     // "#temporizadores"
+</code></pre></div><p><code>location.hash</code> resulta especialmente útil para identificar enlaces a secciones concretas de una misma página.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-box-arrow-up-right"></i></span> 6.2. Cambiar de página o recargarla</h3><p>También se puede modificar la URL desde JavaScript.</p><div class="example-block"><pre class="code-js"><code>location.href = "https://www.example.com";
+</code></pre></div><p>Otra posibilidad es:</p><div class="example-block"><pre class="code-js"><code>location.assign("https://www.example.com");
+</code></pre></div><p>También podemos recargar la página:</p><div class="example-block"><pre class="code-js"><code>location.reload();
+</code></pre></div><div class="warning-box"><p>Hay que usar estas instrucciones con cuidado. Redirigir al usuario sin motivo puede ser molesto y confuso.</p><p>Antes de probar una redirección, conviene guardar el trabajo, porque la página actual será sustituida por la nueva dirección.</p></div></section><section class="content-section" id="7-el-objeto-history"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-left-right"></i></span> 7. El objeto <code>history</code></h2><p><code>history</code> permite interactuar con el historial de navegación de la pestaña.</p><p>Métodos básicos:</p><div class="example-block"><pre class="code-js"><code>history.back();
+history.forward();
+</code></pre></div><ul class="custom-list">
+<li><code>history.back()</code> intenta volver a la página anterior.</li>
+<li><code>history.forward()</code> intenta avanzar a la página siguiente.</li>
+</ul><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>function volverAtras() {
+  history.back();
+}
+</code></pre></div><p>En prácticas de aula hay que tener cuidado, porque si no hay una entrada anterior o posterior en el historial puede parecer que el método “no hace nada”.</p><p>También podemos consultar cuántas entradas contiene aproximadamente el historial de la pestaña:</p><div class="example-block"><pre class="code-js"><code>console.log(history.length);
+</code></pre></div><p>Este valor indica el número de entradas disponibles, pero no permite leer las direcciones visitadas por motivos de privacidad.</p></section><section class="content-section" id="8-el-objeto-navigator"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-compass"></i></span> 8. El objeto <code>navigator</code></h2><p><code>navigator</code> ofrece información sobre el navegador y el entorno del usuario.</p><p>Ejemplos útiles:</p><div class="example-block"><pre class="code-js"><code>console.log(navigator.language);
+console.log(navigator.onLine);
+console.log(navigator.userAgent);
+</code></pre></div><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Qué indica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>navigator.language</code></td>
+<td>Idioma preferido del navegador</td>
+</tr>
+<tr>
+<td><code>navigator.onLine</code></td>
+<td>Si el navegador considera que existe conexión de red</td>
+</tr>
+<tr>
+<td><code>navigator.userAgent</code></td>
+<td>Cadena con información declarada por el navegador</td>
+</tr>
+</tbody>
+</table></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>if (navigator.onLine) {
+  console.log("El navegador podría tener conexión de red");
+} else {
+  console.log("El navegador indica que está sin conexión");
+}
+</code></pre></div><div class="warning-box"><p><code>navigator.onLine</code> no garantiza que exista acceso real a Internet ni que un servidor concreto responda. Un dispositivo puede estar conectado a una red local y, aun así, no tener salida a Internet.</p></div><p><code>navigator.userAgent</code> no debe usarse como base principal para decidir si una función está disponible. Es mejor comprobar directamente si la funcionalidad existe.</p><p>Ejemplo de detección de funcionalidad:</p><div class="example-block"><pre class="code-js"><code>if ("geolocation" in navigator) {
+  console.log("La API de geolocalización está disponible");
+} else {
+  console.log("La API de geolocalización no está disponible");
+}
+</code></pre></div><p>En este documento no se desarrollará la geolocalización; el ejemplo solo muestra cómo comprobar si una API existe.</p></section><section class="content-section" id="9-temporizadores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-stopwatch"></i></span> 9. Temporizadores</h2><p>Los temporizadores permiten programar la ejecución de funciones.</p><p>Los dos mecanismos principales son:</p><ul class="custom-list">
+<li><code>setTimeout()</code>: programa una ejecución única;</li>
+<li><code>setInterval()</code>: programa ejecuciones repetidas.</li>
+</ul><p>El tiempo se expresa en milisegundos:</p><ul class="custom-list">
+<li><code>1000</code> ms = 1 segundo;</li>
+<li><code>2000</code> ms = 2 segundos;</li>
+<li><code>5000</code> ms = 5 segundos.</li>
+</ul><div class="note-box"><p>Los tiempos indicados son aproximados. El navegador intenta ejecutar la función cuando ha transcurrido, como mínimo, el retraso señalado, pero puede hacerlo algo más tarde si está ocupado con otras tareas.</p></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-stopwatch"></i></span> 9.1. <code>setTimeout()</code></h3><p><code>setTimeout()</code> permite programar una función para que se ejecute una sola vez después de que haya transcurrido, como mínimo, el tiempo indicado.</p><p>Sintaxis básica:</p><div class="example-block"><pre class="code-js"><code>setTimeout(() =&gt; {
+  console.log("Han pasado al menos 2 segundos");
+}, 2000);
+</code></pre></div><p>Ejemplo con función declarada:</p><div class="example-block"><pre class="code-js"><code>function mostrarMensaje() {
+  console.log("Mensaje retrasado");
+}
+
+setTimeout(mostrarMensaje, 3000);
+</code></pre></div><p>Fíjate en que escribimos <code>mostrarMensaje</code>, no <code>mostrarMensaje()</code>.</p><ul class="custom-list">
+<li><code>mostrarMensaje</code> pasa la función para que se ejecute más tarde.</li>
+<li><code>mostrarMensaje()</code> ejecutaría la función inmediatamente.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-stopwatch"></i></span> 9.2. Cancelar un <code>setTimeout()</code></h3><p><code>setTimeout()</code> devuelve un identificador que podemos guardar.</p><div class="example-block"><pre class="code-js"><code>const temporizador = setTimeout(() =&gt; {
+  console.log("Esto se ejecutará si no se cancela");
+}, 5000);
+
+clearTimeout(temporizador);
+</code></pre></div><p><code>clearTimeout()</code> cancela el temporizador antes de que se ejecute.</p><p>Ejemplo con una condición:</p><div class="example-block"><pre class="code-js"><code>const temporizador = setTimeout(() =&gt; {
+  console.log("Operación realizada");
+}, 5000);
+
+const cancelar = confirm("¿Quieres cancelar la operación programada?");
+
+if (cancelar) {
+  clearTimeout(temporizador);
+  console.log("Temporizador cancelado");
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-repeat"></i></span> 9.3. <code>setInterval()</code></h3><p><code>setInterval()</code> ejecuta una función repetidamente dejando, como mínimo, el intervalo indicado entre una ejecución y la siguiente.</p><div class="example-block"><pre class="code-js"><code>setInterval(() =&gt; {
+  console.log("Este mensaje se repite aproximadamente cada segundo");
+}, 1000);
+</code></pre></div><p>Ejemplo con contador:</p><div class="example-block"><pre class="code-js"><code>let contador = 0;
+
+const intervalo = setInterval(() =&gt; {
+  contador++;
+  console.log("Contador:", contador);
+}, 1000);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-repeat"></i></span> 9.4. Detener un <code>setInterval()</code></h3><p>Para detener un intervalo usamos <code>clearInterval()</code>.</p><div class="example-block"><pre class="code-js"><code>let contador = 0;
+
+const intervalo = setInterval(() =&gt; {
+  contador++;
+  console.log("Contador:", contador);
+
+  if (contador === 5) {
+    clearInterval(intervalo);
+  }
+}, 1000);
+</code></pre></div><p>Este ejemplo muestra los números del 1 al 5 y después detiene el intervalo.</p><p>Conviene detener los intervalos cuando ya no son necesarios para evitar ejecuciones inútiles y comportamientos difíciles de controlar.</p></section><section class="content-section" id="10-ejemplo-guiado-cuenta-atras"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-hourglass-split"></i></span> 10. Ejemplo guiado: cuenta atrás</h2><p>El siguiente ejemplo muestra una cuenta atrás de cinco segundos:</p><div class="example-block"><pre class="code-js"><code>let segundos = 5;
+
+console.log("Quedan", segundos, "segundos");
+
+const cuentaAtras = setInterval(() =&gt; {
+  segundos--;
+
+  if (segundos &gt; 0) {
+    console.log("Quedan", segundos, "segundos");
+  } else {
+    clearInterval(cuentaAtras);
+    console.log("Tiempo terminado");
+  }
+}, 1000);
+</code></pre></div><p>Secuencia aproximada mostrada en consola:</p><div class="example-block"><pre class="code-bash"><code>Quedan 5 segundos
+Quedan 4 segundos
+Quedan 3 segundos
+Quedan 2 segundos
+Quedan 1 segundos
+Tiempo terminado
+</code></pre></div><p>Podemos mejorar el mensaje para usar singular cuando queda un segundo:</p><div class="example-block"><pre class="code-js"><code>let segundos = 5;
+
+function mostrarTiempo() {
+  if (segundos === 1) {
+    console.log("Queda 1 segundo");
+  } else {
+    console.log("Quedan", segundos, "segundos");
+  }
+}
+
+mostrarTiempo();
+
+const cuentaAtras = setInterval(() =&gt; {
+  segundos--;
+
+  if (segundos &gt; 0) {
+    mostrarTiempo();
+  } else {
+    clearInterval(cuentaAtras);
+    console.log("Tiempo terminado");
+  }
+}, 1000);
+</code></pre></div><p>Este ejemplo puede servir como base para temporizadores, mensajes retardados o pequeños juegos.</p></section><section class="content-section" id="11-ejemplo-integrador-mostrar-informacion-del-navegador-en-el-dom"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3-fill"></i></span> 11. Ejemplo integrador: mostrar información del navegador en el DOM</h2><p>Como ya conocemos el DOM, podemos combinarlo con información del BOM.</p><p>HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;section id="informacion-navegador"&gt;
+  &lt;h2&gt;Información del entorno&lt;/h2&gt;
+  &lt;p id="url-actual"&gt;&lt;/p&gt;
+  &lt;p id="idioma-navegador"&gt;&lt;/p&gt;
+  &lt;p id="tamano-ventana"&gt;&lt;/p&gt;
+  &lt;p id="estado-conexion"&gt;&lt;/p&gt;
+&lt;/section&gt;
+</code></pre></div><p>JavaScript:</p><div class="example-block"><pre class="code-js"><code>const parrafoUrl = document.querySelector("#url-actual");
+const parrafoIdioma = document.querySelector("#idioma-navegador");
+const parrafoTamano = document.querySelector("#tamano-ventana");
+const parrafoConexion = document.querySelector("#estado-conexion");
+
+parrafoUrl.textContent = "URL actual: " + location.href;
+parrafoIdioma.textContent = "Idioma: " + navigator.language;
+parrafoTamano.textContent =
+  `Ventana: ${window.innerWidth} × ${window.innerHeight}`;
+
+if (navigator.onLine) {
+  parrafoConexion.textContent =
+    "El navegador podría tener conexión de red.";
+} else {
+  parrafoConexion.textContent =
+    "El navegador indica que está sin conexión.";
+}
+</code></pre></div><p>En este ejemplo:</p><ul class="custom-list">
+<li>el BOM proporciona la URL, el idioma, el tamaño de la ventana y el estado de conexión;</li>
+<li>el DOM permite mostrar esa información dentro de la página;</li>
+<li><code>textContent</code> evita interpretar los datos como HTML.</li>
+</ul></section><section class="content-section" id="12-buenas-practicas-con-bom"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-circle"></i></span> 12. Buenas prácticas con BOM</h2><p>Conviene recordar:</p><div class="good-practice-box"><ul class="custom-list">
+<li>no abusar de <code>alert</code>, <code>confirm</code> y <code>prompt</code>;</li>
+<li>preferir mensajes integrados en el DOM cuando sea posible;</li>
+<li>no redirigir al usuario sin avisar;</li>
+<li>no recargar una página automáticamente sin una razón clara;</li>
+<li>no depender de <code>navigator.userAgent</code> si se puede comprobar una funcionalidad directamente;</li>
+<li>no asumir que <code>navigator.onLine === true</code> garantiza acceso real a Internet;</li>
+<li>detener los intervalos cuando ya no sean necesarios;</li>
+<li>cancelar los temporizadores pendientes si dejan de tener sentido;</li>
+<li>no usar temporizadores para ocultar errores de lógica;</li>
+<li>no esperar que los temporizadores sean exactos;</li>
+<li>comprobar los valores devueltos por <code>prompt()</code> antes de convertirlos;</li>
+<li>tener en cuenta que el comportamiento puede variar ligeramente entre navegadores.</li>
+</ul></div></section><section class="content-section" id="13-errores-frecuentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 13. Errores frecuentes</h2><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-stopwatch"></i></span> Error 1. Ejecutar la función inmediatamente en <code>setTimeout()</code></h3><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>setTimeout(mostrarMensaje(), 2000);
+</code></pre></div><p>En este caso, <code>mostrarMensaje()</code> se ejecuta inmediatamente y su valor de retorno se pasa a <code>setTimeout()</code>.</p><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>setTimeout(mostrarMensaje, 2000);
+</code></pre></div><p>También es correcto utilizar una función flecha:</p><div class="example-block"><pre class="code-js"><code>setTimeout(() =&gt; {
+  mostrarMensaje();
+}, 2000);
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 2. No detener un intervalo</h3><div class="example-block"><pre class="code-js"><code>setInterval(() =&gt; {
+  console.log("Esto no se detiene nunca");
+}, 1000);
+</code></pre></div><p>Si el intervalo ya no hace falta, debemos guardar su identificador y usar <code>clearInterval()</code>.</p><div class="example-block"><pre class="code-js"><code>const intervalo = setInterval(() =&gt; {
+  console.log("Mensaje repetido");
+}, 1000);
+
+clearInterval(intervalo);
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-input-cursor-text"></i></span> Error 3. Olvidar que <code>prompt()</code> devuelve texto</h3><div class="example-block"><pre class="code-js"><code>const numero = prompt("Escribe un número:");
+console.log(numero + 10);
+</code></pre></div><p>Si el usuario escribe <code>5</code>, el resultado será <code>"510"</code>, porque se concatena texto.</p><p>Tampoco es suficiente hacer directamente:</p><div class="example-block"><pre class="code-js"><code>const numero = Number(prompt("Escribe un número:"));
+console.log(numero + 10);
+</code></pre></div><p>Si el usuario cancela o deja la entrada vacía, el resultado puede convertirse en <code>0</code>.</p><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>const numeroTexto = prompt("Escribe un número:");
+
+if (numeroTexto === null || numeroTexto.trim() === "") {
+  console.log("No se ha introducido ningún número");
+} else {
+  const numero = Number(numeroTexto);
+
+  if (Number.isNaN(numero)) {
+    console.log("El valor introducido no es un número válido");
+  } else {
+    console.log(numero + 10);
+  }
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 4. Redirigir accidentalmente</h3><div class="example-block"><pre class="code-js"><code>location.href = "https://www.example.com";
+</code></pre></div><p>Esta instrucción cambia la página actual. No debe usarse en pruebas si no se quiere abandonar la página.</p><p>Antes de ejecutar una redirección, conviene comprobar que la URL es correcta y que el usuario espera ese cambio.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 5. Creer que un temporizador es exacto</h3><div class="example-block"><pre class="code-js"><code>setTimeout(() =&gt; {
+  console.log("Exactamente un segundo");
+}, 1000);
+</code></pre></div><p>El mensaje puede ejecutarse algo después de un segundo.</p><p>Mejor descripción:</p><div class="example-block"><pre class="code-js"><code>setTimeout(() =&gt; {
+  console.log("Ha transcurrido al menos aproximadamente un segundo");
+}, 1000);
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> Error 6. Confiar completamente en <code>navigator.onLine</code></h3><div class="example-block"><pre class="code-js"><code>if (navigator.onLine) {
+  console.log("Internet funciona correctamente");
+}
+</code></pre></div><p>Este mensaje es demasiado rotundo. <code>navigator.onLine</code> solo refleja el estado de conexión que el navegador cree detectar.</p><p>Mejor:</p><div class="example-block"><pre class="code-js"><code>if (navigator.onLine) {
+  console.log("El navegador podría tener conexión de red");
+}
+</code></pre></div></div></section><section class="content-section" id="14-preguntas-tipo-examen"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-question-circle"></i></span> 14. Preguntas tipo examen</h2><ol class="custom-ordered-list">
+<li>¿Qué diferencia hay entre DOM y BOM?</li>
+<li>¿Qué objeto representa la ventana del navegador?</li>
+<li>¿Por qué podemos escribir <code>alert()</code> en lugar de <code>window.alert()</code>?</li>
+<li>¿Qué devuelve <code>confirm()</code>?</li>
+<li>¿Qué devuelve <code>prompt()</code> si el usuario cancela?</li>
+<li>¿Qué problema puede aparecer al ejecutar <code>Number(prompt(...))</code> sin comprobar antes el resultado?</li>
+<li>¿Qué propiedad permite consultar la URL completa de la página?</li>
+<li>¿Qué información proporciona <code>location.hash</code>?</li>
+<li>¿Qué diferencia hay entre <code>location.href</code> y <code>location.reload()</code>?</li>
+<li>¿Qué ocurre si se ejecuta <code>history.back()</code> y no existe una página anterior?</li>
+<li>¿Por qué <code>navigator.onLine === true</code> no garantiza acceso real a Internet?</li>
+<li>¿Por qué no conviene usar <code>navigator.userAgent</code> para detectar funcionalidades?</li>
+<li>¿Qué diferencia hay entre <code>screen.width</code> y <code>window.innerWidth</code>?</li>
+<li>¿Qué diferencia hay entre <code>setTimeout()</code> y <code>setInterval()</code>?</li>
+<li>¿Para qué sirven <code>clearTimeout()</code> y <code>clearInterval()</code>?</li>
+<li>¿Por qué un temporizador de <code>1000</code> milisegundos puede tardar algo más?</li>
+<li>Corrige el siguiente código:</li>
+</ol><div class="example-block"><pre class="code-js"><code>setTimeout(mostrarMensaje(), 2000);
+</code></pre></div><ol class="custom-ordered-list" start="18">
+<li>¿Por qué no conviene abusar de <code>alert()</code>?</li>
+<li>¿Qué ventajas tiene mostrar mensajes mediante el DOM en lugar de usar diálogos modales?</li>
+<li>¿Qué objetos del BOM se utilizan en el ejemplo integrador con el DOM?</li>
+</ol></section><section class="content-section" id="15-contenidos-relacionados-que-se-trabajaran-mas-adelante"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-signpost-split"></i></span> 15. Contenidos relacionados que se trabajarán más adelante</h2><p>Este documento introduce el BOM básico. En documentos posteriores se podrá ampliar con:</p><ul class="custom-list">
+<li>almacenamiento local con <code>localStorage</code>;</li>
+<li>almacenamiento temporal con <code>sessionStorage</code>;</li>
+<li>comunicación asíncrona con <code>fetch</code>;</li>
+<li>APIs del navegador más avanzadas;</li>
+<li>eventos <code>online</code> y <code>offline</code>;</li>
+<li>geolocalización, si se decide incluir como ampliación;</li>
+<li>gestión más avanzada del historial;</li>
+<li><code>URL</code> y <code>URLSearchParams</code>;</li>
+<li><code>AbortController</code>;</li>
+<li>gestión avanzada de estado en aplicaciones web.</li>
+</ul><p>No se desarrollan aquí para mantener este documento centrado en los fundamentos del BOM.</p></section><section class="content-section summary-section" id="16-resumen-final"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-flag"></i></span> 16. Resumen final</h2><p>El BOM permite interactuar con el navegador más allá del documento HTML.</p><p>Los objetos y funciones más importantes de este bloque son:</p><ul class="custom-list">
+<li><code>window</code>: representa la ventana o pestaña del navegador;</li>
+<li><code>location</code>: permite consultar la URL y realizar operaciones de navegación;</li>
+<li><code>history</code>: permite retroceder y avanzar por el historial;</li>
+<li><code>navigator</code>: ofrece información básica sobre el navegador y su entorno;</li>
+<li><code>screen</code>: comunica información básica sobre la pantalla;</li>
+<li><code>alert</code>, <code>confirm</code> y <code>prompt</code>: muestran diálogos modales;</li>
+<li><code>setTimeout</code>: programa una ejecución única;</li>
+<li><code>clearTimeout</code>: cancela un <code>setTimeout</code>;</li>
+<li><code>setInterval</code>: programa ejecuciones repetidas;</li>
+<li><code>clearInterval</code>: detiene un <code>setInterval</code>.</li>
+</ul><p>Ideas esenciales:</p><div class="example-block"><pre class="code-js"><code>console.log(window.innerWidth);
+console.log(location.href);
+console.log(history.length);
+console.log(navigator.language);
+console.log(screen.width);
+</code></pre></div><p>Temporizador de una sola ejecución:</p><div class="example-block"><pre class="code-js"><code>const temporizador = setTimeout(() =&gt; {
+  console.log("Mensaje retrasado");
+}, 2000);
+
+clearTimeout(temporizador);
+</code></pre></div><p>Temporizador repetido:</p><div class="example-block"><pre class="code-js"><code>const intervalo = setInterval(() =&gt; {
+  console.log("Mensaje repetido");
+}, 1000);
+
+clearInterval(intervalo);
+</code></pre></div><p>El BOM es útil, pero debe usarse con cuidado para no interrumpir, confundir o desplazar al usuario de forma inesperada. También debemos recordar que los datos proporcionados por el navegador pueden ser aproximados y que los temporizadores no son mecanismos de precisión.</p></section></div></div></main></div>
+</body>
+</html>

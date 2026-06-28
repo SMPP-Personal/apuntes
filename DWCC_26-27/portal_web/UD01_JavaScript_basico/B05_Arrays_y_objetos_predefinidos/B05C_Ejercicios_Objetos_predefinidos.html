@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Bloque 5C. Ejercicios: objetos predefinidos en JavaScript</title><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/><link href="../../assets/css/smpp.css" rel="stylesheet"/><script defer="" src="../../assets/js/smpp.js"></script></head><body><div class="smpp-scope"><main class="main-content has-sidebar exercises-page"><div class="content-layout"><aside class="section-sidebar"><nav aria-label="Índice del documento" class="section-nav"><p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-check"></i> Índice</p><ul class="section-nav-list"><li><a class="section-nav-link" href="#1-objetivo-de-la-hoja"><i aria-hidden="true" class="bi bi-bullseye"></i><span>1. Objetivo de la hoja</span></a></li><li><a class="section-nav-link" href="#2-instrucciones-generales"><i aria-hidden="true" class="bi bi-list-check"></i><span>2. Instrucciones generales</span></a></li><li><a class="section-nav-link" href="#parte-1-string-trabajar-con-texto"><i aria-hidden="true" class="bi bi-type"></i><span>Parte 1. String: trabajar con texto</span></a></li><li><a class="section-nav-link" href="#parte-2-conversion-numerica-y-number"><i aria-hidden="true" class="bi bi-123"></i><span>Parte 2. Conversión numérica y Number</span></a></li><li><a class="section-nav-link" href="#parte-3-math-calculos-matematicos"><i aria-hidden="true" class="bi bi-calculator"></i><span>Parte 3. Math: cálculos matemáticos</span></a></li><li><a class="section-nav-link" href="#parte-4-date-fechas-y-horas"><i aria-hidden="true" class="bi bi-calendar-event"></i><span>Parte 4. Date: fechas y horas</span></a></li><li><a class="section-nav-link" href="#parte-5-json-convertir-datos-a-texto-y-recuperar-datos"><i aria-hidden="true" class="bi bi-braces"></i><span>Parte 5. JSON: convertir datos a texto y recuperar datos</span></a></li><li><a class="section-nav-link" href="#parte-6-elegir-la-herramienta-adecuada"><i aria-hidden="true" class="bi bi-signpost-split"></i><span>Parte 6. Elegir la herramienta adecuada</span></a></li><li><a class="section-nav-link" href="#parte-7-corrige-los-errores"><i aria-hidden="true" class="bi bi-bug"></i><span>Parte 7. Corrige los errores</span></a></li><li><a class="section-nav-link" href="#parte-8-mini-entrega-final"><i aria-hidden="true" class="bi bi-upload"></i><span>Parte 8. Mini-entrega final</span></a></li><li><a class="section-nav-link" href="#contenidos-aplazados-para-ud2-javascript-avanzado"><i aria-hidden="true" class="bi bi-slash-circle"></i><span>Contenidos aplazados para UD2 JavaScript avanzado</span></a></li><li><a class="section-nav-link" href="#resumen-de-repaso"><i aria-hidden="true" class="bi bi-check2-circle"></i><span>Resumen de repaso</span></a></li></ul></nav></aside><div class="content-wrapper"><div class="document-toolbar"><a class="document-home-link" href="../../index.html"><i aria-hidden="true" class="bi bi-house-door"></i> Índice del curso</a><button class="document-theme-toggle" id="theme-toggle" type="button"><i aria-hidden="true" class="bi bi-moon-stars"></i> Modo oscuro</button></div><header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i aria-hidden="true" class="bi bi-tools"></i></span> Bloque 5C. Ejercicios: objetos predefinidos en JavaScript</h1></header><section class="content-section learning-objectives-section" id="1-objetivo-de-la-hoja"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</h2><p>En esta hoja vas a practicar algunos objetos y herramientas predefinidas de JavaScript que se utilizan con mucha frecuencia en desarrollo web:</p><ul class="custom-list">
+<li><code>String</code>, para trabajar con textos.</li>
+<li>Conversión numérica y <code>Number</code>, para pasar datos de texto a número y validar conversiones.</li>
+<li><code>Math</code>, para cálculos matemáticos, redondeos y números aleatorios.</li>
+<li><code>Date</code>, para obtener fechas y horas.</li>
+<li><code>JSON</code>, para convertir datos de JavaScript a texto y recuperar datos desde texto.</li>
+</ul><blockquote class="warning-box">
+<p>En esta hoja no se trabajan todavía DOM, eventos, formularios reales, <code>fetch</code>, promesas ni <code>async/await</code>. Eso se verá en documentos posteriores.</p>
+</blockquote><hr/></section><section class="content-section flow-section" id="2-instrucciones-generales"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-list-check"></i></span> 2. Instrucciones generales</h2><ol class="question-list">
+<li>Crea un archivo llamado <code>B05C_ejercicios_objetos_predefinidos.js</code>.</li>
+<li>Resuelve los ejercicios en orden.</li>
+<li>Usa <code>console.log()</code> para comprobar los resultados.</li>
+<li>Lee bien si el ejercicio pide <strong>predecir</strong>, <strong>probar</strong>, <strong>explicar</strong> o <strong>crear código</strong>.</li>
+<li>Añade comentarios breves cuando el ejercicio pida justificar una respuesta.</li>
+</ol><p>Ejemplo de comentario:</p><div class="example-block"><pre class="code-js"><code>// getMonth() devuelve valores entre 0 y 11, por eso sumamos 1.
+</code></pre></div><hr/></section><section class="content-section guided-exercises-section" id="parte-1-string-trabajar-con-texto"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-type"></i></span> Parte 1. <code>String</code>: trabajar con texto</h2><div class="exercise-block"><h3>Ejercicio 1. Longitud, mayúsculas y minúsculas</h3><p>Dada la cadena:</p><div class="example-block"><pre class="code-js"><code>const mensaje = "Desenvolvemento Web en Contorno Cliente";
+</code></pre></div><ol class="question-list">
+<li>Muestra por consola la longitud del mensaje usando <code>.length</code>.</li>
+<li>Muestra el mensaje completo en mayúsculas usando <code>.toUpperCase()</code>.</li>
+<li>Muestra el mensaje completo en minúsculas usando <code>.toLowerCase()</code>.</li>
+<li>Comprueba si el valor original de <code>mensaje</code> ha cambiado.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 2. Limpiar espacios con <code>trim()</code></h3><p>Dado este valor:</p><div class="example-block"><pre class="code-js"><code>const nombreConEspacios = "   Ana   ";
+</code></pre></div><ol class="question-list">
+<li>Muestra por consola el valor original.</li>
+<li>Crea una constante <code>nombreLimpio</code> aplicando <code>.trim()</code>.</li>
+<li>Muestra <code>nombreLimpio</code> por consola.</li>
+<li>Muestra la longitud del texto original y la longitud del texto limpio.</li>
+<li>Explica en un comentario qué elimina exactamente <code>trim()</code>.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 3. Buscar texto con <code>includes()</code></h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const descripcion = "Curso de DWCC con JavaScript y HTML";
+</code></pre></div><ol class="question-list">
+<li>Comprueba si la descripción contiene la palabra <code>"DWCC"</code> usando <code>.includes()</code>.</li>
+<li>Comprueba si contiene la palabra <code>"PHP"</code>.</li>
+<li>Escribe un <code>if</code> que muestre <code>"El curso es de DWCC"</code> solo si <code>.includes("DWCC")</code> devuelve <code>true</code>.</li>
+<li>Prueba ahora con <code>descripcion.includes("dwcc")</code>. ¿Da el mismo resultado? Explica por qué.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 4. Búsqueda sin distinguir mayúsculas y minúsculas</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const modulo = "Desenvolvemento Web en Contorno Cliente";
+const busqueda = "web";
+</code></pre></div><ol class="question-list">
+<li>Convierte <code>modulo</code> a minúsculas.</li>
+<li>Convierte <code>busqueda</code> a minúsculas.</li>
+<li>Comprueba si <code>modulo</code> contiene el texto de <code>busqueda</code>, sin importar las mayúsculas o minúsculas.</li>
+<li>Muestra un mensaje indicando si se ha encontrado la búsqueda.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 5. Comprobar inicio y final de una cadena</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const archivo = "practica_arrays.js";
+</code></pre></div><ol class="question-list">
+<li>Comprueba si el nombre del archivo empieza por <code>"practica"</code> usando <code>.startsWith()</code>.</li>
+<li>Comprueba si termina en <code>".js"</code> usando <code>.endsWith()</code>.</li>
+<li>Escribe un <code>if</code> que muestre <code>"Archivo JavaScript correcto"</code> solo si se cumplen las dos condiciones.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 6. Extraer parte de un texto con <code>slice()</code></h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const codigo = "DWCC-2026-A";
+</code></pre></div><ol class="question-list">
+<li>Extrae los cuatro primeros caracteres.</li>
+<li>Extrae el año <code>"2026"</code>.</li>
+<li>Extrae la última letra.</li>
+<li>Muestra todos los resultados por consola.</li>
+</ol><p>Pista: para extraer la última letra puedes usar <code>codigo.slice(codigo.length - 1)</code>.</p><p>Pista: recuerda que los índices empiezan en 0.</p><hr/></div></section><section class="content-section guided-exercises-section" id="parte-2-conversion-numerica-y-number"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-123"></i></span> Parte 2. Conversión numérica y <code>Number</code></h2><div class="exercise-block"><h3>Ejercicio 7. Convertir cadenas a números con <code>Number()</code></h3><p>Antes de ejecutar, intenta predecir el resultado de cada línea. Después compruébalo en la consola.</p><div class="example-block"><pre class="code-js"><code>console.log(Number("123"));
+console.log(Number("3.14"));
+console.log(Number("hola"));
+console.log(Number(true));
+console.log(Number(false));
+console.log(Number(""));
+</code></pre></div><ol class="question-list">
+<li>Escribe el resultado esperado de cada línea en comentarios.</li>
+<li>Explica qué significa <code>NaN</code>.</li>
+<li>Comprueba con <code>Number.isNaN()</code> cuáles de esos resultados son <code>NaN</code>.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 8. <code>parseInt()</code> y <code>parseFloat()</code></h3><p>Predice primero y comprueba después:</p><div class="example-block"><pre class="code-js"><code>console.log(parseInt("42", 10));
+console.log(parseInt("42px", 10));
+console.log(parseInt("px42", 10));
+
+console.log(parseFloat("3.14"));
+console.log(parseFloat("3.14€"));
+console.log(parseFloat("hola 2.5"));
+</code></pre></div><ol class="question-list">
+<li>Indica el resultado de cada línea.</li>
+<li>Explica la diferencia entre <code>parseInt()</code> y <code>parseFloat()</code>.</li>
+<li>Explica por qué <code>parseInt("42px", 10)</code> sí devuelve un número y <code>parseInt("px42", 10)</code> no.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 9. Calcular precio con IVA</h3><p>Supón que recibes el precio de un producto como texto:</p><div class="example-block"><pre class="code-js"><code>const precioTexto = "19.99";
+</code></pre></div><ol class="question-list">
+<li>Convierte <code>precioTexto</code> a número decimal usando <code>parseFloat()</code>.</li>
+<li>Calcula el precio con IVA del 21%.</li>
+<li>Muestra el resultado por consola.</li>
+<li>Muestra el resultado con dos decimales usando <code>.toFixed(2)</code>.</li>
+<li>Prueba qué ocurre si <code>precioTexto</code> vale <code>"19.99€"</code>.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 10. Validar una edad introducida como texto</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const edadTexto = "18";
+</code></pre></div><ol class="question-list">
+<li>Convierte <code>edadTexto</code> a número con <code>Number()</code>.</li>
+<li>Comprueba si la conversión ha fallado usando <code>Number.isNaN()</code>.</li>
+<li>Si la conversión es válida y la edad es mayor o igual que 18, muestra <code>"Mayor de edad"</code>.</li>
+<li>Si la conversión es válida y la edad es menor que 18, muestra <code>"Menor de edad"</code>.</li>
+<li>Si la conversión no es válida, muestra <code>"Edad no válida"</code>.</li>
+<li>Prueba el ejercicio cambiando <code>edadTexto</code> por <code>"hola"</code>.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 11. Redondear un importe con <code>toFixed()</code></h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const total = 12.5 / 3;
+</code></pre></div><ol class="question-list">
+<li>Muestra el valor original de <code>total</code>.</li>
+<li>Muestra el valor con dos decimales usando <code>.toFixed(2)</code>.</li>
+<li>Comprueba con <code>typeof</code> qué tipo de dato devuelve <code>.toFixed(2)</code>.</li>
+<li>Explica el resultado en un comentario.</li>
+</ol><hr/></div></section><section class="content-section guided-exercises-section" id="parte-3-math-calculos-matematicos"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-calculator"></i></span> Parte 3. <code>Math</code>: cálculos matemáticos</h2><div class="exercise-block"><h3>Ejercicio 12. Redondeos con <code>Math</code></h3><p>Predice el resultado y después comprueba:</p><div class="example-block"><pre class="code-js"><code>console.log(Math.round(3.4));
+console.log(Math.round(3.5));
+console.log(Math.round(3.6));
+
+console.log(Math.floor(3.9));
+console.log(Math.ceil(3.1));
+</code></pre></div><ol class="question-list">
+<li>Indica el resultado de cada línea.</li>
+<li>Explica con tus palabras la diferencia entre <code>round</code>, <code>floor</code> y <code>ceil</code>.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 13. Nota redondeada</h3><p>Dada esta nota:</p><div class="example-block"><pre class="code-js"><code>const nota = 6.75;
+</code></pre></div><ol class="question-list">
+<li>Usa <code>Math.round()</code> para redondear a la unidad más cercana.</li>
+<li>Usa <code>Math.floor()</code> para redondear hacia abajo.</li>
+<li>Usa <code>Math.ceil()</code> para redondear hacia arriba.</li>
+<li>Muestra cada resultado con un mensaje explicativo.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 14. Máximo y mínimo</h3><p>Dadas estas notas:</p><div class="example-block"><pre class="code-js"><code>const nota1 = 4;
+const nota2 = 7;
+const nota3 = 9;
+</code></pre></div><ol class="question-list">
+<li>Usa <code>Math.max()</code> para obtener la nota más alta.</li>
+<li>Usa <code>Math.min()</code> para obtener la nota más baja.</li>
+<li>Muestra ambos resultados con mensajes claros.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 15. Tirada de dado</h3><p>Escribe código que:</p><ol class="question-list">
+<li>Genere un número entero aleatorio entre 1 y 6, ambos incluidos.</li>
+<li>Muestre por consola <code>"Has sacado un X"</code>, donde <code>X</code> es el número generado.</li>
+</ol><p>Pista:</p><div class="example-block"><pre class="code-js"><code>const dado = Math.floor(Math.random() * 6) + 1;
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 16. Número aleatorio entre dos valores</h3><p>Crea una función llamada <code>numeroAleatorioEntre(min, max)</code> que devuelva un número entero aleatorio entre <code>min</code> y <code>max</code>, ambos incluidos.</p><p>Ejemplo de uso:</p><div class="example-block"><pre class="code-js"><code>console.log(numeroAleatorioEntre(1, 10));
+console.log(numeroAleatorioEntre(20, 30));
+</code></pre></div><p>Después responde en un comentario:</p><ol class="question-list">
+<li>¿Por qué se usa <code>Math.floor()</code>?</li>
+<li>¿Para qué sirve <code>max - min + 1</code>?</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 17. Área de un círculo</h3><p>Crea una función llamada <code>calcularAreaCirculo(radio)</code> que:</p><ol class="question-list">
+<li>Reciba el radio de un círculo.</li>
+<li>Calcule el área usando <code>Math.PI</code>.</li>
+<li>Devuelva el resultado.</li>
+<li>Muestra el resultado con dos decimales.</li>
+</ol><p>Fórmula:</p><div class="example-block"><pre class="code-js"><code>area = Math.PI * radio * radio;
+</code></pre></div><hr/></div></section><section class="content-section guided-exercises-section" id="parte-4-date-fechas-y-horas"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-calendar-event"></i></span> Parte 4. <code>Date</code>: fechas y horas</h2><div class="exercise-block"><h3>Ejercicio 18. Mostrar la fecha actual</h3><ol class="question-list">
+<li>Crea una constante <code>hoy</code> con la fecha actual:</li>
+</ol><div class="example-block"><pre class="code-js"><code>const hoy = new Date();
+</code></pre></div><ol class="question-list" start="2">
+<li>Obtén:<ul class="custom-list">
+<li>el año con <code>.getFullYear()</code>;</li>
+<li>el mes con <code>.getMonth()</code>;</li>
+<li>el día con <code>.getDate()</code>.</li>
+</ul>
+</li>
+<li>Corrige el mes sumando 1.</li>
+<li>Muestra un mensaje del tipo:</li>
+</ol><div class="example-block"><pre class="code-text"><code>Hoy es 23/5/2026
+</code></pre></div><ol class="question-list" start="5">
+<li>Explica en un comentario por qué hay que sumar 1 al mes.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 19. Día de la semana</h3><p>Crea un programa que muestre el número del día de la semana actual usando <code>.getDay()</code>.</p><p>Después, usando este array:</p><div class="example-block"><pre class="code-js"><code>const diasSemana = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+</code></pre></div><p>muestra un mensaje como:</p><div class="example-block"><pre class="code-text"><code>Hoy es martes
+</code></pre></div><p>Recuerda: <code>.getDay()</code> devuelve 0 para domingo, 1 para lunes, etc.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 20. Hora actual</h3><ol class="question-list">
+<li>Crea un objeto <code>Date</code> con la fecha y hora actuales.</li>
+<li>Obtén la hora con <code>.getHours()</code>.</li>
+<li>Obtén los minutos con <code>.getMinutes()</code>.</li>
+<li>Muestra un mensaje como:</li>
+</ol><div class="example-block"><pre class="code-text"><code>Son las 12:35
+</code></pre></div><p>No hace falta que formatees los minutos con cero inicial si son menores de 10.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 21. Mensaje de bienvenida con fecha y hora</h3><p>Escribe un programa que muestre un mensaje parecido a este:</p><div class="example-block"><pre class="code-text"><code>Bienvenido/a. Hoy es 23/5/2026 y son las 12:35.
+</code></pre></div><p>Debes usar:</p><ul class="custom-list">
+<li><code>new Date()</code>;</li>
+<li><code>.getFullYear()</code>;</li>
+<li><code>.getMonth() + 1</code>;</li>
+<li><code>.getDate()</code>;</li>
+<li><code>.getHours()</code>;</li>
+<li><code>.getMinutes()</code>.</li>
+</ul><hr/></div><div class="exercise-block"><h3>Ejercicio 22. Edad aproximada</h3><blockquote class="note-box">
+<p><code>prompt()</code> está disponible en el navegador. Si ejecutas este archivo con Node.js, este ejemplo no funcionará directamente sin adaptar la entrada de datos.</p>
+</blockquote><ol class="question-list">
+<li>Pide al usuario con <code>prompt()</code> el año de nacimiento.</li>
+<li>Convierte el valor introducido con <code>parseInt()</code>.</li>
+<li>Obtén el año actual con <code>new Date().getFullYear()</code>.</li>
+<li>Calcula la edad aproximada.</li>
+<li>Muestra por consola:</li>
+</ol><div class="example-block"><pre class="code-text"><code>Tienes aproximadamente X años.
+</code></pre></div><ol class="question-list" start="6">
+<li>Si el valor introducido no es válido, muestra:</li>
+</ol><div class="example-block"><pre class="code-text"><code>Año de nacimiento no válido.
+</code></pre></div><p>No hace falta tener en cuenta todavía si ya ha pasado el cumpleaños este año.</p><hr/></div></section><section class="content-section guided-exercises-section" id="parte-5-json-convertir-datos-a-texto-y-recuperar-datos"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-braces"></i></span> Parte 5. <code>JSON</code>: convertir datos a texto y recuperar datos</h2><div class="exercise-block"><h3>Ejercicio 23. Convertir un array a texto JSON</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+</code></pre></div><ol class="question-list">
+<li>Convierte el array a texto JSON usando <code>JSON.stringify()</code>.</li>
+<li>Guarda el resultado en una constante llamada <code>notasJSON</code>.</li>
+<li>Muestra <code>notasJSON</code> por consola.</li>
+<li>Comprueba con <code>typeof</code> qué tipo de dato es <code>notasJSON</code>.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 24. Recuperar un array desde texto JSON</h3><p>Dado este texto JSON:</p><div class="example-block"><pre class="code-js"><code>const textoJSON = "[4,7,9,3,5]";
+</code></pre></div><ol class="question-list">
+<li>Convierte el texto en un array usando <code>JSON.parse()</code>.</li>
+<li>Guarda el resultado en una constante llamada <code>notas</code>.</li>
+<li>Muestra el array por consola.</li>
+<li>Muestra la primera nota.</li>
+<li>Muestra cuántas notas hay usando <code>.length</code>.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 25. Convertir un dato estructurado a JSON</h3><p>Dado este dato:</p><div class="example-block"><pre class="code-js"><code>const alumno = {
+  nombre: "Ana",
+  modulo: "DWCC",
+  nota: 8
+};
+</code></pre></div><ol class="question-list">
+<li>Convierte <code>alumno</code> a texto JSON usando <code>JSON.stringify()</code>.</li>
+<li>Muestra el resultado por consola.</li>
+<li>Comprueba con <code>typeof</code> que el resultado es un string.</li>
+</ol><blockquote class="note-box">
+<p>No es necesario estudiar todavía en profundidad los objetos propios. Aquí se usan solo como ejemplo sencillo de dato estructurado.</p>
+</blockquote><hr/></div><div class="exercise-block"><h3>Ejercicio 26. Recuperar un dato estructurado desde JSON</h3><p>Dado este texto JSON:</p><div class="example-block"><pre class="code-js"><code>const alumnoJSON = '{"nombre":"Luis","modulo":"DWCC","nota":7}';
+</code></pre></div><ol class="question-list">
+<li>Convierte <code>alumnoJSON</code> a dato de JavaScript usando <code>JSON.parse()</code>.</li>
+<li>Muestra por consola el nombre del alumno.</li>
+<li>Muestra por consola la nota.</li>
+<li>Muestra un mensaje del tipo:</li>
+</ol><div class="example-block"><pre class="code-text"><code>Luis tiene un 7 en DWCC.
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 27. JSON válido e inválido</h3><p>Observa estos dos textos:</p><div class="example-block"><pre class="code-js"><code>const jsonValido = '{"nombre":"Ana","nota":8}';
+const jsonInvalido = "{'nombre':'Ana','nota':8}";
+</code></pre></div><ol class="question-list">
+<li>Intenta explicar cuál de los dos tiene formato JSON correcto.</li>
+<li>Prueba a convertir <code>jsonValido</code> con <code>JSON.parse()</code>.</li>
+<li>No hace falta que captures el error del JSON inválido, pero sí debes explicar por qué no es correcto.</li>
+</ol><p>Pista: en JSON, las claves y los textos deben ir con comillas dobles.</p><hr/></div></section><section class="content-section logic-section" id="parte-6-elegir-la-herramienta-adecuada"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-signpost-split"></i></span> Parte 6. Elegir la herramienta adecuada</h2><div class="exercise-block"><h3>Ejercicio 28. ¿Qué usarías?</h3><p>Indica qué herramienta utilizarías en cada caso: <code>String</code>, <code>Number</code>, <code>Math</code>, <code>Date</code> o <code>JSON</code>.</p><ol class="question-list">
+<li>Convertir <code>"19.99"</code> en un número decimal.</li>
+<li>Saber si un texto contiene la palabra <code>"JavaScript"</code>.</li>
+<li>Generar un número aleatorio entre 1 y 100.</li>
+<li>Obtener el año actual.</li>
+<li>Convertir un array en texto para guardarlo o enviarlo.</li>
+<li>Quitar espacios al principio y al final de una entrada de usuario.</li>
+<li>Redondear una nota.</li>
+<li>Recuperar un array a partir de un texto JSON.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 29. Miniaplicación: resumen de compra</h3><p>Crea un pequeño programa que:</p><ol class="question-list">
+<li>Tenga estas constantes iniciales:</li>
+</ol><div class="example-block"><pre class="code-js"><code>const producto = "  Teclado USB  ";
+const precioTexto = "24.99";
+const unidadesTexto = "2";
+</code></pre></div><ol class="question-list" start="2">
+<li>Limpie el nombre del producto con <code>.trim()</code>.</li>
+<li>Convierta el precio a número con <code>parseFloat()</code>.</li>
+<li>Convierta las unidades a número entero con <code>parseInt()</code>.</li>
+<li>Calcule el total.</li>
+<li>Muestre el total con dos decimales.</li>
+<li>Genere un número de pedido aleatorio entre 1000 y 9999.</li>
+<li>Obtenga la fecha actual.</li>
+<li>Crea una cadena <code>fechaPedido</code> con formato <code>dia/mes/año</code> y usa esa cadena dentro del resumen.</li>
+<li>Cree un dato de resumen con producto, unidades, total, número de pedido y fecha.</li>
+<li>Convierta ese resumen a JSON con <code>JSON.stringify()</code> y muéstralo por consola.</li>
+</ol><blockquote class="note-box">
+<p>Este ejercicio integra <code>String</code>, conversión numérica, <code>Math</code>, <code>Date</code> y <code>JSON</code>.</p>
+</blockquote><hr/></div></section><section class="content-section frequent-errors-section" id="parte-7-corrige-los-errores"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-bug"></i></span> Parte 7. Corrige los errores</h2><div class="exercise-block"><h3>Ejercicio 30. Error con <code>String</code></h3><p>El siguiente código pretende mostrar el texto en mayúsculas, pero después espera que la variable original haya cambiado:</p><div class="example-block"><pre class="code-js"><code>const nombre = "ana";
+nombre.toUpperCase();
+console.log(nombre); // se esperaba "ANA"
+</code></pre></div><ol class="question-list">
+<li>Explica por qué no funciona como se esperaba.</li>
+<li>Corrige el código.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 31. Error con conversión numérica</h3><div class="example-block"><pre class="code-js"><code>const precio = "19.99€";
+const total = Number(precio) * 2;
+console.log(total);
+</code></pre></div><ol class="question-list">
+<li>Explica por qué el resultado no es correcto.</li>
+<li>Corrige el código usando una conversión más adecuada.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 32. Error con <code>getMonth()</code></h3><div class="example-block"><pre class="code-js"><code>const hoy = new Date();
+const mes = hoy.getMonth();
+console.log("Mes actual:", mes);
+</code></pre></div><ol class="question-list">
+<li>Explica cuál es el problema.</li>
+<li>Corrige el código para mostrar el mes de forma comprensible para una persona.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 33. Error conceptual: JSON no es un objeto directamente</h3><div class="example-block"><pre class="code-js"><code>const alumnoJSON = '{"nombre":"Ana","nota":8}';
+console.log(alumnoJSON.nombre);
+</code></pre></div><ol class="question-list">
+<li>Explica por qué no muestra <code>"Ana"</code>.</li>
+<li>Convierte primero el texto JSON a dato de JavaScript.</li>
+<li>Muestra correctamente el nombre.</li>
+</ol><hr/></div></section><section class="content-section delivery-section" id="parte-8-mini-entrega-final"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-upload"></i></span> Parte 8. Mini-entrega final</h2><p>Crea un archivo limpio llamado <code>B05C_entrega_objetos_predefinidos.js</code> que contenga:</p><ol class="question-list">
+<li>Un ejercicio de <code>String</code> donde limpies y normalices una entrada de texto.</li>
+<li>Un ejercicio de conversión numérica donde calcules un precio con IVA.</li>
+<li>Un ejercicio de <code>Math</code> donde generes un número aleatorio en un rango.</li>
+<li>Un ejercicio de <code>Date</code> donde muestres la fecha actual.</li>
+<li>Un ejercicio de <code>JSON</code> donde conviertas un dato a JSON y lo recuperes después con <code>JSON.parse()</code>.</li>
+</ol><p>Añade comentarios breves explicando qué hace cada parte.</p><hr/></section><section class="content-section restrictions-section" id="contenidos-aplazados-para-ud2-javascript-avanzado"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-slash-circle"></i></span> Contenidos aplazados para UD2 JavaScript avanzado</h2><p>Estos contenidos no forman parte de esta hoja y se trabajarán más adelante:</p><ul class="custom-list">
+<li><code>Map</code>;</li>
+<li>objetos propios en profundidad;</li>
+<li>arrays de objetos;</li>
+<li>arrays asociativos como aclaración;</li>
+<li>estructuras clave-valor más avanzadas;</li>
+<li>manipulación avanzada de JSON;</li>
+<li>datos JSON recibidos desde APIs;</li>
+<li>DOM;</li>
+<li>eventos;</li>
+<li>formularios;</li>
+<li><code>fetch</code>;</li>
+<li>asincronía real;</li>
+<li>promesas;</li>
+<li><code>async/await</code>;</li>
+<li>closures;</li>
+<li>recursividad.</li>
+</ul><hr/></section><section class="content-section summary-section" id="resumen-de-repaso"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-check2-circle"></i></span> Resumen de repaso</h2><p>Antes de dar por terminada la hoja, asegúrate de poder responder:</p><ol class="question-list">
+<li>¿Qué diferencia hay entre una propiedad y un método?</li>
+<li>¿Qué métodos de <code>String</code> sirven para limpiar, transformar y buscar texto?</li>
+<li>¿Qué diferencia hay entre <code>Number()</code>, <code>parseInt()</code> y <code>parseFloat()</code>?</li>
+<li>¿Para qué sirve <code>Number.isNaN()</code>?</li>
+<li>¿Qué diferencia hay entre <code>Math.round()</code>, <code>Math.floor()</code> y <code>Math.ceil()</code>?</li>
+<li>¿Cómo se genera un entero aleatorio entre dos valores?</li>
+<li>¿Por qué se suma 1 a <code>getMonth()</code>?</li>
+<li>¿Qué diferencia hay entre <code>JSON.stringify()</code> y <code>JSON.parse()</code>?</li>
+<li>¿Por qué un texto JSON no se puede usar como objeto hasta convertirlo con <code>JSON.parse()</code>?</li>
+</ol></section></div></div></main></div></body></html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UD2_B4c · Ejercicios: AJAX como contexto y código heredado</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+<script defer="" src="../../assets/js/smpp.js"></script>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar exercises-page">
+<div class="content-layout">
+<aside aria-label="Índice del documento" class="section-sidebar">
+<nav aria-label="Secciones del documento" class="section-nav">
+<p class="section-nav-title">
+<i aria-hidden="true" class="bi bi-list-ul"></i>
+              Índice del documento
+            </p>
+<ol class="section-nav-list">
+<li><a class="section-nav-link badge-link" href="#1-objetivo-de-la-hoja"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</a></li>
+<li><a class="section-nav-link badge-link" href="#2-antes-de-empezar"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-info-circle"></i></span> 2. Antes de empezar</a></li>
+<li><a class="section-nav-link badge-link" href="#3-comparacion-rapida"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-table"></i></span> 3. Comparación rápida</a></li>
+<li><a class="section-nav-link badge-link" href="#ejercicio-1-identificar-conceptos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 1. Identificar conceptos</a></li>
+<li><a class="section-nav-link badge-link" href="#ejercicio-2-leer-codigo-con-xmlhttprequest"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 2. Leer código con <code>XMLHttpRequest</code></a></li>
+<li><a class="section-nav-link badge-link" href="#ejercicio-3-relacionar-partes-de-xmlhttprequest"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 3. Relacionar partes de <code>XMLHttpRequest</code></a></li>
+<li><a class="section-nav-link badge-link" href="#ejercicio-4-leer-codigo-con-ajax"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 4. Leer código con <code>$.ajax()</code></a></li>
+<li><a class="section-nav-link badge-link" href="#ejercicio-5-comparar-ajax-y-fetch"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 5. Comparar <code>$.ajax()</code> y <code>fetch</code></a></li>
+<li><a class="section-nav-link badge-link" href="#ejercicio-6-ajax-como-concepto"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 6. AJAX como concepto</a></li>
+<li><a class="section-nav-link badge-link" href="#ejercicio-7-detectar-errores-frecuentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 7. Detectar errores frecuentes</a></li>
+<li><a class="section-nav-link badge-link" href="#ejercicio-8-corregir-fragmentos-de-codigo"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 8. Corregir fragmentos de código</a></li>
+<li><a class="section-nav-link badge-link" href="#ejercicio-9-preguntas-cortas-tipo-examen"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 9. Preguntas cortas tipo examen</a></li>
+<li><a class="section-nav-link badge-link" href="#mini-entrega-final"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-send-check"></i></span> Mini-entrega final</a></li>
+<li><a class="section-nav-link badge-link" href="#lista-de-comprobacion"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-square"></i></span> Lista de comprobación</a></li>
+<li><a class="section-nav-link badge-link" href="#contenidos-que-no-se-desarrollan-en-esta-hoja"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-slash-circle"></i></span> Contenidos que no se desarrollan en esta hoja</a></li>
+</ol>
+</nav>
+</aside>
+<div class="content-wrapper">
+<nav aria-label="Acciones del documento" class="main-header">
+<a class="nav-link" href="../../index.html"><i aria-hidden="true" class="bi bi-house-door"></i> Volver al índice</a><button aria-label="Cambiar a modo oscuro" aria-pressed="false" data-update-text="true" id="theme-toggle" type="button">🌙 Modo oscuro</button>
+</nav>
+<header class="content-header">
+<h1><i aria-hidden="true" class="bi bi-lightning-charge"></i> UD2_B4c. Ejercicios: AJAX como contexto y código heredado</h1>
+</header>
+<section class="content-section" id="1-objetivo-de-la-hoja">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</h2>
+<p>Esta hoja complementa los apuntes sobre AJAX como contexto histórico y código heredado.</p>
+<p>El objetivo <strong>no</strong> es aprender a programar aplicaciones nuevas con <code>XMLHttpRequest</code> ni con <code>$.ajax()</code>, sino saber reconocer código antiguo, entender qué hace y compararlo con el enfoque moderno usado en el curso: <code>fetch</code> con <code>async</code>/<code>await</code>.</p>
+<blockquote class="note-box">
+<p>En esta unidad, para desarrollar código nuevo, se prioriza <code>fetch</code>, promesas y <code>async</code>/<code>await</code>.</p>
+</blockquote>
+<hr></section>
+<section class="content-section" id="2-antes-de-empezar">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-info-circle"></i></span> 2. Antes de empezar</h2>
+<p>Recuerda estas ideas:</p>
+<ul class="custom-list">
+<li><strong>AJAX</strong> no es una tecnología concreta, sino una forma de hacer peticiones al servidor sin recargar toda la página.</li>
+<li><code>XMLHttpRequest</code> fue una API clásica del navegador para hacer peticiones HTTP desde JavaScript.</li>
+<li><code>$.ajax()</code> es una forma de hacer AJAX usando la biblioteca jQuery.</li>
+<li><code>fetch</code> es la API moderna que usaremos como referencia principal.</li>
+<li>JSON es uno de los formatos más habituales para enviar y recibir datos.</li>
+<li>Con <code>fetch</code>, una respuesta HTTP como <code>404</code> o <code>500</code> no provoca automáticamente un error en el <code>catch</code>; por eso conviene comprobar <code>response.ok</code>.</li>
+</ul>
+<hr/>
+</section>
+<section class="content-section" id="3-comparacion-rapida">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-table"></i></span> 3. Comparación rápida</h2>
+<div class="compact-table-container"><table class="compact-table comparison-table">
+<thead>
+<tr>
+<th>Aspecto</th>
+<th><code>XMLHttpRequest</code></th>
+<th><code>$.ajax()</code></th>
+<th><code>fetch</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qué es</td>
+<td>API clásica del navegador</td>
+<td>Método de jQuery</td>
+<td>API moderna del navegador</td>
+</tr>
+<tr>
+<td>Uso en este curso</td>
+<td>Reconocer código heredado</td>
+<td>Reconocer código heredado</td>
+<td>Uso principal para código nuevo</td>
+</tr>
+<tr>
+<td>Estilo habitual</td>
+<td>Callbacks como <code>onload</code> y <code>onerror</code></td>
+<td>Callbacks como <code>success</code> y <code>error</code></td>
+<td>Promesas y <code>async</code>/<code>await</code></td>
+</tr>
+<tr>
+<td>Conversión de JSON</td>
+<td><code>JSON.parse(xhr.responseText)</code></td>
+<td>jQuery puede interpretar la respuesta según la configuración</td>
+<td><code>await response.json()</code></td>
+</tr>
+<tr>
+<td>Tratamiento de errores</td>
+<td>Manual, comprobando <code>status</code></td>
+<td>Mediante <code>success</code> y <code>error</code></td>
+<td><code>try...catch</code> + comprobación de <code>response.ok</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+</section>
+<section class="content-section exercise-block" id="ejercicio-1-identificar-conceptos">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 1. Identificar conceptos</h2>
+<p>Indica si cada frase se refiere a <strong>AJAX</strong>, <strong>XMLHttpRequest</strong>, <strong>fetch</strong>, <strong>jQuery / <code>$.ajax()</code></strong> o <strong>JSON</strong>.</p>
+<ol class="custom-ordered-list">
+<li>Permite hacer peticiones al servidor sin recargar la página completa.</li>
+<li>Es una API clásica del navegador para realizar peticiones HTTP desde JavaScript.</li>
+<li>Es la API moderna que usamos en este curso para realizar peticiones.</li>
+<li>Es una biblioteca de JavaScript que incluye métodos como <code>$.ajax()</code>.</li>
+<li>Es un formato de texto para representar datos estructurados.</li>
+<li>Se puede combinar con <code>async</code> y <code>await</code>.</li>
+<li>Suele aparecer en proyectos antiguos usando <code>$.ajax()</code> con propiedades como <code>success</code> y <code>error</code>.</li>
+<li>Los datos recibidos en formato JSON pueden convertirse en valores JavaScript usando <code>response.json()</code> con <code>fetch</code> o <code>JSON.parse()</code> cuando se parte de texto.</li>
+</ol>
+<h3>Responde</h3>
+<div class="example-block"><pre class="code-bash"><code class="language-txt">1. 
+2. 
+3. 
+4. 
+5. 
+6. 
+7. 
+8. 
+</code></pre></div>
+<hr/>
+</section>
+<section class="content-section exercise-block" id="ejercicio-2-leer-codigo-con-xmlhttprequest">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 2. Leer código con <code>XMLHttpRequest</code></h2>
+<p>Observa este código antiguo:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const xhr = new XMLHttpRequest();
+
+xhr.open("GET", "datos/productos.json");
+
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    const productos = JSON.parse(xhr.responseText);
+    console.log(productos);
+  } else {
+    console.log("Error al cargar los datos");
+  }
+};
+
+xhr.onerror = function () {
+  console.log("Error de conexión");
+};
+
+xhr.send();
+</code></pre></div>
+<p>Responde:</p>
+<ol class="custom-ordered-list">
+<li>¿Qué archivo intenta cargar el código?</li>
+<li>¿Qué método HTTP utiliza?</li>
+<li>¿Qué significa comprobar <code>xhr.status === 200</code> en este ejemplo?</li>
+<li>¿Qué contiene <code>xhr.responseText</code>?</li>
+<li>¿Para qué se usa <code>JSON.parse()</code>?</li>
+<li>¿Qué ocurre si hay un problema de conexión?</li>
+<li>¿Es este el estilo que vamos a usar para código nuevo en el curso?</li>
+</ol>
+<hr/>
+</section>
+<section class="content-section exercise-block" id="ejercicio-3-relacionar-partes-de-xmlhttprequest">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 3. Relacionar partes de <code>XMLHttpRequest</code></h2>
+<p>Relaciona cada instrucción con su función.</p>
+<div class="compact-table-container"><table class="compact-table comparison-table">
+<thead>
+<tr>
+<th>Instrucción</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>new XMLHttpRequest()</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>xhr.open("GET", url)</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>xhr.onload = function () { ... }</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>xhr.onerror = function () { ... }</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>xhr.send()</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>JSON.parse(xhr.responseText)</code></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>Funciones posibles:</p>
+<ul class="custom-list">
+<li>Crear el objeto que realizará la petición.</li>
+<li>Preparar la petición indicando método y URL.</li>
+<li>Enviar la petición.</li>
+<li>Ejecutar código cuando llega una respuesta.</li>
+<li>Ejecutar código si hay error de conexión.</li>
+<li>Convertir texto JSON en datos utilizables en JavaScript.</li>
+</ul>
+<hr/>
+</section>
+<section class="content-section exercise-block" id="ejercicio-4-leer-codigo-con-ajax">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 4. Leer código con <code>$.ajax()</code></h2>
+<p>Observa este código con jQuery:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">$.ajax({
+  url: "datos/alumnos.json",
+  method: "GET",
+  success: function (alumnos) {
+    console.log("Datos recibidos:", alumnos);
+  },
+  error: function () {
+    console.log("No se pudieron cargar los alumnos");
+  }
+});
+</code></pre></div>
+<p>Responde:</p>
+<ol class="custom-ordered-list">
+<li>¿Qué biblioteca debe estar cargada para que este código funcione?</li>
+<li>¿Qué archivo intenta consultar?</li>
+<li>¿Qué método HTTP utiliza?</li>
+<li>¿Qué función se ejecuta si la petición sale bien?</li>
+<li>¿Qué función se ejecuta si la petición falla?</li>
+<li>¿Qué significa el parámetro <code>alumnos</code> dentro de <code>success</code>?</li>
+<li>¿Por qué este código puede aparecer en proyectos antiguos?</li>
+<li>¿Sería necesario usar este estilo para crear código nuevo en este curso?</li>
+</ol>
+<hr/>
+</section>
+<section class="content-section exercise-block" id="ejercicio-5-comparar-ajax-y-fetch">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 5. Comparar <code>$.ajax()</code> y <code>fetch</code></h2>
+<p>El siguiente código usa jQuery:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">$.ajax({
+  url: "datos/cursos.json",
+  method: "GET",
+  success: function (cursos) {
+    console.log(cursos);
+  },
+  error: function () {
+    console.log("Error al cargar cursos");
+  }
+});
+</code></pre></div>
+<p>Completa una versión equivalente usando <code>fetch</code> con <code>async</code>/<code>await</code>:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function cargarCursos() {
+  try {
+    const respuesta = await fetch("____________________");
+
+    if (!respuesta.ok) {
+      throw new Error("____________________");
+    }
+
+    const cursos = await respuesta.__________();
+    console.log(cursos);
+  } catch (error) {
+    console.log("____________________");
+  }
+}
+
+cargarCursos();
+</code></pre></div>
+<p>Después responde:</p>
+<ol class="custom-ordered-list">
+<li>¿Qué versión se parece más a la que usamos actualmente en el curso?</li>
+<li>¿Qué ventaja tiene usar <code>try...catch</code>?</li>
+<li>¿Qué hace <code>await respuesta.json()</code>?</li>
+<li>¿Por qué se comprueba <code>respuesta.ok</code> antes de leer los datos?</li>
+</ol>
+<hr/>
+</section>
+<section class="content-section exercise-block" id="ejercicio-6-ajax-como-concepto">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 6. AJAX como concepto</h2>
+<p>Lee las siguientes situaciones e indica si son ejemplos de comportamiento AJAX.</p>
+<ol class="custom-ordered-list">
+<li>Una página se recarga completamente al enviar un formulario.</li>
+<li>Una lista de productos se actualiza sin recargar toda la página.</li>
+<li>Un buscador muestra sugerencias mientras se escribe.</li>
+<li>Un botón carga comentarios desde el servidor y los muestra debajo de una noticia.</li>
+<li>Una página HTML estática muestra siempre el mismo texto sin consultar datos.</li>
+<li>Una aplicación consulta una API y pinta tarjetas nuevas en el DOM.</li>
+</ol>
+<h3>Responde</h3>
+<div class="example-block"><pre class="code-bash"><code class="language-txt">1. 
+2. 
+3. 
+4. 
+5. 
+6. 
+</code></pre></div>
+<hr/>
+</section>
+<section class="content-section exercise-block" id="ejercicio-7-detectar-errores-frecuentes">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 7. Detectar errores frecuentes</h2>
+<p>Indica qué problema hay en cada fragmento y cómo se podría corregir.</p>
+<h3>Caso A</h3>
+<div class="example-block"><pre class="code-js"><code class="language-js">fetch("datos/productos.json")
+  .then((respuesta) =&gt; respuesta)
+  .then((datos) =&gt; {
+    console.log(datos);
+  });
+</code></pre></div>
+<p>Pregunta: ¿Por qué no se están obteniendo directamente los datos JSON?</p>
+<p>Pista: piensa qué devuelve <code>fetch()</code> y qué método hay que llamar para transformar la respuesta en datos.</p>
+<hr/>
+<h3>Caso B</h3>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  const respuesta = await fetch("datos/productos.json");
+  const datos = await respuesta.json();
+  console.log(datos);
+}
+</code></pre></div>
+<p>Pregunta: ¿Qué dos elementos faltan para tratar errores de forma más adecuada con <code>fetch</code>?</p>
+<p>Pista: uno sirve para capturar errores y el otro para comprobar si la respuesta HTTP ha sido correcta.</p>
+<hr/>
+<h3>Caso C</h3>
+<div class="example-block"><pre class="code-js"><code class="language-js">$.ajax({
+  url: "datos/productos.json",
+  success: function () {
+    console.log(productos);
+  }
+});
+</code></pre></div>
+<p>Pregunta: ¿Por qué <code>productos</code> puede dar error?</p>
+<p>Pista: revisa si la función <code>success</code> recibe algún parámetro con los datos de la respuesta.</p>
+<hr/>
+</section>
+<section class="content-section exercise-block" id="ejercicio-8-corregir-fragmentos-de-codigo">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 8. Corregir fragmentos de código</h2>
+<p>Corrige los tres fragmentos anteriores.</p>
+<h3>Caso A corregido</h3>
+<div class="example-block"><pre class="code-js"><code class="language-js">fetch("datos/productos.json")
+  .then((respuesta) =&gt; respuesta.__________())
+  .then((datos) =&gt; {
+    console.log(datos);
+  });
+</code></pre></div>
+<hr/>
+<h3>Caso B corregido</h3>
+<p>Completa la versión con <code>try...catch</code> y comprobación de <code>respuesta.ok</code>.</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  try {
+    const respuesta = await fetch("datos/productos.json");
+
+    if (!respuesta.____) {
+      throw new Error("Error al cargar los datos");
+    }
+
+    const datos = await respuesta.__________();
+    console.log(datos);
+  } catch (error) {
+    console.log("No se pudieron cargar los datos");
+  }
+}
+
+cargarDatos();
+</code></pre></div>
+<hr/>
+<h3>Caso C corregido</h3>
+<div class="example-block"><pre class="code-js"><code class="language-js">$.ajax({
+  url: "datos/productos.json",
+  success: function (__________) {
+    console.log(productos);
+  }
+});
+</code></pre></div>
+<hr/>
+</section>
+<section class="content-section exercise-block" id="ejercicio-9-preguntas-cortas-tipo-examen">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-pencil-square"></i></span> Ejercicio 9. Preguntas cortas tipo examen</h2>
+<p>Responde de forma breve.</p>
+<ol class="custom-ordered-list">
+<li>¿Qué significa AJAX?</li>
+<li>¿AJAX obliga a usar <code>XMLHttpRequest</code>?</li>
+<li>¿Qué diferencia hay entre AJAX como concepto y <code>fetch</code> como API?</li>
+<li>¿Por qué <code>$.ajax()</code> se considera código heredado en muchos proyectos?</li>
+<li>¿Qué método usamos en este curso para convertir una respuesta <code>fetch</code> en datos JSON?</li>
+<li>¿Por qué es importante comprobar <code>response.ok</code>?</li>
+<li>¿Qué relación hay entre AJAX, JSON y DOM?</li>
+<li>¿Qué diferencia hay entre un error de red y una respuesta HTTP incorrecta como <code>404</code>?</li>
+</ol>
+<hr/>
+</section>
+<section class="content-section delivery-section" id="mini-entrega-final">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-send-check"></i></span> Mini-entrega final</h2>
+<p>Crea un pequeño documento llamado <code>comparacion_ajax_fetch.md</code> o responde en comentarios dentro de tu archivo <code>.js</code>.</p>
+<p>Debe incluir:</p>
+<ol class="custom-ordered-list">
+<li>Una explicación breve de qué es AJAX.</li>
+<li>Un ejemplo antiguo identificado como <code>XMLHttpRequest</code> o <code>$.ajax()</code>.</li>
+<li>Una explicación de qué hace ese ejemplo.</li>
+<li>Una versión moderna equivalente con <code>fetch</code> y <code>async</code>/<code>await</code>.</li>
+<li>Una conclusión personal de 3 o 4 líneas explicando por qué en este curso se prioriza <code>fetch</code>.</li>
+</ol>
+<h3>Criterios mínimos de corrección</h3>
+<p>La entrega se considerará correcta si:</p>
+<ul class="custom-list">
+<li>explica AJAX como concepto, no como una tecnología concreta;</li>
+<li>identifica correctamente si el ejemplo antiguo usa <code>XMLHttpRequest</code> o <code>$.ajax()</code>;</li>
+<li>explica qué URL consulta el ejemplo antiguo;</li>
+<li>explica qué ocurre si la petición va bien y qué ocurre si falla;</li>
+<li>incluye una versión moderna funcional con <code>fetch</code>;</li>
+<li>comprueba <code>response.ok</code>;</li>
+<li>usa <code>try...catch</code>;</li>
+<li>convierte la respuesta a datos con <code>response.json()</code>;</li>
+<li>redacta una conclusión coherente sobre el uso de <code>fetch</code> en el curso.</li>
+</ul>
+<hr/>
+</section>
+<section class="content-section final-checklist-section" id="lista-de-comprobacion">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> Lista de comprobación</h2>
+<p>Antes de entregar, revisa que sabes:</p>
+<ul class="custom-list checklist-list">
+<li><span class="check-marker">[ ]</span> Explicar AJAX como concepto.</li>
+<li><span class="check-marker">[ ]</span> Distinguir AJAX, <code>XMLHttpRequest</code>, <code>$.ajax()</code>, <code>fetch</code> y JSON.</li>
+<li><span class="check-marker">[ ]</span> Leer un fragmento básico con <code>XMLHttpRequest</code>.</li>
+<li><span class="check-marker">[ ]</span> Leer un fragmento básico con <code>$.ajax()</code>.</li>
+<li><span class="check-marker">[ ]</span> Comparar código heredado con una versión moderna usando <code>fetch</code>.</li>
+<li><span class="check-marker">[ ]</span> Usar <code>response.json()</code> para convertir una respuesta <code>fetch</code> en datos.</li>
+<li><span class="check-marker">[ ]</span> Explicar por qué conviene comprobar <code>response.ok</code>.</li>
+<li><span class="check-marker">[ ]</span> Explicar por qué <code>fetch</code> + <code>async</code>/<code>await</code> será el enfoque principal del curso.</li>
+</ul>
+<hr/>
+</section>
+<section class="content-section restrictions-section" id="contenidos-que-no-se-desarrollan-en-esta-hoja">
+<h2><span aria-hidden="true" class="section-icon"><i class="bi bi-slash-circle"></i></span> Contenidos que no se desarrollan en esta hoja</h2>
+<p>Esta hoja es solo de reconocimiento y comparación. No se trabajarán como contenido principal:</p>
+<ul class="custom-list">
+<li>aplicaciones completas con <code>XMLHttpRequest</code>;</li>
+<li>aplicaciones completas con <code>$.ajax()</code>;</li>
+<li>AJAX avanzado;</li>
+<li>cabeceras HTTP complejas;</li>
+<li>autenticación;</li>
+<li>CORS en profundidad;</li>
+<li><code>AbortController</code>;</li>
+<li>concurrencia avanzada con <code>Promise.all</code>;</li>
+<li>frameworks frontend.</li>
+</ul>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body>
+</html>

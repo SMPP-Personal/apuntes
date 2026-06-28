@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>UD2_B4 · asincronía, fetch y JSON en JavaScript</title><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/><link href="../../assets/css/smpp.css" rel="stylesheet"/></head><body><div class="smpp-scope"><main class="main-content has-sidebar"><div class="content-layout"><aside aria-label="Índice del documento" class="section-sidebar"><nav aria-label="Secciones del documento" class="section-nav"><p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-ul"></i> Índice del documento</p><ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-objetivos-y-preparacion-del-entorno"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span><span class="section-nav-label"> 1. Objetivos y preparación del entorno</span></a></li><li><a class="section-nav-link badge-link" href="#2-codigo-sincrono-asincrono-y-callbacks"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-clock-history"></i></span><span class="section-nav-label"> 2. Código síncrono, asíncrono y callbacks</span></a></li><li><a class="section-nav-link badge-link" href="#3-promesas"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-hourglass-split"></i></span><span class="section-nav-label"> 3. Promesas</span></a></li><li><a class="section-nav-link badge-link" href="#4-introduccion-a-fetch"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-cloud-download"></i></span><span class="section-nav-label"> 4. Introducción a <code>fetch()</code></span></a></li><li><a class="section-nav-link badge-link" href="#5-json"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-braces"></i></span><span class="section-nav-label"> 5. JSON</span></a></li><li><a class="section-nav-link badge-link" href="#6-async-await-y-tratamiento-de-errores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-code-slash"></i></span><span class="section-nav-label"> 6. <code>async</code>, <code>await</code> y tratamiento de errores</span></a></li><li><a class="section-nav-link badge-link" href="#7-entorno-web-mismo-origen-y-cors-basico"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-globe2"></i></span><span class="section-nav-label"> 7. Entorno web, mismo origen y CORS básico</span></a></li><li><a class="section-nav-link badge-link" href="#8-renderizado-y-estados-de-interfaz"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-display"></i></span><span class="section-nav-label"> 8. Renderizado y estados de interfaz</span></a></li><li><a class="section-nav-link badge-link" href="#9-validar-y-transformar-datos-recibidos"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-database-check"></i></span><span class="section-nav-label"> 9. Validar y transformar datos recibidos</span></a></li><li><a class="section-nav-link badge-link" href="#10-introduccion-al-envio-de-datos-con-post"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-send"></i></span><span class="section-nav-label"> 10. Introducción al envío de datos con <code>POST</code></span></a></li><li><a class="section-nav-link badge-link" href="#11-patron-recomendado-y-errores-frecuentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-tools"></i></span><span class="section-nav-label"> 11. Patrón recomendado y errores frecuentes</span></a></li><li><a class="section-nav-link badge-link" href="#12-ejemplo-final-preguntas-y-resumen"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-circle"></i></span><span class="section-nav-label"> 12. Ejemplo final, preguntas y resumen</span></a></li></ol></nav></aside><div class="content-wrapper"><header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-cloud-arrow-down"></i></span> UD2_B4. Apuntes: asincronía, <code>fetch</code> y JSON en JavaScript</h1></header><hr class="content-separator"/><section class="content-section" id="1-objetivos-y-preparacion-del-entorno"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivos y preparación del entorno</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.1. Qué vamos a aprender</h3><p>En los bloques anteriores hemos trabajado JavaScript para:</p><ul class="custom-list">
+<li>crear y manipular datos;</li>
+<li>trabajar con objetos y arrays;</li>
+<li>modificar el DOM;</li>
+<li>responder a eventos;</li>
+<li>validar formularios.</li>
+</ul><p>En este bloque aprenderemos a trabajar con <strong>operaciones asíncronas</strong>, especialmente con la comunicación entre el navegador y datos externos mediante <code>fetch()</code>.</p><p>Al finalizar deberías saber:</p><ul class="custom-list">
+<li>distinguir entre código síncrono y asíncrono;</li>
+<li>comprender el papel de los callbacks;</li>
+<li>entender qué es una promesa y cuáles son sus estados;</li>
+<li>utilizar <code>.then()</code>, <code>.catch()</code> y <code>.finally()</code>;</li>
+<li>escribir funciones <code>async</code>;</li>
+<li>utilizar <code>await</code>;</li>
+<li>solicitar datos con <code>fetch()</code>;</li>
+<li>interpretar respuestas JSON;</li>
+<li>comprobar <code>response.ok</code>;</li>
+<li>diferenciar errores de red, errores HTTP y errores al procesar JSON;</li>
+<li>validar la estructura básica de los datos recibidos;</li>
+<li>mostrar estados iniciales, de carga, éxito, ausencia de resultados y error;</li>
+<li>renderizar datos externos de forma segura en el DOM;</li>
+<li>introducir la estructura básica de una petición <code>POST</code>.</li>
+</ul><blockquote class="note-box">
+<p>En este bloque seguimos trabajando en el navegador. No crearemos servidores ni bases de datos. Nos centraremos en el JavaScript del cliente.</p>
+</blockquote><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-folder2-open"></i></span> 1.2. Estructura mínima del proyecto</h3><p>Para los ejemplos con archivos JSON locales puedes utilizar:</p><div class="example-block project-structure-block"><pre class="code-bash"><code class="language-text">proyecto-fetch/
+├── index.html
+├── script.js
+├── styles.css
+└── cursos.json
+</code></pre></div><div class="warning-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-hdd-network"></i></span> 1.3. Es necesario utilizar un servidor web</h3><p>Las peticiones como:</p><div class="example-block"><pre class="code-js"><code class="language-js">fetch("cursos.json");
+</code></pre></div><p>deben probarse normalmente desde una dirección <code>http://</code> o <code>https://</code>.</p><p>No abras el archivo HTML directamente con una ruta similar a:</p><div class="example-block"><pre class="code-bash"><code class="language-text">file:///C:/proyecto/index.html
+</code></pre></div><p>Utiliza un servidor local, por ejemplo:</p><ul class="custom-list">
+<li>Live Server en Visual Studio Code;</li>
+<li>el servidor de desarrollo proporcionado por el entorno;</li>
+<li>cualquier servidor web local sencillo.</li>
+</ul><p>Ejemplo de dirección válida:</p><div class="example-block"><pre class="code-bash"><code class="language-text">http://127.0.0.1:5500/index.html
+</code></pre></div><p>Esto evita restricciones del navegador al intentar leer recursos locales mediante <code>fetch()</code>.</p></div></section><section class="content-section" id="2-codigo-sincrono-asincrono-y-callbacks"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clock-history"></i></span> 2. Código síncrono, asíncrono y callbacks</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-list-ol"></i></span> 2.1. Código síncrono</h3><p>El código <strong>síncrono</strong> se ejecuta línea a línea y en orden.</p><div class="example-block"><pre class="code-js"><code class="language-js">console.log("Primero");
+console.log("Segundo");
+console.log("Tercero");
+</code></pre></div><p>Salida:</p><div class="example-block"><pre class="code-bash"><code class="language-text">Primero
+Segundo
+Tercero
+</code></pre></div><p>Cada instrucción se completa antes de continuar con la siguiente.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-list-ol"></i></span> 2.2. Código asíncrono</h3><p>El código <strong>asíncrono</strong> permite iniciar una operación que puede tardar y continuar atendiendo otras tareas mientras esa operación permanece pendiente.</p><p>Ejemplos:</p><ul class="custom-list">
+<li>solicitar datos a un servidor;</li>
+<li>esperar un temporizador;</li>
+<li>consultar una API;</li>
+<li>leer determinados recursos;</li>
+<li>esperar una respuesta externa.</li>
+</ul><div class="example-block"><pre class="code-js"><code class="language-js">console.log("Inicio");
+
+setTimeout(() =&gt; {
+  console.log("Mensaje retrasado");
+}, 2000);
+
+console.log("Fin");
+</code></pre></div><p>Salida aproximada:</p><div class="example-block"><pre class="code-bash"><code class="language-text">Inicio
+Fin
+Mensaje retrasado
+</code></pre></div><p>La función de <code>setTimeout()</code> se programa para ejecutarse más adelante.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-intersect"></i></span> 2.3. Asincronía no significa paralelismo automático</h3><p>La asincronía no significa que todo el código JavaScript se ejecute simultáneamente.</p><p>De forma simplificada:</p><ol class="custom-ordered-list">
+<li>JavaScript ejecuta el código disponible.</li>
+<li>Algunas operaciones quedan gestionadas por el navegador.</li>
+<li>Cuando terminan, su continuación queda preparada.</li>
+<li>Esa continuación se ejecuta cuando JavaScript puede atenderla.</li>
+</ol><p>No estudiaremos todavía el bucle de eventos en profundidad, pero conviene distinguir:</p><ul class="custom-list">
+<li><strong>asincronía</strong>: una operación puede quedar pendiente sin bloquear toda la aplicación;</li>
+<li><strong>paralelismo</strong>: varias tareas se ejecutan realmente al mismo tiempo.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-arrow-return-right"></i></span> 2.4. Qué es un callback</h3><p>Un <strong>callback</strong> es una función que se pasa como argumento para que otra operación la ejecute en un momento determinado.</p><p>En un evento:</p><div class="example-block"><pre class="code-js"><code class="language-js">boton.addEventListener("click", () =&gt; {
+  console.log("Has pulsado el botón");
+});
+</code></pre></div><p>En un temporizador:</p><div class="example-block"><pre class="code-js"><code class="language-js">setTimeout(() =&gt; {
+  console.log("Han pasado 2 segundos");
+}, 2000);
+</code></pre></div><p>Los callbacks son importantes para comprender:</p><ul class="custom-list">
+<li>eventos;</li>
+<li>temporizadores;</li>
+<li>promesas;</li>
+<li>operaciones asíncronas.</li>
+</ul></section><section class="content-section" id="3-promesas"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-hourglass-split"></i></span> 3. Promesas</h2><div class="definition-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-hourglass-split"></i></span> 3.1. Qué es una promesa</h3><p>Una <strong>promesa</strong> (<code>Promise</code>) representa el resultado futuro de una operación asíncrona.</p><p>Puede encontrarse en tres estados:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Estado</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pending</code></td>
+<td>La operación todavía no ha terminado.</td>
+</tr>
+<tr>
+<td><code>fulfilled</code></td>
+<td>La operación terminó correctamente.</td>
+</tr>
+<tr>
+<td><code>rejected</code></td>
+<td>La operación terminó con error.</td>
+</tr>
+</tbody>
+</table></div><p>Una promesa está <strong>settled</strong> cuando ya no está pendiente, es decir, cuando está:</p><ul class="custom-list">
+<li><code>fulfilled</code>;</li>
+<li>o <code>rejected</code>.</li>
+</ul><p>Muchas APIs modernas devuelven promesas. <code>fetch()</code> es una de ellas.</p></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-arrow-right-circle"></i></span> 3.2. Trabajar con <code>.then()</code></h3><p><code>.then()</code> permite indicar qué debe ocurrir cuando la promesa se resuelve correctamente.</p><div class="example-block"><pre class="code-js"><code class="language-js">promesa.then((resultado) =&gt; {
+  console.log(resultado);
+});
+</code></pre></div><p>También puede devolver otro valor o una nueva promesa:</p><div class="example-block"><pre class="code-js"><code class="language-js">promesa
+  .then((resultado) =&gt; {
+    return transformar(resultado);
+  })
+  .then((resultadoTransformado) =&gt; {
+    console.log(resultadoTransformado);
+  });
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-shield-exclamation"></i></span> 3.3. Capturar errores con <code>.catch()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">promesa
+  .then((resultado) =&gt; {
+    console.log(resultado);
+  })
+  .catch((error) =&gt; {
+    console.error(
+      "Ha ocurrido un error:",
+      error
+    );
+  });
+</code></pre></div><p><code>.catch()</code> puede recibir:</p><ul class="custom-list">
+<li>un rechazo de la promesa inicial;</li>
+<li>un error lanzado con <code>throw</code>;</li>
+<li>un error producido en un <code>.then()</code> anterior;</li>
+<li>un fallo al procesar una respuesta.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-all"></i></span> 3.4. Ejecutar código final con <code>.finally()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">promesa
+  .then((resultado) =&gt; {
+    console.log(resultado);
+  })
+  .catch((error) =&gt; {
+    console.error(error);
+  })
+  .finally(() =&gt; {
+    console.log("Operación finalizada");
+  });
+</code></pre></div><p><code>.finally()</code> se ejecuta tanto si la operación termina correctamente como si falla.</p><p>Resulta útil para:</p><ul class="custom-list">
+<li>ocultar un indicador de carga;</li>
+<li>volver a activar un botón;</li>
+<li>limpiar un estado temporal;</li>
+<li>restaurar la interfaz.</li>
+</ul></section><section class="content-section" id="4-introduccion-a-fetch"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cloud-download"></i></span> 4. Introducción a <code>fetch()</code></h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cloud-download"></i></span> 4.1. Qué hace <code>fetch()</code></h3><p><code>fetch()</code> permite realizar peticiones HTTP desde JavaScript.</p><p>Se utiliza para:</p><ul class="custom-list">
+<li>cargar un archivo JSON;</li>
+<li>solicitar datos a una API;</li>
+<li>enviar datos a un servidor;</li>
+<li>actualizar una interfaz sin recargar toda la página.</li>
+</ul><p>Forma básica:</p><div class="example-block"><pre class="code-js"><code class="language-js">fetch("datos.json")
+  .then((respuesta) =&gt; {
+    return respuesta.json();
+  })
+  .then((datos) =&gt; {
+    console.log(datos);
+  })
+  .catch((error) =&gt; {
+    console.error(
+      "No se pudieron cargar los datos:",
+      error
+    );
+  });
+</code></pre></div><p>En este ejemplo:</p><ol class="custom-ordered-list">
+<li><code>fetch("datos.json")</code> devuelve una promesa.</li>
+<li>La promesa se resuelve con un objeto <code>Response</code>.</li>
+<li><code>respuesta.json()</code> devuelve otra promesa.</li>
+<li>La segunda promesa se resuelve con los datos JavaScript.</li>
+</ol><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-file-earmark-arrow-down"></i></span> 4.2. El objeto <code>Response</code></h3><p>La primera promesa de <code>fetch()</code> no entrega directamente los datos.</p><p>Entrega un objeto <code>Response</code> con información como:</p><ul class="custom-list">
+<li>código de estado;</li>
+<li>estado correcto o incorrecto;</li>
+<li>cabeceras;</li>
+<li>URL;</li>
+<li>métodos para leer el cuerpo.</li>
+</ul><div class="example-block"><pre class="code-js"><code class="language-js">fetch("datos.json")
+  .then((respuesta) =&gt; {
+    console.log(respuesta.status);
+    console.log(respuesta.ok);
+
+    return respuesta.json();
+  })
+  .then((datos) =&gt; {
+    console.log(datos);
+  });
+</code></pre></div><p>Propiedades principales:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>respuesta.ok</code></td>
+<td>Vale <code>true</code> cuando el estado HTTP está entre 200 y 299.</td>
+</tr>
+<tr>
+<td><code>respuesta.status</code> (<code>response.status</code>)</td>
+<td>Código HTTP recibido, por ejemplo 200, 404 o 500.</td>
+</tr>
+<tr>
+<td><code>respuesta.statusText</code></td>
+<td>Texto asociado al estado, cuando está disponible.</td>
+</tr>
+<tr>
+<td><code>respuesta.url</code></td>
+<td>URL final de la respuesta.</td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-wifi-off"></i></span> 4.3. Errores de red y errores HTTP</h3><p><code>fetch()</code> no rechaza automáticamente su promesa por recibir un estado HTTP como:</p><ul class="custom-list">
+<li><code>404</code>;</li>
+<li><code>403</code>;</li>
+<li><code>500</code>.</li>
+</ul><p>En esos casos normalmente existe una respuesta HTTP válida, pero:</p><div class="example-block"><pre class="code-js"><code class="language-js">respuesta.ok === false
+</code></pre></div><p>Debemos comprobarlo:</p><div class="example-block"><pre class="code-js"><code class="language-js">fetch("datos.json")
+  .then((respuesta) =&gt; {
+    if (!respuesta.ok) {
+      throw new Error(
+        `Error HTTP: ${respuesta.status}`
+      );
+    }
+
+    return respuesta.json();
+  })
+  .then((datos) =&gt; {
+    console.log(datos);
+  })
+  .catch((error) =&gt; {
+    console.error(
+      "No se pudieron cargar los datos:",
+      error.message
+    );
+  });
+</code></pre></div><p><code>fetch()</code> puede rechazar su promesa por causas como:</p><ul class="custom-list">
+<li>error de red;</li>
+<li>URL no válida;</li>
+<li>petición bloqueada;</li>
+<li>restricciones de seguridad;</li>
+<li>cancelación;</li>
+<li>otros problemas que impiden obtener una respuesta.</li>
+</ul><p>El <code>catch</code> también recibe errores lanzados manualmente y errores al procesar el contenido.</p></section><section class="content-section" id="5-json"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces"></i></span> 5. JSON</h2><div class="definition-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-braces"></i></span> 5.1. Qué es JSON</h3><p>JSON significa <strong>JavaScript Object Notation</strong>.</p><p>Es un formato de texto utilizado para intercambiar datos entre aplicaciones.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-json"><code class="language-json">{
+  "nombre": "Ana",
+  "edad": 20,
+  "matriculado": true
+}
+</code></pre></div><p>Array JSON:</p><div class="example-block"><pre class="code-json"><code class="language-json">[
+  {
+    "nombre": "Ana",
+    "nota": 8
+  },
+  {
+    "nombre": "Luis",
+    "nota": 6
+  }
+]
+</code></pre></div></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.2. Reglas básicas</h3><p>En JSON:</p><ul class="custom-list">
+<li>las claves usan comillas dobles;</li>
+<li>las cadenas usan comillas dobles;</li>
+<li>no se permiten comentarios;</li>
+<li>no se permiten funciones;</li>
+<li>no se admite una coma después del último elemento;</li>
+<li>se permite <code>null</code>;</li>
+<li>no se permiten <code>undefined</code>, <code>NaN</code> ni <code>Infinity</code>.</li>
+</ul><p>JSON válido:</p><div class="example-block"><pre class="code-json"><code class="language-json">{
+  "nombre": "Ana",
+  "nota": null
+}
+</code></pre></div><p>JSON no válido:</p><div class="example-block"><pre class="code-json"><code class="language-json">{
+  "nombre": "Ana",
+  "nota": undefined
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-braces"></i></span> 5.3. <code>JSON.stringify()</code> y <code>JSON.parse()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">const alumno = {
+  nombre: "Ana",
+  nota: 8
+};
+
+const textoJSON =
+  JSON.stringify(alumno);
+
+console.log(textoJSON);
+
+const alumnoRecuperado =
+  JSON.parse(textoJSON);
+
+console.log(
+  alumnoRecuperado.nombre
+);
+</code></pre></div><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Método</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JSON.stringify()</code></td>
+<td>Convierte un objeto o array JavaScript en texto JSON.</td>
+</tr>
+<tr>
+<td><code>JSON.parse()</code></td>
+<td>Convierte texto JSON en datos JavaScript.</td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-file-earmark-arrow-down"></i></span> 5.4. <code>response.json()</code></h3><p>Dentro de una función <code>async</code>, normalmente utilizamos:</p><div class="example-block"><pre class="code-js"><code class="language-js">const datos =
+  await respuesta.json();
+</code></pre></div><p><code>response.json()</code>:</p><ul class="custom-list">
+<li>lee el cuerpo de la respuesta;</li>
+<li>intenta interpretarlo como JSON;</li>
+<li>devuelve una promesa;</li>
+<li>puede fallar si el contenido no es JSON válido.</li>
+</ul><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  try {
+    const respuesta =
+      await fetch("datos.json");
+
+    if (!respuesta.ok) {
+      throw new Error(
+        `Error HTTP: ${respuesta.status}`
+      );
+    }
+
+    const datos =
+      await respuesta.json();
+
+    console.log(datos);
+  } catch (error) {
+    console.error(
+      "Error de red, HTTP o JSON:",
+      error
+    );
+  }
+}
+
+cargarDatos();
+</code></pre></div><p>Recibir una respuesta HTTP correcta no garantiza que el cuerpo contenga JSON válido.</p></section><section class="content-section" id="6-async-await-y-tratamiento-de-errores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-code-slash"></i></span> 6. <code>async</code>, <code>await</code> y tratamiento de errores</h2><div class="definition-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-code-slash"></i></span> 6.1. Qué es una función <code>async</code></h3><p>Una función declarada con <code>async</code> siempre devuelve una promesa.</p><div class="example-block"><pre class="code-js"><code class="language-js">async function obtenerNumero() {
+  return 10;
+}
+</code></pre></div><p>La llamada no devuelve directamente <code>10</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">const resultado =
+  obtenerNumero();
+
+console.log(resultado);
+</code></pre></div><p><code>resultado</code> es una promesa.</p><p>Podemos obtener el valor con:</p><div class="example-block"><pre class="code-js"><code class="language-js">obtenerNumero()
+  .then((numero) =&gt; {
+    console.log(numero);
+  });
+</code></pre></div><p>o desde otra función <code>async</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function mostrarNumero() {
+  const numero =
+    await obtenerNumero();
+
+  console.log(numero);
+}
+</code></pre></div></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pause-circle"></i></span> 6.2. Qué hace <code>await</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  const respuesta =
+    await fetch("datos.json");
+
+  const datos =
+    await respuesta.json();
+
+  console.log(datos);
+}
+</code></pre></div><p><code>await</code> pausa temporalmente la continuación de la función <code>async</code> que lo contiene hasta que la promesa se resuelve.</p><p>No bloquea toda la página. Mientras la promesa está pendiente, el navegador puede seguir gestionando:</p><ul class="custom-list">
+<li>eventos;</li>
+<li>repintado de la interfaz;</li>
+<li>otras tareas;</li>
+<li>otras operaciones asíncronas.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-pause-circle"></i></span> 6.3. Dónde puede utilizarse <code>await</code></h3><p>Como norma de este bloque, utiliza <code>await</code> dentro de una función <code>async</code>.</p><p>Incorrecto en un script clásico:</p><div class="example-block"><pre class="code-js"><code class="language-js">const respuesta =
+  await fetch("datos.json");
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  const respuesta =
+    await fetch("datos.json");
+}
+</code></pre></div><p>Existe <code>await</code> en el nivel superior de los módulos, pero no será contenido principal en este documento.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-shield-exclamation"></i></span> 6.4. <code>try...catch</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  try {
+    const respuesta =
+      await fetch("datos.json");
+
+    if (!respuesta.ok) {
+      throw new Error(
+        `Error HTTP: ${respuesta.status}`
+      );
+    }
+
+    const datos =
+      await respuesta.json();
+
+    console.log(datos);
+  } catch (error) {
+    console.error(
+      "No se pudieron cargar los datos:",
+      error.message
+    );
+  }
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-shield-exclamation"></i></span> 6.5. <code>try...catch...finally</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  botonCargar.disabled = true;
+  estado.textContent = "Cargando...";
+
+  try {
+    const respuesta =
+      await fetch("datos.json");
+
+    if (!respuesta.ok) {
+      throw new Error(
+        `Error HTTP: ${respuesta.status}`
+      );
+    }
+
+    const datos =
+      await respuesta.json();
+
+    renderizarDatos(datos);
+
+    estado.textContent =
+      "Datos cargados correctamente.";
+  } catch (error) {
+    estado.textContent =
+      "No se pudieron cargar los datos.";
+
+    console.error(error);
+  } finally {
+    botonCargar.disabled = false;
+  }
+}
+</code></pre></div><p>El bloque <code>finally</code> se ejecuta tanto si la operación termina correctamente como si falla.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-arrow-right-circle"></i></span> 6.6. <code>.then()</code> y <code>async</code>/<code>await</code></h3><p>Las dos sintaxis son válidas.</p><p>Con <code>.then()</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">fetch("datos.json")
+  .then((respuesta) =&gt; {
+    if (!respuesta.ok) {
+      throw new Error(
+        `Error HTTP: ${respuesta.status}`
+      );
+    }
+
+    return respuesta.json();
+  })
+  .then((datos) =&gt; {
+    console.log(datos);
+  })
+  .catch((error) =&gt; {
+    console.error(error);
+  });
+</code></pre></div><p>Con <code>async</code>/<code>await</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  try {
+    const respuesta =
+      await fetch("datos.json");
+
+    if (!respuesta.ok) {
+      throw new Error(
+        `Error HTTP: ${respuesta.status}`
+      );
+    }
+
+    const datos =
+      await respuesta.json();
+
+    console.log(datos);
+  } catch (error) {
+    console.error(error);
+  }
+}
+</code></pre></div><p>Para código largo, <code>async</code>/<code>await</code> suele facilitar la lectura y la separación de tareas.</p></section><section class="content-section" id="7-entorno-web-mismo-origen-y-cors-basico"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-globe2"></i></span> 7. Entorno web, mismo origen y CORS básico</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-2"></i></span> 7.1. Qué es un origen</h3><p>De forma simplificada, un origen depende de:</p><ul class="custom-list">
+<li>protocolo;</li>
+<li>dominio;</li>
+<li>puerto.</li>
+</ul><p>Estas direcciones no tienen necesariamente el mismo origen:</p><div class="example-block"><pre class="code-bash"><code class="language-text">http://localhost:5500
+http://localhost:3000
+https://ejemplo.com
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-globe2"></i></span> 7.2. Qué es CORS</h3><p>Cuando una página solicita datos de otro origen, el navegador aplica restricciones de seguridad.</p><p>El servidor remoto debe autorizar determinados accesos mediante <strong>CORS</strong>.</p><p>Un error CORS puede aparecer aunque:</p><ul class="custom-list">
+<li>la API exista;</li>
+<li>la URL sea correcta;</li>
+<li>el servidor responda;</li>
+<li>el código JavaScript parezca correcto.</li>
+</ul><blockquote class="warning-box">
+<p>CORS no se soluciona desactivando comprobaciones del navegador ni añadiendo código arbitrario en el cliente. La autorización debe proceder del servidor remoto.</p>
+</blockquote><p>En este bloque solo necesitamos reconocer el problema. CORS en profundidad queda aplazado.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-signpost-split"></i></span> 7.3. Diferenciar tipos de error</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Error de red</td>
+<td>No existe conexión o no puede alcanzarse el servidor.</td>
+</tr>
+<tr>
+<td>Error HTTP</td>
+<td>El servidor responde con 404, 403 o 500.</td>
+</tr>
+<tr>
+<td>Error de JSON</td>
+<td>El contenido no puede interpretarse como JSON válido.</td>
+</tr>
+<tr>
+<td>Error de formato</td>
+<td>El JSON es válido, pero no tiene la estructura esperada.</td>
+</tr>
+<tr>
+<td>Error CORS</td>
+<td>El navegador bloquea el acceso a la respuesta por política de origen.</td>
+</tr>
+</tbody>
+</table></div></section><section class="content-section" id="8-renderizado-y-estados-de-interfaz"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-display"></i></span> 8. Renderizado y estados de interfaz</h2><div class="concept-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-activity"></i></span> 8.1. Estados recomendados</h3><p>Una interfaz que carga datos debería contemplar:</p><ol class="custom-ordered-list">
+<li>estado inicial;</li>
+<li>estado de carga;</li>
+<li>éxito con datos;</li>
+<li>éxito sin resultados;</li>
+<li>error.</li>
+</ol><p>HTML:</p><div class="example-block"><pre class="code-html"><code class="language-html">&lt;button
+  type="button"
+  id="botonCargar"
+&gt;
+  Cargar cursos
+&lt;/button&gt;
+
+&lt;p
+  id="estado"
+  aria-live="polite"
+&gt;
+  Pulsa para cargar datos.
+&lt;/p&gt;
+
+&lt;ul
+  id="listaCursos"
+  aria-busy="false"
+&gt;&lt;/ul&gt;
+</code></pre></div></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.2. Mostrar y finalizar la carga</h3><div class="example-block"><pre class="code-js"><code class="language-js">function mostrarCarga() {
+  estado.textContent =
+    "Cargando cursos...";
+
+  botonCargar.disabled = true;
+
+  listaCursos.setAttribute(
+    "aria-busy",
+    "true"
+  );
+
+  listaCursos.replaceChildren();
+}
+
+function finalizarCarga() {
+  botonCargar.disabled = false;
+
+  listaCursos.setAttribute(
+    "aria-busy",
+    "false"
+  );
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-display"></i></span> 8.3. Renderizar datos con nodos DOM</h3><div class="example-block"><pre class="code-js"><code class="language-js">function renderizarCursos(cursos) {
+  listaCursos.replaceChildren();
+
+  cursos.forEach((curso) =&gt; {
+    const li =
+      document.createElement("li");
+
+    li.textContent =
+      `${curso.nombre} - ${curso.horas} horas`;
+
+    listaCursos.append(li);
+  });
+}
+</code></pre></div><p>Utilizamos:</p><ul class="custom-list">
+<li><code>createElement()</code>;</li>
+<li><code>textContent</code>;</li>
+<li><code>append()</code>;</li>
+<li><code>replaceChildren()</code>.</li>
+</ul><p>No insertamos datos externos mediante <code>innerHTML</code>.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-activity"></i></span> 8.4. Estado sin resultados</h3><div class="example-block"><pre class="code-js"><code class="language-js">function mostrarSinResultados() {
+  listaCursos.replaceChildren();
+
+  estado.textContent =
+    "No hay cursos disponibles.";
+}
+</code></pre></div><p>Un array vacío no es necesariamente un error. Puede ser una respuesta válida sin resultados.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-display"></i></span> 8.5. Cargar y renderizar</h3><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarCursos() {
+  mostrarCarga();
+
+  try {
+    const cursos =
+      await obtenerCursos();
+
+    if (cursos.length === 0) {
+      mostrarSinResultados();
+      return;
+    }
+
+    renderizarCursos(cursos);
+
+    estado.textContent =
+      "Cursos cargados correctamente.";
+  } catch (error) {
+    estado.textContent =
+      "No se pudieron cargar los cursos.";
+
+    console.error(error);
+  } finally {
+    finalizarCarga();
+  }
+}
+</code></pre></div></section><section class="content-section" id="9-validar-y-transformar-datos-recibidos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-database-check"></i></span> 9. Validar y transformar datos recibidos</h2><div class="warning-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-folder2-open"></i></span> 9.1. JSON válido no significa estructura correcta</h3><p>Una respuesta puede contener JSON válido y, aun así, no incluir los datos esperados.</p><p>Esperamos un array:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (!Array.isArray(datos)) {
+  throw new Error(
+    "El formato recibido no es una lista."
+  );
+}
+</code></pre></div></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.2. Obtener cursos</h3><div class="example-block"><pre class="code-js"><code class="language-js">async function obtenerCursos() {
+  const respuesta =
+    await fetch("cursos.json");
+
+  if (!respuesta.ok) {
+    throw new Error(
+      `Error HTTP: ${respuesta.status}`
+    );
+  }
+
+  const datos =
+    await respuesta.json();
+
+  if (!Array.isArray(datos)) {
+    throw new Error(
+      "Formato de datos incorrecto."
+    );
+  }
+
+  return datos;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-ui-checks-grid"></i></span> 9.3. Comprobar propiedades básicas</h3><div class="example-block"><pre class="code-js"><code class="language-js">function normalizarCurso(curso) {
+  return {
+    nombre:
+      String(curso.nombre ?? "Sin nombre"),
+
+    horas:
+      Number(curso.horas)
+  };
+}
+</code></pre></div><p>Podemos validar:</p><div class="example-block"><pre class="code-js"><code class="language-js">function esCursoValido(curso) {
+  return (
+    typeof curso === "object"
+    &amp;&amp; curso !== null
+    &amp;&amp; typeof curso.nombre === "string"
+    &amp;&amp; Number.isFinite(
+      Number(curso.horas)
+    )
+  );
+}
+</code></pre></div><p>No construiremos todavía validadores complejos, pero sí comprobaremos los tipos más importantes.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-collection"></i></span> 9.4. Métodos de array</h3><div class="example-block"><pre class="code-js"><code class="language-js">const cursosLargos =
+  cursos.filter(
+    (curso) =&gt; curso.horas &gt;= 30
+  );
+
+const nombres =
+  cursos.map(
+    (curso) =&gt; curso.nombre
+  );
+
+const totalHoras =
+  cursos.reduce(
+    (total, curso) =&gt;
+      total + curso.horas,
+    0
+  );
+</code></pre></div><p>Aplicaciones:</p><ul class="custom-list">
+<li><code>filter()</code>: seleccionar cursos que cumplen una condición;</li>
+<li><code>map()</code>: obtener o transformar propiedades;</li>
+<li><code>reduce()</code>: calcular un total o resumen.</li>
+</ul></section><section class="content-section" id="10-introduccion-al-envio-de-datos-con-post"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-send"></i></span> 10. Introducción al envío de datos con <code>POST</code></h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-folder2-open"></i></span> 10.1. Estructura general</h3><div class="example-block"><pre class="code-js"><code class="language-js">const nuevoAlumno = {
+  nombre: "Ana",
+  nota: 8
+};
+</code></pre></div><p>Ejemplo conceptual:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function enviarAlumno(alumno) {
+  const respuesta =
+    await fetch(
+      "https://api.ejemplo.com/alumnos",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body:
+          JSON.stringify(alumno)
+      }
+    );
+
+  if (!respuesta.ok) {
+    throw new Error(
+      `Error HTTP: ${respuesta.status}`
+    );
+  }
+
+  return respuesta.json();
+}
+</code></pre></div><blockquote class="note-box">
+<p>La URL es ficticia. El ejemplo muestra la estructura general de una petición <code>POST</code>, pero no puede ejecutarse sin un servidor real que acepte los datos.</p>
+</blockquote><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-list-check"></i></span> 10.2. Elementos principales</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Parte</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>method: "POST"</code></td>
+<td>Indica que queremos enviar datos.</td>
+</tr>
+<tr>
+<td><code>headers</code></td>
+<td>Describe el tipo de contenido enviado.</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>Indica que el cuerpo contiene JSON.</td>
+</tr>
+<tr>
+<td><code>body</code></td>
+<td>Contiene los datos enviados.</td>
+</tr>
+<tr>
+<td><code>JSON.stringify()</code></td>
+<td>Convierte el objeto JavaScript en texto JSON.</td>
+</tr>
+</tbody>
+</table></div><p>El servidor debe:</p><ul class="custom-list">
+<li>existir;</li>
+<li>aceptar el método;</li>
+<li>aceptar el tipo de contenido;</li>
+<li>procesar el cuerpo;</li>
+<li>autorizar la petición mediante CORS cuando proceda.</li>
+</ul><p>El envío de datos será contenido secundario en este bloque.</p></section><section class="content-section" id="11-patron-recomendado-y-errores-frecuentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-tools"></i></span> 11. Patrón recomendado y errores frecuentes</h2><div class="good-practice-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-diagram-3"></i></span> 11.1. Separar responsabilidades</h3><p>Una estructura clara separa:</p><ul class="custom-list">
+<li>obtención;</li>
+<li>comprobación HTTP;</li>
+<li>lectura del cuerpo;</li>
+<li>validación;</li>
+<li>renderizado;</li>
+<li>estados de interfaz.</li>
+</ul><div class="example-block"><pre class="code-js"><code class="language-js">async function obtenerCursos() {
+  const respuesta =
+    await fetch("cursos.json");
+
+  if (!respuesta.ok) {
+    throw new Error(
+      `Error HTTP: ${respuesta.status}`
+    );
+  }
+
+  const datos =
+    await respuesta.json();
+
+  if (!Array.isArray(datos)) {
+    throw new Error(
+      "Formato incorrecto."
+    );
+  }
+
+  return datos;
+}
+</code></pre></div><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarCursos() {
+  mostrarCarga();
+
+  try {
+    const cursos =
+      await obtenerCursos();
+
+    if (cursos.length === 0) {
+      mostrarSinResultados();
+      return;
+    }
+
+    renderizarCursos(cursos);
+    mostrarExito();
+  } catch (error) {
+    mostrarError(error);
+  } finally {
+    finalizarCarga();
+  }
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cloud-download"></i></span> 11.2. Error: pensar que <code>fetch()</code> devuelve los datos</h3><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">const datos =
+  fetch("datos.json");
+</code></pre></div><p><code>fetch()</code> devuelve una promesa.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-cloud-download"></i></span> 11.3. Error: olvidar <code>await</code> en <code>fetch()</code></h3><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">const respuesta =
+  fetch("datos.json");
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">const respuesta =
+  await fetch("datos.json");
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-braces"></i></span> 11.4. Error: olvidar <code>await</code> en <code>.json()</code></h3><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code class="language-js">const datos =
+  respuesta.json();
+</code></pre></div><p>Correcto dentro de una función <code>async</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function procesarRespuesta(
+  respuesta
+) {
+  const datos =
+    await respuesta.json();
+
+  return datos;
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-file-earmark-arrow-down"></i></span> 11.5. Error: no comprobar <code>response.ok</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">if (!respuesta.ok) {
+  throw new Error(
+    `Error HTTP: ${respuesta.status}`
+  );
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-code-slash"></i></span> 11.6. Error: utilizar <code>await</code> fuera de <code>async</code></h3><p>Incorrecto en un script clásico:</p><div class="example-block"><pre class="code-js"><code class="language-js">const respuesta =
+  await fetch("datos.json");
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarDatos() {
+  const respuesta =
+    await fetch("datos.json");
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> 11.7. Error: abrir con <code>file:///</code></h3><p>Problema:</p><div class="example-block"><pre class="code-bash"><code class="language-text">fetch("datos.json") puede fallar al abrir
+directamente index.html.
+</code></pre></div><p>Solución:</p><div class="example-block"><pre class="code-bash"><code class="language-text">Utilizar un servidor web local.
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-folder2-open"></i></span> 11.8. Error: asumir la estructura de los datos</h3><p>Problemático dentro de una función <code>async</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">const datos =
+  await respuesta.json();
+
+datos.forEach(...);
+</code></pre></div><p>El problema no es <code>await</code>, sino asumir sin comprobar que <code>datos</code> es un array.</p><p>Mejor:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (!Array.isArray(datos)) {
+  throw new Error(
+    "Formato inesperado."
+  );
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-activity"></i></span> 11.9. Error: confundir estado vacío con error</h3><div class="example-block"><pre class="code-js"><code class="language-js">if (datos.length === 0) {
+  mostrarSinResultados();
+}
+</code></pre></div><p>Una respuesta sin elementos puede ser válida.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> 11.10. Error: realizar peticiones duplicadas</h3><p>Durante la carga:</p><div class="example-block"><pre class="code-js"><code class="language-js">botonCargar.disabled = true;
+</code></pre></div><p>Al finalizar:</p><div class="example-block"><pre class="code-js"><code class="language-js">botonCargar.disabled = false;
+</code></pre></div><p>La reactivación debe realizarse en <code>finally</code>.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> 11.11. Error: usar <code>innerHTML</code> con datos externos</h3><p>Evita:</p><div class="example-block"><pre class="code-js"><code class="language-js">lista.innerHTML =
+  `&lt;li&gt;${curso.nombre}&lt;/li&gt;`;
+</code></pre></div><p>Usa:</p><div class="example-block"><pre class="code-js"><code class="language-js">const li =
+  document.createElement("li");
+
+li.textContent =
+  curso.nombre;
+
+lista.append(li);
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-bug"></i></span> 11.12. Error: pensar que todo fallo llega de la misma forma</h3><p>Debemos distinguir:</p><ul class="custom-list">
+<li>red;</li>
+<li>HTTP;</li>
+<li>JSON;</li>
+<li>formato;</li>
+<li>CORS.</li>
+</ul><p>El mensaje para el usuario puede ser general, mientras que la consola puede contener información técnica.</p></div></section><section class="content-section" id="12-ejemplo-final-preguntas-y-resumen"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-circle"></i></span> 12. Ejemplo final, preguntas y resumen</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-filetype-html"></i></span> 12.1. HTML</h3><div class="example-block"><pre class="code-html"><code class="language-html">&lt;h1&gt;Cursos disponibles&lt;/h1&gt;
+
+&lt;button
+  type="button"
+  id="botonCargar"
+&gt;
+  Cargar cursos
+&lt;/button&gt;
+
+&lt;p
+  id="estado"
+  aria-live="polite"
+&gt;
+  Pulsa para cargar datos.
+&lt;/p&gt;
+
+&lt;ul
+  id="listaCursos"
+  aria-busy="false"
+&gt;&lt;/ul&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-braces"></i></span> 12.2. Archivo <code>cursos.json</code></h3><div class="example-block"><pre class="code-json"><code class="language-json">[
+  {
+    "nombre": "HTML",
+    "horas": 20
+  },
+  {
+    "nombre": "CSS",
+    "horas": 25
+  },
+  {
+    "nombre": "JavaScript",
+    "horas": 45
+  }
+]
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-filetype-js"></i></span> 12.3. JavaScript completo</h3><div class="example-block"><pre class="code-js"><code class="language-js">const botonCargar =
+  document.querySelector(
+    "#botonCargar"
+  );
+
+const estado =
+  document.querySelector(
+    "#estado"
+  );
+
+const listaCursos =
+  document.querySelector(
+    "#listaCursos"
+  );
+
+function mostrarCarga() {
+  estado.textContent =
+    "Cargando cursos...";
+
+  botonCargar.disabled = true;
+
+  listaCursos.setAttribute(
+    "aria-busy",
+    "true"
+  );
+
+  listaCursos.replaceChildren();
+}
+
+function finalizarCarga() {
+  botonCargar.disabled = false;
+
+  listaCursos.setAttribute(
+    "aria-busy",
+    "false"
+  );
+}
+
+function mostrarSinResultados() {
+  estado.textContent =
+    "No hay cursos disponibles.";
+
+  listaCursos.replaceChildren();
+}
+
+function renderizarCursos(cursos) {
+  listaCursos.replaceChildren();
+
+  cursos.forEach((curso) =&gt; {
+    const li =
+      document.createElement("li");
+
+    li.textContent =
+      `${curso.nombre}: ${curso.horas} horas`;
+
+    listaCursos.append(li);
+  });
+}
+
+async function obtenerCursos() {
+  const respuesta =
+    await fetch("cursos.json");
+
+  if (!respuesta.ok) {
+    throw new Error(
+      `Error HTTP: ${respuesta.status}`
+    );
+  }
+
+  const datos =
+    await respuesta.json();
+
+  if (!Array.isArray(datos)) {
+    throw new Error(
+      "El formato recibido no es una lista."
+    );
+  }
+
+  return datos;
+}
+
+async function cargarCursos() {
+  mostrarCarga();
+
+  try {
+    const cursos =
+      await obtenerCursos();
+
+    if (cursos.length === 0) {
+      mostrarSinResultados();
+      return;
+    }
+
+    renderizarCursos(cursos);
+
+    estado.textContent =
+      "Cursos cargados correctamente.";
+  } catch (error) {
+    estado.textContent =
+      "No se pudieron cargar los cursos.";
+
+    console.error(error);
+  } finally {
+    finalizarCarga();
+  }
+}
+
+botonCargar.addEventListener(
+  "click",
+  cargarCursos
+);
+</code></pre></div><div class="good-practice-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-question-circle"></i></span> 12.4. Preguntas tipo examen</h3><ol class="custom-ordered-list">
+<li>¿Qué diferencia existe entre código síncrono y asíncrono?</li>
+<li>¿Qué es un callback?</li>
+<li>¿Qué representa una promesa?</li>
+<li>¿Cuáles son los estados de una promesa?</li>
+<li>¿Qué significa que una promesa esté <code>settled</code>?</li>
+<li>¿Para qué sirven <code>.then()</code>, <code>.catch()</code> y <code>.finally()</code>?</li>
+<li>¿Qué devuelve <code>fetch()</code>?</li>
+<li>¿Qué objeto recibe el primer <code>.then()</code> de <code>fetch()</code>?</li>
+<li>¿Qué indica <code>response.ok</code>?</li>
+<li>¿Por qué un estado <code>404</code> no produce necesariamente un <code>catch</code>?</li>
+<li>¿Qué diferencia hay entre un error de red y un error HTTP?</li>
+<li>¿Qué devuelve una función <code>async</code>?</li>
+<li>¿Bloquea <code>await</code> toda la página?</li>
+<li>¿Por qué se utiliza <code>await response.json()</code>?</li>
+<li>¿Qué errores puede producir <code>response.json()</code>?</li>
+<li>¿Por qué conviene utilizar un servidor local?</li>
+<li>¿Qué es CORS a nivel básico?</li>
+<li>¿Por qué debemos validar la estructura de los datos recibidos?</li>
+<li>¿Qué diferencia hay entre una respuesta vacía y un error?</li>
+<li>¿Para qué puede utilizarse <code>finally</code>?</li>
+<li>¿Por qué se utiliza <code>textContent</code> con datos externos?</li>
+<li>¿Qué función cumplen <code>JSON.stringify()</code> y <code>JSON.parse()</code>?</li>
+</ol></div><div class="concept-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-check2-circle"></i></span> 12.5. Resumen final</h3><ul class="custom-list">
+<li>JavaScript puede iniciar operaciones asíncronas sin bloquear toda la interfaz.</li>
+<li>Un callback es una función que se ejecuta cuando otra operación lo determina.</li>
+<li>Una promesa puede estar <code>pending</code>, <code>fulfilled</code> o <code>rejected</code>.</li>
+<li><code>.then()</code> procesa resultados correctos.</li>
+<li><code>.catch()</code> captura rechazos y errores.</li>
+<li><code>.finally()</code> ejecuta tareas comunes al terminar.</li>
+<li><code>fetch()</code> devuelve una promesa que se resuelve con un objeto <code>Response</code>.</li>
+<li>Los estados HTTP incorrectos deben comprobarse mediante <code>response.ok</code>.</li>
+<li><code>response.json()</code> devuelve otra promesa y puede fallar.</li>
+<li>Una función <code>async</code> siempre devuelve una promesa.</li>
+<li><code>await</code> pausa la función asíncrona, no toda la página.</li>
+<li>Los ejemplos con JSON local deben ejecutarse desde un servidor web.</li>
+<li>CORS puede impedir el acceso a respuestas de otros orígenes.</li>
+<li>JSON válido no garantiza que los datos tengan la estructura esperada.</li>
+<li>La interfaz debe contemplar carga, éxito, vacío y error.</li>
+<li>Los datos externos deben renderizarse mediante nodos DOM y <code>textContent</code>.</li>
+<li><code>POST</code> permite enviar datos, pero requiere un servidor real que los acepte.</li>
+</ul></div><div class="note-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-box-arrow-right"></i></span> 12.6. Contenidos aplazados</h3><p>Quedan fuera como contenido principal:</p><ul class="custom-list">
+<li><code>AbortController</code>;</li>
+<li><code>Promise.all()</code> y concurrencia avanzada;</li>
+<li>autenticación y tokens;</li>
+<li>cabeceras HTTP avanzadas;</li>
+<li>CORS en profundidad;</li>
+<li>subida de archivos;</li>
+<li><code>localStorage</code>;</li>
+<li>módulos JavaScript;</li>
+<li>herramientas de empaquetado;</li>
+<li>frameworks como React, Vue o Angular.</li>
+</ul></div></section></div></div></main></div><script src="../../assets/js/smpp.js"></script></body></html>

@@ -1,0 +1,1152 @@
+<!doctype html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>B02 · Ejercicios: sintaxis, variables y tipos en JavaScript</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../assets/css/smpp.css" rel="stylesheet" />
+    <script defer="" src="../../assets/js/smpp.js"></script>
+  </head>
+  <body>
+    <div class="smpp-scope">
+      <main class="main-content has-sidebar exercises-page">
+        <div class="content-layout">
+          <aside aria-label="Índice del documento" class="section-sidebar">
+            <nav aria-label="Secciones del documento" class="section-nav">
+              <p class="section-nav-title">
+                <i aria-hidden="true" class="bi bi-list-task"></i> Índice de
+                ejercicios
+              </p>
+              <ol class="section-nav-list">
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#1-objetivos-de-la-hoja"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-bullseye"></i
+                    ></span>
+                    1. Objetivos de la hoja</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#2-relacion-con-la-programacion-del-modulo"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-diagram-3"></i
+                    ></span>
+                    2. Relación con la programación del módulo</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#3-instrucciones-de-trabajo"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-list-check"></i
+                    ></span>
+                    3. Instrucciones de trabajo</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-1-identificadores-variables-y-constantes"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-code-square"></i
+                    ></span>
+                    Parte 1. Identificadores, variables y constantes</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-2-ambito-de-variables"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-braces"></i
+                    ></span>
+                    Parte 2. Ámbito de variables</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-3-tipos-basicos-y-typeof"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-type"></i
+                    ></span>
+                    Parte 3. Tipos básicos y <code>typeof</code></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-4-undefined-null-nan-e-infinity"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-journal-text"></i
+                    ></span>
+                    Parte 4. <code>undefined</code> , <code>null</code> ,
+                    <code>NaN</code> e <code>Infinity</code></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-5-conversion-de-tipos"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-arrow-left-right"></i
+                    ></span>
+                    Parte 5. Conversión de tipos</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-6-operadores-basicos-y-comparacion-estricta"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-calculator"></i
+                    ></span>
+                    Parte 6. Operadores básicos y comparación estricta</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-7-correccion-de-errores-frecuentes"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-bug"></i
+                    ></span>
+                    Parte 7. Corrección de errores frecuentes</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-8-mini-entrega-del-bloque"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-box-arrow-up"></i
+                    ></span>
+                    Parte 8. Mini-entrega del bloque</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-9-preguntas-cortas-de-repaso"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i class="bi bi-question-circle"></i
+                    ></span>
+                    Parte 9. Preguntas cortas de repaso</a
+                  >
+                </li>
+              </ol>
+            </nav>
+          </aside>
+          <div class="content-wrapper">
+            <div class="document-toolbar">
+              <a class="document-home-link" href="../../index.html"
+                ><i aria-hidden="true" class="bi bi-house-door"></i>
+                Índice del curso
+              </a>
+
+               <button id="theme-toggle" class="document-theme-toggle" type="button">
+    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+    Modo oscuro
+  </button>
+            </div>
+            <header class="content-header">
+              <h1>
+                <span aria-hidden="true" class="document-title-icon"
+                  ><i class="bi bi-pencil-square"></i
+                ></span>
+                Bloque 2. Hoja de ejercicios: sintaxis, variables y tipos en
+                JavaScript
+              </h1>
+              <p class="lead-text">
+                <strong
+                  >Módulo: DWCC — Desenvolvemento web en contorno
+                  cliente</strong
+                >
+              </p>
+              <p>
+                Esta hoja de ejercicios acompaña al bloque de apuntes sobre
+                <strong
+                  >sintaxis básica, variables, constantes, tipos de datos y
+                  conversión de tipos en JavaScript</strong
+                >.
+              </p>
+              <p>
+                El objetivo no es memorizar resultados, sino aprender a
+                <strong>predecir</strong>, <strong>ejecutar</strong>,
+                <strong>comprobar</strong> y <strong>explicar</strong> el
+                comportamiento básico de JavaScript en el navegador.
+              </p>
+            </header>
+            <section
+              class="content-section requirements-section"
+              id="1-objetivos-de-la-hoja"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-bullseye"></i
+                ></span>
+                1. Objetivos de la hoja
+              </h2>
+              <p>Al terminar estos ejercicios deberías ser capaz de:</p>
+              <ul class="custom-list">
+                <li>escribir identificadores válidos en JavaScript;</li>
+                <li>
+                  declarar variables y constantes con <code>let</code> y
+                  <code>const</code>;
+                </li>
+                <li>distinguir declaración, inicialización y reasignación;</li>
+                <li>reconocer tipos básicos de datos;</li>
+                <li>usar <code>typeof</code> para comprobar tipos;</li>
+                <li>
+                  diferenciar <code>undefined</code>, <code>null</code>,
+                  <code>NaN</code> e <code>Infinity</code>;
+                </li>
+                <li>
+                  realizar conversiones explícitas con <code>Number()</code>,
+                  <code>String()</code> y <code>Boolean()</code>;
+                </li>
+                <li>
+                  detectar resultados inesperados por conversión implícita;
+                </li>
+                <li>
+                  usar correctamente la igualdad estricta <code>===</code> y la
+                  desigualdad estricta <code>!==</code>;
+                </li>
+                <li>
+                  probar fragmentos de código en la consola del navegador o en
+                  un fichero <code>.js</code>.
+                </li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section"
+              id="2-relacion-con-la-programacion-del-modulo"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-diagram-3"></i
+                ></span>
+                2. Relación con la programación del módulo
+              </h2>
+              <p>
+                Esta hoja trabaja principalmente contenidos de la UD1,
+                relacionados con:
+              </p>
+              <ul class="custom-list">
+                <li>
+                  <strong>RA2</strong>: escribe sentencias simples, aplicando la
+                  sintaxis del lenguaje y verificando su ejecución sobre
+                  navegadores web.
+                </li>
+                <li>
+                  <strong>CA2.2</strong>: utilización de variables y operadores
+                  disponibles en el lenguaje.
+                </li>
+                <li>
+                  <strong>CA2.3</strong>: identificación de ámbitos de
+                  utilización de las variables.
+                </li>
+                <li>
+                  <strong>CA2.4</strong>: reconocimiento de peculiaridades del
+                  lenguaje respecto a conversiones entre tipos de datos.
+                </li>
+                <li>
+                  <strong>CA2.7</strong>: incorporación de comentarios al
+                  código.
+                </li>
+                <li>
+                  <strong>CA2.8</strong>: uso de herramientas y entornos para
+                  facilitar la programación, prueba y documentación del código.
+                </li>
+              </ul>
+              <hr />
+            </section>
+            <section class="content-section" id="3-instrucciones-de-trabajo">
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-list-check"></i
+                ></span>
+                3. Instrucciones de trabajo
+              </h2>
+              <p>Para cada ejercicio:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>
+                  Intenta responder
+                  <strong>sin ejecutar primero el código</strong>.
+                </li>
+                <li>
+                  Comprueba después el resultado en la consola del navegador o
+                  en un fichero <code>.js</code> enlazado desde HTML.
+                </li>
+                <li>Corrige tu respuesta si te equivocaste.</li>
+                <li>Escribe una explicación breve, no solo el resultado.</li>
+              </ol>
+              <p>
+                Cuando se pida código, debe estar bien indentado y con nombres
+                de variables claros.
+              </p>
+              <hr />
+            </section>
+            <section
+              class="content-section"
+              id="parte-1-identificadores-variables-y-constantes"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-code-square"></i
+                ></span>
+                Parte 1. Identificadores, variables y constantes
+              </h2>
+              <h3 id="ejercicio-1.-identificadores-válidos">
+                Ejercicio 1. Identificadores válidos
+              </h3>
+              <p>
+                Indica si estos nombres son válidos como identificadores en
+                JavaScript. Si no lo son, explica brevemente por qué.
+              </p>
+              <div class="compact-table-container">
+                <table class="comparison-table">
+                  <thead>
+                    <tr class="header">
+                      <th>Identificador</th>
+                      <th>¿Válido?</th>
+                      <th>Motivo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="odd">
+                      <td><code>precioTotal</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>2coches</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="odd">
+                      <td><code>_contador</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>$elemento</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="odd">
+                      <td><code>let</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>Nombre_Usuario</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="odd">
+                      <td><code>nombreUsuario</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>precio-total</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Después responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>
+                  ¿Cuál de los identificadores válidos sigue mejor la convención
+                  habitual de JavaScript?
+                </li>
+                <li>
+                  ¿Por qué <code>Nombre_Usuario</code> puede ser válido pero no
+                  ser la opción más recomendable?
+                </li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-2.-declarar-con-let-y-const">
+                Ejercicio 2. Declarar con <code>let</code> y <code>const</code>
+              </h3>
+              <p>
+                Escribe las declaraciones adecuadas usando <code>let</code> o
+                <code>const</code>.
+              </p>
+              <ol class="custom-ordered-list" type="1">
+                <li>
+                  Una variable para guardar la edad de una persona, que puede
+                  cambiar.
+                </li>
+                <li>Una constante para guardar el valor de π.</li>
+                <li>
+                  Una variable para guardar el nombre del usuario actual, que
+                  puede cambiar.
+                </li>
+                <li>Una constante para guardar la URL base de una API.</li>
+                <li>
+                  Una variable para guardar si un formulario ha sido enviado o
+                  no.
+                </li>
+                <li>
+                  Una constante para guardar el número máximo de intentos
+                  permitidos.
+                </li>
+              </ol>
+              <p>Ejemplo de formato esperado:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>let contador = 0;
+const MAX_INTENTOS = 3;</code></pre>
+              </div>
+              <p>
+                Debajo de cada declaración, escribe una frase justificando por
+                qué has usado <code>let</code> o <code>const</code>.
+              </p>
+              <hr />
+              <h3 id="ejercicio-3.-declaración-inicialización-y-reasignación">
+                Ejercicio 3. Declaración, inicialización y reasignación
+              </h3>
+              <p>Lee el siguiente código:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>let edad;
+edad = 20;
+edad = 21;
+
+const centro = "CIFP A Carballeira";
+centro = "Otro centro";</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿En qué línea se declara la variable <code>edad</code>?</li>
+                <li>¿En qué línea se inicializa <code>edad</code>?</li>
+                <li>¿Qué línea reasigna el valor de <code>edad</code>?</li>
+                <li>¿Qué línea produce un error? ¿Por qué?</li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-4.-corregir-declaraciones-incorrectas">
+                Ejercicio 4. Corregir declaraciones incorrectas
+              </h3>
+              <p>
+                El siguiente código tiene varios errores. Corrígelo y explica
+                qué estaba mal.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>let 2precio = 10;
+const nombre;
+let usuario actual = "Ana";
+const MAX INTENTOS = 3;</code></pre>
+              </div>
+              <p>Pistas:</p>
+              <ul class="custom-list">
+                <li>revisa nombres de variables;</li>
+                <li>revisa espacios;</li>
+                <li>revisa identificadores que empiezan por número;</li>
+                <li>
+                  revisa si una constante puede declararse sin valor inicial.
+                </li>
+              </ul>
+              <hr />
+            </section>
+            <section class="content-section" id="parte-2-ambito-de-variables">
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-braces"></i
+                ></span>
+                Parte 2. Ámbito de variables
+              </h2>
+              <h3 id="ejercicio-5.-ámbito-de-bloque-con-let">
+                Ejercicio 5. Ámbito de bloque con <code>let</code>
+              </h3>
+              <p>Predice qué ocurrirá al ejecutar este código:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>if (true) {
+  let mensaje = "Hola";
+  console.log(mensaje);
+}
+
+console.log(mensaje);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué muestra el primer <code>console.log</code>?</li>
+                <li>¿Qué ocurre con el segundo <code>console.log</code>?</li>
+                <li>¿Por qué sucede?</li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-6.-diferencia-básica-entre-let-y-var">
+                Ejercicio 6. Diferencia básica entre <code>let</code> y
+                <code>var</code>
+              </h3>
+              <p>Predice el resultado del siguiente código:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>if (true) {
+  let a = 1;
+  var b = 2;
+}
+
+console.log(b);
+console.log(a);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué ocurre al mostrar <code>b</code>?</li>
+                <li>¿Qué ocurre al mostrar <code>a</code>?</li>
+                <li>
+                  ¿Qué diferencia de ámbito se observa entre <code>let</code> y
+                  <code>var</code>?
+                </li>
+                <li>
+                  ¿Por qué se recomienda no usar <code>var</code> en código
+                  nuevo?
+                </li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-7.-const-no-significa-inmutable">
+                Ejercicio 7. <code>const</code> no significa inmutable
+              </h3>
+              <p>Observa el siguiente código:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>const usuario = {
+  nombre: "Ana",
+  edad: 20
+};
+
+usuario.edad = 21;
+usuario = {
+  nombre: "Luis",
+  edad: 22
+};</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>
+                  ¿Qué línea es válida aunque <code>usuario</code> sea
+                  <code>const</code>?
+                </li>
+                <li>¿Qué línea produce un error?</li>
+                <li>
+                  Explica la diferencia entre
+                  <strong>no poder reasignar una constante</strong> y
+                  <strong>modificar una propiedad de un objeto</strong>.
+                </li>
+              </ol>
+              <hr />
+            </section>
+            <section
+              class="content-section"
+              id="parte-3-tipos-basicos-y-typeof"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-type"></i
+                ></span>
+                Parte 3. Tipos básicos y <code>typeof</code>
+              </h2>
+              <h3 id="ejercicio-8.-typeof-básico">
+                Ejercicio 8. <code>typeof</code> básico
+              </h3>
+              <p>Indica qué devuelve <code>typeof</code> en cada caso.</p>
+              <div class="compact-table-container">
+                <table class="comparison-table">
+                  <thead>
+                    <tr class="header">
+                      <th>Expresión</th>
+                      <th>Resultado de <code>typeof</code></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="odd">
+                      <td><code>typeof 7</code></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>typeof 3.14</code></td>
+                      <td></td>
+                    </tr>
+                    <tr class="odd">
+                      <td><code>typeof "DWCC"</code></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>typeof 'JavaScript'</code></td>
+                      <td></td>
+                    </tr>
+                    <tr class="odd">
+                      <td><code>typeof true</code></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>typeof false</code></td>
+                      <td></td>
+                    </tr>
+                    <tr class="odd">
+                      <td><code>typeof undefined</code></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>typeof 123n</code></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Después comprueba tus respuestas en la consola.</p>
+              <hr />
+              <h3 id="ejercicio-9.-el-caso-especial-de-typeof-null">
+                Ejercicio 9. El caso especial de <code>typeof null</code>
+              </h3>
+              <p>Predice el resultado:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>let seleccion = null;
+
+console.log(seleccion);
+console.log(typeof seleccion);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué muestra <code>console.log(seleccion)</code>?</li>
+                <li>¿Qué devuelve <code>typeof seleccion</code>?</li>
+                <li>
+                  ¿Por qué este caso suele confundir al empezar con JavaScript?
+                </li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-10.-tipos-que-cambian-durante-la-ejecución">
+                Ejercicio 10. Tipos que cambian durante la ejecución
+              </h3>
+              <p>Observa el código:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>let dato = 5;
+console.log(typeof dato);
+
+dato = "cinco";
+console.log(typeof dato);
+
+dato = true;
+console.log(typeof dato);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué se muestra en cada <code>console.log</code>?</li>
+                <li>
+                  ¿Qué significa que JavaScript sea un lenguaje
+                  <strong>dinámicamente tipado</strong>?
+                </li>
+                <li>
+                  ¿El tipo pertenece a la variable o al valor? Explícalo con
+                  este ejemplo.
+                </li>
+              </ol>
+              <hr />
+            </section>
+            <section
+              class="content-section"
+              id="parte-4-undefined-null-nan-e-infinity"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-journal-text"></i
+                ></span>
+                Parte 4. <code>undefined</code> , <code>null</code> ,
+                <code>NaN</code> e <code>Infinity</code>
+              </h2>
+              <h3 id="ejercicio-11.-undefined-frente-a-null">
+                Ejercicio 11. <code>undefined</code> frente a <code>null</code>
+              </h3>
+              <p>Observa el siguiente código:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>let usuario;
+let seleccion = null;
+
+console.log(usuario);
+console.log(seleccion);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué se muestra en cada <code>console.log</code>?</li>
+                <li>¿Qué significa <code>undefined</code> en este ejemplo?</li>
+                <li>¿Qué significa <code>null</code> en este ejemplo?</li>
+                <li>
+                  Escribe una regla sencilla para diferenciar
+                  <code>undefined</code> y <code>null</code>.
+                </li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-12.-variables-sin-inicializar">
+                Ejercicio 12. Variables sin inicializar
+              </h3>
+              <p>Ejecuta el siguiente código y responde:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>let edad;
+
+console.log(edad);
+console.log(typeof edad);
+
+edad = 20;
+
+console.log(edad);
+console.log(typeof edad);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>
+                  ¿Qué valor tiene <code>edad</code> antes de asignarle
+                  <code>20</code>?
+                </li>
+                <li>
+                  ¿Qué tipo devuelve <code>typeof edad</code> antes de la
+                  asignación?
+                </li>
+                <li>¿Qué cambia después de ejecutar <code>edad = 20</code>?</li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-13.-nan-e-infinity">
+                Ejercicio 13. <code>NaN</code> e <code>Infinity</code>
+              </h3>
+              <p>
+                Sin ejecutar todavía el código, intenta predecir el resultado.
+                Después compruébalo en la consola.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>console.log(Number("123"));
+console.log(Number("hola"));
+console.log(10 / 0);
+console.log(-10 / 0);
+console.log(0 / 0);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué se muestra en cada línea?</li>
+                <li>¿Qué significa <code>NaN</code>?</li>
+                <li>¿Qué significa <code>Infinity</code>?</li>
+                <li>¿Qué devuelve <code>typeof NaN</code>?</li>
+                <li>¿Por qué <code>NaN</code> puede resultar confuso?</li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-14.-comprobar-nan">
+                Ejercicio 14. Comprobar <code>NaN</code>
+              </h3>
+              <p>Ejecuta este código:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>const valor1 = Number("123");
+const valor2 = Number("hola");
+
+console.log(Number.isNaN(valor1));
+console.log(Number.isNaN(valor2));</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Cuál de los dos valores es <code>NaN</code>?</li>
+                <li>¿Para qué sirve <code>Number.isNaN()</code>?</li>
+                <li>
+                  ¿Por qué no basta con mirar visualmente el resultado en
+                  consola cuando el programa crece?
+                </li>
+              </ol>
+              <hr />
+            </section>
+            <section class="content-section" id="parte-5-conversion-de-tipos">
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-arrow-left-right"></i
+                ></span>
+                Parte 5. Conversión de tipos
+              </h2>
+              <h3 id="ejercicio-15.-conversión-explícita-con-number">
+                Ejercicio 15. Conversión explícita con <code>Number()</code>
+              </h3>
+              <p>Predice y comprueba:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>console.log(Number("3"));
+console.log(Number("3.14"));
+console.log(Number(""));
+console.log(Number("hola"));
+console.log(Number(true));
+console.log(Number(false));</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué conversiones producen un número válido?</li>
+                <li>¿Cuál produce <code>NaN</code>?</li>
+                <li>
+                  ¿Qué ocurre con <code>true</code> y <code>false</code> al
+                  convertirlos a número?
+                </li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-16.-conversión-explícita-con-string">
+                Ejercicio 16. Conversión explícita con <code>String()</code>
+              </h3>
+              <p>Predice y comprueba:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>console.log(String(25));
+console.log(String(true));
+console.log(String(false));
+console.log(String(null));
+console.log(String(undefined));</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué tienen en común todos los resultados?</li>
+                <li>¿Para qué puede ser útil convertir un valor a texto?</li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-17.-conversión-explícita-con-boolean">
+                Ejercicio 17. Conversión explícita con <code>Boolean()</code>
+              </h3>
+              <p>Predice y comprueba:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>console.log(Boolean(""));
+console.log(Boolean("hola"));
+console.log(Boolean(0));
+console.log(Boolean(1));
+console.log(Boolean(null));
+console.log(Boolean(undefined));
+console.log(Boolean(NaN));</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué valores se convierten en <code>false</code>?</li>
+                <li>¿Qué valores se convierten en <code>true</code>?</li>
+                <li>
+                  ¿Por qué este ejercicio será importante cuando estudiemos
+                  condiciones?
+                </li>
+              </ol>
+              <hr />
+            </section>
+            <section
+              class="content-section"
+              id="parte-6-operadores-basicos-y-comparacion-estricta"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-calculator"></i
+                ></span>
+                Parte 6. Operadores básicos y comparación estricta
+              </h2>
+              <h3 id="ejercicio-18.-aritmética-básica-con-variables">
+                Ejercicio 18. Aritmética básica con variables
+              </h3>
+              <p>
+                Completa las expresiones de la derecha para que las variables
+                tengan el valor correcto usando <code>a</code> y <code>b</code>.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>const a = 10;
+const b = 4;
+
+const suma     = /* tu código aquí */;
+const resta    = /* tu código aquí */;
+const producto = /* tu código aquí */;
+const division = /* tu código aquí */;
+const modulo   = /* tu código aquí */;
+const potencia = /* tu código aquí */;
+
+console.log(suma, resta, producto, division, modulo, potencia);</code></pre>
+              </div>
+              <p>Debes usar estos operadores:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>+  -  *  /  %  **</code></pre>
+              </div>
+              <hr />
+              <h3 id="ejercicio-19.-concatenación-y-suma">
+                Ejercicio 19. Concatenación y suma
+              </h3>
+              <p>Predice el resultado de cada línea:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>console.log("5" + 2);
+console.log(5 + 2);
+console.log("5" - 2);
+console.log("5" * 2);
+console.log("5" / 2);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>
+                  ¿En qué caso el operador <code>+</code> concatena texto?
+                </li>
+                <li>
+                  ¿Qué ocurre con <code>-</code>, <code>*</code> y
+                  <code>/</code> cuando reciben una cadena que parece un número?
+                </li>
+                <li>
+                  ¿Por qué estos resultados pueden provocar errores en programas
+                  reales?
+                </li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-20.-igualdad-estricta">
+                Ejercicio 20. Igualdad estricta
+              </h3>
+              <p>
+                Indica si estas expresiones son <code>true</code> o
+                <code>false</code>, y explica en una frase por qué.
+              </p>
+              <div class="compact-table-container">
+                <table class="comparison-table">
+                  <thead>
+                    <tr class="header">
+                      <th>Expresión</th>
+                      <th>Resultado</th>
+                      <th>Explicación</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="odd">
+                      <td><code>0 == "0"</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>0 === "0"</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="odd">
+                      <td><code>"true" == true</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>"3" * 2 == 6</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="odd">
+                      <td><code>"3" + 2 === "32"</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="even">
+                      <td><code>null == undefined</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="odd">
+                      <td><code>null === undefined</code></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Después responde:</p>
+              <blockquote class="note-box">
+                <p>
+                  ¿Por qué en JavaScript se recomienda usar <code>===</code> y
+                  <code>!==</code> en lugar de <code>==</code> y
+                  <code>!=</code>?
+                </p>
+              </blockquote>
+              <hr />
+            </section>
+            <section
+              class="content-section"
+              id="parte-7-correccion-de-errores-frecuentes"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-bug"></i
+                ></span>
+                Parte 7. Corrección de errores frecuentes
+              </h2>
+              <h3 id="ejercicio-21.-detectar-errores-de-sintaxis">
+                Ejercicio 21. Detectar errores de sintaxis
+              </h3>
+              <p>El siguiente código contiene errores. Corrígelo.</p>
+              <div class="example-block">
+                <pre class="code-js"><code>let nombre = Ana;
+let edad = 20;
+const centro = "CIFP A Carballeira";
+
+console.log("Nombre: " + nombre);
+console.log("Edad: " edad);
+console.log("Centro: " + centro);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué errores has detectado?</li>
+                <li>
+                  ¿Qué mensaje aproximado muestra la consola cuando encuentra un
+                  error de sintaxis?
+                </li>
+                <li>
+                  ¿Por qué es importante leer la línea donde aparece el error?
+                </li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-22.-detectar-errores-de-tipo-y-conversión">
+                Ejercicio 22. Detectar errores de tipo y conversión
+              </h3>
+              <p>
+                Este código se ejecuta, pero puede producir un resultado no
+                esperado.
+              </p>
+              <div class="example-block">
+                <pre class="code-js"><code>const precio = "20";
+const unidades = 3;
+
+const total = precio + unidades;
+
+console.log(total);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Qué muestra <code>console.log(total)</code>?</li>
+                <li>¿Por qué no muestra <code>23</code> como número?</li>
+                <li>
+                  Corrige el código para que <code>total</code> sea el número
+                  <code>23</code>.
+                </li>
+              </ol>
+              <hr />
+              <h3 id="ejercicio-23.-código-con-ámbito-incorrecto">
+                Ejercicio 23. Código con ámbito incorrecto
+              </h3>
+              <p>El siguiente código tiene un problema de ámbito.</p>
+              <div class="example-block">
+                <pre class="code-js"><code>if (true) {
+  const mensaje = "Operación realizada";
+}
+
+console.log(mensaje);</code></pre>
+              </div>
+              <p>Responde:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>¿Por qué falla el código?</li>
+                <li>
+                  Corrígelo de dos formas distintas:
+                  <ul class="custom-list">
+                    <li>declarando la variable fuera del bloque;</li>
+                    <li>mostrando el mensaje dentro del bloque.</li>
+                  </ul>
+                </li>
+              </ol>
+              <hr />
+            </section>
+            <section
+              class="content-section delivery-section"
+              id="parte-8-mini-entrega-del-bloque"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-box-arrow-up"></i
+                ></span>
+                Parte 8. Mini-entrega del bloque
+              </h2>
+              <h3 id="ejercicio-24.-script-de-comprobación-de-tipos">
+                Ejercicio 24. Script de comprobación de tipos
+              </h3>
+              <p>Crea un fichero llamado:</p>
+              <div class="example-block">
+                <pre
+                  class="code-text"
+                ><code>b02_tipos_nombre_apellidos.js</code></pre>
+              </div>
+              <p>Debe contener:</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>Tres variables declaradas con <code>let</code>.</li>
+                <li>Tres constantes declaradas con <code>const</code>.</li>
+                <li>Al menos cinco valores de tipos distintos.</li>
+                <li>Una variable sin inicializar.</li>
+                <li>Un valor <code>null</code>.</li>
+                <li>Un ejemplo que produzca <code>NaN</code>.</li>
+                <li>Un ejemplo que produzca <code>Infinity</code>.</li>
+                <li>Una conversión explícita con <code>Number()</code>.</li>
+                <li>Una conversión explícita con <code>String()</code>.</li>
+                <li>Una conversión explícita con <code>Boolean()</code>.</li>
+                <li>Tres comprobaciones con <code>typeof</code>.</li>
+                <li>
+                  Dos comparaciones: una con <code>==</code> y otra con
+                  <code>===</code>.
+                </li>
+              </ol>
+              <p>Ejemplo de inicio:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>let edad;
+let nombre = "Ana";
+let activo = true;
+
+const PI = 3.14159;
+const CENTRO = "CIFP A Carballeira";
+const MAX_INTENTOS = 3;
+
+console.log("edad:", edad);
+console.log("typeof edad:", typeof edad);</code></pre>
+              </div>
+              <p>Entrega:</p>
+              <ul class="custom-list">
+                <li>el fichero <code>.js</code>;</li>
+                <li>
+                  una captura de la consola del navegador con la ejecución;
+                </li>
+                <li>
+                  una explicación breve de tres resultados que te hayan parecido
+                  curiosos o poco intuitivos.
+                </li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section exam-questions-section"
+              id="parte-9-preguntas-cortas-de-repaso"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i class="bi bi-question-circle"></i
+                ></span>
+                Parte 9. Preguntas cortas de repaso
+              </h2>
+              <p>Responde con frases breves pero precisas.</p>
+              <ol class="custom-ordered-list" type="1">
+                <li>
+                  ¿Qué diferencia hay entre declarar e inicializar una variable?
+                </li>
+                <li>
+                  ¿Qué ocurre si declaras una variable con <code>let</code> y no
+                  le asignas ningún valor?
+                </li>
+                <li>
+                  ¿Por qué una constante declarada con <code>const</code> debe
+                  inicializarse en la misma línea?
+                </li>
+                <li>
+                  ¿Qué diferencia hay entre <code>null</code> y
+                  <code>undefined</code>?
+                </li>
+                <li>
+                  ¿Por qué <code>typeof null</code> devuelve un resultado
+                  sorprendente?
+                </li>
+                <li>¿Qué significa <code>NaN</code>?</li>
+                <li>¿Qué significa <code>Infinity</code>?</li>
+                <li>
+                  ¿Qué diferencia hay entre <code>==</code> y <code>===</code>?
+                </li>
+                <li>¿Por qué JavaScript se considera dinámicamente tipado?</li>
+                <li>
+                  ¿Por qué las conversiones implícitas pueden provocar errores?
+                </li>
+              </ol>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

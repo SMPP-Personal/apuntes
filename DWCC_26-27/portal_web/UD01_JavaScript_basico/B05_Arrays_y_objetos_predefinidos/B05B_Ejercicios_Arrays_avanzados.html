@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bloque 5B. Ejercicios: métodos avanzados de arrays</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+<script defer="" src="../../assets/js/smpp.js"></script>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar exercises-page">
+<div class="content-layout">
+<aside class="section-sidebar">
+<nav aria-label="Índice del documento" class="section-nav">
+<p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-check section-nav-icon"></i> Índice</p>
+<ul class="section-nav-list"><li><a class="section-nav-link" href="#1-objetivo-de-esta-hoja"><i aria-hidden="true" class="bi bi-bullseye section-nav-icon"></i><span>1. Objetivo de esta hoja</span></a></li><li><a class="section-nav-link" href="#2-antes-de-empezar"><i aria-hidden="true" class="bi bi-play-circle section-nav-icon"></i><span>2. Antes de empezar</span></a></li><li><a class="section-nav-link" href="#parte-1-del-for-clasico-a-los-metodos-de-array"><i aria-hidden="true" class="bi bi-arrow-repeat section-nav-icon"></i><span>Parte 1. Del for clásico a los métodos de array</span></a></li><li><a class="section-nav-link" href="#parte-2-map-transformar-todos-los-elementos"><i aria-hidden="true" class="bi bi-arrow-repeat section-nav-icon"></i><span>Parte 2. map() : transformar todos los elementos</span></a></li><li><a class="section-nav-link" href="#parte-3-filter-seleccionar-elementos"><i aria-hidden="true" class="bi bi-funnel section-nav-icon"></i><span>Parte 3. filter() : seleccionar elementos</span></a></li><li><a class="section-nav-link" href="#parte-4-reduce-acumular-en-un-unico-resultado"><i aria-hidden="true" class="bi bi-calculator section-nav-icon"></i><span>Parte 4. reduce() : acumular en un único resultado</span></a></li><li><a class="section-nav-link" href="#parte-5-slice-copiar-y-extraer-partes-de-un-array"><i aria-hidden="true" class="bi bi-scissors section-nav-icon"></i><span>Parte 5. slice() : copiar y extraer partes de un array</span></a></li><li><a class="section-nav-link" href="#parte-6-elegir-el-metodo-adecuado"><i aria-hidden="true" class="bi bi-signpost-split section-nav-icon"></i><span>Parte 6. Elegir el método adecuado</span></a></li><li><a class="section-nav-link" href="#parte-7-corrige-los-errores"><i aria-hidden="true" class="bi bi-bug section-nav-icon"></i><span>Parte 7. Corrige los errores</span></a></li><li><a class="section-nav-link" href="#parte-8-mini-entrega-final"><i aria-hidden="true" class="bi bi-upload section-nav-icon"></i><span>Parte 8. Mini-entrega final</span></a></li><li><a class="section-nav-link" href="#preguntas-de-repaso"><i aria-hidden="true" class="bi bi-question-circle section-nav-icon"></i><span>Preguntas de repaso</span></a></li><li><a class="section-nav-link" href="#contenidos-aplazados-para-documentos-posteriores"><i aria-hidden="true" class="bi bi-slash-circle section-nav-icon"></i><span>Contenidos aplazados para documentos posteriores</span></a></li></ul>
+</nav>
+</aside>
+<div class="content-wrapper">
+<div class="document-toolbar">
+<a class="document-home-link" href="../../index.html"><i aria-hidden="true" class="bi bi-house-door"></i> Índice del curso</a>
+<button class="document-theme-toggle" id="theme-toggle" type="button"><i aria-hidden="true" class="bi bi-moon-stars"></i> Modo oscuro</button>
+</div>
+<header class="content-header">
+<h1><span aria-hidden="true" class="document-title-icon"><i aria-hidden="true" class="bi bi-braces"></i></span> Bloque 5B. Ejercicios: métodos avanzados de arrays</h1>
+</header>
+<section class="content-section learning-objectives-section" id="1-objetivo-de-esta-hoja"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-bullseye"></i></span>1. Objetivo de esta hoja</h2><p>En esta hoja vas a practicar los métodos avanzados de arrays más habituales en JavaScript:</p><ul class="custom-list">
+<li><code>forEach()</code> para recorrer un array y ejecutar una acción con cada elemento;</li>
+<li><code>map()</code> para transformar todos los elementos y obtener un nuevo array;</li>
+<li><code>filter()</code> para seleccionar algunos elementos y obtener un nuevo array;</li>
+<li><code>reduce()</code> para acumular todos los elementos en un único resultado;</li>
+<li><code>slice()</code> para copiar o extraer partes de un array sin modificar el original.</li>
+</ul><p>Estos ejercicios continúan el trabajo realizado en el bloque de arrays básicos. Aquí ya no nos centraremos en índices, <code>push()</code>, <code>pop()</code>, <code>shift()</code> o <code>unshift()</code>, salvo que aparezcan puntualmente como repaso.</p><blockquote class="concept-box">
+<p><strong>Idea clave:</strong> en este bloque los arrays se trabajan usando funciones como argumento. Es decir, se usan <strong>callbacks</strong>.</p>
+</blockquote><hr/></section><section class="content-section flow-section" id="2-antes-de-empezar"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-play-circle"></i></span>2. Antes de empezar</h2><p>Crea un archivo llamado:</p><div class="example-block"><pre class="code-text"><code>B05B_ejercicios_arrays_avanzados.js
+</code></pre></div><p>Realiza todos los ejercicios en ese archivo, separando cada ejercicio con comentarios:</p><div class="example-block"><pre class="code-js"><code>// Ejercicio 1
+
+// Ejercicio 2
+
+// Ejercicio 3
+</code></pre></div><p>Puedes ejecutar el código en la consola del navegador o con Node.js, según indique la profesora.</p><p>En esta hoja puedes usar funciones flecha como callbacks:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+numeros.forEach((numero) =&gt; {
+  console.log(numero);
+});
+</code></pre></div><p>Recuerda que una función flecha también puede escribirse en una sola línea cuando la operación es sencilla:</p><div class="example-block"><pre class="code-js"><code>const dobles = numeros.map((numero) =&gt; numero * 2);
+</code></pre></div><hr/></section><section class="content-section logic-section" id="parte-1-del-for-clasico-a-los-metodos-de-array"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-arrow-repeat"></i></span>Parte 1. Del  clásico a los métodos de array</h2><div class="exercise-block"><h3>Ejercicio 1. Recorrer un array con <code>for</code> y con <code>forEach</code></h3><p>Dado el siguiente array:</p><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+</code></pre></div><ol class="question-list">
+<li>Recorre el array con un bucle <code>for</code> y muestra cada nota por consola.</li>
+<li>Haz lo mismo usando <code>forEach()</code>.</li>
+<li>Añade el índice en la salida, con este formato:</li>
+</ol><div class="example-block"><pre class="code-text"><code>Nota 4 en posición 0
+Nota 7 en posición 1
+</code></pre></div><ol class="question-list" start="4">
+<li>Responde en un comentario del código:</li>
+</ol><div class="example-block"><pre class="code-js"><code>// ¿Qué versión te parece más clara para recorrer todo el array: for o forEach?
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 2. Mostrar solo algunos elementos usando <code>forEach</code></h3><p>Dado el array:</p><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5, 10, 2];
+</code></pre></div><ol class="question-list">
+<li>Usa <code>forEach()</code> para mostrar solamente las notas mayores o iguales que 5.</li>
+<li>Usa <code>forEach()</code> para mostrar solamente las notas menores que 5.</li>
+<li>Muestra los mensajes con este formato:</li>
+</ol><div class="example-block"><pre class="code-text"><code>Aprobado: 7
+Suspenso: 4
+</code></pre></div><blockquote class="note-box">
+<p>En este ejercicio no tienes que crear un array nuevo. Solo tienes que recorrer y mostrar datos.</p>
+</blockquote><hr/></div><div class="exercise-block"><h3>Ejercicio 3. Comprobar que <code>forEach()</code> no devuelve un nuevo array</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+</code></pre></div><p>Ejecuta este código:</p><div class="example-block"><pre class="code-js"><code>const resultado = numeros.forEach((numero) =&gt; {
+  return numero * 2;
+});
+
+console.log(resultado);
+</code></pre></div><p>Después responde en comentarios:</p><div class="example-block"><pre class="code-js"><code>// ¿Qué muestra la consola?
+// ¿Por qué forEach no sirve para crear un nuevo array transformado?
+// ¿Qué método deberías usar para transformar todos los elementos?
+</code></pre></div><hr/></div></section><section class="content-section operators-section" id="parte-2-map-transformar-todos-los-elementos"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-arrow-repeat"></i></span>Parte 2. : transformar todos los elementos</h2><div class="exercise-block"><h3>Ejercicio 4. Doblar todos los números</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3, 4, 5];
+</code></pre></div><ol class="question-list">
+<li>Usa <code>map()</code> para crear un nuevo array llamado <code>dobles</code>, donde cada número esté multiplicado por 2.</li>
+<li>Muestra por consola el array original.</li>
+<li>Muestra por consola el nuevo array.</li>
+<li>Comprueba que <code>numeros</code> no se ha modificado.</li>
+</ol><p>Resultado esperado:</p><div class="example-block"><pre class="code-text"><code>[1, 2, 3, 4, 5]
+[2, 4, 6, 8, 10]
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 5. Calcular precios con IVA</h3><p>Dado el siguiente array de precios sin IVA:</p><div class="example-block"><pre class="code-js"><code>const precios = [10, 25, 40, 100];
+</code></pre></div><ol class="question-list">
+<li>Usa <code>map()</code> para crear un nuevo array llamado <code>preciosConIVA</code>.</li>
+<li>Cada precio debe multiplicarse por <code>1.21</code>.</li>
+<li>Muestra el array original y el nuevo array.</li>
+</ol><p>Ejemplo de salida aproximada:</p><div class="example-block"><pre class="code-text"><code>Precios sin IVA: [10, 25, 40, 100]
+Precios con IVA: [12.1, 30.25, 48.4, 121]
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 6. Convertir notas numéricas en textos</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+</code></pre></div><p>Usa <code>map()</code> para crear un nuevo array llamado <code>resultados</code>, con los textos:</p><ul class="custom-list">
+<li><code>"Aprobado"</code> si la nota es mayor o igual que 5;</li>
+<li><code>"Suspenso"</code> si la nota es menor que 5.</li>
+</ul><p>Resultado esperado:</p><div class="example-block"><pre class="code-js"><code>["Suspenso", "Aprobado", "Aprobado", "Suspenso", "Aprobado"]
+</code></pre></div><p>Puedes hacerlo con una función flecha con llaves:</p><div class="example-block"><pre class="code-js"><code>const resultados = notas.map((nota) =&gt; {
+  if (nota &gt;= 5) {
+    return "Aprobado";
+  } else {
+    return "Suspenso";
+  }
+});
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 7. Crear mensajes personalizados con <code>map()</code></h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const nombres = ["Ana", "Luis", "María", "Pedro"];
+</code></pre></div><p>Usa <code>map()</code> para crear un nuevo array llamado <code>mensajes</code> con este formato:</p><div class="example-block"><pre class="code-text"><code>Hola, Ana
+Hola, Luis
+Hola, María
+Hola, Pedro
+</code></pre></div><p>Después muestra el array <code>mensajes</code> por consola.</p><hr/></div></section><section class="content-section operators-section" id="parte-3-filter-seleccionar-elementos"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-funnel"></i></span>Parte 3. : seleccionar elementos</h2><div class="exercise-block"><h3>Ejercicio 8. Filtrar aprobados</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5, 10, 2];
+</code></pre></div><ol class="question-list">
+<li>Usa <code>filter()</code> para crear un nuevo array llamado <code>aprobados</code> con las notas mayores o iguales que 5.</li>
+<li>Muestra por consola el array <code>aprobados</code>.</li>
+<li>Muestra cuántos aprobados hay usando <code>aprobados.length</code>.</li>
+</ol><p>Resultado esperado:</p><div class="example-block"><pre class="code-js"><code>[7, 9, 5, 10]
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 9. Filtrar números pares</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3, 4, 5, 6, 7, 8];
+</code></pre></div><ol class="question-list">
+<li>Usa <code>filter()</code> para crear un array llamado <code>pares</code>.</li>
+<li>El array debe contener solo los números pares.</li>
+<li>Muestra el array original y el array filtrado.</li>
+</ol><p>Pista:</p><div class="example-block"><pre class="code-js"><code>numero % 2 === 0
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 10. Filtrar precios altos</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const precios = [5, 12, 30, 8, 100, 45];
+</code></pre></div><ol class="question-list">
+<li>Usa <code>filter()</code> para crear un nuevo array llamado <code>preciosAltos</code>.</li>
+<li>Debe contener solo los precios mayores de 20.</li>
+<li>Muestra el resultado por consola.</li>
+</ol><p>Resultado esperado:</p><div class="example-block"><pre class="code-js"><code>[30, 100, 45]
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 11. Diferenciar <code>map()</code> y <code>filter()</code></h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3, 4, 5];
+</code></pre></div><ol class="question-list">
+<li>Usa <code>map()</code> para crear un array con todos los números multiplicados por 10.</li>
+<li>Usa <code>filter()</code> para crear un array solo con los números mayores que 3.</li>
+<li>Muestra ambos resultados.</li>
+<li>Responde en comentarios:</li>
+</ol><div class="example-block"><pre class="code-js"><code>// ¿Cuál de los dos métodos conserva normalmente el mismo número de elementos?
+// ¿Cuál de los dos métodos puede devolver menos elementos que el array original?
+</code></pre></div><hr/></div></section><section class="content-section logic-section" id="parte-4-reduce-acumular-en-un-unico-resultado"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-calculator"></i></span>Parte 4. : acumular en un único resultado</h2><div class="exercise-block"><h3>Ejercicio 12. Sumar números con <code>reduce()</code></h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3, 4];
+</code></pre></div><p>Usa <code>reduce()</code> para calcular la suma de todos los números.</p><p>Pista:</p><div class="example-block"><pre class="code-js"><code>const suma = numeros.reduce((acumulador, numero) =&gt; {
+  return acumulador + numero;
+}, 0);
+</code></pre></div><p>Después muestra:</p><div class="example-block"><pre class="code-text"><code>La suma es 10
+</code></pre></div><p>Responde en comentarios:</p><div class="example-block"><pre class="code-js"><code>// ¿Qué representa acumulador?
+// ¿Qué representa numero?
+// ¿Por qué aparece un 0 al final del reduce?
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 13. Calcular el total de una compra</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const precios = [12.5, 4.99, 20, 3.5];
+</code></pre></div><ol class="question-list">
+<li>Usa <code>reduce()</code> para calcular el total de la compra.</li>
+<li>Guarda el resultado en una variable llamada <code>total</code>.</li>
+<li>Muestra el resultado por consola.</li>
+</ol><p>Ejemplo de salida:</p><div class="example-block"><pre class="code-text"><code>Total de la compra: 40.99
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 14. Calcular la media de notas</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+</code></pre></div><ol class="question-list">
+<li>Usa <code>reduce()</code> para calcular la suma de todas las notas.</li>
+<li>Calcula la media dividiendo la suma entre <code>notas.length</code>.</li>
+<li>Muestra la media por consola.</li>
+</ol><blockquote class="note-box">
+<p>No uses un bucle <code>for</code> en este ejercicio.</p>
+</blockquote><hr/></div><div class="exercise-block"><h3>Ejercicio 15. Seguir el valor del acumulador</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const numeros = [2, 4, 6];
+</code></pre></div><p>Completa esta tabla antes de ejecutar el código:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Vuelta</th>
+<th>acumulador antes</th>
+<th>numero</th>
+<th>acumulador después</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>6</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6</td>
+<td>6</td>
+<td>12</td>
+</tr>
+</tbody>
+</table></div><p>Después ejecuta:</p><div class="example-block"><pre class="code-js"><code>const suma = numeros.reduce((acumulador, numero) =&gt; {
+  console.log("Acumulador:", acumulador, "Número:", numero);
+  return acumulador + numero;
+}, 0);
+
+console.log("Resultado final:", suma);
+</code></pre></div><p>Comprueba si la tabla coincide con lo que muestra la consola.</p><hr/></div></section><section class="content-section operators-section" id="parte-5-slice-copiar-y-extraer-partes-de-un-array"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-scissors"></i></span>Parte 5. : copiar y extraer partes de un array</h2><div class="exercise-block"><h3>Ejercicio 16. Clonar un array con <code>slice()</code></h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const originales = [1, 2, 3, 4];
+</code></pre></div><ol class="question-list">
+<li>Crea una copia llamada <code>copia</code> usando <code>slice()</code>.</li>
+<li>Cambia el primer elemento de <code>copia</code> a <code>99</code>.</li>
+<li>Muestra por consola <code>originales</code> y <code>copia</code>.</li>
+<li>Responde en comentarios:</li>
+</ol><div class="example-block"><pre class="code-js"><code>// ¿Ha cambiado el array originales?
+// ¿Qué demuestra este ejercicio?
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 17. Extraer una parte de un array</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const letras = ["a", "b", "c", "d", "e", "f"];
+</code></pre></div><ol class="question-list">
+<li>Crea un nuevo array <code>primerasTres</code> con las tres primeras letras.</li>
+<li>Crea otro array <code>delMedio</code> con las letras <code>"c"</code>, <code>"d"</code> y <code>"e"</code>.</li>
+<li>Crea otro array <code>ultimasDos</code> con las dos últimas letras.</li>
+<li>Muestra los tres arrays por consola.</li>
+<li>Muestra también el array original.</li>
+</ol><p>Pista: para obtener las dos últimas letras puedes usar <code>letras.slice(letras.length - 2)</code>.</p><p>Recuerda:</p><div class="example-block"><pre class="code-js"><code>array.slice(inicio, fin);
+</code></pre></div><p>El índice <code>inicio</code> se incluye, pero el índice <code>fin</code> no se incluye.</p><hr/></div></section><section class="content-section logic-section" id="parte-6-elegir-el-metodo-adecuado"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-signpost-split"></i></span>Parte 6. Elegir el método adecuado</h2><div class="exercise-block"><h3>Ejercicio 18. ¿Qué método usarías?</h3><p>Para cada caso, indica si usarías <code>forEach()</code>, <code>map()</code>, <code>filter()</code>, <code>reduce()</code> o <code>slice()</code>.</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Caso</th>
+<th>Método</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mostrar cada elemento por consola</td>
+<td></td>
+</tr>
+<tr>
+<td>Crear un nuevo array con los precios con IVA</td>
+<td></td>
+</tr>
+<tr>
+<td>Obtener solo las notas aprobadas</td>
+<td></td>
+</tr>
+<tr>
+<td>Calcular la suma total de varios importes</td>
+<td></td>
+</tr>
+<tr>
+<td>Copiar un array sin modificar el original</td>
+<td></td>
+</tr>
+<tr>
+<td>Extraer los tres primeros elementos</td>
+<td></td>
+</tr>
+<tr>
+<td>Crear un array con mensajes personalizados para cada nombre</td>
+<td></td>
+</tr>
+</tbody>
+</table></div><p>Después elige dos casos y resuélvelos con código.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 19. Pequeño análisis de notas</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5, 10, 6];
+</code></pre></div><p>Crea las siguientes variables:</p><ol class="question-list">
+<li><code>aprobados</code>: array con las notas mayores o iguales que 5.</li>
+<li><code>suspensos</code>: array con las notas menores que 5.</li>
+<li><code>notasSobre10</code>: array con textos del tipo <code>"Nota: 7/10"</code>.</li>
+<li><code>suma</code>: suma de todas las notas.</li>
+<li><code>media</code>: media de las notas.</li>
+</ol><p>Debes usar:</p><ul class="custom-list">
+<li><code>filter()</code> para <code>aprobados</code> y <code>suspensos</code>;</li>
+<li><code>map()</code> para <code>notasSobre10</code>;</li>
+<li><code>reduce()</code> para <code>suma</code>;</li>
+<li><code>length</code> para calcular la media.</li>
+</ul><p>Muestra todos los resultados por consola.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 20. Precios de una tienda</h3><p>Dado:</p><div class="example-block"><pre class="code-js"><code>const precios = [8, 15, 23, 5, 42, 16];
+</code></pre></div><p>Crea:</p><ol class="question-list">
+<li>Un array <code>preciosConIVA</code> usando <code>map()</code>.</li>
+<li>Un array <code>preciosMayoresDe20</code> usando <code>filter()</code>.</li>
+<li>Una variable <code>total</code>, con la suma de los precios originales, usando <code>reduce()</code>.</li>
+<li>Una variable <code>primerosTres</code> usando <code>slice()</code>.</li>
+</ol><p>Muestra todos los resultados por consola con mensajes claros.</p><hr/></div></section><section class="content-section frequent-errors-section" id="parte-7-corrige-los-errores"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-bug"></i></span>Parte 7. Corrige los errores</h2><div class="exercise-block"><h3>Ejercicio 21. Error con <code>forEach()</code></h3><p>El siguiente código intenta crear un nuevo array con los números al doble, pero no funciona como se espera:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+const dobles = numeros.forEach((numero) =&gt; {
+  return numero * 2;
+});
+
+console.log(dobles);
+</code></pre></div><ol class="question-list">
+<li>Explica cuál es el problema.</li>
+<li>Corrige el código usando el método adecuado.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 22. Error con <code>map()</code> y llaves</h3><p>El siguiente código no devuelve el resultado esperado:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+const dobles = numeros.map((numero) =&gt; {
+  numero * 2;
+});
+
+console.log(dobles);
+</code></pre></div><ol class="question-list">
+<li>Explica qué falta dentro de la función flecha.</li>
+<li>Corrige el código.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 23. Error con <code>filter()</code></h3><p>El siguiente código intenta obtener los aprobados:</p><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+const aprobados = notas.filter((nota) =&gt; {
+  nota &gt;= 5;
+});
+
+console.log(aprobados);
+</code></pre></div><ol class="question-list">
+<li>Explica por qué no funciona bien.</li>
+<li>Corrige el código.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 24. Error con <code>reduce()</code></h3><p>El siguiente código es difícil de leer y puede provocar confusión:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3, 4];
+
+const suma = numeros.reduce((a, b) =&gt; a + b);
+
+console.log(suma);
+</code></pre></div><ol class="question-list">
+<li>Reescribe el código usando nombres de parámetros más claros.</li>
+<li>Añade el valor inicial <code>0</code>.</li>
+<li>Explica qué representa cada parámetro.</li>
+</ol><hr/></div></section><section class="content-section delivery-section" id="parte-8-mini-entrega-final"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-upload"></i></span>Parte 8. Mini-entrega final</h2><div class="exercise-block"><h3>Ejercicio 25. Resumen de ventas</h3><p>Dado el siguiente array:</p><div class="example-block"><pre class="code-js"><code>const ventas = [120, 80, 45, 200, 30, 150];
+</code></pre></div><p>Crea un pequeño programa que obtenga:</p><ol class="question-list">
+<li>Un array <code>ventasConIVA</code>, aplicando un IVA del 21 % a cada venta.</li>
+<li>Un array <code>ventasAltas</code>, con las ventas mayores o iguales que 100.</li>
+<li>Una variable <code>totalVentas</code>, con la suma de todas las ventas.</li>
+<li>Una variable <code>mediaVentas</code>, con la media de ventas.</li>
+<li>Un array <code>primerasTresVentas</code>, con las tres primeras ventas.</li>
+</ol><p>Debes usar obligatoriamente:</p><ul class="custom-list">
+<li><code>map()</code>;</li>
+<li><code>filter()</code>;</li>
+<li><code>reduce()</code>;</li>
+<li><code>slice()</code>;</li>
+<li><code>length</code>.</li>
+</ul><p>Al final, muestra todos los resultados por consola con mensajes claros.</p><p>Ejemplo de mensajes:</p><div class="example-block"><pre class="code-text"><code>Ventas con IVA: ...
+Ventas altas: ...
+Total de ventas: ...
+Media de ventas: ...
+Primeras tres ventas: ...
+</code></pre></div><hr/></div></section><section class="content-section review-section" id="preguntas-de-repaso"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-question-circle"></i></span>Preguntas de repaso</h2><p>Responde en comentarios al final del archivo:</p><ol class="question-list">
+<li>¿Para qué sirve <code>forEach()</code>?</li>
+<li>¿Qué diferencia hay entre <code>forEach()</code> y <code>map()</code>?</li>
+<li>¿Qué devuelve <code>filter()</code>?</li>
+<li>¿Para qué sirve <code>reduce()</code>?</li>
+<li>¿Qué función cumple el valor inicial en <code>reduce()</code>?</li>
+<li>¿<code>slice()</code> modifica el array original?</li>
+<li>¿Qué método usarías para obtener solo los aprobados de un array de notas?</li>
+<li>¿Qué método usarías para calcular la suma total de un array de precios?</li>
+</ol><hr/></section><section class="content-section restrictions-section" id="contenidos-aplazados-para-documentos-posteriores"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-slash-circle"></i></span>Contenidos aplazados para documentos posteriores</h2><p>Los siguientes contenidos no forman parte de esta hoja de ejercicios. Se trabajarán más adelante, principalmente en la unidad de JavaScript avanzado:</p><ul class="custom-list">
+<li>arrays multidimensionales;</li>
+<li>tableros o matrices 2D;</li>
+<li>bucles anidados sobre arrays de arrays;</li>
+<li>arrays asociativos;</li>
+<li>arrays de objetos;</li>
+<li><code>sort()</code> avanzado;</li>
+<li><code>find</code>, <code>some</code>, <code>every</code>;</li>
+<li>destructuring;</li>
+<li>spread/rest;</li>
+<li>objetos propios;</li>
+<li>DOM;</li>
+<li>eventos;</li>
+<li>asincronía;</li>
+<li>promesas;</li>
+<li><code>async/await</code>;</li>
+<li>closures;</li>
+<li>recursividad.</li>
+</ul></section>
+</div>
+</div>
+</main>
+</div>
+</body>
+</html>

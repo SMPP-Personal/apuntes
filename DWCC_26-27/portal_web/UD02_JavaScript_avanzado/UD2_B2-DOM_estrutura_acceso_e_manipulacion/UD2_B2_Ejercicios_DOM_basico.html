@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UD2_B2. Ejercicios: DOM básico</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+  <script src="../../assets/js/smpp.js" defer></script>
+</head>
+<body>
+  <div class="smpp-scope">
+    <main class="main-content has-sidebar exercises-page">
+      <div class="content-layout">
+        <aside class="section-sidebar">
+          <nav class="section-nav" aria-label="Índice del documento">
+            <p class="section-nav-title">
+              <i class="bi bi-signpost-split" aria-hidden="true"></i>
+              Itinerario de ejercicios
+            </p>
+            <ul class="section-nav-list"><li><a class="section-nav-link" href="#1-objetivo-de-la-hoja"><i class="bi bi-bullseye" aria-hidden="true"></i><span>1. Objetivo de la hoja</span></a></li><li><a class="section-nav-link" href="#2-preparacion-comun-para-todos-los-ejercicios"><i class="bi bi-folder2-open" aria-hidden="true"></i><span>2. Preparación común para todos los ejercicios</span></a></li><li><a class="section-nav-link" href="#parte-1-seleccionar-elementos-del-dom"><i class="bi bi-cursor" aria-hidden="true"></i><span>Parte 1. Seleccionar elementos del DOM</span></a></li><li><a class="section-nav-link" href="#parte-2-leer-y-modificar-texto"><i class="bi bi-input-cursor-text" aria-hidden="true"></i><span>Parte 2. Leer y modificar texto</span></a></li><li><a class="section-nav-link" href="#parte-3-modificar-html-de-forma-controlada"><i class="bi bi-code-square" aria-hidden="true"></i><span>Parte 3. Modificar HTML de forma controlada</span></a></li><li><a class="section-nav-link" href="#parte-4-modificar-atributos"><i class="bi bi-link-45deg" aria-hidden="true"></i><span>Parte 4. Modificar atributos</span></a></li><li><a class="section-nav-link" href="#parte-5-trabajar-con-clases-css"><i class="bi bi-palette" aria-hidden="true"></i><span>Parte 5. Trabajar con clases CSS</span></a></li><li><a class="section-nav-link" href="#parte-6-crear-elementos-desde-javascript"><i class="bi bi-plus-square" aria-hidden="true"></i><span>Parte 6. Crear elementos desde JavaScript</span></a></li><li><a class="section-nav-link" href="#parte-7-eliminar-elementos"><i class="bi bi-trash3" aria-hidden="true"></i><span>Parte 7. Eliminar elementos</span></a></li><li><a class="section-nav-link" href="#parte-8-renderizar-datos-en-el-dom"><i class="bi bi-braces" aria-hidden="true"></i><span>Parte 8. Renderizar datos en el DOM</span></a></li><li><a class="section-nav-link" href="#parte-9-corrige-los-errores"><i class="bi bi-bug" aria-hidden="true"></i><span>Parte 9. Corrige los errores</span></a></li><li><a class="section-nav-link" href="#parte-10-mini-entrega-final"><i class="bi bi-box-arrow-up" aria-hidden="true"></i><span>Parte 10. Mini-entrega final</span></a></li><li><a class="section-nav-link" href="#11-lista-de-comprobacion"><i class="bi bi-check2-square" aria-hidden="true"></i><span>11. Lista de comprobación</span></a></li><li><a class="section-nav-link" href="#12-contenidos-que-se-trabajaran-mas-adelante"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i><span>12. Contenidos que se trabajarán más adelante</span></a></li></ul>
+          </nav>
+        </aside>
+
+        <div class="content-wrapper">
+          <div class="document-toolbar">
+            <a class="document-home-link" href="../../index.html">
+              <i class="bi bi-house-door" aria-hidden="true"></i>
+              Índice del curso
+            </a>
+            <button id="theme-toggle" class="document-theme-toggle" type="button">
+              <i class="bi bi-moon-stars" aria-hidden="true"></i>
+              Modo oscuro
+            </button>
+          </div>
+
+          <header class="content-header">
+            <span class="document-kicker">
+              <i class="bi bi-code-square" aria-hidden="true"></i>
+              Ejercicios · UD2 B2
+            </span>
+            <h1>
+              <span class="document-title-icon" aria-hidden="true">
+                <i class="bi bi-layout-text-window-reverse"></i>
+              </span>
+              UD2_B2. Ejercicios: DOM básico
+            </h1>
+            <p class="lead-text">
+              Selección, lectura, modificación, creación y renderizado
+              de elementos del DOM mediante JavaScript, sin eventos
+              ni formularios.
+            </p>
+          </header>
+
+<section class="content-section learning-objectives-section" id="1-objetivo-de-la-hoja"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivo de la hoja</h2><p>En esta hoja vas a practicar el uso básico del <strong>DOM</strong> (<em>Document Object Model</em>) en JavaScript.</p><p>El objetivo no es todavía crear aplicaciones completas con eventos o formularios, sino aprender a:</p><ul class="custom-list">
+<li>seleccionar elementos de una página HTML;</li>
+<li>leer y modificar texto;</li>
+<li>modificar contenido HTML de forma controlada;</li>
+<li>cambiar atributos;</li>
+<li>añadir y quitar clases CSS;</li>
+<li>crear nuevos elementos desde JavaScript;</li>
+<li>insertar y eliminar elementos del documento;</li>
+<li>recorrer varios elementos seleccionados con <code>querySelectorAll</code>.</li>
+</ul><blockquote class="note-box">
+<p>En esta hoja <strong>no vamos a trabajar todavía eventos</strong>, <code>addEventListener</code>, formularios, <code>fetch</code> ni comunicación asíncrona. Eso se verá en bloques posteriores de la UD2.</p>
+</blockquote><hr/></section>
+<section class="content-section setup-section" id="2-preparacion-comun-para-todos-los-ejercicios"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-folder2-open"></i></span> 2. Preparación común para todos los ejercicios</h2><p>Crea una carpeta llamada:</p><div class="example-block"><pre class="code-text"><code>UD2_B2_DOM_basico
+</code></pre></div><p>Dentro crea estos archivos:</p><div class="example-block"><pre class="code-text"><code>UD2_B2_DOM_basico/
+├── index.html
+├── css/
+│   └── estilos.css
+├── img/
+│   ├── logo1.png
+│   └── logo2.png
+└── js/
+    └── script.js
+</code></pre></div><p>Usa esta plantilla inicial en <code>index.html</code>:</p><div class="example-block"><pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;UD2_B2 - DOM básico&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/estilos.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id="titulo-principal"&gt;Práctica de DOM básico&lt;/h1&gt;
+
+  &lt;p id="mensaje"&gt;Este texto será modificado con JavaScript.&lt;/p&gt;
+
+  &lt;section id="contenedor"&gt;
+    &lt;h2&gt;Lista inicial&lt;/h2&gt;
+    &lt;ul id="lista"&gt;
+      &lt;li class="item"&gt;HTML&lt;/li&gt;
+      &lt;li class="item"&gt;CSS&lt;/li&gt;
+      &lt;li class="item"&gt;JavaScript&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/section&gt;
+
+  &lt;section id="zona-dinamica"&gt;
+    &lt;h2&gt;Zona dinámica&lt;/h2&gt;
+  &lt;/section&gt;
+
+  &lt;script src="js/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><p>Usa este CSS inicial en <code>css/estilos.css</code>:</p><div class="example-block"><pre class="code-css"><code>.destacado {
+  font-weight: bold;
+  background-color: #fff3cd;
+  padding: 4px;
+}
+
+.correcto {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+.tarjeta {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+}
+</code></pre></div><p>Realiza cada ejercicio en <code>js/script.js</code>.</p><blockquote class="warning-box">
+<p><strong>Importante: trabaja un ejercicio cada vez</strong></p>
+<p>Los ejercicios reutilizan los mismos elementos HTML y algunos emplean nombres de variables similares. No dejes todos los fragmentos activos simultáneamente en <code>script.js</code>.</p>
+<p>Para cada ejercicio:</p>
+<ol class="custom-ordered-list">
+<li>comenta temporalmente el código anterior;</li>
+<li>escribe y ejecuta el ejercicio actual;</li>
+<li>recarga la página para recuperar el HTML inicial;</li>
+<li>comprueba el resultado antes de continuar.</li>
+</ol>
+<p>También puedes organizar cada ejercicio dentro de una función:</p>
+<div class="example-block"><pre class="code-js"><code>function ejercicio1() {
+  const titulo = document.querySelector("#titulo-principal");
+  console.log(titulo);
+}
+
+ejercicio1();
+</code></pre></div>
+<p>Deja activa únicamente la llamada del ejercicio que estés comprobando.</p>
+<p><strong>Ejecución:</strong> estos ejercicios deben abrirse desde <code>index.html</code> en el navegador. Si ejecutas <code>script.js</code> directamente con Node.js, aparecerá un error similar a:</p>
+<div class="example-block"><pre class="code-text"><code>ReferenceError: document is not defined
+</code></pre></div>
+</blockquote><hr/></section>
+<section class="content-section guided-exercises-section" id="parte-1-seleccionar-elementos-del-dom"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cursor"></i></span> Parte 1. Seleccionar elementos del DOM</h2><div class="exercise-block"><h3>Ejercicio 1. Seleccionar por id</h3><ol class="custom-ordered-list">
+<li>Selecciona el elemento con id <code>titulo-principal</code> usando <code>document.querySelector()</code>.</li>
+<li>Muestra el elemento completo por consola.</li>
+<li>Muestra solo su texto usando <code>.textContent</code>.</li>
+</ol><p>Ejemplo de inicio:</p><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("#titulo-principal");
+
+console.log(titulo);
+console.log(titulo.textContent);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 2. Seleccionar una lista</h3><ol class="custom-ordered-list">
+<li>Selecciona el elemento con id <code>lista</code>.</li>
+<li>Muestra por consola el elemento seleccionado.</li>
+<li>Muestra por consola su contenido de texto.</li>
+</ol><div class="example-block"><pre class="code-js"><code>const lista = document.querySelector("#lista");
+
+console.log(lista);
+console.log(lista.textContent);
+</code></pre></div><p>Después responde en un comentario de código:</p><div class="example-block"><pre class="code-js"><code>// ¿Qué diferencia ves entre mostrar lista y mostrar lista.textContent?
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 3. Seleccionar varios elementos</h3><ol class="custom-ordered-list">
+<li>Selecciona todos los elementos con clase <code>item</code> usando <code>document.querySelectorAll()</code>.</li>
+<li>Muestra por consola el resultado.</li>
+<li>Muestra cuántos elementos se han seleccionado usando <code>.length</code>.</li>
+</ol><div class="example-block"><pre class="code-js"><code>const items = document.querySelectorAll(".item");
+
+console.log(items);
+console.log(items.length);
+
+// ¿El resultado es un array normal o una NodeList?
+</code></pre></div><blockquote class="note-box">
+<p>La <code>NodeList</code> obtenida con <code>querySelectorAll()</code> es estática y puede recorrerse con <code>for</code> o <code>forEach</code>.</p>
+</blockquote><hr/></div></section>
+<section class="content-section guided-exercises-section" id="parte-2-leer-y-modificar-texto"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-input-cursor-text"></i></span> Parte 2. Leer y modificar texto</h2><div class="exercise-block"><h3>Ejercicio 4. Cambiar el texto de un párrafo</h3><ol class="custom-ordered-list">
+<li>Selecciona el párrafo con id <code>mensaje</code>.</li>
+<li>Cambia su contenido de texto por:</li>
+</ol><div class="example-block"><pre class="code-text"><code>Texto modificado desde JavaScript.
+</code></pre></div><ol class="custom-ordered-list" start="3">
+<li>Muestra por consola el nuevo texto.</li>
+</ol><div class="example-block"><pre class="code-js"><code>const mensaje = document.querySelector("#mensaje");
+
+mensaje.textContent = "Texto modificado desde JavaScript.";
+
+console.log(mensaje.textContent);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 5. Modificar un título</h3><ol class="custom-ordered-list">
+<li>Selecciona el <code>h1</code>.</li>
+<li>Cambia su texto a:</li>
+</ol><div class="example-block"><pre class="code-text"><code>DOM básico con JavaScript
+</code></pre></div><ol class="custom-ordered-list" start="3">
+<li>Añade un comentario explicando qué hace <code>.textContent</code>.</li>
+</ol><hr/></div><div class="exercise-block"><h3>Ejercicio 6. Recorrer elementos y cambiar texto</h3><p>Partiendo de los elementos con clase <code>item</code>:</p><ol class="custom-ordered-list">
+<li>Selecciona todos los elementos <code>.item</code>.</li>
+<li>Recorre la colección con un bucle <code>for</code>.</li>
+<li>Modifica cada elemento para que muestre su posición.</li>
+</ol><p>Resultado esperado aproximado:</p><div class="example-block"><pre class="code-text"><code>1. HTML
+2. CSS
+3. JavaScript
+</code></pre></div><p>Pista:</p><div class="example-block"><pre class="code-js"><code>const items = document.querySelectorAll(".item");
+
+for (let i = 0; i &lt; items.length; i++) {
+  items[i].textContent = (i + 1) + ". " + items[i].textContent;
+}
+</code></pre></div><hr/></div></section>
+<section class="content-section guided-exercises-section" id="parte-3-modificar-html-de-forma-controlada"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-code-square"></i></span> Parte 3. Modificar HTML de forma controlada</h2><div class="exercise-block"><h3>Ejercicio 7. Usar <code>innerHTML</code></h3><ol class="custom-ordered-list">
+<li>Selecciona la sección <code>zona-dinamica</code>.</li>
+<li>Añade dentro de ella un párrafo con el texto:</li>
+</ol><div class="example-block"><pre class="code-text"><code>Este párrafo se ha creado usando innerHTML.
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const zona = document.querySelector("#zona-dinamica");
+
+zona.innerHTML = `
+  &lt;h2&gt;Zona dinámica&lt;/h2&gt;
+  &lt;p&gt;Este párrafo se ha creado usando innerHTML.&lt;/p&gt;
+`;
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 8. Diferenciar <code>textContent</code> e <code>innerHTML</code></h3><p>Prueba este código:</p><div class="example-block"><pre class="code-js"><code>const zona = document.querySelector("#zona-dinamica");
+
+zona.textContent = "&lt;strong&gt;Texto importante&lt;/strong&gt;";
+</code></pre></div><p>Después prueba este otro:</p><div class="example-block"><pre class="code-js"><code>zona.innerHTML = "&lt;strong&gt;Texto importante&lt;/strong&gt;";
+</code></pre></div><p>Contesta en comentarios:</p><div class="example-block"><pre class="code-js"><code>// ¿Qué ocurre con textContent?
+// ¿Qué ocurre con innerHTML?
+// ¿Cuál de los dos interpreta etiquetas HTML?
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 9. Precaución con <code>innerHTML</code></h3><p>Escribe un comentario explicando por qué no debemos insertar con <code>innerHTML</code> contenido que venga directamente de un usuario sin comprobarlo antes.</p><p>No hace falta profundizar todavía en ataques concretos. La idea básica es:</p><div class="example-block"><pre class="code-js"><code>// innerHTML interpreta etiquetas HTML.
+// No debe usarse con contenido del usuario o de fuentes no confiables
+// salvo que se haya tratado y sanitizado específicamente.
+// Para mostrar texto introducido por el usuario, es más seguro usar textContent.
+</code></pre></div><p>Esta precaución ayuda a evitar vulnerabilidades de inyección de código, como XSS.</p><hr/></div></section>
+<section class="content-section guided-exercises-section" id="parte-4-modificar-atributos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-link-45deg"></i></span> Parte 4. Modificar atributos</h2><div class="exercise-block"><h3>Ejercicio 10. Crear una imagen en HTML y modificarla</h3><p>Añade esta imagen dentro del <code>body</code> de <code>index.html</code>, antes del script:</p><div class="example-block"><pre class="code-html"><code>&lt;img id="logo" src="img/logo1.png" alt="Logo inicial"&gt;
+</code></pre></div><p>Guarda dos imágenes cualesquiera dentro de la carpeta <code>img</code> y renómbralas como:</p><div class="example-block"><pre class="code-text"><code>logo1.png
+logo2.png
+</code></pre></div><p>No importa su contenido: solo se usarán para comprobar el cambio del atributo <code>src</code>.</p><p>En JavaScript:</p><ol class="custom-ordered-list">
+<li>Selecciona la imagen.</li>
+<li>Cambia su atributo <code>src</code> a <code>"img/logo2.png"</code>.</li>
+<li>Cambia su atributo <code>alt</code> a <code>"Logo modificado desde JavaScript"</code>.</li>
+<li>Muestra por consola los nuevos valores.</li>
+</ol><div class="example-block"><pre class="code-js"><code>const logo = document.querySelector("#logo");
+
+logo.setAttribute("src", "img/logo2.png");
+logo.setAttribute("alt", "Logo modificado desde JavaScript");
+
+console.log(logo.getAttribute("src"));
+console.log(logo.getAttribute("alt"));
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 11. Modificar un enlace</h3><p>Añade este enlace al HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;a id="enlace" href="https://www.example.com"&gt;Enlace inicial&lt;/a&gt;
+</code></pre></div><p>En JavaScript:</p><ol class="custom-ordered-list">
+<li>Selecciona el enlace.</li>
+<li>Cambia su <code>href</code> a una URL distinta.</li>
+<li>Cambia su texto con <code>textContent</code>.</li>
+<li>Muestra por consola el nuevo <code>href</code>.</li>
+</ol><hr/></div></section>
+<section class="content-section guided-exercises-section" id="parte-5-trabajar-con-clases-css"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-palette"></i></span> Parte 5. Trabajar con clases CSS</h2><div class="exercise-block"><h3>Ejercicio 12. Añadir una clase</h3><ol class="custom-ordered-list">
+<li>Selecciona el párrafo <code>mensaje</code>.</li>
+<li>Añade la clase <code>destacado</code> usando <code>classList.add</code>.</li>
+</ol><div class="example-block"><pre class="code-js"><code>const mensaje = document.querySelector("#mensaje");
+
+mensaje.classList.add("destacado");
+</code></pre></div><p>Comprueba visualmente el cambio en el navegador.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 13. Añadir y quitar clases</h3><ol class="custom-ordered-list">
+<li>Selecciona el título principal.</li>
+<li>Añádele la clase <code>correcto</code>.</li>
+<li>Comprueba el resultado.</li>
+<li>Después quita esa clase y añade la clase <code>error</code>.</li>
+</ol><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("#titulo-principal");
+
+titulo.classList.add("correcto");
+titulo.classList.remove("correcto");
+titulo.classList.add("error");
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 14. Aplicar clases a varios elementos</h3><ol class="custom-ordered-list">
+<li>Selecciona todos los elementos <code>.item</code>.</li>
+<li>Recorre la colección con un <code>for</code>.</li>
+<li>Añade la clase <code>destacado</code> a cada elemento.</li>
+</ol><hr/></div></section>
+<section class="content-section guided-exercises-section" id="parte-6-crear-elementos-desde-javascript"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-plus-square"></i></span> Parte 6. Crear elementos desde JavaScript</h2><div class="exercise-block"><h3>Ejercicio 15. Crear un párrafo</h3><ol class="custom-ordered-list">
+<li>Crea un elemento <code>p</code> con <code>document.createElement</code>.</li>
+<li>Asígnale texto con <code>.textContent</code>.</li>
+<li>Insértalo dentro de <code>zona-dinamica</code> usando <code>append</code>.</li>
+</ol><div class="example-block"><pre class="code-js"><code>const zona = document.querySelector("#zona-dinamica");
+
+const parrafo = document.createElement("p");
+parrafo.textContent = "Párrafo creado con createElement.";
+
+zona.append(parrafo);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 16. Crear un elemento de lista</h3><ol class="custom-ordered-list">
+<li>Selecciona la lista con id <code>lista</code>.</li>
+<li>Crea un nuevo elemento <code>li</code>.</li>
+<li>Asígnale el texto <code>"DOM"</code>.</li>
+<li>Añade la clase <code>item</code>.</li>
+<li>Insértalo al final de la lista.</li>
+</ol><div class="example-block"><pre class="code-js"><code>const lista = document.querySelector("#lista");
+
+const nuevoItem = document.createElement("li");
+nuevoItem.textContent = "DOM";
+nuevoItem.classList.add("item");
+
+lista.append(nuevoItem);
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 17. Crear una tarjeta</h3><p>Crea desde JavaScript una tarjeta con esta estructura:</p><div class="example-block"><pre class="code-html"><code>&lt;article class="tarjeta"&gt;
+  &lt;h3&gt;Artículo creado desde JS&lt;/h3&gt;
+  &lt;p&gt;Este contenido se ha generado dinámicamente.&lt;/p&gt;
+&lt;/article&gt;
+</code></pre></div><p>Hazlo usando:</p><ul class="custom-list">
+<li><code>document.createElement</code>;</li>
+<li><code>.textContent</code>;</li>
+<li><code>.classList.add</code>;</li>
+<li><code>.append</code>.</li>
+</ul><p>No uses <code>innerHTML</code> en este ejercicio.</p><hr/></div></section>
+<section class="content-section guided-exercises-section" id="parte-7-eliminar-elementos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-trash3"></i></span> Parte 7. Eliminar elementos</h2><div class="exercise-block"><h3>Ejercicio 18. Eliminar un elemento concreto</h3><ol class="custom-ordered-list">
+<li>Selecciona el primer elemento de la lista.</li>
+<li>Elimínalo usando <code>.remove()</code>.</li>
+</ol><div class="example-block"><pre class="code-js"><code>const primerItem = document.querySelector(".item");
+
+if (primerItem !== null) {
+  primerItem.remove();
+}
+</code></pre></div><p>Comprueba el resultado en el navegador.</p><hr/></div><div class="exercise-block"><h3>Ejercicio 19. Vaciar una zona del documento</h3><ol class="custom-ordered-list">
+<li>Selecciona <code>zona-dinamica</code>.</li>
+<li>Vacía todo su contenido usando:</li>
+</ol><div class="example-block"><pre class="code-js"><code>zona.textContent = "";
+</code></pre></div><p>También puedes probar esta alternativa:</p><div class="example-block"><pre class="code-js"><code>zona.replaceChildren();
+</code></pre></div><ol class="custom-ordered-list" start="3">
+<li>Después crea un nuevo párrafo y añádelo a esa zona.</li>
+</ol><hr/></div></section>
+<section class="content-section guided-exercises-section" id="parte-8-renderizar-datos-en-el-dom"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces"></i></span> Parte 8. Renderizar datos en el DOM</h2><div class="exercise-block"><h3>Ejercicio 20. Renderizar un array de textos</h3><p>Dado este array:</p><div class="example-block"><pre class="code-js"><code>const lenguajes = ["HTML", "CSS", "JavaScript", "PHP"];
+</code></pre></div><ol class="custom-ordered-list">
+<li>Selecciona la lista <code>#lista</code>.</li>
+<li>Vacía su contenido.</li>
+<li>Recorre el array con un <code>for</code>.</li>
+<li>Por cada lenguaje, crea un <code>li</code>.</li>
+<li>Inserta cada <code>li</code> en la lista.</li>
+</ol><p>Pista:</p><div class="example-block"><pre class="code-js"><code>const lista = document.querySelector("#lista");
+const lenguajes = ["HTML", "CSS", "JavaScript", "PHP"];
+
+lista.textContent = "";
+
+for (let i = 0; i &lt; lenguajes.length; i++) {
+  const li = document.createElement("li");
+  li.textContent = lenguajes[i];
+  li.classList.add("item");
+  lista.append(li);
+}
+</code></pre></div><hr/></div><div class="exercise-block"><h3>Ejercicio 21. Renderizar un array de objetos</h3><p>Dado este array:</p><div class="example-block"><pre class="code-js"><code>const modulos = [
+  { nombre: "DWCC", horas: 219 },
+  { nombre: "DWES", horas: 157 },
+  { nombre: "DIW", horas: 107 }
+];
+</code></pre></div><ol class="custom-ordered-list">
+<li>Selecciona <code>zona-dinamica</code>.</li>
+<li>Vacía su contenido.</li>
+<li>Recorre el array.</li>
+<li>Crea una tarjeta por cada módulo.</li>
+<li>Cada tarjeta debe mostrar:<ul class="custom-list">
+<li>el nombre del módulo;</li>
+<li>el número de horas.</li>
+</ul>
+</li>
+</ol><p>Ejemplo visual aproximado:</p><div class="example-block"><pre class="code-text"><code>DWCC
+Horas: 219
+</code></pre></div><p>Puedes usar <code>createElement</code>, <code>textContent</code>, <code>classList.add</code> y <code>append</code>.</p><hr/></div></section>
+<section class="content-section frequent-errors-section" id="parte-9-corrige-los-errores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> Parte 9. Corrige los errores</h2><div class="exercise-block important"><h3>Ejercicio 22. Selector incorrecto</h3><p>Este código no funciona como se espera:</p><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("titulo-principal");
+titulo.textContent = "Nuevo título";
+</code></pre></div><ol class="custom-ordered-list">
+<li>Corrige el selector.</li>
+<li>Explica el error en un comentario.</li>
+</ol><hr/></div><div class="exercise-block important"><h3>Ejercicio 23. Variable mal seleccionada</h3><p>Este código tiene un problema:</p><div class="example-block"><pre class="code-js"><code>const mensaje = document.querySelector("#mensaje");
+
+texto.textContent = "Mensaje cambiado";
+</code></pre></div><ol class="custom-ordered-list">
+<li>Corrige el error.</li>
+<li>Explica por qué falla.</li>
+</ol><hr/></div><div class="exercise-block important"><h3>Ejercicio 24. Uso incorrecto de <code>querySelectorAll</code></h3><p>Este código no modifica todos los elementos:</p><div class="example-block"><pre class="code-js"><code>const items = document.querySelectorAll(".item");
+
+items.textContent = "Elemento cambiado";
+</code></pre></div><ol class="custom-ordered-list">
+<li>Explica por qué no funciona.</li>
+<li>Corrígelo usando un bucle <code>for</code>.</li>
+</ol><hr/></div><div class="exercise-block important"><h3>Ejercicio 25. Crear un elemento sin insertarlo</h3><p>Este código crea un elemento, pero no se ve en la página:</p><div class="example-block"><pre class="code-js"><code>const parrafo = document.createElement("p");
+parrafo.textContent = "Nuevo párrafo";
+</code></pre></div><ol class="custom-ordered-list">
+<li>Explica qué falta.</li>
+<li>Corrígelo insertando el párrafo en <code>zona-dinamica</code>.</li>
+</ol><hr/></div></section>
+<section class="content-section delivery-section" id="parte-10-mini-entrega-final"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> Parte 10. Mini-entrega final</h2><div class="exercise-block"><h3>Ejercicio 26. Página dinámica de resumen de módulos</h3><p>Crea una pequeña página dinámica usando DOM.</p><h4>Datos de partida</h4><p>En <code>script.js</code>, usa este array:</p><div class="example-block"><pre class="code-js"><code>const modulosResumen = [
+  { nombre: "DWCC", descripcion: "Desenvolvemento web en contorno cliente", horas: 219 },
+  { nombre: "DWES", descripcion: "Desenvolvemento web en contorno servidor", horas: 157 },
+  { nombre: "DIW", descripcion: "Deseño de interfaces web", horas: 107 }
+];
+</code></pre></div><h4>Requisitos</h4><p>Tu programa debe:</p><ol class="custom-ordered-list">
+<li>Seleccionar <code>zona-dinamica</code>.</li>
+<li>Vaciar su contenido inicial.</li>
+<li>Crear un título <code>h2</code> con el texto <code>"Módulos del ciclo"</code>.</li>
+<li>Recorrer <code>modulosResumen</code> y crear una tarjeta por cada módulo.</li>
+<li>Cada tarjeta debe incluir:<ul class="custom-list">
+<li>un título <code>h3</code> con el nombre del módulo;</li>
+<li>un párrafo con la descripción;</li>
+<li>un párrafo con las horas.</li>
+</ul>
+</li>
+<li>Añadir la clase <code>tarjeta</code> a cada tarjeta.</li>
+<li>Al final, crear un párrafo con el total de módulos.</li>
+<li>No usar eventos.</li>
+<li>No usar <code>innerHTML</code> para crear las tarjetas.</li>
+</ol><h4>Entrega</h4><p>Entrega:</p><ul class="custom-list">
+<li><code>index.html</code>;</li>
+<li><code>css/estilos.css</code>;</li>
+<li><code>js/script.js</code>;</li>
+<li>una captura del navegador;</li>
+<li>una captura de la consola sin errores.</li>
+</ul><hr/></div></section>
+<section class="content-section review-section checklist-section" id="11-lista-de-comprobacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> 11. Lista de comprobación</h2><p>Antes de entregar, revisa:</p><ul class="checklist-list">
+<li class="task-list-item"><span class="check-marker">[ ]</span>El archivo <code>script.js</code> está correctamente enlazado desde <code>index.html</code>.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>No hay errores en la consola.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>Uso <code>querySelector</code> para seleccionar un elemento.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>Uso <code>querySelectorAll</code> para seleccionar varios elementos.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>Uso <code>textContent</code> para modificar texto.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>Uso <code>classList.add</code> o <code>classList.remove</code> para modificar clases.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>Uso <code>createElement</code> para crear elementos.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>Inserto los elementos creados mediante <code>append</code>.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>No mezclo todavía eventos ni formularios.</li>
+<li class="task-list-item"><span class="check-marker">[ ]</span>El código está ordenado, indentado y comentado cuando es necesario.</li>
+</ul><hr/></section>
+<section class="content-section restrictions-section" id="12-contenidos-que-se-trabajaran-mas-adelante"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-right-circle"></i></span> 12. Contenidos que se trabajarán más adelante</h2><p>Estos contenidos <strong>no forman parte principal de esta hoja</strong>.</p><h3>Siguiente bloque inmediato: BOM básico</h3><ul class="custom-list">
+<li><code>window</code>;</li>
+<li><code>location</code>;</li>
+<li><code>history</code>;</li>
+<li><code>navigator</code>;</li>
+<li>diálogos básicos;</li>
+<li>temporizadores con <code>setTimeout()</code> y <code>setInterval()</code>.</li>
+</ul><h3>Bloques posteriores</h3><ul class="custom-list">
+<li>eventos con <code>addEventListener</code>;</li>
+<li>eventos <code>click</code>, <code>input</code>, <code>change</code> y <code>submit</code>;</li>
+<li>formularios;</li>
+<li>validación de formularios;</li>
+<li><code>preventDefault</code>;</li>
+<li><code>localStorage</code>;</li>
+<li>comunicación asíncrona;</li>
+<li><code>fetch</code>;</li>
+<li>promesas;</li>
+<li><code>async/await</code>;</li>
+<li>consumo de APIs.</li>
+</ul><p>Se trabajarán progresivamente en los siguientes bloques de la UD2.</p></section>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

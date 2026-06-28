@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UD2_B2. Práctica global: Panel dinámico de recursos con DOM</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+  <script src="../../assets/js/smpp.js" defer></script>
+</head>
+<body>
+  <div class="smpp-scope">
+    <main class="main-content has-sidebar global-practice-page">
+      <div class="content-layout">
+        <aside class="section-sidebar" aria-label="Índice del documento">
+          <nav class="section-nav" aria-label="Secciones del documento">
+            <ul class="section-nav-list">
+              <li>
+                <a class="section-nav-link" href="../../index.html">
+                  <span class="section-nav-icon" aria-hidden="true"><i class="bi bi-house-door"></i></span>
+                  Volver al índice
+                </a>
+              </li>
+              <li>
+                <button id="theme-toggle" class="section-nav-link" type="button" data-update-text="true" aria-label="Cambiar a modo oscuro" aria-pressed="false">🌙 Modo oscuro</button>
+              </li>
+            </ul>
+            <hr>
+            <p class="section-nav-title">
+              <i class="bi bi-list-ul" aria-hidden="true"></i>
+              Índice del documento
+            </p>
+            <ol class="section-nav-list">
+              <li><a class="section-nav-link badge-link" href="#1-finalidad-de-la-practica"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-bullseye"></i></span> 1. Finalidad de la práctica</a></li><li><a class="section-nav-link badge-link" href="#2-que-debes-demostrar"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-ui-checks-grid"></i></span> 2. Qué debes demostrar</a></li><li><a class="section-nav-link badge-link" href="#3-contenidos-que-no-debes-utilizar"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-slash-circle"></i></span> 3. Contenidos que no debes utilizar</a></li><li><a class="section-nav-link badge-link" href="#4-contexto"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-compass"></i></span> 4. Contexto</a></li><li><a class="section-nav-link badge-link" href="#5-estructura-de-archivos"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-folder2-open"></i></span> 5. Estructura de archivos</a></li><li><a class="section-nav-link badge-link" href="#6-html-base"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-filetype-html"></i></span> 6. HTML base</a></li><li><a class="section-nav-link badge-link" href="#7-datos-de-partida"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-braces"></i></span> 7. Datos de partida</a></li><li><a class="section-nav-link badge-link" href="#8-organizacion-recomendada-de-app-js"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-diagram-3"></i></span> 8. Organización recomendada de app.js</a></li><li><a class="section-nav-link badge-link" href="#9-actividad-1-seleccionar-y-modificar-elementos-existentes"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-cursor"></i></span> 9. Actividad 1. Seleccionar y modificar elementos existentes</a></li><li><a class="section-nav-link badge-link" href="#10-actividad-2-mostrar-la-fecha-de-generacion"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-calendar3"></i></span> 10. Actividad 2. Mostrar la fecha de generación</a></li><li><a class="section-nav-link badge-link" href="#11-actividad-3-crear-una-tarjeta-de-recurso"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-window-stack"></i></span> 11. Actividad 3. Crear una tarjeta de recurso</a></li><li><a class="section-nav-link badge-link" href="#12-actividad-4-renderizar-el-listado-completo"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-grid-3x3-gap"></i></span> 12. Actividad 4. Renderizar el listado completo</a></li><li><a class="section-nav-link badge-link" href="#13-actividad-5-generar-el-resumen"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-bar-chart"></i></span> 13. Actividad 5. Generar el resumen</a></li><li><a class="section-nav-link badge-link" href="#14-actividad-6-renderizar-los-recursos-destacados"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-star"></i></span> 14. Actividad 6. Renderizar los recursos destacados</a></li><li><a class="section-nav-link badge-link" href="#15-actividad-7-renderizar-los-recursos-pendientes"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-list-check"></i></span> 15. Actividad 7. Renderizar los recursos pendientes</a></li><li><a class="section-nav-link badge-link" href="#16-actividad-8-coordinar-el-renderizado"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-arrows-fullscreen"></i></span> 16. Actividad 8. Coordinar el renderizado</a></li><li><a class="section-nav-link badge-link" href="#17-actividad-9-comprobar-los-estados-vacios"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-inbox"></i></span> 17. Actividad 9. Comprobar los estados vacíos</a></li><li><a class="section-nav-link badge-link" href="#18-actividad-10-comprobar-el-dom-con-devtools"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-tools"></i></span> 18. Actividad 10. Comprobar el DOM con DevTools</a></li><li><a class="section-nav-link badge-link" href="#19-estilos-minimos"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-filetype-css"></i></span> 19. Estilos mínimos</a></li><li><a class="section-nav-link badge-link" href="#20-restricciones-tecnicas"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-shield-check"></i></span> 20. Restricciones técnicas</a></li><li><a class="section-nav-link badge-link" href="#21-evidencias-y-preguntas-de-reflexion"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-chat-left-text"></i></span> 21. Evidencias y preguntas de reflexión</a></li><li><a class="section-nav-link badge-link" href="#22-entrega"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-box-arrow-up"></i></span> 22. Entrega</a></li><li><a class="section-nav-link badge-link" href="#23-lista-de-comprobacion"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-check2-square"></i></span> 23. Lista de comprobación</a></li><li><a class="section-nav-link badge-link" href="#24-errores-frecuentes"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-bug"></i></span> 24. Errores frecuentes</a></li><li><a class="section-nav-link badge-link" href="#25-criterios-de-correccion"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-clipboard-data"></i></span> 25. Criterios de corrección</a></li><li><a class="section-nav-link badge-link" href="#26-resultado-final-esperado"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-flag"></i></span> 26. Resultado final esperado</a></li><li><a class="section-nav-link badge-link" href="#27-contenidos-reservados-para-bloques-posteriores"><span class="section-nav-icon" aria-hidden="true"><i class="bi bi-arrow-right-circle"></i></span> 27. Contenidos reservados para bloques posteriores</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <div class="content-wrapper">
+          <header class="content-header header-celebration">
+            <div>
+              <span class="badge-finish"><i class="bi bi-trophy" aria-hidden="true"></i> Práctica global</span>
+            </div>
+            <h1><span class="document-title-icon" aria-hidden="true"><i class="bi bi-diagram-3"></i></span> UD2_B2. Práctica global: Panel dinámico de recursos con DOM</h1>
+          </header>
+          <hr class="festival-divider">
+          <section class="content-section" id="1-finalidad-de-la-practica"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Finalidad de la práctica</h2><p>En esta práctica construirás una página web llamada <strong>Panel de recursos de DWCC</strong>.</p>
+<p>La página partirá de una estructura HTML básica y de un array de objetos. A partir de esos datos, JavaScript deberá generar y actualizar distintas zonas del documento mediante el <strong>DOM</strong>.</p>
+<p>Esta es una <strong>práctica global de cierre de UD2_B2</strong>. Debes aplicar de forma autónoma los procedimientos trabajados en los apuntes, ejercicios y práctica guiada anteriores.</p>
+<blockquote class="warning-box">
+<p>No se proporciona una solución paso a paso. El objetivo es que organices el código, selecciones las operaciones adecuadas y compruebes el resultado.</p>
+</blockquote>
+
+<hr/></section><section class="content-section requirements-section" id="2-que-debes-demostrar"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-ui-checks-grid"></i></span> 2. Qué debes demostrar</h2><p>Al finalizar la práctica debes demostrar que sabes:</p>
+<ul class="custom-list">
+<li>seleccionar elementos mediante <code>querySelector</code> o <code>querySelectorAll</code>;</li>
+<li>modificar textos existentes con <code>textContent</code>;</li>
+<li>crear elementos con <code>createElement</code>;</li>
+<li>insertar nodos con <code>append</code>;</li>
+<li>asignar clases con <code>classList.add()</code>;</li>
+<li>añadir atributos con <code>setAttribute()</code>;</li>
+<li>limpiar contenedores antes de volver a renderizar;</li>
+<li>recorrer arrays de objetos;</li>
+<li>filtrar datos con <code>filter()</code>;</li>
+<li>reutilizar funciones;</li>
+<li>generar distintas vistas a partir de los mismos datos;</li>
+<li>comprobar el DOM generado con las herramientas de desarrollo.</li>
+</ul>
+
+<hr/></section><section class="content-section restrictions-section" id="3-contenidos-que-no-debes-utilizar"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-slash-circle"></i></span> 3. Contenidos que no debes utilizar</h2><p>En esta práctica todavía no debes emplear:</p>
+<ul class="custom-list">
+<li>eventos;</li>
+<li><code>addEventListener</code>;</li>
+<li>botones interactivos;</li>
+<li>formularios;</li>
+<li>validación;</li>
+<li><code>localStorage</code> o <code>sessionStorage</code>;</li>
+<li><code>fetch</code>;</li>
+<li>promesas;</li>
+<li><code>async</code>/<code>await</code>;</li>
+<li>APIs externas.</li>
+</ul>
+<p>Tampoco debes usar <code>innerHTML</code> para generar tarjetas, resúmenes o listas.</p>
+<p>El contenido dinámico se construirá con:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">createElement + textContent + append
+</code></pre></div>
+
+<hr/></section><section class="content-section concept-section" id="4-contexto"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-compass"></i></span> 4. Contexto</h2><p>El panel mostrará diferentes recursos del módulo de DWCC:</p>
+<ul class="custom-list">
+<li>apuntes;</li>
+<li>ejercicios;</li>
+<li>prácticas;</li>
+<li>materiales de repaso;</li>
+<li>recursos revisados;</li>
+<li>recursos pendientes;</li>
+<li>recursos destacados.</li>
+</ul>
+<p>Cada recurso estará representado mediante un objeto dentro de un array.</p>
+<p>La página deberá mostrar cuatro zonas dinámicas:</p>
+<ol class="custom-ordered-list">
+<li>un resumen general;</li>
+<li>el listado completo de recursos;</li>
+<li>los recursos destacados;</li>
+<li>los recursos pendientes de revisión.</li>
+</ol>
+
+<hr/></section><section class="content-section requirements-section" id="5-estructura-de-archivos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-folder2-open"></i></span> 5. Estructura de archivos</h2><p>Crea esta estructura:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">UD2_B2_Practica_global_DOM_dinamico/
+├── index.html
+├── css/
+│   └── estilos.css
+├── js/
+│   └── app.js
+└── evidencias/
+    ├── respuestas.md
+    └── inspector-dom.png
+</code></pre></div>
+<p>La carpeta <code>evidencias/</code> formará parte de la entrega.</p>
+
+<hr/></section><section class="content-section phase-section" id="6-html-base"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-html"></i></span> 6. HTML base</h2><p>Puedes utilizar la siguiente estructura para <code>index.html</code>:</p>
+<div class="example-block"><pre class="code-html"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Panel de recursos de DWCC&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/estilos.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class="cabecera"&gt;
+    &lt;h1 id="titulo-principal"&gt;Panel de recursos de DWCC&lt;/h1&gt;
+    &lt;p id="subtitulo"&gt;Contenido pendiente de generar.&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main class="contenedor"&gt;
+    &lt;section class="bloque-resumen"&gt;
+      &lt;h2&gt;Resumen del panel&lt;/h2&gt;
+      &lt;div id="resumen" class="resumen"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="bloque-recursos"&gt;
+      &lt;h2&gt;Listado de recursos&lt;/h2&gt;
+      &lt;div id="lista-recursos" class="grid-recursos"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="bloque-destacados"&gt;
+      &lt;h2&gt;Recursos destacados&lt;/h2&gt;
+      &lt;div id="recursos-destacados" class="grid-recursos"&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="bloque-pendientes"&gt;
+      &lt;h2&gt;Recursos pendientes de revisión&lt;/h2&gt;
+      &lt;ul id="lista-pendientes"&gt;&lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer class="pie"&gt;
+    &lt;p id="fecha-generacion"&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+
+  &lt;script src="js/app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<p>Puedes modificar los textos o añadir elementos auxiliares, pero debes conservar una estructura equivalente y todos los contenedores dinámicos.</p>
+
+<hr/></section><section class="content-section phase-section" id="7-datos-de-partida"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces"></i></span> 7. Datos de partida</h2><p>Incluye en <code>js/app.js</code> este array:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">const recursos = [
+  {
+    titulo: "Sintaxis, variables y tipos",
+    bloque: "B02",
+    tipo: "apuntes",
+    dificultad: "básica",
+    revisado: true,
+    destacado: false
+  },
+  {
+    titulo: "Operadores, condicionales y bucles",
+    bloque: "B03",
+    tipo: "apuntes",
+    dificultad: "básica",
+    revisado: true,
+    destacado: true
+  },
+  {
+    titulo: "Funciones básicas",
+    bloque: "B04",
+    tipo: "apuntes",
+    dificultad: "media",
+    revisado: true,
+    destacado: true
+  },
+  {
+    titulo: "Arrays básicos",
+    bloque: "B05A",
+    tipo: "ejercicios",
+    dificultad: "media",
+    revisado: true,
+    destacado: false
+  },
+  {
+    titulo: "Métodos avanzados de arrays",
+    bloque: "B05B",
+    tipo: "apuntes",
+    dificultad: "media",
+    revisado: true,
+    destacado: true
+  },
+  {
+    titulo: "Objetos predefinidos",
+    bloque: "B05C",
+    tipo: "ejercicios",
+    dificultad: "media",
+    revisado: false,
+    destacado: false
+  }
+];
+</code></pre></div>
+<p>No modifiques estos seis objetos hasta haber completado y comprobado todos los requisitos.</p>
+<p>Puedes añadir más recursos como ampliación, pero no eliminar los existentes.</p>
+
+<hr/></section><section class="content-section note-section" id="8-organizacion-recomendada-de-app-js"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 8. Organización recomendada de <code>app.js</code></h2><p>Organiza el archivo mediante comentarios breves que separen estas partes:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">// 1. Datos
+
+// 2. Selección de elementos del DOM
+
+// 3. Funciones de creación de elementos
+
+// 4. Funciones de renderizado
+
+// 5. Inicialización de la página
+</code></pre></div>
+<p>No es necesario comentar cada línea. Los comentarios deben ayudar a localizar las partes principales del programa.</p>
+
+<hr/></section><div class="phase-card" aria-labelledby="desarrollo-de-la-practica"><h2 id="desarrollo-de-la-practica"><span class="section-icon" aria-hidden="true"><i class="bi bi-code-slash"></i></span> Desarrollo de la práctica</h2></div><section class="content-section phase-card" id="9-actividad-1-seleccionar-y-modificar-elementos-existentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cursor"></i></span> 9. Actividad 1. Seleccionar y modificar elementos existentes</h2><p>Selecciona desde JavaScript:</p>
+<ul class="custom-list">
+<li><code>#titulo-principal</code>;</li>
+<li><code>#subtitulo</code>;</li>
+<li><code>#fecha-generacion</code>;</li>
+<li><code>#resumen</code>;</li>
+<li><code>#lista-recursos</code>;</li>
+<li><code>#recursos-destacados</code>;</li>
+<li><code>#lista-pendientes</code>.</li>
+</ul>
+<p>Modifica el título y el subtítulo mediante <code>textContent</code>.</p>
+<p>El resultado debe transmitir que el contenido ha sido generado dinámicamente mediante JavaScript.</p>
+<blockquote class="note-box">
+<p>Selecciona los elementos una sola vez y guarda las referencias en constantes con nombres claros.</p>
+</blockquote>
+
+<hr/></section><section class="content-section phase-card" id="10-actividad-2-mostrar-la-fecha-de-generacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-calendar3"></i></span> 10. Actividad 2. Mostrar la fecha de generación</h2><p>Muestra en el pie de página una fecha con este formato:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Página generada el día/mes/año
+</code></pre></div>
+<p>Por ejemplo:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Página generada el 23/6/2026
+</code></pre></div>
+<p>La fecha debe calcularse al cargar la página. No debes escribirla manualmente.</p>
+<p>Debes utilizar:</p>
+<ul class="custom-list">
+<li><code>new Date()</code>;</li>
+<li><code>getDate()</code>;</li>
+<li><code>getMonth()</code>;</li>
+<li><code>getFullYear()</code>.</li>
+</ul>
+<p>Recuerda que el valor obtenido con <code>getMonth()</code> empieza en <code>0</code>.</p>
+
+<hr/></section><section class="content-section phase-card" id="11-actividad-3-crear-una-tarjeta-de-recurso"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window-stack"></i></span> 11. Actividad 3. Crear una tarjeta de recurso</h2><p>Crea una función con esta firma:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function crearTarjetaRecurso(recurso) {
+  // Tu código
+}
+</code></pre></div>
+<p>La función debe crear y devolver un elemento <code>article</code>.</p>
+<p>Cada tarjeta debe incluir:</p>
+<ul class="custom-list">
+<li>título;</li>
+<li>bloque;</li>
+<li>tipo;</li>
+<li>dificultad;</li>
+<li>estado de revisión.</li>
+</ul>
+<p>El estado no debe mostrarse como <code>true</code> o <code>false</code>. Utiliza textos comprensibles:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Estado: revisado
+</code></pre></div>
+<p>o:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Estado: pendiente de revisión
+</code></pre></div>
+<p>Además, la tarjeta debe:</p>
+<ul class="custom-list">
+<li>incluir la clase base <code>tarjeta-recurso</code>;</li>
+<li>tener un atributo <code>data-bloque</code> con el código del bloque;</li>
+<li>recibir la clase <code>recurso-revisado</code> o <code>recurso-pendiente</code>;</li>
+<li>recibir también la clase <code>recurso-destacado</code> cuando corresponda;</li>
+<li>devolverse mediante <code>return</code>.</li>
+</ul>
+<h3>Comprobación</h3>
+<p>Al inspeccionar una tarjeta destacada y revisada, deberías encontrar una estructura equivalente a:</p>
+<div class="example-block"><pre class="code-html"><code class="language-html">&lt;article
+  class="tarjeta-recurso recurso-revisado recurso-destacado"
+  data-bloque="B03"&gt;
+  ...
+&lt;/article&gt;
+</code></pre></div>
+<p>La estructura interna puede variar, pero las clases y el atributo deben aparecer.</p>
+
+<hr/></section><section class="content-section phase-card" id="12-actividad-4-renderizar-el-listado-completo"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-grid-3x3-gap"></i></span> 12. Actividad 4. Renderizar el listado completo</h2><p>Crea una función con esta firma:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarRecursos(lista) {
+  // Tu código
+}
+</code></pre></div>
+<p>La función debe:</p>
+<ol class="custom-ordered-list">
+<li>limpiar <code>#lista-recursos</code>;</li>
+<li>comprobar si la lista está vacía;</li>
+<li>mostrar un mensaje si no hay recursos;</li>
+<li>recorrer la lista si contiene elementos;</li>
+<li>crear una tarjeta por cada recurso;</li>
+<li>insertar las tarjetas en el contenedor.</li>
+</ol>
+<p>Utiliza <code>crearTarjetaRecurso()</code> para evitar repetir código.</p>
+<h3>Resultado esperado</h3>
+<p>Con el array inicial deben aparecer <strong>6 tarjetas</strong>.</p>
+
+<hr/></section><section class="content-section phase-card" id="13-actividad-5-generar-el-resumen"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bar-chart"></i></span> 13. Actividad 5. Generar el resumen</h2><p>Crea una función con esta firma:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarResumen(lista) {
+  // Tu código
+}
+</code></pre></div>
+<p>La función debe calcular:</p>
+<ul class="custom-list">
+<li>total de recursos;</li>
+<li>recursos revisados;</li>
+<li>recursos pendientes;</li>
+<li>recursos destacados.</li>
+</ul>
+<p>Genera el resumen mediante elementos creados con <code>createElement</code>.</p>
+<p>No escribas todo el resumen como una única cadena y no uses <code>innerHTML</code>.</p>
+<h3>Resultados esperados con los datos iniciales</h3>
+<div class="compact-table-container"><table>
+<thead>
+<tr>
+<th>Dato</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total de recursos</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Recursos revisados</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Recursos pendientes</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Recursos destacados</td>
+<td>3</td>
+</tr>
+</tbody>
+</table></div>
+<p>Si obtienes otros resultados, revisa los filtros y las condiciones.</p>
+
+<hr/></section><section class="content-section phase-card" id="14-actividad-6-renderizar-los-recursos-destacados"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-star"></i></span> 14. Actividad 6. Renderizar los recursos destacados</h2><p>Crea una función con esta firma:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarDestacados(lista) {
+  // Tu código
+}
+</code></pre></div>
+<p>La función debe:</p>
+<ol class="custom-ordered-list">
+<li>filtrar los recursos destacados;</li>
+<li>limpiar <code>#recursos-destacados</code>;</li>
+<li>gestionar el caso de que no haya resultados;</li>
+<li>reutilizar <code>crearTarjetaRecurso()</code>;</li>
+<li>insertar las tarjetas correspondientes.</li>
+</ol>
+<h3>Resultado esperado</h3>
+<p>Con los datos iniciales deben mostrarse <strong>3 recursos destacados</strong>.</p>
+<blockquote class="note-box">
+<p>Es normal que un recurso destacado aparezca tanto en el listado general como en esta sección. Se trata de dos vistas distintas construidas a partir de los mismos datos.</p>
+</blockquote>
+
+<hr/></section><section class="content-section phase-card" id="15-actividad-7-renderizar-los-recursos-pendientes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-list-check"></i></span> 15. Actividad 7. Renderizar los recursos pendientes</h2><p>Crea una función con esta firma:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarPendientes(lista) {
+  // Tu código
+}
+</code></pre></div>
+<p>La función debe:</p>
+<ol class="custom-ordered-list">
+<li>filtrar los recursos con <code>revisado: false</code>;</li>
+<li>limpiar <code>#lista-pendientes</code>;</li>
+<li>crear un <code>li</code> por cada recurso pendiente;</li>
+<li>mostrar en cada elemento el bloque y el título;</li>
+<li>mostrar un único <code>li</code> con un mensaje si no hay pendientes.</li>
+</ol>
+<p>Formato recomendado:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">B05C — Objetos predefinidos
+</code></pre></div>
+<h3>Resultado esperado</h3>
+<p>Con los datos iniciales debe aparecer <strong>1 recurso pendiente</strong>.</p>
+
+<hr/></section><section class="content-section phase-card" id="16-actividad-8-coordinar-el-renderizado"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrows-fullscreen"></i></span> 16. Actividad 8. Coordinar el renderizado</h2><p>Crea una función que coordine la actualización completa del panel:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">function renderizarPanel(lista) {
+  // Llama aquí a las funciones de renderizado
+}
+</code></pre></div>
+<p>Esta función debe llamar a:</p>
+<ul class="custom-list">
+<li><code>renderizarRecursos(lista)</code>;</li>
+<li><code>renderizarResumen(lista)</code>;</li>
+<li><code>renderizarDestacados(lista)</code>;</li>
+<li><code>renderizarPendientes(lista)</code>.</li>
+</ul>
+<p>Al final de <code>app.js</code>, la página debe iniciarse con una única llamada:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">renderizarPanel(recursos);
+</code></pre></div>
+<p>La fecha y los textos iniciales también deben quedar actualizados al cargar la página.</p>
+
+<hr/></section><section class="content-section phase-card" id="17-actividad-9-comprobar-los-estados-vacios"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-inbox"></i></span> 17. Actividad 9. Comprobar los estados vacíos</h2><p>Comprueba temporalmente el funcionamiento con:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">renderizarPanel([]);
+</code></pre></div>
+<p>La página no debe mostrar errores.</p>
+<p>Cada zona debe presentar un mensaje comprensible, por ejemplo:</p>
+<ul class="custom-list">
+<li><code>No hay recursos para mostrar.</code></li>
+<li><code>No hay recursos destacados.</code></li>
+<li><code>No hay recursos pendientes de revisión.</code></li>
+</ul>
+<p>El resumen debe mostrar valores iguales a <code>0</code>.</p>
+<p>Después de realizar la comprobación, restaura:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">renderizarPanel(recursos);
+</code></pre></div>
+<blockquote class="warning-box">
+<p>No entregues la página mostrando el array vacío.</p>
+</blockquote>
+
+<hr/></section><section class="content-section phase-card" id="18-actividad-10-comprobar-el-dom-con-devtools"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-tools"></i></span> 18. Actividad 10. Comprobar el DOM con DevTools</h2><p>Abre la página en Chrome y utiliza las herramientas de desarrollo.</p>
+<p>Comprueba:</p>
+<ol class="custom-ordered-list">
+<li>que las tarjetas están dentro de <code>#lista-recursos</code>;</li>
+<li>que las tarjetas no aparecían escritas en el HTML inicial;</li>
+<li>que cada tarjeta contiene su atributo <code>data-bloque</code>;</li>
+<li>que aparecen las clases de revisión y destacado;</li>
+<li>que los contenedores se limpian antes de renderizar;</li>
+<li>que la consola no muestra errores.</li>
+</ol>
+<p>Guarda en:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">evidencias/inspector-dom.png
+</code></pre></div>
+<p>una captura en la que se vea, como mínimo:</p>
+<ul class="custom-list">
+<li>un elemento <code>article</code>;</li>
+<li>la clase <code>tarjeta-recurso</code>;</li>
+<li>el atributo <code>data-bloque</code>;</li>
+<li>una clase de estado;</li>
+<li>una clase de destacado, si inspeccionas un recurso destacado.</li>
+</ul>
+
+<hr/></section><section class="content-section phase-section" id="19-estilos-minimos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-filetype-css"></i></span> 19. Estilos mínimos</h2><p>El diseño no es el objetivo principal, pero la página debe ser legible.</p>
+<p>Puedes utilizar este CSS como punto de partida:</p>
+<div class="example-block"><pre class="code-css"><code class="language-css">* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  color: #222;
+}
+
+.cabecera,
+.pie {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: #1f3a5f;
+  color: white;
+}
+
+.contenedor {
+  width: min(1100px, 92%);
+  margin: 2rem auto;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+.grid-recursos,
+.resumen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.tarjeta-recurso,
+.resumen &gt; * {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.75rem;
+  background: white;
+}
+
+.recurso-destacado {
+  border: 2px solid #d49b00;
+}
+
+.recurso-pendiente {
+  background-color: #fff3f3;
+}
+
+.recurso-revisado {
+  background-color: #f4fff6;
+}
+
+.mensaje-vacio {
+  grid-column: 1 / -1;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: white;
+  color: #555;
+}
+</code></pre></div>
+<p>Puedes mejorar estos estilos, pero no sustituyas el trabajo de DOM por una página visualmente compleja.</p>
+
+<hr/></section><section class="content-section restrictions-section" id="20-restricciones-tecnicas"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-check"></i></span> 20. Restricciones técnicas</h2><p>La solución debe cumplir todas estas condiciones:</p>
+<ul class="custom-list">
+<li>utilizar <code>querySelector</code> o <code>querySelectorAll</code>;</li>
+<li>utilizar <code>textContent</code>;</li>
+<li>utilizar <code>createElement</code>;</li>
+<li>utilizar <code>append</code>;</li>
+<li>utilizar <code>classList.add()</code>;</li>
+<li>utilizar <code>setAttribute()</code>;</li>
+<li>limpiar los contenedores antes de renderizar;</li>
+<li>reutilizar <code>crearTarjetaRecurso()</code>;</li>
+<li>gestionar listas vacías;</li>
+<li>organizar el código mediante funciones;</li>
+<li>realizar una única llamada final a <code>renderizarPanel(recursos)</code>;</li>
+<li>no utilizar <code>innerHTML</code>;</li>
+<li>no utilizar eventos;</li>
+<li>no mostrar errores en la consola.</li>
+</ul>
+
+<hr/></section><section class="content-section reflection-section" id="21-evidencias-y-preguntas-de-reflexion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-chat-left-text"></i></span> 21. Evidencias y preguntas de reflexión</h2><p>Crea el archivo:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">evidencias/respuestas.md
+</code></pre></div>
+<p>Responde brevemente:</p>
+<div class="premium-reflection-box"><ol class="custom-ordered-list">
+<li>¿Qué partes del HTML se generan completamente desde JavaScript?</li>
+<li>¿Qué diferencia hay entre modificar <code>textContent</code> y crear un elemento con <code>createElement</code>?</li>
+<li>¿Qué clases se asignan a una tarjeta revisada, pendiente o destacada?</li>
+<li>¿Para qué se utiliza el atributo <code>data-bloque</code>?</li>
+<li>¿Qué contenedores se limpian antes de renderizar?</li>
+<li>¿Por qué se reutiliza <code>crearTarjetaRecurso()</code> en dos secciones?</li>
+<li>¿Qué ocurre al ejecutar <code>renderizarPanel([])</code>?</li>
+<li>¿Qué comprobaste en el inspector y en la consola?</li>
+</ol></div>
+<p>No copies definiciones de Internet. Responde a partir de tu propia implementación.</p>
+
+<hr/></section><section class="content-section delivery-section" id="22-entrega"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-box-arrow-up"></i></span> 22. Entrega</h2><p>Entrega la carpeta completa comprimida:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">UD2_B2_Practica_global_DOM_dinamico/
+├── index.html
+├── css/
+│   └── estilos.css
+├── js/
+│   └── app.js
+└── evidencias/
+    ├── respuestas.md
+    └── inspector-dom.png
+</code></pre></div>
+<p>No se considerará completa una entrega que carezca de:</p>
+<ul class="custom-list">
+<li>alguno de los tres archivos principales;</li>
+<li>las respuestas;</li>
+<li>la captura del inspector;</li>
+<li>contenido dinámico generado mediante JavaScript.</li>
+</ul>
+
+<hr/></section><section class="content-section final-checklist-section" id="23-lista-de-comprobacion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-square"></i></span> 23. Lista de comprobación</h2><p>Antes de entregar, revisa:</p>
+<ul class="custom-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>La estructura de carpetas es correcta.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>El archivo CSS está enlazado correctamente.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>El archivo JavaScript está enlazado correctamente.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>El título y el subtítulo se modifican desde JavaScript.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>La fecha se genera dinámicamente.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Se muestran 6 recursos en el listado general.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>El resumen muestra 6 recursos, 5 revisados, 1 pendiente y 3 destacados.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>La sección de destacados muestra 3 tarjetas.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>La lista de pendientes muestra 1 elemento.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Las tarjetas incluyen <code>data-bloque</code>.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Las tarjetas reciben las clases correctas.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Todas las zonas gestionan listas vacías.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Se reutiliza <code>crearTarjetaRecurso()</code>.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Existe una función <code>renderizarPanel()</code>.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>No se utiliza <code>innerHTML</code>.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>No se utilizan eventos.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>No hay errores en la consola.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>El código está ordenado e indentado.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Los comentarios separan las partes principales.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>La captura permite comprobar el DOM generado.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>El archivo <code>respuestas.md</code> está completo.</li>
+</ul>
+
+<hr/></section><section class="content-section" id="24-errores-frecuentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 24. Errores frecuentes</h2><div class="error-card"><h3>24.1. Confundir asignación y comparación</h3>
+<p>Esta instrucción modifica el dato y no sirve para filtrarlo:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">recurso.revisado = true
+</code></pre></div>
+<p>Para comprobar el valor puedes utilizar directamente:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">recurso.revisado
+</code></pre></div>
+
+</div><div class="error-card"><h3>24.2. No devolver la tarjeta</h3>
+<p>Si <code>crearTarjetaRecurso()</code> no incluye:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">return tarjeta;
+</code></pre></div>
+<p>las funciones de renderizado recibirán <code>undefined</code>.</p>
+
+</div><div class="error-card"><h3>24.3. Duplicar contenido</h3>
+<p>Si no limpias un contenedor antes de renderizar, las tarjetas o los elementos de lista pueden aparecer repetidos.</p>
+
+</div><div class="error-card"><h3>24.4. Mostrar booleanos directamente</h3>
+<p>Evita mostrar:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">Revisado: true
+</code></pre></div>
+<p>Transforma el dato en un texto comprensible para el usuario.</p>
+
+</div><div class="error-card"><h3>24.5. Repetir la creación de tarjetas</h3>
+<p>No escribas una versión de la tarjeta para el listado general y otra para destacados.</p>
+<p>Utiliza en ambos casos:</p>
+<div class="example-block"><pre class="code-js"><code class="language-js">crearTarjetaRecurso(recurso)
+</code></pre></div>
+
+</div><div class="error-card"><h3>24.6. Aplicar clases excluyentes de forma incorrecta</h3>
+<p>Una tarjeta revisada y destacada debe conservar ambas clases:</p>
+<div class="example-block"><pre class="code-bash"><code class="language-text">recurso-revisado recurso-destacado
+</code></pre></div>
+<p>La clase de destacado no sustituye a la clase de estado.</p>
+
+</div><div class="error-card"><h3>24.7. Olvidar gestionar listas vacías</h3>
+<p>Un array vacío no debe causar errores ni dejar zonas sin explicación.</p>
+
+</div><div class="error-card"><h3>24.8. Utilizar <code>innerHTML</code></h3>
+<p>Aunque el resultado visual parezca correcto, una solución basada en <code>innerHTML</code> no cumple el objetivo de esta práctica.</p>
+
+</div><hr/></section><section class="content-section rubric-section" id="25-criterios-de-correccion"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-clipboard-data"></i></span> 25. Criterios de corrección</h2><div class="compact-table-container"><table>
+<thead>
+<tr>
+<th>Apartado</th>
+<th>Puntuación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estructura de archivos y HTML base</td>
+<td>1 punto</td>
+</tr>
+<tr>
+<td>Selección y modificación del DOM existente</td>
+<td>1 punto</td>
+</tr>
+<tr>
+<td>Creación completa y reutilizable de las tarjetas</td>
+<td>2 puntos</td>
+</tr>
+<tr>
+<td>Renderizado general y limpieza del contenedor</td>
+<td>1,5 puntos</td>
+</tr>
+<tr>
+<td>Resumen dinámico</td>
+<td>1 punto</td>
+</tr>
+<tr>
+<td>Renderizado de destacados y pendientes</td>
+<td>1,5 puntos</td>
+</tr>
+<tr>
+<td>Clases, atributos y estados vacíos</td>
+<td>1 punto</td>
+</tr>
+<tr>
+<td>Organización, comentarios, evidencias y ausencia de errores</td>
+<td>1 punto</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Total: 10 puntos</strong></p>
+
+<hr/></section><section class="content-section result-section" id="26-resultado-final-esperado"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-flag"></i></span> 26. Resultado final esperado</h2><p>Al abrir la página con los datos iniciales, debe ocurrir lo siguiente:</p>
+<ol class="custom-ordered-list">
+<li>el título y el subtítulo se actualizan;</li>
+<li>se muestra la fecha de generación;</li>
+<li>aparecen seis tarjetas en el listado general;</li>
+<li>el resumen muestra los cuatro cálculos correctos;</li>
+<li>aparecen tres tarjetas en la sección de destacados;</li>
+<li>aparece un recurso en la lista de pendientes;</li>
+<li>las tarjetas tienen clases y atributos generados desde JavaScript;</li>
+<li>la consola no presenta errores;</li>
+<li>el inspector permite comprobar que el DOM se ha construido dinámicamente.</li>
+</ol>
+
+<hr/></section><section class="content-section restrictions-section" id="27-contenidos-reservados-para-bloques-posteriores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-right-circle"></i></span> 27. Contenidos reservados para bloques posteriores</h2><p>Esta práctica cierra el bloque de DOM básico.</p>
+<p>En los siguientes bloques se añadirán:</p>
+<ul class="custom-list">
+<li>eventos con <code>addEventListener</code>;</li>
+<li>interacción mediante botones;</li>
+<li>formularios;</li>
+<li>validación;</li>
+<li>almacenamiento local;</li>
+<li>comunicación asíncrona;</li>
+<li><code>fetch</code>;</li>
+<li>promesas;</li>
+<li><code>async</code>/<code>await</code>;</li>
+<li>consumo de APIs.</li>
+</ul>
+</section>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

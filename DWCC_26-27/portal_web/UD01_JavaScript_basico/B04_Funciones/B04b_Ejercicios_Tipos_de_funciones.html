@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Bloque 4b. Ejercicios: tipos de funciones en JavaScript</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../assets/css/smpp.css" rel="stylesheet" />
+    <script defer src="../../assets/js/smpp.js"></script>
+  </head>
+  <body>
+    <div class="smpp-scope">
+      <main class="main-content has-sidebar exercises-page">
+        <div class="content-layout">
+          <aside aria-label="Índice del documento" class="section-sidebar">
+            <nav aria-label="Secciones del documento" class="section-nav">
+              <p class="section-nav-title">
+                <i
+                  aria-hidden="true"
+                  class="bi bi-list-task section-nav-icon"
+                ></i>
+                Índice de ejercicios
+              </p>
+              <ol class="section-nav-list">
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#1-objetivo-de-esta-hoja"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-bullseye"></i></span
+                    ><span>1. Objetivo de esta hoja</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#2-recordatorio-minimo"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-lightbulb"></i></span
+                    ><span>2. Recordatorio mínimo</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-1-identificar-tipos-de-funciones"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-ui-checks-grid"
+                      ></i></span
+                    ><span>Parte 1. Identificar tipos de funciones</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-2-funciones-anonimas"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-person-badge"
+                      ></i></span
+                    ><span>Parte 2. Funciones anónimas</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-3-funciones-flecha-con-llaves-y-return-explicito"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-arrow-return-left"
+                      ></i></span
+                    ><span
+                      >Parte 3. Funciones flecha con llaves y return
+                      explícito</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-4-funciones-flecha-compactas"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-lightning-charge"
+                      ></i></span
+                    ><span>Parte 4. Funciones flecha compactas</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-5-elegir-una-forma-adecuada"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-sliders"></i></span
+                    ><span>Parte 5. Elegir una forma adecuada</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-6-callbacks-basicos"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-diagram-3"></i></span
+                    ><span>Parte 6. Callbacks básicos</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-7-pasar-una-funcion-no-es-lo-mismo-que-ejecutarla"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-arrow-left-right"
+                      ></i></span
+                    ><span
+                      >Parte 7. Pasar una función no es lo mismo que
+                      ejecutarla</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-8-errores-frecuentes"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-bug"></i></span
+                    ><span>Parte 8. Errores frecuentes</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#parte-9-mini-entrega-final"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-send-check"></i></span
+                    ><span>Parte 9. Mini-entrega final</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#contenidos-aplazados-para-documentos-posteriores"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i
+                        aria-hidden="true"
+                        class="bi bi-slash-circle"
+                      ></i></span
+                    ><span
+                      >Contenidos aplazados para documentos posteriores</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="section-nav-link badge-link"
+                    href="#resumen-de-repaso"
+                    ><span aria-hidden="true" class="section-nav-icon"
+                      ><i aria-hidden="true" class="bi bi-flag"></i></span
+                    ><span>Resumen de repaso</span></a
+                  >
+                </li>
+              </ol>
+            </nav>
+          </aside>
+          <div class="content-wrapper">
+            <div class="document-toolbar">
+              <a class="document-home-link" href="../../index.html"
+                ><i aria-hidden="true" class="bi bi-house-door"></i> Índice del
+                curso</a
+              >
+
+               <button id="theme-toggle" class="document-theme-toggle" type="button">
+    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+    Modo oscuro
+  </button>
+            </div>
+            <header class="content-header">
+              <h1>
+                <span aria-hidden="true" class="document-title-icon"
+                  ><i aria-hidden="true" class="bi bi-diagram-3"></i
+                ></span>
+                Bloque 4b. Ejercicios: tipos de funciones en JavaScript
+              </h1>
+            </header>
+            <section
+              class="content-section featured-section learning-objectives-section"
+              id="1-objetivo-de-esta-hoja"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bullseye"></i></span
+                >1. Objetivo de esta hoja
+              </h2>
+              <p class="section-lead">
+                Esta hoja sirve para practicar las formas de escribir y usar
+                funciones vistas en el bloque
+                <strong>B04b: Tipos de funciones en JavaScript</strong>.
+              </p>
+              <p>En estos ejercicios se trabajan:</p>
+              <ul class="custom-list">
+                <li>funciones anónimas asignadas a constantes;</li>
+                <li>
+                  funciones flecha con llaves y <code>return</code> explícito;
+                </li>
+                <li>funciones flecha compactas con retorno implícito;</li>
+                <li>callbacks básicos;</li>
+                <li>diferencia entre pasar una función y ejecutarla;</li>
+                <li>uso básico de <code>setTimeout</code>.</li>
+              </ul>
+              <blockquote class="warning-box">
+                <p>
+                  En esta hoja <strong>no trabajamos todavía</strong> métodos de
+                  arrays como <code>map</code>, <code>filter</code>,
+                  <code>forEach</code> o <code>reduce</code>, ni eventos del
+                  DOM, ni promesas, ni <code>async/await</code>.
+                </p>
+              </blockquote>
+              <hr />
+            </section>
+            <section
+              class="content-section featured-section flow-section"
+              id="2-recordatorio-minimo"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-lightbulb"></i></span
+                >2. Recordatorio mínimo
+              </h2>
+              <p class="section-lead">
+                En JavaScript una función puede escribirse de varias formas.
+              </p>
+              <p>Función declarada clásica:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>function sumar(a, b) {
+  return a + b;
+}
+</code></pre>
+              </div>
+              <p>Función anónima asignada a una constante:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>const sumar = function (a, b) {
+  return a + b;
+};
+</code></pre>
+              </div>
+              <p>Función flecha con llaves y <code>return</code> explícito:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>const sumar = (a, b) =&gt; {
+  return a + b;
+};
+</code></pre>
+              </div>
+              <p>Función flecha compacta con retorno implícito:</p>
+              <div class="example-block">
+                <pre class="code-js"><code>const sumar = (a, b) =&gt; a + b;
+</code></pre>
+              </div>
+              <hr />
+            </section>
+            <section
+              class="content-section featured-section guided-exercises-section"
+              id="parte-1-identificar-tipos-de-funciones"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-ui-checks-grid"></i></span
+                >Parte 1. Identificar tipos de funciones
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 1. Identifica la forma de cada función</h3>
+                <p>Indica si cada fragmento corresponde a:</p>
+                <ul class="custom-list">
+                  <li>función declarada clásica;</li>
+                  <li>función anónima asignada a una constante;</li>
+                  <li>función flecha con llaves;</li>
+                  <li>función flecha compacta.</li>
+                </ul>
+                <h4>Fragmento A</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  console.log("Hola");
+}
+</code></pre>
+                </div>
+                <h4>Fragmento B</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>const saludar = function () {
+  console.log("Hola");
+};
+</code></pre>
+                </div>
+                <h4>Fragmento C</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>const saludar = () =&gt; {
+  console.log("Hola");
+};
+</code></pre>
+                </div>
+                <h4>Fragmento D</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>const doble = n =&gt; n * 2;
+</code></pre>
+                </div>
+                <p>Responde en una tabla:</p>
+                <div class="compact-table-container">
+                  <table class="comparison-table">
+                    <thead>
+                      <tr>
+                        <th>Fragmento</th>
+                        <th>Tipo de función</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>A</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>B</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>C</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>D</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section guided-exercises-section"
+              id="parte-2-funciones-anonimas"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-person-badge"></i></span
+                >Parte 2. Funciones anónimas
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 2. Función clásica a función anónima</h3>
+                <p>Código de partida:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function mostrarCurso() {
+  console.log("DWCC");
+}
+</code></pre>
+                </div>
+                <p>Tarea:</p>
+                <ol class="custom-ordered-list">
+                  <li>
+                    Reescribe la función como
+                    <strong>función anónima asignada a una constante</strong>
+                    llamada <code>mostrarCurso</code>.
+                  </li>
+                  <li>Llama a la función para comprobar que funciona.</li>
+                </ol>
+                <p>Resultado esperado en consola:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>DWCC
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 3. Función anónima con parámetro</h3>
+                <p>
+                  Crea una función anónima asignada a una constante llamada
+                  <code>saludarAlumno</code>.
+                </p>
+                <p>
+                  La función debe recibir un parámetro <code>nombre</code> y
+                  mostrar por consola:
+                </p>
+                <div class="example-block">
+                  <pre class="code-text"><code>Hola, Ana
+</code></pre>
+                </div>
+                <p>Ejemplo de uso:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>saludarAlumno("Ana");
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 4. Función anónima con <code>return</code></h3>
+                <p>
+                  Crea una función anónima asignada a una constante llamada
+                  <code>calcularIVA</code>.
+                </p>
+                <p>Debe recibir:</p>
+                <ul class="custom-list">
+                  <li><code>precio</code>;</li>
+                  <li><code>tipoIVA</code>.</li>
+                </ul>
+                <p>
+                  Debe devolver el importe del IVA, no mostrarlo directamente
+                  por consola.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const iva = calcularIVA(100, 21);
+console.log(iva); // 21
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section operators-section"
+              id="parte-3-funciones-flecha-con-llaves-y-return-explicito"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-arrow-return-left"
+                  ></i></span
+                >Parte 3. Funciones flecha con llaves y return explícito
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 5. Función clásica a función flecha</h3>
+                <p>Código de partida:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function cuadrado(n) {
+  return n * n;
+}
+</code></pre>
+                </div>
+                <p>Tarea:</p>
+                <ol class="custom-ordered-list">
+                  <li>
+                    Reescribe la función como
+                    <strong>función flecha</strong> guardada en una constante
+                    llamada <code>cuadrado</code>.
+                  </li>
+                  <li>
+                    Usa la forma con llaves <code>{}</code> y
+                    <code>return</code> explícito.
+                  </li>
+                  <li>Prueba la función con:</li>
+                </ol>
+                <div class="example-block">
+                  <pre class="code-js"><code>console.log(cuadrado(5));
+</code></pre>
+                </div>
+                <p>Resultado esperado:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>25
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 6. Función flecha con dos parámetros</h3>
+                <p>Crea una función flecha llamada <code>restar</code>.</p>
+                <p>
+                  Debe recibir dos parámetros, <code>a</code> y <code>b</code>,
+                  y devolver la resta <code>a - b</code>.
+                </p>
+                <p>Usa la forma con llaves y <code>return</code> explícito.</p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>console.log(restar(10, 3)); // 7
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 7. Función flecha con condicional</h3>
+                <p>
+                  Crea una función flecha llamada <code>esMayorDeEdad</code>.
+                </p>
+                <p>Debe recibir un parámetro <code>edad</code> y devolver:</p>
+                <ul class="custom-list">
+                  <li><code>true</code> si <code>edad &gt;= 18</code>;</li>
+                  <li><code>false</code> en caso contrario.</li>
+                </ul>
+                <p>Usa la forma con llaves y <code>return</code> explícito.</p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(esMayorDeEdad(20)); // true
+console.log(esMayorDeEdad(15)); // false
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section operators-section"
+              id="parte-4-funciones-flecha-compactas"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-lightning-charge"
+                  ></i></span
+                >Parte 4. Funciones flecha compactas
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 8. Reescribe en forma compacta</h3>
+                <p>Código de partida:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>const doble = (n) =&gt; {
+  return n * 2;
+};
+</code></pre>
+                </div>
+                <p>Tarea:</p>
+                <p>
+                  Reescribe la función como función flecha compacta, en una sola
+                  línea, sin llaves y sin escribir <code>return</code>.
+                </p>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 9. Función compacta con dos parámetros</h3>
+                <p>
+                  Crea una función flecha compacta llamada
+                  <code>multiplicar</code>.
+                </p>
+                <p>
+                  Debe recibir <code>a</code> y <code>b</code>, y devolver
+                  <code>a * b</code>.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>console.log(multiplicar(4, 5)); // 20
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 10. Función compacta con expresión booleana</h3>
+                <p>
+                  Crea una función flecha compacta llamada
+                  <code>esAprobado</code>.
+                </p>
+                <p>
+                  Debe recibir una <code>nota</code> y devolver directamente el
+                  resultado de comprobar si <code>nota &gt;= 5</code>.
+                </p>
+                <p>Ejemplo:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>console.log(esAprobado(7)); // true
+console.log(esAprobado(3)); // false
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section flow-section"
+              id="parte-5-elegir-una-forma-adecuada"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-sliders"></i></span
+                >Parte 5. Elegir una forma adecuada
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 11. ¿Con llaves o compacta?</h3>
+                <p>
+                  Indica si usarías una función flecha
+                  <strong>compacta</strong> o una función flecha
+                  <strong>con llaves</strong> en cada caso. Justifica
+                  brevemente.
+                </p>
+                <ol class="custom-ordered-list">
+                  <li>Una función que recibe un número y devuelve su doble.</li>
+                  <li>
+                    Una función que recibe una nota y muestra varios mensajes
+                    por consola.
+                  </li>
+                  <li>
+                    Una función que recibe un precio, calcula descuento, calcula
+                    IVA y devuelve el total.
+                  </li>
+                  <li>
+                    Una función que recibe una edad y devuelve
+                    <code>true</code> o <code>false</code>.
+                  </li>
+                </ol>
+                <p>Recuerda:</p>
+                <ul class="custom-list">
+                  <li>
+                    si solo devuelves una expresión sencilla, suele encajar bien
+                    la forma compacta;
+                  </li>
+                  <li>
+                    si hay varias instrucciones, conviene usar llaves y
+                    <code>return</code> explícito cuando corresponda.
+                  </li>
+                </ul>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section logic-section"
+              id="parte-6-callbacks-basicos"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-diagram-3"></i></span
+                >Parte 6. Callbacks básicos
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 12. Pasar una función como argumento</h3>
+                <p>Observa este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function saludar() {
+  console.log("Hola desde la función saludar");
+}
+
+function ejecutar(funcionRecibida) {
+  funcionRecibida();
+}
+
+ejecutar(saludar);
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>
+                    ¿Qué función recibe <code>ejecutar</code> como argumento?
+                  </li>
+                  <li>
+                    ¿En qué línea se llama realmente a <code>saludar</code>?
+                  </li>
+                  <li>¿Qué se muestra por consola?</li>
+                  <li>
+                    ¿Por qué escribimos <code>ejecutar(saludar)</code> y no
+                    <code>ejecutar(saludar())</code>?
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 13. Callback con operación matemática</h3>
+                <p>Completa el siguiente código:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>function calcular(a, b, operacion) {
+  return operacion(a, b);
+}
+
+function sumar(x, y) {
+  return x + y;
+}
+
+function multiplicar(x, y) {
+  return x * y;
+}
+
+console.log(calcular(3, 4, sumar));       // ?
+console.log(calcular(3, 4, multiplicar)); // ?
+</code></pre>
+                </div>
+                <p>Tareas:</p>
+                <ol class="custom-ordered-list">
+                  <li>
+                    Indica qué se muestra en cada <code>console.log</code>.
+                  </li>
+                  <li>
+                    Explica qué papel tiene el parámetro <code>operacion</code>.
+                  </li>
+                  <li>
+                    Explica por qué <code>sumar</code> y
+                    <code>multiplicar</code> son callbacks en este ejemplo.
+                  </li>
+                </ol>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 14. Callback con función anónima</h3>
+                <p>Usa esta función:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>function calcular(a, b, operacion) {
+  return operacion(a, b);
+}
+</code></pre>
+                </div>
+                <p>
+                  Completa la llamada usando una
+                  <strong>función anónima</strong> que reste los dos números:
+                </p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>const resultado = calcular(10, 4, function (x, y) {
+  // completar
+});
+
+console.log(resultado); // 6
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 15. Callback con función flecha</h3>
+                <p>
+                  Reescribe el ejercicio anterior usando una
+                  <strong>función flecha</strong> directamente dentro de la
+                  llamada a <code>calcular</code>.
+                </p>
+                <p>Punto de partida:</p>
+                <div class="example-block">
+                  <pre
+                    class="code-js"
+                  ><code>function calcular(a, b, operacion) {
+  return operacion(a, b);
+}
+
+const resultado = calcular(10, 4, /* completar aquí */);
+
+console.log(resultado); // 6
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section logic-section"
+              id="parte-7-pasar-una-funcion-no-es-lo-mismo-que-ejecutarla"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i
+                    aria-hidden="true"
+                    class="bi bi-arrow-left-right"
+                  ></i></span
+                >Parte 7. Pasar una función no es lo mismo que ejecutarla
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 16. Detecta el error</h3>
+                <p>Observa este código:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>function mostrarMensaje() {
+  console.log("Hola");
+}
+
+setTimeout(mostrarMensaje(), 2000);
+</code></pre>
+                </div>
+                <p>Responde:</p>
+                <ol class="custom-ordered-list">
+                  <li>¿Qué problema tiene esta línea?</li>
+                </ol>
+                <div class="example-block">
+                  <pre class="code-js"><code>setTimeout(mostrarMensaje(), 2000);
+</code></pre>
+                </div>
+                <ol class="custom-ordered-list" start="2">
+                  <li><p>¿Cuál sería la forma correcta?</p></li>
+                  <li><p>Explica con tus palabras la diferencia entre:</p></li>
+                </ol>
+                <div class="example-block">
+                  <pre class="code-js"><code>setTimeout(mostrarMensaje, 2000);
+</code></pre>
+                </div>
+                <p>y:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>setTimeout(mostrarMensaje(), 2000);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 17. setTimeout con función declarada</h3>
+                <p>Crea una función llamada <code>avisar</code> que muestre:</p>
+                <div class="example-block">
+                  <pre class="code-text"><code>Han pasado 2 segundos
+</code></pre>
+                </div>
+                <p>
+                  Después, usa <code>setTimeout</code> para que se ejecute
+                  pasados 2000 milisegundos.
+                </p>
+                <p>Pista:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>setTimeout(avisar, 2000);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+              <div class="exercise-block">
+                <h3>Ejercicio 18. setTimeout con función flecha inline</h3>
+                <p>
+                  Reescribe este código usando una función flecha directamente
+                  dentro de <code>setTimeout</code>.
+                </p>
+                <p>Código de partida:</p>
+                <div class="example-block">
+                  <pre class="code-js"><code>setTimeout(function () {
+  console.log("Mensaje después de 2 segundos");
+}, 2000);
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section frequent-errors-section"
+              id="parte-8-errores-frecuentes"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-bug"></i></span
+                >Parte 8. Errores frecuentes
+              </h2>
+              <div class="exercise-block">
+                <h3>Ejercicio 19. Corrige los errores</h3>
+                <p>
+                  Cada fragmento tiene un error. Corrígelo y explica brevemente
+                  qué pasaba.
+                </p>
+                <h4>Fragmento A</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>const saludar = function {
+  console.log("Hola");
+};
+</code></pre>
+                </div>
+                <h4>Fragmento B</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>const doble = n =&gt; {
+  n * 2;
+};
+
+console.log(doble(4));
+</code></pre>
+                </div>
+                <h4>Fragmento C</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>function mensaje() {
+  console.log("Hola");
+}
+
+setTimeout(mensaje(), 1000);
+</code></pre>
+                </div>
+                <h4>Fragmento D</h4>
+                <div class="example-block">
+                  <pre class="code-js"><code>const sumar = (a, b) =&gt; a + b;
+
+sumar;
+</code></pre>
+                </div>
+                <hr />
+              </div>
+            </section>
+            <section
+              class="content-section featured-section delivery-section"
+              id="parte-9-mini-entrega-final"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-send-check"></i></span
+                >Parte 9. Mini-entrega final
+              </h2>
+              <p class="section-lead">Crea un archivo llamado:</p>
+              <div class="example-block">
+                <pre class="code-text"><code>B04b_tipos_funciones.js
+</code></pre>
+              </div>
+              <p>Dentro del archivo debes incluir:</p>
+              <ol class="custom-ordered-list">
+                <li>Una función anónima asignada a una constante.</li>
+                <li>
+                  Una función flecha con llaves y <code>return</code> explícito.
+                </li>
+                <li>Una función flecha compacta.</li>
+                <li>
+                  Una función <code>calcular(a, b, operacion)</code> que reciba
+                  un callback.
+                </li>
+                <li>
+                  Dos llamadas a <code>calcular</code>, una con una función
+                  declarada y otra con una función flecha inline.
+                </li>
+                <li>Un ejemplo correcto de <code>setTimeout</code>.</li>
+              </ol>
+              <p>Al final del archivo, añade comentarios explicando:</p>
+              <ul class="delivery-list">
+                <li>qué es una función anónima;</li>
+                <li>qué es una función flecha;</li>
+                <li>qué es un callback;</li>
+                <li>
+                  cuál es la diferencia entre pasar una función y ejecutarla.
+                </li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section featured-section restrictions-section"
+              id="contenidos-aplazados-para-documentos-posteriores"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-slash-circle"></i></span
+                >Contenidos aplazados para documentos posteriores
+              </h2>
+              <p class="section-lead">
+                Estos contenidos no forman parte de esta hoja y se trabajarán
+                más adelante:
+              </p>
+              <ul class="restrictions-list">
+                <li>
+                  comportamiento de <code>this</code> en funciones tradicionales
+                  y funciones flecha;
+                </li>
+                <li>funciones flecha dentro de objetos;</li>
+                <li>callbacks aplicados a eventos del DOM;</li>
+                <li>
+                  métodos de array con callbacks (<code>forEach</code>,
+                  <code>map</code>, <code>filter</code>, <code>reduce</code>);
+                </li>
+                <li>asincronía real;</li>
+                <li>promesas;</li>
+                <li><code>async/await</code>;</li>
+                <li>closures;</li>
+                <li>recursividad.</li>
+              </ul>
+              <hr />
+            </section>
+            <section
+              class="content-section featured-section summary-section review-section"
+              id="resumen-de-repaso"
+            >
+              <h2>
+                <span aria-hidden="true" class="section-icon"
+                  ><i aria-hidden="true" class="bi bi-flag"></i></span
+                >Resumen de repaso
+              </h2>
+              <p class="section-lead">
+                Antes de dar por terminada la hoja, asegúrate de poder
+                responder:
+              </p>
+              <ol class="question-list">
+                <li>¿Qué es una función anónima?</li>
+                <li>
+                  ¿Qué diferencia hay entre una función flecha con llaves y una
+                  función flecha compacta?
+                </li>
+                <li>¿Cuándo se puede usar retorno implícito?</li>
+                <li>¿Qué es un callback?</li>
+                <li>
+                  ¿Qué diferencia hay entre pasar una función y ejecutarla?
+                </li>
+                <li>
+                  ¿Por qué <code>setTimeout(mostrarMensaje, 2000)</code> no es
+                  lo mismo que <code>setTimeout(mostrarMensaje(), 2000)</code>?
+                </li>
+                <li>
+                  ¿Qué contenidos quedan aplazados para documentos posteriores?
+                </li>
+              </ol>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bloque 5B. Métodos avanzados de arrays en JavaScript</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+<script defer="" src="../../assets/js/smpp.js"></script>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar notes-page">
+<div class="content-layout">
+<aside class="section-sidebar">
+<nav aria-label="Índice del documento" class="section-nav">
+<p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-check section-nav-icon"></i> Índice</p>
+<ul class="section-nav-list"><li><a class="section-nav-link" href="#1-que-vamos-a-trabajar-en-este-bloque"><i aria-hidden="true" class="bi bi-bullseye section-nav-icon"></i><span>1. Qué vamos a trabajar en este bloque</span></a></li><li><a class="section-nav-link" href="#2-recordatorio-funciones-callbacks-y-funciones-flecha"><i aria-hidden="true" class="bi bi-arrow-repeat section-nav-icon"></i><span>2. Recordatorio: funciones, callbacks y funciones flecha</span></a></li><li><a class="section-nav-link" href="#3-del-bucle-for-a-los-metodos-de-array"><i aria-hidden="true" class="bi bi-arrow-left-right section-nav-icon"></i><span>3. Del bucle <code>for</code> a los métodos de array</span></a></li><li><a class="section-nav-link" href="#4-foreach-recorrer-un-array"><i aria-hidden="true" class="bi bi-list-check section-nav-icon"></i><span>4. <code>forEach()</code>: recorrer un array</span></a></li><li><a class="section-nav-link" href="#5-map-transformar-todos-los-elementos"><i aria-hidden="true" class="bi bi-arrow-up-right-square section-nav-icon"></i><span>5. <code>map()</code>: transformar todos los elementos</span></a></li><li><a class="section-nav-link" href="#6-filter-seleccionar-algunos-elementos"><i aria-hidden="true" class="bi bi-funnel section-nav-icon"></i><span>6. <code>filter()</code>: seleccionar algunos elementos</span></a></li><li><a class="section-nav-link" href="#7-reduce-acumular-en-un-unico-resultado"><i aria-hidden="true" class="bi bi-calculator section-nav-icon"></i><span>7. <code>reduce()</code>: acumular en un único resultado</span></a></li><li><a class="section-nav-link" href="#8-comparacion-entre-foreach-map-filter-y-reduce"><i aria-hidden="true" class="bi bi-table section-nav-icon"></i><span>8. Comparación entre <code>forEach()</code>, <code>map()</code>, <code>filter()</code> y <code>reduce()</code></span></a></li><li><a class="section-nav-link" href="#9-comparacion-practica-for-foreach-y-map"><i aria-hidden="true" class="bi bi-diagram-3 section-nav-icon"></i><span>9. Comparación práctica: <code>for</code>, <code>forEach()</code> y <code>map()</code></span></a></li><li><a class="section-nav-link" href="#10-slice-copiar-y-extraer-partes-de-un-array"><i aria-hidden="true" class="bi bi-scissors section-nav-icon"></i><span>10. <code>slice()</code>: copiar y extraer partes de un array</span></a></li><li><a class="section-nav-link" href="#11-metodos-que-modifican-y-metodos-que-no-modifican-el-array-original"><i aria-hidden="true" class="bi bi-shuffle section-nav-icon"></i><span>11. Métodos que modifican y métodos que no modifican el array original</span></a></li><li><a class="section-nav-link" href="#12-errores-frecuentes"><i aria-hidden="true" class="bi bi-bug section-nav-icon"></i><span>12. Errores frecuentes</span></a></li><li><a class="section-nav-link" href="#13-ejemplos-guiados-combinando-metodos"><i aria-hidden="true" class="bi bi-compass section-nav-icon"></i><span>13. Ejemplos guiados combinando métodos</span></a></li><li><a class="section-nav-link" href="#14-contenidos-aplazados-para-documentos-posteriores"><i aria-hidden="true" class="bi bi-slash-circle section-nav-icon"></i><span>14. Contenidos aplazados para documentos posteriores</span></a></li><li><a class="section-nav-link" href="#15-resumen-final"><i aria-hidden="true" class="bi bi-flag section-nav-icon"></i><span>15. Resumen final</span></a></li></ul>
+</nav>
+</aside>
+<div class="content-wrapper">
+<div class="document-toolbar">
+<a class="document-home-link" href="../../index.html"><i aria-hidden="true" class="bi bi-house-door"></i> Índice del curso</a>
+<button class="document-theme-toggle" id="theme-toggle" type="button"><i aria-hidden="true" class="bi bi-moon-stars"></i> Modo oscuro</button>
+</div>
+<header class="content-header">
+<h1><span aria-hidden="true" class="document-title-icon"><i aria-hidden="true" class="bi bi-code-square"></i></span> Bloque 5B. Métodos avanzados de arrays en JavaScript</h1>
+</header>
+<section class="content-section learning-objectives-section" id="1-que-vamos-a-trabajar-en-este-bloque"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-bullseye"></i></span>1. Qué vamos a trabajar en este bloque</h2><p>En el bloque anterior estudiaste los <strong>arrays básicos</strong>:</p><ul class="custom-list">
+<li>crear arrays;</li>
+<li>acceder a sus elementos mediante índices;</li>
+<li>modificar posiciones;</li>
+<li>usar <code>length</code>;</li>
+<li>recorrer arrays con <code>for</code>;</li>
+<li>usar métodos básicos como <code>push()</code>, <code>pop()</code>, <code>shift()</code>, <code>unshift()</code>, <code>includes()</code> e <code>indexOf()</code>;</li>
+<li>crear funciones que reciben arrays.</li>
+</ul><p>En este bloque vamos a dar un paso más: aprenderemos a usar <strong>métodos de array que reciben funciones como argumento</strong>.</p><p>Los métodos principales serán:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Método</th>
+<th>Uso principal</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>forEach()</code></td>
+<td>Recorrer un array y hacer algo con cada elemento</td>
+<td>No crea un nuevo array</td>
+</tr>
+<tr>
+<td><code>map()</code></td>
+<td>Transformar todos los elementos</td>
+<td>Crea un nuevo array</td>
+</tr>
+<tr>
+<td><code>filter()</code></td>
+<td>Seleccionar algunos elementos</td>
+<td>Crea un nuevo array</td>
+</tr>
+<tr>
+<td><code>reduce()</code></td>
+<td>Acumular todos los elementos en un único resultado</td>
+<td>Devuelve un único valor</td>
+</tr>
+</tbody>
+</table></div><p>También veremos <code>slice()</code> como método complementario para copiar o extraer partes de un array.</p><blockquote class="concept-box">
+<p><strong>Idea clave:</strong> en este bloque no vamos a sustituir completamente el bucle <code>for</code>. Vamos a aprender cuándo conviene usar métodos de array y qué aporta cada uno.</p>
+</blockquote><hr/></section><section class="content-section flow-section" id="2-recordatorio-funciones-callbacks-y-funciones-flecha"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-arrow-repeat"></i></span>2. Recordatorio: funciones, callbacks y funciones flecha</h2><p>En JavaScript una función puede pasarse como argumento a otra función.</p><p>Cuando una función se pasa a otra función para que esta la ejecute cuando corresponda, se suele llamar <strong>callback</strong>.</p><p>En los métodos de arrays de este bloque, el callback se ejecuta de forma síncrona, una vez por cada elemento del array.</p><p>Ejemplo sencillo:</p><div class="example-block"><pre class="code-js"><code>function mostrarMensaje() {
+  console.log("Hola");
+}
+
+function ejecutarFuncion(callback) {
+  callback();
+}
+
+ejecutarFuncion(mostrarMensaje);
+</code></pre></div><p>En los métodos avanzados de arrays ocurre algo parecido: el método recorre el array y ejecuta una función para cada elemento.</p><p>Por ejemplo:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+numeros.forEach((numero) =&gt; {
+  console.log(numero);
+});
+</code></pre></div><p>Aquí:</p><ul class="custom-list">
+<li><code>forEach()</code> es el método del array;</li>
+<li><code>(numero) =&gt; { ... }</code> es una función flecha;</li>
+<li>esa función se ejecuta una vez por cada elemento;</li>
+<li><code>numero</code> representa el elemento actual del array en cada vuelta.</li>
+</ul><hr/></section><section class="content-section flow-section" id="3-del-bucle-for-a-los-metodos-de-array"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-arrow-left-right"></i></span>3. Del bucle <code>for</code> a los métodos de array</h2><p>Hasta ahora, para recorrer un array usábamos un bucle <code>for</code>:</p><div class="example-block"><pre class="code-js"><code>const nombres = ["Ana", "Luis", "María"];
+
+for (let i = 0; i &lt; nombres.length; i++) {
+  console.log(nombres[i]);
+}
+</code></pre></div><p>Con <code>forEach()</code> podemos expresar la misma idea de otra forma:</p><div class="example-block"><pre class="code-js"><code>const nombres = ["Ana", "Luis", "María"];
+
+nombres.forEach((nombre) =&gt; {
+  console.log(nombre);
+});
+</code></pre></div><p>Las dos versiones recorren el array.</p><p>La diferencia es que con <code>for</code> trabajamos manualmente con el índice <code>i</code>, mientras que con <code>forEach()</code> JavaScript se encarga de recorrer el array y nos entrega cada elemento.</p><div class="subsection-card"><h3>¿Significa esto que <code>for</code> ya no se usa?</h3><p>No.</p><p>El bucle <code>for</code> sigue siendo útil, especialmente cuando:</p><ul class="custom-list">
+<li>necesitamos controlar el índice manualmente;</li>
+<li>queremos detener el bucle antes de llegar al final;</li>
+<li>estamos empezando y queremos entender bien cómo se recorre un array.</li>
+</ul><p>Los métodos de array son útiles porque permiten escribir código más expresivo cuando ya tenemos claro qué queremos hacer con los datos.</p><blockquote class="note-box">
+<p><strong>Nota</strong>
+Con <code>forEach()</code> no se puede usar <code>break</code> para cortar el recorrido. Si necesitas detener un recorrido manualmente, al principio suele ser más claro usar un bucle <code>for</code>.</p>
+</blockquote></div><hr/></section><section class="content-section operators-section" id="4-foreach-recorrer-un-array"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-list-check"></i></span>4. <code>forEach()</code>: recorrer un array</h2><p>El método <code>forEach()</code> permite recorrer un array y ejecutar una acción por cada elemento.</p><div class="subsection-card"><h3>4.1. Sintaxis básica</h3><div class="example-block"><pre class="code-js"><code>array.forEach((elemento) =&gt; {
+  // instrucciones que se ejecutan por cada elemento
+});
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+
+dias.forEach((dia) =&gt; {
+  console.log(dia);
+});
+</code></pre></div><p>Resultado:</p><div class="example-block"><pre class="code-text"><code>Lunes
+Martes
+Miércoles
+Jueves
+Viernes
+</code></pre></div></div><hr/><div class="subsection-card"><h3>4.2. Usar también el índice</h3><p>La función que recibe <code>forEach()</code> puede tener un segundo parámetro: el índice.</p><div class="example-block"><pre class="code-js"><code>const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+
+dias.forEach((dia, indice) =&gt; {
+  console.log("Día", indice + 1, ":", dia);
+});
+</code></pre></div><p>Resultado:</p><div class="example-block"><pre class="code-text"><code>Día 1 : Lunes
+Día 2 : Martes
+Día 3 : Miércoles
+Día 4 : Jueves
+Día 5 : Viernes
+</code></pre></div><p>Usamos <code>indice + 1</code> porque los índices de los arrays empiezan en 0.</p></div><hr/><div class="subsection-card"><h3>4.3. Importante: <code>forEach()</code> no crea un nuevo array</h3><p><code>forEach()</code> sirve para recorrer el array y ejecutar una acción, por ejemplo mostrar datos por consola.</p><p>No debe usarse cuando queremos obtener un nuevo array transformado.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+const resultado = numeros.forEach((numero) =&gt; {
+  return numero * 2;
+});
+
+console.log(resultado); // undefined
+</code></pre></div><p>Aunque dentro del <code>forEach()</code> haya un <code>return</code>, el método completo no devuelve un nuevo array.</p><p>Para transformar elementos y obtener un nuevo array debemos usar <code>map()</code>.</p></div><hr/></section><section class="content-section operators-section" id="5-map-transformar-todos-los-elementos"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-arrow-up-right-square"></i></span>5. <code>map()</code>: transformar todos los elementos</h2><p>El método <code>map()</code> crea un <strong>nuevo array</strong> aplicando una transformación a cada elemento del array original.</p><div class="subsection-card"><h3>5.1. Sintaxis básica</h3><div class="example-block"><pre class="code-js"><code>const nuevoArray = arrayOriginal.map((elemento) =&gt; {
+  return nuevoValor;
+});
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3, 4];
+
+const dobles = numeros.map((numero) =&gt; {
+  return numero * 2;
+});
+
+console.log(dobles);  // [2, 4, 6, 8]
+console.log(numeros); // [1, 2, 3, 4]
+</code></pre></div><p><code>map()</code> no modifica el array original. Devuelve un nuevo array con los valores transformados.</p></div><hr/><div class="subsection-card"><h3>5.2. Versión compacta con función flecha</h3><p>Cuando la función solo devuelve una expresión, podemos escribirla de forma más breve:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3, 4];
+
+const dobles = numeros.map((numero) =&gt; numero * 2);
+
+console.log(dobles); // [2, 4, 6, 8]
+</code></pre></div><p>Esta forma es habitual, pero al principio puede resultar menos clara. Si tienes dudas, usa la versión con llaves y <code>return</code>.</p></div><hr/><div class="subsection-card"><h3>5.3. Ejemplo: transformar notas numéricas en textos</h3><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+const resultados = notas.map((nota) =&gt; {
+  if (nota &gt;= 5) {
+    return "Aprobado";
+  } else {
+    return "Suspenso";
+  }
+});
+
+console.log(resultados); // ["Suspenso", "Aprobado", "Aprobado", "Suspenso", "Aprobado"]
+</code></pre></div><p>Aquí todas las notas se transforman en textos.</p><p>El array original sigue siendo el mismo:</p><div class="example-block"><pre class="code-js"><code>console.log(notas); // [4, 7, 9, 3, 5]
+</code></pre></div></div><hr/></section><section class="content-section operators-section" id="6-filter-seleccionar-algunos-elementos"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-funnel"></i></span>6. <code>filter()</code>: seleccionar algunos elementos</h2><p>El método <code>filter()</code> crea un <strong>nuevo array</strong> con los elementos que cumplen una condición.</p><div class="subsection-card"><h3>6.1. Sintaxis básica</h3><div class="example-block"><pre class="code-js"><code>const nuevoArray = arrayOriginal.filter((elemento) =&gt; {
+  return condicion;
+});
+</code></pre></div><p>La condición debe devolver <code>true</code> o <code>false</code>.</p><ul class="custom-list">
+<li>Si devuelve <code>true</code>, el elemento se queda en el nuevo array.</li>
+<li>Si devuelve <code>false</code>, el elemento se descarta.</li>
+</ul></div><hr/><div class="subsection-card"><h3>6.2. Ejemplo: obtener los aprobados</h3><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+const aprobados = notas.filter((nota) =&gt; {
+  return nota &gt;= 5;
+});
+
+console.log(aprobados); // [7, 9, 5]
+</code></pre></div></div><hr/><div class="subsection-card"><h3>6.3. Versión compacta</h3><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+const aprobados = notas.filter((nota) =&gt; nota &gt;= 5);
+
+console.log(aprobados); // [7, 9, 5]
+</code></pre></div></div><hr/><div class="subsection-card"><h3>6.4. Ejemplo: filtrar palabras largas</h3><div class="example-block"><pre class="code-js"><code>const palabras = ["sol", "javascript", "web", "programacion"];
+
+const largas = palabras.filter((palabra) =&gt; {
+  return palabra.length &gt;= 5;
+});
+
+console.log(largas); // ["javascript", "programacion"]
+</code></pre></div><p>En este ejemplo se usa <code>palabra.length</code>, que devuelve el número de caracteres de un texto.</p></div><hr/></section><section class="content-section operators-section" id="7-reduce-acumular-en-un-unico-resultado"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-calculator"></i></span>7. <code>reduce()</code>: acumular en un único resultado</h2><p>El método <code>reduce()</code> recorre un array y acumula sus elementos para obtener un único resultado final.</p><p>Se suele usar para calcular:</p><ul class="custom-list">
+<li>una suma;</li>
+<li>un producto;</li>
+<li>un máximo;</li>
+<li>un mínimo;</li>
+<li>un total acumulado.</li>
+</ul><p>Es el método más difícil de este bloque, así que conviene entenderlo paso a paso.</p><blockquote class="note-box">
+<p><strong>Recomendación</strong>
+En este curso escribiremos siempre un valor inicial en <code>reduce()</code>. Así el código es más claro y evitamos errores con arrays vacíos.</p>
+</blockquote><hr/><div class="subsection-card"><h3>7.1. Ejemplo básico: sumar números</h3><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3, 4];
+
+const suma = numeros.reduce((acumulador, numero) =&gt; {
+  return acumulador + numero;
+}, 0);
+
+console.log(suma); // 10
+</code></pre></div><p>Partes importantes:</p><div class="example-block"><pre class="code-js"><code>numeros.reduce((acumulador, numero) =&gt; {
+  return acumulador + numero;
+}, 0);
+</code></pre></div><ul class="custom-list">
+<li><code>acumulador</code> guarda el resultado que se va construyendo.</li>
+<li><code>numero</code> es el elemento actual del array.</li>
+<li><code>0</code> es el valor inicial del acumulador.</li>
+</ul></div><hr/><div class="subsection-card"><h3>7.2. Paso a paso del ejemplo anterior</h3><p>Array original:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3, 4];
+</code></pre></div><p>Valor inicial del acumulador: <code>0</code>.</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Vuelta</th>
+<th>acumulador antes</th>
+<th>numero actual</th>
+<th>acumulador después</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>4</td>
+<td>6</td>
+<td>4</td>
+<td>10</td>
+</tr>
+</tbody>
+</table></div><p>Resultado final: <code>10</code>.</p></div><hr/><div class="subsection-card"><h3>7.3. Ejemplo: calcular el total de precios</h3><div class="example-block"><pre class="code-js"><code>const precios = [10, 25, 8, 12];
+
+const total = precios.reduce((acumulador, precio) =&gt; {
+  return acumulador + precio;
+}, 0);
+
+console.log("Total:", total); // Total: 55
+</code></pre></div></div><hr/><div class="subsection-card"><h3>7.4. Versión compacta</h3><div class="example-block"><pre class="code-js"><code>const precios = [10, 25, 8, 12];
+
+const total = precios.reduce((acumulador, precio) =&gt; acumulador + precio, 0);
+
+console.log(total); // 55
+</code></pre></div><p>Al principio es recomendable usar la versión con llaves y <code>return</code>, porque permite ver mejor qué está ocurriendo.</p></div><hr/></section><section class="content-section logic-section" id="8-comparacion-entre-foreach-map-filter-y-reduce"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-table"></i></span>8. Comparación entre <code>forEach()</code>, <code>map()</code>, <code>filter()</code> y <code>reduce()</code></h2><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Método</th>
+<th>Pregunta que responde</th>
+<th>Devuelve</th>
+<th>Ejemplo de uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>forEach()</code></td>
+<td>¿Qué quiero hacer con cada elemento?</td>
+<td><code>undefined</code></td>
+<td>Mostrar cada elemento por consola</td>
+</tr>
+<tr>
+<td><code>map()</code></td>
+<td>¿Cómo quiero transformar cada elemento?</td>
+<td>Un nuevo array</td>
+<td>Duplicar todos los números</td>
+</tr>
+<tr>
+<td><code>filter()</code></td>
+<td>¿Con qué elementos me quiero quedar?</td>
+<td>Un nuevo array</td>
+<td>Quedarse con las notas aprobadas</td>
+</tr>
+<tr>
+<td><code>reduce()</code></td>
+<td>¿Cómo reduzco todos los elementos a un único resultado?</td>
+<td>Un valor final</td>
+<td>Sumar todos los números</td>
+</tr>
+</tbody>
+</table></div><hr/></section><section class="content-section logic-section" id="9-comparacion-practica-for-foreach-y-map"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-diagram-3"></i></span>9. Comparación práctica: <code>for</code>, <code>forEach()</code> y <code>map()</code></h2><p>Supongamos que queremos duplicar todos los números de un array.</p><div class="subsection-card"><h3>9.1. Con <code>for</code></h3><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+const dobles = [];
+
+for (let i = 0; i &lt; numeros.length; i++) {
+  dobles.push(numeros[i] * 2);
+}
+
+console.log(dobles); // [2, 4, 6]
+</code></pre></div></div><hr/><div class="subsection-card"><h3>9.2. Con <code>forEach()</code></h3><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+const dobles = [];
+
+numeros.forEach((numero) =&gt; {
+  dobles.push(numero * 2);
+});
+
+console.log(dobles); // [2, 4, 6]
+</code></pre></div><p>Funciona, pero estamos creando el array nuevo manualmente.</p></div><hr/><div class="subsection-card"><h3>9.3. Con <code>map()</code></h3><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+const dobles = numeros.map((numero) =&gt; {
+  return numero * 2;
+});
+
+console.log(dobles); // [2, 4, 6]
+</code></pre></div><p>Esta es la opción más adecuada cuando queremos transformar todos los elementos y obtener un nuevo array.</p></div><hr/></section><section class="content-section operators-section" id="10-slice-copiar-y-extraer-partes-de-un-array"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-scissors"></i></span>10. <code>slice()</code>: copiar y extraer partes de un array</h2><p>El método <code>slice()</code> permite crear una copia de un array o extraer una parte de él.</p><p><code>slice()</code> no modifica el array original.</p><hr/><div class="subsection-card"><h3>10.1. Copiar un array</h3><div class="example-block"><pre class="code-js"><code>const originales = [1, 2, 3];
+const copia = originales.slice();
+
+copia[0] = 99;
+
+console.log(originales); // [1, 2, 3]
+console.log(copia);      // [99, 2, 3]
+</code></pre></div><p>En este ejemplo, <code>copia</code> es otro array.</p></div><hr/><div class="subsection-card"><h3>10.2. Extraer una parte del array</h3><div class="example-block"><pre class="code-js"><code>const letras = ["a", "b", "c", "d", "e"];
+
+const parte1 = letras.slice(1, 3);
+const parte2 = letras.slice(2);
+
+console.log(parte1); // ["b", "c"]
+console.log(parte2); // ["c", "d", "e"]
+</code></pre></div><p>En <code>slice(inicio, fin)</code>:</p><ul class="custom-list">
+<li><code>inicio</code> es la posición desde la que empieza la copia;</li>
+<li><code>fin</code> es la posición donde se detiene;</li>
+<li>el elemento de <code>inicio</code> se incluye;</li>
+<li>el elemento de <code>fin</code> no se incluye.</li>
+</ul><p>Por eso <code>letras.slice(1, 3)</code> devuelve los elementos de las posiciones 1 y 2.</p></div><hr/></section><section class="content-section logic-section" id="11-metodos-que-modifican-y-metodos-que-no-modifican-el-array-original"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-shuffle"></i></span>11. Métodos que modifican y métodos que no modifican el array original</h2><p>No todos los métodos de array se comportan igual.</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Método</th>
+<th>¿Modifica el array original?</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>push()</code></td>
+<td>Sí</td>
+<td>Añade al final</td>
+</tr>
+<tr>
+<td><code>pop()</code></td>
+<td>Sí</td>
+<td>Elimina el último</td>
+</tr>
+<tr>
+<td><code>shift()</code></td>
+<td>Sí</td>
+<td>Elimina el primero</td>
+</tr>
+<tr>
+<td><code>unshift()</code></td>
+<td>Sí</td>
+<td>Añade al principio</td>
+</tr>
+<tr>
+<td><code>forEach()</code></td>
+<td>No por sí mismo</td>
+<td>Recorre el array</td>
+</tr>
+<tr>
+<td><code>map()</code></td>
+<td>No</td>
+<td>Devuelve un nuevo array transformado</td>
+</tr>
+<tr>
+<td><code>filter()</code></td>
+<td>No</td>
+<td>Devuelve un nuevo array filtrado</td>
+</tr>
+<tr>
+<td><code>reduce()</code></td>
+<td>No</td>
+<td>Devuelve un valor acumulado</td>
+</tr>
+<tr>
+<td><code>slice()</code></td>
+<td>No</td>
+<td>Devuelve una copia o una parte</td>
+</tr>
+</tbody>
+</table></div><blockquote class="warning-box">
+<p><strong>Ojo:</strong> <code>forEach()</code> no modifica el array por sí mismo, pero dentro de su función podrías escribir código que sí modificase elementos. En este bloque evitaremos hacerlo salvo que sea necesario y esté claro.</p>
+</blockquote><hr/></section><section class="content-section frequent-errors-section" id="12-errores-frecuentes"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-bug"></i></span>12. Errores frecuentes</h2><div class="error-card"><h3>12.1. Usar <code>forEach()</code> esperando un nuevo array</h3><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+const dobles = numeros.forEach((numero) =&gt; {
+  return numero * 2;
+});
+
+console.log(dobles); // undefined
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+const dobles = numeros.map((numero) =&gt; {
+  return numero * 2;
+});
+
+console.log(dobles); // [2, 4, 6]
+</code></pre></div></div><hr/><div class="error-card"><h3>12.2. Olvidar el <code>return</code> en <code>map()</code></h3><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+const dobles = numeros.map((numero) =&gt; {
+  numero * 2;
+});
+
+console.log(dobles); // [undefined, undefined, undefined]
+</code></pre></div><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+const dobles = numeros.map((numero) =&gt; {
+  return numero * 2;
+});
+
+console.log(dobles); // [2, 4, 6]
+</code></pre></div><p>También sería correcto usar la versión compacta:</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+const dobles = numeros.map((numero) =&gt; numero * 2);
+
+console.log(dobles); // [2, 4, 6]
+</code></pre></div></div><hr/><div class="error-card"><h3>12.3. Confundir <code>map()</code> y <code>filter()</code></h3><p><code>map()</code> transforma elementos.</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+const dobles = numeros.map((numero) =&gt; numero * 2);
+
+console.log(dobles); // [2, 4, 6]
+</code></pre></div><p><code>filter()</code> selecciona elementos.</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3, 4, 5];
+const mayoresQueTres = numeros.filter((numero) =&gt; numero &gt; 3);
+
+console.log(mayoresQueTres); // [4, 5]
+</code></pre></div></div><hr/><div class="error-card"><h3>12.4. Usar <code>reduce()</code> sin entender el valor inicial</h3><p>Es recomendable indicar siempre un valor inicial en <code>reduce()</code>.</p><div class="example-block"><pre class="code-js"><code>const numeros = [1, 2, 3];
+
+const suma = numeros.reduce((acumulador, numero) =&gt; {
+  return acumulador + numero;
+}, 0);
+
+console.log(suma); // 6
+</code></pre></div><p>En este caso, el acumulador empieza en <code>0</code>.</p></div><hr/><div class="error-card"><h3>12.5. Crear callbacks demasiado complejos</h3><p>Si la función que pasas a <code>map()</code>, <code>filter()</code> o <code>reduce()</code> se vuelve muy larga, puede ser más claro escribir una función aparte.</p><div class="example-block"><pre class="code-js"><code>function esAprobado(nota) {
+  return nota &gt;= 5;
+}
+
+const notas = [4, 7, 9, 3, 5];
+const aprobados = notas.filter(esAprobado);
+
+console.log(aprobados); // [7, 9, 5]
+</code></pre></div></div><hr/></section><section class="content-section guided-exercises-section" id="13-ejemplos-guiados-combinando-metodos"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-compass"></i></span>13. Ejemplos guiados combinando métodos</h2><div class="subsection-card"><h3>13.1. Obtener las notas aprobadas y subirles un punto</h3><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9, 3, 5];
+
+const aprobadosSubidos = notas
+  .filter((nota) =&gt; nota &gt;= 5)
+  .map((nota) =&gt; nota + 1);
+
+console.log(aprobadosSubidos); // [8, 10, 6]
+</code></pre></div><p>Explicación:</p><ol class="question-list">
+<li><code>filter()</code> se queda con las notas aprobadas: <code>[7, 9, 5]</code>.</li>
+<li><code>map()</code> suma 1 a cada una: <code>[8, 10, 6]</code>.</li>
+</ol></div><hr/><div class="subsection-card"><h3>13.2. Calcular el total de precios con IVA</h3><div class="example-block"><pre class="code-js"><code>const precios = [10, 20, 15];
+
+const preciosConIVA = precios.map((precio) =&gt; {
+  return precio * 1.21;
+});
+
+const total = preciosConIVA.reduce((acumulador, precio) =&gt; {
+  return acumulador + precio;
+}, 0);
+
+console.log(preciosConIVA); // [12.1, 24.2, 18.15]
+console.log(total);         // 54.45
+</code></pre></div><p>En este ejemplo:</p><ol class="question-list">
+<li><code>map()</code> crea un nuevo array con los precios con IVA.</li>
+<li><code>reduce()</code> suma todos los precios con IVA.</li>
+</ol></div><hr/></section><section class="content-section restrictions-section" id="14-contenidos-aplazados-para-documentos-posteriores"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-slash-circle"></i></span>14. Contenidos aplazados para documentos posteriores</h2><p>Estos contenidos no forman parte de este bloque y se trabajarán más adelante, especialmente en la unidad de <strong>JavaScript avanzado en entorno cliente</strong>:</p><ul class="custom-list">
+<li>arrays multidimensionales;</li>
+<li>aclaración sobre “arrays asociativos” y por qué en JavaScript se usan objetos;</li>
+<li>objetos propios;</li>
+<li>arrays de objetos;</li>
+<li><code>sort()</code> avanzado con función de comparación;</li>
+<li>métodos <code>find()</code>, <code>some()</code> y <code>every()</code>;</li>
+<li>destructuring;</li>
+<li>operadores spread/rest;</li>
+<li>DOM;</li>
+<li>eventos del DOM;</li>
+<li>asincronía real;</li>
+<li>promesas;</li>
+<li><code>async/await</code>;</li>
+<li>closures;</li>
+<li>recursividad.</li>
+</ul><hr/></section><section class="content-section summary-section" id="15-resumen-final"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-flag"></i></span>15. Resumen final</h2><p>En este bloque has aprendido que JavaScript ofrece métodos de array que permiten trabajar con listas de datos de forma más expresiva.</p><p>Ideas principales:</p><ul class="custom-list">
+<li><code>forEach()</code> recorre un array y ejecuta una acción por cada elemento.</li>
+<li><code>map()</code> transforma todos los elementos y devuelve un nuevo array.</li>
+<li><code>filter()</code> selecciona los elementos que cumplen una condición y devuelve un nuevo array.</li>
+<li><code>reduce()</code> acumula todos los elementos en un único resultado.</li>
+<li><code>slice()</code> permite copiar un array o extraer una parte sin modificar el original.</li>
+<li>No todos los métodos devuelven lo mismo.</li>
+<li>No todos los métodos modifican el array original.</li>
+<li>Es importante elegir el método adecuado según el problema.</li>
+</ul><blockquote class="next-steps-box">
+<p><strong>Guía rápida</strong></p>
+<ul class="custom-list">
+<li>Si solo quiero hacer algo con cada elemento: <code>forEach()</code>.</li>
+<li>Si quiero obtener otro array con todos los elementos transformados: <code>map()</code>.</li>
+<li>Si quiero quedarme solo con algunos elementos: <code>filter()</code>.</li>
+<li>Si quiero obtener un único resultado final: <code>reduce()</code>.</li>
+</ul>
+</blockquote><p>La pregunta más útil antes de elegir un método es:</p><blockquote class="concept-box">
+<p>¿Quiero recorrer, transformar, filtrar o acumular?</p>
+</blockquote><p>Según la respuesta, elegiré <code>forEach()</code>, <code>map()</code>, <code>filter()</code> o <code>reduce()</code>.</p></section>
+</div>
+</div>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UD2_B4c · AJAX, código heredado y fetch</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar">
+<div class="content-layout">
+<aside aria-label="Índice del documento" class="section-sidebar">
+<nav aria-label="Secciones del documento" class="section-nav">
+<p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-ul"></i> Índice del documento</p>
+<ol class="section-nav-list"><li><a class="section-nav-link badge-link" href="#1-objetivos-contexto-y-entorno-de-trabajo"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-bullseye"></i></span><span>1. Objetivos, contexto y entorno de trabajo</span></a></li><li><a class="section-nav-link badge-link" href="#2-que-es-ajax"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-lightning-charge"></i></span><span>2. Qué es AJAX</span></a></li><li><a class="section-nav-link badge-link" href="#3-ajax-como-concepto-y-tecnologias-relacionadas"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-diagram-3"></i></span><span>3. AJAX como concepto y tecnologías relacionadas</span></a></li><li><a class="section-nav-link badge-link" href="#4-referencia-moderna-con-fetch"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-cloud-download"></i></span><span>4. Referencia moderna con <code>fetch()</code></span></a></li><li><a class="section-nav-link badge-link" href="#5-codigo-heredado-con-xmlhttprequest"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-arrow-repeat"></i></span><span>5. Código heredado con <code>XMLHttpRequest</code></span></a></li><li><a class="section-nav-link badge-link" href="#6-codigo-heredado-con-jquery-ajax"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-code-square"></i></span><span>6. Código heredado con jQuery Ajax</span></a></li><li><a class="section-nav-link badge-link" href="#7-peticiones-get-y-post"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-send"></i></span><span>7. Peticiones GET y POST</span></a></li><li><a class="section-nav-link badge-link" href="#8-diferencias-en-el-tratamiento-de-errores"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-exclamation-triangle"></i></span><span>8. Diferencias en el tratamiento de errores</span></a></li><li><a class="section-nav-link badge-link" href="#9-ajax-json-y-renderizado-seguro"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-braces"></i></span><span>9. AJAX, JSON y renderizado seguro</span></a></li><li><a class="section-nav-link badge-link" href="#10-comparacion-completa-de-implementaciones"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-columns-gap"></i></span><span>10. Comparación completa de implementaciones</span></a></li><li><a class="section-nav-link badge-link" href="#11-como-leer-codigo-heredado-y-errores-frecuentes"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-tools"></i></span><span>11. Cómo leer código heredado y errores frecuentes</span></a></li><li><a class="section-nav-link badge-link" href="#12-preguntas-resumen-y-contenidos-aplazados"><span aria-hidden="true" class="section-nav-icon"><i class="bi bi-check2-circle"></i></span><span>12. Preguntas, resumen y contenidos aplazados</span></a></li></ol>
+</nav>
+</aside>
+<div class="content-wrapper">
+<header class="content-header"><h1><span aria-hidden="true" class="document-title-icon"><i class="bi bi-arrow-left-right"></i></span> UD2_B4c. AJAX: contexto, código heredado y relación con <code>fetch()</code></h1></header>
+<hr class="content-separator"/>
+<section class="content-section" id="1-objetivos-contexto-y-entorno-de-trabajo"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Objetivos, contexto y entorno de trabajo</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.1. Qué vamos a aprender</h3><p>En los documentos anteriores de la UD2 hemos trabajado la comunicación asíncrona moderna mediante:</p><ul class="custom-list">
+<li>promesas;</li>
+<li><code>async</code> y <code>await</code>;</li>
+<li><code>fetch()</code>;</li>
+<li>JSON;</li>
+<li>validación de respuestas;</li>
+<li>renderizado dinámico en el DOM;</li>
+<li>estados de carga, éxito, ausencia de resultados y error.</li>
+</ul><p>Este documento tiene un objetivo complementario: <strong>comprender qué significa AJAX y reconocer código heredado</strong> basado en:</p><ul class="custom-list">
+<li><code>XMLHttpRequest</code>;</li>
+<li><code>$.ajax()</code>;</li>
+<li>callbacks;</li>
+<li>métodos de <code>jqXHR</code>.</li>
+</ul><p>En este curso seguiremos utilizando como enfoque principal:</p><div class="example-block"><pre class="code-js"><code class="language-js">const respuesta =
+  await fetch(url);
+
+const datos =
+  await respuesta.json();
+</code></pre></div><p>No sustituiremos <code>fetch()</code> por <code>XMLHttpRequest</code> ni por <code>$.ajax()</code>. Estudiaremos estas APIs para poder leer, comparar y mantener código existente.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.2. Qué significa código heredado</h3><p>Llamamos <strong>código heredado</strong> a código que:</p><ul class="custom-list">
+<li>fue escrito con tecnologías anteriores;</li>
+<li>continúa funcionando;</li>
+<li>forma parte de aplicaciones mantenidas durante años;</li>
+<li>aparece en plantillas, tutoriales antiguos o proyectos reales;</li>
+<li>no siempre conviene reescribir de inmediato.</li>
+</ul><p>Reconocerlo permite:</p><ul class="custom-list">
+<li>localizar qué petición se realiza;</li>
+<li>entender cómo se procesan los datos;</li>
+<li>detectar errores;</li>
+<li>mantener aplicaciones existentes;</li>
+<li>modernizar fragmentos de forma controlada.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 1.3. Utilizar un servidor web</h3><p>Los ejemplos con archivos JSON deben ejecutarse desde un servidor local.</p><p>Dirección recomendada:</p><div class="example-block"><pre class="code-bash"><code class="language-text">http://127.0.0.1:5500/index.html
+</code></pre></div><p>Evita abrir directamente:</p><div class="example-block"><pre class="code-bash"><code class="language-text">file:///C:/proyecto/index.html
+</code></pre></div><p>Tanto <code>fetch()</code>, como <code>XMLHttpRequest</code> y <code>$.ajax()</code> están sujetos a:</p><ul class="custom-list">
+<li>políticas de mismo origen;</li>
+<li>restricciones de seguridad;</li>
+<li>CORS cuando se solicitan recursos de otro origen.</li>
+</ul><hr/></section><section class="content-section" id="2-que-es-ajax"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-lightning-charge"></i></span> 2. Qué es AJAX</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.1. Significado histórico</h3><p>AJAX significa:</p><div class="example-block"><pre class="code-bash"><code class="language-text">Asynchronous JavaScript and XML
+</code></pre></div><p>El nombre es histórico. En la actualidad es mucho más frecuente trabajar con JSON que con XML.</p><p>AJAX no es:</p><ul class="custom-list">
+<li>una función;</li>
+<li>una biblioteca;</li>
+<li>una API concreta;</li>
+<li>una obligación de utilizar XML.</li>
+</ul><p>AJAX es una denominación para un patrón de comunicación:</p><blockquote class="note-box">
+<p>JavaScript inicia una petición asíncrona, recibe una respuesta y actualiza parte de la página sin recargarla por completo.</p>
+</blockquote><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.2. Antes y después de AJAX</h3><p>En una navegación tradicional:</p><ol class="custom-ordered-list">
+<li>el usuario pulsa un enlace o envía un formulario;</li>
+<li>el navegador solicita una nueva página;</li>
+<li>el servidor responde;</li>
+<li>la página completa se recarga.</li>
+</ol><p>Con una comunicación de tipo AJAX:</p><ol class="custom-ordered-list">
+<li>el usuario realiza una acción;</li>
+<li>JavaScript inicia una petición;</li>
+<li>mientras la respuesta está pendiente, la página puede atender otros eventos;</li>
+<li>llegan los datos;</li>
+<li>JavaScript actualiza únicamente la parte necesaria del DOM.</li>
+</ol><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 2.3. AJAX y asincronía</h3><p>Decir que una petición se realiza «en segundo plano» no significa necesariamente que JavaScript ejecute ese código en otro hilo.</p><p>De forma simplificada:</p><ol class="custom-ordered-list">
+<li>JavaScript inicia la operación;</li>
+<li>el navegador gestiona la espera;</li>
+<li>cuando llega la respuesta, se programa la continuación;</li>
+<li>JavaScript procesa el resultado cuando puede atenderlo.</li>
+</ol><p>AJAX se relaciona con la asincronía, pero no implica paralelismo automático.</p><hr/></section><section class="content-section" id="3-ajax-como-concepto-y-tecnologias-relacionadas"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 3. AJAX como concepto y tecnologías relacionadas</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.1. Comparación general</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Concepto o tecnología</th>
+<th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AJAX</td>
+<td>Patrón de comunicación asíncrona sin recargar toda la página.</td>
+</tr>
+<tr>
+<td><code>XMLHttpRequest</code></td>
+<td>API del navegador anterior a <code>fetch()</code>, basada principalmente en eventos.</td>
+</tr>
+<tr>
+<td><code>fetch()</code></td>
+<td>API moderna basada en promesas para realizar peticiones HTTP.</td>
+</tr>
+<tr>
+<td><code>$.ajax()</code></td>
+<td>Método de jQuery para realizar peticiones Ajax.</td>
+</tr>
+<tr>
+<td><code>jqXHR</code></td>
+<td>Objeto devuelto por las funciones Ajax de jQuery.</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>Formato de texto habitual para intercambiar datos estructurados.</td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.2. Idea clave</h3><p><code>XMLHttpRequest</code>, <code>fetch()</code> y <code>$.ajax()</code> pueden utilizarse para implementar comunicaciones asociadas al patrón AJAX.</p><p>No debemos escribir:</p><div class="example-block"><pre class="code-bash"><code class="language-text">AJAX frente a fetch
+</code></pre></div><p>como si fueran conceptos equivalentes.</p><p>Es más preciso escribir:</p><div class="example-block"><pre class="code-bash"><code class="language-text">XMLHttpRequest frente a fetch
+</code></pre></div><p>o:</p><div class="example-block"><pre class="code-bash"><code class="language-text">$.ajax() frente a fetch()
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 3.3. Enfoque del curso</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Código nuevo en este curso</th>
+<th>Código heredado que debemos reconocer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fetch()</code></td>
+<td><code>XMLHttpRequest</code></td>
+</tr>
+<tr>
+<td>promesas</td>
+<td>callbacks</td>
+</tr>
+<tr>
+<td><code>async</code> / <code>await</code></td>
+<td><code>success</code> / <code>error</code></td>
+</tr>
+<tr>
+<td><code>try...catch...finally</code></td>
+<td><code>error</code>, <code>complete</code>, <code>.fail()</code>, <code>.always()</code></td>
+</tr>
+<tr>
+<td>DOM nativo</td>
+<td>jQuery</td>
+</tr>
+</tbody>
+</table></div><hr/></section><section class="content-section" id="4-referencia-moderna-con-fetch"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cloud-download"></i></span> 4. Referencia moderna con <code>fetch()</code></h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.1. Carga segura de productos</h3><div class="example-block"><pre class="code-js"><code class="language-js">async function obtenerProductos() {
+  const respuesta =
+    await fetch(
+      "datos/productos.json"
+    );
+
+  if (!respuesta.ok) {
+    throw new Error(
+      `Error HTTP: ${respuesta.status}`
+    );
+  }
+
+  const productos =
+    await respuesta.json();
+
+  if (!Array.isArray(productos)) {
+    throw new Error(
+      "El formato recibido no es una lista de productos."
+    );
+  }
+
+  return productos;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.2. Cargar y tratar estados</h3><div class="example-block"><pre class="code-js"><code class="language-js">async function cargarProductos() {
+  botonCargar.disabled = true;
+
+  estado.textContent =
+    "Cargando productos...";
+
+  listaProductos.setAttribute(
+    "aria-busy",
+    "true"
+  );
+
+  listaProductos.replaceChildren();
+
+  try {
+    const productos =
+      await obtenerProductos();
+
+    if (productos.length === 0) {
+      estado.textContent =
+        "No hay productos disponibles.";
+
+      return;
+    }
+
+    renderizarProductos(
+      productos
+    );
+
+    estado.textContent =
+      "Productos cargados correctamente.";
+  } catch (error) {
+    estado.textContent =
+      "No se pudieron cargar los productos.";
+
+    console.error(error);
+  } finally {
+    botonCargar.disabled = false;
+
+    listaProductos.setAttribute(
+      "aria-busy",
+      "false"
+    );
+  }
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 4.3. Qué errores pueden aparecer</h3><p>Con <code>fetch()</code> debemos diferenciar:</p><ul class="custom-list">
+<li>error de red;</li>
+<li>error HTTP;</li>
+<li>error al interpretar JSON;</li>
+<li>formato inesperado;</li>
+<li>CORS;</li>
+<li>error de renderizado.</li>
+</ul><p>Un estado <code>404</code> o <code>500</code> no provoca por sí solo el <code>catch</code>. Por eso comprobamos:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (!respuesta.ok) {
+  throw new Error(
+    `Error HTTP: ${respuesta.status}`
+  );
+}
+</code></pre></div><hr/></section><section class="content-section" id="5-codigo-heredado-con-xmlhttprequest"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-repeat"></i></span> 5. Código heredado con <code>XMLHttpRequest</code></h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.1. Qué es <code>XMLHttpRequest</code></h3><p><code>XMLHttpRequest</code> es una API anterior a <code>fetch()</code>.</p><p>Sigue disponible en los navegadores, pero normalmente no será nuestra primera opción para código nuevo.</p><p>Su funcionamiento se basa principalmente en:</p><ul class="custom-list">
+<li>creación de un objeto;</li>
+<li>preparación de la petición;</li>
+<li>eventos;</li>
+<li>comprobación manual del estado;</li>
+<li>lectura de la respuesta;</li>
+<li>envío mediante <code>send()</code>.</li>
+</ul><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.2. Ejemplo clásico con <code>responseText</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">const xhr =
+  new XMLHttpRequest();
+
+xhr.open(
+  "GET",
+  "datos/productos.json"
+);
+
+xhr.addEventListener(
+  "load",
+  () =&gt; {
+    if (
+      xhr.status &lt; 200
+      || xhr.status &gt;= 300
+    ) {
+      console.error(
+        "Error HTTP:",
+        xhr.status
+      );
+
+      return;
+    }
+
+    try {
+      const productos =
+        JSON.parse(
+          xhr.responseText
+        );
+
+      if (!Array.isArray(productos)) {
+        throw new Error(
+          "El formato recibido no es una lista."
+        );
+      }
+
+      console.log(productos);
+    } catch (error) {
+      console.error(
+        "No se pudo interpretar la respuesta:",
+        error
+      );
+    }
+  }
+);
+
+xhr.addEventListener(
+  "error",
+  () =&gt; {
+    console.error(
+      "Error de red."
+    );
+  }
+);
+
+xhr.send();
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.3. Partes principales</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Parte</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>new XMLHttpRequest()</code></td>
+<td>Crea el objeto de petición.</td>
+</tr>
+<tr>
+<td><code>open(metodo, url)</code></td>
+<td>Prepara la petición.</td>
+</tr>
+<tr>
+<td><code>load</code></td>
+<td>Se ejecuta cuando llega una respuesta.</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>Se ejecuta ante determinados fallos de red.</td>
+</tr>
+<tr>
+<td><code>xhr.status</code></td>
+<td>Contiene el código HTTP.</td>
+</tr>
+<tr>
+<td><code>xhr.responseText</code></td>
+<td>Contiene la respuesta como texto.</td>
+</tr>
+<tr>
+<td><code>JSON.parse()</code></td>
+<td>Convierte texto JSON en datos JavaScript.</td>
+</tr>
+<tr>
+<td><code>send()</code></td>
+<td>Envía la petición.</td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.4. El evento <code>error</code> no detecta todos los errores</h3><p>Una respuesta HTTP <code>404</code> o <code>500</code> puede llegar al evento <code>load</code>.</p><p>Por eso debemos comprobar:</p><div class="example-block"><pre class="code-js"><code class="language-js">xhr.status
+</code></pre></div><p>El evento <code>error</code> no sustituye esa comprobación.</p><p>También debemos tratar por separado los errores producidos por:</p><div class="example-block"><pre class="code-js"><code class="language-js">JSON.parse(
+  xhr.responseText
+);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.5. Petición asíncrona por defecto</h3><p>Este código:</p><div class="example-block"><pre class="code-js"><code class="language-js">xhr.open(
+  "GET",
+  "datos/productos.json"
+);
+</code></pre></div><p>prepara una petición asíncrona por defecto.</p><p>No trabajaremos con peticiones XHR síncronas.</p><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 5.6. Alternativa con <code>responseType = "json"</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">const xhr =
+  new XMLHttpRequest();
+
+xhr.open(
+  "GET",
+  "datos/productos.json"
+);
+
+xhr.responseType =
+  "json";
+
+xhr.addEventListener(
+  "load",
+  () =&gt; {
+    if (
+      xhr.status &lt; 200
+      || xhr.status &gt;= 300
+    ) {
+      console.error(
+        `Error HTTP: ${xhr.status}`
+      );
+
+      return;
+    }
+
+    const productos =
+      xhr.response;
+
+    if (!Array.isArray(productos)) {
+      console.error(
+        "Formato inesperado."
+      );
+
+      return;
+    }
+
+    console.log(productos);
+  }
+);
+
+xhr.addEventListener(
+  "error",
+  () =&gt; {
+    console.error(
+      "Error de red."
+    );
+  }
+);
+
+xhr.send();
+</code></pre></div><p>Este patrón evita llamar manualmente a <code>JSON.parse()</code>, pero conviene reconocer ambas formas.</p><hr/></section><section class="content-section" id="6-codigo-heredado-con-jquery-ajax"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-code-square"></i></span> 6. Código heredado con jQuery Ajax</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.1. Requisito: versión completa de jQuery</h3><p>Para utilizar:</p><div class="example-block"><pre class="code-js"><code class="language-js">$.ajax()
+</code></pre></div><p>necesitamos la distribución completa de jQuery.</p><p>La versión <strong>slim</strong> no incluye los módulos Ajax.</p><p>Por tanto, una página que utilice <code>$.ajax()</code> no debe cargar un archivo similar a:</p><div class="example-block"><pre class="code-bash"><code class="language-text">jquery.slim.min.js
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.2. Ejemplo con <code>success</code>, <code>error</code> y <code>complete</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">$.ajax({
+  url:
+    "datos/productos.json",
+
+  method:
+    "GET",
+
+  dataType:
+    "json",
+
+  success:
+    function (productos) {
+      if (
+        !Array.isArray(productos)
+      ) {
+        $("#estado").text(
+          "Formato de datos incorrecto."
+        );
+
+        return;
+      }
+
+      console.log(productos);
+    },
+
+  error:
+    function (
+      jqXHR,
+      estado,
+      error
+    ) {
+      console.error(
+        jqXHR.status,
+        estado,
+        error
+      );
+    },
+
+  complete:
+    function () {
+      console.log(
+        "Petición finalizada."
+      );
+    }
+});
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.3. Opciones principales de <code>$.ajax()</code></h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Opción</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>url</code></td>
+<td>Dirección del recurso.</td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td>Método HTTP, por ejemplo <code>"GET"</code> o <code>"POST"</code>.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>Nombre antiguo todavía reconocible para indicar el método.</td>
+</tr>
+<tr>
+<td><code>dataType</code></td>
+<td>Tipo de respuesta esperado.</td>
+</tr>
+<tr>
+<td><code>contentType</code></td>
+<td>Tipo del contenido que se envía.</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>Datos enviados.</td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td>Callback ejecutado cuando la operación termina correctamente.</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>Callback ejecutado cuando jQuery considera que la petición ha fallado.</td>
+</tr>
+<tr>
+<td><code>complete</code></td>
+<td>Callback ejecutado al finalizar, haya éxito o error.</td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.4. <code>contentType</code> y <code>dataType</code></h3><p>No significan lo mismo.</p><div class="example-block"><pre class="code-js"><code class="language-js">contentType:
+  "application/json"
+</code></pre></div><p>indica el tipo de contenido enviado.</p><div class="example-block"><pre class="code-js"><code class="language-js">dataType:
+  "json"
+</code></pre></div><p>indica el tipo de respuesta que esperamos recibir.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code class="language-js">$.ajax({
+  url:
+    "https://api.ejemplo.com/productos",
+
+  method:
+    "POST",
+
+  contentType:
+    "application/json",
+
+  dataType:
+    "json",
+
+  data:
+    JSON.stringify({
+      nombre:
+        "Teclado",
+
+      precio:
+        25
+    })
+});
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.5. El objeto <code>jqXHR</code></h3><p><code>$.ajax()</code> devuelve un objeto <code>jqXHR</code>.</p><p>Este objeto permite encadenar:</p><div class="example-block"><pre class="code-js"><code class="language-js">.done()
+.fail()
+.always()
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code class="language-js">$.ajax({
+  url:
+    "datos/productos.json",
+
+  dataType:
+    "json"
+})
+  .done(
+    function (productos) {
+      console.log(
+        productos
+      );
+    }
+  )
+  .fail(
+    function (
+      jqXHR,
+      estado,
+      error
+    ) {
+      console.error(
+        jqXHR.status,
+        estado,
+        error
+      );
+    }
+  )
+  .always(
+    function () {
+      console.log(
+        "Petición finalizada."
+      );
+    }
+  );
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 6.6. Métodos antiguos eliminados</h3><p>En código muy antiguo pueden aparecer:</p><div class="example-block"><pre class="code-js"><code class="language-js">jqXHR.success()
+jqXHR.error()
+jqXHR.complete()
+</code></pre></div><p>Estos métodos no deben confundirse con las opciones:</p><div class="example-block"><pre class="code-js"><code class="language-js">success:
+error:
+complete:
+</code></pre></div><p>Los métodos antiguos fueron sustituidos por:</p><div class="example-block"><pre class="code-js"><code class="language-js">.done()
+.fail()
+.always()
+</code></pre></div><hr/></section><section class="content-section" id="7-peticiones-get-y-post"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-send"></i></span> 7. Peticiones GET y POST</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 7.1. GET con <code>fetch()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">async function obtenerUsuarios() {
+  const respuesta =
+    await fetch(
+      "datos/usuarios.json"
+    );
+
+  if (!respuesta.ok) {
+    throw new Error(
+      `Error HTTP: ${respuesta.status}`
+    );
+  }
+
+  const usuarios =
+    await respuesta.json();
+
+  if (!Array.isArray(usuarios)) {
+    throw new Error(
+      "El formato recibido no es una lista."
+    );
+  }
+
+  return usuarios;
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 7.2. GET con jQuery</h3><div class="example-block"><pre class="code-js"><code class="language-js">$.ajax({
+  url:
+    "datos/usuarios.json",
+
+  method:
+    "GET",
+
+  dataType:
+    "json",
+
+  success:
+    function (usuarios) {
+      if (
+        !Array.isArray(usuarios)
+      ) {
+        console.error(
+          "Formato incorrecto."
+        );
+
+        return;
+      }
+
+      console.log(usuarios);
+    },
+
+  error:
+    function (
+      jqXHR,
+      estado,
+      error
+    ) {
+      console.error(
+        jqXHR.status,
+        estado,
+        error
+      );
+    }
+});
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 7.3. POST con <code>fetch()</code></h3><p>La URL es ficticia. El ejemplo muestra únicamente la estructura.</p><div class="example-block"><pre class="code-js"><code class="language-js">async function enviarProducto(
+  producto
+) {
+  try {
+    const respuesta =
+      await fetch(
+        "https://api.ejemplo.com/productos",
+        {
+          method:
+            "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify(
+              producto
+            )
+        }
+      );
+
+    if (!respuesta.ok) {
+      throw new Error(
+        `Error HTTP: ${respuesta.status}`
+      );
+    }
+
+    const resultado =
+      await respuesta.json();
+
+    console.log(resultado);
+  } catch (error) {
+    console.error(
+      "No se pudo enviar el producto:",
+      error
+    );
+  }
+}
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 7.4. POST con jQuery</h3><div class="example-block"><pre class="code-js"><code class="language-js">$.ajax({
+  url:
+    "https://api.ejemplo.com/productos",
+
+  method:
+    "POST",
+
+  contentType:
+    "application/json",
+
+  dataType:
+    "json",
+
+  data:
+    JSON.stringify({
+      nombre:
+        "Teclado",
+
+      precio:
+        25
+    }),
+
+  success:
+    function (resultado) {
+      console.log(resultado);
+    },
+
+  error:
+    function (
+      jqXHR,
+      estado,
+      error
+    ) {
+      console.error(
+        jqXHR.status,
+        estado,
+        error
+      );
+    }
+});
+</code></pre></div><p>En este curso priorizaremos <code>fetch()</code> para código nuevo.</p><hr/></section><section class="content-section" id="8-diferencias-en-el-tratamiento-de-errores"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-exclamation-triangle"></i></span> 8. Diferencias en el tratamiento de errores</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.1. Comparación</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Situación</th>
+<th><code>fetch()</code></th>
+<th><code>XMLHttpRequest</code></th>
+<th><code>$.ajax()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Error de red</td>
+<td>Rechaza la promesa</td>
+<td>Evento <code>error</code></td>
+<td>Callback <code>error</code> o <code>.fail()</code></td>
+</tr>
+<tr>
+<td>Error HTTP</td>
+<td>Hay que comprobar <code>response.ok</code></td>
+<td>Hay que comprobar <code>xhr.status</code></td>
+<td>jQuery lo trata normalmente como error</td>
+</tr>
+<tr>
+<td>JSON incorrecto</td>
+<td>Puede fallar <code>response.json()</code></td>
+<td>Puede fallar <code>JSON.parse()</code></td>
+<td>Puede activar <code>error</code> si se esperaba JSON</td>
+</tr>
+<tr>
+<td>Formato inesperado</td>
+<td>Debe validarse manualmente</td>
+<td>Debe validarse manualmente</td>
+<td>Debe validarse manualmente</td>
+</tr>
+<tr>
+<td>Acción final común</td>
+<td><code>finally</code></td>
+<td>Código compartido o eventos</td>
+<td><code>complete</code> o <code>.always()</code></td>
+</tr>
+</tbody>
+</table></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.2. No todos los errores son iguales</h3><p>Debemos distinguir:</p><ul class="custom-list">
+<li>fallo de red;</li>
+<li>error HTTP;</li>
+<li>error de JSON;</li>
+<li>formato inesperado;</li>
+<li>CORS;</li>
+<li>error de renderizado.</li>
+</ul><p>El mensaje para el usuario puede ser general:</p><div class="example-block"><pre class="code-bash"><code class="language-text">No se pudieron cargar los productos.
+</code></pre></div><p>La consola puede mostrar detalles técnicos:</p><div class="example-block"><pre class="code-js"><code class="language-js">console.error(error);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 8.3. CORS básico</h3><p>Aunque una URL exista, el navegador puede impedir que una página lea la respuesta si el servidor no autoriza el origen.</p><p>CORS no se soluciona:</p><ul class="custom-list">
+<li>desactivando la seguridad del navegador;</li>
+<li>añadiendo código arbitrario al cliente;</li>
+<li>cambiando únicamente <code>fetch()</code> por XHR o jQuery.</li>
+</ul><p>La autorización debe proceder del servidor.</p><hr/></section><section class="content-section" id="9-ajax-json-y-renderizado-seguro"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces"></i></span> 9. AJAX, JSON y renderizado seguro</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.1. Patrón general</h3><p>Una aplicación dinámica suele seguir este flujo:</p><ol class="custom-ordered-list">
+<li>se inicia una petición;</li>
+<li>llega una respuesta;</li>
+<li>se comprueba el estado;</li>
+<li>se interpreta JSON;</li>
+<li>se valida la estructura;</li>
+<li>se trata el estado vacío;</li>
+<li>se renderizan los datos;</li>
+<li>se actualiza el estado de la interfaz;</li>
+<li>se restauran los controles.</li>
+</ol><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.2. HTML accesible</h3><div class="example-block"><pre class="code-html"><code class="language-html">&lt;section&gt;
+  &lt;h2&gt;Productos&lt;/h2&gt;
+
+  &lt;p
+    id="estado"
+    aria-live="polite"
+  &gt;
+    Pulsa para cargar los productos.
+  &lt;/p&gt;
+
+  &lt;button
+    type="button"
+    id="boton-cargar"
+  &gt;
+    Cargar productos
+  &lt;/button&gt;
+
+  &lt;ul
+    id="lista-productos"
+    aria-busy="false"
+  &gt;&lt;/ul&gt;
+&lt;/section&gt;
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.3. Renderizado seguro con DOM nativo</h3><div class="example-block"><pre class="code-js"><code class="language-js">function renderizarProductos(
+  productos
+) {
+  listaProductos.replaceChildren();
+
+  productos.forEach(
+    (producto) =&gt; {
+      const li =
+        document.createElement(
+          "li"
+        );
+
+      li.textContent =
+        `${producto.nombre} - ${producto.precio} €`;
+
+      listaProductos.append(li);
+    }
+  );
+}
+</code></pre></div><p>Evita insertar datos externos con:</p><div class="example-block"><pre class="code-js"><code class="language-js">innerHTML
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 9.4. Renderizado seguro con jQuery</h3><p>Evita:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#lista-productos")
+  .append(
+    `&lt;li&gt;${texto}&lt;/li&gt;`
+  );
+</code></pre></div><p>Utiliza:</p><div class="example-block"><pre class="code-js"><code class="language-js">const elemento =
+  $("&lt;li&gt;");
+
+elemento.text(texto);
+
+$("#lista-productos")
+  .append(elemento);
+</code></pre></div><p>El método <code>.text()</code> trata el contenido como texto, no como HTML.</p><hr/></section><section class="content-section" id="10-comparacion-completa-de-implementaciones"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-columns-gap"></i></span> 10. Comparación completa de implementaciones</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 10.1. Versión moderna con <code>fetch()</code></h3><div class="example-block"><pre class="code-js"><code class="language-js">const boton =
+  document.querySelector(
+    "#boton-cargar"
+  );
+
+const estado =
+  document.querySelector(
+    "#estado"
+  );
+
+const listaProductos =
+  document.querySelector(
+    "#lista-productos"
+  );
+
+async function obtenerProductos() {
+  const respuesta =
+    await fetch(
+      "datos/productos.json"
+    );
+
+  if (!respuesta.ok) {
+    throw new Error(
+      `Error HTTP: ${respuesta.status}`
+    );
+  }
+
+  const productos =
+    await respuesta.json();
+
+  if (!Array.isArray(productos)) {
+    throw new Error(
+      "Formato incorrecto."
+    );
+  }
+
+  return productos;
+}
+
+function renderizarProductos(
+  productos
+) {
+  listaProductos.replaceChildren();
+
+  productos.forEach(
+    (producto) =&gt; {
+      const li =
+        document.createElement(
+          "li"
+        );
+
+      li.textContent =
+        `${producto.nombre} - ${producto.precio} €`;
+
+      listaProductos.append(li);
+    }
+  );
+}
+
+async function cargarProductos() {
+  boton.disabled = true;
+
+  estado.textContent =
+    "Cargando productos...";
+
+  listaProductos.setAttribute(
+    "aria-busy",
+    "true"
+  );
+
+  listaProductos.replaceChildren();
+
+  try {
+    const productos =
+      await obtenerProductos();
+
+    if (productos.length === 0) {
+      estado.textContent =
+        "No hay productos disponibles.";
+
+      return;
+    }
+
+    renderizarProductos(
+      productos
+    );
+
+    estado.textContent =
+      "Productos cargados correctamente.";
+  } catch (error) {
+    estado.textContent =
+      "Se produjo un error al cargar los productos.";
+
+    console.error(error);
+  } finally {
+    boton.disabled = false;
+
+    listaProductos.setAttribute(
+      "aria-busy",
+      "false"
+    );
+  }
+}
+
+boton.addEventListener(
+  "click",
+  cargarProductos
+);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 10.2. Versión aproximada con jQuery</h3><div class="example-block"><pre class="code-js"><code class="language-js">$("#boton-cargar").on(
+  "click",
+  function () {
+    $("#boton-cargar")
+      .prop(
+        "disabled",
+        true
+      );
+
+    $("#estado").text(
+      "Cargando productos..."
+    );
+
+    $("#lista-productos")
+      .attr(
+        "aria-busy",
+        "true"
+      )
+      .empty();
+
+    $.ajax({
+      url:
+        "datos/productos.json",
+
+      method:
+        "GET",
+
+      dataType:
+        "json",
+
+      success:
+        function (productos) {
+          if (
+            !Array.isArray(
+              productos
+            )
+          ) {
+            $("#estado").text(
+              "Formato de datos incorrecto."
+            );
+
+            return;
+          }
+
+          if (
+            productos.length === 0
+          ) {
+            $("#estado").text(
+              "No hay productos disponibles."
+            );
+
+            return;
+          }
+
+          productos.forEach(
+            function (producto) {
+              const texto =
+                `${producto.nombre} - ${producto.precio} €`;
+
+              const elemento =
+                $("&lt;li&gt;");
+
+              elemento.text(
+                texto
+              );
+
+              $("#lista-productos")
+                .append(
+                  elemento
+                );
+            }
+          );
+
+          $("#estado").text(
+            "Productos cargados correctamente."
+          );
+        },
+
+      error:
+        function (
+          jqXHR,
+          estado,
+          error
+        ) {
+          $("#estado").text(
+            "Se produjo un error al cargar los productos."
+          );
+
+          console.error(
+            jqXHR.status,
+            estado,
+            error
+          );
+        },
+
+      complete:
+        function () {
+          $("#boton-cargar")
+            .prop(
+              "disabled",
+              false
+            );
+
+          $("#lista-productos")
+            .attr(
+              "aria-busy",
+              "false"
+            );
+        }
+    });
+  }
+);
+</code></pre></div><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 10.3. Comparación</h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Aspecto</th>
+<th><code>fetch()</code></th>
+<th>jQuery Ajax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inicio</td>
+<td><code>fetch(url)</code></td>
+<td><code>$.ajax({...})</code></td>
+</tr>
+<tr>
+<td>Resultado</td>
+<td>Promesa</td>
+<td><code>jqXHR</code></td>
+</tr>
+<tr>
+<td>Éxito</td>
+<td><code>await</code> o <code>.then()</code></td>
+<td><code>success</code> o <code>.done()</code></td>
+</tr>
+<tr>
+<td>Error</td>
+<td><code>catch</code></td>
+<td><code>error</code> o <code>.fail()</code></td>
+</tr>
+<tr>
+<td>Finalización</td>
+<td><code>finally</code></td>
+<td><code>complete</code> o <code>.always()</code></td>
+</tr>
+<tr>
+<td>JSON</td>
+<td><code>response.json()</code></td>
+<td><code>dataType: "json"</code></td>
+</tr>
+<tr>
+<td>Error HTTP</td>
+<td><code>response.ok</code></td>
+<td>jQuery lo clasifica normalmente como error</td>
+</tr>
+<tr>
+<td>Enfoque del curso</td>
+<td>Principal</td>
+<td>Reconocimiento de código heredado</td>
+</tr>
+</tbody>
+</table></div><hr/></section><section class="content-section" id="11-como-leer-codigo-heredado-y-errores-frecuentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-tools"></i></span> 11. Cómo leer código heredado y errores frecuentes</h2><div class="good-practice-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.1. Estrategia de lectura</h3><p>Cuando encuentres una petición heredada:</p><ol class="custom-ordered-list">
+<li>localiza la URL;</li>
+<li>identifica el método HTTP;</li>
+<li>comprueba qué datos se envían;</li>
+<li>identifica el formato esperado;</li>
+<li>localiza la función de éxito;</li>
+<li>localiza el tratamiento del error;</li>
+<li>busca una acción final común;</li>
+<li>revisa cómo se modifica el DOM;</li>
+<li>comprueba si se insertan datos como HTML;</li>
+<li>determina cómo se reescribiría con <code>fetch()</code>.</li>
+</ol></div><div class="good-practice-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.2. Traducir XHR a <code>fetch()</code></h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th><code>XMLHttpRequest</code></th>
+<th><code>fetch()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>new XMLHttpRequest()</code></td>
+<td><code>fetch(url)</code></td>
+</tr>
+<tr>
+<td><code>open()</code></td>
+<td>URL y opciones</td>
+</tr>
+<tr>
+<td>evento <code>load</code></td>
+<td>resolución de la promesa</td>
+</tr>
+<tr>
+<td><code>xhr.status</code></td>
+<td><code>response.status</code> y <code>response.ok</code></td>
+</tr>
+<tr>
+<td><code>responseText</code></td>
+<td><code>response.text()</code> o <code>response.json()</code></td>
+</tr>
+<tr>
+<td>evento <code>error</code></td>
+<td><code>catch</code></td>
+</tr>
+<tr>
+<td><code>send()</code></td>
+<td>llamada a <code>fetch()</code></td>
+</tr>
+</tbody>
+</table></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.3. Error: pensar que AJAX es solo jQuery</h3><p>AJAX es un concepto general.</p><p>jQuery es una de las herramientas que se ha utilizado para implementarlo.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.4. Error: pensar que AJAX siempre usa XML</h3><p>Aunque el nombre incluya XML, hoy es habitual trabajar con JSON.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.5. Error: pensar que XHR está eliminado</h3><p><code>XMLHttpRequest</code> sigue disponible.</p><p>El problema no es que haya desaparecido, sino que suele resultar más verboso que <code>fetch()</code>.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.6. Error: no comprobar errores HTTP</h3><p>Con <code>fetch()</code>:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (!respuesta.ok) {
+  throw new Error(
+    `Error HTTP: ${respuesta.status}`
+  );
+}
+</code></pre></div><p>Con XHR:</p><div class="example-block"><pre class="code-js"><code class="language-js">if (
+  xhr.status &lt; 200
+  || xhr.status &gt;= 300
+) {
+  console.error(
+    xhr.status
+  );
+}
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.7. Error: pensar que el evento <code>error</code> de XHR detecta un 404</h3><p>Un <code>404</code> puede llegar al evento <code>load</code>.</p><p>Debemos revisar:</p><div class="example-block"><pre class="code-js"><code class="language-js">xhr.status
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.8. Error: confundir <code>contentType</code> y <code>dataType</code></h3><ul class="custom-list">
+<li><code>contentType</code>: lo que enviamos;</li>
+<li><code>dataType</code>: lo que esperamos recibir.</li>
+</ul></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.9. Error: usar jQuery slim con Ajax</h3><p>La versión slim no incluye:</p><div class="example-block"><pre class="code-js"><code class="language-js">$.ajax()
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.10. Error: utilizar métodos antiguos de <code>jqXHR</code></h3><p>Evita código nuevo con:</p><div class="example-block"><pre class="code-js"><code class="language-js">jqXHR.success()
+jqXHR.error()
+jqXHR.complete()
+</code></pre></div><p>Reconoce y utiliza:</p><div class="example-block"><pre class="code-js"><code class="language-js">.done()
+.fail()
+.always()
+</code></pre></div></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.11. Error: insertar datos externos como HTML</h3><p>Evita:</p><div class="example-block"><pre class="code-js"><code class="language-js">lista.innerHTML =
+  `&lt;li&gt;${producto.nombre}&lt;/li&gt;`;
+</code></pre></div><p>y:</p><div class="example-block"><pre class="code-js"><code class="language-js">$("#lista")
+  .append(
+    `&lt;li&gt;${producto.nombre}&lt;/li&gt;`
+  );
+</code></pre></div><p>Utiliza nodos DOM o <code>.text()</code>.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.12. Error: no tratar el array vacío</h3><div class="example-block"><pre class="code-js"><code class="language-js">if (productos.length === 0) {
+  mostrarSinResultados();
+}
+</code></pre></div><p>Una respuesta vacía puede ser válida.</p></div><div class="error-card"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 11.13. Error: mezclar estilos sin criterio</h3><p>No conviene combinar en una misma solución:</p><ul class="custom-list">
+<li>XHR;</li>
+<li><code>fetch()</code>;</li>
+<li><code>$.ajax()</code>;</li>
+<li>callbacks;</li>
+<li><code>async</code>/<code>await</code>;</li>
+</ul><p>salvo que el objetivo sea compararlos.</p><p>Para código nuevo en este curso utilizaremos principalmente <code>fetch()</code> con <code>async</code>/<code>await</code>.</p><hr/></div></section><section class="content-section" id="12-preguntas-resumen-y-contenidos-aplazados"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-circle"></i></span> 12. Preguntas, resumen y contenidos aplazados</h2><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.1. Preguntas tipo examen</h3><ol class="custom-ordered-list">
+<li>¿Qué significa AJAX?</li>
+<li>¿AJAX es una función, una API o un patrón?</li>
+<li>¿AJAX obliga a utilizar XML?</li>
+<li>¿Por qué <code>fetch()</code> puede utilizarse para implementar AJAX?</li>
+<li>¿Qué diferencia existe entre AJAX y <code>XMLHttpRequest</code>?</li>
+<li>¿Qué diferencia existe entre <code>XMLHttpRequest</code> y <code>fetch()</code>?</li>
+<li>¿Qué evento XHR se ejecuta cuando llega una respuesta?</li>
+<li>¿Por qué el evento <code>error</code> de XHR no sustituye la comprobación de <code>xhr.status</code>?</li>
+<li>¿Qué contiene <code>xhr.responseText</code>?</li>
+<li>¿Para qué sirve <code>xhr.responseType = "json"</code>?</li>
+<li>¿Qué devuelve <code>$.ajax()</code>?</li>
+<li>¿Qué diferencia existe entre <code>success</code> y <code>.done()</code>?</li>
+<li>¿Qué diferencia existe entre <code>error</code> y <code>.fail()</code>?</li>
+<li>¿Para qué sirven <code>complete</code> y <code>.always()</code>?</li>
+<li>¿Qué diferencia existe entre <code>contentType</code> y <code>dataType</code>?</li>
+<li>¿Por qué la versión slim de jQuery no sirve para <code>$.ajax()</code>?</li>
+<li>¿Qué métodos antiguos de <code>jqXHR</code> fueron sustituidos?</li>
+<li>¿Por qué debemos comprobar <code>response.ok</code>?</li>
+<li>¿Qué diferencia existe entre un error de red y un error HTTP?</li>
+<li>¿Por qué debemos validar <code>Array.isArray()</code>?</li>
+<li>¿Qué diferencia existe entre JSON válido y formato esperado?</li>
+<li>¿Por qué no debe insertarse contenido externo mediante cadenas HTML?</li>
+<li>¿Qué estado debe mostrarse cuando el array está vacío?</li>
+<li>¿Qué pasos seguirías para analizar una petición heredada?</li>
+<li>¿Cómo traducirías <code>xhr.status</code> al patrón de <code>fetch()</code>?</li>
+<li>¿Qué herramienta priorizamos para código nuevo en este curso?</li>
+</ol><div class="concept-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.2. Resumen final</h3><ul class="custom-list">
+<li>AJAX es un patrón de comunicación asíncrona sin recargar toda la página.</li>
+<li>No es una API ni una biblioteca concreta.</li>
+<li><code>XMLHttpRequest</code> es una API anterior a <code>fetch()</code>.</li>
+<li>XHR sigue disponible, pero suele ser más verboso.</li>
+<li><code>fetch()</code> se basa en promesas.</li>
+<li><code>$.ajax()</code> pertenece a jQuery.</li>
+<li><code>$.ajax()</code> devuelve un objeto <code>jqXHR</code>.</li>
+<li>jQuery permite usar <code>success</code>, <code>error</code> y <code>complete</code>.</li>
+<li><code>jqXHR</code> permite encadenar <code>.done()</code>, <code>.fail()</code> y <code>.always()</code>.</li>
+<li>La versión slim de jQuery no incluye Ajax.</li>
+<li><code>contentType</code> describe lo enviado.</li>
+<li><code>dataType</code> describe la respuesta esperada.</li>
+<li>Los errores de red y los errores HTTP son diferentes.</li>
+<li>Los datos recibidos deben validarse.</li>
+<li>Un array vacío no es necesariamente un error.</li>
+<li>Los datos externos deben renderizarse como texto o mediante nodos DOM.</li>
+<li>En este curso priorizamos <code>fetch()</code> con <code>async</code>/<code>await</code>.</li>
+</ul></div><div class="note-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.3. Contenidos relacionados</h3><p>Este documento se conecta con:</p><ul class="custom-list">
+<li>DOM;</li>
+<li>eventos;</li>
+<li>formularios;</li>
+<li>JSON;</li>
+<li>promesas;</li>
+<li><code>async</code>/<code>await</code>;</li>
+<li><code>fetch()</code>;</li>
+<li>renderizado dinámico;</li>
+<li>jQuery;</li>
+<li>mantenimiento de código heredado.</li>
+</ul></div><div class="note-box"><h3><span aria-hidden="true" class="subsection-icon"><i class="bi bi-chevron-right"></i></span> 12.4. Contenidos aplazados</h3><p>Quedan fuera como contenido principal:</p><ul class="custom-list">
+<li>cabeceras HTTP avanzadas;</li>
+<li>autenticación;</li>
+<li>tokens;</li>
+<li>CORS en profundidad;</li>
+<li>subida de archivos;</li>
+<li><code>AbortController</code>;</li>
+<li><code>Promise.all()</code>;</li>
+<li>concurrencia avanzada;</li>
+<li>interceptores;</li>
+<li>librerías modernas de consulta de datos;</li>
+<li>frameworks frontend;</li>
+<li>migraciones completas de aplicaciones heredadas.</li>
+</ul></div></section></div>
+</div>
+</main>
+</div>
+<script src="../../assets/js/smpp.js"></script>
+</body>
+</html>

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UD2_B2. DOM: estructura, acceso y manipulación</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../assets/css/smpp.css">
+  <script src="../../assets/js/smpp.js" defer></script>
+</head>
+<body>
+  <div class="smpp-scope">
+    <main class="main-content has-sidebar notes-page">
+      <div class="content-layout">
+        <aside class="section-sidebar">
+          <nav class="section-nav" aria-label="Índice del documento">
+            <p class="section-nav-title">
+              <i class="bi bi-signpost-split" aria-hidden="true"></i>
+              Contenidos del bloque
+            </p>
+            <ul class="section-nav-list"><li><a class="section-nav-link" href="#1-que-vamos-a-aprender-en-este-bloque"><i class="bi bi-bullseye" aria-hidden="true"></i><span>1. Qué vamos a aprender en este bloque</span></a></li><li><a class="section-nav-link" href="#2-que-es-el-dom-y-el-objeto-document"><i class="bi bi-diagram-3" aria-hidden="true"></i><span>2. Qué es el DOM y el objeto document</span></a></li><li><a class="section-nav-link" href="#3-preparar-correctamente-html-y-javascript"><i class="bi bi-file-earmark-code" aria-hidden="true"></i><span>3. Preparar correctamente HTML y JavaScript</span></a></li><li><a class="section-nav-link" href="#4-seleccionar-elementos-del-dom"><i class="bi bi-cursor" aria-hidden="true"></i><span>4. Seleccionar elementos del DOM</span></a></li><li><a class="section-nav-link" href="#5-leer-y-modificar-contenido"><i class="bi bi-input-cursor-text" aria-hidden="true"></i><span>5. Leer y modificar contenido</span></a></li><li><a class="section-nav-link" href="#6-atributos-clases-y-estilos"><i class="bi bi-palette" aria-hidden="true"></i><span>6. Atributos, clases y estilos</span></a></li><li><a class="section-nav-link" href="#7-crear-e-insertar-elementos"><i class="bi bi-plus-square" aria-hidden="true"></i><span>7. Crear e insertar elementos</span></a></li><li><a class="section-nav-link" href="#8-generar-contenido-desde-datos"><i class="bi bi-braces" aria-hidden="true"></i><span>8. Generar contenido desde datos</span></a></li><li><a class="section-nav-link" href="#9-vaciar-y-eliminar-contenido"><i class="bi bi-trash3" aria-hidden="true"></i><span>9. Vaciar y eliminar contenido</span></a></li><li><a class="section-nav-link" href="#10-comprobar-si-un-elemento-existe"><i class="bi bi-shield-check" aria-hidden="true"></i><span>10. Comprobar si un elemento existe</span></a></li><li><a class="section-nav-link" href="#11-ejemplo-completo-guiado"><i class="bi bi-window-stack" aria-hidden="true"></i><span>11. Ejemplo completo guiado</span></a></li><li><a class="section-nav-link" href="#12-buenas-practicas-al-manipular-el-dom"><i class="bi bi-check2-circle" aria-hidden="true"></i><span>12. Buenas prácticas al manipular el DOM</span></a></li><li><a class="section-nav-link" href="#13-errores-frecuentes"><i class="bi bi-bug" aria-hidden="true"></i><span>13. Errores frecuentes</span></a></li><li><a class="section-nav-link" href="#14-preguntas-tipo-examen"><i class="bi bi-patch-question" aria-hidden="true"></i><span>14. Preguntas tipo examen</span></a></li><li><a class="section-nav-link" href="#15-que-veremos-despues"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i><span>15. Qué veremos después</span></a></li><li><a class="section-nav-link" href="#16-resumen-final"><i class="bi bi-journal-check" aria-hidden="true"></i><span>16. Resumen final</span></a></li></ul>
+          </nav>
+        </aside>
+
+        <div class="content-wrapper">
+          <div class="document-toolbar">
+            <a class="document-home-link" href="../../index.html">
+              <i class="bi bi-house-door" aria-hidden="true"></i>
+              Índice del curso
+            </a>
+            <button id="theme-toggle" class="document-theme-toggle" type="button">
+              <i class="bi bi-moon-stars" aria-hidden="true"></i>
+              Modo oscuro
+            </button>
+          </div>
+
+          <header class="content-header">
+            <span class="document-kicker">
+              <i class="bi bi-diagram-3" aria-hidden="true"></i>
+              Apuntes · UD2 B2
+            </span>
+            <h1>
+              <span class="document-title-icon" aria-hidden="true">
+                <i class="bi bi-browser-chrome"></i>
+              </span>
+              UD2_B2. DOM: estructura, acceso y manipulación
+            </h1>
+            <p class="lead-text">
+              Introducción al DOM del navegador: selección, lectura,
+              modificación, creación y eliminación de elementos HTML
+              mediante JavaScript.
+            </p>
+          </header>
+
+<section class="content-section learning-objectives-section" id="1-que-vamos-a-aprender-en-este-bloque"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bullseye"></i></span> 1. Qué vamos a aprender en este bloque</h2><p>En este bloque empezamos a trabajar con una de las partes más importantes de JavaScript en el navegador: el <strong>DOM</strong>.</p><p>Hasta ahora hemos escrito programas que trabajan principalmente con variables, funciones, arrays, objetos y datos. A partir de este bloque, JavaScript empezará a interactuar con una página HTML real.</p><p>En este documento aprenderás a:</p><ul class="custom-list">
+<li>entender qué es el DOM;</li>
+<li>acceder a elementos de una página con JavaScript;</li>
+<li>leer y modificar texto y contenido HTML;</li>
+<li>cambiar atributos y clases CSS;</li>
+<li>crear elementos nuevos desde JavaScript;</li>
+<li>añadir elementos a la página;</li>
+<li>eliminar elementos;</li>
+<li>generar contenido dinámico a partir de arrays y objetos.</li>
+</ul><blockquote class="warning-box">
+<p><strong>Importante:</strong> en este bloque todavía no trabajaremos eventos, formularios ni asincronía. Primero necesitamos aprender a acceder y modificar la estructura de la página.</p>
+</blockquote><hr/></section>
+<section class="content-section concept-section" id="2-que-es-el-dom-y-el-objeto-document"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-diagram-3"></i></span> 2. Qué es el DOM y el objeto <code>document</code></h2><p>El <strong>DOM</strong> significa <strong>Document Object Model</strong>, o modelo de objetos del documento.</p><p>Cuando el navegador carga una página HTML, no se limita a mostrar el texto del fichero. Internamente construye una estructura en forma de árbol, donde cada etiqueta HTML se convierte en un <strong>objeto</strong> que JavaScript puede consultar y modificar.</p><p>Por ejemplo, este HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Ejemplo DOM&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Mi página&lt;/h1&gt;
+  &lt;p&gt;Primer párrafo&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><p>El navegador lo interpreta como una estructura de objetos parecida a esta:</p><div class="example-block"><pre class="code-text"><code>document
+└── html
+    ├── head
+    │   ├── meta
+    │   └── title
+    └── body
+        ├── h1
+        └── p
+</code></pre></div><p>La idea clave es esta:</p><blockquote class="note-box">
+<p>El DOM permite que JavaScript acceda a una página HTML y la modifique mientras se está ejecutando en el navegador.</p>
+</blockquote><hr/><h3>2.1. El objeto <code>document</code></h3><p>El punto de entrada principal al DOM es el objeto <code>document</code>.</p><p><code>document</code> representa la página cargada en el navegador.</p><p>Con <code>document</code> podemos:</p><ul class="custom-list">
+<li>buscar elementos;</li>
+<li>leer contenido;</li>
+<li>modificar contenido;</li>
+<li>crear elementos nuevos;</li>
+<li>insertar elementos;</li>
+<li>eliminar elementos.</li>
+</ul><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>console.log(document);
+</code></pre></div><p>Si ejecutas esa instrucción en la consola del navegador, verás una representación del documento HTML cargado.</p><blockquote class="warning-box">
+<p><strong>Importante</strong></p>
+<p>El DOM no forma parte del núcleo del lenguaje JavaScript: es una API proporcionada por el navegador.
+Por eso <code>document</code>, <code>querySelector()</code> o <code>createElement()</code> no están disponibles directamente al ejecutar un archivo con Node.js.</p>
+<p>Los ejemplos de este bloque deben ejecutarse dentro de una página HTML abierta en el navegador. Si intentas ejecutar directamente <code>node script.js</code>, aparecerá un error similar a:</p>
+<div class="example-block"><pre class="code-text"><code>ReferenceError: document is not defined
+</code></pre></div>
+</blockquote><hr/></section>
+<section class="content-section syntax-section" id="3-preparar-correctamente-html-y-javascript"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-file-earmark-code"></i></span> 3. Preparar correctamente HTML y JavaScript</h2><p>Para que JavaScript pueda acceder a los elementos de la página, el HTML debe estar cargado antes de ejecutar el código.</p><p>Una forma sencilla es colocar el script al final del <code>body</code>:</p><div class="example-block"><pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Prueba DOM&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id="titulo"&gt;Hola DOM&lt;/h1&gt;
+  &lt;p class="mensaje"&gt;Primer mensaje&lt;/p&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><p>Otra forma habitual es usar <code>defer</code> en el enlace al fichero JavaScript:</p><div class="example-block"><pre class="code-html"><code>&lt;script src="script.js" defer&gt;&lt;/script&gt;
+</code></pre></div><p>En este bloque usaremos preferentemente una de estas dos opciones.</p><blockquote class="warning-box">
+<p><strong>Error frecuente:</strong> enlazar el JavaScript en el <code>head</code> sin <code>defer</code> y luego intentar acceder a elementos que todavía no se han cargado.</p>
+</blockquote><hr/></section>
+<section class="content-section selection-section" id="4-seleccionar-elementos-del-dom"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-cursor"></i></span> 4. Seleccionar elementos del DOM</h2><p>Para modificar una página, primero necesitamos seleccionar el elemento sobre el que queremos trabajar.</p><p>Los métodos más habituales son:</p><ul class="custom-list">
+<li><code>document.querySelector()</code>;</li>
+<li><code>document.querySelectorAll()</code>.</li>
+</ul><hr/><h3>4.1. <code>querySelector()</code>: seleccionar un único elemento</h3><p><code>querySelector()</code> devuelve el <strong>primer elemento</strong> que coincide con un selector CSS.</p><p>Sintaxis:</p><div class="example-block"><pre class="code-js"><code>const elemento = document.querySelector("selectorCSS");
+</code></pre></div><p>Ejemplo de HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;h1 id="titulo"&gt;Bienvenido/a&lt;/h1&gt;
+&lt;p class="mensaje"&gt;Este es el primer mensaje.&lt;/p&gt;
+&lt;p class="mensaje"&gt;Este es el segundo mensaje.&lt;/p&gt;
+</code></pre></div><p>Ejemplo de JavaScript:</p><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("#titulo");
+const primerMensaje = document.querySelector(".mensaje");
+
+console.log(titulo);
+console.log(primerMensaje);
+</code></pre></div><p>Observa los selectores:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Selector</th>
+<th>Qué selecciona</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"h1"</code></td>
+<td>El primer <code>&lt;h1&gt;</code> que encuentre</td>
+</tr>
+<tr>
+<td><code>"#titulo"</code></td>
+<td>El elemento con <code>id="titulo"</code></td>
+</tr>
+<tr>
+<td><code>".mensaje"</code></td>
+<td>El primer elemento con <code>class="mensaje"</code></td>
+</tr>
+<tr>
+<td><code>"section p"</code></td>
+<td>El primer <code>&lt;p&gt;</code> dentro de un <code>&lt;section&gt;</code></td>
+</tr>
+</tbody>
+</table></div><blockquote class="note-box">
+<p>En una página HTML correcta, cada valor de <code>id</code> debe ser único.</p>
+</blockquote><hr/><h3>4.2. <code>querySelectorAll()</code>: seleccionar varios elementos</h3><p><code>querySelectorAll()</code> devuelve <strong>todos los elementos</strong> que coinciden con un selector CSS.</p><p>Ejemplo de HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;ul&gt;
+  &lt;li class="tarea"&gt;Estudiar JavaScript&lt;/li&gt;
+  &lt;li class="tarea"&gt;Practicar DOM&lt;/li&gt;
+  &lt;li class="tarea"&gt;Repasar arrays&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre></div><p>Ejemplo de JavaScript:</p><div class="example-block"><pre class="code-js"><code>const tareas = document.querySelectorAll(".tarea");
+
+console.log(tareas);
+console.log(tareas.length);
+</code></pre></div><p>El resultado no es un array normal, sino una <strong>NodeList</strong>. En el caso de <code>querySelectorAll()</code>, esa <code>NodeList</code> es <strong>estática</strong>: contiene los elementos que coincidían en el momento de realizar la selección. Si después se añaden nuevos elementos al DOM, la colección no se actualiza automáticamente.</p><p>Aun así, podemos recorrerla con <code>forEach</code>:</p><div class="example-block"><pre class="code-js"><code>const tareas = document.querySelectorAll(".tarea");
+
+tareas.forEach((tarea) =&gt; {
+  console.log(tarea.textContent);
+});
+</code></pre></div><blockquote class="note-box important">
+<p><strong>Recuerda:</strong> <code>querySelector()</code> selecciona un elemento. <code>querySelectorAll()</code> selecciona varios.</p>
+<p>En los ejemplos guiados suponemos que el HTML contiene exactamente los elementos mostrados. En código reutilizable, o cuando un elemento pueda no existir, debes comprobar el resultado de <code>querySelector()</code> antes de usarlo.</p>
+</blockquote><hr/></section>
+<section class="content-section content-manipulation-section" id="5-leer-y-modificar-contenido"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-input-cursor-text"></i></span> 5. Leer y modificar contenido</h2><h3>5.1. Leer texto con <code>textContent</code></h3><p>La propiedad <code>textContent</code> permite leer el texto de un elemento.</p><p>HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;h1 id="titulo"&gt;Página de pruebas&lt;/h1&gt;
+</code></pre></div><p>JavaScript:</p><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("#titulo");
+
+console.log(titulo.textContent); // Página de pruebas
+</code></pre></div><p>También podemos guardar ese texto en una variable:</p><div class="example-block"><pre class="code-js"><code>const textoTitulo = titulo.textContent;
+console.log("El título actual es:", textoTitulo);
+</code></pre></div><hr/><h3>5.2. Modificar texto con <code>textContent</code></h3><p><code>textContent</code> también permite cambiar el texto de un elemento.</p><p>HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;h1 id="titulo"&gt;Título original&lt;/h1&gt;
+</code></pre></div><p>JavaScript:</p><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("#titulo");
+
+titulo.textContent = "Título modificado desde JavaScript";
+</code></pre></div><p>Resultado en la página:</p><div class="example-block"><pre class="code-text"><code>Título modificado desde JavaScript
+</code></pre></div><p><code>textContent</code> trata el contenido como texto. Si escribes etiquetas HTML, no las interpreta como etiquetas.</p><div class="example-block"><pre class="code-js"><code>titulo.textContent = "&lt;strong&gt;Texto importante&lt;/strong&gt;";
+</code></pre></div><p>En la página se verá literalmente:</p><div class="example-block"><pre class="code-text"><code>&lt;strong&gt;Texto importante&lt;/strong&gt;
+</code></pre></div><hr/><h3>5.3. Modificar contenido HTML con <code>innerHTML</code></h3><p>La propiedad <code>innerHTML</code> permite leer o modificar el contenido HTML interno de un elemento.</p><p>HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;div id="contenedor"&gt;&lt;/div&gt;
+</code></pre></div><p>JavaScript:</p><div class="example-block"><pre class="code-js"><code>const contenedor = document.querySelector("#contenedor");
+
+contenedor.innerHTML = "&lt;p&gt;Texto generado desde JavaScript&lt;/p&gt;";
+</code></pre></div><p>En este caso el navegador sí interpreta la etiqueta <code>&lt;p&gt;</code>.</p><h3>Diferencia entre <code>textContent</code> e <code>innerHTML</code></h3><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Interpreta HTML</th>
+<th>Uso recomendado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>textContent</code></td>
+<td>No</td>
+<td>Cambiar texto simple</td>
+</tr>
+<tr>
+<td><code>innerHTML</code></td>
+<td>Sí</td>
+<td>Insertar contenido HTML controlado</td>
+</tr>
+</tbody>
+</table></div><blockquote class="note-box important">
+<p><strong>Regla práctica</strong></p>
+<ul class="custom-list">
+<li>Usa <code>textContent</code> para textos.</li>
+<li>Usa <code>innerHTML</code> únicamente cuando necesites crear estructura HTML a partir de una cadena controlada.</li>
+<li>Cuando sea posible, crea los elementos con <code>createElement()</code> y asigna sus textos mediante <code>textContent</code>.</li>
+</ul>
+</blockquote><h3>Precaución con <code>innerHTML</code></h3><p>No uses <code>innerHTML</code> para insertar contenido procedente del usuario o de una fuente no confiable, salvo que haya sido tratado y sanitizado específicamente.</p><p>Por ejemplo, esto puede ser peligroso en una aplicación real:</p><div class="example-block"><pre class="code-js"><code>const textoUsuario = prompt("Escribe un comentario");
+contenedor.innerHTML = textoUsuario;
+</code></pre></div><p>Para texto introducido por el usuario, es más seguro usar <code>textContent</code>. Esto ayuda a evitar vulnerabilidades de inyección de código, como XSS.</p><hr/></section>
+<section class="content-section attributes-section" id="6-atributos-clases-y-estilos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-palette"></i></span> 6. Atributos, clases y estilos</h2><h3>6.1. Leer y modificar atributos</h3><p>Los elementos HTML tienen atributos, como <code>src</code>, <code>href</code>, <code>alt</code>, <code>id</code>, <code>class</code>, <code>title</code>, etc.</p><p>Ejemplo:</p><div class="example-block"><pre class="code-html"><code>&lt;img id="logo" src="img/logo.png" alt="Logo del sitio"&gt;
+&lt;a id="enlace" href="https://example.com"&gt;Ir al sitio&lt;/a&gt;
+</code></pre></div><p>Podemos leer atributos con <code>getAttribute()</code>. Este método devuelve el valor del atributo como texto y, si el atributo no existe, devuelve <code>null</code>:</p><div class="example-block"><pre class="code-js"><code>const logo = document.querySelector("#logo");
+
+console.log(logo.getAttribute("src"));
+console.log(logo.getAttribute("alt"));
+
+const tituloImagen = logo.getAttribute("title");
+
+if (tituloImagen === null) {
+  console.log("La imagen no tiene atributo title");
+}
+</code></pre></div><p>Podemos modificarlos con <code>setAttribute()</code>:</p><div class="example-block"><pre class="code-js"><code>logo.setAttribute("src", "img/logo-nuevo.png");
+logo.setAttribute("alt", "Nuevo logo del sitio");
+</code></pre></div><p>Otro ejemplo con un enlace:</p><div class="example-block"><pre class="code-js"><code>const enlace = document.querySelector("#enlace");
+
+enlace.setAttribute("href", "https://developer.mozilla.org/");
+enlace.textContent = "Ir a documentación";
+</code></pre></div><hr/><h3>6.2. Trabajar con clases CSS usando <code>classList</code></h3><p>Una forma muy habitual de cambiar el aspecto de un elemento desde JavaScript es añadir o quitar clases CSS.</p><p>HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;p id="aviso"&gt;Mensaje importante&lt;/p&gt;
+</code></pre></div><p>CSS:</p><div class="example-block"><pre class="code-css"><code>.destacado {
+  color: white;
+  background-color: darkred;
+  padding: 10px;
+}
+
+.oculto {
+  display: none;
+}
+</code></pre></div><p>JavaScript:</p><div class="example-block"><pre class="code-js"><code>const aviso = document.querySelector("#aviso");
+
+aviso.classList.add("destacado");
+</code></pre></div><p>Métodos frecuentes de <code>classList</code>:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Método</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>classList.add("clase")</code></td>
+<td>Añade una clase</td>
+</tr>
+<tr>
+<td><code>classList.remove("clase")</code></td>
+<td>Quita una clase</td>
+</tr>
+<tr>
+<td><code>classList.toggle("clase")</code></td>
+<td>Añade la clase si no está, y la quita si ya está</td>
+</tr>
+<tr>
+<td><code>classList.contains("clase")</code></td>
+<td>Comprueba si el elemento tiene esa clase</td>
+</tr>
+</tbody>
+</table></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const aviso = document.querySelector("#aviso");
+
+aviso.classList.add("destacado");
+console.log(aviso.classList.contains("destacado")); // true
+
+aviso.classList.remove("destacado");
+
+const estaOculto = aviso.classList.toggle("oculto");
+console.log(estaOculto);
+</code></pre></div><p><code>classList.toggle()</code> devuelve <code>true</code> si la clase ha quedado añadida y <code>false</code> si ha quedado eliminada.</p><blockquote class="note-box">
+<p>En general, es mejor cambiar clases CSS que modificar estilos directamente desde JavaScript.</p>
+</blockquote><hr/><h3>6.3. Modificar estilos directamente</h3><p>También se puede modificar la propiedad <code>style</code> de un elemento.</p><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("#titulo");
+
+titulo.style.color = "blue";
+titulo.style.backgroundColor = "lightyellow";
+titulo.style.padding = "10px";
+</code></pre></div><p>Observa que en JavaScript las propiedades CSS con guion se escriben en formato camelCase:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>CSS</th>
+<th>JavaScript</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>background-color</code></td>
+<td><code>backgroundColor</code></td>
+</tr>
+<tr>
+<td><code>font-size</code></td>
+<td><code>fontSize</code></td>
+</tr>
+<tr>
+<td><code>border-radius</code></td>
+<td><code>borderRadius</code></td>
+</tr>
+</tbody>
+</table></div><p>Aun así, para proyectos reales es más limpio definir estilos en CSS y activar o desactivar clases con <code>classList</code>.</p><hr/></section>
+<section class="content-section creation-section" id="7-crear-e-insertar-elementos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-plus-square"></i></span> 7. Crear e insertar elementos</h2><h3>7.1. Crear elementos con <code>createElement()</code></h3><p>JavaScript puede crear elementos HTML nuevos.</p><div class="example-block"><pre class="code-js"><code>const parrafo = document.createElement("p");
+parrafo.textContent = "Este párrafo se ha creado desde JavaScript.";
+</code></pre></div><p>En este momento el párrafo existe en memoria, pero todavía no está dentro de la página.</p><p>Para verlo en el documento, hay que insertarlo en algún elemento del DOM.</p><hr/><h3>7.2. Añadir elementos con <code>append()</code></h3><p>HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;div id="contenedor"&gt;&lt;/div&gt;
+</code></pre></div><p>JavaScript:</p><div class="example-block"><pre class="code-js"><code>const contenedor = document.querySelector("#contenedor");
+
+const parrafo = document.createElement("p");
+parrafo.textContent = "Párrafo añadido al contenedor.";
+
+contenedor.append(parrafo);
+</code></pre></div><p>También podemos crear una lista completa:</p><div class="example-block"><pre class="code-js"><code>const lista = document.createElement("ul");
+
+const elemento1 = document.createElement("li");
+elemento1.textContent = "Primer elemento";
+
+const elemento2 = document.createElement("li");
+elemento2.textContent = "Segundo elemento";
+
+lista.append(elemento1, elemento2);
+
+const contenedor = document.querySelector("#contenedor");
+contenedor.append(lista);
+</code></pre></div><p><code>append()</code> puede recibir uno o varios nodos en una misma llamada.</p><hr/></section>
+<section class="content-section rendering-section" id="8-generar-contenido-desde-datos"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-braces"></i></span> 8. Generar contenido desde datos</h2><h3>8.1. Crear contenido a partir de un array</h3><p>Podemos combinar lo aprendido sobre arrays con DOM.</p><p>HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;ul id="lista-tareas"&gt;&lt;/ul&gt;
+</code></pre></div><p>JavaScript:</p><div class="example-block"><pre class="code-js"><code>const tareas = ["Estudiar DOM", "Practicar JavaScript", "Repasar arrays"];
+const listaTareas = document.querySelector("#lista-tareas");
+
+tareas.forEach((tarea) =&gt; {
+  const li = document.createElement("li");
+  li.textContent = tarea;
+  listaTareas.append(li);
+});
+</code></pre></div><p>Resultado:</p><div class="example-block"><pre class="code-html"><code>&lt;ul id="lista-tareas"&gt;
+  &lt;li&gt;Estudiar DOM&lt;/li&gt;
+  &lt;li&gt;Practicar JavaScript&lt;/li&gt;
+  &lt;li&gt;Repasar arrays&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre></div><hr/><h3>8.2. Crear contenido a partir de un array de objetos</h3><p>También podemos generar contenido usando arrays de objetos.</p><p>HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;section id="catalogo"&gt;&lt;/section&gt;
+</code></pre></div><p>JavaScript:</p><div class="example-block"><pre class="code-js"><code>const productos = [
+  { nombre: "Teclado", precio: 25 },
+  { nombre: "Ratón", precio: 12 },
+  { nombre: "Monitor", precio: 160 }
+];
+
+const catalogo = document.querySelector("#catalogo");
+
+productos.forEach((producto) =&gt; {
+  const articulo = document.createElement("article");
+
+  const titulo = document.createElement("h2");
+  titulo.textContent = producto.nombre;
+
+  const precio = document.createElement("p");
+  precio.textContent = `Precio: ${producto.precio} €`;
+
+  articulo.append(titulo, precio);
+  catalogo.append(articulo);
+});
+</code></pre></div><p>Este patrón será muy importante en los siguientes bloques, especialmente cuando trabajemos con datos externos.</p><hr/></section>
+<section class="content-section creation-section" id="9-vaciar-y-eliminar-contenido"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-trash3"></i></span> 9. Vaciar y eliminar contenido</h2><h3>9.1. Vaciar un contenedor antes de volver a pintar</h3><p>A veces necesitamos limpiar un contenedor antes de volver a generar su contenido.</p><p>HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;ul id="lista"&gt;&lt;/ul&gt;
+</code></pre></div><p>JavaScript:</p><div class="example-block"><pre class="code-js"><code>const lista = document.querySelector("#lista");
+
+lista.innerHTML = "";
+</code></pre></div><p>Usar <code>innerHTML = ""</code> para vaciar un contenedor es seguro porque no se está insertando contenido externo.</p><p>También podemos vaciarlo sin utilizar una cadena HTML:</p><div class="example-block"><pre class="code-js"><code>lista.replaceChildren();
+</code></pre></div><p><code>replaceChildren()</code> elimina todos los elementos hijos del contenedor.</p><p>Después de vaciarlo, podemos volver a insertar elementos.</p><div class="example-block"><pre class="code-js"><code>const nombres = ["Ana", "Luis", "María"];
+
+lista.innerHTML = "";
+
+nombres.forEach((nombre) =&gt; {
+  const li = document.createElement("li");
+  li.textContent = nombre;
+  lista.append(li);
+});
+</code></pre></div><hr/><h3>9.2. Eliminar elementos del DOM</h3><p>Podemos eliminar un elemento con <code>.remove()</code>.</p><p>HTML:</p><div class="example-block"><pre class="code-html"><code>&lt;p id="mensaje"&gt;Este mensaje se eliminará.&lt;/p&gt;
+</code></pre></div><p>JavaScript:</p><div class="example-block"><pre class="code-js"><code>const mensaje = document.querySelector("#mensaje");
+
+mensaje.remove();
+</code></pre></div><p>También se puede eliminar un elemento seleccionado dentro de una lista:</p><div class="example-block"><pre class="code-js"><code>const primerElemento = document.querySelector("li");
+
+if (primerElemento !== null) {
+  primerElemento.remove();
+}
+</code></pre></div><hr/></section>
+<section class="content-section logic-section" id="10-comprobar-si-un-elemento-existe"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-shield-check"></i></span> 10. Comprobar si un elemento existe</h2><p>Si <code>querySelector()</code> no encuentra ningún elemento, devuelve <code>null</code>.</p><div class="example-block"><pre class="code-js"><code>const caja = document.querySelector("#caja");
+
+console.log(caja); // null si no existe
+</code></pre></div><p>Antes de modificar un elemento, conviene comprobar que existe:</p><div class="example-block"><pre class="code-js"><code>const caja = document.querySelector("#caja");
+
+if (caja !== null) {
+  caja.textContent = "Caja encontrada";
+} else {
+  console.log("No existe ningún elemento con id caja");
+}
+</code></pre></div><p>Esto evita errores como:</p><div class="example-block"><pre class="code-text"><code>Cannot set properties of null
+</code></pre></div><hr/></section>
+<section class="content-section guided-example-section" id="11-ejemplo-completo-guiado"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-window-stack"></i></span> 11. Ejemplo completo guiado</h2><h3>HTML</h3><div class="example-block"><pre class="code-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Ejemplo DOM&lt;/title&gt;
+  &lt;link rel="stylesheet" href="estilos.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id="titulo"&gt;Catálogo&lt;/h1&gt;
+  &lt;section id="catalogo"&gt;&lt;/section&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><h3>CSS</h3><div class="example-block"><pre class="code-css"><code>.producto {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.caro {
+  background-color: #ffe5e5;
+}
+</code></pre></div><h3>JavaScript</h3><div class="example-block"><pre class="code-js"><code>const productos = [
+  { nombre: "Teclado", precio: 25 },
+  { nombre: "Ratón", precio: 12 },
+  { nombre: "Monitor", precio: 160 }
+];
+
+const titulo = document.querySelector("#titulo");
+const catalogo = document.querySelector("#catalogo");
+
+titulo.textContent = "Catálogo de productos";
+
+function crearElementoProducto(producto) {
+  const articulo = document.createElement("article");
+  articulo.classList.add("producto");
+
+  if (producto.precio &gt;= 100) {
+    articulo.classList.add("caro");
+  }
+
+  const nombre = document.createElement("h2");
+  nombre.textContent = producto.nombre;
+
+  const precio = document.createElement("p");
+  precio.textContent = `Precio: ${producto.precio} €`;
+
+  articulo.append(nombre, precio);
+
+  return articulo;
+}
+
+productos.forEach((producto) =&gt; {
+  catalogo.append(crearElementoProducto(producto));
+});
+</code></pre></div><p>Este ejemplo separa la creación de cada producto en una función reutilizable y combina:</p><ul class="custom-list">
+<li>selección de elementos;</li>
+<li>modificación de texto;</li>
+<li>creación de elementos;</li>
+<li>uso de clases CSS;</li>
+<li>recorrido de arrays de objetos;</li>
+<li>inserción dinámica en el DOM.</li>
+</ul><hr/></section>
+<section class="content-section review-section" id="12-buenas-practicas-al-manipular-el-dom"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-check2-circle"></i></span> 12. Buenas prácticas al manipular el DOM</h2><ul class="custom-list">
+<li>Usa nombres de variables claros.</li>
+<li>Comprueba que el elemento existe si puede no estar en la página.</li>
+<li>Usa <code>textContent</code> para texto normal.</li>
+<li>Usa <code>innerHTML</code> solo cuando necesites insertar HTML controlado.</li>
+<li>Prefiere <code>classList</code> para cambiar estilos.</li>
+<li>Mantén separado el HTML, CSS y JavaScript.</li>
+<li>No mezcles demasiadas operaciones distintas en una misma función.</li>
+<li>Crea funciones para renderizar contenido cuando el código empiece a crecer.</li>
+</ul><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>function crearElementoProducto(producto) {
+  const articulo = document.createElement("article");
+  articulo.classList.add("producto");
+
+  const nombre = document.createElement("h2");
+  nombre.textContent = producto.nombre;
+
+  const precio = document.createElement("p");
+  precio.textContent = `Precio: ${producto.precio} €`;
+
+  articulo.append(nombre);
+  articulo.append(precio);
+
+  return articulo;
+}
+</code></pre></div><p>Uso:</p><div class="example-block"><pre class="code-js"><code>const catalogo = document.querySelector("#catalogo");
+
+productos.forEach((producto) =&gt; {
+  const elementoProducto = crearElementoProducto(producto);
+  catalogo.append(elementoProducto);
+});
+</code></pre></div><hr/></section>
+<section class="content-section frequent-errors-section" id="13-errores-frecuentes"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-bug"></i></span> 13. Errores frecuentes</h2><div class="error-card"><h3>Error 1. Seleccionar un elemento que no existe</h3><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("#tituloPrincipal");
+titulo.textContent = "Nuevo título";
+</code></pre></div><p>Si no existe ningún elemento con <code>id="tituloPrincipal"</code>, <code>titulo</code> será <code>null</code>.</p><p>Corrección:</p><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("#tituloPrincipal");
+
+if (titulo !== null) {
+  titulo.textContent = "Nuevo título";
+}
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 2. Confundir <code>querySelector</code> y <code>querySelectorAll</code></h3><div class="example-block"><pre class="code-js"><code>const parrafos = document.querySelectorAll("p");
+parrafos.textContent = "Texto nuevo";
+</code></pre></div><p><code>parrafos</code> contiene varios elementos, no uno solo.</p><p>Corrección:</p><div class="example-block"><pre class="code-js"><code>const parrafos = document.querySelectorAll("p");
+
+parrafos.forEach((parrafo) =&gt; {
+  parrafo.textContent = "Texto nuevo";
+});
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 3. Usar mal el selector</h3><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("titulo");
+</code></pre></div><p>Esto busca una etiqueta <code>&lt;titulo&gt;</code>, no un elemento con <code>id="titulo"</code>.</p><p>Corrección:</p><div class="example-block"><pre class="code-js"><code>const titulo = document.querySelector("#titulo");
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 4. Crear un elemento pero no insertarlo</h3><div class="example-block"><pre class="code-js"><code>const parrafo = document.createElement("p");
+parrafo.textContent = "Hola";
+</code></pre></div><p>El párrafo se ha creado, pero no aparece en la página porque no se ha añadido al DOM.</p><p>Corrección:</p><div class="example-block"><pre class="code-js"><code>const contenedor = document.querySelector("#contenedor");
+
+const parrafo = document.createElement("p");
+parrafo.textContent = "Hola";
+
+contenedor.append(parrafo);
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 5. Usar <code>innerHTML</code> para texto de usuario</h3><div class="example-block"><pre class="code-js"><code>const comentario = prompt("Escribe un comentario");
+contenedor.innerHTML = comentario;
+</code></pre></div><p>Para texto de usuario, mejor:</p><div class="example-block"><pre class="code-js"><code>const comentario = prompt("Escribe un comentario");
+contenedor.textContent = comentario;
+</code></pre></div><hr/></div></section>
+<section class="content-section review-section" id="14-preguntas-tipo-examen"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-patch-question"></i></span> 14. Preguntas tipo examen</h2><ol class="custom-ordered-list">
+<li>¿Qué significa DOM?</li>
+<li>¿Qué representa el objeto <code>document</code>?</li>
+<li>¿Qué diferencia hay entre <code>querySelector()</code> y <code>querySelectorAll()</code>?</li>
+<li>¿Qué devuelve <code>querySelector()</code> si no encuentra ningún elemento?</li>
+<li>¿Qué diferencia hay entre <code>textContent</code> e <code>innerHTML</code>?</li>
+<li>¿Por qué hay que tener cuidado con <code>innerHTML</code>?</li>
+<li>¿Para qué sirve <code>classList.add()</code>?</li>
+<li>¿Qué método permite crear un nuevo elemento HTML desde JavaScript?</li>
+<li>¿Qué método permite añadir un elemento creado a otro elemento del DOM?</li>
+<li>¿Qué hace el método <code>.remove()</code>?</li>
+<li>¿Por qué es recomendable separar HTML, CSS y JavaScript?</li>
+<li>¿Por qué es útil crear funciones para generar elementos del DOM?</li>
+</ol><hr/></section>
+<section class="content-section flow-section" id="15-que-veremos-despues"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-arrow-right-circle"></i></span> 15. Qué veremos después</h2><p>En este bloque hemos aprendido a seleccionar, leer, modificar, crear y eliminar elementos del DOM.</p><p>Siguiendo el orden de la UD2, el siguiente bloque será una introducción al <strong>BOM básico</strong>. En él trabajaremos recursos del navegador como:</p><ul class="custom-list">
+<li><code>window</code>;</li>
+<li><code>location</code>;</li>
+<li><code>history</code>;</li>
+<li><code>navigator</code>;</li>
+<li>diálogos básicos;</li>
+<li>temporizadores con <code>setTimeout()</code> y <code>setInterval()</code>.</li>
+</ul><p>Después del BOM abordaremos la <strong>interacción con el usuario</strong> mediante eventos, <code>addEventListener</code>, botones, formularios y validación básica.</p><p>Así pasaremos progresivamente de modificar la página desde JavaScript a controlar el navegador y responder a las acciones del usuario.</p><hr/></section>
+<section class="content-section summary-section" id="16-resumen-final"><h2><span aria-hidden="true" class="section-icon"><i class="bi bi-journal-check"></i></span> 16. Resumen final</h2><ul class="custom-list">
+<li>El DOM es la representación de una página HTML como una estructura de objetos.</li>
+<li><code>document</code> representa la página cargada en el navegador.</li>
+<li><code>querySelector()</code> selecciona el primer elemento que coincide con un selector.</li>
+<li><code>querySelectorAll()</code> selecciona todos los elementos que coinciden con un selector.</li>
+<li><code>textContent</code> permite leer o cambiar texto.</li>
+<li><code>innerHTML</code> permite insertar HTML, pero debe usarse con cuidado.</li>
+<li><code>getAttribute()</code> y <code>setAttribute()</code> permiten leer y modificar atributos.</li>
+<li><code>classList</code> permite añadir, quitar o alternar clases CSS.</li>
+<li><code>createElement()</code> permite crear elementos nuevos.</li>
+<li><code>append()</code> permite insertar elementos en la página.</li>
+<li><code>.remove()</code> permite eliminar elementos.</li>
+<li>Podemos generar contenido dinámico a partir de arrays y objetos.</li>
+<li>Este bloque prepara el camino para el BOM, los eventos, los formularios y las aplicaciones dinámicas.</li>
+</ul></section>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

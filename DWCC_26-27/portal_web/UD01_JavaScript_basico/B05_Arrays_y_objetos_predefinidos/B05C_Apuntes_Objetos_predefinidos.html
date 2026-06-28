@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bloque 5C. Objetos predefinidos en JavaScript</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link href="../../assets/css/smpp.css" rel="stylesheet"/>
+<script defer="" src="../../assets/js/smpp.js"></script>
+</head>
+<body>
+<div class="smpp-scope">
+<main class="main-content has-sidebar notes-page">
+<div class="content-layout">
+<aside class="section-sidebar">
+<nav aria-label="Índice del documento" class="section-nav">
+<p class="section-nav-title"><i aria-hidden="true" class="bi bi-list-check section-nav-icon"></i> Índice</p>
+<ul class="section-nav-list"><li><a class="section-nav-link" href="#1-que-vamos-a-aprender-en-este-bloque"><i aria-hidden="true" class="bi bi-bullseye section-nav-icon"></i><span>1. Qué vamos a aprender en este bloque</span></a></li><li><a class="section-nav-link" href="#2-que-es-un-objeto-predefinido"><i aria-hidden="true" class="bi bi-lightbulb section-nav-icon"></i><span>2. Qué es un objeto predefinido</span></a></li><li><a class="section-nav-link" href="#3-string-trabajar-con-texto"><i aria-hidden="true" class="bi bi-type section-nav-icon"></i><span>3. <code>String</code>: trabajar con texto</span></a></li><li><a class="section-nav-link" href="#4-number-y-conversion-numerica"><i aria-hidden="true" class="bi bi-calculator section-nav-icon"></i><span>4. <code>Number</code> y conversión numérica</span></a></li><li><a class="section-nav-link" href="#5-math-operaciones-matematicas"><i aria-hidden="true" class="bi bi-calculator section-nav-icon"></i><span>5. <code>Math</code>: operaciones matemáticas</span></a></li><li><a class="section-nav-link" href="#6-date-fechas-y-horas"><i aria-hidden="true" class="bi bi-calendar-event section-nav-icon"></i><span>6. <code>Date</code>: fechas y horas</span></a></li><li><a class="section-nav-link" href="#7-json-datos-en-formato-texto"><i aria-hidden="true" class="bi bi-braces section-nav-icon"></i><span>7. <code>JSON</code>: datos en formato texto</span></a></li><li><a class="section-nav-link" href="#8-tabla-resumen"><i aria-hidden="true" class="bi bi-table section-nav-icon"></i><span>8. Tabla resumen</span></a></li><li><a class="section-nav-link" href="#9-errores-frecuentes"><i aria-hidden="true" class="bi bi-bug section-nav-icon"></i><span>9. Errores frecuentes</span></a></li><li><a class="section-nav-link" href="#10-preguntas-tipo-examen"><i aria-hidden="true" class="bi bi-patch-question section-nav-icon"></i><span>10. Preguntas tipo examen</span></a></li><li><a class="section-nav-link" href="#11-contenidos-aplazados-para-ud2-javascript-avanzado"><i aria-hidden="true" class="bi bi-slash-circle section-nav-icon"></i><span>11. Contenidos aplazados para UD2 JavaScript avanzado</span></a></li><li><a class="section-nav-link" href="#12-resumen-final"><i aria-hidden="true" class="bi bi-flag section-nav-icon"></i><span>12. Resumen final</span></a></li></ul>
+</nav>
+</aside>
+<div class="content-wrapper">
+<div class="document-toolbar">
+<a class="document-home-link" href="../../index.html"><i aria-hidden="true" class="bi bi-house-door"></i> Índice del curso</a>
+<button class="document-theme-toggle" id="theme-toggle" type="button"><i aria-hidden="true" class="bi bi-moon-stars"></i> Modo oscuro</button>
+</div>
+<header class="content-header">
+<h1><span aria-hidden="true" class="document-title-icon"><i aria-hidden="true" class="bi bi-code-square"></i></span> Bloque 5C. Objetos predefinidos en JavaScript</h1>
+</header>
+<section class="content-section learning-objectives-section" id="1-que-vamos-a-aprender-en-este-bloque"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-bullseye"></i></span>1. Qué vamos a aprender en este bloque</h2><p>En los bloques anteriores ya hemos trabajado:</p><ul class="custom-list">
+<li>variables, tipos de datos y operadores;</li>
+<li>condicionales y bucles;</li>
+<li>funciones;</li>
+<li>arrays básicos;</li>
+<li>métodos avanzados de arrays.</li>
+</ul><p>En este bloque vamos a trabajar con algunos <strong>objetos predefinidos de JavaScript</strong> que nos ayudan a resolver tareas habituales:</p><ul class="custom-list">
+<li>trabajar con textos;</li>
+<li>convertir datos a números;</li>
+<li>hacer cálculos matemáticos;</li>
+<li>generar números aleatorios;</li>
+<li>obtener fechas y horas;</li>
+<li>convertir datos a formato JSON y recuperarlos después.</li>
+</ul><p>Los objetos predefinidos que veremos son:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Objeto o herramienta</th>
+<th>Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>String</code></td>
+<td>Trabajar con cadenas de texto</td>
+</tr>
+<tr>
+<td><code>Number</code> / conversión numérica</td>
+<td>Convertir valores y trabajar con números</td>
+</tr>
+<tr>
+<td><code>Math</code></td>
+<td>Realizar operaciones matemáticas</td>
+</tr>
+<tr>
+<td><code>Date</code></td>
+<td>Trabajar con fechas y horas</td>
+</tr>
+<tr>
+<td><code>JSON</code></td>
+<td>Convertir datos a texto JSON y viceversa</td>
+</tr>
+</tbody>
+</table></div><blockquote class="warning-box">
+<p><strong>Importante:</strong> en este bloque no vamos a estudiar todavía objetos propios en profundidad. Eso se verá más adelante en JavaScript avanzado. Aquí usaremos los objetos predefinidos como herramientas prácticas.</p>
+</blockquote><hr/></section><section class="content-section flow-section" id="2-que-es-un-objeto-predefinido"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-lightbulb"></i></span>2. Qué es un objeto predefinido</h2><p>JavaScript incluye objetos ya preparados que podemos usar directamente. Son como <strong>cajas de herramientas</strong>.</p><p>Un objeto puede tener:</p><ul class="custom-list">
+<li><strong>propiedades</strong>: datos asociados al objeto;</li>
+<li><strong>métodos</strong>: funciones asociadas al objeto.</li>
+</ul><p>Por ejemplo:</p><div class="example-block"><pre class="code-js"><code>const texto = "DWCC";
+
+console.log(texto.length);        // propiedad
+console.log(texto.toLowerCase()); // método
+</code></pre></div><p>En este caso:</p><ul class="custom-list">
+<li><code>length</code> es una propiedad;</li>
+<li><code>toLowerCase()</code> es un método.</li>
+</ul><p>La diferencia visual es importante:</p><div class="example-block"><pre class="code-js"><code>texto.length        // propiedad: no lleva paréntesis
+texto.toLowerCase() // método: lleva paréntesis
+</code></pre></div><hr/></section><section class="content-section operators-section" id="3-string-trabajar-con-texto"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-type"></i></span>3. <code>String</code>: trabajar con texto</h2><p>Las cadenas de texto tienen propiedades y métodos útiles para consultar, transformar o comprobar su contenido.</p><blockquote class="note-box">
+<p><strong>Nota</strong>
+Normalmente no creamos textos con <code>new String()</code>. En el curso trabajaremos con cadenas normales, como <code>"Hola"</code>, y usaremos sus propiedades y métodos directamente.</p>
+</blockquote><div class="example-block"><pre class="code-js"><code>const modulo = "Desarrollo Web en Entorno Cliente";
+</code></pre></div><hr/><div class="subsection-card"><h3>3.1. Longitud de una cadena: <code>.length</code></h3><p>La propiedad <code>.length</code> indica cuántos caracteres tiene una cadena.</p><div class="example-block"><pre class="code-js"><code>const texto = "DWCC";
+
+console.log(texto.length); // 4
+</code></pre></div><p>También cuenta espacios:</p><div class="example-block"><pre class="code-js"><code>const mensaje = "Hola clase";
+
+console.log(mensaje.length); // 10
+</code></pre></div><p>Se usa mucho para validar textos:</p><div class="example-block"><pre class="code-js"><code>const password = "abc123";
+
+if (password.length &lt; 8) {
+  console.log("La contraseña es demasiado corta");
+}
+</code></pre></div><hr/></div><div class="subsection-card"><h3>3.2. Mayúsculas y minúsculas: <code>.toUpperCase()</code> y <code>.toLowerCase()</code></h3><p>Estos métodos devuelven una nueva cadena transformada:</p><div class="example-block"><pre class="code-js"><code>const nombre = "Ana";
+
+console.log(nombre.toUpperCase()); // "ANA"
+console.log(nombre.toLowerCase()); // "ana"
+</code></pre></div><p>La cadena original no cambia:</p><div class="example-block"><pre class="code-js"><code>const ciudad = "Ourense";
+
+const ciudadMayusculas = ciudad.toUpperCase();
+
+console.log(ciudad);           // "Ourense"
+console.log(ciudadMayusculas); // "OURENSE"
+</code></pre></div><p>Esto es útil para comparar textos sin depender de mayúsculas y minúsculas:</p><div class="example-block"><pre class="code-js"><code>const respuesta = "Si";
+
+if (respuesta.toLowerCase() === "si") {
+  console.log("Respuesta afirmativa");
+}
+</code></pre></div><hr/></div><div class="subsection-card"><h3>3.3. Quitar espacios al principio y al final: <code>.trim()</code></h3><p>El método <code>.trim()</code> elimina los espacios en blanco al principio y al final de una cadena.</p><div class="example-block"><pre class="code-js"><code>const entrada = "   hola DWCC   ";
+
+const limpia = entrada.trim();
+
+console.log(limpia); // "hola DWCC"
+</code></pre></div><p>Es muy útil cuando se leen datos escritos por el usuario:</p><div class="example-block"><pre class="code-js"><code>const usuario = "   Ana   ";
+
+if (usuario.trim() === "Ana") {
+  console.log("Usuario correcto");
+}
+</code></pre></div><blockquote class="concept-box">
+<p><code>.trim()</code> no elimina los espacios que están en medio del texto, solo los del principio y los del final.</p>
+</blockquote><hr/></div><div class="subsection-card"><h3>3.4. Comprobar si contiene un texto: <code>.includes()</code></h3><p>El método <code>.includes()</code> devuelve <code>true</code> si la cadena contiene el texto buscado.</p><div class="example-block"><pre class="code-js"><code>const mensaje = "Bienvenido al módulo de DWCC";
+
+console.log(mensaje.includes("DWCC")); // true
+console.log(mensaje.includes("DWES")); // false
+</code></pre></div><p>Ejemplo práctico:</p><div class="example-block"><pre class="code-js"><code>const correo = "alumna@centro.gal";
+
+if (correo.includes("@")) {
+  console.log("Parece un correo válido");
+} else {
+  console.log("Falta la arroba");
+}
+</code></pre></div><hr/></div><div class="subsection-card"><h3>3.5. Comprobar inicio y final: <code>.startsWith()</code> y <code>.endsWith()</code></h3><p><code>.startsWith()</code> comprueba si una cadena empieza por un texto determinado.</p><div class="example-block"><pre class="code-js"><code>const archivo = "practica.js";
+
+console.log(archivo.startsWith("prac")); // true
+</code></pre></div><p><code>.endsWith()</code> comprueba si una cadena termina por un texto determinado.</p><div class="example-block"><pre class="code-js"><code>const archivo = "practica.js";
+
+console.log(archivo.endsWith(".js")); // true
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const nombreArchivo = "ejercicio.html";
+
+if (nombreArchivo.endsWith(".html")) {
+  console.log("Es un archivo HTML");
+}
+</code></pre></div><hr/></div><div class="subsection-card"><h3>3.6. Extraer una parte de un texto: <code>.slice()</code></h3><p>El método <code>.slice(inicio, fin)</code> permite obtener una parte de una cadena.</p><div class="example-block"><pre class="code-js"><code>const modulo = "DWCC";
+
+console.log(modulo.slice(0, 2)); // "DW"
+console.log(modulo.slice(2));    // "CC"
+</code></pre></div><p>El índice inicial se incluye y el índice final no se incluye.</p><div class="example-block"><pre class="code-js"><code>const texto = "JavaScript";
+
+console.log(texto.slice(0, 4)); // "Java"
+</code></pre></div><hr/></div></section><section class="content-section operators-section" id="4-number-y-conversion-numerica"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-calculator"></i></span>4. <code>Number</code> y conversión numérica</h2><p>En JavaScript, muchas veces los datos llegan como texto, aunque parezcan números.</p><p>Por ejemplo, si usamos <code>prompt</code>, el resultado siempre es una cadena:</p><div class="example-block"><pre class="code-js"><code>const edadTexto = prompt("Introduce tu edad");
+
+console.log(typeof edadTexto); // "string"
+</code></pre></div><blockquote class="note-box">
+<p><code>prompt()</code> está disponible en el navegador. Si ejecutas JavaScript con Node.js, este ejemplo no funcionará directamente.</p>
+</blockquote><p>Para poder hacer operaciones matemáticas, necesitamos convertir ese texto a número.</p><hr/><div class="subsection-card"><h3>4.1. Convertir a número: <code>Number()</code></h3><p>La función <code>Number()</code> intenta convertir un valor a número.</p><div class="example-block"><pre class="code-js"><code>console.log(Number("123"));   // 123
+console.log(Number("3.14"));  // 3.14
+console.log(Number(true));    // 1
+console.log(Number(false));   // 0
+</code></pre></div><p>Si la conversión no tiene sentido, devuelve <code>NaN</code>.</p><div class="example-block"><pre class="code-js"><code>console.log(Number("hola")); // NaN
+</code></pre></div><p><code>NaN</code> significa <strong>Not a Number</strong>.</p><hr/></div><div class="subsection-card"><h3>4.2. Convertir enteros: <code>parseInt()</code></h3><p><code>parseInt()</code> convierte una cadena a número entero.</p><div class="example-block"><pre class="code-js"><code>console.log(parseInt("42", 10));    // 42
+console.log(parseInt("42px", 10));  // 42
+console.log(parseInt("3.99", 10));  // 3
+</code></pre></div><p>El segundo argumento <code>10</code> indica que queremos interpretar el número en base decimal.</p><p>Caso importante:</p><div class="example-block"><pre class="code-js"><code>console.log(parseInt("px42", 10)); // NaN
+</code></pre></div><p><code>parseInt()</code> empieza a leer desde el principio. Si el texto no empieza por un número, la conversión falla.</p><hr/></div><div class="subsection-card"><h3>4.3. Convertir decimales: <code>parseFloat()</code></h3><p><code>parseFloat()</code> convierte una cadena a número decimal.</p><div class="example-block"><pre class="code-js"><code>console.log(parseFloat("3.14"));   // 3.14
+console.log(parseFloat("3.14€"));  // 3.14
+console.log(parseFloat("10"));     // 10
+</code></pre></div><p>Se usa cuando necesitamos conservar decimales:</p><div class="example-block"><pre class="code-js"><code>const precioTexto = "19.99";
+const precio = parseFloat(precioTexto);
+
+console.log(precio + 5); // 24.99
+</code></pre></div><hr/></div><div class="subsection-card"><h3>4.4. Comprobar si una conversión ha fallado: <code>Number.isNaN()</code></h3><p>Podemos comprobar si un valor es <code>NaN</code> con <code>Number.isNaN()</code>.</p><blockquote class="note-box">
+<p><strong>Recuerda</strong>
+Primero convertimos el dato con <code>Number()</code> y después comprobamos el resultado con <code>Number.isNaN()</code>.</p>
+</blockquote><div class="example-block"><pre class="code-js"><code>const edad = Number("hola");
+
+console.log(Number.isNaN(edad)); // true
+</code></pre></div><p>Ejemplo práctico:</p><div class="example-block"><pre class="code-js"><code>const dato = "25";
+const numero = Number(dato);
+
+if (Number.isNaN(numero)) {
+  console.log("El dato no es un número válido");
+} else {
+  console.log("Número introducido:", numero);
+}
+</code></pre></div><hr/></div><div class="subsection-card"><h3>4.5. Formatear decimales: <code>.toFixed()</code></h3><p>El método <code>.toFixed()</code> devuelve un número formateado con una cantidad fija de decimales.</p><div class="example-block"><pre class="code-js"><code>const precio = 19.987;
+
+console.log(precio.toFixed(2)); // "19.99"
+</code></pre></div><blockquote class="warning-box">
+<p>Atención: <code>.toFixed()</code> devuelve una cadena de texto, no un número.</p>
+</blockquote><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const precio = 10;
+const precioFormateado = precio.toFixed(2);
+
+console.log(precioFormateado);        // "10.00"
+console.log(typeof precioFormateado); // "string"
+</code></pre></div><hr/></div></section><section class="content-section operators-section" id="5-math-operaciones-matematicas"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-calculator"></i></span>5. <code>Math</code>: operaciones matemáticas</h2><p><code>Math</code> es un objeto predefinido que agrupa funciones y constantes matemáticas.</p><p>No se crea con <code>new</code>. Se usa directamente:</p><div class="example-block"><pre class="code-js"><code>console.log(Math.PI);
+</code></pre></div><hr/><div class="subsection-card"><h3>5.1. Constante <code>Math.PI</code></h3><p><code>Math.PI</code> contiene el valor aproximado de π.</p><div class="example-block"><pre class="code-js"><code>console.log(Math.PI); // 3.141592653589793
+</code></pre></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const radio = 5;
+const area = Math.PI * radio * radio;
+
+console.log(area);
+</code></pre></div><hr/></div><div class="subsection-card"><h3>5.2. Redondeos: <code>Math.round()</code>, <code>Math.floor()</code> y <code>Math.ceil()</code></h3><p><code>Math.round()</code> redondea al entero más cercano.</p><div class="example-block"><pre class="code-js"><code>console.log(Math.round(3.4)); // 3
+console.log(Math.round(3.6)); // 4
+</code></pre></div><p><code>Math.floor()</code> redondea hacia abajo.</p><div class="example-block"><pre class="code-js"><code>console.log(Math.floor(3.9)); // 3
+</code></pre></div><p><code>Math.ceil()</code> redondea hacia arriba.</p><div class="example-block"><pre class="code-js"><code>console.log(Math.ceil(3.1)); // 4
+</code></pre></div><p>Tabla resumen:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Método</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Math.round(3.6)</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td><code>Math.floor(3.9)</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>Math.ceil(3.1)</code></td>
+<td><code>4</code></td>
+</tr>
+</tbody>
+</table></div><hr/></div><div class="subsection-card"><h3>5.3. Máximo y mínimo: <code>Math.max()</code> y <code>Math.min()</code></h3><p><code>Math.max()</code> devuelve el mayor de varios números.</p><div class="example-block"><pre class="code-js"><code>console.log(Math.max(4, 7, 2, 9)); // 9
+</code></pre></div><p><code>Math.min()</code> devuelve el menor de varios números.</p><div class="example-block"><pre class="code-js"><code>console.log(Math.min(4, 7, 2, 9)); // 2
+</code></pre></div><p>Ejemplo práctico:</p><div class="example-block"><pre class="code-js"><code>const nota1 = 6;
+const nota2 = 8;
+const nota3 = 5;
+
+const notaMaxima = Math.max(nota1, nota2, nota3);
+
+console.log("Nota más alta:", notaMaxima);
+</code></pre></div><hr/></div><div class="subsection-card"><h3>5.4. Números aleatorios: <code>Math.random()</code></h3><p><code>Math.random()</code> devuelve un número pseudoaleatorio entre 0 incluido y 1 excluido.</p><div class="example-block"><pre class="code-js"><code>const r = Math.random();
+
+console.log(r); // Por ejemplo: 0.4728391
+</code></pre></div><blockquote class="warning-box">
+<p><strong>Importante</strong>
+<code>Math.random()</code> sirve para ejemplos, juegos sencillos o simulaciones básicas. No debe usarse para generar contraseñas ni datos de seguridad.</p>
+</blockquote><p>Para generar un entero entre 1 y 10:</p><div class="example-block"><pre class="code-js"><code>const aleatorio = Math.floor(Math.random() * 10) + 1;
+
+console.log(aleatorio);
+</code></pre></div><p>Explicación:</p><div class="example-block"><pre class="code-js"><code>Math.random() * 10
+</code></pre></div><p>genera un número decimal entre 0 y menor que 10.</p><div class="example-block"><pre class="code-js"><code>Math.floor(Math.random() * 10)
+</code></pre></div><p>lo convierte en un entero entre 0 y 9.</p><div class="example-block"><pre class="code-js"><code>Math.floor(Math.random() * 10) + 1
+</code></pre></div><p>lo desplaza al rango 1 a 10.</p><hr/></div><div class="subsection-card"><h3>5.5. Función para generar enteros aleatorios</h3><p>Podemos encapsular la lógica anterior en una función:</p><div class="example-block"><pre class="code-js"><code>function numeroAleatorioEntre(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+console.log(numeroAleatorioEntre(1, 6));  // Simula un dado
+console.log(numeroAleatorioEntre(1, 10)); // Número entre 1 y 10
+</code></pre></div><p>Esta función devuelve un número entero entre <code>min</code> y <code>max</code>, ambos incluidos.</p><hr/></div></section><section class="content-section logic-section" id="6-date-fechas-y-horas"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-calendar-event"></i></span>6. <code>Date</code>: fechas y horas</h2><p><code>Date</code> permite trabajar con fechas y horas.</p><p>A diferencia de <code>Math</code>, para crear una fecha sí usamos <code>new</code>.</p><div class="example-block"><pre class="code-js"><code>const ahora = new Date();
+
+console.log(ahora);
+</code></pre></div><p>Esto crea un objeto <code>Date</code> con la fecha y hora actuales del sistema.</p><hr/><div class="subsection-card"><h3>6.1. Crear la fecha actual</h3><div class="example-block"><pre class="code-js"><code>const hoy = new Date();
+
+console.log(hoy);
+</code></pre></div><p>El resultado puede mostrarse con mucha información, porque incluye fecha, hora y zona horaria.</p><hr/></div><div class="subsection-card"><h3>6.2. Obtener año, mes y día</h3><p>Podemos obtener partes concretas de una fecha:</p><div class="example-block"><pre class="code-js"><code>const hoy = new Date();
+
+const anyo = hoy.getFullYear();
+const mes = hoy.getMonth() + 1;
+const dia = hoy.getDate();
+
+console.log("Hoy es:", dia + "/" + mes + "/" + anyo);
+</code></pre></div><p>Métodos usados:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Método</th>
+<th>Qué devuelve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getFullYear()</code></td>
+<td>Año completo</td>
+</tr>
+<tr>
+<td><code>getMonth()</code></td>
+<td>Mes de 0 a 11</td>
+</tr>
+<tr>
+<td><code>getDate()</code></td>
+<td>Día del mes</td>
+</tr>
+</tbody>
+</table></div><blockquote class="warning-box">
+<p><strong>Importante:</strong> <code>getMonth()</code> devuelve el mes empezando en 0. Enero es 0 y diciembre es 11. Por eso solemos sumar 1.</p>
+</blockquote><hr/></div><div class="subsection-card"><h3>6.3. Obtener día de la semana</h3><p><code>getDay()</code> devuelve el día de la semana como número:</p><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Valor</th>
+<th>Día</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Domingo</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Lunes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Martes</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Miércoles</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Jueves</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Viernes</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Sábado</td>
+</tr>
+</tbody>
+</table></div><p>Ejemplo:</p><div class="example-block"><pre class="code-js"><code>const hoy = new Date();
+
+console.log(hoy.getDay());
+</code></pre></div><p>Podemos usar un array para mostrar el nombre del día:</p><div class="example-block"><pre class="code-js"><code>const dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+
+const hoy = new Date();
+const diaSemana = hoy.getDay();
+
+console.log("Hoy es", dias[diaSemana]);
+</code></pre></div><hr/></div><div class="subsection-card"><h3>6.4. Obtener hora y minutos</h3><div class="example-block"><pre class="code-js"><code>const ahora = new Date();
+
+const hora = ahora.getHours();
+const minutos = ahora.getMinutes();
+
+console.log("Hora actual:", hora + ":" + minutos);
+</code></pre></div><p>Podemos mejorar el formato de los minutos usando <code>padStart()</code>:</p><div class="example-block"><pre class="code-js"><code>const ahora = new Date();
+
+const hora = ahora.getHours();
+const minutos = String(ahora.getMinutes()).padStart(2, "0");
+
+console.log("Hora actual:", hora + ":" + minutos);
+</code></pre></div><p><code>padStart(2, "0")</code> rellena por la izquierda hasta tener dos caracteres.</p><hr/></div><div class="subsection-card"><h3>6.5. Precauciones con <code>Date</code></h3><p>Al trabajar con fechas, conviene recordar:</p><ul class="custom-list">
+<li><code>getMonth()</code> empieza en 0.</li>
+<li><code>getDay()</code> empieza en domingo.</li>
+<li>La fecha y hora dependen del sistema y de la zona horaria.</li>
+<li>Para este nivel vamos a usar <code>Date</code> solo para operaciones sencillas.</li>
+</ul><hr/></div></section><section class="content-section logic-section" id="7-json-datos-en-formato-texto"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-braces"></i></span>7. <code>JSON</code>: datos en formato texto</h2><p><code>JSON</code> significa <strong>JavaScript Object Notation</strong>.</p><p>Es un formato de texto que se usa mucho para guardar o enviar datos. Más adelante, cuando trabajemos con APIs y comunicación asíncrona, aparecerá constantemente.</p><p>En este bloque solo veremos dos operaciones básicas:</p><ul class="custom-list">
+<li>convertir datos de JavaScript a texto JSON;</li>
+<li>convertir texto JSON a datos de JavaScript.</li>
+</ul><hr/><div class="subsection-card"><h3>7.1. Convertir datos a texto JSON: <code>JSON.stringify()</code></h3><p><code>JSON.stringify()</code> convierte un dato de JavaScript en una cadena JSON.</p><p>Ejemplo con un array:</p><div class="example-block"><pre class="code-js"><code>const notas = [4, 7, 9];
+
+const textoJSON = JSON.stringify(notas);
+
+console.log(textoJSON);        // "[4,7,9]"
+console.log(typeof textoJSON); // "string"
+</code></pre></div><p>Ejemplo con un objeto sencillo:</p><div class="example-block"><pre class="code-js"><code>const alumno = {
+  nombre: "Ana",
+  nota: 8
+};
+
+const textoJSON = JSON.stringify(alumno);
+
+console.log(textoJSON);        // {"nombre":"Ana","nota":8}
+console.log(typeof textoJSON); // "string"
+</code></pre></div><blockquote class="concept-box">
+<p>No estudiaremos todavía objetos propios en profundidad. En este ejemplo basta con entender que <code>{ nombre: "Ana", nota: 8 }</code> agrupa datos relacionados.</p>
+</blockquote><hr/></div><div class="subsection-card"><h3>7.2. Convertir texto JSON a datos de JavaScript: <code>JSON.parse()</code></h3><p><code>JSON.parse()</code> convierte una cadena JSON válida en un dato de JavaScript.</p><div class="example-block"><pre class="code-js"><code>const textoJSON = '{"nombre":"Ana","nota":8}';
+
+const alumno = JSON.parse(textoJSON);
+
+console.log(alumno.nombre); // "Ana"
+console.log(alumno.nota);   // 8
+</code></pre></div><p>Ejemplo con un array:</p><div class="example-block"><pre class="code-js"><code>const textoNotas = "[4,7,9]";
+
+const notas = JSON.parse(textoNotas);
+
+console.log(notas[0]);      // 4
+console.log(notas.length);  // 3
+</code></pre></div><hr/></div><div class="subsection-card"><h3>7.3. El texto JSON debe estar bien escrito</h3><p>Para que <code>JSON.parse()</code> funcione, el texto debe ser JSON válido.</p><p>Correcto:</p><div class="example-block"><pre class="code-js"><code>const texto = '{"nombre":"Ana","nota":8}';
+</code></pre></div><p>Incorrecto:</p><div class="example-block"><pre class="code-js"><code>const texto = "{nombre:'Ana', nota:8}";
+</code></pre></div><p>En JSON:</p><ul class="custom-list">
+<li>las claves deben ir entre comillas dobles;</li>
+<li>las cadenas de texto deben ir entre comillas dobles;</li>
+<li>no se permiten comentarios;</li>
+<li>no se pueden dejar comas finales.</li>
+</ul><hr/></div><div class="subsection-card"><h3>7.4. Para qué servirá JSON más adelante</h3><p>JSON será importante cuando trabajemos con:</p><ul class="custom-list">
+<li>datos recibidos desde una API;</li>
+<li>comunicación asíncrona;</li>
+<li><code>fetch</code>;</li>
+<li>aplicaciones dinámicas;</li>
+<li>almacenamiento o intercambio de información.</li>
+</ul><p>Por ahora solo necesitamos entender estas dos ideas:</p><div class="example-block"><pre class="code-js"><code>JSON.stringify(dato); // JavaScript -&gt; texto JSON
+JSON.parse(texto);    // texto JSON -&gt; JavaScript
+</code></pre></div><hr/></div></section><section class="content-section summary-section" id="8-tabla-resumen"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-table"></i></span>8. Tabla resumen</h2><div class="compact-table-container"><table class="comparison-table">
+<thead>
+<tr>
+<th>Objeto o herramienta</th>
+<th>Uso principal</th>
+<th>Ejemplos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>String</code></td>
+<td>Trabajar con textos</td>
+<td><code>.length</code>, <code>.trim()</code>, <code>.includes()</code></td>
+</tr>
+<tr>
+<td><code>Number()</code></td>
+<td>Convertir a número</td>
+<td><code>Number("123")</code></td>
+</tr>
+<tr>
+<td><code>parseInt()</code></td>
+<td>Convertir a entero</td>
+<td><code>parseInt("42", 10)</code></td>
+</tr>
+<tr>
+<td><code>parseFloat()</code></td>
+<td>Convertir a decimal</td>
+<td><code>parseFloat("3.14")</code></td>
+</tr>
+<tr>
+<td><code>Number.isNaN()</code></td>
+<td>Comprobar conversión fallida</td>
+<td><code>Number.isNaN(valor)</code></td>
+</tr>
+<tr>
+<td><code>Math</code></td>
+<td>Operaciones matemáticas</td>
+<td><code>Math.round()</code>, <code>Math.random()</code></td>
+</tr>
+<tr>
+<td><code>Date</code></td>
+<td>Fechas y horas</td>
+<td><code>new Date()</code>, <code>.getFullYear()</code></td>
+</tr>
+<tr>
+<td><code>JSON</code></td>
+<td>Convertir datos a texto y viceversa</td>
+<td><code>JSON.stringify()</code>, <code>JSON.parse()</code></td>
+</tr>
+</tbody>
+</table></div><hr/></section><section class="content-section frequent-errors-section" id="9-errores-frecuentes"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-bug"></i></span>9. Errores frecuentes</h2><div class="error-card"><h3>Error 1. Pensar que un texto leído por el usuario ya es un número</h3><div class="example-block"><pre class="code-js"><code>const edad = "18";
+
+console.log(edad + 1); // "181"
+</code></pre></div><p>Corrección:</p><div class="example-block"><pre class="code-js"><code>const edad = Number("18");
+
+console.log(edad + 1); // 19
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 2. Usar <code>parseInt()</code> cuando se necesitan decimales</h3><div class="example-block"><pre class="code-js"><code>const precio = parseInt("19.99", 10);
+
+console.log(precio); // 19
+</code></pre></div><p>Corrección:</p><div class="example-block"><pre class="code-js"><code>const precio = parseFloat("19.99");
+
+console.log(precio); // 19.99
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 3. No comprobar si una conversión falla</h3><div class="example-block"><pre class="code-js"><code>const numero = Number("hola");
+
+console.log(numero + 5); // NaN
+</code></pre></div><p>Mejor:</p><div class="example-block"><pre class="code-js"><code>const numero = Number("hola");
+
+if (Number.isNaN(numero)) {
+  console.log("No se puede convertir a número");
+}
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 4. Olvidar que <code>getMonth()</code> empieza en 0</h3><div class="example-block"><pre class="code-js"><code>const fecha = new Date();
+
+console.log(fecha.getMonth()); // Enero es 0
+</code></pre></div><p>Corrección habitual:</p><div class="example-block"><pre class="code-js"><code>const mes = fecha.getMonth() + 1;
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 5. Pensar que <code>.toUpperCase()</code> modifica el texto original</h3><div class="example-block"><pre class="code-js"><code>const texto = "dwcc";
+
+texto.toUpperCase();
+
+console.log(texto); // "dwcc"
+</code></pre></div><p>Corrección:</p><div class="example-block"><pre class="code-js"><code>const texto = "dwcc";
+
+const mayusculas = texto.toUpperCase();
+
+console.log(mayusculas); // "DWCC"
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 6. Confundir <code>Math.round()</code>, <code>Math.floor()</code> y <code>Math.ceil()</code></h3><div class="example-block"><pre class="code-js"><code>console.log(Math.round(3.9)); // 4
+console.log(Math.floor(3.9)); // 3
+console.log(Math.ceil(3.1));  // 4
+</code></pre></div><hr/></div><div class="error-card"><h3>Error 7. Intentar convertir texto que no es JSON válido</h3><div class="example-block"><pre class="code-js"><code>const texto = "{nombre:'Ana'}";
+
+const dato = JSON.parse(texto); // Error
+</code></pre></div><p>Corrección:</p><div class="example-block"><pre class="code-js"><code>const texto = '{"nombre":"Ana"}';
+
+const dato = JSON.parse(texto);
+
+console.log(dato.nombre);
+</code></pre></div><hr/></div></section><section class="content-section review-section" id="10-preguntas-tipo-examen"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-patch-question"></i></span>10. Preguntas tipo examen</h2><ol class="numbered-list">
+<li>¿Cuál es la diferencia entre una propiedad y un método?</li>
+<li>¿Qué devuelve <code>"DWCC".length</code>?</li>
+<li>¿Qué diferencia hay entre <code>Number("3.14")</code>, <code>parseInt("3.14", 10)</code> y <code>parseFloat("3.14")</code>?</li>
+<li>¿Qué significa <code>NaN</code>?</li>
+<li>¿Para qué sirve <code>Number.isNaN()</code>?</li>
+<li>¿Qué diferencia hay entre <code>Math.round()</code>, <code>Math.floor()</code> y <code>Math.ceil()</code>?</li>
+<li>¿Qué rango de valores devuelve <code>Math.random()</code>?</li>
+<li>¿Por qué se suma 1 al resultado de <code>getMonth()</code>?</li>
+<li>¿Qué hacen <code>JSON.stringify()</code> y <code>JSON.parse()</code>?</li>
+<li>¿Por qué puede fallar <code>JSON.parse()</code>?</li>
+</ol><hr/></section><section class="content-section restrictions-section" id="11-contenidos-aplazados-para-ud2-javascript-avanzado"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-slash-circle"></i></span>11. Contenidos aplazados para UD2 JavaScript avanzado</h2><p>Estos contenidos no forman parte principal de este bloque y se trabajarán más adelante:</p><ul class="custom-list">
+<li><code>Map</code>;</li>
+<li>objetos propios;</li>
+<li>arrays de objetos;</li>
+<li>arrays asociativos como aclaración previa a objetos;</li>
+<li>estructuras clave–valor más avanzadas;</li>
+<li>manipulación avanzada de JSON;</li>
+<li>datos JSON obtenidos desde APIs;</li>
+<li>DOM;</li>
+<li>eventos;</li>
+<li>formularios;</li>
+<li><code>fetch</code>;</li>
+<li>asincronía real;</li>
+<li>promesas;</li>
+<li><code>async/await</code>;</li>
+<li>closures;</li>
+<li>recursividad.</li>
+</ul><hr/></section><section class="content-section summary-section" id="12-resumen-final"><h2><span class="section-icon"><i aria-hidden="true" class="bi bi-flag"></i></span>12. Resumen final</h2><p>En este bloque hemos visto varios objetos y herramientas predefinidas de JavaScript:</p><ul class="custom-list">
+<li><code>String</code> permite trabajar con textos mediante propiedades y métodos como <code>.length</code>, <code>.toUpperCase()</code>, <code>.toLowerCase()</code>, <code>.trim()</code>, <code>.includes()</code>, <code>.startsWith()</code>, <code>.endsWith()</code> y <code>.slice()</code>.</li>
+<li><code>Number()</code>, <code>parseInt()</code> y <code>parseFloat()</code> permiten convertir datos a número.</li>
+<li><code>Number.isNaN()</code> permite comprobar si una conversión ha fallado.</li>
+<li><code>Math</code> permite hacer operaciones matemáticas, redondeos, obtener máximos y mínimos y generar números aleatorios.</li>
+<li><code>Date</code> permite obtener la fecha y la hora actual y extraer partes como año, mes, día, hora o minutos.</li>
+<li><code>JSON</code> permite convertir datos de JavaScript a texto JSON y recuperar datos a partir de texto JSON.</li>
+</ul><p>Estos conocimientos serán muy útiles cuando avancemos hacia formularios, DOM, eventos, APIs y aplicaciones dinámicas.</p></section>
+</div>
+</div>
+</main>
+</div>
+</body>
+</html>
