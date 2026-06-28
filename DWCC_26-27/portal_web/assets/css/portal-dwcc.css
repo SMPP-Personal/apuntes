@@ -286,7 +286,7 @@ a {
 .hero h1 {
   max-width: 900px;
   margin: 0;
-  font-size: clamp(3rem, 8vw, 7.4rem);
+  font-size: clamp(1.8rem, 4vw, 4rem);
   line-height: 0.88;
   letter-spacing: -0.075em;
 }
@@ -568,7 +568,7 @@ a {
 .section h2,
 .cta-panel h2 {
   margin: 0;
-  font-size: clamp(2rem, 5vw, 4rem);
+ font-size: clamp(1.8rem, 4vw, 4rem);
   line-height: 0.96;
   letter-spacing: -0.055em;
 }
