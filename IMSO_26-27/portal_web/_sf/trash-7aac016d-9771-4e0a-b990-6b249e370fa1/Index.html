@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>IMSO · Portal de apuntes · ASIR 1º</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="assets/css/portal-imso.css">
+</head>
+<body>
+  <div class="page">
+
+    <!-- CABECERA -->
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="brand">
+          <div class="brand-logo" aria-hidden="true"></div>
+          <div class="brand-text">
+            <div class="brand-title">IMSO · Implantación de Sistemas Operativos</div>
+            <div class="brand-subtitle">ASIR 1º · CIFP A Carballeira – Ourense</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Navegación principal">
+          <a href="#map" class="js-scroll">Mapa de contenidos</a>
+          <a href="#info" class="js-scroll">Cómo trabajamos</a>
+           <a href="programacion_imso.html" class="js-scroll">Programación del módulo</a>
+        </nav>
+
+        <button id="theme-toggle" class="theme-toggle-btn" type="button">
+          Tema claro
+        </button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <span class="hero-orb hero-orb--blue" aria-hidden="true"></span>
+      <span class="hero-orb hero-orb--gold" aria-hidden="true"></span>
+
+      <div class="hero-inner">
+        <!-- Texto hero -->
+        <div>
+          <h1 id="hero-title" class="hero-title">
+            Portal de apuntes de <span>Implantación de Sistemas Operativos</span>
+          </h1>
+          <p
+            id="hero-typewriter"
+            class="hero-subtitle"
+            data-text="Aprende a instalar, configurar y documentar sistemas operativos en entornos reales, paso a paso."
+          ></p>
+
+          <p class="hero-meta">
+            <strong>IMSO · ASIR 1º</strong> · Ourense · CIFP A Carballeira – Marcos Valcárcel ·
+            Profesora: <strong>Silvia M. Peña Pérez (SMPP)</strong>.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#map" class="btn-primary js-scroll">
+              Entrar en los contenidos
+            </a>
+            <a href="#info" class="btn-ghost js-scroll">
+              Ver cómo vamos a trabajar
+            </a>
+          </div>
+        </div>
+
+        <!-- Panel hero: “terminal” / consola -->
+        <aside class="hero-panel" aria-label="Vista previa del trabajo en IMSO">
+          <div class="hero-grid" aria-hidden="true"></div>
+
+          <div class="hero-terminal">
+            <div class="hero-terminal-header">
+              <div class="hero-terminal-dots">
+                <span class="hero-terminal-dot hero-terminal-dot--red"></span>
+                <span class="hero-terminal-dot hero-terminal-dot--yellow"></span>
+                <span class="hero-terminal-dot hero-terminal-dot--green"></span>
+              </div>
+              <div class="hero-terminal-title">ourense@asir-imso:~</div>
+            </div>
+
+            <div class="hero-terminal-line">
+              <span class="hero-terminal-prompt">SMPP$</span>
+              <span>sudo aprender-imso --ud 1-4</span>
+            </div>
+            <div class="hero-terminal-line">
+              <span class="hero-terminal-prompt">INFO</span>
+              <span>
+                Instalación, dominios, monitorización, escritorio remoto...
+              </span>
+            </div>
+            <div class="hero-terminal-line">
+              <span class="hero-terminal-prompt">NEXT</span>
+              <span>
+                Abre el mapa de contenidos y sigue el orden de las unidades.
+              </span>
+              <span class="hero-terminal-cursor"></span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <main class="main">
+
+      <!-- MAPA DE CONTENIDOS -->
+      <section id="map" class="section" aria-labelledby="map-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">Mapa de apuntes</p>
+            <h2 id="map-title" class="section-title">
+              Unidades didácticas y recursos
+            </h2>
+            <p class="section-description">
+              Los contenidos están organizados siguiendo la estructura de carpetas del portal:
+              primero UD1, después UD2, UD3 y UD4, con apuntes, prácticas y exercicios agrupados.
+            </p>
+          </header>
+
+          <div class="map-grid">
+
+            <!-- UD1: Instalación de sistemas operativos -->
+            <article class="card">
+              <div class="card-header">
+                <h3 class="card-title">UD1 · Instalación de sistemas operativos</h3>
+                <span class="card-tag">UD1_Instalacion_SO</span>
+              </div>
+              <div class="card-body">
+                <p>
+                  Instalación de sistemas operativos en máquinas físicas y virtuales,
+                  configuración básica, protección de la información y uso de comandos en
+                  Windows y Linux.
+                </p>
+              </div>
+
+              <div class="card-links">
+                <!-- Índice UD1 -->
+                <a class="card-link" href="UD1_Instalacion_SO/UD1_index_SMPP.html">
+                  <span class="icon">▶</span>
+                  Índice de UD1
+                  <span class="badge badge--apuntes">Guía</span>
+                </a>
+
+                <!-- A1_Instalacion_VM -->
+                <a class="card-link" href="UD1_Instalacion_SO/A1_Instalacion_VM/UD1_A1_guion_practicas_instalacion_VM.html">
+                  <span class="icon">💻</span>
+                  A1 · Guion prácticas instalación en máquina virtual
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+
+                <!-- A2_Configuracion_basica -->
+                <a class="card-link" href="UD1_Instalacion_SO/A2_Configuracion_basica/UD1_A2_apuntes_sistemas_ficheiros_permisos.html">
+                  <span class="icon">📄</span>
+                  A2 · Apuntes: sistemas de ficheiros y permisos
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/A2_Configuracion_basica/UD1_A2_apuntes_configuracion_rede_cliente.html">
+                  <span class="icon">🌐</span>
+                  A2 · Apuntes: configuración de rede cliente
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/A2_Configuracion_basica/UD1_A2_apuntes_comparticion_recursos_cotas.html">
+                  <span class="icon">🗂</span>
+                  A2 · Apuntes: compartición de recursos y cotas
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/A2_Configuracion_basica/UD1_A2_exercicios_razoamento.html">
+                  <span class="icon">🧠</span>
+                  A2 · Exercicios de razoamento
+                  <span class="badge badge--exercicios">Exercicios</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/A2_Configuracion_basica/UD1_A2_guion_practicas_configuracion_basica.html">
+                  <span class="icon">⚙</span>
+                  A2 · Guion prácticas configuración básica
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+
+                <!-- A3_Proteccion_informacion -->
+                <a class="card-link" href="UD1_Instalacion_SO/A3_Proteccion_informacion/UD1_A3_apuntes_RAID_redundancia.html">
+                  <span class="icon">📦</span>
+                  A3 · Apuntes: RAID y redundancia
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/A3_Proteccion_informacion/UD1_A3_apuntes_copias_seguridade.html">
+                  <span class="icon">💾</span>
+                  A3 · Apuntes: copias de seguridade
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/A3_Proteccion_informacion/UD1_A3_actividade_proteccion_RAID_copias.html">
+                  <span class="icon">🛡</span>
+                  A3 · Actividade protección: RAID e copias
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/A3_Proteccion_informacion/UD1_A3_exercicios_razoamento.html">
+                  <span class="icon">🧩</span>
+                  A3 · Exercicios de razoamento
+                  <span class="badge badge--exercicios">Exercicios</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/A3_Proteccion_informacion/UD1_A3_guion_practicas_proteccion.html">
+                  <span class="icon">🔐</span>
+                  A3 · Guion prácticas protección
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/A3_Proteccion_informacion/UD1_A3_guion_practicas_RAID_simulacion.html">
+                  <span class="icon">🧪</span>
+                  A3 · Guion prácticas simulación RAID
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+
+                <!-- apuntes generales UD1 -->
+                <a class="card-link" href="UD1_Instalacion_SO/apuntes/UD1_apuntes_B1_sistema_informatico_SO.html">
+                  <span class="icon">📘</span>
+                  Apuntes B1 · Sistema informático e SO
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/apuntes/UD1_apuntes_B2_comparacion_SO_licenzas.html">
+                  <span class="icon">⚖</span>
+                  Apuntes B2 · Comparación de SO e licenzas
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/apuntes/UD1_apuntes_B3_firmware_particionado.html">
+                  <span class="icon">🧩</span>
+                  Apuntes B3 · Firmware e particionado
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/apuntes/UD1_apuntes_B4_instalacion_VM_documentacion.html">
+                  <span class="icon">📝</span>
+                  Apuntes B4 · Instalación en VM e documentación
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/apuntes/UD1_apuntes_B5_incidencias_documentacion.html">
+                  <span class="icon">❗</span>
+                  Apuntes B5 · Incidencias e documentación
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+
+                <!-- SB_comandos -->
+                <a class="card-link" href="UD1_Instalacion_SO/SB_comandos/UD1_SB_apuntes_comandos_Windows_Linux.html">
+                  <span class="icon">⌨</span>
+                  SB · Apuntes de comandos Windows e Linux
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/SB_comandos/UD1_SB_exercicios_comandos_Linux.html">
+                  <span class="icon">🐧</span>
+                  SB · Exercicios de comandos Linux
+                  <span class="badge badge--exercicios">Exercicios</span>
+                </a>
+                <a class="card-link" href="UD1_Instalacion_SO/SB_comandos/UD1_SB_exercicios_comandos_Windows.html">
+                  <span class="icon">🪟</span>
+                  SB · Exercicios de comandos Windows
+                  <span class="badge badge--exercicios">Exercicios</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- UD2: Dominios -->
+            <article class="card">
+              <div class="card-header">
+                <h3 class="card-title">UD2 · Dominios</h3>
+                <span class="card-tag">UD2_Dominios</span>
+              </div>
+              <div class="card-body">
+                <p>
+                  Deseño e planificación de dominios, instalación e posta en marcha,
+                  organización de OU, contas, grupos, GPO e permisos.
+                </p>
+              </div>
+
+              <div class="card-links">
+                <!-- Índice UD2 -->
+                <a class="card-link" href="UD2_Dominios/UD2_index_SMPP.html">
+                  <span class="icon">▶</span>
+                  Índice de UD2
+                  <span class="badge badge--apuntes">Guía</span>
+                </a>
+
+                <!-- B1_Introduccion_planificacion -->
+                <a class="card-link" href="UD2_Dominios/B1_Introduccion_planificacion/UD2_B1_apuntes_introduccion_dominios.html">
+                  <span class="icon">📄</span>
+                  B1 · Apuntes: introdución a dominios
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B1_Introduccion_planificacion/UD2_B1_actividade_deseño_dominio_CIFP.html">
+                  <span class="icon">🧩</span>
+                  B1 · Actividade: deseño dominio CIFP
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B1_Introduccion_planificacion/UD2_B1_exercicios_razoamento.html">
+                  <span class="icon">🧠</span>
+                  B1 · Exercicios de razoamento
+                  <span class="badge badge--exercicios">Exercicios</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B1_Introduccion_planificacion/UD2_B1_practica_guiada_instalacion_dominio.html">
+                  <span class="icon">💻</span>
+                  B1 · Práctica guiada instalación de dominio
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+
+                <!-- B2_Instalacion_posta_marcha -->
+                <a class="card-link" href="UD2_Dominios/B2_Instalacion_posta_marcha/UD2_B2_apuntes_instalacion_dominio.html">
+                  <span class="icon">📄</span>
+                  B2 · Apuntes: instalación de dominio
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B2_Instalacion_posta_marcha/UD2_B2_exercicios_razoamento.html">
+                  <span class="icon">🧠</span>
+                  B2 · Exercicios de razoamento
+                  <span class="badge badge--exercicios">Exercicios</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B2_Instalacion_posta_marcha/UD2_B2_guion_practico_GUI.html">
+                  <span class="icon">🖱</span>
+                  B2 · Guion práctico instalación GUI
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B2_Instalacion_posta_marcha/UD2_B2_guion_practico_PowerShell.html">
+                  <span class="icon">💻</span>
+                  B2 · Guion práctico instalación con PowerShell
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+
+                <!-- B3_Organizacion_control_acceso -->
+                <a class="card-link" href="UD2_Dominios/B3_Organizacion_control_acceso/UD2_B3_apuntes_OU_contas_grupos_perfis.html">
+                  <span class="icon">📂</span>
+                  B3 · Apuntes: OU, contas, grupos e perfís
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B3_Organizacion_control_acceso/UD2_B3_apuntes_permisos_ACL.html">
+                  <span class="icon">🔐</span>
+                  B3 · Apuntes: permisos e ACL
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B3_Organizacion_control_acceso/UD2_B3_apuntes_GPO_dominios_Windows.html">
+                  <span class="icon">📜</span>
+                  B3 · Apuntes: GPO en dominios Windows
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B3_Organizacion_control_acceso/UD2_B3_guion_PowerShell_OU_usuarios_grupos.html">
+                  <span class="icon">💻</span>
+                  B3 · Guion PowerShell: OU, usuarios e grupos
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B3_Organizacion_control_acceso/UD2_B3_actividade3_organizacion_dominio.html">
+                  <span class="icon">🧩</span>
+                  B3 · Actividade organización de dominio
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B3_Organizacion_control_acceso/UD2_B3_actividade4_perfis_mobiles.html">
+                  <span class="icon">🧑‍💻</span>
+                  B3 · Actividade perfís móbiles
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B3_Organizacion_control_acceso/UD2_B3_actividade5_permisos_NTFS.html">
+                  <span class="icon">📁</span>
+                  B3 · Actividade permisos NTFS
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B3_Organizacion_control_acceso/UD2_B3_actividade6_GPO_dominio.html">
+                  <span class="icon">🛡</span>
+                  B3 · Actividade GPO no dominio
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD2_Dominios/B3_Organizacion_control_acceso/UD2_B3_incidencias_usuario_login.html">
+                  <span class="icon">❗</span>
+                  B3 · Incidencias de usuario ao facer login
+                  <span class="badge badge--exercicios">Caso</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- UD3: Monitorización e rendemento -->
+            <article class="card">
+              <div class="card-header">
+                <h3 class="card-title">UD3 · Monitorización, auditoría e mantemento</h3>
+                <span class="card-tag">UD3_Monitorizacion_Rendemento</span>
+              </div>
+              <div class="card-body">
+                <p>
+                  Monitorización de recursos, auditoría de uso e acceso e mantemento de
+                  incidencias e asistencia técnica.
+                </p>
+              </div>
+
+              <div class="card-links">
+                <!-- B1_Rendemento_monitorizacion -->
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B1_Rendemento_monitorizacion/UD3_B1_apuntes_monitorizacion.html">
+                  <span class="icon">📄</span>
+                  B1 · Apuntes: monitorización
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B1_Rendemento_monitorizacion/UD3_B1_apuntes_rendemento_obxectos.html">
+                  <span class="icon">📊</span>
+                  B1 · Apuntes: rendemento e obxectos
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B1_Rendemento_monitorizacion/UD3_B1_apuntes_rexistros_alertas_Windows.html">
+                  <span class="icon">📁</span>
+                  B1 · Apuntes: rexistros e alertas en Windows
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B1_Rendemento_monitorizacion/UD3_B1_exercicios_razoamento_monitorizacion.html">
+                  <span class="icon">🧠</span>
+                  B1 · Exercicios de razoamento de monitorización
+                  <span class="badge badge--exercicios">Exercicios</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B1_Rendemento_monitorizacion/UD3_B1_practica_carga_recursos_rexistros.html">
+                  <span class="icon">🧪</span>
+                  B1 · Práctica: carga de recursos e rexistros
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B1_Rendemento_monitorizacion/UD3_B1_practica_monitorizacion_basica_Windows_Ubuntu.html">
+                  <span class="icon">💻</span>
+                  B1 · Práctica: monitorización básica en Windows e Ubuntu
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+
+                <!-- B2_Auditoria_uso_acceso -->
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B2_Auditoria_uso_acceso/UD3_B2_apuntes_auditoria_uso_acceso.html">
+                  <span class="icon">📄</span>
+                  B2 · Apuntes: auditoría de uso e acceso
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B2_Auditoria_uso_acceso/UD3_B2_exercicios_auditoria_uso_acceso.html">
+                  <span class="icon">🧠</span>
+                  B2 · Exercicios: auditoría de uso e acceso
+                  <span class="badge badge--exercicios">Exercicios</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B2_Auditoria_uso_acceso/UD3_B2_practica_guiada_auditoria_uso_acceso.html">
+                  <span class="icon">🧪</span>
+                  B2 · Práctica guiada auditoría de uso e acceso
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B2_Auditoria_uso_acceso/UD3_B2_practica_globalizadora_auditoria_uso_acceso.html">
+                  <span class="icon">🧪</span>
+                  B2 · Práctica globalizadora auditoría de uso e acceso
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <!-- NOTA: Os outros ficheiros con nomes similares (UD3 _B2_, UD3_ B2_, etc.)
+                     podes enlazalos tamén se os necesitas, pero para non saturar a lista
+                     he deixado os que parecen máis “limpos”. -->
+
+                <!-- B3_Mantemento_incidencias -->
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B3_Mantemento_incidencias/UD3_B3_mantemento_incidencias_asistencia_tecnica.html">
+                  <span class="icon">🛠</span>
+                  B3 · Apuntes: mantemento, incidencias e asistencia técnica
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B3_Mantemento_incidencias/UD3_B3_exercicios_mantemento_incidencias_asistencia_tecnica.html">
+                  <span class="icon">🧠</span>
+                  B3 · Exercicios: mantemento e incidencias
+                  <span class="badge badge--exercicios">Exercicios</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B3_Mantemento_incidencias/UD3_B3_practica_guiada_mantemento_incidencias_asistencia_tecnica.html">
+                  <span class="icon">🧪</span>
+                  B3 · Práctica guiada mantemento e incidencias
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD3_Monitorizacion_Rendemento/B3_Mantemento_incidencias/UD3_B3_practica_globalizadora_mantemento_incidencias_asistencia_tecnica.html">
+                  <span class="icon">🧪</span>
+                  B3 · Práctica globalizadora mantemento e incidencias
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- UD4: Escritorio remoto -->
+            <article class="card">
+              <div class="card-header">
+                <h3 class="card-title">UD4 · Escritorio remoto</h3>
+                <span class="card-tag">UD4_Escritorio_Remoto</span>
+              </div>
+              <div class="card-body">
+                <p>
+                  Solucións de escritorio remoto en Windows e Linux, casos reais de teletraballo,
+                  boas prácticas e prácticas guiadas.
+                </p>
+              </div>
+
+              <div class="card-links">
+                <!-- apuntes -->
+                <a class="card-link" href="UD4_Escritorio_Remoto/apuntes/UD4_apuntes_aula_propostas_actividades.html">
+                  <span class="icon">📄</span>
+                  Apuntes: aula e propostas de actividades
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD4_Escritorio_Remoto/apuntes/UD4_caso_real_teletraballo_VPN_escritorio_remoto.html">
+                  <span class="icon">🌐</span>
+                  Caso real: teletraballo, VPN e escritorio remoto
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD4_Escritorio_Remoto/apuntes/UD4_comparativa_solucions_acceso_remoto.html">
+                  <span class="icon">⚖</span>
+                  Comparativa de solucións de acceso remoto
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD4_Escritorio_Remoto/apuntes/UD4_decalogo_boas_practicas_RDP_xRDP.html">
+                  <span class="icon">📜</span>
+                  Decálogo de boas prácticas RDP/xRDP
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+                <a class="card-link" href="UD4_Escritorio_Remoto/apuntes/UD4_escritorio_remoto_cliente_servidor.html">
+                  <span class="icon">🖥</span>
+                  Escritorio remoto cliente-servidor
+                  <span class="badge badge--apuntes">Apuntes</span>
+                </a>
+
+                <!-- practicas -->
+                <a class="card-link" href="UD4_Escritorio_Remoto/practicas/UD4_practica_1_escritorio_remoto_Windows_RDP.html">
+                  <span class="icon">🪟</span>
+                  Práctica 1 · Escritorio remoto Windows (RDP)
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+                <a class="card-link" href="UD4_Escritorio_Remoto/practicas/UD4_practica_2_escritorio_remoto_Linux_xRDP.html">
+                  <span class="icon">🐧</span>
+                  Práctica 2 · Escritorio remoto Linux (xRDP)
+                  <span class="badge badge--practica">Práctica</span>
+                </a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- METODOLOGÍA / CÓMO TRABAJAMOS -->
+      <section id="info" class="section" aria-labelledby="info-title">
+        <div class="section-inner info-grid">
+          <div class="info-text">
+            <header class="section-header">
+              <p class="section-kicker">Metodoloxía IMSO</p>
+              <h2 id="info-title" class="section-title">
+                Como imos traballar ao longo do curso
+              </h2>
+            </header>
+            <p>
+              Este portal recole as unidades didácticas, apuntes, prácticas e exercicios que
+              seguiremos en Implantación de Sistemas Operativos (IMSO). Traballaremos con
+              máquinas virtuais, sistemas Windows e Linux, redes, dominios, monitorización
+              e escritorio remoto. [file:1]
+            </p>
+            <p>
+              A idea é que poidas seguir o roteiro da materia en orde: comezando pola instalación
+              e configuración básica, continuando cos dominios, avanzando cara á monitorización
+              e auditoría, e rematando co escritorio remoto e casos reais. [file:1]
+            </p>
+          </div>
+
+          <div class="info-steps">
+            <div class="info-step">
+              <div class="info-step-title">1 · Instala</div>
+              <p>
+                Instalación de sistemas operativos en máquinas físicas e virtuais,
+                particionado, firmware e documentación das instalacións.
+              </p>
+            </div>
+            <div class="info-step">
+              <div class="info-step-title">2 · Configura</div>
+              <p>
+                Configuración básica, redes, dominios, usuarios, grupos, permisos, GPO
+                e protección da información con RAID e copias de seguridade.
+              </p>
+            </div>
+            <div class="info-step">
+              <div class="info-step-title">3 · Monitoriza e mantén</div>
+              <p>
+                Monitorización de recursos, auditoría de uso e acceso, mantemento de
+                incidencias e asistencia técnica para manter o sistema estable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <span>
+          IMSO · ASIR 1º · CIFP A Carballeira – Ourense
+        </span>
+        <span>
+          Portal de apuntes deseñado por Silvia M. Peña Pérez (SMPP)
+        </span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- JS principal -->
+  <script src="assets/js/portal-imso.js"></script>
+</body>
+</html>
